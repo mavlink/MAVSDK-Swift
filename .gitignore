@@ -2,3 +2,4 @@
 *.framework
 
 xcuserdata/
+build/
