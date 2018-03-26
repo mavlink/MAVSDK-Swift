@@ -33,15 +33,12 @@ You should use one of these three ways to import the DroneCore-Swift SDK but not
             pod 'DroneCore-Swift'
         end
         
-    ![image](readme-images/cocoapods-setup-01.png?raw=true)
-        
 3. Then run the following command:
     
         $ pod install
 
 4. Open up `*.xcworkspace` with Xcode and start using the SDK.
 
-    ![image](readme-images/cocoapods-setup-02.png?raw=true)
 
 ### Carthage
 
@@ -79,8 +76,6 @@ When we release a new version of the SDK, you can pick up the changes as describ
         $ pod update
 
     **Note**: If your pod is having an issue, you can delete `Podfile.lock` and `Pods/` then run `pod install` to cleanly install the SDK.
-    
-    ![image](readme-images/cocoapods-setup-03.png?raw=true)
 
 ### Carthage
 
