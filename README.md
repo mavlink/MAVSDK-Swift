@@ -42,7 +42,46 @@ You should use one of these three ways to import the DroneCore-Swift SDK but not
 
 ### Carthage
 
-Coming soon
+### Use Carthage to get the framework
+
+To use the DroneCore-Swift SDK in your iOS application, you can pull in this framework using [Carthage](https://github.com/Carthage/Carthage).
+
+To install carthage, it's easiest to use [Homebrew](https://brew.sh/):
+
+```
+brew install carthage
+```
+
+Then to add the framework, create the file `Cartfile` in your app's repository with below's content:
+
+```
+# Require the iOS framework of DroneCore SDK
+github "dronecore/DroneCore-Swift" >= 0.10.1
+```
+
+Then, to pull in the library and build it, run Carthage in your app's repository:
+
+```
+carthage update
+```
+
+This command also needs to be re-run if you want to udpate the framework.
+
+### Add the framework into your project
+
+Open the project in XCode and do the following:
+
+1. Open Project Settings -> General
+2. Find Embedded Binaries and press *+*
+3. Click Other, go one folder up, and select `Carthage/Build/iOS/Dronecode_SDK_Swift.framework`.
+4. Do "Product Clean" and "Product Build"
+
+### Use Carthage to check out a developer branch
+
+While developing, you might need a developer version of the iOS wrappers. They can be accessed by using a branch in the `Cartfile`:
+
+```
+github "dronecore/DroneCore-Swift" "branch-name"
 
 ### Frameworks
 
