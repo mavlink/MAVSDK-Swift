@@ -56,7 +56,7 @@ Then to add the framework, create the file `Cartfile` in your app's repository w
 
 ```
 # Require the iOS framework of DroneCore SDK
-github "dronecore/DroneCore-Swift" >= 0.10.1
+github "dronecore/DroneCore-Swift"
 ```
 
 Then, to pull in the library and build it, run Carthage in your app's repository:
@@ -84,7 +84,7 @@ While developing, you might need a developer version of the iOS wrappers. They c
 github "dronecore/DroneCore-Swift" "branch-name"
 ```
 
-### Frameworks
+### Manually
 
 1. Download the SDK from [here](https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecore-swift-prototype.zip)
 
@@ -123,7 +123,7 @@ When we release a new version of the SDK, you can pick up the changes as describ
 
         $ carthage update
 
-### Frameworks
+### Manually
 
 1. In Xcode select the following frameworks in **Project Navigator** and hit **delete** on your keyboard. Then select **Move to Trash**:
 
