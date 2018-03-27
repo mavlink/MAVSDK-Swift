@@ -5,7 +5,7 @@
 There are three ways to import the DroneCore-Swift SDK for iOS into your project:
 
 * [CocoaPods](https://cocoapods.org/)
-* [Carthage](https://github.com/Carthage/Carthage) Coming soon
+* [Carthage](https://github.com/Carthage/Carthage) 
 * Manually
 
 You should use one of these three ways to import the DroneCore-Swift SDK but not multiple. Importing the SDK in multiple ways loads duplicate copies of the SDK into the project and causes compiler errors.
@@ -82,6 +82,7 @@ While developing, you might need a developer version of the iOS wrappers. They c
 
 ```
 github "dronecore/DroneCore-Swift" "branch-name"
+```
 
 ### Frameworks
 
