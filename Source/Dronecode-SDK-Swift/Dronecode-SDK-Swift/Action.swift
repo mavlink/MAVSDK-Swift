@@ -11,6 +11,10 @@ import Foundation
 import gRPC
 import RxSwift
 
+
+extension String: Error {
+}
+
 public class Action {
     let service = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "localhost:50051", secure: false)
     
@@ -33,7 +37,7 @@ public class Action {
                     completable(.completed)
                     return Disposables.create {}
                 } else {
-                    completable(.error("Cannot arm: \(armResponse.actionResult.result)" as! Error))
+                    completable(.error("Cannot arm: \(armResponse.actionResult.result)"))
                     return Disposables.create {}
                 }
             } catch {
@@ -53,7 +57,7 @@ public class Action {
                     completable(.completed)
                     return Disposables.create {}
                 } else {
-                    completable(.error("Cannot takeoff: \(takeoffResponse.actionResult.result)" as! Error))
+                    completable(.error("Cannot takeoff: \(takeoffResponse.actionResult.result)"))
                     return Disposables.create {}
                 }
             } catch {
@@ -73,7 +77,7 @@ public class Action {
                     completable(.completed)
                     return Disposables.create {}
                 } else {
-                    completable(.error("Cannot land: \(landResponse.actionResult.result)" as! Error))
+                    completable(.error("Cannot land: \(landResponse.actionResult.result)"))
                     return Disposables.create {}
                 }
             } catch {
