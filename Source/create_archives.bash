@@ -14,7 +14,7 @@ if [ -f ${BIN_DIR}/${ARCHIVE_SDK} ]; then
     mv ${BIN_DIR}/${ARCHIVE_SDK} ${TMP_DIR}
 fi
 
-for REQUIRED_FRAMEWORK in BoringSSL CgRPC Czlib Dronecode_SDK_Swift RxSwift SwiftProtobuf SwiftProtobufPluginLibrary backend gRPC; do
+for REQUIRED_FRAMEWORK in BoringSSL CgRPC Czlib Dronecode_SDK_Swift RxSwift RxTest RxBlocking SwiftProtobuf SwiftProtobufPluginLibrary backend gRPC; do
     if [ ! -d ${BIN_DIR}/${REQUIRED_FRAMEWORK}.framework ]; then
         echo "Error: ${REQUIRED_FRAMEWORK}.framework is missing in ${BIN_DIR}!"
         exit 1

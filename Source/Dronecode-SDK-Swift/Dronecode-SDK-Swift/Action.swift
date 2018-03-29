@@ -1,30 +1,15 @@
-//
-//  Action.swift
-//  DroneCore-Swift
-//
-//  Created by Jones on 12.03.18.
-//  Copyright © 2018 Dronecode. All rights reserved.
-//
-
-import backend
 import Foundation
 import gRPC
 import RxSwift
-
 
 extension String: Error {
 }
 
 public class Action {
-    let service = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "localhost:50051", secure: false)
-    
-    public init() {
-        DispatchQueue.global(qos: .background).async {
-            print("Running backend in background (MAVLink port: 14540)")
-            runBackend(14540)
-        }
-        
-        gRPC.initialize()
+    let service: Dronecore_Rpc_Action_ActionServiceService
+
+    init(service: Dronecore_Rpc_Action_ActionServiceService = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "localhost:50051", secure: false)) {
+        self.service = service
     }
 
     public func arm() -> Completable {

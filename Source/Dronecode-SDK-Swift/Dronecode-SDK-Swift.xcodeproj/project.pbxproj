@@ -7,20 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2CB55479206AA01F00C9E587 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55471206AA01E00C9E587 /* SwiftProtobuf.framework */; };
-		2CB5547A206AA01F00C9E587 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55472206AA01E00C9E587 /* RxSwift.framework */; };
-		2CB5547B206AA01F00C9E587 /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55473206AA01E00C9E587 /* gRPC.framework */; };
-		2CB5547C206AA01F00C9E587 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55474206AA01E00C9E587 /* BoringSSL.framework */; };
-		2CB5547D206AA01F00C9E587 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55475206AA01E00C9E587 /* backend.framework */; };
-		2CB5547E206AA01F00C9E587 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55476206AA01E00C9E587 /* SwiftProtobufPluginLibrary.framework */; };
-		2CB5547F206AA01F00C9E587 /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55477206AA01F00C9E587 /* CgRPC.framework */; };
-		2CB55480206AA01F00C9E587 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55478206AA01F00C9E587 /* Czlib.framework */; };
+		DF16D54F2074F9610018AF1F /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF16D5502074F9860018AF1F /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF674CC6206D946E00421042 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF674CC5206D946E00421042 /* Core.swift */; };
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
-		DF68BF092064617900175337 /* Dronecode_SDK_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* Dronecode_SDK_SwiftTests.swift */; };
+		DF68BF092064617900175337 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* ActionTest.swift */; };
 		DF68BF0B2064617900175337 /* Dronecode_SDK_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF68BF172064622B00175337 /* action.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF152064622B00175337 /* action.grpc.swift */; };
 		DF68BF182064622B00175337 /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF162064622B00175337 /* action.pb.swift */; };
 		DF68BF3B2064633D00175337 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF3A2064633D00175337 /* Action.swift */; };
+		DF7798C62074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
+		DF7798C72074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
+		DF7798C82074F52D00CD1BE0 /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; };
+		DF7798C92074F52D00CD1BE0 /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; };
+		DF7798CA2074F52D00CD1BE0 /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; };
+		DF7798CB2074F52D00CD1BE0 /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; };
+		DF7798CC2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; };
+		DF7798CD2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; };
+		DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
+		DF7798CF2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
+		DF7798D02074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
+		DF7798D12074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
+		DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
+		DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
+		DF7798D42074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
+		DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
+		DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
+		DF7798D82074F52D00CD1BE0 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
+		DF7798D92074F52D00CD1BE0 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
+		DF7798DC2074F64300CD1BE0 /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF7798DD2074F65600CD1BE0 /* SwiftProtobufPluginLibrary.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DFF7AB8D2074FC79000767B8 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,24 +55,49 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DF7798DB2074F63200CD1BE0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DFF7AB8D2074FC79000767B8 /* RxBlocking.framework in CopyFiles */,
+				DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */,
+				DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */,
+				DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */,
+				DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */,
+				DF16D5502074F9860018AF1F /* BoringSSL.framework in CopyFiles */,
+				DF16D54F2074F9610018AF1F /* SwiftProtobuf.framework in CopyFiles */,
+				DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */,
+				DF7798DD2074F65600CD1BE0 /* SwiftProtobufPluginLibrary.framework in CopyFiles */,
+				DF7798DC2074F64300CD1BE0 /* CgRPC.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		2CB55471206AA01E00C9E587 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/SwiftProtobuf.framework"; sourceTree = "<group>"; };
-		2CB55472206AA01E00C9E587 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/RxSwift.framework"; sourceTree = "<group>"; };
-		2CB55473206AA01E00C9E587 /* gRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gRPC.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/gRPC.framework"; sourceTree = "<group>"; };
-		2CB55474206AA01E00C9E587 /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/BoringSSL.framework"; sourceTree = "<group>"; };
-		2CB55475206AA01E00C9E587 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/backend.framework"; sourceTree = "<group>"; };
-		2CB55476206AA01E00C9E587 /* SwiftProtobufPluginLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobufPluginLibrary.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/SwiftProtobufPluginLibrary.framework"; sourceTree = "<group>"; };
-		2CB55477206AA01F00C9E587 /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/CgRPC.framework"; sourceTree = "<group>"; };
-		2CB55478206AA01F00C9E587 /* Czlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Czlib.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/Czlib.framework"; sourceTree = "<group>"; };
+		DF674CC5206D946E00421042 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dronecode_SDK_Swift.h; sourceTree = "<group>"; };
 		DF68BEFE2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF68BF032064617900175337 /* Dronecode-SDK-SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dronecode-SDK-SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF68BF082064617900175337 /* Dronecode_SDK_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dronecode_SDK_SwiftTests.swift; sourceTree = "<group>"; };
+		DF68BF082064617900175337 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF68BF0A2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF68BF152064622B00175337 /* action.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.grpc.swift; path = "Dronecode-SDK-Swift/Generated/action.grpc.swift"; sourceTree = SOURCE_ROOT; };
 		DF68BF162064622B00175337 /* action.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.pb.swift; path = "Dronecode-SDK-Swift/Generated/action.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DF68BF3A2064633D00175337 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobufPluginLibrary.framework; path = ../bin/SwiftProtobufPluginLibrary.framework; sourceTree = "<group>"; };
+		DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = ../bin/CgRPC.framework; sourceTree = "<group>"; };
+		DF7798BE2074F52D00CD1BE0 /* gRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gRPC.framework; path = ../bin/gRPC.framework; sourceTree = "<group>"; };
+		DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = ../bin/SwiftProtobuf.framework; sourceTree = "<group>"; };
+		DF7798C02074F52D00CD1BE0 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../bin/RxSwift.framework; sourceTree = "<group>"; };
+		DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = ../bin/BoringSSL.framework; sourceTree = "<group>"; };
+		DF7798C22074F52D00CD1BE0 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = ../bin/backend.framework; sourceTree = "<group>"; };
+		DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = ../bin/RxBlocking.framework; sourceTree = "<group>"; };
+		DF7798C42074F52D00CD1BE0 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = ../bin/RxTest.framework; sourceTree = "<group>"; };
+		DF7798C52074F52D00CD1BE0 /* Czlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Czlib.framework; path = ../bin/Czlib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +105,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF7798D02074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */,
+				DF7798D82074F52D00CD1BE0 /* Czlib.framework in Frameworks */,
+				DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
+				DF7798C82074F52D00CD1BE0 /* CgRPC.framework in Frameworks */,
+				DF7798D42074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */,
+				DF7798CC2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */,
+				DF7798CA2074F52D00CD1BE0 /* gRPC.framework in Frameworks */,
+				DF7798C62074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */,
+				DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +121,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF7798C92074F52D00CD1BE0 /* CgRPC.framework in Frameworks */,
+				DF7798C72074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */,
+				DF7798CF2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
+				DF7798CD2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */,
+				DF7798D12074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */,
+				DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */,
+				DF7798CB2074F52D00CD1BE0 /* gRPC.framework in Frameworks */,
 				DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */,
+				DF7798D92074F52D00CD1BE0 /* Czlib.framework in Frameworks */,
+				DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */,
+				DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				DF68BF3A2064633D00175337 /* Action.swift */,
+				DF674CC5206D946E00421042 /* Core.swift */,
 				DF68BF14206461DF00175337 /* Generated */,
 				DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */,
 				DF68BEFE2064617900175337 /* Info.plist */,
@@ -105,7 +172,7 @@
 		DF68BF072064617900175337 /* Dronecode-SDK-SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
-				DF68BF082064617900175337 /* Dronecode_SDK_SwiftTests.swift */,
+				DF68BF082064617900175337 /* ActionTest.swift */,
 				DF68BF0A2064617900175337 /* Info.plist */,
 			);
 			path = "Dronecode-SDK-SwiftTests";
@@ -124,6 +191,16 @@
 		DF68BF192064624C00175337 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF7798C22074F52D00CD1BE0 /* backend.framework */,
+				DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */,
+				DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */,
+				DF7798C52074F52D00CD1BE0 /* Czlib.framework */,
+				DF7798BE2074F52D00CD1BE0 /* gRPC.framework */,
+				DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */,
+				DF7798C02074F52D00CD1BE0 /* RxSwift.framework */,
+				DF7798C42074F52D00CD1BE0 /* RxTest.framework */,
+				DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */,
+				DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -146,7 +223,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF68BF0E2064617900175337 /* Build configuration list for PBXNativeTarget "Dronecode-SDK-Swift" */;
 			buildPhases = (
-				2C6FAE01206A72C400641DB5 /* Run Script */,
 				DF68BEF52064617900175337 /* Sources */,
 				DF68BEF62064617900175337 /* Frameworks */,
 				DF68BEF72064617900175337 /* Headers */,
@@ -168,6 +244,7 @@
 				DF68BEFF2064617900175337 /* Sources */,
 				DF68BF002064617900175337 /* Frameworks */,
 				DF68BF012064617900175337 /* Resources */,
+				DF7798DB2074F63200CD1BE0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -235,25 +312,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2C6FAE01206A72C400641DB5 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-				"$(SRCROOT)/Dronecode-SDK-Swift/libs/",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./download-dependencies.sh";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		DF68BEF52064617900175337 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -261,6 +319,7 @@
 			files = (
 				DF68BF182064622B00175337 /* action.pb.swift in Sources */,
 				DF68BF3B2064633D00175337 /* Action.swift in Sources */,
+				DF674CC6206D946E00421042 /* Core.swift in Sources */,
 				DF68BF172064622B00175337 /* action.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,7 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF68BF092064617900175337 /* Dronecode_SDK_SwiftTests.swift in Sources */,
+				DF68BF092064617900175337 /* ActionTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +378,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../bin";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -333,9 +393,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -379,6 +439,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../bin";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -387,8 +448,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -412,7 +474,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Dronecode-SDK-Swift/Info.plist";
@@ -446,7 +507,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Dronecode-SDK-Swift/Info.plist";
