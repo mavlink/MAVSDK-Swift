@@ -5,7 +5,7 @@
 There are three ways to import the DroneCore-Swift SDK for iOS into your project:
 
 * [CocoaPods](https://cocoapods.org/)
-* [Carthage](https://github.com/Carthage/Carthage) Coming soon
+* [Carthage](https://github.com/Carthage/Carthage) 
 * Manually
 
 You should use one of these three ways to import the DroneCore-Swift SDK but not multiple. Importing the SDK in multiple ways loads duplicate copies of the SDK into the project and causes compiler errors.
@@ -42,9 +42,60 @@ You should use one of these three ways to import the DroneCore-Swift SDK but not
 
 ### Carthage
 
-Coming soon
+### Use Carthage to get the framework
 
-### Frameworks
+To use the DroneCore-Swift SDK in your iOS application, you can pull in this framework using [Carthage](https://github.com/Carthage/Carthage).
+
+To install carthage, it's easiest to use [Homebrew](https://brew.sh/):
+
+```
+brew install carthage
+```
+
+Then to add the framework, create the file `Cartfile` in your app's repository with below's content:
+
+```
+# Require the iOS framework of DroneCore SDK
+github "dronecore/DroneCore-Swift"
+```
+
+Then, to pull in the library and build it, run Carthage in your app's repository:
+
+```
+carthage update
+```
+
+This command also needs to be re-run if you want to udpate the framework.
+
+### Add the framework into your project
+
+Open the project in XCode and do the following:
+
+1. Open Project Settings -> General
+2. Find Embedded Binaries and press *+*
+3. Click Other, go one folder up, and select `Carthage/Build/iOS/Dronecode_SDK_Swift.framework`.
+4. Do "Product Clean" and "Product Build"
+
+### Clean up the download automatically done by the build
+
+Dependencies are needed to build Dronecode_SDK_Swift.framework. The script download-dependencies.sh is downloading a zip containing them.
+To remove this download:
+
+Open the project Dronecode-SDK-Swift in XCode and do the following:
+
+1. Open Project Settings -> Build Phases
+2. Open Run Script tab
+3. Put a # before ./download-dependencies.sh or just delete the runscript
+
+### Use Carthage to check out a developer branch
+
+While developing, you might need a developer version of the iOS wrappers. They can be accessed by using a branch in the `Cartfile`:
+
+```
+github "dronecore/DroneCore-Swift" "branch-name"
+```
+
+### Manually
 
 1. Download the SDK from [here](https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecore-swift-prototype.zip)
 
@@ -83,7 +134,7 @@ When we release a new version of the SDK, you can pick up the changes as describ
 
         $ carthage update
 
-### Frameworks
+### Manually
 
 1. In Xcode select the following frameworks in **Project Navigator** and hit **delete** on your keyboard. Then select **Move to Trash**:
 
