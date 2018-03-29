@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CB55479206AA01F00C9E587 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55471206AA01E00C9E587 /* SwiftProtobuf.framework */; };
+		2CB5547A206AA01F00C9E587 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55472206AA01E00C9E587 /* RxSwift.framework */; };
+		2CB5547B206AA01F00C9E587 /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55473206AA01E00C9E587 /* gRPC.framework */; };
+		2CB5547C206AA01F00C9E587 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55474206AA01E00C9E587 /* BoringSSL.framework */; };
+		2CB5547D206AA01F00C9E587 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55475206AA01E00C9E587 /* backend.framework */; };
+		2CB5547E206AA01F00C9E587 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55476206AA01E00C9E587 /* SwiftProtobufPluginLibrary.framework */; };
+		2CB5547F206AA01F00C9E587 /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55477206AA01F00C9E587 /* CgRPC.framework */; };
+		2CB55480206AA01F00C9E587 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB55478206AA01F00C9E587 /* Czlib.framework */; };
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DF68BF092064617900175337 /* Dronecode_SDK_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* Dronecode_SDK_SwiftTests.swift */; };
 		DF68BF0B2064617900175337 /* Dronecode_SDK_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -26,6 +34,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CB55471206AA01E00C9E587 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/SwiftProtobuf.framework"; sourceTree = "<group>"; };
+		2CB55472206AA01E00C9E587 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/RxSwift.framework"; sourceTree = "<group>"; };
+		2CB55473206AA01E00C9E587 /* gRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gRPC.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/gRPC.framework"; sourceTree = "<group>"; };
+		2CB55474206AA01E00C9E587 /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/BoringSSL.framework"; sourceTree = "<group>"; };
+		2CB55475206AA01E00C9E587 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/backend.framework"; sourceTree = "<group>"; };
+		2CB55476206AA01E00C9E587 /* SwiftProtobufPluginLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobufPluginLibrary.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/SwiftProtobufPluginLibrary.framework"; sourceTree = "<group>"; };
+		2CB55477206AA01F00C9E587 /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/CgRPC.framework"; sourceTree = "<group>"; };
+		2CB55478206AA01F00C9E587 /* Czlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Czlib.framework; path = "Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest/Czlib.framework"; sourceTree = "<group>"; };
 		DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dronecode_SDK_Swift.h; sourceTree = "<group>"; };
 		DF68BEFE2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
