@@ -297,6 +297,141 @@ internal final class Dronecore_Rpc_Action_ActionServiceServiceClient: ServiceCli
 
 }
 
+class Dronecore_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBase, Dronecore_Rpc_Action_ActionServiceService {
+  var armRequests: [Dronecore_Rpc_Action_ArmRequest] = []
+  var armResponses: [Dronecore_Rpc_Action_ArmResponse] = []
+  func arm(_ request: Dronecore_Rpc_Action_ArmRequest) throws -> Dronecore_Rpc_Action_ArmResponse {
+    armRequests.append(request)
+    defer { armResponses.removeFirst() }
+    return armResponses.first!
+  }
+  func arm(_ request: Dronecore_Rpc_Action_ArmRequest, completion: @escaping (Dronecore_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceArmCall {
+    fatalError("not implemented")
+  }
+
+  var disarmRequests: [Dronecore_Rpc_Action_DisarmRequest] = []
+  var disarmResponses: [Dronecore_Rpc_Action_DisarmResponse] = []
+  func disarm(_ request: Dronecore_Rpc_Action_DisarmRequest) throws -> Dronecore_Rpc_Action_DisarmResponse {
+    disarmRequests.append(request)
+    defer { disarmResponses.removeFirst() }
+    return disarmResponses.first!
+  }
+  func disarm(_ request: Dronecore_Rpc_Action_DisarmRequest, completion: @escaping (Dronecore_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceDisarmCall {
+    fatalError("not implemented")
+  }
+
+  var takeoffRequests: [Dronecore_Rpc_Action_TakeoffRequest] = []
+  var takeoffResponses: [Dronecore_Rpc_Action_TakeoffResponse] = []
+  func takeoff(_ request: Dronecore_Rpc_Action_TakeoffRequest) throws -> Dronecore_Rpc_Action_TakeoffResponse {
+    takeoffRequests.append(request)
+    defer { takeoffResponses.removeFirst() }
+    return takeoffResponses.first!
+  }
+  func takeoff(_ request: Dronecore_Rpc_Action_TakeoffRequest, completion: @escaping (Dronecore_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTakeoffCall {
+    fatalError("not implemented")
+  }
+
+  var landRequests: [Dronecore_Rpc_Action_LandRequest] = []
+  var landResponses: [Dronecore_Rpc_Action_LandResponse] = []
+  func land(_ request: Dronecore_Rpc_Action_LandRequest) throws -> Dronecore_Rpc_Action_LandResponse {
+    landRequests.append(request)
+    defer { landResponses.removeFirst() }
+    return landResponses.first!
+  }
+  func land(_ request: Dronecore_Rpc_Action_LandRequest, completion: @escaping (Dronecore_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceLandCall {
+    fatalError("not implemented")
+  }
+
+  var killRequests: [Dronecore_Rpc_Action_KillRequest] = []
+  var killResponses: [Dronecore_Rpc_Action_KillResponse] = []
+  func kill(_ request: Dronecore_Rpc_Action_KillRequest) throws -> Dronecore_Rpc_Action_KillResponse {
+    killRequests.append(request)
+    defer { killResponses.removeFirst() }
+    return killResponses.first!
+  }
+  func kill(_ request: Dronecore_Rpc_Action_KillRequest, completion: @escaping (Dronecore_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceKillCall {
+    fatalError("not implemented")
+  }
+
+  var returntolaunchRequests: [Dronecore_Rpc_Action_ReturnToLaunchRequest] = []
+  var returntolaunchResponses: [Dronecore_Rpc_Action_ReturnToLaunchResponse] = []
+  func returntolaunch(_ request: Dronecore_Rpc_Action_ReturnToLaunchRequest) throws -> Dronecore_Rpc_Action_ReturnToLaunchResponse {
+    returntolaunchRequests.append(request)
+    defer { returntolaunchResponses.removeFirst() }
+    return returntolaunchResponses.first!
+  }
+  func returntolaunch(_ request: Dronecore_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (Dronecore_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceReturnToLaunchCall {
+    fatalError("not implemented")
+  }
+
+  var transitiontofixedwingsRequests: [Dronecore_Rpc_Action_TransitionToFixedWingsRequest] = []
+  var transitiontofixedwingsResponses: [Dronecore_Rpc_Action_TransitionToFixedWingsResponse] = []
+  func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingsResponse {
+    transitiontofixedwingsRequests.append(request)
+    defer { transitiontofixedwingsResponses.removeFirst() }
+    return transitiontofixedwingsResponses.first!
+  }
+  func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingsResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCall {
+    fatalError("not implemented")
+  }
+
+  var transitiontomulticopterRequests: [Dronecore_Rpc_Action_TransitionToMulticopterRequest] = []
+  var transitiontomulticopterResponses: [Dronecore_Rpc_Action_TransitionToMulticopterResponse] = []
+  func transitiontomulticopter(_ request: Dronecore_Rpc_Action_TransitionToMulticopterRequest) throws -> Dronecore_Rpc_Action_TransitionToMulticopterResponse {
+    transitiontomulticopterRequests.append(request)
+    defer { transitiontomulticopterResponses.removeFirst() }
+    return transitiontomulticopterResponses.first!
+  }
+  func transitiontomulticopter(_ request: Dronecore_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterCall {
+    fatalError("not implemented")
+  }
+
+  var gettakeoffaltitudeRequests: [Dronecore_Rpc_Action_GetTakeoffAltitudeRequest] = []
+  var gettakeoffaltitudeResponses: [Dronecore_Rpc_Action_GetTakeoffAltitudeResponse] = []
+  func gettakeoffaltitude(_ request: Dronecore_Rpc_Action_GetTakeoffAltitudeRequest) throws -> Dronecore_Rpc_Action_GetTakeoffAltitudeResponse {
+    gettakeoffaltitudeRequests.append(request)
+    defer { gettakeoffaltitudeResponses.removeFirst() }
+    return gettakeoffaltitudeResponses.first!
+  }
+  func gettakeoffaltitude(_ request: Dronecore_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (Dronecore_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
+    fatalError("not implemented")
+  }
+
+  var settakeoffaltitudeRequests: [Dronecore_Rpc_Action_SetTakeoffAltitudeRequest] = []
+  var settakeoffaltitudeResponses: [Dronecore_Rpc_Action_SetTakeoffAltitudeResponse] = []
+  func settakeoffaltitude(_ request: Dronecore_Rpc_Action_SetTakeoffAltitudeRequest) throws -> Dronecore_Rpc_Action_SetTakeoffAltitudeResponse {
+    settakeoffaltitudeRequests.append(request)
+    defer { settakeoffaltitudeResponses.removeFirst() }
+    return settakeoffaltitudeResponses.first!
+  }
+  func settakeoffaltitude(_ request: Dronecore_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (Dronecore_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
+    fatalError("not implemented")
+  }
+
+  var getmaximumspeedRequests: [Dronecore_Rpc_Action_GetMaximumSpeedRequest] = []
+  var getmaximumspeedResponses: [Dronecore_Rpc_Action_GetMaximumSpeedResponse] = []
+  func getmaximumspeed(_ request: Dronecore_Rpc_Action_GetMaximumSpeedRequest) throws -> Dronecore_Rpc_Action_GetMaximumSpeedResponse {
+    getmaximumspeedRequests.append(request)
+    defer { getmaximumspeedResponses.removeFirst() }
+    return getmaximumspeedResponses.first!
+  }
+  func getmaximumspeed(_ request: Dronecore_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (Dronecore_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceGetMaximumSpeedCall {
+    fatalError("not implemented")
+  }
+
+  var setmaximumspeedRequests: [Dronecore_Rpc_Action_SetMaximumSpeedRequest] = []
+  var setmaximumspeedResponses: [Dronecore_Rpc_Action_SetMaximumSpeedResponse] = []
+  func setmaximumspeed(_ request: Dronecore_Rpc_Action_SetMaximumSpeedRequest) throws -> Dronecore_Rpc_Action_SetMaximumSpeedResponse {
+    setmaximumspeedRequests.append(request)
+    defer { setmaximumspeedResponses.removeFirst() }
+    return setmaximumspeedResponses.first!
+  }
+  func setmaximumspeed(_ request: Dronecore_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (Dronecore_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceSetMaximumSpeedCall {
+    fatalError("not implemented")
+  }
+
+}
+
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Dronecore_Rpc_Action_ActionServiceProvider {
   func arm(request: Dronecore_Rpc_Action_ArmRequest, session: Dronecore_Rpc_Action_ActionServiceArmSession) throws -> Dronecore_Rpc_Action_ArmResponse
@@ -317,49 +452,73 @@ internal protocol Dronecore_Rpc_Action_ActionServiceArmSession: ServerSessionUna
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceArmSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_ArmRequest, Dronecore_Rpc_Action_ArmResponse>, Dronecore_Rpc_Action_ActionServiceArmSession {}
 
+class Dronecore_Rpc_Action_ActionServiceArmSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceArmSession {}
+
 internal protocol Dronecore_Rpc_Action_ActionServiceDisarmSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceDisarmSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_DisarmRequest, Dronecore_Rpc_Action_DisarmResponse>, Dronecore_Rpc_Action_ActionServiceDisarmSession {}
+
+class Dronecore_Rpc_Action_ActionServiceDisarmSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceDisarmSession {}
 
 internal protocol Dronecore_Rpc_Action_ActionServiceTakeoffSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceTakeoffSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_TakeoffRequest, Dronecore_Rpc_Action_TakeoffResponse>, Dronecore_Rpc_Action_ActionServiceTakeoffSession {}
 
+class Dronecore_Rpc_Action_ActionServiceTakeoffSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceTakeoffSession {}
+
 internal protocol Dronecore_Rpc_Action_ActionServiceLandSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceLandSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_LandRequest, Dronecore_Rpc_Action_LandResponse>, Dronecore_Rpc_Action_ActionServiceLandSession {}
+
+class Dronecore_Rpc_Action_ActionServiceLandSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceLandSession {}
 
 internal protocol Dronecore_Rpc_Action_ActionServiceKillSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceKillSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_KillRequest, Dronecore_Rpc_Action_KillResponse>, Dronecore_Rpc_Action_ActionServiceKillSession {}
 
+class Dronecore_Rpc_Action_ActionServiceKillSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceKillSession {}
+
 internal protocol Dronecore_Rpc_Action_ActionServiceReturnToLaunchSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceReturnToLaunchSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_ReturnToLaunchRequest, Dronecore_Rpc_Action_ReturnToLaunchResponse>, Dronecore_Rpc_Action_ActionServiceReturnToLaunchSession {}
+
+class Dronecore_Rpc_Action_ActionServiceReturnToLaunchSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceReturnToLaunchSession {}
 
 internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_TransitionToFixedWingsRequest, Dronecore_Rpc_Action_TransitionToFixedWingsResponse>, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession {}
 
+class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession {}
+
 internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_TransitionToMulticopterRequest, Dronecore_Rpc_Action_TransitionToMulticopterResponse>, Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSession {}
+
+class Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSession {}
 
 internal protocol Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_GetTakeoffAltitudeRequest, Dronecore_Rpc_Action_GetTakeoffAltitudeResponse>, Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeSession {}
 
+class Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeSession {}
+
 internal protocol Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_SetTakeoffAltitudeRequest, Dronecore_Rpc_Action_SetTakeoffAltitudeResponse>, Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeSession {}
+
+class Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeSession {}
 
 internal protocol Dronecore_Rpc_Action_ActionServiceGetMaximumSpeedSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceGetMaximumSpeedSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_GetMaximumSpeedRequest, Dronecore_Rpc_Action_GetMaximumSpeedResponse>, Dronecore_Rpc_Action_ActionServiceGetMaximumSpeedSession {}
 
+class Dronecore_Rpc_Action_ActionServiceGetMaximumSpeedSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceGetMaximumSpeedSession {}
+
 internal protocol Dronecore_Rpc_Action_ActionServiceSetMaximumSpeedSession: ServerSessionUnary {}
 
 fileprivate final class Dronecore_Rpc_Action_ActionServiceSetMaximumSpeedSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_SetMaximumSpeedRequest, Dronecore_Rpc_Action_SetMaximumSpeedResponse>, Dronecore_Rpc_Action_ActionServiceSetMaximumSpeedSession {}
+
+class Dronecore_Rpc_Action_ActionServiceSetMaximumSpeedSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceSetMaximumSpeedSession {}
 
 
 /// Main server for generated service

@@ -1,11 +1,3 @@
-//
-//  Dronecode_SDK_Swift.h
-//  Dronecode-SDK-Swift
-//
-//  Created by Jones on 22.03.18.
-//  Copyright © 2018 Dronecode. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 //! Project version number for Dronecode_SDK_Swift.

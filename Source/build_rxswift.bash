@@ -13,14 +13,15 @@ fi
 
 cd ${BUILD_DIR}/rxswift
 
-xcodebuild -target RxSwift-iOS -configuration Release -sdk iphoneos
-xcodebuild -target RxSwift-iOS -configuration Release -sdk iphonesimulator
+xcodebuild -target RxSwift-iOS -target RxTest-iOS -target RxBlocking-iOS -configuration Release -sdk iphoneos
+xcodebuild -target RxSwift-iOS -target RxTest-iOS -target RxBlocking-iOS -configuration Release -sdk iphonesimulator
 
-# Generate fat binary
-echo "Generating fat binary for RxSwift"
-cp -r ${BUILD_DIR}/rxswift/build/Release-iphoneos/RxSwift.framework ${BIN_DIR}
-
-lipo ${BUILD_DIR}/rxswift/build/Release-iphoneos/RxSwift.framework/RxSwift ${BUILD_DIR}/rxswift/build/Release-iphonesimulator/RxSwift.framework/RxSwift -create -output ${BIN_DIR}/RxSwift.framework/RxSwift
-
-cp ${BUILD_DIR}/rxswift/build/Release-iphonesimulator/RxSwift.framework/Modules/RxSwift.swiftmodule/* ${BIN_DIR}/RxSwift.framework/Modules/RxSwift.swiftmodule/
-
+# Generate fat binaries
+for TARGET in RxSwift RxTest RxBlocking; do
+    echo "Generating fat binary for ${TARGET}"
+    cp -r ${BUILD_DIR}/rxswift/build/Release-iphoneos/${TARGET}.framework ${BIN_DIR}
+    
+    lipo ${BUILD_DIR}/rxswift/build/Release-iphoneos/${TARGET}.framework/${TARGET} ${BUILD_DIR}/rxswift/build/Release-iphonesimulator/${TARGET}.framework/${TARGET} -create -output ${BIN_DIR}/${TARGET}.framework/${TARGET}
+    
+    cp ${BUILD_DIR}/rxswift/build/Release-iphonesimulator/${TARGET}.framework/Modules/${TARGET}.swiftmodule/* ${BIN_DIR}/${TARGET}.framework/Modules/${TARGET}.swiftmodule/
+done
