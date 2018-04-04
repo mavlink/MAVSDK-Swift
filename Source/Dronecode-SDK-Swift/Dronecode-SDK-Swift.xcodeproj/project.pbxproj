@@ -45,6 +45,7 @@
 		DFA0B03F207524EA007BDD4B /* mission.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B037207524EA007BDD4B /* mission.grpc.swift */; };
 		DFA0B040207524EA007BDD4B /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B038207524EA007BDD4B /* action.pb.swift */; };
 		DFA0B041207524EA007BDD4B /* telemetry.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */; };
+		DFA0B043207581F1007BDD4B /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B042207581F1007BDD4B /* CoreTest.swift */; };
 		DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -110,6 +111,7 @@
 		DFA0B037207524EA007BDD4B /* mission.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = mission.grpc.swift; path = "Dronecode-SDK-Swift/Generated/mission.grpc.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B038207524EA007BDD4B /* action.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.pb.swift; path = "Dronecode-SDK-Swift/Generated/action.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.grpc.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.grpc.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B042207581F1007BDD4B /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				DF68BF082064617900175337 /* ActionTest.swift */,
+				DFA0B042207581F1007BDD4B /* CoreTest.swift */,
 				DF68BF0A2064617900175337 /* Info.plist */,
 			);
 			path = "Dronecode-SDK-SwiftTests";
@@ -352,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFA0B043207581F1007BDD4B /* CoreTest.swift in Sources */,
 				DF68BF092064617900175337 /* ActionTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
