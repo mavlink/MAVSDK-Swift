@@ -4,10 +4,9 @@
 
 ### Prebuilt
 
-1. Download dependencies from [here](https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecode-sdk-swift-deps-latest.zip).
-2. Unzip `dronecode-sdk-swift-deps-latest.zip`
-3. Open Dronecode-SDK-Swift.xcodeproj in Xcode
-4. Copy frameworks in the `Frameworks` group of Dronecode-SDK-Swift in Xcode
+1. Download dependencies by running `bash fetch_archive_sdk.bash`. They will be unzipped in `bin/`.
+2. Open Dronecode-SDK-Swift.xcodeproj in Xcode.
+3. It should just work.
 
 ### Build from sources
 
@@ -17,6 +16,14 @@ Dependencies (gRPC and RxSwift) can be built from sources with the following com
 bash build_grpc.bash
 bash build_rxswift.bash
 ```
+
+The backend framework needs to be fetched:
+
+```
+bash fetch_backend.bash
+```
+
+All the dependencies will end up in `bin/`.
 
 ## Build SDK framework
 
