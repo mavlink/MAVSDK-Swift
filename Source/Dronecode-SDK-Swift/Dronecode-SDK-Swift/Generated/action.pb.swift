@@ -392,7 +392,7 @@ struct Dronecore_Rpc_Action_ActionResult {
     typealias RawValue = Int
     case unknown // = 0
     case success // = 1
-    case noDevice // = 2
+    case noSystem // = 2
     case connectionError // = 3
     case busy // = 4
     case commandDenied // = 5
@@ -411,7 +411,7 @@ struct Dronecore_Rpc_Action_ActionResult {
       switch rawValue {
       case 0: self = .unknown
       case 1: self = .success
-      case 2: self = .noDevice
+      case 2: self = .noSystem
       case 3: self = .connectionError
       case 4: self = .busy
       case 5: self = .commandDenied
@@ -428,7 +428,7 @@ struct Dronecore_Rpc_Action_ActionResult {
       switch self {
       case .unknown: return 0
       case .success: return 1
-      case .noDevice: return 2
+      case .noSystem: return 2
       case .connectionError: return 3
       case .busy: return 4
       case .commandDenied: return 5
@@ -1405,7 +1405,7 @@ extension Dronecore_Rpc_Action_ActionResult.Result: SwiftProtobuf._ProtoNameProv
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "SUCCESS"),
-    2: .same(proto: "NO_DEVICE"),
+    2: .same(proto: "NO_SYSTEM"),
     3: .same(proto: "CONNECTION_ERROR"),
     4: .same(proto: "BUSY"),
     5: .same(proto: "COMMAND_DENIED"),
