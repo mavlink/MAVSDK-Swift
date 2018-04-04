@@ -34,7 +34,7 @@ class ActionTest: XCTestCase {
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noDevice))
+        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))

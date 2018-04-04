@@ -14,8 +14,6 @@
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DF68BF092064617900175337 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* ActionTest.swift */; };
 		DF68BF0B2064617900175337 /* Dronecode_SDK_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF68BF172064622B00175337 /* action.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF152064622B00175337 /* action.grpc.swift */; };
-		DF68BF182064622B00175337 /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF162064622B00175337 /* action.pb.swift */; };
 		DF68BF3B2064633D00175337 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF3A2064633D00175337 /* Action.swift */; };
 		DF7798C62074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
 		DF7798C72074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
@@ -39,6 +37,14 @@
 		DF7798DC2074F64300CD1BE0 /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF7798DD2074F65600CD1BE0 /* SwiftProtobufPluginLibrary.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DFA0B03A207524EA007BDD4B /* telemetry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B032207524EA007BDD4B /* telemetry.pb.swift */; };
+		DFA0B03B207524EA007BDD4B /* action.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B033207524EA007BDD4B /* action.grpc.swift */; };
+		DFA0B03C207524EA007BDD4B /* core.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B034207524EA007BDD4B /* core.grpc.swift */; };
+		DFA0B03D207524EA007BDD4B /* core.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B035207524EA007BDD4B /* core.pb.swift */; };
+		DFA0B03E207524EA007BDD4B /* mission.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B036207524EA007BDD4B /* mission.pb.swift */; };
+		DFA0B03F207524EA007BDD4B /* mission.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B037207524EA007BDD4B /* mission.grpc.swift */; };
+		DFA0B040207524EA007BDD4B /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B038207524EA007BDD4B /* action.pb.swift */; };
+		DFA0B041207524EA007BDD4B /* telemetry.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */; };
 		DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -85,8 +91,6 @@
 		DF68BF032064617900175337 /* Dronecode-SDK-SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dronecode-SDK-SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF68BF082064617900175337 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF68BF0A2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF68BF152064622B00175337 /* action.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.grpc.swift; path = "Dronecode-SDK-Swift/Generated/action.grpc.swift"; sourceTree = SOURCE_ROOT; };
-		DF68BF162064622B00175337 /* action.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.pb.swift; path = "Dronecode-SDK-Swift/Generated/action.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DF68BF3A2064633D00175337 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobufPluginLibrary.framework; path = ../bin/SwiftProtobufPluginLibrary.framework; sourceTree = "<group>"; };
 		DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = ../bin/CgRPC.framework; sourceTree = "<group>"; };
@@ -98,6 +102,14 @@
 		DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = ../bin/RxBlocking.framework; sourceTree = "<group>"; };
 		DF7798C42074F52D00CD1BE0 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = ../bin/RxTest.framework; sourceTree = "<group>"; };
 		DF7798C52074F52D00CD1BE0 /* Czlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Czlib.framework; path = ../bin/Czlib.framework; sourceTree = "<group>"; };
+		DFA0B032207524EA007BDD4B /* telemetry.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.pb.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.pb.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B033207524EA007BDD4B /* action.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.grpc.swift; path = "Dronecode-SDK-Swift/Generated/action.grpc.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B034207524EA007BDD4B /* core.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = core.grpc.swift; path = "Dronecode-SDK-Swift/Generated/core.grpc.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B035207524EA007BDD4B /* core.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = core.pb.swift; path = "Dronecode-SDK-Swift/Generated/core.pb.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B036207524EA007BDD4B /* mission.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = mission.pb.swift; path = "Dronecode-SDK-Swift/Generated/mission.pb.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B037207524EA007BDD4B /* mission.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = mission.grpc.swift; path = "Dronecode-SDK-Swift/Generated/mission.grpc.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B038207524EA007BDD4B /* action.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.pb.swift; path = "Dronecode-SDK-Swift/Generated/action.pb.swift"; sourceTree = SOURCE_ROOT; };
+		DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.grpc.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.grpc.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +193,14 @@
 		DF68BF14206461DF00175337 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
-				DF68BF152064622B00175337 /* action.grpc.swift */,
-				DF68BF162064622B00175337 /* action.pb.swift */,
+				DFA0B033207524EA007BDD4B /* action.grpc.swift */,
+				DFA0B038207524EA007BDD4B /* action.pb.swift */,
+				DFA0B034207524EA007BDD4B /* core.grpc.swift */,
+				DFA0B035207524EA007BDD4B /* core.pb.swift */,
+				DFA0B037207524EA007BDD4B /* mission.grpc.swift */,
+				DFA0B036207524EA007BDD4B /* mission.pb.swift */,
+				DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */,
+				DFA0B032207524EA007BDD4B /* telemetry.pb.swift */,
 			);
 			name = Generated;
 			path = Gerenated;
@@ -317,10 +335,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF68BF182064622B00175337 /* action.pb.swift in Sources */,
+				DFA0B041207524EA007BDD4B /* telemetry.grpc.swift in Sources */,
+				DFA0B03B207524EA007BDD4B /* action.grpc.swift in Sources */,
+				DFA0B03F207524EA007BDD4B /* mission.grpc.swift in Sources */,
+				DFA0B03D207524EA007BDD4B /* core.pb.swift in Sources */,
+				DFA0B03C207524EA007BDD4B /* core.grpc.swift in Sources */,
 				DF68BF3B2064633D00175337 /* Action.swift in Sources */,
+				DFA0B040207524EA007BDD4B /* action.pb.swift in Sources */,
 				DF674CC6206D946E00421042 /* Core.swift in Sources */,
-				DF68BF172064622B00175337 /* action.grpc.swift in Sources */,
+				DFA0B03E207524EA007BDD4B /* mission.pb.swift in Sources */,
+				DFA0B03A207524EA007BDD4B /* telemetry.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
