@@ -33,7 +33,7 @@ Dronecode-SDK-Swift depends on gRPC and RxSwift (installation is described above
 bash build_dronecode_sdk.bash
 ```
 
-### Publishing archives to Amazon S3
+## Publishing archives to Amazon S3
 
 With the right permissions, one can publish a release to amazon S3 with the following commands:
 

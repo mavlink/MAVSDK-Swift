@@ -8,6 +8,11 @@ extension String: Error {
 public class Action {
     let service: Dronecore_Rpc_Action_ActionServiceService
 
+    public convenience init(address: String, port: Int) {
+        let service = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)")
+        self.init(service: service)
+    }
+    
     init(service: Dronecore_Rpc_Action_ActionServiceService = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "localhost:50051", secure: false)) {
         self.service = service
     }
