@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC0207610C500F42184 /* AppDelegate.swift */; };
-		2C365EC3207610C500F42184 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC2207610C500F42184 /* ViewController.swift */; };
+		2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC2207610C500F42184 /* TelemetryViewController.swift */; };
 		2C365ECB207610C500F42184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EC9207610C500F42184 /* Main.storyboard */; };
 		2C365ED6207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365ED5207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift */; };
 		2C365EE320761F3000F42184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE120761F3000F42184 /* LaunchScreen.storyboard */; };
 		2C365EE52076247100F42184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE42076247000F42184 /* Assets.xcassets */; };
+		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
 		C90D382081BEA5DE9AFB7B37 /* Pods_DronecodeSDKSwiftDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638D049B9BAAD1055F10B0E6 /* Pods_DronecodeSDKSwiftDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +31,7 @@
 		1F7FCEAD230CE3BFFB36ECF7 /* Pods-DronecodeSDKSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DronecodeSDKSwiftDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
 		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C365EC0207610C500F42184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C365EC2207610C500F42184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2C365EC2207610C500F42184 /* TelemetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryViewController.swift; sourceTree = "<group>"; };
 		2C365ECA207610C500F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C365ECC207610C500F42184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C365ED1207610C500F42184 /* DronecodeSDKSwiftDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DronecodeSDKSwiftDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,6 +39,7 @@
 		2C365ED7207610C500F42184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C365EE220761F3000F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C365EE42076247000F42184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		638D049B9BAAD1055F10B0E6 /* Pods_DronecodeSDKSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DronecodeSDKSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F9E2C5B039C61826A861A62 /* Pods-DronecodeSDKSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DronecodeSDKSwiftDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				2C365EC0207610C500F42184 /* AppDelegate.swift */,
-				2C365EC2207610C500F42184 /* ViewController.swift */,
+				2CDBF022207659D00064C8A5 /* Controllers */,
 				2C365EE42076247000F42184 /* Assets.xcassets */,
 				2C365EE120761F3000F42184 /* LaunchScreen.storyboard */,
 				2C365EC9207610C500F42184 /* Main.storyboard */,
@@ -101,6 +103,15 @@
 				2C365ED7207610C500F42184 /* Info.plist */,
 			);
 			path = DronecodeSDKSwiftDemoTests;
+			sourceTree = "<group>";
+		};
+		2CDBF022207659D00064C8A5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C365EC2207610C500F42184 /* TelemetryViewController.swift */,
+				2CDBF020207652340064C8A5 /* MapViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		79DE2CCD003BA28497052160 /* Frameworks */ = {
@@ -296,7 +307,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C365EC3207610C500F42184 /* ViewController.swift in Sources */,
+				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
+				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
 				2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
