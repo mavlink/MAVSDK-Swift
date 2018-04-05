@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="arN-ii-c8Y">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="ge1-eP-0rJ">
+            <objects>
+                <navigationController id="arN-ii-c8Y" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y1y-Jg-wB5">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="SVY-Tk-qzm" kind="relationship" relationship="rootViewController" id="8uZ-Bw-lwZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gNS-Vi-hm7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1415" y="605"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="kWy-7e-hNk">
+            <objects>
+                <viewController id="F62-mM-U7q" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xqR-O2-rKl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="DfI-qP-ql3"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon-placeholder-location" id="tjt-Kd-Upu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HsY-YG-XdC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-463" y="1614"/>
+        </scene>
+        <!--Status-->
+        <scene sceneID="RNB-95-TvJ">
+            <objects>
+                <viewController id="GQQ-gj-UNt" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B1Q-Ld-Hx6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uR0-cI-nZu"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Status" image="icon-drone" id="026-hv-NUE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9KX-5y-V5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-463" y="950"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="hUb-aa-KC5">
+            <objects>
+                <tabBarController id="SVY-Tk-qzm" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="02c-wS-DJD"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UXB-e1-26G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="GQQ-gj-UNt" kind="relationship" relationship="viewControllers" id="M2h-Rm-Yfg"/>
+                        <segue destination="F62-mM-U7q" kind="relationship" relationship="viewControllers" id="vys-bh-VUx"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Yw-IE-1sq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1415" y="1327"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon-drone" width="24" height="24"/>
+        <image name="icon-placeholder-location" width="24" height="24"/>
+    </resources>
+</document>
