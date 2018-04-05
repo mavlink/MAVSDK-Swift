@@ -3,6 +3,16 @@ import Foundation
 import gRPC
 import RxSwift
 
+public struct PluginInfo: Equatable {
+    var name: String
+    var address: String
+    var port: Int32
+
+    public static func == (lhs: PluginInfo, rhs: PluginInfo) -> Bool {
+        return lhs.name == rhs.name && lhs.address == rhs.address && lhs.port == rhs.port
+    }
+}
+
 public class Core {
     let service: Dronecore_Rpc_Core_CoreServiceService
 
@@ -48,12 +58,26 @@ public class Core {
             do {
                 let call = try self.service.subscribetimeout(timeoutRequest, completion: nil)
                 while let _ = try? call.receive() {
-                    observer.on(.next(()))
+                    observer.onNext(())
                 }
             } catch {
                 observer.onError("Failed to subscribe to timeout stream")
             }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getRunningPluginsObservable() -> Observable<PluginInfo> {
+        let request = Dronecore_Rpc_Core_ListRunningPluginsRequest()
+        let response = try? self.service.listrunningplugins(request)
+
+        return Observable.create { observer in
+            for pluginInfo in (response?.pluginInfo)! {
+                observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
+            }
             
+            observer.onCompleted()
             return Disposables.create()
         }
     }
