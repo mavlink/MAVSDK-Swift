@@ -10,9 +10,14 @@ import UIKit
 
 class TelemetryViewController: UIViewController {
 
+    // MARK: - IBOutlets
+    @IBOutlet weak var connectionLabel: UILabel!
+    @IBOutlet weak var telemetryTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        connectionLabel.text = "Connection status ..."
     }
     
     override func viewDidAppear(_ animated: Bool) {
