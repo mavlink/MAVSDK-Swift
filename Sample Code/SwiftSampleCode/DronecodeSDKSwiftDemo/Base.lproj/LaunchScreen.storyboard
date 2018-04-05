@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iqj-bn-gQq">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="emN-qz-XNm">
+            <objects>
+                <viewController id="iqj-bn-gQq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jXX-b0-wCQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="hSe-6w-NfR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Zj-xo-hgg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-DroneCore" translatesAutoresizingMaskIntoConstraints="NO" id="8AQ-fS-AsA">
+                                <rect key="frame" x="64" y="296" width="243" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="243" id="PtU-As-8NN"/>
+                                    <constraint firstAttribute="height" constant="56" id="fVO-bJ-daA"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.44064798951148987" green="0.51737356185913086" blue="0.5294157862663269" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="8AQ-fS-AsA" firstAttribute="centerX" secondItem="2Zj-xo-hgg" secondAttribute="centerX" constant="-2" id="DHI-hu-QaI"/>
+                            <constraint firstItem="8AQ-fS-AsA" firstAttribute="centerY" secondItem="2Zj-xo-hgg" secondAttribute="centerY" constant="-9.5" id="yZv-Zr-zBh"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pma-U4-v0N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="621.60000000000002" y="211.84407796101951"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo-DroneCore" width="2587" height="578"/>
+    </resources>
+</document>
