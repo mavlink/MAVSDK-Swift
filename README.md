@@ -97,9 +97,9 @@ github "dronecore/DroneCore-Swift" "branch-name"
 
 ### Manually
 
-1. Download the SDK from [here](https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecore-swift-prototype.zip)
+1. Download the SDK from [here](https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecode-sdk-swift-latest.zip)
 
-2. Unzip 'dronecore-swift-prototype.zip'
+2. Unzip 'dronecode-sdk-swift-latest.zip'
 
 3. With your project open in Xcode, select your **Target**. Under **General** tab, find **Linked Framework and Libraries** and then click the **+** button.
 
