@@ -16,7 +16,7 @@ public struct PluginInfo: Equatable {
 public class Core {
     let service: Dronecore_Rpc_Core_CoreServiceService
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost", port: Int32 = 50051) {
         let service = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)")
         self.init(service: service)
     }
