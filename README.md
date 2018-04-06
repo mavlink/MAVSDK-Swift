@@ -56,7 +56,7 @@ Then to add the framework, create the file `Cartfile` in your app's repository w
 
 ```
 # Require the iOS framework of DroneCore SDK
-github "dronecore/DroneCore-Swift"
+github "dronecore/DroneCore-Swift" "master"
 ```
 
 Then, to pull in the library and build it, run Carthage in your app's repository:
@@ -72,20 +72,12 @@ This command also needs to be re-run if you want to udpate the framework.
 Open the project in XCode and do the following:
 
 1. Open Project Settings -> General
-2. Find Embedded Binaries and press *+*
+2. Find 'Linked frameworks Libraries' and and press *+*
 3. Click Other, go one folder up, and select `Carthage/Build/iOS/Dronecode_SDK_Swift.framework`.
-4. Do "Product Clean" and "Product Build"
+4. Add also all the frameworks in the folder 'Carthage/Checkouts/DroneCore-Swift/Source/Dronecode-SDK-Swift/Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest'
+5. Do "Product Clean" and "Product Build"
+6. Set ***Build Settings > Enable Bitcode*** to ***No***; you may have to select "All" for the field to show up.
 
-### Clean up the download automatically done by the build
-
-Dependencies are needed to build Dronecode_SDK_Swift.framework. The script download-dependencies.sh is downloading a zip containing them.
-To remove this download:
-
-Open the project Dronecode-SDK-Swift in XCode and do the following:
-
-1. Open Project Settings -> Build Phases
-2. Open Run Script tab
-3. Put a # before ./download-dependencies.sh or just delete the runscript
 
 ### Use Carthage to check out a developer branch
 
