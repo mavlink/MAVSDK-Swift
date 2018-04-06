@@ -28,11 +28,20 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-DroneCore-thumb" translatesAutoresizingMaskIntoConstraints="NO" id="L7D-XD-lrU">
+                                        <rect key="frame" x="8" y="25" width="80" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="JMK-BJ-oEW"/>
+                                            <constraint firstAttribute="width" constant="80" id="vIS-xO-QUw"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="Dkk-GJ-GIs" firstAttribute="centerX" secondItem="DF5-F9-wpk" secondAttribute="centerX" id="31t-60-suZ"/>
                                     <constraint firstAttribute="height" constant="68" id="Gzt-xE-djy"/>
+                                    <constraint firstItem="L7D-XD-lrU" firstAttribute="top" secondItem="DF5-F9-wpk" secondAttribute="top" constant="25" id="aXf-04-AIb"/>
+                                    <constraint firstItem="L7D-XD-lrU" firstAttribute="leading" secondItem="DF5-F9-wpk" secondAttribute="leading" constant="8" id="sLe-sV-hCh"/>
                                     <constraint firstItem="Dkk-GJ-GIs" firstAttribute="centerY" secondItem="DF5-F9-wpk" secondAttribute="centerY" id="snr-dQ-ao3"/>
                                 </constraints>
                             </view>
@@ -76,12 +85,21 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-DroneCore-thumb" translatesAutoresizingMaskIntoConstraints="NO" id="A5U-dI-AWb">
+                                        <rect key="frame" x="8" y="25" width="80" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="1sT-lL-uZD"/>
+                                            <constraint firstAttribute="width" constant="80" id="Jkt-7j-eea"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="MYf-KL-5Rk" firstAttribute="centerX" secondItem="yWt-rt-joW" secondAttribute="centerX" id="T1S-09-Qgg"/>
+                                    <constraint firstItem="A5U-dI-AWb" firstAttribute="leading" secondItem="yWt-rt-joW" secondAttribute="leading" constant="8" id="bfd-x7-gk9"/>
                                     <constraint firstItem="MYf-KL-5Rk" firstAttribute="centerY" secondItem="yWt-rt-joW" secondAttribute="centerY" id="qnO-Tm-jeL"/>
                                     <constraint firstAttribute="height" constant="68" id="t8b-t0-8ho"/>
+                                    <constraint firstItem="A5U-dI-AWb" firstAttribute="top" secondItem="yWt-rt-joW" secondAttribute="top" constant="25" id="v5i-TQ-U6Z"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cMZ-Af-sTc" userLabel="Connection View">
@@ -197,10 +215,19 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-DroneCore-thumb" translatesAutoresizingMaskIntoConstraints="NO" id="rgW-f5-3rH">
+                                        <rect key="frame" x="8" y="25" width="80" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="WIK-3C-ckQ"/>
+                                            <constraint firstAttribute="width" constant="80" id="xYQ-Cf-3aW"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="Wqn-97-Igg" firstAttribute="centerY" secondItem="YWd-zv-R9H" secondAttribute="centerY" id="Gsx-yZ-44U"/>
+                                    <constraint firstItem="rgW-f5-3rH" firstAttribute="leading" secondItem="YWd-zv-R9H" secondAttribute="leading" constant="8" id="SYp-rw-kMC"/>
+                                    <constraint firstItem="rgW-f5-3rH" firstAttribute="top" secondItem="YWd-zv-R9H" secondAttribute="top" constant="25" id="bM2-aX-NED"/>
                                     <constraint firstItem="Wqn-97-Igg" firstAttribute="centerX" secondItem="YWd-zv-R9H" secondAttribute="centerX" id="ihZ-0V-hC1"/>
                                     <constraint firstAttribute="height" constant="68" id="ryj-B8-zWJ"/>
                                 </constraints>
@@ -286,5 +313,6 @@
         <image name="icon-action-remote" width="24" height="24"/>
         <image name="icon-drone" width="24" height="24"/>
         <image name="icon-placeholder-location" width="24" height="24"/>
+        <image name="logo-DroneCore-thumb" width="80" height="18"/>
     </resources>
 </document>
