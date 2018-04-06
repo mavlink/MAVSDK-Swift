@@ -112,8 +112,13 @@ github "dronecore/DroneCore-Swift" "branch-name"
     * `DroneCore_Swift.framework`
     * `gRPC.framework`
     * `RxSwift.framework`
+    * `RxBlocking.framework`
     * `SwiftProtobuf.framework`
     * `SwiftProtobufPluginLibrary.framework`
+
+5. If the frameworks are not copied into your project, you may have to add an entry into ***Build Settings > Framework Search Paths***.
+
+6. Set ***Build Settings > Enable Bitcode*** to ***No***; you may have to select "All" for the field to show up.
 
 
 ## Update the SDK to a Newer Version
@@ -145,6 +150,7 @@ When we release a new version of the SDK, you can pick up the changes as describ
     * `DroneCore_Swift.framework`
     * `gRPC.framework`
     * `RxSwift.framework`
+    * `RxBlocking.framework`
     * `SwiftProtobuf.framework`
 
 2. Follow the installation process above to include the new version of the SDK.
@@ -154,7 +160,7 @@ When we release a new version of the SDK, you can pick up the changes as describ
 1. In Swift file you want to use the SDK, import DroneCore_Swift framework as in the following example:
 
     ```swift
-    import DroneCore_Swift
+    import Dronecode_SDK_Swift
     ```
         
 4. Example to use the library :	
