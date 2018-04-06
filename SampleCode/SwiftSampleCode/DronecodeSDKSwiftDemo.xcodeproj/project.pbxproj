@@ -28,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F7FCEAD230CE3BFFB36ECF7 /* Pods-DronecodeSDKSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DronecodeSDKSwiftDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
 		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C365EC0207610C500F42184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C365EC2207610C500F42184 /* TelemetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C90D382081BEA5DE9AFB7B37 /* Pods_DronecodeSDKSwiftDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,8 +66,6 @@
 				2C365EBF207610C500F42184 /* DronecodeSDKSwiftDemo */,
 				2C365ED4207610C500F42184 /* DronecodeSDKSwiftDemoTests */,
 				2C365EBE207610C500F42184 /* Products */,
-				AB9768BFDAFFFE6860B2C7C0 /* Pods */,
-				79DE2CCD003BA28497052160 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,23 +110,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		79DE2CCD003BA28497052160 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				638D049B9BAAD1055F10B0E6 /* Pods_DronecodeSDKSwiftDemo.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AB9768BFDAFFFE6860B2C7C0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6F9E2C5B039C61826A861A62 /* Pods-DronecodeSDKSwiftDemo.debug.xcconfig */,
-				1F7FCEAD230CE3BFFB36ECF7 /* Pods-DronecodeSDKSwiftDemo.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,12 +117,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C365EDA207610C500F42184 /* Build configuration list for PBXNativeTarget "DronecodeSDKSwiftDemo" */;
 			buildPhases = (
-				44A1FC29457CB5C20989AAC5 /* [CP] Check Pods Manifest.lock */,
 				2C365EB9207610C500F42184 /* Sources */,
 				2C365EBA207610C500F42184 /* Frameworks */,
 				2C365EBB207610C500F42184 /* Resources */,
-				B0FA2D71BB6A7F4F5E6B6995 /* [CP] Embed Pods Frameworks */,
-				4C61ED9A58B5DC3D6F27B2B8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -231,76 +207,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		44A1FC29457CB5C20989AAC5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-DronecodeSDKSwiftDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4C61ED9A58B5DC3D6F27B2B8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B0FA2D71BB6A7F4F5E6B6995 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo-frameworks.sh",
-				"${PODS_ROOT}/DroneCore-Swift/backend.framework",
-				"${PODS_ROOT}/DroneCore-Swift/BoringSSL.framework",
-				"${PODS_ROOT}/DroneCore-Swift/CgRPC.framework",
-				"${PODS_ROOT}/DroneCore-Swift/Czlib.framework",
-				"${PODS_ROOT}/DroneCore-Swift/DroneCore_Swift.framework",
-				"${PODS_ROOT}/DroneCore-Swift/gRPC.framework",
-				"${PODS_ROOT}/DroneCore-Swift/RxSwift.framework",
-				"${PODS_ROOT}/DroneCore-Swift/SwiftProtobuf.framework",
-				"${PODS_ROOT}/DroneCore-Swift/SwiftProtobufPluginLibrary.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/backend.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoringSSL.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CgRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Czlib.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DroneCore_Swift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/gRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobufPluginLibrary.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2C365EB9207610C500F42184 /* Sources */ = {
@@ -461,7 +367,6 @@
 		};
 		2C365EDB207610C500F42184 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F9E2C5B039C61826A861A62 /* Pods-DronecodeSDKSwiftDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -478,7 +383,6 @@
 		};
 		2C365EDC207610C500F42184 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F7FCEAD230CE3BFFB36ECF7 /* Pods-DronecodeSDKSwiftDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
