@@ -9,12 +9,23 @@
 import UIKit
 import DroneCore_Swift
 
+let UI_CORNER_RADIUS_BUTTONS = CGFloat(8.0)
+
 class ActionsViewController: UIViewController {
 
+    // MARK: - IBOutlets
+    @IBOutlet weak var armButton: UIButton!
+    @IBOutlet weak var takeoffButton: UIButton!
+    @IBOutlet weak var landButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // set corners for buttons
+        armButton.layer.cornerRadius        = UI_CORNER_RADIUS_BUTTONS
+        takeoffButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        landButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
+
     }
 
     override func didReceiveMemoryWarning() {
