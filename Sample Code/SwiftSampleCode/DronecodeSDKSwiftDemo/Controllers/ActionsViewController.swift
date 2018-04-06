@@ -23,37 +23,31 @@ class ActionsViewController: UIViewController {
     }
     
     @IBAction func armPressed(_ sender: Any) {
-        print("arm")
-       //TODO UNCOMMENT when ready
-        /*let action = Action()
+        let action = Action()
         let myRoutine = action.arm()
-            .do(onError: { error in ActionsViewController.showAlert("Arming failed", self) },
-                onCompleted: { ActionsViewController.showAlert(("Arming succeeded",self) })
-        myRoutine.subscribe()*/
+            .do(onError: { error in ActionsViewController.showAlert("Arming failed", viewController:self) },
+                onCompleted: { ActionsViewController.showAlert("Arming succeeded",viewController:self) })
+        myRoutine.subscribe()
     }
     
     @IBAction func takeoffPressed(_ sender: Any) {
-        print("takeoff")
-        //TODO UNCOMMENT when ready
-        /*let action = Action()
+         let action = Action()
          let myRoutine = action.takeoff()
-         .do(onError: { error in ActionsViewController.showAlert("Takeoff failed", self) },
-         onCompleted: { ActionsViewController.showAlert(("Takeoff succeeded",self) })
-         myRoutine.subscribe()*/
+         .do(onError: { error in ActionsViewController.showAlert("Takeoff failed", viewController:self) },
+         onCompleted: { ActionsViewController.showAlert("Takeoff succeeded",viewController:self) })
+         myRoutine.subscribe()
     }
     
     @IBAction func landPressed(_ sender: Any) {
-        print("land")
-        //TODO UNCOMMENT when ready
-        /*let action = Action()
+         let action = Action()
          let myRoutine = action.land()
-         .do(onError: { error in ActionsViewController.showAlert("Land failed", self) },
-         onCompleted: { ActionsViewController.showAlert(("Land succeeded",self) })
-         myRoutine.subscribe()*/
+         .do(onError: { error in ActionsViewController.showAlert("Land failed", viewController:self) },
+         onCompleted: { ActionsViewController.showAlert("Land succeeded", viewController:self) })
+         myRoutine.subscribe()
     }
 
     class func showAlert(_ message: String?, viewController: UIViewController?) {
-        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         viewController?.present(alert, animated: true) {() -> Void in }
     }
