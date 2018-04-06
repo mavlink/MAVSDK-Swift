@@ -56,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HsY-YG-XdC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="408.80000000000001" y="948.57571214392806"/>
+            <point key="canvasLocation" x="982" y="949"/>
         </scene>
         <!--Telemetry-->
         <scene sceneID="RNB-95-TvJ">
@@ -172,14 +172,100 @@
                     <connections>
                         <segue destination="GQQ-gj-UNt" kind="relationship" relationship="viewControllers" id="M2h-Rm-Yfg"/>
                         <segue destination="F62-mM-U7q" kind="relationship" relationship="viewControllers" id="vys-bh-VUx"/>
+                        <segue destination="sxF-oW-WnJ" kind="relationship" relationship="viewControllers" id="47r-4T-bSm"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Yw-IE-1sq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="15" y="179"/>
         </scene>
+        <!--Actions-->
+        <scene sceneID="Y9y-Gu-WfD">
+            <objects>
+                <viewController id="sxF-oW-WnJ" userLabel="Actions" customClass="ActionsViewController" customModule="DronecodeSDKSwiftDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D0b-UQ-ara" userLabel="Main View">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWd-zv-R9H" userLabel="Title View">
+                                <rect key="frame" x="0.0" y="20" width="375" height="68"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqn-97-Igg">
+                                        <rect key="frame" x="129" y="13" width="117" height="43"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="Wqn-97-Igg" firstAttribute="centerY" secondItem="YWd-zv-R9H" secondAttribute="centerY" id="Gsx-yZ-44U"/>
+                                    <constraint firstItem="Wqn-97-Igg" firstAttribute="centerX" secondItem="YWd-zv-R9H" secondAttribute="centerX" id="ihZ-0V-hC1"/>
+                                    <constraint firstAttribute="height" constant="68" id="ryj-B8-zWJ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRb-9w-pUu">
+                                <rect key="frame" x="0.0" y="144" width="375" height="378"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-DY-BUo">
+                                        <rect key="frame" x="118" y="26" width="139" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382705479456" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Arm"/>
+                                        <connections>
+                                            <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="Q5W-GZ-CNn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoe-wM-d5N">
+                                        <rect key="frame" x="118" y="133" width="139" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Takeoff"/>
+                                        <connections>
+                                            <action selector="takeoffPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="OfR-Wh-140"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIj-zF-IzN">
+                                        <rect key="frame" x="118" y="250" width="139" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Land"/>
+                                        <connections>
+                                            <action selector="landPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="TBA-7Q-Pzq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YWd-zv-R9H" firstAttribute="top" secondItem="BbI-d0-ZTc" secondAttribute="top" id="Jhr-yM-vro"/>
+                            <constraint firstItem="JRb-9w-pUu" firstAttribute="trailing" secondItem="BbI-d0-ZTc" secondAttribute="trailing" id="UCm-G7-ODL"/>
+                            <constraint firstItem="YWd-zv-R9H" firstAttribute="trailing" secondItem="BbI-d0-ZTc" secondAttribute="trailing" id="VoW-qM-1y5"/>
+                            <constraint firstItem="YWd-zv-R9H" firstAttribute="leading" secondItem="BbI-d0-ZTc" secondAttribute="leading" id="WZW-2v-Gbq"/>
+                            <constraint firstItem="BbI-d0-ZTc" firstAttribute="bottom" secondItem="JRb-9w-pUu" secondAttribute="bottom" constant="96" id="aLR-cO-VDZ"/>
+                            <constraint firstItem="JRb-9w-pUu" firstAttribute="top" secondItem="YWd-zv-R9H" secondAttribute="bottom" constant="56" id="aWX-TI-q1J"/>
+                            <constraint firstItem="JRb-9w-pUu" firstAttribute="leading" secondItem="BbI-d0-ZTc" secondAttribute="leading" id="eRC-UH-F1t"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BbI-d0-ZTc"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Actions" image="icon-action-remote" id="yNa-Xh-EiY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K4F-hw-658" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="244" y="948.57571214392806"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="icon-action-remote" width="24" height="24"/>
         <image name="icon-drone" width="24" height="24"/>
         <image name="icon-placeholder-location" width="24" height="24"/>
     </resources>

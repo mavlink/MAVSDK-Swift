@@ -14,7 +14,7 @@
 		2C365EE320761F3000F42184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE120761F3000F42184 /* LaunchScreen.storyboard */; };
 		2C365EE52076247100F42184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE42076247000F42184 /* Assets.xcassets */; };
 		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
-		C90D382081BEA5DE9AFB7B37 /* Pods_DronecodeSDKSwiftDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638D049B9BAAD1055F10B0E6 /* Pods_DronecodeSDKSwiftDemo.framework */; };
+		2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7270207750AF0060D31B /* ActionsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +40,7 @@
 		2C365EE220761F3000F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C365EE42076247000F42184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		638D049B9BAAD1055F10B0E6 /* Pods_DronecodeSDKSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DronecodeSDKSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F9E2C5B039C61826A861A62 /* Pods-DronecodeSDKSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DronecodeSDKSwiftDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DronecodeSDKSwiftDemo/Pods-DronecodeSDKSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		2CFF7270207750AF0060D31B /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				2C365EC2207610C500F42184 /* TelemetryViewController.swift */,
+				2CFF7270207750AF0060D31B /* ActionsViewController.swift */,
 				2CDBF020207652340064C8A5 /* MapViewController.swift */,
 			);
 			path = Controllers;
@@ -309,6 +309,7 @@
 			files = (
 				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
 				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
+				2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */,
 				2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
