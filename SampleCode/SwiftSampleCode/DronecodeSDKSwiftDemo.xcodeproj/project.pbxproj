@@ -1,0 +1,467 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC0207610C500F42184 /* AppDelegate.swift */; };
+		2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC2207610C500F42184 /* TelemetryViewController.swift */; };
+		2C365ECB207610C500F42184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EC9207610C500F42184 /* Main.storyboard */; };
+		2C365ED6207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365ED5207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift */; };
+		2C365EE320761F3000F42184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE120761F3000F42184 /* LaunchScreen.storyboard */; };
+		2C365EE52076247100F42184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE42076247000F42184 /* Assets.xcassets */; };
+		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
+		2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7270207750AF0060D31B /* ActionsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2C365ED2207610C500F42184 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C365EB5207610C500F42184 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C365EBC207610C500F42184;
+			remoteInfo = DronecodeSDKSwiftDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C365EC0207610C500F42184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2C365EC2207610C500F42184 /* TelemetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryViewController.swift; sourceTree = "<group>"; };
+		2C365ECA207610C500F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2C365ECC207610C500F42184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C365ED1207610C500F42184 /* DronecodeSDKSwiftDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DronecodeSDKSwiftDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C365ED5207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DronecodeSDKSwiftDemoTests.swift; sourceTree = "<group>"; };
+		2C365ED7207610C500F42184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C365EE220761F3000F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2C365EE42076247000F42184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		2CFF7270207750AF0060D31B /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2C365EBA207610C500F42184 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C365ECE207610C500F42184 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C365EB4207610C500F42184 = {
+			isa = PBXGroup;
+			children = (
+				2C365EBF207610C500F42184 /* DronecodeSDKSwiftDemo */,
+				2C365ED4207610C500F42184 /* DronecodeSDKSwiftDemoTests */,
+				2C365EBE207610C500F42184 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2C365EBE207610C500F42184 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */,
+				2C365ED1207610C500F42184 /* DronecodeSDKSwiftDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C365EBF207610C500F42184 /* DronecodeSDKSwiftDemo */ = {
+			isa = PBXGroup;
+			children = (
+				2C365EC0207610C500F42184 /* AppDelegate.swift */,
+				2CDBF022207659D00064C8A5 /* Controllers */,
+				2C365EE42076247000F42184 /* Assets.xcassets */,
+				2C365EE120761F3000F42184 /* LaunchScreen.storyboard */,
+				2C365EC9207610C500F42184 /* Main.storyboard */,
+				2C365ECC207610C500F42184 /* Info.plist */,
+			);
+			path = DronecodeSDKSwiftDemo;
+			sourceTree = "<group>";
+		};
+		2C365ED4207610C500F42184 /* DronecodeSDKSwiftDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				2C365ED5207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift */,
+				2C365ED7207610C500F42184 /* Info.plist */,
+			);
+			path = DronecodeSDKSwiftDemoTests;
+			sourceTree = "<group>";
+		};
+		2CDBF022207659D00064C8A5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C365EC2207610C500F42184 /* TelemetryViewController.swift */,
+				2CFF7270207750AF0060D31B /* ActionsViewController.swift */,
+				2CDBF020207652340064C8A5 /* MapViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C365EBC207610C500F42184 /* DronecodeSDKSwiftDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C365EDA207610C500F42184 /* Build configuration list for PBXNativeTarget "DronecodeSDKSwiftDemo" */;
+			buildPhases = (
+				2C365EB9207610C500F42184 /* Sources */,
+				2C365EBA207610C500F42184 /* Frameworks */,
+				2C365EBB207610C500F42184 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DronecodeSDKSwiftDemo;
+			productName = DronecodeSDKSwiftDemo;
+			productReference = 2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2C365ED0207610C500F42184 /* DronecodeSDKSwiftDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C365EDD207610C500F42184 /* Build configuration list for PBXNativeTarget "DronecodeSDKSwiftDemoTests" */;
+			buildPhases = (
+				2C365ECD207610C500F42184 /* Sources */,
+				2C365ECE207610C500F42184 /* Frameworks */,
+				2C365ECF207610C500F42184 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C365ED3207610C500F42184 /* PBXTargetDependency */,
+			);
+			name = DronecodeSDKSwiftDemoTests;
+			productName = DronecodeSDKSwiftDemoTests;
+			productReference = 2C365ED1207610C500F42184 /* DronecodeSDKSwiftDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C365EB5207610C500F42184 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Marjory Silvestre";
+				TargetAttributes = {
+					2C365EBC207610C500F42184 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					2C365ED0207610C500F42184 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2C365EBC207610C500F42184;
+					};
+				};
+			};
+			buildConfigurationList = 2C365EB8207610C500F42184 /* Build configuration list for PBXProject "DronecodeSDKSwiftDemo" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2C365EB4207610C500F42184;
+			productRefGroup = 2C365EBE207610C500F42184 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C365EBC207610C500F42184 /* DronecodeSDKSwiftDemo */,
+				2C365ED0207610C500F42184 /* DronecodeSDKSwiftDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C365EBB207610C500F42184 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C365ECB207610C500F42184 /* Main.storyboard in Resources */,
+				2C365EE52076247100F42184 /* Assets.xcassets in Resources */,
+				2C365EE320761F3000F42184 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C365ECF207610C500F42184 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C365EB9207610C500F42184 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
+				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
+				2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */,
+				2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C365ECD207610C500F42184 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C365ED6207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C365ED3207610C500F42184 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C365EBC207610C500F42184 /* DronecodeSDKSwiftDemo */;
+			targetProxy = 2C365ED2207610C500F42184 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2C365EC9207610C500F42184 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C365ECA207610C500F42184 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2C365EE120761F3000F42184 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C365EE220761F3000F42184 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2C365ED8207610C500F42184 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2C365ED9207610C500F42184 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2C365EDB207610C500F42184 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HBV2V5DL5C;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = DronecodeSDKSwiftDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.dronecode.DronecodeSDKSwiftDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2C365EDC207610C500F42184 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HBV2V5DL5C;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = DronecodeSDKSwiftDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.dronecode.DronecodeSDKSwiftDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2C365EDE207610C500F42184 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HBV2V5DL5C;
+				INFOPLIST_FILE = DronecodeSDKSwiftDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.dronecode.DronecodeSDKSwiftDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DronecodeSDKSwiftDemo.app/DronecodeSDKSwiftDemo";
+			};
+			name = Debug;
+		};
+		2C365EDF207610C500F42184 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HBV2V5DL5C;
+				INFOPLIST_FILE = DronecodeSDKSwiftDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.dronecode.DronecodeSDKSwiftDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DronecodeSDKSwiftDemo.app/DronecodeSDKSwiftDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C365EB8207610C500F42184 /* Build configuration list for PBXProject "DronecodeSDKSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C365ED8207610C500F42184 /* Debug */,
+				2C365ED9207610C500F42184 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C365EDA207610C500F42184 /* Build configuration list for PBXNativeTarget "DronecodeSDKSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C365EDB207610C500F42184 /* Debug */,
+				2C365EDC207610C500F42184 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C365EDD207610C500F42184 /* Build configuration list for PBXNativeTarget "DronecodeSDKSwiftDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C365EDE207610C500F42184 /* Debug */,
+				2C365EDF207610C500F42184 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2C365EB5207610C500F42184 /* Project object */;
+}
