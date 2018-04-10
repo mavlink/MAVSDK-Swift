@@ -27,7 +27,7 @@ class ActionTest: XCTestCase {
                 XCTFail("Expecting success, got failure")
         }
     }
-    
+
     func testArmFailsOnFailure() {
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
@@ -40,7 +40,7 @@ class ActionTest: XCTestCase {
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
         assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
     }
-    
+
     func assertFailure(result: MaterializedSequenceResult<Never>) {
         switch result {
             case .completed:

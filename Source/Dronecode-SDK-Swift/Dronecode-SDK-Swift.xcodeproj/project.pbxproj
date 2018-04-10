@@ -7,9 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0D207CEBEF00CEE035 /* ActionTest.swift */; };
 		DF16D54F2074F9610018AF1F /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF16D5502074F9860018AF1F /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
+		DF503DA22077B1C500CA79FB /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
+		DF503DA32077B1C500CA79FB /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; };
+		DF503DA42077B1C500CA79FB /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
+		DF503DA52077B1C500CA79FB /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; };
+		DF503DA62077B1C500CA79FB /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
+		DF503DA72077B1C500CA79FB /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
+		DF503DA82077B1C500CA79FB /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
+		DF503DA92077B1C500CA79FB /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; };
+		DF503DAA2077B1C500CA79FB /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
+		DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DAD2077B20200CA79FB /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DAE2077B20200CA79FB /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DAF2077B20200CA79FB /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DB02077B20200CA79FB /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DB12077B20200CA79FB /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DB22077B20200CA79FB /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DB32077B20200CA79FB /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DB42077B20200CA79FB /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF503DB52077B20200CA79FB /* SwiftProtobufPluginLibrary.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF674CC6206D946E00421042 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF674CC5206D946E00421042 /* Core.swift */; };
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DF68BF092064617900175337 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* ActionTest.swift */; };
@@ -46,6 +67,8 @@
 		DFA0B040207524EA007BDD4B /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B038207524EA007BDD4B /* action.pb.swift */; };
 		DFA0B041207524EA007BDD4B /* telemetry.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */; };
 		DFA0B043207581F1007BDD4B /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B042207581F1007BDD4B /* CoreTest.swift */; };
+		DFDA52772077A813008DE8BF /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA52762077A813008DE8BF /* CoreTest.swift */; };
+		DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -60,9 +83,35 @@
 			remoteGlobalIDString = DF68BEF92064617900175337;
 			remoteInfo = "Dronecode-SDK-Swift";
 		};
+		DFDA527A2077A813008DE8BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF68BEF12064617900175337 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF68BEF92064617900175337;
+			remoteInfo = "Dronecode-SDK-Swift";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		DF503DAB2077B1E400CA79FB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */,
+				DF503DAD2077B20200CA79FB /* BoringSSL.framework in CopyFiles */,
+				DF503DAE2077B20200CA79FB /* CgRPC.framework in CopyFiles */,
+				DF503DAF2077B20200CA79FB /* Czlib.framework in CopyFiles */,
+				DF503DB02077B20200CA79FB /* gRPC.framework in CopyFiles */,
+				DF503DB12077B20200CA79FB /* RxBlocking.framework in CopyFiles */,
+				DF503DB22077B20200CA79FB /* RxSwift.framework in CopyFiles */,
+				DF503DB32077B20200CA79FB /* RxTest.framework in CopyFiles */,
+				DF503DB42077B20200CA79FB /* SwiftProtobuf.framework in CopyFiles */,
+				DF503DB52077B20200CA79FB /* SwiftProtobufPluginLibrary.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF7798DB2074F63200CD1BE0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,6 +134,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DF020A0D207CEBEF00CEE035 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF674CC5206D946E00421042 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dronecode_SDK_Swift.h; sourceTree = "<group>"; };
@@ -112,6 +162,9 @@
 		DFA0B038207524EA007BDD4B /* action.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.pb.swift; path = "Dronecode-SDK-Swift/Generated/action.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B039207524EA007BDD4B /* telemetry.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.grpc.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.grpc.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B042207581F1007BDD4B /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
+		DFDA52742077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Dronecode_SDK_SwiftIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFDA52762077A813008DE8BF /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
+		DFDA52782077A813008DE8BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +202,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFDA52712077A813008DE8BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */,
+				DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */,
+				DF503DA22077B1C500CA79FB /* BoringSSL.framework in Frameworks */,
+				DF503DA32077B1C500CA79FB /* CgRPC.framework in Frameworks */,
+				DF503DA42077B1C500CA79FB /* Czlib.framework in Frameworks */,
+				DF503DA52077B1C500CA79FB /* gRPC.framework in Frameworks */,
+				DF503DA62077B1C500CA79FB /* RxBlocking.framework in Frameworks */,
+				DF503DA72077B1C500CA79FB /* RxSwift.framework in Frameworks */,
+				DF503DA82077B1C500CA79FB /* RxTest.framework in Frameworks */,
+				DF503DA92077B1C500CA79FB /* SwiftProtobuf.framework in Frameworks */,
+				DF503DAA2077B1C500CA79FB /* SwiftProtobufPluginLibrary.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -157,6 +228,7 @@
 			children = (
 				DF68BEFC2064617900175337 /* Dronecode-SDK-Swift */,
 				DF68BF072064617900175337 /* Dronecode-SDK-SwiftTests */,
+				DFDA52752077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */,
 				DF68BEFB2064617900175337 /* Products */,
 				DF68BF192064624C00175337 /* Frameworks */,
 			);
@@ -167,6 +239,7 @@
 			children = (
 				DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */,
 				DF68BF032064617900175337 /* Dronecode-SDK-SwiftTests.xctest */,
+				DFDA52742077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,6 +299,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DFDA52752077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				DF020A0D207CEBEF00CEE035 /* ActionTest.swift */,
+				DFDA52762077A813008DE8BF /* CoreTest.swift */,
+				DFDA52782077A813008DE8BF /* Info.plist */,
+			);
+			path = Dronecode_SDK_SwiftIntegrationTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -277,6 +360,25 @@
 			productReference = DF68BF032064617900175337 /* Dronecode-SDK-SwiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DFDA52732077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFDA527E2077A813008DE8BF /* Build configuration list for PBXNativeTarget "Dronecode_SDK_SwiftIntegrationTests" */;
+			buildPhases = (
+				DFDA52702077A813008DE8BF /* Sources */,
+				DFDA52712077A813008DE8BF /* Frameworks */,
+				DFDA52722077A813008DE8BF /* Resources */,
+				DF503DAB2077B1E400CA79FB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DFDA527B2077A813008DE8BF /* PBXTargetDependency */,
+			);
+			name = Dronecode_SDK_SwiftIntegrationTests;
+			productName = Dronecode_SDK_SwiftIntegrationTests;
+			productReference = DFDA52742077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -296,6 +398,10 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					DFDA52732077A813008DE8BF = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = DF68BEF42064617900175337 /* Build configuration list for PBXProject "Dronecode-SDK-Swift" */;
@@ -312,6 +418,7 @@
 			targets = (
 				DF68BEF92064617900175337 /* Dronecode-SDK-Swift */,
 				DF68BF022064617900175337 /* Dronecode-SDK-SwiftTests */,
+				DFDA52732077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -325,6 +432,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DF68BF012064617900175337 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFDA52722077A813008DE8BF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,6 +474,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFDA52702077A813008DE8BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFDA52772077A813008DE8BF /* CoreTest.swift in Sources */,
+				DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -367,6 +490,11 @@
 			isa = PBXTargetDependency;
 			target = DF68BEF92064617900175337 /* Dronecode-SDK-Swift */;
 			targetProxy = DF68BF052064617900175337 /* PBXContainerItemProxy */;
+		};
+		DFDA527B2077A813008DE8BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF68BEF92064617900175337 /* Dronecode-SDK-Swift */;
+			targetProxy = DFDA527A2077A813008DE8BF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -582,6 +710,37 @@
 			};
 			name = Release;
 		};
+		DFDA527C2077A813008DE8BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63A74UA3T4;
+				INFOPLIST_FILE = Dronecode_SDK_SwiftIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.dronecode.Dronecode-SDK-SwiftIntegrationTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DFDA527D2077A813008DE8BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63A74UA3T4;
+				INFOPLIST_FILE = Dronecode_SDK_SwiftIntegrationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.dronecode.Dronecode-SDK-SwiftIntegrationTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -608,6 +767,15 @@
 			buildConfigurations = (
 				DF68BF122064617900175337 /* Debug */,
 				DF68BF132064617900175337 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFDA527E2077A813008DE8BF /* Build configuration list for PBXNativeTarget "Dronecode_SDK_SwiftIntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFDA527C2077A813008DE8BF /* Debug */,
+				DFDA527D2077A813008DE8BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

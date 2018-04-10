@@ -11,12 +11,14 @@ class CoreTest: XCTestCase {
     let ARBITRARY_PLUGIN_ADDRESS: String = "localhost"
     let ARBITRARY_PLUGIN_PORT: Int32 = 1291
 
+    let scheduler: SchedulerType = MainScheduler.instance
+
     func testDiscoverObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Core_CoreServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Core_CoreServiceSubscribeDiscoverCallTestStub()
         fakeService.subscribediscoverCalls.append(fakeCall)
 
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
@@ -35,7 +37,7 @@ class CoreTest: XCTestCase {
         fakeCall.outputs = [createDiscoverResponse(uuid: expectedUUID)]
         fakeService.subscribediscoverCalls.append(fakeCall)
 
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
@@ -70,7 +72,7 @@ class CoreTest: XCTestCase {
         }
         fakeService.subscribediscoverCalls.append(fakeCall)
 
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
@@ -85,7 +87,7 @@ class CoreTest: XCTestCase {
         expectedEvents.append(completed(0))
 
         XCTAssertEqual(expectedEvents.count, observer.events.count)
-        XCTAssertEqual(observer.events, expectedEvents)
+        XCTAssertEqual(expectedEvents, observer.events)
     }
 
     func testTimeoutObservableEmitsNothingWhenNoEvent() {
@@ -93,7 +95,7 @@ class CoreTest: XCTestCase {
         let fakeCall = Dronecore_Rpc_Core_CoreServiceSubscribeTimeoutCallTestStub()
         fakeService.subscribetimeoutCalls.append(fakeCall)
 
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Void.self)
 
@@ -118,7 +120,7 @@ class CoreTest: XCTestCase {
         }
         fakeService.subscribetimeoutCalls.append(fakeCall)
 
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Void.self)
 
@@ -136,7 +138,7 @@ class CoreTest: XCTestCase {
     func testListRunningPluginsEmitsNothingWhenEmpty() {
         let fakeService = Dronecore_Rpc_Core_CoreServiceServiceTestStub()
         fakeService.listrunningpluginsResponses.append(Dronecore_Rpc_Core_ListRunningPluginsResponse())
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
 
         let pluginInfos = try! client.getRunningPluginsObservable().toBlocking().toArray()
 
@@ -148,7 +150,7 @@ class CoreTest: XCTestCase {
         var response = Dronecore_Rpc_Core_ListRunningPluginsResponse()
         response.pluginInfo.append(createRPCPluginInfo(name: ARBITRARY_PLUGIN_NAME, address: ARBITRARY_PLUGIN_ADDRESS, port: ARBITRARY_PLUGIN_PORT))
         fakeService.listrunningpluginsResponses.append(response)
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
         let expectedPluginInfo = translateRPCPluginInfo(pluginInfoRPC: response.pluginInfo[0])
 
         let pluginInfos = try? client.getRunningPluginsObservable().toBlocking().toArray()
@@ -177,7 +179,7 @@ class CoreTest: XCTestCase {
         response.pluginInfo.append(createRPCPluginInfo(name: "name2", address: "add2", port: 1492))
         response.pluginInfo.append(createRPCPluginInfo(name: "name3", address: "add3", port: 1515))
         fakeService.listrunningpluginsResponses.append(response)
-        let client = Core(service: fakeService)
+        let client = Core(service: fakeService, scheduler: self.scheduler)
 
         let pluginInfos = try? client.getRunningPluginsObservable().toBlocking().toArray()
 
