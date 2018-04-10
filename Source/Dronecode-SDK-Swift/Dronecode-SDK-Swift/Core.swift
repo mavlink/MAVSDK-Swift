@@ -4,9 +4,9 @@ import gRPC
 import RxSwift
 
 public struct PluginInfo: Equatable {
-    var name: String
-    var address: String
-    var port: Int32
+    public var name: String
+    public var address: String
+    public var port: Int32
 
     public static func == (lhs: PluginInfo, rhs: PluginInfo) -> Bool {
         return lhs.name == rhs.name && lhs.address == rhs.address && lhs.port == rhs.port
@@ -15,23 +15,29 @@ public struct PluginInfo: Equatable {
 
 public class Core {
     let service: Dronecore_Rpc_Core_CoreServiceService
+    let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost", port: Int32 = 50051) {
-        let service = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)")
-        self.init(service: service)
+        let service = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
+        self.init(service: service, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
     }
 
-    init(service: Dronecore_Rpc_Core_CoreServiceService = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "localhost:50051", secure: false)) {
+    init(service: Dronecore_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
         self.service = service
-        
+        self.scheduler = scheduler
+
         gRPC.initialize()
     }
 
     public func connect() {
+        let semaphore = DispatchSemaphore(value: 0)
+
         DispatchQueue.global(qos: .background).async {
             print("Running backend in background (MAVLink port: 14540)")
-            runBackend(14540)
+            runBackend(14540, { unmanagedSemaphore in let semaphore = Unmanaged<DispatchSemaphore>.fromOpaque(unmanagedSemaphore!).takeRetainedValue(); semaphore.signal() }, Unmanaged.passRetained(semaphore).toOpaque())
         }
+
+        semaphore.wait()
     }
 
     public func getDiscoverObservable() -> Observable<UInt64> {
@@ -48,7 +54,7 @@ public class Core {
             }
 
             return Disposables.create()
-        }
+            }.subscribeOn(self.scheduler)
     }
 
     public func getTimeoutObservable() -> Observable<Void> {
@@ -65,7 +71,7 @@ public class Core {
             }
 
             return Disposables.create()
-        }
+        }.subscribeOn(self.scheduler)
     }
 
     public func getRunningPluginsObservable() -> Observable<PluginInfo> {
@@ -76,7 +82,7 @@ public class Core {
             for pluginInfo in (response?.pluginInfo)! {
                 observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
             }
-            
+
             observer.onCompleted()
             return Disposables.create()
         }

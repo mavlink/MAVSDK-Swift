@@ -9,7 +9,7 @@ public class Action {
     let service: Dronecore_Rpc_Action_ActionServiceService
 
     public convenience init(address: String, port: Int) {
-        let service = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)")
+        let service = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
         self.init(service: service)
     }
     
