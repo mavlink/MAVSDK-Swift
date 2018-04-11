@@ -19,7 +19,9 @@ public class Core {
 
     public convenience init(address: String = "localhost", port: Int32 = 50051) {
         let service = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
-        self.init(service: service, scheduler: ConcurrentDispatchQueueScheduler(qos: .background))
+        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+
+        self.init(service: service, scheduler: scheduler)
     }
 
     init(service: Dronecore_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
