@@ -85,4 +85,89 @@ class TelemetryTest: XCTestCase {
 
         checkPositionObservableReceivesEvents(positions: positions)
     }
+
+    func testHealthObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
+        fakeService.subscribehealthCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Health.self)
+
+        let _ = telemetry.getHealthObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+
+    func testHealthObservableReceivesOneEvent() {
+        checkHealthObservableReceivesEvents(nbEvents: 1)
+    }
+
+    func createRandomRPCHealth() -> Dronecore_Rpc_Telemetry_Health {
+        var health = Dronecore_Rpc_Telemetry_Health()
+
+        health.isGyrometerCalibrationOk = generateRandomBool()
+        health.isAccelerometerCalibrationOk = generateRandomBool()
+        health.isMagnetometerCalibrationOk = generateRandomBool()
+        health.isLevelCalibrationOk = generateRandomBool()
+        health.isLocalPositionOk = generateRandomBool()
+        health.isGlobalPositionOk = generateRandomBool()
+        health.isHomePositionOk = generateRandomBool()
+
+        return health
+    }
+
+    func generateRandomBool() -> Bool {
+        return arc4random_uniform(2) == 0
+    }
+
+    func checkHealthObservableReceivesEvents(nbEvents: UInt) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
+
+        var healths = [Dronecore_Rpc_Telemetry_Health]()
+        for _ in 1...nbEvents {
+            healths.append(createRandomRPCHealth())
+        }
+
+        for health in healths {
+            fakeCall.outputs.append(createHealthResponse(health: health))
+        }
+        fakeService.subscribehealthCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Health.self)
+
+        let _ = telemetry.getHealthObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<Health>>]()
+        for health in healths {
+            expectedEvents.append(next(0, translateRPCHealth(healthRPC: health)))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+
+    func createHealthResponse(health: Dronecore_Rpc_Telemetry_Health) -> Dronecore_Rpc_Telemetry_HealthResponse {
+        var response = Dronecore_Rpc_Telemetry_HealthResponse()
+        response.health = health
+
+        return response
+    }
+
+    func translateRPCHealth(healthRPC: Dronecore_Rpc_Telemetry_Health) -> Health {
+        return Health(isGyrometerCalibrationOk: healthRPC.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: healthRPC.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: healthRPC.isMagnetometerCalibrationOk, isLevelCalibrationOk: healthRPC.isLevelCalibrationOk, isLocalPositionOk: healthRPC.isLocalPositionOk, isGlobalPositionOk: healthRPC.isGlobalPositionOk, isHomePositionOk: healthRPC.isHomePositionOk)
+    }
+
+    func testHealthObservableReceivesMultipleEvents() {
+        checkHealthObservableReceivesEvents(nbEvents: 10)
+    }
 }

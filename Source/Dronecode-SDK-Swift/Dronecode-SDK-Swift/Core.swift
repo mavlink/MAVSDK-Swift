@@ -4,9 +4,9 @@ import gRPC
 import RxSwift
 
 public struct PluginInfo: Equatable {
-    public var name: String
-    public var address: String
-    public var port: Int32
+    public let name: String
+    public let address: String
+    public let port: Int32
 
     public static func == (lhs: PluginInfo, rhs: PluginInfo) -> Bool {
         return lhs.name == rhs.name && lhs.address == rhs.address && lhs.port == rhs.port

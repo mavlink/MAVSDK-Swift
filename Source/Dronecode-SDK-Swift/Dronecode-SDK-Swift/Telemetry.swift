@@ -3,16 +3,36 @@ import gRPC
 import RxSwift
 
 public struct Position: Equatable {
-    public var latitudeDeg: Double
-    public var longitudeDeg: Double
-    public var absoluteAltitudeM: Float
-    public var relativeAltitudeM: Float
+    public let latitudeDeg: Double
+    public let longitudeDeg: Double
+    public let absoluteAltitudeM: Float
+    public let relativeAltitudeM: Float
 
     public static func == (lhs: Position, rhs: Position) -> Bool {
         return lhs.latitudeDeg == rhs.latitudeDeg
             && lhs.longitudeDeg == rhs.longitudeDeg
             && lhs.absoluteAltitudeM == rhs.absoluteAltitudeM
             && lhs.relativeAltitudeM == rhs.relativeAltitudeM
+    }
+}
+
+public struct Health: Equatable {
+    public let isGyrometerCalibrationOk: Bool
+    public let isAccelerometerCalibrationOk: Bool
+    public let isMagnetometerCalibrationOk: Bool
+    public let isLevelCalibrationOk: Bool
+    public let isLocalPositionOk: Bool
+    public let isGlobalPositionOk: Bool
+    public let isHomePositionOk: Bool
+
+    public static func == (lhs: Health, rhs: Health) -> Bool {
+        return lhs.isGyrometerCalibrationOk == rhs.isGyrometerCalibrationOk
+            && lhs.isAccelerometerCalibrationOk == rhs.isAccelerometerCalibrationOk
+            && lhs.isMagnetometerCalibrationOk == rhs.isMagnetometerCalibrationOk
+            && lhs.isLevelCalibrationOk == rhs.isLevelCalibrationOk
+            && lhs.isLocalPositionOk == rhs.isLocalPositionOk
+            && lhs.isGlobalPositionOk == rhs.isGlobalPositionOk
+            && lhs.isHomePositionOk == rhs.isHomePositionOk
     }
 }
 
@@ -49,5 +69,24 @@ public class Telemetry {
 
             return Disposables.create()
             }.subscribeOn(self.scheduler)
+    }
+
+    public func getHealthObservable() -> Observable<Health> {
+        return Observable.create { observer in
+            let healthRequest = Dronecore_Rpc_Telemetry_SubscribeHealthRequest()
+
+            do {
+                let call = try self.service.subscribehealth(healthRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let health = Health(isGyrometerCalibrationOk: response.health.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: response.health.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: response.health.isMagnetometerCalibrationOk, isLevelCalibrationOk: response.health.isLevelCalibrationOk, isLocalPositionOk: response.health.isLocalPositionOk, isGlobalPositionOk: response.health.isGlobalPositionOk, isHomePositionOk: response.health.isHomePositionOk)
+
+                    observer.onNext(health)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to health stream")
+            }
+
+            return Disposables.create()
+        }.subscribeOn(self.scheduler)
     }
 }
