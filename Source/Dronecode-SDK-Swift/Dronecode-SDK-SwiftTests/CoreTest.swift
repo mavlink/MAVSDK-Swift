@@ -11,7 +11,7 @@ class CoreTest: XCTestCase {
     let ARBITRARY_PLUGIN_ADDRESS: String = "localhost"
     let ARBITRARY_PLUGIN_PORT: Int32 = 1291
 
-    let scheduler: SchedulerType = MainScheduler.instance
+    let scheduler = MainScheduler.instance
 
     func testDiscoverObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Core_CoreServiceServiceTestStub()

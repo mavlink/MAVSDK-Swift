@@ -13,7 +13,7 @@ public class Action {
         self.init(service: service)
     }
     
-    init(service: Dronecore_Rpc_Action_ActionServiceService = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "localhost:50051", secure: false)) {
+    init(service: Dronecore_Rpc_Action_ActionServiceService) {
         self.service = service
     }
 
