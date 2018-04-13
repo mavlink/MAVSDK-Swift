@@ -23,9 +23,9 @@ class TelemetryTest: XCTestCase {
         let telemetry = Telemetry(address: "localhost", port: 50051)
 
         do {
-            let healthEvents = try telemetry.getHealthObservable().take(5).toBlocking(timeout: 5).toArray()
+            let healthEvents = try telemetry.getHealthObservable().take(2).toBlocking(timeout: 5).toArray()
         } catch {
-            XCTFail("HealthObservable is expected to receive 5 events in 5 seconds, but it did not!")
+            XCTFail("HealthObservable is expected to receive 2 events in 5 seconds, but it did not!")
         }
     }
 }
