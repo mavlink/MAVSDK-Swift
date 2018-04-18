@@ -11,6 +11,9 @@
 		DF020A10207D4CC600CEE035 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0F207D4CC600CEE035 /* Telemetry.swift */; };
 		DF020A12207D4CEF00CEE035 /* TelemetryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */; };
 		DF020A14207E03A100CEE035 /* TelemetryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A13207E03A100CEE035 /* TelemetryTest.swift */; };
+		DF020A1620873D3B00CEE035 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1520873D3B00CEE035 /* Mission.swift */; };
+		DF020A1820873E7D00CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1720873E7D00CEE035 /* MissionTest.swift */; };
+		DF020A1A20877B9900CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1920877B9900CEE035 /* MissionTest.swift */; };
 		DF16D54F2074F9610018AF1F /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF16D5502074F9860018AF1F /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -141,6 +144,9 @@
 		DF020A0F207D4CC600CEE035 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryTest.swift; sourceTree = "<group>"; };
 		DF020A13207E03A100CEE035 /* TelemetryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryTest.swift; sourceTree = "<group>"; };
+		DF020A1520873D3B00CEE035 /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		DF020A1720873E7D00CEE035 /* MissionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTest.swift; sourceTree = "<group>"; };
+		DF020A1920877B9900CEE035 /* MissionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTest.swift; sourceTree = "<group>"; };
 		DF674CC5206D946E00421042 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dronecode_SDK_Swift.h; sourceTree = "<group>"; };
@@ -255,6 +261,7 @@
 			children = (
 				DF68BF3A2064633D00175337 /* Action.swift */,
 				DF674CC5206D946E00421042 /* Core.swift */,
+				DF020A1520873D3B00CEE035 /* Mission.swift */,
 				DF020A0F207D4CC600CEE035 /* Telemetry.swift */,
 				DF68BF14206461DF00175337 /* Generated */,
 				DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */,
@@ -266,6 +273,7 @@
 		DF68BF072064617900175337 /* Dronecode-SDK-SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				DF020A1720873E7D00CEE035 /* MissionTest.swift */,
 				DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */,
 				DF68BF082064617900175337 /* ActionTest.swift */,
 				DFA0B042207581F1007BDD4B /* CoreTest.swift */,
@@ -310,6 +318,7 @@
 		DFDA52752077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				DF020A1920877B9900CEE035 /* MissionTest.swift */,
 				DF020A13207E03A100CEE035 /* TelemetryTest.swift */,
 				DF020A0D207CEBEF00CEE035 /* ActionTest.swift */,
 				DFDA52762077A813008DE8BF /* CoreTest.swift */,
@@ -467,6 +476,7 @@
 				DFA0B03D207524EA007BDD4B /* core.pb.swift in Sources */,
 				DFA0B03C207524EA007BDD4B /* core.grpc.swift in Sources */,
 				DF020A10207D4CC600CEE035 /* Telemetry.swift in Sources */,
+				DF020A1620873D3B00CEE035 /* Mission.swift in Sources */,
 				DF68BF3B2064633D00175337 /* Action.swift in Sources */,
 				DFA0B040207524EA007BDD4B /* action.pb.swift in Sources */,
 				DF674CC6206D946E00421042 /* Core.swift in Sources */,
@@ -481,6 +491,7 @@
 			files = (
 				DF020A12207D4CEF00CEE035 /* TelemetryTest.swift in Sources */,
 				DFA0B043207581F1007BDD4B /* CoreTest.swift in Sources */,
+				DF020A1820873E7D00CEE035 /* MissionTest.swift in Sources */,
 				DF68BF092064617900175337 /* ActionTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +502,7 @@
 			files = (
 				DF020A14207E03A100CEE035 /* TelemetryTest.swift in Sources */,
 				DFDA52772077A813008DE8BF /* CoreTest.swift in Sources */,
+				DF020A1A20877B9900CEE035 /* MissionTest.swift in Sources */,
 				DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

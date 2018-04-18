@@ -377,6 +377,9 @@ struct Dronecore_Rpc_Mission_MissionResult {
     case invalidArgument // = 6
     case unsupported // = 7
     case noMissionAvailable // = 8
+    case failedToOpenQgcPlan // = 9
+    case failedToParseQgcPlan // = 10
+    case unsupportedMissionCmd // = 11
     case UNRECOGNIZED(Int)
 
     init() {
@@ -394,6 +397,9 @@ struct Dronecore_Rpc_Mission_MissionResult {
       case 6: self = .invalidArgument
       case 7: self = .unsupported
       case 8: self = .noMissionAvailable
+      case 9: self = .failedToOpenQgcPlan
+      case 10: self = .failedToParseQgcPlan
+      case 11: self = .unsupportedMissionCmd
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -409,6 +415,9 @@ struct Dronecore_Rpc_Mission_MissionResult {
       case .invalidArgument: return 6
       case .unsupported: return 7
       case .noMissionAvailable: return 8
+      case .failedToOpenQgcPlan: return 9
+      case .failedToParseQgcPlan: return 10
+      case .unsupportedMissionCmd: return 11
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -1229,5 +1238,8 @@ extension Dronecore_Rpc_Mission_MissionResult.Result: SwiftProtobuf._ProtoNamePr
     6: .same(proto: "INVALID_ARGUMENT"),
     7: .same(proto: "UNSUPPORTED"),
     8: .same(proto: "NO_MISSION_AVAILABLE"),
+    9: .same(proto: "FAILED_TO_OPEN_QGC_PLAN"),
+    10: .same(proto: "FAILED_TO_PARSE_QGC_PLAN"),
+    11: .same(proto: "UNSUPPORTED_MISSION_CMD"),
   ]
 }
