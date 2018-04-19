@@ -7,7 +7,7 @@
 
 Pod::Spec.new do |spec|
   spec.name             = "DroneCore-Swift"
-  spec.version          = "0.0.1"
+  spec.version          = "0.0.2"
   spec.summary          = "DroneCore client for swift"
 
 # This description is used to generate tags and improve search results.
@@ -17,6 +17,6 @@ Pod::Spec.new do |spec|
   spec.author          = { "ayameMBS" => "marjory.silvestre@gmail.com" }
   spec.platform        = :ios, '11.0'
   spec.requires_arc    = true
-  spec.source          = { :http => "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecore-swift-prototype.zip"}
-  spec.vendored_frameworks = 'backend.framework','BoringSSL.framework','CgRPC.framework','Czlib.framework','DroneCore_Swift.framework','gRPC.framework','RxSwift.framework','SwiftProtobuf.framework','SwiftProtobufPluginLibrary.framework'
+  spec.source          = { :http => "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecode-sdk-swift-latest.zip"}
+  spec.vendored_frameworks = 'backend.framework','BoringSSL.framework','CgRPC.framework','Czlib.framework','Dronecode_SDK_Swift.framework','gRPC.framework','RxSwift.framework','RxBlocking.framework','SwiftProtobuf.framework','SwiftProtobufPluginLibrary.framework'
 end
