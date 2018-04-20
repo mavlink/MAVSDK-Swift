@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DroneCore_Swift
+import Dronecode_SDK_Swift
 
 let UI_CORNER_RADIUS_BUTTONS = CGFloat(8.0)
 
@@ -18,6 +18,9 @@ class ActionsViewController: UIViewController {
     @IBOutlet weak var takeoffButton: UIButton!
     @IBOutlet weak var landButton: UIButton!
     
+    //  ACTION
+    let action = Action(address: "localhost", port: 50051)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +28,10 @@ class ActionsViewController: UIViewController {
         armButton.layer.cornerRadius        = UI_CORNER_RADIUS_BUTTONS
         takeoffButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         landButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
+        
+        // Start System
+        let core = Core()
+        core.connect()
 
     }
 
@@ -34,27 +41,25 @@ class ActionsViewController: UIViewController {
     }
     
     @IBAction func armPressed(_ sender: Any) {
-        let action = Action()
         let myRoutine = action.arm()
-            .do(onError: { error in ActionsViewController.showAlert("Arming failed", viewController:self) },
+            .do(onError: { error in ActionsViewController.showAlert("Arming failed : \(error.localizedDescription)", viewController:self) },
                 onCompleted: { ActionsViewController.showAlert("Arming succeeded",viewController:self) })
-        myRoutine.subscribe()
+        _ = myRoutine.subscribe()
+        
     }
     
     @IBAction func takeoffPressed(_ sender: Any) {
-         let action = Action()
          let myRoutine = action.takeoff()
          .do(onError: { error in ActionsViewController.showAlert("Takeoff failed", viewController:self) },
          onCompleted: { ActionsViewController.showAlert("Takeoff succeeded",viewController:self) })
-         myRoutine.subscribe()
+         _ = myRoutine.subscribe()
     }
     
     @IBAction func landPressed(_ sender: Any) {
-         let action = Action()
          let myRoutine = action.land()
          .do(onError: { error in ActionsViewController.showAlert("Land failed", viewController:self) },
          onCompleted: { ActionsViewController.showAlert("Land succeeded", viewController:self) })
-         myRoutine.subscribe()
+         _ = myRoutine.subscribe()
     }
 
     class func showAlert(_ message: String?, viewController: UIViewController?) {
