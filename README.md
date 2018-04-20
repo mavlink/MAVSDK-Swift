@@ -161,7 +161,7 @@ When we release a new version of the SDK, you can pick up the changes as describ
     let core = Core()
     core.connect()
     ```
-3. Example to use the library :
+3. Examples to use the library :
 
     ```swift
     let action = Action(address: "localhost", port: 50051)
@@ -175,8 +175,8 @@ When we release a new version of the SDK, you can pick up the changes as describ
         .do(onError: { error in print("Arming failed") },
         onCompleted: { print("Arming succeeded") })
     _ = myRoutine.subscribe()
-
-
+    ```
+    
     ```swift
      let action = Action(address: "localhost", port: 50051)
     
