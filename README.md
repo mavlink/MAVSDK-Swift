@@ -154,22 +154,35 @@ When we release a new version of the SDK, you can pick up the changes as describ
     ```swift
     import Dronecode_SDK_Swift
     ```
-        
-4. Example to use the library :	
+    
+2. In Swift file you want to use the SDK, start core system as in the following example:
+    
+    ```swift
+    let core = Core()
+    core.connect()
+    ```
+3. Example to use the library :
 
     ```swift
-    let action = Action()
+    let action = Action(address: "localhost", port: 50051)
     sleep(5) // this is a hack for this prototype
     action.arm().subscribe()
     ```
 
+    ```swift
+    let action = Action(address: "localhost", port: 50051)
+    let myRoutine = action.arm()
+        .do(onError: { error in print("Arming failed") },
+        onCompleted: { print("Arming succeeded") })
+    _ = myRoutine.subscribe()
+
 
     ```swift
-    let action = Action()
+     let action = Action(address: "localhost", port: 50051)
+    
+     sleep(5) // this is a hack for this prototype
         
-        sleep(5) // this is a hack for this prototype
-        
-        let myRoutine = action.arm()
+     let myRoutine = action.arm()
             .do(onError: { error in print("Arming failed") },
                 onCompleted: { print("Arming succeeded") })
             .andThen(action.takeoff()
@@ -180,5 +193,5 @@ When we release a new version of the SDK, you can pick up the changes as describ
                 .do(onError: { error in print("Landing failed") },
                     onCompleted: { print("Landing succeeded") }));
         
-        myRoutine.subscribe()
+    _ = myRoutine.subscribe()
     ```
