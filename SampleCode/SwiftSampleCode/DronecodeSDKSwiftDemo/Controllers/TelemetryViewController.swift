@@ -15,8 +15,12 @@ class TelemetryViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var connectionLabel: UILabel!
     @IBOutlet weak var telemetryTableView: UITableView!
-
     
+    // MARK: - Properties
+    private var telemetry_entries: TelemetryEntries?
+    private var timer: Timer?
+
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,31 +29,15 @@ class TelemetryViewController: UIViewController {
         // Start System
         CoreManager.shared().start()
         
-        let coreStatus: Observable<UInt64> = CoreManager.shared().core.getDiscoverObservable()
-        _ = coreStatus.subscribe(onNext: { uuid in
-            //UUID du drone connected
-            print("Drone Discovered with UUID : \(uuid)")
-            
-                DispatchQueue.main.async { // Correct
-                    self.connectionLabel.text = "Drone Discovered with UUID : \(uuid)"
-                }
-            
-            
-            }, onError: { error in
-            print("Error Discover \(error)")
-        })
-       /* let coreTimeout: Observable<UInt64> = core.getTimeoutObservable()
-        _ = coreStatus.subscribe({  in
-            <#code#>
-        })*/
+        // Telemetry entries
+        telemetry_entries = TelemetryEntries()
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector:  #selector(updateView), userInfo: nil, repeats: true)
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
-       
-        sleep(5)
         
-        let position: Observable<Position> = CoreManager.shared().telemetry.getPositionObservable()
+        /*let position: Observable<Position> = CoreManager.shared().telemetry.getPositionObservable()
         _ = position.subscribe(onNext: { position in
             //print ("next pos \(position)")
         }, onError: { error in
@@ -61,9 +49,21 @@ class TelemetryViewController: UIViewController {
             print ("next health \(health)")
         }, onError: { error in
             print("error health")
-        })
+        })*/
+    }
+    
+    // MARK: - TableView
+    @objc func updateView(_ _timer: Timer?) {
+        let entry = telemetry_entries?.entries[EntryType.connection.rawValue]
+        if entry != nil {
+            connectionLabel.text = entry?.value
+        } else {
+            connectionLabel.text = entry?.value
+        }
+        telemetryTableView.reloadData()
     }
 
+    // MARK: -
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

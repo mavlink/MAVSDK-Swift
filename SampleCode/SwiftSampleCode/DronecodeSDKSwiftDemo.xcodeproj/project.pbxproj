@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0A6A5D208F6DB200B3E12F /* TelemetryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */; };
+		2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */; };
 		2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC0207610C500F42184 /* AppDelegate.swift */; };
 		2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC2207610C500F42184 /* TelemetryViewController.swift */; };
 		2C365ECB207610C500F42184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EC9207610C500F42184 /* Main.storyboard */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryEntry.swift; sourceTree = "<group>"; };
+		2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryEntries.swift; sourceTree = "<group>"; };
 		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C365EC0207610C500F42184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C365EC2207610C500F42184 /* TelemetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +66,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0A6A5B208F6D9A00B3E12F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */,
+				2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2C365EB4207610C500F42184 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +99,7 @@
 				2C365EC0207610C500F42184 /* AppDelegate.swift */,
 				2CCEB79A2089F25B0086AA37 /* Managers */,
 				2CDBF022207659D00064C8A5 /* Controllers */,
+				2C0A6A5B208F6D9A00B3E12F /* Models */,
 				2C365EE42076247000F42184 /* Assets.xcassets */,
 				2C365EE120761F3000F42184 /* LaunchScreen.storyboard */,
 				2C365EC9207610C500F42184 /* Main.storyboard */,
@@ -225,7 +239,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0A6A5D208F6DB200B3E12F /* TelemetryEntry.swift in Sources */,
 				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
+				2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */,
 				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
 				2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */,
 				2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */,
