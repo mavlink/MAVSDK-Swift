@@ -18,9 +18,7 @@ class ActionsViewController: UIViewController {
     @IBOutlet weak var takeoffButton: UIButton!
     @IBOutlet weak var landButton: UIButton!
     
-    //  ACTION
-    let action = Action(address: "localhost", port: 50051)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,10 +27,6 @@ class ActionsViewController: UIViewController {
         takeoffButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         landButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
         
-        // Start System
-        let core = Core()
-        core.connect()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,7 +35,7 @@ class ActionsViewController: UIViewController {
     }
     
     @IBAction func armPressed(_ sender: Any) {
-        let myRoutine = action.arm()
+        let myRoutine = CoreManager.shared().action.arm()
             .do(onError: { error in ActionsViewController.showAlert("Arming failed : \(error.localizedDescription)", viewController:self) },
                 onCompleted: { ActionsViewController.showAlert("Arming succeeded",viewController:self) })
         _ = myRoutine.subscribe()
@@ -49,14 +43,14 @@ class ActionsViewController: UIViewController {
     }
     
     @IBAction func takeoffPressed(_ sender: Any) {
-         let myRoutine = action.takeoff()
+         let myRoutine = CoreManager.shared().action.takeoff()
          .do(onError: { error in ActionsViewController.showAlert("Takeoff failed", viewController:self) },
          onCompleted: { ActionsViewController.showAlert("Takeoff succeeded",viewController:self) })
          _ = myRoutine.subscribe()
     }
     
     @IBAction func landPressed(_ sender: Any) {
-         let myRoutine = action.land()
+         let myRoutine = CoreManager.shared().action.land()
          .do(onError: { error in ActionsViewController.showAlert("Land failed", viewController:self) },
          onCompleted: { ActionsViewController.showAlert("Land succeeded", viewController:self) })
          _ = myRoutine.subscribe()
