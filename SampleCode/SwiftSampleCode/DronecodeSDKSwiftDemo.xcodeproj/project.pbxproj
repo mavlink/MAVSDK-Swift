@@ -13,6 +13,7 @@
 		2C365ED6207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365ED5207610C500F42184 /* DronecodeSDKSwiftDemoTests.swift */; };
 		2C365EE320761F3000F42184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE120761F3000F42184 /* LaunchScreen.storyboard */; };
 		2C365EE52076247100F42184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE42076247000F42184 /* Assets.xcassets */; };
+		2CCEB7992089F2510086AA37 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEB7982089F2510086AA37 /* CoreManager.swift */; };
 		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
 		2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7270207750AF0060D31B /* ActionsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		2C365ED7207610C500F42184 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C365EE220761F3000F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C365EE42076247000F42184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2CCEB7982089F2510086AA37 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
 		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2CFF7270207750AF0060D31B /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				2C365EC0207610C500F42184 /* AppDelegate.swift */,
+				2CCEB79A2089F25B0086AA37 /* Managers */,
 				2CDBF022207659D00064C8A5 /* Controllers */,
 				2C365EE42076247000F42184 /* Assets.xcassets */,
 				2C365EE120761F3000F42184 /* LaunchScreen.storyboard */,
@@ -98,6 +101,15 @@
 				2C365ED7207610C500F42184 /* Info.plist */,
 			);
 			path = DronecodeSDKSwiftDemoTests;
+			sourceTree = "<group>";
+		};
+		2CCEB79A2089F25B0086AA37 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				2CCEB7982089F2510086AA37 /* CoreManager.swift */,
+			);
+			name = Managers;
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		2CDBF022207659D00064C8A5 /* Controllers */ = {
@@ -217,6 +229,7 @@
 				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
 				2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */,
 				2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */,
+				2CCEB7992089F2510086AA37 /* CoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
