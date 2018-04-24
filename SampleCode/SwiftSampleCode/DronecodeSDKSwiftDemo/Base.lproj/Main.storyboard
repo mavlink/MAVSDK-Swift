@@ -61,7 +61,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DfI-qP-ql3"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="icon-placeholder-location" id="tjt-Kd-Upu"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon-tab-placeholder-location" id="tjt-Kd-Upu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HsY-YG-XdC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -166,7 +166,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="80S-14-yWP"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Telemetry" image="icon-drone" id="026-hv-NUE"/>
+                    <tabBarItem key="tabBarItem" title="Telemetry" image="icon-tab-drone" id="026-hv-NUE"/>
                     <connections>
                         <outlet property="connectionLabel" destination="YzY-xG-hTH" id="Mvg-ro-RhZ"/>
                         <outlet property="telemetryTableView" destination="nd0-LA-VGD" id="khD-da-4im"/>
@@ -297,7 +297,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BbI-d0-ZTc"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Actions" image="icon-action-remote" id="yNa-Xh-EiY"/>
+                    <tabBarItem key="tabBarItem" title="Actions" image="icon-tab-action-remote" id="yNa-Xh-EiY"/>
                     <connections>
                         <outlet property="armButton" destination="1UW-DY-BUo" id="P9Z-QG-7AY"/>
                         <outlet property="landButton" destination="hIj-zF-IzN" id="ZyA-u0-QxB"/>
@@ -310,9 +310,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon-action-remote" width="24" height="24"/>
-        <image name="icon-drone" width="24" height="24"/>
-        <image name="icon-placeholder-location" width="24" height="24"/>
+        <image name="icon-tab-action-remote" width="24" height="24"/>
+        <image name="icon-tab-drone" width="24" height="24"/>
+        <image name="icon-tab-placeholder-location" width="24" height="24"/>
         <image name="logo-DroneCore-thumb" width="80" height="18"/>
     </resources>
 </document>
