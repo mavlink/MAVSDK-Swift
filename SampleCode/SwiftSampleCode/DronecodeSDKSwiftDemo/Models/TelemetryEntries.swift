@@ -87,6 +87,15 @@ class TelemetryEntries {
         }, onError: { error in
             print("Error Health")
         })
+        
+        //Listen Position
+        let position: Observable<Position> = CoreManager.shared().telemetry.getPositionObservable()
+        _ = position.subscribe(onNext: { position in
+            //print ("Next Pos \(position)")
+            self.onPositionUpdate(position: position)
+        }, onError: { error in
+            print("error telemetry")
+        })
     }
     
     func onTimeoutObservable()
@@ -98,6 +107,13 @@ class TelemetryEntries {
     func onHealthUpdate(health:Health)
     {
         entries[EntryType.health.rawValue].value = "Calibration \(health.isAccelerometerCalibrationOk ? "Ready" : "Not OK"), GPS \(health.isLocalPositionOk ? "Ready" : "Acquiring")"
+    }
+    
+    func onPositionUpdate(position:Position)
+    {
+        entries[EntryType.altitude.rawValue].value = "\(position.relativeAltitudeM) m, \(position.absoluteAltitudeM) m"
+        
+        entries[EntryType.latitude_longitude.rawValue].value = "\(position.latitudeDeg) Deg, \(position.longitudeDeg) Deg"
     }
 
 }
