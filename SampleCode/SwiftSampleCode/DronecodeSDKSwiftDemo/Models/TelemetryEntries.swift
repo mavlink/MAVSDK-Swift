@@ -13,9 +13,9 @@ import Dronecode_SDK_Swift
 enum EntryType : Int {
     case connection = 0
     case health
-    case armed
     case altitude
     case latitude_longitude
+    case armed
     case groundspeed
     case battery
     case attitude
