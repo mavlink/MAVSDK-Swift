@@ -16,6 +16,9 @@ class CoreManager {
     var telemetry = Telemetry(address: "localhost", port: 50051)
     // Action
     let action = Action(address: "localhost", port: 50051)
+    // Mission
+    let mission = Mission(address: "localhost", port: 50051)
+    // Core System
     let core: Core
     
     
