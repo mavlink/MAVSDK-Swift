@@ -40,20 +40,7 @@ class TelemetryViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        /*let position: Observable<Position> = CoreManager.shared().telemetry.getPositionObservable()
-        _ = position.subscribe(onNext: { position in
-            //print ("next pos \(position)")
-        }, onError: { error in
-            print("error telemetry")
-        })
-        
-        let health: Observable<Health> = CoreManager.shared().telemetry.getHealthObservable()
-        _ = health.subscribe(onNext: { health in
-            print ("next health \(health)")
-        }, onError: { error in
-            print("error health")
-        })*/
+
     }
     
     // MARK: - TableView
