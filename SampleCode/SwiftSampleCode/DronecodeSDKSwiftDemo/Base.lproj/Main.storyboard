@@ -48,6 +48,42 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dit-VP-mwP">
                                 <rect key="frame" x="0.0" y="88" width="375" height="530"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2X-jE-oO8">
+                                <rect key="frame" x="10" y="98" width="115" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Send Mission"/>
+                                <connections>
+                                    <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="ad1-Ck-hUP"/>
+                                    <action selector="sendMissionPressed:" destination="F62-mM-U7q" eventType="touchUpInside" id="RNk-mv-za9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGF-tf-2rt">
+                                <rect key="frame" x="10" y="142" width="115" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Start Mission"/>
+                                <connections>
+                                    <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="JKo-nJ-wuK"/>
+                                    <action selector="startMissionPressed:" destination="F62-mM-U7q" eventType="touchUpInside" id="F5W-2V-FkA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Yr-hO-nqJ">
+                                <rect key="frame" x="10" y="187" width="115" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Pause Mission"/>
+                                <connections>
+                                    <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="d81-kG-EtC"/>
+                                    <action selector="pauseMissionPressed:" destination="F62-mM-U7q" eventType="touchUpInside" id="Gh1-SR-2pX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
