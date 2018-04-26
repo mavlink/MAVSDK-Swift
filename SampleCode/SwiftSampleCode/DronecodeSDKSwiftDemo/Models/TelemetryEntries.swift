@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import MapKit
 import Dronecode_SDK_Swift
 
 enum EntryType : Int {
@@ -92,9 +93,10 @@ class TelemetryEntries {
         let position: Observable<Position> = CoreManager.shared().telemetry.getPositionObservable()
         _ = position.subscribe(onNext: { position in
             //print ("Next Pos \(position)")
+            CoreManager.shared().droneState.location2D = CLLocationCoordinate2DMake(position.latitudeDeg,position.longitudeDeg)
             self.onPositionUpdate(position: position)
         }, onError: { error in
-            print("error telemetry")
+            print("Error telemetry")
         })
     }
     
