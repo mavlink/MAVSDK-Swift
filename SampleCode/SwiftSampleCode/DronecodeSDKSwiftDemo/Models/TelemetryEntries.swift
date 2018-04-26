@@ -8,18 +8,19 @@
 
 import Foundation
 import RxSwift
+import Dronecode_SDK_Swift
 
 enum EntryType : Int {
-    case altitude = 0
+    case connection = 0
+    case health
+    case armed
+    case altitude
     case latitude_longitude
     case groundspeed
     case battery
     case attitude
     case gps
     case in_air
-    case armed
-    case health
-    case connection
     case entry_type_max
 }
 
@@ -31,7 +32,17 @@ class TelemetryEntries {
         // Prepare entries array : index EntryType value TelemetryEntry
         if entries.isEmpty {
             entries = [TelemetryEntry](repeating:TelemetryEntry(), count:10)
-            entries.reserveCapacity(10)
+            do {
+                let entry = TelemetryEntry()
+                entry.property = "Connection"
+                entry.value = "No Connection";
+                entries.insert(entry, at: EntryType.connection.rawValue)
+            }
+            do {
+                let entry = TelemetryEntry()
+                entry.property = "Health"
+                entries.insert(entry, at: EntryType.health.rawValue)
+            }
             do {
                 let entry = TelemetryEntry()
                 entry.property = "Relative, absolute altitude"
@@ -42,18 +53,8 @@ class TelemetryEntries {
                 entry.property = "Latitude, longitude"
                 entries.insert(entry, at: EntryType.latitude_longitude.rawValue)
             }
-            do {
-                let entry = TelemetryEntry()
-                entry.property = "Health"
-                print("value health \(EntryType.health.rawValue)")
-                entries.insert(entry, at: EntryType.health.rawValue)
-            }
-            do {
-                let entry = TelemetryEntry()
-                entry.property = "Connection"
-                entry.value = "No Connection";
-                entries.insert(entry, at: EntryType.connection.rawValue)
-            }
+            
+            
         }
         
         //Listen Connection
@@ -70,18 +71,33 @@ class TelemetryEntries {
         
     }
     
+    // MARK: -
     func onDiscoverObservable(uuid:UInt64)
     {
         //UUID of connected drone 
         print("Drone Connected with UUID : \(uuid)")
         entries[EntryType.connection.rawValue].value = "Drone Connected with UUID : \(uuid)"
+        entries[EntryType.connection.rawValue].state = 1
+        
+        //Listen Health
+        let health: Observable<Health> = CoreManager.shared().telemetry.getHealthObservable()
+        _ = health.subscribe(onNext: { health in
+            //print ("Next health \(health)")
+            self.onHealthUpdate(health: health)
+        }, onError: { error in
+            print("Error Health")
+        })
     }
     
     func onTimeoutObservable()
     {
-        //UUID of connected drone
-        print("Timeout Core")
         entries[EntryType.connection.rawValue].value = "Not Connected"
+        entries[EntryType.connection.rawValue].state = 0
+    }
+    
+    func onHealthUpdate(health:Health)
+    {
+        entries[EntryType.health.rawValue].value = "Calibration \(health.isAccelerometerCalibrationOk ? "Ready" : "Not OK"), GPS \(health.isLocalPositionOk ? "Ready" : "Acquiring")"
     }
 
 }

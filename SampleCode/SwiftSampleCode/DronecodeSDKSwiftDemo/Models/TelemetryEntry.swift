@@ -13,13 +13,15 @@ class TelemetryEntry {
     
     var property: String = ""
     var value: String = ""
+    var state : Int = 0
     
     convenience init() {
-        self.init(property: "", value: "-")
+        self.init(property: "", value: "-", state: 0)
     }
 
-    init(property: String?, value: String?) {
+    init(property: String?, value: String?, state: Int?) {
         self.property = property!
         self.value = value!
+        self.state = state!
     }
 }

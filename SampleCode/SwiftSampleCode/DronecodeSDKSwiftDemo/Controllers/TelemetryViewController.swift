@@ -10,7 +10,7 @@ import UIKit
 import Dronecode_SDK_Swift
 import RxSwift
 
-class TelemetryViewController: UIViewController {
+class TelemetryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
 
     // MARK: - IBOutlets
     @IBOutlet weak var connectionLabel: UILabel!
@@ -25,6 +25,10 @@ class TelemetryViewController: UIViewController {
         super.viewDidLoad()
         
         connectionLabel.text = "Starting system ..."
+        
+        //TableView set datasource and delegate
+        self.telemetryTableView.delegate = self
+        self.telemetryTableView.dataSource = self
         
         // Start System
         CoreManager.shared().start()
@@ -56,11 +60,33 @@ class TelemetryViewController: UIViewController {
     @objc func updateView(_ _timer: Timer?) {
         let entry = telemetry_entries?.entries[EntryType.connection.rawValue]
         if entry != nil {
-            connectionLabel.text = entry?.value
+            connectionLabel.text = entry?.state == 1 ? "Connected" : "Disconnected"
         } else {
-            connectionLabel.text = entry?.value
+            connectionLabel.text = "No information about connection"
         }
         telemetryTableView.reloadData()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return telemetry_entries!.entries.count
+    }
+
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TelemetryCell", for: indexPath)
+        
+        let count_entries : Int = (telemetry_entries?.entries.count)!
+        if (count_entries > 0) {
+            if let entry = telemetry_entries?.entries[indexPath.row] {
+                cell.textLabel?.text = entry.value;
+                cell.detailTextLabel?.text = entry.property;
+            }
+        }
+        
+        return cell
     }
 
     // MARK: -
