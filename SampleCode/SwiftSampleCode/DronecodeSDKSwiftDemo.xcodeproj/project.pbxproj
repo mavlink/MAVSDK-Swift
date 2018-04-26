@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2C0648C72091DC06002BD970 /* ExampleMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648C62091DC06002BD970 /* ExampleMission.swift */; };
+		2C0648CE2091FCC6002BD970 /* DroneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648CD2091FCC6002BD970 /* DroneState.swift */; };
+		2C0648D1209214DB002BD970 /* DroneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648CF209214DB002BD970 /* DroneView.swift */; };
+		2C0648D2209214DB002BD970 /* DroneAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648D0209214DB002BD970 /* DroneAnnotation.swift */; };
 		2C0A6A5D208F6DB200B3E12F /* TelemetryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */; };
 		2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */; };
 		2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC0207610C500F42184 /* AppDelegate.swift */; };
@@ -33,6 +36,9 @@
 
 /* Begin PBXFileReference section */
 		2C0648C62091DC06002BD970 /* ExampleMission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMission.swift; sourceTree = "<group>"; };
+		2C0648CD2091FCC6002BD970 /* DroneState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneState.swift; sourceTree = "<group>"; };
+		2C0648CF209214DB002BD970 /* DroneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DroneView.swift; path = DronecodeSDKSwiftDemo/Views/DroneView.swift; sourceTree = SOURCE_ROOT; };
+		2C0648D0209214DB002BD970 /* DroneAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DroneAnnotation.swift; path = DronecodeSDKSwiftDemo/Views/DroneAnnotation.swift; sourceTree = SOURCE_ROOT; };
 		2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryEntry.swift; sourceTree = "<group>"; };
 		2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryEntries.swift; sourceTree = "<group>"; };
 		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +80,7 @@
 				2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */,
 				2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */,
 				2C0648C62091DC06002BD970 /* ExampleMission.swift */,
+				2C0648CD2091FCC6002BD970 /* DroneState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -100,7 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				2C365EC0207610C500F42184 /* AppDelegate.swift */,
-				2CCEB79A2089F25B0086AA37 /* Managers */,
+				2C0648CA2091EA85002BD970 /* Views */,
+				2CCEB79A2089F25B0086AA37 /* Manager */,
 				2CDBF022207659D00064C8A5 /* Controllers */,
 				2C0A6A5B208F6D9A00B3E12F /* Models */,
 				2C365EE42076247000F42184 /* Assets.xcassets */,
@@ -120,12 +128,11 @@
 			path = DronecodeSDKSwiftDemoTests;
 			sourceTree = "<group>";
 		};
-		2CCEB79A2089F25B0086AA37 /* Managers */ = {
+		2CCEB79A2089F25B0086AA37 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				2CCEB7982089F2510086AA37 /* CoreManager.swift */,
 			);
-			name = Managers;
 			path = Manager;
 			sourceTree = "<group>";
 		};
@@ -243,12 +250,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C0A6A5D208F6DB200B3E12F /* TelemetryEntry.swift in Sources */,
+				2C0648D2209214DB002BD970 /* DroneAnnotation.swift in Sources */,
+				2C0648D1209214DB002BD970 /* DroneView.swift in Sources */,
 				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
 				2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */,
 				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
 				2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */,
 				2C0648C72091DC06002BD970 /* ExampleMission.swift in Sources */,
 				2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */,
+				2C0648CE2091FCC6002BD970 /* DroneState.swift in Sources */,
 				2CCEB7992089F2510086AA37 /* CoreManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
