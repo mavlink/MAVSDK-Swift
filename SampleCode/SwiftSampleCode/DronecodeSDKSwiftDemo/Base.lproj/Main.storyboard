@@ -52,23 +52,21 @@
                                 <rect key="frame" x="10" y="98" width="115" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Send Mission"/>
+                                <state key="normal" title="Upload Mission"/>
                                 <connections>
-                                    <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="ad1-Ck-hUP"/>
-                                    <action selector="sendMissionPressed:" destination="F62-mM-U7q" eventType="touchUpInside" id="RNk-mv-za9"/>
+                                    <action selector="uploadMissionPressed:" destination="F62-mM-U7q" eventType="touchUpInside" id="RDX-Ak-jPd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGF-tf-2rt">
                                 <rect key="frame" x="10" y="142" width="115" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Start Mission"/>
                                 <connections>
-                                    <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="JKo-nJ-wuK"/>
                                     <action selector="startMissionPressed:" destination="F62-mM-U7q" eventType="touchUpInside" id="F5W-2V-FkA"/>
                                 </connections>
                             </button>
