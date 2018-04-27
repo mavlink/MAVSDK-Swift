@@ -15,6 +15,11 @@ class MapViewController: UIViewController {
     // MARK: - Properties
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var feedbackLabel: UILabel!
+    @IBOutlet weak var uploadMissionButton: UIButton!
+    @IBOutlet weak var startMissionButton: UIButton!
+    @IBOutlet weak var pauseMissionButton: UIButton!
+    
     let regionRadius: CLLocationDistance = 1000
     
     private var droneAnnotation: DroneAnnotation!
@@ -29,6 +34,18 @@ class MapViewController: UIViewController {
         let initialLocation = CLLocation(latitude: 47.398039859999997, longitude: 8.5455725400000002)
         centerMapOnLocation(location: initialLocation)
         
+        // init text for feedback and add round corner and border
+        feedbackLabel.text = "Welcome"
+        feedbackLabel.layer.cornerRadius   = UI_CORNER_RADIUS_BUTTONS
+        feedbackLabel?.layer.masksToBounds = true
+        feedbackLabel?.layer.borderColor = UIColor.lightGray.cgColor
+        feedbackLabel?.layer.borderWidth = 1.0
+        
+        
+        // set corners for buttons
+        uploadMissionButton.layer.cornerRadius   = UI_CORNER_RADIUS_BUTTONS
+        startMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        pauseMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         
         // init mapview delegate
         mapView.delegate = self
@@ -51,24 +68,24 @@ class MapViewController: UIViewController {
     // MARK: - IBActions Mission
     
     @IBAction func uploadMissionPressed(_ sender: Any) {
-        print("Upload Mission Pressed")
+        self.displayFeedback(message:"Upload Mission Pressed")
         
         self.uploadMission()
     }
     
     @IBAction func startMissionPressed(_ sender: Any) {
-        print("Start Mission Pressed")
+        self.displayFeedback(message:"Start Mission Pressed")
         
         // /!\ NEED TO ARM BEFORE START THE MISSION
         let armRoutine = CoreManager.shared().action.arm()
-            .do(onError: { error in print("Arming failed")},
+            .do(onError: { error in self.displayFeedback(message:"Arming failed")},
                 onCompleted: { self.startMission() })
         _ = armRoutine.subscribe()
        
     }
     
     @IBAction func pauseMissionPressed(_ sender: Any) {
-        print("Pause Mission Pressed")
+        self.displayFeedback(message:"Pause Mission Pressed")
     }
     
     // MARK: - Missions
@@ -76,8 +93,8 @@ class MapViewController: UIViewController {
     func uploadMission(){
         let missionExample:ExampleMission = ExampleMission()
         let sendMissionRoutine = CoreManager.shared().mission.uploadMission(missionItems: missionExample.missionItems).do(
-            onError: { error in print("Mission uploaded failed \(error)") },
-            onCompleted: { print("Mission uploaded with success") })
+            onError: { error in self.displayFeedback(message:"Mission uploaded failed \(error)") },
+            onCompleted: { self.displayFeedback(message:"Mission uploaded with success") })
         
         _ = sendMissionRoutine.subscribe()
         
@@ -85,8 +102,8 @@ class MapViewController: UIViewController {
     
     func startMission(){
         let startMissionRoutine = CoreManager.shared().mission.startMission().do(
-            onError: { error in print("Mission started failed \(error)") },
-            onCompleted: { print("Mission started with success") })
+            onError: { error in self.displayFeedback(message: "Mission started failed \(error)") },
+            onCompleted: { self.displayFeedback(message:"Mission started with success") })
         
         _ = startMissionRoutine.subscribe()
     }
@@ -106,6 +123,11 @@ class MapViewController: UIViewController {
             // Update the UI
             self.droneAnnotation.coordinate = CoreManager.shared().droneState.location2D
         }
+    }
+    
+    func displayFeedback(message:String){
+        print(message)
+        feedbackLabel.text = message
     }
     
 }
