@@ -100,9 +100,12 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - DroneState
+    
     @objc func updateDroneInfosDisplayed(_ _timer: Timer?) {
-        droneAnnotation.coordinate = CoreManager.shared().droneState.location2D
-        //mapView.showAnnotations(mapView.annotations, animated: true)
+        DispatchQueue.main.async {
+            // Update the UI
+            self.droneAnnotation.coordinate = CoreManager.shared().droneState.location2D
+        }
     }
     
 }
