@@ -50,8 +50,8 @@ class MapViewController: UIViewController {
 
     // MARK: - IBActions Mission
     
-    @IBAction func sendMissionPressed(_ sender: Any) {
-        print("Send Mission Pressed")
+    @IBAction func uploadMissionPressed(_ sender: Any) {
+        print("Upload Mission Pressed")
         
         self.uploadMission()
     }
