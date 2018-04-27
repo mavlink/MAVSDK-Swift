@@ -20,9 +20,5 @@ class DroneAnnotation: NSObject, MKAnnotation {
         
         super.init()
     }
-    
-    /*func setCoordinate(coordinate: CLLocationCoordinate2D) {
-        self.coordinate = coordinate
-    }*/
 
 }
