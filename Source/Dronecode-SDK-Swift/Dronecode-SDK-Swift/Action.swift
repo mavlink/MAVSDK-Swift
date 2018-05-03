@@ -37,6 +37,26 @@ public class Action {
         }
     }
     
+    public func disarm() -> Completable {
+        return Completable.create { completable in
+            let disarmRequest = Dronecore_Rpc_Action_DisarmRequest()
+            
+            do {
+                let disarmResponse = try self.service.disarm(disarmRequest)
+                if (disarmResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot disarm: \(disarmResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
     public func takeoff() -> Completable {
         return Completable.create { completable in
             let takeoffRequest = Dronecore_Rpc_Action_TakeoffRequest()
