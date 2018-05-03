@@ -116,4 +116,24 @@ public class Action {
             }
         }
     }
+    
+    public func returnToLaunch() -> Completable {
+        return Completable.create { completable in
+            let rtlRequest = Dronecore_Rpc_Action_ReturnToLaunchRequest()
+            
+            do {
+                let rtlResponse = try self.service.returntolaunch(rtlRequest)
+                if (rtlResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot return to launch: \(rtlResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
 }
