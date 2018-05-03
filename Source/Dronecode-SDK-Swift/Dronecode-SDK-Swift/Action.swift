@@ -176,4 +176,16 @@ public class Action {
             }
         }
     }
+    
+    
+    public func getTakeoffAltitude() -> Float {
+        let getTakeoffAltitudeRequest = Dronecore_Rpc_Action_GetTakeoffAltitudeRequest()
+
+        do {
+            let getTakeoffAltitudeResponse = try self.service.gettakeoffaltitude(getTakeoffAltitudeRequest)
+            return getTakeoffAltitudeResponse.altitudeM
+        }catch {
+            return -1
+        }
+    }
 }
