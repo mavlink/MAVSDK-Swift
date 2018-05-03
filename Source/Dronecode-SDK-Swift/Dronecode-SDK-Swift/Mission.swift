@@ -5,14 +5,14 @@ import RxSwift
 public struct MissionItem : Equatable {
     public let latitudeDeg: Double
     public let longitudeDeg: Double
-    public let relativeAltitudeM: Double
+    public let relativeAltitudeM: Float
     public let speedMPS: Float
     public let isFlyThrough: Bool
     public let gimbalPitchDeg: Float
     public let gimbalYawDeg: Float
     public let cameraAction: CameraAction
 
-    public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Double, speedMPS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction) {
+    public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMPS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction) {
         self.latitudeDeg = latitudeDeg
         self.longitudeDeg = longitudeDeg
         self.relativeAltitudeM = relativeAltitudeM
