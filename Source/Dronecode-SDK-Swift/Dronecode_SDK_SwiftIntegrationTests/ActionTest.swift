@@ -54,4 +54,6 @@ class ActionTest: XCTestCase {
             .andThen(action.kill().do(onError: { error in XCTFail("\(error)") }))
             .subscribe()
     }
+    
+    //TODO add tests ReturnToLaunch, transitionToFixedWings, transitionToMulticopter
 }
