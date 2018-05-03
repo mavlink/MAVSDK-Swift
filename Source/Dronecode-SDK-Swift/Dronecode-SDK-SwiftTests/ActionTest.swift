@@ -174,6 +174,19 @@ class ActionTest: XCTestCase {
         return client.transitionToMulticopter().toBlocking().materialize()
     }
     
+    // MARK: - GET TAKEOFF ALTITUDE
+    func testGetTakeoffAltitudeSucceedsOnSuccess() {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        let response = Dronecore_Rpc_Action_GetTakeoffAltitudeResponse()
+        fakeService.gettakeoffaltitudeResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        if( client.getTakeoffAltitude() == -1){
+            XCTFail("Expecting success, got failure : getTakeoffAltitude()")
+        }
+    }
+    
+    
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
         switch result {
