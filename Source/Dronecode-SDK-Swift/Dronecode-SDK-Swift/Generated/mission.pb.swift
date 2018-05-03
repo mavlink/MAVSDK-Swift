@@ -76,6 +76,15 @@ struct Dronecore_Rpc_Mission_DownloadMissionResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var missionResult: Dronecore_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Dronecore_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_storage._missionResult = nil}
+
   var mission: Dronecore_Rpc_Mission_Mission {
     get {return _storage._mission ?? Dronecore_Rpc_Mission_Mission()}
     set {_uniqueStorage()._mission = newValue}
@@ -298,7 +307,7 @@ struct Dronecore_Rpc_Mission_MissionItem {
 
   var longitudeDeg: Double = 0
 
-  var relativeAltitudeM: Double = 0
+  var relativeAltitudeM: Float = 0
 
   var speedMS: Float = 0
 
@@ -575,10 +584,12 @@ extension Dronecore_Rpc_Mission_DownloadMissionRequest: SwiftProtobuf.Message, S
 extension Dronecore_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".DownloadMissionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "mission"),
+    1: .standard(proto: "mission_result"),
+    2: .same(proto: "mission"),
   ]
 
   fileprivate class _StorageClass {
+    var _missionResult: Dronecore_Rpc_Mission_MissionResult? = nil
     var _mission: Dronecore_Rpc_Mission_Mission? = nil
 
     static let defaultInstance = _StorageClass()
@@ -586,6 +597,7 @@ extension Dronecore_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, 
     private init() {}
 
     init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
       _mission = source._mission
     }
   }
@@ -602,7 +614,8 @@ extension Dronecore_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, 
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._mission)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._mission)
         default: break
         }
       }
@@ -611,8 +624,11 @@ extension Dronecore_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, 
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._mission {
+      if let v = _storage._missionResult {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._mission {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -623,6 +639,7 @@ extension Dronecore_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, 
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let other_storage = _args.1
+        if _storage._missionResult != other_storage._missionResult {return false}
         if _storage._mission != other_storage._mission {return false}
         return true
       }
@@ -1128,7 +1145,7 @@ extension Dronecore_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobu
       switch fieldNumber {
       case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
       case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
-      case 3: try decoder.decodeSingularDoubleField(value: &self.relativeAltitudeM)
+      case 3: try decoder.decodeSingularFloatField(value: &self.relativeAltitudeM)
       case 4: try decoder.decodeSingularFloatField(value: &self.speedMS)
       case 5: try decoder.decodeSingularBoolField(value: &self.isFlyThrough)
       case 6: try decoder.decodeSingularFloatField(value: &self.gimbalPitchDeg)
@@ -1147,7 +1164,7 @@ extension Dronecore_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobu
       try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 2)
     }
     if self.relativeAltitudeM != 0 {
-      try visitor.visitSingularDoubleField(value: self.relativeAltitudeM, fieldNumber: 3)
+      try visitor.visitSingularFloatField(value: self.relativeAltitudeM, fieldNumber: 3)
     }
     if self.speedMS != 0 {
       try visitor.visitSingularFloatField(value: self.speedMS, fieldNumber: 4)

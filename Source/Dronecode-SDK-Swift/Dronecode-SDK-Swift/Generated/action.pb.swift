@@ -205,7 +205,7 @@ struct Dronecore_Rpc_Action_ReturnToLaunchResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Dronecore_Rpc_Action_TransitionToFixedWingsRequest {
+struct Dronecore_Rpc_Action_TransitionToFixedWingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -215,7 +215,7 @@ struct Dronecore_Rpc_Action_TransitionToFixedWingsRequest {
   init() {}
 }
 
-struct Dronecore_Rpc_Action_TransitionToFixedWingsResponse {
+struct Dronecore_Rpc_Action_TransitionToFixedWingResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -306,20 +306,9 @@ struct Dronecore_Rpc_Action_SetTakeoffAltitudeResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: Dronecore_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? Dronecore_Rpc_Action_ActionResult()}
-    set {_uniqueStorage()._actionResult = newValue}
-  }
-  /// Returns true if `actionResult` has been explicitly set.
-  var hasActionResult: Bool {return _storage._actionResult != nil}
-  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
-
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Dronecore_Rpc_Action_GetMaximumSpeedRequest {
@@ -361,20 +350,9 @@ struct Dronecore_Rpc_Action_SetMaximumSpeedResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: Dronecore_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? Dronecore_Rpc_Action_ActionResult()}
-    set {_uniqueStorage()._actionResult = newValue}
-  }
-  /// Returns true if `actionResult` has been explicitly set.
-  var hasActionResult: Bool {return _storage._actionResult != nil}
-  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
-
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Dronecore_Rpc_Action_ActionResult {
@@ -930,8 +908,8 @@ extension Dronecore_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Dronecore_Rpc_Action_TransitionToFixedWingsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingsRequest"
+extension Dronecore_Rpc_Action_TransitionToFixedWingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -943,14 +921,14 @@ extension Dronecore_Rpc_Action_TransitionToFixedWingsRequest: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Dronecore_Rpc_Action_TransitionToFixedWingsRequest) -> Bool {
+  func _protobuf_generated_isEqualTo(other: Dronecore_Rpc_Action_TransitionToFixedWingRequest) -> Bool {
     if unknownFields != other.unknownFields {return false}
     return true
   }
 }
 
-extension Dronecore_Rpc_Action_TransitionToFixedWingsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingsResponse"
+extension Dronecore_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
@@ -995,7 +973,7 @@ extension Dronecore_Rpc_Action_TransitionToFixedWingsResponse: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: Dronecore_Rpc_Action_TransitionToFixedWingsResponse) -> Bool {
+  func _protobuf_generated_isEqualTo(other: Dronecore_Rpc_Action_TransitionToFixedWingResponse) -> Bool {
     if _storage !== other._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1169,60 +1147,18 @@ extension Dronecore_Rpc_Action_SetTakeoffAltitudeRequest: SwiftProtobuf.Message,
 
 extension Dronecore_Rpc_Action_SetTakeoffAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetTakeoffAltitudeResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "action_result"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _actionResult: Dronecore_Rpc_Action_ActionResult? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _actionResult = source._actionResult
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
-        default: break
-        }
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._actionResult {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: Dronecore_Rpc_Action_SetTakeoffAltitudeResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
     if unknownFields != other.unknownFields {return false}
     return true
   }
@@ -1307,60 +1243,18 @@ extension Dronecore_Rpc_Action_SetMaximumSpeedRequest: SwiftProtobuf.Message, Sw
 
 extension Dronecore_Rpc_Action_SetMaximumSpeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetMaximumSpeedResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "action_result"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _actionResult: Dronecore_Rpc_Action_ActionResult? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _actionResult = source._actionResult
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
-        default: break
-        }
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._actionResult {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: Dronecore_Rpc_Action_SetMaximumSpeedResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
     if unknownFields != other.unknownFields {return false}
     return true
   }

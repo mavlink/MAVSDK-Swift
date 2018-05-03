@@ -61,10 +61,10 @@ fileprivate final class Dronecore_Rpc_Action_ActionServiceReturnToLaunchCallBase
   override class var method: String { return "/dronecore.rpc.action.ActionService/ReturnToLaunch" }
 }
 
-internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCall: ClientCallUnary {}
+internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCall: ClientCallUnary {}
 
-fileprivate final class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCallBase: ClientCallUnaryBase<Dronecore_Rpc_Action_TransitionToFixedWingsRequest, Dronecore_Rpc_Action_TransitionToFixedWingsResponse>, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCall {
-  override class var method: String { return "/dronecore.rpc.action.ActionService/TransitionToFixedWings" }
+fileprivate final class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCallBase: ClientCallUnaryBase<Dronecore_Rpc_Action_TransitionToFixedWingRequest, Dronecore_Rpc_Action_TransitionToFixedWingResponse>, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+  override class var method: String { return "/dronecore.rpc.action.ActionService/TransitionToFixedWing" }
 }
 
 internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterCall: ClientCallUnary {}
@@ -131,9 +131,9 @@ internal protocol Dronecore_Rpc_Action_ActionServiceService: ServiceClient {
   func returntolaunch(_ request: Dronecore_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (Dronecore_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceReturnToLaunchCall
 
   /// Synchronous. Unary.
-  func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingsResponse
+  func transitiontofixedwing(_ request: Dronecore_Rpc_Action_TransitionToFixedWingRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingResponse
   /// Asynchronous. Unary.
-  func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingsResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCall
+  func transitiontofixedwing(_ request: Dronecore_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCall
 
   /// Synchronous. Unary.
   func transitiontomulticopter(_ request: Dronecore_Rpc_Action_TransitionToMulticopterRequest) throws -> Dronecore_Rpc_Action_TransitionToMulticopterResponse
@@ -230,13 +230,13 @@ internal final class Dronecore_Rpc_Action_ActionServiceServiceClient: ServiceCli
   }
 
   /// Synchronous. Unary.
-  internal func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingsResponse {
-    return try Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCallBase(channel)
+  internal func transitiontofixedwing(_ request: Dronecore_Rpc_Action_TransitionToFixedWingRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingResponse {
+    return try Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
       .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  internal func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingsResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCall {
-    return try Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCallBase(channel)
+  internal func transitiontofixedwing(_ request: Dronecore_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+    return try Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
@@ -364,14 +364,14 @@ class Dronecore_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBa
     fatalError("not implemented")
   }
 
-  var transitiontofixedwingsRequests: [Dronecore_Rpc_Action_TransitionToFixedWingsRequest] = []
-  var transitiontofixedwingsResponses: [Dronecore_Rpc_Action_TransitionToFixedWingsResponse] = []
-  func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingsResponse {
-    transitiontofixedwingsRequests.append(request)
-    defer { transitiontofixedwingsResponses.removeFirst() }
-    return transitiontofixedwingsResponses.first!
+  var transitiontofixedwingRequests: [Dronecore_Rpc_Action_TransitionToFixedWingRequest] = []
+  var transitiontofixedwingResponses: [Dronecore_Rpc_Action_TransitionToFixedWingResponse] = []
+  func transitiontofixedwing(_ request: Dronecore_Rpc_Action_TransitionToFixedWingRequest) throws -> Dronecore_Rpc_Action_TransitionToFixedWingResponse {
+    transitiontofixedwingRequests.append(request)
+    defer { transitiontofixedwingResponses.removeFirst() }
+    return transitiontofixedwingResponses.first!
   }
-  func transitiontofixedwings(_ request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingsResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsCall {
+  func transitiontofixedwing(_ request: Dronecore_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Dronecore_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingCall {
     fatalError("not implemented")
   }
 
@@ -440,7 +440,7 @@ internal protocol Dronecore_Rpc_Action_ActionServiceProvider {
   func land(request: Dronecore_Rpc_Action_LandRequest, session: Dronecore_Rpc_Action_ActionServiceLandSession) throws -> Dronecore_Rpc_Action_LandResponse
   func kill(request: Dronecore_Rpc_Action_KillRequest, session: Dronecore_Rpc_Action_ActionServiceKillSession) throws -> Dronecore_Rpc_Action_KillResponse
   func returntolaunch(request: Dronecore_Rpc_Action_ReturnToLaunchRequest, session: Dronecore_Rpc_Action_ActionServiceReturnToLaunchSession) throws -> Dronecore_Rpc_Action_ReturnToLaunchResponse
-  func transitiontofixedwings(request: Dronecore_Rpc_Action_TransitionToFixedWingsRequest, session: Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession) throws -> Dronecore_Rpc_Action_TransitionToFixedWingsResponse
+  func transitiontofixedwing(request: Dronecore_Rpc_Action_TransitionToFixedWingRequest, session: Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSession) throws -> Dronecore_Rpc_Action_TransitionToFixedWingResponse
   func transitiontomulticopter(request: Dronecore_Rpc_Action_TransitionToMulticopterRequest, session: Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSession) throws -> Dronecore_Rpc_Action_TransitionToMulticopterResponse
   func gettakeoffaltitude(request: Dronecore_Rpc_Action_GetTakeoffAltitudeRequest, session: Dronecore_Rpc_Action_ActionServiceGetTakeoffAltitudeSession) throws -> Dronecore_Rpc_Action_GetTakeoffAltitudeResponse
   func settakeoffaltitude(request: Dronecore_Rpc_Action_SetTakeoffAltitudeRequest, session: Dronecore_Rpc_Action_ActionServiceSetTakeoffAltitudeSession) throws -> Dronecore_Rpc_Action_SetTakeoffAltitudeResponse
@@ -484,11 +484,11 @@ fileprivate final class Dronecore_Rpc_Action_ActionServiceReturnToLaunchSessionB
 
 class Dronecore_Rpc_Action_ActionServiceReturnToLaunchSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceReturnToLaunchSession {}
 
-internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession: ServerSessionUnary {}
+internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSession: ServerSessionUnary {}
 
-fileprivate final class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_TransitionToFixedWingsRequest, Dronecore_Rpc_Action_TransitionToFixedWingsResponse>, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession {}
+fileprivate final class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSessionBase: ServerSessionUnaryBase<Dronecore_Rpc_Action_TransitionToFixedWingRequest, Dronecore_Rpc_Action_TransitionToFixedWingResponse>, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSession {}
 
-class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSession {}
+class Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSessionTestStub: ServerSessionUnaryTestStub, Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSession {}
 
 internal protocol Dronecore_Rpc_Action_ActionServiceTransitionToMulticopterSession: ServerSessionUnary {}
 
@@ -575,10 +575,10 @@ internal final class Dronecore_Rpc_Action_ActionServiceServer: ServiceServer {
         providerBlock: { try provider.returntolaunch(request: $0, session: $1 as! Dronecore_Rpc_Action_ActionServiceReturnToLaunchSessionBase) })
           .run(queue: queue)
       return true
-    case "/dronecore.rpc.action.ActionService/TransitionToFixedWings":
-      try Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSessionBase(
+    case "/dronecore.rpc.action.ActionService/TransitionToFixedWing":
+      try Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSessionBase(
         handler: handler,
-        providerBlock: { try provider.transitiontofixedwings(request: $0, session: $1 as! Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingsSessionBase) })
+        providerBlock: { try provider.transitiontofixedwing(request: $0, session: $1 as! Dronecore_Rpc_Action_ActionServiceTransitionToFixedWingSessionBase) })
           .run(queue: queue)
       return true
     case "/dronecore.rpc.action.ActionService/TransitionToMulticopter":
