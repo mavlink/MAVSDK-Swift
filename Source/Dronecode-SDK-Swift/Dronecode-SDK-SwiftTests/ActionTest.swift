@@ -146,6 +146,34 @@ class ActionTest: XCTestCase {
         return client.transitionToFixedWings().toBlocking().materialize()
     }
     
+    // MARK: - TRANSITION TO MULTICOPTER
+    func testTransitionToMulticopterSucceedsOnSuccess() {
+        assertSuccess(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+    }
+    
+    func testTransitionToMulticopterFailsOnFailure() {
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
+        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+    }
+    
+    func transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Action_TransitionToMulticopterResponse()
+        response.actionResult.result = result
+        fakeService.transitiontomulticopterResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        return client.transitionToMulticopter().toBlocking().materialize()
+    }
+    
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
         switch result {

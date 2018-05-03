@@ -156,4 +156,24 @@ public class Action {
             }
         }
     }
+    
+    public func transitionToMulticopter() -> Completable {
+        return Completable.create { completable in
+            let toMulticopterRequest = Dronecore_Rpc_Action_TransitionToMulticopterRequest()
+            
+            do {
+                let toMulticopterResponse = try self.service.transitiontomulticopter(toMulticopterRequest)
+                if (toMulticopterResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot transition to multicopter: \(toMulticopterResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
 }
