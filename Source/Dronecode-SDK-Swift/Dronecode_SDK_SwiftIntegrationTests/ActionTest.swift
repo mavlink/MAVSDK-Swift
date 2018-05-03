@@ -21,7 +21,8 @@ class ActionTest: XCTestCase {
         
         sleep(1) // Wait for action plugin to be ready. Do NOT do this in production.
         
-        action.arm().do(onError: { error in XCTFail("\(error)")}).delay(15, scheduler: MainScheduler.instance)
+        action.arm().do(onError: { error in XCTFail("\(error)")})
+                    .delay(15, scheduler: MainScheduler.instance)
             .andThen(action.disarm().do(onError: { error in XCTFail("\(error)") }))
             .subscribe()
     }
@@ -37,6 +38,20 @@ class ActionTest: XCTestCase {
             .andThen(action.takeoff().do(onError: { error in XCTFail("\(error)") })
                                      .delay(15, scheduler: MainScheduler.instance))
             .andThen(action.land().do(onError: { error in XCTFail("\(error)") }))
+            .subscribe()
+    }
+    
+    func testTakeoffAndKillSucceeds() {
+        let core = Core()
+        core.connect()
+        let action = Action(address: "localhost", port: 50051)
+        
+        sleep(1) // Wait for action plugin to be ready. Do NOT do this in production.
+        
+        action.arm().do(onError: { error in XCTFail("\(error)")})
+            .andThen(action.takeoff().do(onError: { error in XCTFail("\(error)") })
+                .delay(15, scheduler: MainScheduler.instance))
+            .andThen(action.kill().do(onError: { error in XCTFail("\(error)") }))
             .subscribe()
     }
 }
