@@ -136,4 +136,24 @@ public class Action {
             }
         }
     }
+    
+    public func transitionToFixedWings() -> Completable {
+        return Completable.create { completable in
+            let toFixedWingsRequest = Dronecore_Rpc_Action_TransitionToFixedWingsRequest()
+            
+            do {
+                let toFixedWingsResponse = try self.service.transitiontofixedwings(toFixedWingsRequest)
+                if (toFixedWingsResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot transition to fixed wings: \(toFixedWingsResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
 }

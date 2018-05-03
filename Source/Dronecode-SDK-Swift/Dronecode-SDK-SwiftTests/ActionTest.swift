@@ -118,7 +118,33 @@ class ActionTest: XCTestCase {
         return client.returnToLaunch().toBlocking().materialize()
     }
     
+    // MARK: - TRANSITION TO FIXED WINGS
+    func testTransitionToFixedWingsSucceedsOnSuccess() {
+        assertSuccess(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+    }
     
+    func testTransitionToFixedWingsFailsOnFailure() {
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
+        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+    }
+    
+    func transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Action_TransitionToFixedWingsResponse()
+        response.actionResult.result = result
+        fakeService.transitiontofixedwingsResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        return client.transitionToFixedWings().toBlocking().materialize()
+    }
     
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
