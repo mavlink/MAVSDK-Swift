@@ -96,4 +96,24 @@ public class Action {
             }
         }
     }
+    
+    public func kill() -> Completable {
+        return Completable.create { completable in
+            let killRequest = Dronecore_Rpc_Action_KillRequest()
+            
+            do {
+                let killResponse = try self.service.kill(killRequest)
+                if (killResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot kill: \(killResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
 }

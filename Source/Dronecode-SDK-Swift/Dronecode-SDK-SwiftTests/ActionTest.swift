@@ -33,6 +33,16 @@ class ActionTest: XCTestCase {
         return client.disarm().toBlocking().materialize()
     }
     
+    func killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Action_KillResponse()
+        response.actionResult.result = result
+        fakeService.killResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        return client.kill().toBlocking().materialize()
+    }
+    
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
         switch result {
             case .completed:
@@ -66,6 +76,20 @@ class ActionTest: XCTestCase {
         assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
         assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
         assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+    }
+    
+    
+    func testKillFailsOnFailure() {
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
+        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
     }
 
     func assertFailure(result: MaterializedSequenceResult<Never>) {
