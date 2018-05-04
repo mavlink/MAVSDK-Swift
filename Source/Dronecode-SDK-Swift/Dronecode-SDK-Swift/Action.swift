@@ -191,6 +191,28 @@ public class Action {
                 return Disposables.create {}
             }
         }
-            
     }
+    
+    public func setTakeoffAltitude(altitude: Float) -> Completable{
+        
+        return Completable.create { completable in
+            var setTakeoffAltitudeRequest = Dronecore_Rpc_Action_SetTakeoffAltitudeRequest()
+            setTakeoffAltitudeRequest.altitudeM = altitude
+            
+            do {
+                let setTakeoffAltitudeResponse = try self.service.settakeoffaltitude(setTakeoffAltitudeRequest)
+                if (setTakeoffAltitudeResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot set takeoff altitude: \(setTakeoffAltitudeResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
 }

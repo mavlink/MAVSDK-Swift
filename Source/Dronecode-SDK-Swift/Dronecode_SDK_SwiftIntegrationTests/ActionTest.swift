@@ -55,5 +55,5 @@ class ActionTest: XCTestCase {
             .subscribe()
     }
     
-    //TODO add tests ReturnToLaunch, transitionToFixedWings, transitionToMulticopter
+    //TODO add tests ReturnToLaunch, transitionToFixedWings, transitionToMulticopter, getTakeoffAltitude, setTakeoffAltitude
 }
