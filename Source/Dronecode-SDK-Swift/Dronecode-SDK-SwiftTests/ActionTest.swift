@@ -238,6 +238,34 @@ class ActionTest: XCTestCase {
         }
     }
     
+    // MARK: - SET MAXIMUM SPEED
+    func testSetMaximumSpeedSucceedsOnSuccess() {
+        assertSuccess(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+    }
+    
+    func testSetMaximumSpeedFailsOnFailure() {
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
+        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+    }
+    
+    func setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Action_SetMaximumSpeedResponse()
+        response.actionResult.result = result
+        fakeService.setmaximumspeedResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        return client.setMaximumSpeed(speed: 20.0).toBlocking().materialize()
+    }
+    
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
         switch result {

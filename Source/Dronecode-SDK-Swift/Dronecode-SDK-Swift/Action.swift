@@ -230,4 +230,26 @@ public class Action {
         }
     }
     
+    public func setMaximumSpeed(speed: Float) -> Completable{
+        
+        return Completable.create { completable in
+            var setMaximumSpeedRequest = Dronecore_Rpc_Action_SetMaximumSpeedRequest()
+            setMaximumSpeedRequest.speedMS = speed
+            
+            do {
+                let setMaximumSpeedResponse = try self.service.setmaximumspeed(setMaximumSpeedRequest)
+                if (setMaximumSpeedResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                    return Disposables.create {}
+                } else {
+                    completable(.error("Cannot set maximum speed: \(setMaximumSpeedResponse.actionResult.result)"))
+                    return Disposables.create {}
+                }
+            } catch {
+                completable(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
 }
