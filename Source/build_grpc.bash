@@ -13,8 +13,8 @@ fi
 cd ${BUILD_DIR}/grpc-swift
 make
 
-xcodebuild -target BoringSSL -target gRPC -target Czlib -target CgRPC -target SwiftProtobuf -target SwiftProtobufPluginLibrary -configuration Release -sdk iphoneos
-xcodebuild -target BoringSSL -target gRPC -target Czlib -target CgRPC -target SwiftProtobuf -target SwiftProtobufPluginLibrary -configuration Release -sdk iphonesimulator
+xcodebuild -target BoringSSL -target gRPC -target Czlib -target CgRPC -target SwiftProtobuf -target SwiftProtobufPluginLibrary -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+xcodebuild -target BoringSSL -target gRPC -target Czlib -target CgRPC -target SwiftProtobuf -target SwiftProtobufPluginLibrary -configuration Release -sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
 # Generate fat binaries
 for TARGET_NAME in BoringSSL gRPC Czlib CgRPC SwiftProtobuf SwiftProtobufPluginLibrary; do
