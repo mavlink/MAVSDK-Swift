@@ -215,4 +215,19 @@ public class Action {
         }
     }
     
+    public func getMaximumSpeed() -> Single<Float> {
+        
+        return Single<Float>.create { single in
+            let getMaximumSpeedRequest = Dronecore_Rpc_Action_GetMaximumSpeedRequest()
+            do {
+                let getMaximumSpeedResponse = try self.service.getmaximumspeed(getMaximumSpeedRequest)
+                single(.success(getMaximumSpeedResponse.speedMS))
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
 }

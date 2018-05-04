@@ -220,6 +220,23 @@ class ActionTest: XCTestCase {
         return client.setTakeoffAltitude(altitude: 20.0).toBlocking().materialize()
     }
     
+    // MARK: - GET MAXIMUM SPEED
+    func testGetMaximumSpeedSucceedsOnSuccess() {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        let response = Dronecore_Rpc_Action_GetMaximumSpeedResponse()
+        fakeService.getmaximumspeedResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        _ = client.getMaximumSpeed().subscribe { event in
+            switch event {
+            case .success(_):
+                // Success : get maximum speed in m/s
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: getMaximumSpeed() \(error) ")
+            }
+        }
+    }
     
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
