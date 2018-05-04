@@ -181,8 +181,14 @@ class ActionTest: XCTestCase {
         fakeService.gettakeoffaltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
-        if( client.getTakeoffAltitude() == -1){
-            XCTFail("Expecting success, got failure : getTakeoffAltitude()")
+        _ = client.getTakeoffAltitude().subscribe { event in
+            switch event {
+            case .success(_):
+                // Success : get altitude
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: getTakeoffAltitude() \(error) ")
+            }
         }
     }
     

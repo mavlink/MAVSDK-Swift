@@ -178,14 +178,19 @@ public class Action {
     }
     
     
-    public func getTakeoffAltitude() -> Float {
-        let getTakeoffAltitudeRequest = Dronecore_Rpc_Action_GetTakeoffAltitudeRequest()
-
-        do {
-            let getTakeoffAltitudeResponse = try self.service.gettakeoffaltitude(getTakeoffAltitudeRequest)
-            return getTakeoffAltitudeResponse.altitudeM
-        }catch {
-            return -1
+    public func getTakeoffAltitude() -> Single<Float> {
+    
+        return Single<Float>.create { single in
+            let getTakeoffAltitudeRequest = Dronecore_Rpc_Action_GetTakeoffAltitudeRequest()
+            do {
+                let getTakeoffAltitudeResponse = try self.service.gettakeoffaltitude(getTakeoffAltitudeRequest)
+                single(.success(getTakeoffAltitudeResponse.altitudeM))
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
         }
+            
     }
 }
