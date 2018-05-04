@@ -6,6 +6,9 @@ import RxTest
 
 class ActionTest: XCTestCase {
     
+    let ARBITRARY_ALTITUDE: Float = 123.5
+    let ARBITRARY_SPEED: Float = 321.5
+    
     // MARK: - ARM
     func testArmSucceedsOnSuccess() {
         assertSuccess(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
@@ -176,15 +179,18 @@ class ActionTest: XCTestCase {
     
     // MARK: - GET TAKEOFF ALTITUDE
     func testGetTakeoffAltitudeSucceedsOnSuccess() {
+        let expectedAltitude: Float = ARBITRARY_ALTITUDE
+        
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        let response = Dronecore_Rpc_Action_GetTakeoffAltitudeResponse()
+        var response = Dronecore_Rpc_Action_GetTakeoffAltitudeResponse()
+        response.altitudeM = expectedAltitude
         fakeService.gettakeoffaltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
         _ = client.getTakeoffAltitude().subscribe { event in
             switch event {
-            case .success(_):
-                // Success : get altitude
+            case .success(let altitude):
+                XCTAssert(altitude == expectedAltitude)
                 break
             case .error(let error):
                 XCTFail("Expecting success, got failure: getTakeoffAltitude() \(error) ")
@@ -194,23 +200,10 @@ class ActionTest: XCTestCase {
     
     // MARK: - SET TAKEOFF ALTITUDE
     func testSetTakeoffAltitudeSucceedsOnSuccess() {
-        assertSuccess(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: setTakeoffAltitudeWithFakeResult())
     }
     
-    func testSetTakeoffAltitudeFailsOnFailure() {
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
-    }
-    
-    func setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+    func setTakeoffAltitudeWithFakeResult() -> MaterializedSequenceResult<Never> {
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
         let response = Dronecore_Rpc_Action_SetTakeoffAltitudeResponse()
         fakeService.settakeoffaltitudeResponses.append(response)
@@ -221,15 +214,17 @@ class ActionTest: XCTestCase {
     
     // MARK: - GET MAXIMUM SPEED
     func testGetMaximumSpeedSucceedsOnSuccess() {
+        let expectedSpeed = ARBITRARY_SPEED
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        let response = Dronecore_Rpc_Action_GetMaximumSpeedResponse()
+        var response = Dronecore_Rpc_Action_GetMaximumSpeedResponse()
+        response.speedMS = expectedSpeed
         fakeService.getmaximumspeedResponses.append(response)
         let client = Action(service: fakeService)
         
         _ = client.getMaximumSpeed().subscribe { event in
             switch event {
-            case .success(_):
-                // Success : get maximum speed in m/s
+            case .success(let speed):
+                XCTAssert(speed == expectedSpeed)
                 break
             case .error(let error):
                 XCTFail("Expecting success, got failure: getMaximumSpeed() \(error) ")
@@ -239,23 +234,10 @@ class ActionTest: XCTestCase {
     
     // MARK: - SET MAXIMUM SPEED
     func testSetMaximumSpeedSucceedsOnSuccess() {
-        assertSuccess(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: setMaximumSpeedWithFakeResult())
     }
     
-    func testSetMaximumSpeedFailsOnFailure() {
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
-    }
-    
-    func setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+    func setMaximumSpeedWithFakeResult() -> MaterializedSequenceResult<Never> {
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
         let response = Dronecore_Rpc_Action_SetMaximumSpeedResponse()
         fakeService.setmaximumspeedResponses.append(response)

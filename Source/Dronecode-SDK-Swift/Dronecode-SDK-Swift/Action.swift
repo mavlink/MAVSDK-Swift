@@ -201,6 +201,7 @@ public class Action {
             
             do {
                 let _ = try self.service.settakeoffaltitude(setTakeoffAltitudeRequest)
+                completable(.completed)
             } catch {
                 completable(.error(error))
             }
@@ -232,6 +233,7 @@ public class Action {
             
             do {
                 let _ = try self.service.setmaximumspeed(setMaximumSpeedRequest)
+                completable(.completed)
             } catch {
                 completable(.error(error))
             }
