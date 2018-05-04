@@ -138,12 +138,12 @@ class ActionTest: XCTestCase {
     
     func transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_TransitionToFixedWingsResponse()
+        var response = Dronecore_Rpc_Action_TransitionToFixedWingResponse()
         response.actionResult.result = result
-        fakeService.transitiontofixedwingsResponses.append(response)
+        fakeService.transitiontofixedwingResponses.append(response)
         let client = Action(service: fakeService)
         
-        return client.transitionToFixedWings().toBlocking().materialize()
+        return client.transitionToFixedWing().toBlocking().materialize()
     }
     
     // MARK: - TRANSITION TO MULTICOPTER
@@ -212,8 +212,7 @@ class ActionTest: XCTestCase {
     
     func setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_SetTakeoffAltitudeResponse()
-        response.actionResult.result = result
+        let response = Dronecore_Rpc_Action_SetTakeoffAltitudeResponse()
         fakeService.settakeoffaltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
@@ -258,8 +257,7 @@ class ActionTest: XCTestCase {
     
     func setMaximumSpeedWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_SetMaximumSpeedResponse()
-        response.actionResult.result = result
+        let response = Dronecore_Rpc_Action_SetMaximumSpeedResponse()
         fakeService.setmaximumspeedResponses.append(response)
         let client = Action(service: fakeService)
         
