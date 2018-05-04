@@ -192,6 +192,34 @@ class ActionTest: XCTestCase {
         }
     }
     
+    // MARK: - SET TAKEOFF ALTITUDE
+    func testSetTakeoffAltitudeSucceedsOnSuccess() {
+        assertSuccess(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+    }
+    
+    func testSetTakeoffAltitudeFailsOnFailure() {
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
+        assertFailure(result: setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+    }
+    
+    func setTakeoffAltitudeWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Action_SetTakeoffAltitudeResponse()
+        response.actionResult.result = result
+        fakeService.settakeoffaltitudeResponses.append(response)
+        let client = Action(service: fakeService)
+        
+        return client.setTakeoffAltitude(altitude: 20.0).toBlocking().materialize()
+    }
+    
     
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
