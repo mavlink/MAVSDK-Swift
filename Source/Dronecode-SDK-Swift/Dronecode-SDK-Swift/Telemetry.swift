@@ -46,6 +46,18 @@ public struct Battery: Equatable {
     }
 }
 
+public struct EulerAngle: Equatable {
+    public let pitchDeg: Float
+    public let rollDeg: Float
+    public let yawDeg: Float
+    
+    public static func == (lhs: EulerAngle, rhs: EulerAngle) -> Bool {
+        return lhs.pitchDeg == rhs.pitchDeg
+            && lhs.rollDeg == rhs.rollDeg
+            && lhs.yawDeg == rhs.yawDeg
+    }
+}
+
 public class Telemetry {
     let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
     let scheduler: SchedulerType
@@ -117,5 +129,45 @@ public class Telemetry {
             
             return Disposables.create()
         }.subscribeOn(self.scheduler)
+    }
+    
+    public func getAttitudeEulerObservable() -> Observable<EulerAngle> {
+        return Observable.create { observer in
+            let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
+            
+            do {
+                let call = try self.service.subscribeattitudeeuler(attitudeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    
+                    let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
+                    
+                    observer.onNext(attitude)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to discovery stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    public func getCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
+        return Observable.create { observer in
+            let cameraAttitudeRequest = Dronecore_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
+            
+            do {
+                let call = try self.service.subscribecameraattitudeeuler(cameraAttitudeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    
+                    let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
+                    
+                    observer.onNext(attitude)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to discovery stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
     }
 }

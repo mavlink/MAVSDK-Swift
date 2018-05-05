@@ -250,4 +250,162 @@ class TelemetryTest: XCTestCase {
     func translateRPCBattery(batteryRPC: Dronecore_Rpc_Telemetry_Battery) -> Battery {
         return Battery(remainingPercent: batteryRPC.remainingPercent, voltageV: batteryRPC.voltageV)
     }
+    
+    func testAttitudeEulerObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallTestStub()
+        fakeService.subscribeattitudeeulerCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(EulerAngle.self)
+        
+        let _ = telemetry.getAttitudeEulerObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+    
+    func testAttitudeEulerObservableReceivesOneEvent() {
+        let attitudeEuler = createRPCAttitudeEuler(pitchDeg: 45.0, rollDeg: 35.0, yawDeg: 25.0)
+        let attitudes = [attitudeEuler]
+
+        checkAttitudeEulerObservableReceivesEvents(attitudes: attitudes)
+    }
+
+    func createRPCAttitudeEuler(pitchDeg: Float, rollDeg: Float, yawDeg: Float) -> Dronecore_Rpc_Telemetry_EulerAngle {
+        var attitudeEuler = Dronecore_Rpc_Telemetry_EulerAngle()
+        attitudeEuler.pitchDeg = pitchDeg
+        attitudeEuler.rollDeg = rollDeg
+        attitudeEuler.yawDeg = yawDeg
+
+        return attitudeEuler
+    }
+
+    func checkAttitudeEulerObservableReceivesEvents(attitudes: [Dronecore_Rpc_Telemetry_EulerAngle]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallTestStub()
+
+        for attitude in attitudes {
+            fakeCall.outputs.append(createAttitudeEulerResponse(attitudeEuler: attitude))
+        }
+        fakeService.subscribeattitudeeulerCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(EulerAngle.self)
+
+        let _ = telemetry.getAttitudeEulerObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<EulerAngle>>]()
+        for attitude in attitudes {
+            expectedEvents.append(next(0, translateRPCAttitudeEuler(attitudeEulerRPC: attitude)))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+
+    func testAttitudeEulerObservableReceivesMultipleEvents() {
+        var attitudes = [Dronecore_Rpc_Telemetry_EulerAngle]()
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 12.0, rollDeg: 13.2, yawDeg: 24.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 13.0, rollDeg: 12.2, yawDeg: 34.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 14.0, rollDeg: 11.2, yawDeg: 44.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 15.0, rollDeg: 10.2, yawDeg: 54.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 16.0, rollDeg: 9.2, yawDeg: 64.1))
+
+        checkAttitudeEulerObservableReceivesEvents(attitudes: attitudes)
+    }
+
+    func createAttitudeEulerResponse(attitudeEuler: Dronecore_Rpc_Telemetry_EulerAngle) -> Dronecore_Rpc_Telemetry_AttitudeEulerResponse {
+        var response = Dronecore_Rpc_Telemetry_AttitudeEulerResponse()
+        response.attitudeEuler = attitudeEuler
+
+        return response
+    }
+
+    func translateRPCAttitudeEuler(attitudeEulerRPC: Dronecore_Rpc_Telemetry_EulerAngle) -> EulerAngle {
+        return EulerAngle(pitchDeg: attitudeEulerRPC.pitchDeg, rollDeg: attitudeEulerRPC.rollDeg, yawDeg: attitudeEulerRPC.yawDeg)
+    }
+    
+    func testCameraAttitudeEulerObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallTestStub()
+        fakeService.subscribecameraattitudeeulerCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(EulerAngle.self)
+        
+        let _ = telemetry.getCameraAttitudeEulerObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+    
+    func testCameraAttitudeEulerObservableReceivesOneEvent() {
+        let attitudeEuler = createRPCCameraAttitudeEuler(pitchDeg: 45.0, rollDeg: 35.0, yawDeg: 25.0)
+        let attitudes = [attitudeEuler]
+
+        checkCameraAttitudeEulerObservableReceivesEvents(attitudes: attitudes)
+    }
+
+    func createRPCCameraAttitudeEuler(pitchDeg: Float, rollDeg: Float, yawDeg: Float) -> Dronecore_Rpc_Telemetry_EulerAngle {
+        var attitudeEuler = Dronecore_Rpc_Telemetry_EulerAngle()
+        attitudeEuler.pitchDeg = pitchDeg
+        attitudeEuler.rollDeg = rollDeg
+        attitudeEuler.yawDeg = yawDeg
+
+        return attitudeEuler
+    }
+
+    func checkCameraAttitudeEulerObservableReceivesEvents(attitudes: [Dronecore_Rpc_Telemetry_EulerAngle]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallTestStub()
+
+        for attitude in attitudes {
+            fakeCall.outputs.append(createCameraAttitudeEulerResponse(attitudeEuler: attitude))
+        }
+        fakeService.subscribecameraattitudeeulerCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(EulerAngle.self)
+
+        let _ = telemetry.getCameraAttitudeEulerObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<EulerAngle>>]()
+        for attitude in attitudes {
+            expectedEvents.append(next(0, translateRPCAttitudeEuler(attitudeEulerRPC: attitude)))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+
+    func testCameraAttitudeEulerObservableReceivesMultipleEvents() {
+        var attitudes = [Dronecore_Rpc_Telemetry_EulerAngle]()
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 12.0, rollDeg: 13.2, yawDeg: 24.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 13.0, rollDeg: 12.2, yawDeg: 34.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 14.0, rollDeg: 11.2, yawDeg: 44.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 15.0, rollDeg: 10.2, yawDeg: 54.1))
+        attitudes.append(createRPCAttitudeEuler(pitchDeg: 16.0, rollDeg: 9.2, yawDeg: 64.1))
+
+        checkCameraAttitudeEulerObservableReceivesEvents(attitudes: attitudes)
+    }
+
+    func createCameraAttitudeEulerResponse(attitudeEuler: Dronecore_Rpc_Telemetry_EulerAngle) -> Dronecore_Rpc_Telemetry_CameraAttitudeEulerResponse {
+        var response = Dronecore_Rpc_Telemetry_CameraAttitudeEulerResponse()
+        response.attitudeEuler = attitudeEuler
+
+        return response
+    }
 }
