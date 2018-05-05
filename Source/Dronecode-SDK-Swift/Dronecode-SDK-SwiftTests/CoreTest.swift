@@ -22,7 +22,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
-        let _ = client.getDiscoverObservable().subscribe(observer)
+        let _ = client.discoverObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -41,7 +41,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
-        let _ = client.getDiscoverObservable().subscribe(observer)
+        let _ = client.discoverObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -76,7 +76,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
-        let _ = client.getDiscoverObservable().subscribe(observer)
+        let _ = client.discoverObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -99,7 +99,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Void.self)
 
-        let _ = client.getTimeoutObservable().subscribe(observer)
+        let _ = client.timeoutObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -124,7 +124,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Void.self)
 
-        let _ = client.getTimeoutObservable().subscribe(observer)
+        let _ = client.timeoutObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -140,7 +140,7 @@ class CoreTest: XCTestCase {
         fakeService.listrunningpluginsResponses.append(Dronecore_Rpc_Core_ListRunningPluginsResponse())
         let client = Core(service: fakeService, scheduler: self.scheduler)
 
-        let pluginInfos = try! client.getRunningPluginsObservable().toBlocking().toArray()
+        let pluginInfos = try! client.runningPluginsObservable.toBlocking().toArray()
 
         XCTAssertEqual(0, pluginInfos.count)
     }
@@ -153,7 +153,7 @@ class CoreTest: XCTestCase {
         let client = Core(service: fakeService, scheduler: self.scheduler)
         let expectedPluginInfo = translateRPCPluginInfo(pluginInfoRPC: response.pluginInfo[0])
 
-        let pluginInfos = try? client.getRunningPluginsObservable().toBlocking().toArray()
+        let pluginInfos = try? client.runningPluginsObservable.toBlocking().toArray()
 
         XCTAssertEqual(1, pluginInfos?.count)
         XCTAssertEqual(expectedPluginInfo, pluginInfos![0])
@@ -181,7 +181,7 @@ class CoreTest: XCTestCase {
         fakeService.listrunningpluginsResponses.append(response)
         let client = Core(service: fakeService, scheduler: self.scheduler)
 
-        let pluginInfos = try? client.getRunningPluginsObservable().toBlocking().toArray()
+        let pluginInfos = try? client.runningPluginsObservable.toBlocking().toArray()
 
         XCTAssertEqual(pluginInfos?.count, response.pluginInfo.count)
 

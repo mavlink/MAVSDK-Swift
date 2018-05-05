@@ -71,7 +71,7 @@ class MissionTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(MissionProgress.self)
 
-        let _ = mission.getMissionProgressObservable().subscribe(observer)
+        let _ = mission.missionProgressObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -106,7 +106,7 @@ class MissionTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(MissionProgress.self)
 
-        let _ = mission.getMissionProgressObservable().subscribe(observer)
+        let _ = mission.missionProgressObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 

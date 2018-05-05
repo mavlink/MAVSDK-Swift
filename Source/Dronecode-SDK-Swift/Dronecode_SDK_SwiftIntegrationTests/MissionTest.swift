@@ -39,7 +39,7 @@ class MissionTest: XCTestCase {
         let mission = Mission(address: "localhost", port: 50051)
         
         do {
-            let missionProgressEvents = try mission.getMissionProgressObservable().take(1).toBlocking(timeout: 5).toArray()
+            let missionProgressEvents = try mission.missionProgressObservable.take(1).toBlocking(timeout: 5).toArray()
         } catch {
             XCTFail("MissionProgressObservable is expected to receive 1 events in 5 seconds, but it did not!")
         }

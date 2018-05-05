@@ -108,23 +108,6 @@ public class Mission {
         }
     }
 
-    func translateCameraAction(cameraAction: CameraAction) -> Dronecore_Rpc_Mission_MissionItem.CameraAction {
-        switch (cameraAction) {
-        case .NONE:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.none
-        case .TAKE_PHOTO:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.takePhoto
-        case .START_PHOTO_INTERVAL:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startPhotoInterval
-        case .STOP_PHOTO_INTERVAL:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopPhotoInterval
-        case .START_VIDEO:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startVideo
-        case .STOP_VIDEO:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopVideo
-        }
-    }
-
     public func startMission() -> Completable {
         return Completable.create { completable in
             let startMissionRequest = Dronecore_Rpc_Mission_StartMissionRequest()
@@ -144,22 +127,48 @@ public class Mission {
         }
     }
     
-    public func getMissionProgressObservable() -> Observable<MissionProgress> {
+    public lazy var missionProgressObservable: Observable<MissionProgress> = {
+        return createMissionProgressObservable()
+    }()
+    
+    private func createMissionProgressObservable() -> Observable<MissionProgress> {
         return Observable.create { observer in
             let missionProgressRequest = Dronecore_Rpc_Mission_SubscribeMissionProgressRequest()
             
             do {
+                print("Enter MissionProgressObservable")
                 let call = try self.service.subscribemissionprogress(missionProgressRequest, completion: nil)
+                print("Create a Call MissionProgressObservable")
                 while let response = try? call.receive() {
+                    print("Response MissionProgressObservable")
                     let missionProgres = MissionProgress(currentItemIndex: response.currentItemIndex , missionCount: response.missionCount)
-                    
+                    print("MissionProgres in MissionProgressObservable : \(missionProgres.currentItemIndex)/ \(missionProgres.missionCount)")
                     observer.onNext(missionProgres)
+                    print("After OnNext MissionProgressObservable")
                 }
             } catch {
+                print("Failed to subscribe to discovery stream. MissionProgressObservable")
                 observer.onError("Failed to subscribe to discovery stream")
             }
-            
+            print("Disposables.create() MissionProgressObservable")
             return Disposables.create()
         }.subscribeOn(self.scheduler)
+    }
+    
+    private func translateCameraAction(cameraAction: CameraAction) -> Dronecore_Rpc_Mission_MissionItem.CameraAction {
+        switch (cameraAction) {
+        case .NONE:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.none
+        case .TAKE_PHOTO:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.takePhoto
+        case .START_PHOTO_INTERVAL:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startPhotoInterval
+        case .STOP_PHOTO_INTERVAL:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopPhotoInterval
+        case .START_VIDEO:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startVideo
+        case .STOP_VIDEO:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopVideo
+        }
     }
 }

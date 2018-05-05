@@ -73,8 +73,28 @@ public class Telemetry {
         self.service = service
         self.scheduler = scheduler
     }
-
-    public func getPositionObservable() -> Observable<Position> {
+    
+    public lazy var positionObservable: Observable<Position> = {
+        return createPositionObservable()
+    }()
+    
+    public lazy var healthObservable: Observable<Health> = {
+        return createHealthObservable()
+    }()
+    
+    public lazy var batteryObservable: Observable<Battery> = {
+        return createBatteryObservable()
+    }()
+    
+    public lazy var attitudeEulerObservable: Observable<EulerAngle> = {
+        return createAttitudeEulerObservable()
+    }()
+    
+    public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = {
+        return createCameraAttitudeEulerObservable()
+    }()
+    
+    private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let positionRequest = Dronecore_Rpc_Telemetry_SubscribePositionRequest()
 
@@ -90,10 +110,10 @@ public class Telemetry {
             }
 
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }.subscribeOn(self.scheduler)
     }
-
-    public func getHealthObservable() -> Observable<Health> {
+    
+    private func createHealthObservable() -> Observable<Health> {
         return Observable.create { observer in
             let healthRequest = Dronecore_Rpc_Telemetry_SubscribeHealthRequest()
 
@@ -112,7 +132,7 @@ public class Telemetry {
         }.subscribeOn(self.scheduler)
     }
     
-    public func getBatteryObservable() -> Observable<Battery> {
+    private func createBatteryObservable() -> Observable<Battery> {
         return Observable.create { observer in
             let batteryRequest = Dronecore_Rpc_Telemetry_SubscribeBatteryRequest()
             
@@ -131,7 +151,7 @@ public class Telemetry {
         }.subscribeOn(self.scheduler)
     }
     
-    public func getAttitudeEulerObservable() -> Observable<EulerAngle> {
+    private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
             let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
             
@@ -151,7 +171,7 @@ public class Telemetry {
             }.subscribeOn(self.scheduler)
     }
     
-    public func getCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
+    private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
             let cameraAttitudeRequest = Dronecore_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
             

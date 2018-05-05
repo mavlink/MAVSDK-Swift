@@ -11,7 +11,7 @@ class TelemetryTest: XCTestCase {
         let telemetry = Telemetry(address: "localhost", port: 50051)
 
         do {
-            let positionEvents = try telemetry.getPositionObservable().take(5).toBlocking(timeout: 5).toArray()
+            let positionEvents = try telemetry.positionObservable.take(5).toBlocking(timeout: 5).toArray()
         } catch {
             XCTFail("PositionObservable is expected to receive 5 events in 5 seconds, but it did not!")
         }
@@ -23,7 +23,7 @@ class TelemetryTest: XCTestCase {
         let telemetry = Telemetry(address: "localhost", port: 50051)
 
         do {
-            let healthEvents = try telemetry.getHealthObservable().take(2).toBlocking(timeout: 5).toArray()
+            let healthEvents = try telemetry.healthObservable.take(2).toBlocking(timeout: 5).toArray()
         } catch {
             XCTFail("HealthObservable is expected to receive 2 events in 5 seconds, but it did not!")
         }
@@ -35,7 +35,7 @@ class TelemetryTest: XCTestCase {
         let telemetry = Telemetry(address: "localhost", port: 50051)
         
         do {
-            let batteryEvents = try telemetry.getBatteryObservable().take(5).toBlocking(timeout: 5).toArray()
+            let batteryEvents = try telemetry.batteryObservable.take(5).toBlocking(timeout: 5).toArray()
         } catch {
             XCTFail("BatteryObservable is expected to receive 5 events in 5 seconds, but it did not!")
         }
@@ -47,7 +47,7 @@ class TelemetryTest: XCTestCase {
         let telemetry = Telemetry(address: "localhost", port: 50051)
         
         do {
-            let attitudeEulerEvents = try telemetry.getAttitudeEulerObservable().take(5).toBlocking(timeout: 5).toArray()
+            let attitudeEulerEvents = try telemetry.attitudeEulerObservable.take(5).toBlocking(timeout: 5).toArray()
         } catch {
             XCTFail("AttitudeEulerObservable is expected to receive 5 events in 5 seconds, but it did not!")
         }
@@ -59,7 +59,7 @@ class TelemetryTest: XCTestCase {
         let telemetry = Telemetry(address: "localhost", port: 50051)
         
         do {
-            let attitudeEulerEvents = try telemetry.getCameraAttitudeEulerObservable().take(5).toBlocking(timeout: 5).toArray()
+            let attitudeEulerEvents = try telemetry.cameraAttitudeEulerObservable.take(5).toBlocking(timeout: 5).toArray()
         } catch {
             XCTFail("CameraAttitudeEulerObservable is expected to receive 5 events in 5 seconds, but it did not!")
         }

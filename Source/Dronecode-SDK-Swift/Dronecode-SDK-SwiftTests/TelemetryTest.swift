@@ -15,7 +15,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Position.self)
 
-        let _ = telemetry.getPositionObservable().subscribe(observer)
+        let _ = telemetry.positionObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -52,7 +52,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Position.self)
 
-        let _ = telemetry.getPositionObservable().subscribe(observer)
+        let _ = telemetry.positionObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -95,7 +95,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Health.self)
 
-        let _ = telemetry.getHealthObservable().subscribe(observer)
+        let _ = telemetry.healthObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -142,7 +142,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Health.self)
 
-        let _ = telemetry.getHealthObservable().subscribe(observer)
+        let _ = telemetry.healthObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -180,7 +180,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Battery.self)
 
-        let _ = telemetry.getBatteryObservable().subscribe(observer)
+        let _ = telemetry.batteryObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -215,7 +215,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Battery.self)
 
-        let _ = telemetry.getBatteryObservable().subscribe(observer)
+        let _ = telemetry.batteryObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -260,7 +260,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(EulerAngle.self)
         
-        let _ = telemetry.getAttitudeEulerObservable().subscribe(observer)
+        let _ = telemetry.attitudeEulerObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -296,7 +296,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(EulerAngle.self)
 
-        let _ = telemetry.getAttitudeEulerObservable().subscribe(observer)
+        let _ = telemetry.attitudeEulerObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -341,7 +341,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(EulerAngle.self)
         
-        let _ = telemetry.getCameraAttitudeEulerObservable().subscribe(observer)
+        let _ = telemetry.cameraAttitudeEulerObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -377,7 +377,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(EulerAngle.self)
 
-        let _ = telemetry.getCameraAttitudeEulerObservable().subscribe(observer)
+        let _ = telemetry.cameraAttitudeEulerObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
