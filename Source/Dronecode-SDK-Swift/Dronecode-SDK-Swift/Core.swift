@@ -41,8 +41,20 @@ public class Core {
 
         semaphore.wait()
     }
-
-    public func getDiscoverObservable() -> Observable<UInt64> {
+    
+    public lazy var discoverObservable: Observable<UInt64> = {
+        return createDiscoverObservable()
+    }()
+    
+    public lazy var runningPluginsObservable: Observable<PluginInfo> = {
+        return createRunningPluginsObservable()
+    }()
+    
+    public lazy var timeoutObservable: Observable<Void> = {
+        return createTimeoutObservable()
+    }()
+    
+    private func createDiscoverObservable() -> Observable<UInt64> {
         return Observable.create { observer in
             let discoverRequest = Dronecore_Rpc_Core_SubscribeDiscoverRequest()
 
@@ -59,7 +71,7 @@ public class Core {
             }.subscribeOn(self.scheduler)
     }
 
-    public func getTimeoutObservable() -> Observable<Void> {
+    private func createTimeoutObservable() -> Observable<Void> {
         return Observable.create { observer in
             let timeoutRequest = Dronecore_Rpc_Core_SubscribeTimeoutRequest()
 
@@ -75,8 +87,8 @@ public class Core {
             return Disposables.create()
         }.subscribeOn(self.scheduler)
     }
-
-    public func getRunningPluginsObservable() -> Observable<PluginInfo> {
+    
+    private func createRunningPluginsObservable() -> Observable<PluginInfo> {
         let request = Dronecore_Rpc_Core_ListRunningPluginsRequest()
         let response = try? self.service.listrunningplugins(request)
 

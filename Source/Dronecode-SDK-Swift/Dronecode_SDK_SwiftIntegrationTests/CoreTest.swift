@@ -10,7 +10,7 @@ class CoreTest: XCTestCase {
         core.connect()
 
         do {
-            let uuid = try core.getDiscoverObservable().take(1).toBlocking(timeout: 1).single()
+            let uuid = try core.discoverObservable.take(1).toBlocking(timeout: 1).single()
         } catch {
             XCTFail("At least one system should be discovered when the backend is connected!")
         }
@@ -21,7 +21,7 @@ class CoreTest: XCTestCase {
         core.connect()
 
         do {
-            let plugins = try core.getRunningPluginsObservable().toBlocking().toArray()
+            let plugins = try core.runningPluginsObservable.toBlocking().toArray()
 
             XCTAssertEqual(3, plugins.count)
             checkPluginInfoListContains(pluginInfoList: plugins, name: "action")
