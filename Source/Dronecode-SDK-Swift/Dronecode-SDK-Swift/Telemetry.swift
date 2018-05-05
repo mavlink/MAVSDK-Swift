@@ -36,6 +36,16 @@ public struct Health: Equatable {
     }
 }
 
+public struct Battery: Equatable {
+    public let remainingPercent: Float
+    public let voltageV: Float
+    
+    public static func == (lhs: Battery, rhs: Battery) -> Bool {
+        return lhs.remainingPercent == rhs.remainingPercent
+            && lhs.voltageV == rhs.voltageV
+    }
+}
+
 public class Telemetry {
     let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
     let scheduler: SchedulerType
@@ -86,6 +96,25 @@ public class Telemetry {
                 observer.onError("Failed to subscribe to health stream")
             }
 
+            return Disposables.create()
+        }.subscribeOn(self.scheduler)
+    }
+    
+    public func getBatteryObservable() -> Observable<Battery> {
+        return Observable.create { observer in
+            let batteryRequest = Dronecore_Rpc_Telemetry_SubscribeBatteryRequest()
+            
+            do {
+                let call = try self.service.subscribebattery(batteryRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let battery = Battery(remainingPercent: response.battery.remainingPercent, voltageV: response.battery.voltageV)
+    
+                    observer.onNext(battery)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to discovery stream")
+            }
+            
             return Disposables.create()
         }.subscribeOn(self.scheduler)
     }

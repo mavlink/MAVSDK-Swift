@@ -28,4 +28,16 @@ class TelemetryTest: XCTestCase {
             XCTFail("HealthObservable is expected to receive 2 events in 5 seconds, but it did not!")
         }
     }
+    
+    func testBatteryEmitsValues() {
+        let core = Core()
+        core.connect()
+        let telemetry = Telemetry(address: "localhost", port: 50051)
+        
+        do {
+            let batteryEvents = try telemetry.getBatteryObservable().take(2).toBlocking(timeout: 5).toArray()
+        } catch {
+            XCTFail("BatteryObservable is expected to receive 2 events in 5 seconds, but it did not!")
+        }
+    }
 }

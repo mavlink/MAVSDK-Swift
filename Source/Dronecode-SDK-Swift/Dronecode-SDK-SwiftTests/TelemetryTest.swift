@@ -170,4 +170,84 @@ class TelemetryTest: XCTestCase {
     func testHealthObservableReceivesMultipleEvents() {
         checkHealthObservableReceivesEvents(nbEvents: 10)
     }
+    
+    func testBatteryObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallTestStub()
+        fakeService.subscribebatteryCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Battery.self)
+
+        let _ = telemetry.getBatteryObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+
+    func testBatteryObservableReceivesOneEvent() {
+        let battery = createRPCBattery(remainingPercent: 0.55, voltageV: 12.5)
+        let batteryStates = [battery]
+
+        checkBatteryObservableReceivesEvents(batteryStates: batteryStates)
+    }
+    
+    func createRPCBattery(remainingPercent: Float, voltageV: Float) -> Dronecore_Rpc_Telemetry_Battery {
+        var battery = Dronecore_Rpc_Telemetry_Battery()
+        battery.remainingPercent = remainingPercent
+        battery.voltageV = voltageV
+        
+        return battery
+    }
+
+    func checkBatteryObservableReceivesEvents(batteryStates: [Dronecore_Rpc_Telemetry_Battery]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallTestStub()
+
+        for battery in batteryStates {
+            fakeCall.outputs.append(createBatteryResponse(battery: battery))
+        }
+        fakeService.subscribebatteryCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Battery.self)
+
+        let _ = telemetry.getBatteryObservable().subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<Battery>>]()
+        for battery in batteryStates {
+            expectedEvents.append(next(0, translateRPCBattery(batteryRPC: battery)))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func testBatteryObservableReceivesMultipleEvents() {
+        var batteryStates = [Dronecore_Rpc_Telemetry_Battery]()
+        batteryStates.append(createRPCBattery(remainingPercent: 0.45, voltageV: 12.4))
+        batteryStates.append(createRPCBattery(remainingPercent: 0.44, voltageV: 12.5))
+        batteryStates.append(createRPCBattery(remainingPercent: 0.43, voltageV: 12.6))
+        batteryStates.append(createRPCBattery(remainingPercent: 0.42, voltageV: 12.7))
+        batteryStates.append(createRPCBattery(remainingPercent: 0.41, voltageV: 12.8))
+
+        checkBatteryObservableReceivesEvents(batteryStates: batteryStates)
+    }
+    
+    func createBatteryResponse(battery: Dronecore_Rpc_Telemetry_Battery) -> Dronecore_Rpc_Telemetry_BatteryResponse {
+        var response = Dronecore_Rpc_Telemetry_BatteryResponse()
+        response.battery = battery
+
+        return response
+    }
+
+    func translateRPCBattery(batteryRPC: Dronecore_Rpc_Telemetry_Battery) -> Battery {
+        return Battery(remainingPercent: batteryRPC.remainingPercent, voltageV: batteryRPC.voltageV)
+    }
 }
