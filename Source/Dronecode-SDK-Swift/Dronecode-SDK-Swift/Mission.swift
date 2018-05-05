@@ -35,6 +35,21 @@ public struct MissionItem : Equatable {
     }
 }
 
+public struct MissionProgress : Equatable {
+    public let currentItemIndex: Int
+    public let missionCount: Int
+    
+    public init(currentItemIndex: Int32, missionCount: Int32) {
+        self.currentItemIndex = Int(currentItemIndex)
+        self.missionCount = Int(missionCount)
+    }
+    
+    public static func == (lhs: MissionProgress, rhs: MissionProgress) -> Bool {
+        return lhs.currentItemIndex == rhs.currentItemIndex
+            && lhs.missionCount == rhs.missionCount
+    }
+}
+
 public enum CameraAction {
     case NONE
     case TAKE_PHOTO
@@ -46,14 +61,18 @@ public enum CameraAction {
 
 public class Mission {
     let service: Dronecore_Rpc_Mission_MissionServiceService
+    let scheduler: SchedulerType
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
-        self.init(service: service)
+        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+        
+        self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: Dronecore_Rpc_Mission_MissionServiceService) {
+    init(service: Dronecore_Rpc_Mission_MissionServiceService, scheduler: SchedulerType) {
         self.service = service
+        self.scheduler = scheduler
     }
 
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
@@ -123,5 +142,24 @@ public class Mission {
 
             return Disposables.create {}
         }
+    }
+    
+    public func getMissionProgressObservable() -> Observable<MissionProgress> {
+        return Observable.create { observer in
+            let missionProgressRequest = Dronecore_Rpc_Mission_SubscribeMissionProgressRequest()
+            
+            do {
+                let call = try self.service.subscribemissionprogress(missionProgressRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let missionProgres = MissionProgress(currentItemIndex: response.currentItemIndex , missionCount: response.missionCount)
+                    
+                    observer.onNext(missionProgres)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to discovery stream")
+            }
+            
+            return Disposables.create()
+        }.subscribeOn(self.scheduler)
     }
 }
