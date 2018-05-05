@@ -56,7 +56,6 @@
 		DF7798D12074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
 		DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
 		DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
-		DF7798D42074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
 		DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
 		DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
 		DF7798D82074F52D00CD1BE0 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
@@ -192,7 +191,6 @@
 				DF7798D82074F52D00CD1BE0 /* Czlib.framework in Frameworks */,
 				DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
 				DF7798C82074F52D00CD1BE0 /* CgRPC.framework in Frameworks */,
-				DF7798D42074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */,
 				DF7798CC2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */,
 				DF7798CA2074F52D00CD1BE0 /* gRPC.framework in Frameworks */,
 				DF7798C62074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */,
