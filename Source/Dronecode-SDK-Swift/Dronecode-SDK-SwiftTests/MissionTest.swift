@@ -61,6 +61,25 @@ class MissionTest: XCTestCase {
             break
         }
     }
+    
+    func testIsMissionFinishedSucceedsOnSuccess() {
+        let expectedResult = true
+        let fakeService = Dronecore_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Mission_IsMissionFinishedResponse()
+        response.isFinished = expectedResult
+        fakeService.ismissionfinishedResponses.append(response)
+        let client = Mission(service: fakeService, scheduler: self.scheduler)
+        
+        _ = client.isMissionFinished().subscribe { event in
+            switch event {
+            case .success(let isFinished):
+                XCTAssert(isFinished == expectedResult)
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: isMissionFinished() \(error) ")
+            }
+        }
+    }
 
     func testMissionProgressObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Mission_MissionServiceServiceTestStub()
