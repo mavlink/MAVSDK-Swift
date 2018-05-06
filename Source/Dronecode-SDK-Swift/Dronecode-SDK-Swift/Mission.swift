@@ -127,6 +127,20 @@ public class Mission {
         }
     }
     
+    public func isMissionFinished() -> Single<Bool> {
+        return Single<Bool>.create { single in
+            let isMissionFinishedRequest = Dronecore_Rpc_Mission_IsMissionFinishedRequest()
+            do {
+                let isMissionFinishedResponse = try self.service.ismissionfinished(isMissionFinishedRequest)
+                single(.success(isMissionFinishedResponse.isFinished))
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
     public lazy var missionProgressObservable: Observable<MissionProgress> = {
         return createMissionProgressObservable()
     }()
