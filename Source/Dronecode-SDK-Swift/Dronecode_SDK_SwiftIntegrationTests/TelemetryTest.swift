@@ -7,7 +7,7 @@ class TelemetryTest: XCTestCase {
 
     func testPositionEmitsValues() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let telemetry = Telemetry(address: "localhost", port: 50051)
 
         do {
@@ -19,7 +19,7 @@ class TelemetryTest: XCTestCase {
 
     func testHealthEmitsValues() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let telemetry = Telemetry(address: "localhost", port: 50051)
 
         do {
@@ -31,7 +31,7 @@ class TelemetryTest: XCTestCase {
     
     func testBatteryEmitsValues() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let telemetry = Telemetry(address: "localhost", port: 50051)
         
         do {
@@ -43,7 +43,7 @@ class TelemetryTest: XCTestCase {
     
     func testAttitudeEulerEmitsValues() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let telemetry = Telemetry(address: "localhost", port: 50051)
         
         do {
@@ -55,7 +55,7 @@ class TelemetryTest: XCTestCase {
     
     func testCameraAttitudeEulerEmitsValues() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let telemetry = Telemetry(address: "localhost", port: 50051)
         
         do {

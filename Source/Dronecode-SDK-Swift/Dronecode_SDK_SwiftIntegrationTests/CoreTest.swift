@@ -6,11 +6,12 @@ import XCTest
 class CoreTest: XCTestCase {
 
     func testDiscoverEmitsWhenConnecting() {
+        
         let core = Core()
-        core.connect()
-
+        core.connect().toBlocking().materialize()
+        
         do {
-            let uuid = try core.discoverObservable.take(1).toBlocking(timeout: 1).single()
+            let uuid = try core.discoverObservable.take(1).toBlocking(timeout: 2).single()
         } catch {
             XCTFail("At least one system should be discovered when the backend is connected!")
         }
@@ -18,7 +19,7 @@ class CoreTest: XCTestCase {
 
     func testPluginsAreRunning() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
 
         do {
             let plugins = try core.runningPluginsObservable.toBlocking().toArray()

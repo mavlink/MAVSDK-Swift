@@ -6,7 +6,7 @@ class ActionTest: XCTestCase {
 
     func testArmSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let action = Action(address: "localhost", port: 50051)
 
         sleep(1) // Wait for action plugin to be ready. Do NOT do this in production.
@@ -16,7 +16,7 @@ class ActionTest: XCTestCase {
     
     func testDisarmSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let action = Action(address: "localhost", port: 50051)
         
         sleep(1) // Wait for action plugin to be ready. Do NOT do this in production.
@@ -29,7 +29,7 @@ class ActionTest: XCTestCase {
 
     func testTakeoffAndLandSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let action = Action(address: "localhost", port: 50051)
 
         sleep(1) // Wait for action plugin to be ready. Do NOT do this in production.
@@ -43,7 +43,7 @@ class ActionTest: XCTestCase {
     
     func testTakeoffAndKillSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let action = Action(address: "localhost", port: 50051)
         
         sleep(1) // Wait for action plugin to be ready. Do NOT do this in production.

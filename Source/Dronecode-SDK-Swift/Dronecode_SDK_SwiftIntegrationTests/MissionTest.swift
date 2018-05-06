@@ -5,7 +5,7 @@ import XCTest
 class MissionTest: XCTestCase {
     func testUploadEmptyMissionSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let mission = Mission(address: "localhost", port: 50051)
 
         mission.uploadMission(missionItems: [])
@@ -15,7 +15,7 @@ class MissionTest: XCTestCase {
 
     func testUploadOneItemSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let mission = Mission(address: "localhost", port: 50051)
 
         let missionItem = MissionItem(latitudeDeg: 47.3977121, longitudeDeg: 8.5456788, relativeAltitudeM: 42, speedMPS: 8.4, isFlyThrough: false, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.NONE)
@@ -27,7 +27,7 @@ class MissionTest: XCTestCase {
 
     func testStartMissionSucceeds() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let mission = Mission(address: "localhost", port: 50051)
 
         mission.startMission().do(onError: { error in XCTFail("\(error)") }).subscribe()
@@ -35,7 +35,7 @@ class MissionTest: XCTestCase {
     
     func testMissionProgressEmitsValues() {
         let core = Core()
-        core.connect()
+        core.connect().toBlocking().materialize()
         let mission = Mission(address: "localhost", port: 50051)
         
         do {

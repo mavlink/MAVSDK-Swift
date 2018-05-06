@@ -14,6 +14,8 @@ public struct PluginInfo: Equatable {
 }
 
 public class Core {
+    let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
+    let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
     let service: Dronecore_Rpc_Core_CoreServiceService
     let scheduler: SchedulerType
 
@@ -31,15 +33,29 @@ public class Core {
         gRPC.initialize()
     }
 
-    public func connect() {
-        let semaphore = DispatchSemaphore(value: 0)
+    public func connect() -> Completable {
+        return Completable.create { completable in
+            let semaphore = DispatchSemaphore(value: 0)
+            
+            self.backendQueue.async {
+                print("Running backend in background (MAVLink port: 14540)")
 
-        DispatchQueue.global(qos: .background).async {
-            print("Running backend in background (MAVLink port: 14540)")
-            runBackend(14540, { unmanagedSemaphore in let semaphore = Unmanaged<DispatchSemaphore>.fromOpaque(unmanagedSemaphore!).takeRetainedValue(); semaphore.signal() }, Unmanaged.passRetained(semaphore).toOpaque())
-        }
-
-        semaphore.wait()
+                runBackend(14540,
+                           { unmanagedSemaphore in
+                                let semaphore = Unmanaged<DispatchSemaphore>.fromOpaque(unmanagedSemaphore!).takeRetainedValue();
+                                semaphore.signal()
+                            },
+                           Unmanaged.passRetained(semaphore).toOpaque()
+                )
+            }
+            
+            self.connectionQueue.async {
+                semaphore.wait()
+                completable(.completed)
+            }
+            
+            return Disposables.create()
+        }.subscribeOn(self.scheduler)
     }
     
     public lazy var discoverObservable: Observable<UInt64> = {
@@ -68,7 +84,7 @@ public class Core {
             }
 
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }.subscribeOn(self.scheduler)
     }
 
     private func createTimeoutObservable() -> Observable<Void> {
