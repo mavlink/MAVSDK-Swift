@@ -12,6 +12,19 @@ public struct MissionItem : Equatable {
     public let gimbalYawDeg: Float
     public let cameraAction: CameraAction
 
+/**
+The struct represents a waypoint item. A mission consist of an array of waypoint items.
+     
+- Parameters:
+     - latitudeDeg: latitude of the waypoint
+     - longitudeDeg: longtitude of the waypoint
+     - relativeAltitudeM: altitude relative to the takeoff altitude
+     - speedMPS: speed in meters per second
+     - isFlyThrough: if enabled, the aircraft will fly through the waypoint and stop at waypoint
+     - gimbalPitchDeg: gimbal pitch. Valid range [-90.0, 0.0]
+     - gimbalYawDeg: gimbal yaw relative to the aircraft yaw. Valid range [0.0, 360.0]
+     - cameraAction: camera action type
+*/
     public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMPS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction) {
         self.latitudeDeg = latitudeDeg
         self.longitudeDeg = longitudeDeg
