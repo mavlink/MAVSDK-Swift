@@ -33,6 +33,14 @@ class MissionTest: XCTestCase {
         mission.startMission().do(onError: { error in XCTFail("\(error)") }).subscribe()
     }
     
+    func testPauseMissionSucceeds() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let mission = Mission(address: "localhost", port: 50051)
+        
+        mission.pauseMission().do(onError: { error in XCTFail("\(error)") }).subscribe()
+    }
+    
     func testIsMissionFinishedSucceeds() {
         let core = Core()
         core.connect().toBlocking().materialize()

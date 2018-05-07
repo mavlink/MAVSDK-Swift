@@ -13,7 +13,7 @@ class MissionTest: XCTestCase {
 
         let missionItem = MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.NONE)
 
-        mission.uploadMission(missionItems: [missionItem])
+        _ = mission.uploadMission(missionItems: [missionItem])
     }
 
     func testStartSucceedsOnSuccess() {
@@ -60,6 +60,34 @@ class MissionTest: XCTestCase {
         case .failed:
             break
         }
+    }
+    
+    func testPauseSucceedsOnSuccess() {
+        assertSuccess(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.success))
+    }
+    
+    func pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = Dronecore_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Dronecore_Rpc_Mission_PauseMissionResponse()
+        response.missionResult.result = result
+        fakeService.pausemissionResponses.append(response)
+        let mission = Mission(service: fakeService, scheduler: scheduler)
+        
+        return mission.pauseMission().toBlocking().materialize()
+    }
+    
+    func testPauseFailsOnFailure() {
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.unknown))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.error))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.tooManyMissionItems))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.busy))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.timeout))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.invalidArgument))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.unsupported))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.noMissionAvailable))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.failedToOpenQgcPlan))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.failedToParseQgcPlan))
+        assertFailure(result: pauseWithFakeResult(result: Dronecore_Rpc_Mission_MissionResult.Result.unsupportedMissionCmd))
     }
     
     func testIsMissionFinishedSucceedsOnSuccess() {

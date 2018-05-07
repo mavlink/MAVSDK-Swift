@@ -127,6 +127,25 @@ public class Mission {
         }
     }
     
+    public func pauseMission() -> Completable {
+        return Completable.create { completable in
+            let pauseMissionRequest = Dronecore_Rpc_Mission_PauseMissionRequest()
+            
+            do {
+                let pauseMissionResponse = try self.service.pausemission(pauseMissionRequest)
+                if (pauseMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error("Cannot pause mission: \(pauseMissionResponse.missionResult.result)"))
+                }
+            } catch {
+                completable(.error(error))
+            }
+            
+            return Disposables.create {}
+        }
+    }
+    
     public func isMissionFinished() -> Single<Bool> {
         return Single<Bool>.create { single in
             let isMissionFinishedRequest = Dronecore_Rpc_Mission_IsMissionFinishedRequest()
