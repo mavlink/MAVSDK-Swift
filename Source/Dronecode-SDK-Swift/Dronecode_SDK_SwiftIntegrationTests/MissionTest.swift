@@ -18,7 +18,7 @@ class MissionTest: XCTestCase {
         core.connect().toBlocking().materialize()
         let mission = Mission(address: "localhost", port: 50051)
 
-        let missionItem = MissionItem(latitudeDeg: 47.3977121, longitudeDeg: 8.5456788, relativeAltitudeM: 42, speedMPS: 8.4, isFlyThrough: false, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.NONE)
+        let missionItem = MissionItem(latitudeDeg: 47.3977121, longitudeDeg: 8.5456788, relativeAltitudeM: 42, speedMPS: 8.4, isFlyThrough: false, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none)
 
         mission.uploadMission(missionItems: [missionItem])
             .do(onError: { error in XCTFail("\(error)") })
