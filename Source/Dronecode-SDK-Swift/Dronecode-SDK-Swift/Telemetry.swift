@@ -2,6 +2,7 @@ import Foundation
 import gRPC
 import RxSwift
 
+// MARK: - Position
 public struct Position: Equatable {
     public let latitudeDeg: Double
     public let longitudeDeg: Double
@@ -16,6 +17,7 @@ public struct Position: Equatable {
     }
 }
 
+// MARK: - Health
 public struct Health: Equatable {
     public let isGyrometerCalibrationOk: Bool
     public let isAccelerometerCalibrationOk: Bool
@@ -36,6 +38,7 @@ public struct Health: Equatable {
     }
 }
 
+// MARK: - Battery
 public struct Battery: Equatable {
     public let remainingPercent: Float
     public let voltageV: Float
@@ -46,6 +49,7 @@ public struct Battery: Equatable {
     }
 }
 
+// MARK: - EulerAngle
 public struct EulerAngle: Equatable {
     public let pitchDeg: Float
     public let rollDeg: Float
@@ -58,6 +62,7 @@ public struct EulerAngle: Equatable {
     }
 }
 
+// MARK: - TELEMETRY
 public class Telemetry {
     private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
@@ -79,7 +84,65 @@ public class Telemetry {
         self.service = service
         self.scheduler = scheduler
     }
+
+    // MARK: - Public functions
+    public lazy var positionObservable: Observable<Position> = {
+        return createPositionObservable()
+    }()
     
+    public lazy var healthObservable: Observable<Health> = {
+        return createHealthObservable()
+    }()
+    
+    public lazy var batteryObservable: Observable<Battery> = {
+        return createBatteryObservable()
+    }()
+    
+    public lazy var attitudeEulerObservable: Observable<EulerAngle> = {
+        return createAttitudeEulerObservable()
+    }()
+    
+    public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = {
+        return createCameraAttitudeEulerObservable()
+    }()
+    
+    public lazy var homePositionObservable: Observable<Position> = {
+        return createHomePositionObservable()
+    }()
+    
+    public func isInAir() -> Single<Bool> {
+        return Single<Bool>.create { single in
+            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
+            do {
+                let inAirResponse = try self.service.subscribeinair(inAirRequest, completion: nil)
+                while let response = try? inAirResponse.receive() {
+                    single(.success(response.isInAir))
+                }
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
+    public func isArmed() -> Single<Bool> {
+        return Single<Bool>.create { single in
+            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
+            do {
+                let armedResponse = try self.service.subscribearmed(armedRequest, completion: nil)
+                while let response = try? armedResponse.receive() {
+                    single(.success(response.isArmed))
+                }
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+    
+    // MARK: - Privates functions
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let positionRequest = Dronecore_Rpc_Telemetry_SubscribePositionRequest()
@@ -194,38 +257,5 @@ public class Telemetry {
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
-    
-    public func isInAir() -> Single<Bool> {
-        return Single<Bool>.create { single in
-            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
-            do {
-                let inAirResponse = try self.service.subscribeinair(inAirRequest, completion: nil)
-                while let response = try? inAirResponse.receive() {
-                    single(.success(response.isInAir))
-                }
-                return Disposables.create {}
-            } catch {
-                single(.error(error))
-                return Disposables.create {}
-            }
-        }
-    }
-    
-    public func isArmed() -> Single<Bool> {
-        return Single<Bool>.create { single in
-            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
-            do {
-                let armedResponse = try self.service.subscribearmed(armedRequest, completion: nil)
-                while let response = try? armedResponse.receive() {
-                    single(.success(response.isArmed))
-                }
-                return Disposables.create {}
-            } catch {
-                single(.error(error))
-                return Disposables.create {}
-            }
-        }
-    } 
-
 
 }
