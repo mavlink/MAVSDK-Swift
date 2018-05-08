@@ -130,7 +130,7 @@ public class Telemetry {
                     observer.onNext(battery)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to battery stream")
             }
             
             return Disposables.create()
@@ -150,7 +150,7 @@ public class Telemetry {
                     observer.onNext(attitude)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to attitude euler stream")
             }
             
             return Disposables.create()
@@ -170,10 +170,29 @@ public class Telemetry {
                     observer.onNext(attitude)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to camera attitude stream")
             }
             
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
+    
+    private func createHomePositionObservable() -> Observable<Position> {
+        return Observable.create { observer in
+            let homeRequest = Dronecore_Rpc_Telemetry_SubscribeHomeRequest()
+            
+            do {
+                let call = try self.service.subscribehome(homeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let position = Position(latitudeDeg: response.home.latitudeDeg, longitudeDeg: response.home.longitudeDeg, absoluteAltitudeM: response.home.absoluteAltitudeM, relativeAltitudeM: response.home.relativeAltitudeM)
+                    observer.onNext(position)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to home stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+
 }
