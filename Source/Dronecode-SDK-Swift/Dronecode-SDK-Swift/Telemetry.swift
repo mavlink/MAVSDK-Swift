@@ -59,8 +59,14 @@ public struct EulerAngle: Equatable {
 }
 
 public class Telemetry {
-    let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
-    let scheduler: SchedulerType
+    private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
+    private let scheduler: SchedulerType
+    
+    public lazy var positionObservable: Observable<Position> = createPositionObservable()
+    public lazy var healthObservable: Observable<Health> = createHealthObservable()
+    public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
+    public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
+    public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -73,26 +79,6 @@ public class Telemetry {
         self.service = service
         self.scheduler = scheduler
     }
-    
-    public lazy var positionObservable: Observable<Position> = {
-        return createPositionObservable()
-    }()
-    
-    public lazy var healthObservable: Observable<Health> = {
-        return createHealthObservable()
-    }()
-    
-    public lazy var batteryObservable: Observable<Battery> = {
-        return createBatteryObservable()
-    }()
-    
-    public lazy var attitudeEulerObservable: Observable<EulerAngle> = {
-        return createAttitudeEulerObservable()
-    }()
-    
-    public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = {
-        return createCameraAttitudeEulerObservable()
-    }()
     
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in

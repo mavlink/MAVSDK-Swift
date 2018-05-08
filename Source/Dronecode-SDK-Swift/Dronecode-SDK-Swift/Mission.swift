@@ -90,8 +90,10 @@ public enum CameraAction {
 }
 
 public class Mission {
-    let service: Dronecore_Rpc_Mission_MissionServiceService
-    let scheduler: SchedulerType
+    private let service: Dronecore_Rpc_Mission_MissionServiceService
+    private let scheduler: SchedulerType
+    
+    public lazy var missionProgressObservable: Observable<MissionProgress> = createMissionProgressObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -189,10 +191,6 @@ public class Mission {
             }
         }
     }
-    
-    public lazy var missionProgressObservable: Observable<MissionProgress> = {
-        return createMissionProgressObservable()
-    }()
     
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
         return Observable.create { observer in

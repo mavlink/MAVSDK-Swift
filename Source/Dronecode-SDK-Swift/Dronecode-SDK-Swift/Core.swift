@@ -14,10 +14,14 @@ public struct PluginInfo: Equatable {
 }
 
 public class Core {
-    let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
-    let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
-    let service: Dronecore_Rpc_Core_CoreServiceService
-    let scheduler: SchedulerType
+    private let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
+    private let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
+    private let service: Dronecore_Rpc_Core_CoreServiceService
+    private let scheduler: SchedulerType
+    
+    public lazy var discoverObservable: Observable<UInt64> = createDiscoverObservable()
+    public lazy var runningPluginsObservable: Observable<PluginInfo> = createRunningPluginsObservable()
+    public lazy var timeoutObservable: Observable<Void> = createTimeoutObservable()
 
     public convenience init(address: String = "localhost", port: Int32 = 50051) {
         let service = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -57,18 +61,6 @@ public class Core {
             return Disposables.create()
         }.subscribeOn(self.scheduler)
     }
-    
-    public lazy var discoverObservable: Observable<UInt64> = {
-        return createDiscoverObservable()
-    }()
-    
-    public lazy var runningPluginsObservable: Observable<PluginInfo> = {
-        return createRunningPluginsObservable()
-    }()
-    
-    public lazy var timeoutObservable: Observable<Void> = {
-        return createTimeoutObservable()
-    }()
     
     private func createDiscoverObservable() -> Observable<UInt64> {
         return Observable.create { observer in
