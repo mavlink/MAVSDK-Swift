@@ -210,6 +210,22 @@ public class Telemetry {
             }
         }
     }
+    
+    public func isArmed() -> Single<Bool> {
+        return Single<Bool>.create { single in
+            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
+            do {
+                let armedResponse = try self.service.subscribearmed(armedRequest, completion: nil)
+                while let response = try? armedResponse.receive() {
+                    single(.success(response.isArmed))
+                }
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
+        }
+    } 
 
 
 }
