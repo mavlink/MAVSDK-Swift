@@ -458,4 +458,28 @@ class TelemetryTest: XCTestCase {
         }
     }
     
+    // MARK: - IS ARMED
+    func testIsArmedSucceedsOnSuccess() {
+        let expectedResult = true
+        var response = Dronecore_Rpc_Telemetry_ArmedResponse()
+        response.isArmed = expectedResult
+        
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallTestStub()
+        fakeCall.outputs.append(response)
+        fakeService.subscribearmedCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        
+        _ = telemetry.isArmed().subscribe { event in
+            switch event {
+            case .success(let isArmed):
+                XCTAssert(isArmed == expectedResult)
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: isArmed() \(error) ")
+            }
+        }
+    }
+    
 }
