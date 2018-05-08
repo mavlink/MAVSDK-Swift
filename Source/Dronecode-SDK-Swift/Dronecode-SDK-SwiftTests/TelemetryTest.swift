@@ -433,4 +433,29 @@ class TelemetryTest: XCTestCase {
         
         XCTAssertEqual(1, observer.events.count) // "completed" is one event
     }
+    
+    // MARK: - IN AIR
+    func testIsInAirSucceedsOnSuccess() {
+        let expectedResult = true
+        var response = Dronecore_Rpc_Telemetry_InAirResponse()
+        response.isInAir = expectedResult
+        
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallTestStub()
+        fakeCall.outputs.append(response)
+        fakeService.subscribeinairCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        
+        _ = telemetry.isInAir().subscribe { event in
+            switch event {
+            case .success(let isInAir):
+                XCTAssert(isInAir == expectedResult)
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: isInAir() \(error) ")
+            }
+        }
+    }
+    
 }
