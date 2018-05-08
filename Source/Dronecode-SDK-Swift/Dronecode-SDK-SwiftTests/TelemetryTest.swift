@@ -6,6 +6,8 @@ import XCTest
 class TelemetryTest: XCTestCase {
     let scheduler = MainScheduler.instance
  
+    
+    // MARK: - POSITION
     func testPositionObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub()
@@ -86,6 +88,7 @@ class TelemetryTest: XCTestCase {
         checkPositionObservableReceivesEvents(positions: positions)
     }
 
+    // MARK: - HEALTH
     func testHealthObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
@@ -171,6 +174,8 @@ class TelemetryTest: XCTestCase {
         checkHealthObservableReceivesEvents(nbEvents: 10)
     }
     
+    
+    // MARK: - BATTERY
     func testBatteryObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallTestStub()
@@ -251,6 +256,7 @@ class TelemetryTest: XCTestCase {
         return Battery(remainingPercent: batteryRPC.remainingPercent, voltageV: batteryRPC.voltageV)
     }
     
+     // MARK: - ATTITUDE EULER
     func testAttitudeEulerObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallTestStub()
@@ -332,6 +338,8 @@ class TelemetryTest: XCTestCase {
         return EulerAngle(pitchDeg: attitudeEulerRPC.pitchDeg, rollDeg: attitudeEulerRPC.rollDeg, yawDeg: attitudeEulerRPC.yawDeg)
     }
     
+    
+    // MARK: - CAMERA
     func testCameraAttitudeEulerObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallTestStub()
@@ -407,5 +415,22 @@ class TelemetryTest: XCTestCase {
         response.attitudeEuler = attitudeEuler
 
         return response
+    }
+    
+    // MARK: - HOME POSITION
+    func testHomePositionObservable() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallTestStub()
+        fakeService.subscribehomeCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Position.self)
+        
+        let _ = telemetry.homePositionObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
     }
 }
