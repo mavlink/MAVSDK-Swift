@@ -194,5 +194,22 @@ public class Telemetry {
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
+    
+    public func isInAir() -> Single<Bool> {
+        return Single<Bool>.create { single in
+            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
+            do {
+                let inAirResponse = try self.service.subscribeinair(inAirRequest, completion: nil)
+                while let response = try? inAirResponse.receive() {
+                    single(.success(response.isInAir))
+                }
+                return Disposables.create {}
+            } catch {
+                single(.error(error))
+                return Disposables.create {}
+            }
+        }
+    }
+
 
 }
