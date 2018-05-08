@@ -64,12 +64,29 @@ public struct MissionProgress : Equatable {
 }
 
 public enum CameraAction {
-    case NONE
-    case TAKE_PHOTO
-    case START_PHOTO_INTERVAL
-    case STOP_PHOTO_INTERVAL
-    case START_VIDEO
-    case STOP_VIDEO
+    case none
+    case takePhoto
+    case startPhotoInterval
+    case stopPhotoInterval
+    case startVideo
+    case stopVideo
+    
+    internal var rpcCameraAction: Dronecore_Rpc_Mission_MissionItem.CameraAction {
+        switch (self) {
+        case .none:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.none
+        case .takePhoto:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.takePhoto
+        case .startPhotoInterval:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startPhotoInterval
+        case .stopPhotoInterval:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopPhotoInterval
+        case .startVideo:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startVideo
+        case .stopVideo:
+            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopVideo
+        }
+    }
 }
 
 public class Mission {
@@ -101,7 +118,7 @@ public class Mission {
                 rpcMissionItem.isFlyThrough = missionItem.isFlyThrough
                 rpcMissionItem.gimbalPitchDeg = missionItem.gimbalPitchDeg
                 rpcMissionItem.gimbalYawDeg = missionItem.gimbalYawDeg
-                rpcMissionItem.cameraAction = self.translateCameraAction(cameraAction: missionItem.cameraAction)
+                rpcMissionItem.cameraAction = missionItem.cameraAction.rpcCameraAction
 
                 uploadMissionRequest.mission.missionItem.append(rpcMissionItem)
             }
@@ -199,22 +216,5 @@ public class Mission {
             print("Disposables.create() MissionProgressObservable")
             return Disposables.create()
         }.subscribeOn(self.scheduler)
-    }
-    
-    private func translateCameraAction(cameraAction: CameraAction) -> Dronecore_Rpc_Mission_MissionItem.CameraAction {
-        switch (cameraAction) {
-        case .NONE:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.none
-        case .TAKE_PHOTO:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.takePhoto
-        case .START_PHOTO_INTERVAL:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startPhotoInterval
-        case .STOP_PHOTO_INTERVAL:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopPhotoInterval
-        case .START_VIDEO:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startVideo
-        case .STOP_VIDEO:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopVideo
-        }
     }
 }

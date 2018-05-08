@@ -11,7 +11,7 @@ class MissionTest: XCTestCase {
         let fakeService = Dronecore_Rpc_Mission_MissionServiceServiceTestStub()
         let mission = Mission(service: fakeService, scheduler: scheduler)
 
-        let missionItem = MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.NONE)
+        let missionItem = MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none)
 
         _ = mission.uploadMission(missionItems: [missionItem])
     }
