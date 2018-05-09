@@ -61,7 +61,6 @@ public struct EulerAngle: Equatable {
             && lhs.yawDeg == rhs.yawDeg
     }
 }
-
     
 // MARK: - GPSInfo
 // eDroneCoreGPSInfoFix <=> Dronecore_Rpc_Telemetry_FixType in telemetry.grpc.swift
