@@ -64,4 +64,28 @@ class TelemetryTest: XCTestCase {
             XCTFail("CameraAttitudeEulerObservable is expected to receive 5 events in 5 seconds, but it did not!")
         }
     }
+
+    func testHomePositionEmitsValues() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let telemetry = Telemetry(address: "localhost", port: 50051)
+
+        do {
+            let homePositionEvents = try telemetry.homePositionObservable.take(1).toBlocking(timeout: 5).toArray()
+        } catch {
+            XCTFail("HomePositionObservable is expected to receive at least one event, but it did not!")
+        }
+    }
+
+    func testGPSInfoEmitsValues() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let telemetry = Telemetry(address: "localhost", port: 50051)
+
+        do {
+            let gpsInfoEvents = try telemetry.GPSInfoObservable.take(1).toBlocking(timeout: 3).toArray()
+        } catch {
+            XCTFail("GPSInfoObservable is expected to receive at least one event, but it did not!")
+        }
+    }
 }

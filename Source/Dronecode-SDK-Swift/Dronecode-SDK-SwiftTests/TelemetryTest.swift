@@ -172,8 +172,7 @@ class TelemetryTest: XCTestCase {
     func testHealthObservableReceivesMultipleEvents() {
         checkHealthObservableReceivesEvents(nbEvents: 10)
     }
-    
-    
+
     // MARK: - BATTERY
     func testBatteryObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
@@ -197,12 +196,12 @@ class TelemetryTest: XCTestCase {
 
         checkBatteryObservableReceivesEvents(batteryStates: batteryStates)
     }
-    
+
     func createRPCBattery(remainingPercent: Float, voltageV: Float) -> Dronecore_Rpc_Telemetry_Battery {
         var battery = Dronecore_Rpc_Telemetry_Battery()
         battery.remainingPercent = remainingPercent
         battery.voltageV = voltageV
-        
+
         return battery
     }
 
@@ -232,7 +231,7 @@ class TelemetryTest: XCTestCase {
         XCTAssertEqual(expectedEvents.count, observer.events.count)
         XCTAssertEqual(observer.events, expectedEvents)
     }
-    
+
     func testBatteryObservableReceivesMultipleEvents() {
         var batteryStates = [Dronecore_Rpc_Telemetry_Battery]()
         batteryStates.append(createRPCBattery(remainingPercent: 0.45, voltageV: 12.4))
@@ -243,7 +242,7 @@ class TelemetryTest: XCTestCase {
 
         checkBatteryObservableReceivesEvents(batteryStates: batteryStates)
     }
-    
+
     func createBatteryResponse(battery: Dronecore_Rpc_Telemetry_Battery) -> Dronecore_Rpc_Telemetry_BatteryResponse {
         var response = Dronecore_Rpc_Telemetry_BatteryResponse()
         response.battery = battery
@@ -271,7 +270,7 @@ class TelemetryTest: XCTestCase {
         
         XCTAssertEqual(1, observer.events.count) // "completed" is one event
     }
-    
+
     func testAttitudeEulerObservableReceivesOneEvent() {
         let attitudeEuler = createRPCAttitudeEuler(pitchDeg: 45.0, rollDeg: 35.0, yawDeg: 25.0)
         let attitudes = [attitudeEuler]
@@ -336,9 +335,8 @@ class TelemetryTest: XCTestCase {
     func translateRPCAttitudeEuler(attitudeEulerRPC: Dronecore_Rpc_Telemetry_EulerAngle) -> EulerAngle {
         return EulerAngle(pitchDeg: attitudeEulerRPC.pitchDeg, rollDeg: attitudeEulerRPC.rollDeg, yawDeg: attitudeEulerRPC.yawDeg)
     }
-    
-    
-    // MARK: - CAMERA ATTITUDE
+
+    // MARK: - CAMERA ATTITUDE EULER
     func testCameraAttitudeEulerObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallTestStub()
@@ -482,20 +480,23 @@ class TelemetryTest: XCTestCase {
 
         checkHomePositionObservableReceivesEvents(positions: positions)
     }
-    
+
     // MARK: - IN AIR
-    func testIsInAirSucceedsOnSuccess() {
-        let expectedResult = true
+    func testIsInAirReturnsTrueOnSuccess() {
+        checkIsInAirReturnsCorrectValue(expectedResult: true)
+    }
+
+    func checkIsInAirReturnsCorrectValue(expectedResult: Bool) {
         var response = Dronecore_Rpc_Telemetry_InAirResponse()
         response.isInAir = expectedResult
-        
+
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallTestStub()
         fakeCall.outputs.append(response)
         fakeService.subscribeinairCalls.append(fakeCall)
-        
+
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
-        
+
         _ = telemetry.isInAir().subscribe { event in
             switch event {
             case .success(let isInAir):
@@ -506,20 +507,27 @@ class TelemetryTest: XCTestCase {
             }
         }
     }
-    
+
+    func testIsInAirReturnsFalseOnFailure() {
+        checkIsInAirReturnsCorrectValue(expectedResult: false)
+    }
+
     // MARK: - IS ARMED
-    func testIsArmedSucceedsOnSuccess() {
-        let expectedResult = true
+    func testIsArmedReturnsTrueOnSuccess() {
+        checkIsArmedReturnsCorrectValue(expectedResult: true)
+    }
+
+    func checkIsArmedReturnsCorrectValue(expectedResult: Bool) {
         var response = Dronecore_Rpc_Telemetry_ArmedResponse()
         response.isArmed = expectedResult
-        
+
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallTestStub()
         fakeCall.outputs.append(response)
         fakeService.subscribearmedCalls.append(fakeCall)
-        
+
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
-        
+
         _ = telemetry.isArmed().subscribe { event in
             switch event {
             case .success(let isArmed):
@@ -530,66 +538,70 @@ class TelemetryTest: XCTestCase {
             }
         }
     }
-    
+
+    func testIsArmedReturnsFalseOnFailure() {
+        checkIsArmedReturnsCorrectValue(expectedResult: false)
+    }
+
     // MARK: - GPSInfo
     func testGPSInfoObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallTestStub()
         fakeService.subscribegpsinfoCalls.append(fakeCall)
-        
+
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(GPSInfo.self)
-        
+
         let _ = telemetry.GPSInfoObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
-        
+
         XCTAssertEqual(1, observer.events.count) // "completed" is one event
     }
-    
+
     func testGPSInfoObservableReceivesOneEvent() {
         let gpsInfo = createRPCGPSInfo(numSatellites: 10, fixType: eDroneCoreGPSInfoFix.fix2D)
         let gpsInfoStates = [gpsInfo]
-        
+
         checkGPSInfoObservableReceivesEvents(gpsInfoStates: gpsInfoStates)
     }
-    
+
     func createRPCGPSInfo(numSatellites: Int32, fixType: eDroneCoreGPSInfoFix) -> Dronecore_Rpc_Telemetry_GPSInfo {
         var gpsInfo = Dronecore_Rpc_Telemetry_GPSInfo()
         gpsInfo.numSatellites = numSatellites
         gpsInfo.fixType = Dronecore_Rpc_Telemetry_FixType(rawValue: fixType.rawValue)!
-        
+
         return gpsInfo
     }
-    
+
     func checkGPSInfoObservableReceivesEvents(gpsInfoStates: [Dronecore_Rpc_Telemetry_GPSInfo]) {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallTestStub()
-        
+
         for gpsInfo in gpsInfoStates {
             fakeCall.outputs.append(createGPSInfoResponse(gpsInfo: gpsInfo))
         }
         fakeService.subscribegpsinfoCalls.append(fakeCall)
-        
+
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(GPSInfo.self)
-        
+
         let _ = telemetry.GPSInfoObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
-        
+
         var expectedEvents = [Recorded<Event<GPSInfo>>]()
         for gpsInfo in gpsInfoStates {
             expectedEvents.append(next(0, translateRPCGPSInfo(gpsInfoRPC: gpsInfo)))
         }
         expectedEvents.append(completed(0))
-        
+
         XCTAssertEqual(expectedEvents.count, observer.events.count)
         XCTAssertEqual(observer.events, expectedEvents)
     }
-    
+
     func testGPSInfoObservableReceivesMultipleEvents() {
         var gpsInfoStates = [Dronecore_Rpc_Telemetry_GPSInfo]()
         gpsInfoStates.append(createRPCGPSInfo(numSatellites: 6, fixType: eDroneCoreGPSInfoFix.noFix))
@@ -597,19 +609,18 @@ class TelemetryTest: XCTestCase {
         gpsInfoStates.append(createRPCGPSInfo(numSatellites: 9, fixType: eDroneCoreGPSInfoFix.fix2D))
         gpsInfoStates.append(createRPCGPSInfo(numSatellites: 10, fixType: eDroneCoreGPSInfoFix.fix3D))
         gpsInfoStates.append(createRPCGPSInfo(numSatellites: 12, fixType: eDroneCoreGPSInfoFix.fixDgps))
-        
+
         checkGPSInfoObservableReceivesEvents(gpsInfoStates: gpsInfoStates)
     }
-    
+
     func createGPSInfoResponse(gpsInfo: Dronecore_Rpc_Telemetry_GPSInfo) -> Dronecore_Rpc_Telemetry_GPSInfoResponse {
         var response = Dronecore_Rpc_Telemetry_GPSInfoResponse()
         response.gpsInfo = gpsInfo
-        
+
         return response
     }
-    
+
     func translateRPCGPSInfo(gpsInfoRPC: Dronecore_Rpc_Telemetry_GPSInfo) -> GPSInfo {
         return GPSInfo(numSatellites: gpsInfoRPC.numSatellites, fixType: eDroneCoreGPSInfoFix(rawValue: gpsInfoRPC.fixType.rawValue)!)
     }
-    
 }
