@@ -5,8 +5,7 @@ import XCTest
 
 class TelemetryTest: XCTestCase {
     let scheduler = MainScheduler.instance
- 
-    
+
     // MARK: - POSITION
     func testPositionObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
@@ -339,7 +338,7 @@ class TelemetryTest: XCTestCase {
     }
     
     
-    // MARK: - CAMERA
+    // MARK: - CAMERA ATTITUDE
     func testCameraAttitudeEulerObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallTestStub()
@@ -416,22 +415,72 @@ class TelemetryTest: XCTestCase {
 
         return response
     }
-    
-    // MARK: - HOME POSITION
-    func testHomePositionObservable() {
+
+    // MARK: - HOME
+    func testHomePositionObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallTestStub()
         fakeService.subscribehomeCalls.append(fakeCall)
-        
+
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Position.self)
-        
+
         let _ = telemetry.homePositionObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
-        
+
         XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+
+    func testHomePositionObservableReceivesOneEvent() {
+        let position = createRPCPosition(latitudeDeg: 41.848695, longitudeDeg: 75.132751, absoluteAltitudeM: 3002.1, relativeAltitudeM: 50.3);
+        let positions = [position]
+
+        checkHomePositionObservableReceivesEvents(positions: positions)
+    }
+
+    func checkHomePositionObservableReceivesEvents(positions: [Dronecore_Rpc_Telemetry_Position]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallTestStub()
+
+        for position in positions {
+            fakeCall.outputs.append(createHomeResponse(home: position))
+        }
+        fakeService.subscribehomeCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Position.self)
+
+        let _ = telemetry.homePositionObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<Position>>]()
+        for position in positions {
+            expectedEvents.append(next(0, translateRPCPosition(positionRPC: position)))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+
+    func createHomeResponse(home: Dronecore_Rpc_Telemetry_Position) -> Dronecore_Rpc_Telemetry_HomeResponse {
+        var response = Dronecore_Rpc_Telemetry_HomeResponse()
+        response.home = home
+
+        return response
+    }
+
+    func testHomePositionObservableReceivesMultipleEvents() {
+        var positions = [Dronecore_Rpc_Telemetry_Position]()
+        positions.append(createRPCPosition(latitudeDeg: 41.848695, longitudeDeg: 75.132751, absoluteAltitudeM: 3002.1, relativeAltitudeM: 50.3));
+        positions.append(createRPCPosition(latitudeDeg: 46.522626, longitudeDeg: 6.635356, absoluteAltitudeM: 542.2, relativeAltitudeM: 79.8));
+        positions.append(createRPCPosition(latitudeDeg: -50.995944711358824, longitudeDeg: -72.99892046835936, absoluteAltitudeM: 1217.12, relativeAltitudeM: 2.52));
+
+        checkHomePositionObservableReceivesEvents(positions: positions)
     }
     
     // MARK: - IN AIR
