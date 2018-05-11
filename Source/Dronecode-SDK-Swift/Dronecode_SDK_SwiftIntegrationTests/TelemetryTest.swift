@@ -100,4 +100,16 @@ class TelemetryTest: XCTestCase {
             XCTFail("FlightModeObservable is expected to receive at least one event, but it did not!")
         }
     }
+
+    func testGroundSpeedEmitsValues() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let telemetry = Telemetry(address: "localhost", port: 50051)
+
+        do {
+            let groundSpeedEvents = try telemetry.groundSpeedNEDObservable.take(3).toBlocking(timeout: 3).toArray()
+        } catch {
+            XCTFail("GroundSpeedObservable is expected to receive at least one event, but it did not!")
+        }
+    }
 }
