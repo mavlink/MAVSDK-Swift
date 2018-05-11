@@ -749,4 +749,88 @@ class TelemetryTest: XCTestCase {
         
         checkFlightModeObservableReceivesEvents(flightModeEvents: flightModeEvents)
     }
+    
+    
+    // MARK: - GroundSpeedNED
+    func testGroundSpeedNEDObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallTestStub()
+        fakeService.subscribegroundspeednedCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(GroundSpeedNED.self)
+        
+        let _ = telemetry.groundSpeedNEDObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+    
+    func testGroundSpeedNEDObservableReceivesOneEvent() {
+        let speed = createRPCGroundSpeedNED(velocityNorthMS: 1.6, velocityEastMS: 1.6, velocityDownMS: 1.6)
+        let speedStates = [speed]
+        
+        checkGroundSpeedNEDObservableReceivesEvents(speedStates: speedStates)
+    }
+    
+    
+    func createRPCGroundSpeedNED(velocityNorthMS: Float, velocityEastMS: Float, velocityDownMS: Float) -> Dronecore_Rpc_Telemetry_SpeedNED {
+        var speedNED = Dronecore_Rpc_Telemetry_SpeedNED()
+        speedNED.velocityNorthMS = velocityNorthMS
+        speedNED.velocityEastMS = velocityEastMS
+        speedNED.velocityDownMS = velocityDownMS
+        return speedNED
+    }
+    
+    func checkGroundSpeedNEDObservableReceivesEvents(speedStates: [Dronecore_Rpc_Telemetry_SpeedNED]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallTestStub()
+        
+        for speed in speedStates {
+            fakeCall.outputs.append(createGroundSpeedNEDResponse(speed: speed))
+        }
+        fakeService.subscribegroundspeednedCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(GroundSpeedNED.self)
+        
+        let _ = telemetry.groundSpeedNEDObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<GroundSpeedNED>>]()
+        for speed in speedStates {
+            expectedEvents.append(next(0, translateRPCGroundSpeedNED(speedRPC: speed)))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func testGroundSpeedNEDObservableReceivesMultipleEvents() {
+        var speedStates = [Dronecore_Rpc_Telemetry_SpeedNED]()
+        speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 1.6, velocityEastMS: 1.6, velocityDownMS: 1.6 ))
+        speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 2.7, velocityEastMS: 2.6, velocityDownMS: 1.6 ))
+        speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 3.9, velocityEastMS: 3.6, velocityDownMS: 1.6 ))
+        speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 10,  velocityEastMS: 4.6, velocityDownMS: 1.6 ))
+        speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 12,  velocityEastMS: 5.6, velocityDownMS: 1.6 ))
+        
+        checkGroundSpeedNEDObservableReceivesEvents(speedStates: speedStates)
+    }
+    
+    func createGroundSpeedNEDResponse(speed: Dronecore_Rpc_Telemetry_SpeedNED) -> Dronecore_Rpc_Telemetry_GroundSpeedNEDResponse {
+        var response = Dronecore_Rpc_Telemetry_GroundSpeedNEDResponse()
+        response.groundSpeedNed = speed
+        
+        return response
+    }
+    
+    func translateRPCGroundSpeedNED(speedRPC: Dronecore_Rpc_Telemetry_SpeedNED) -> GroundSpeedNED {
+        return GroundSpeedNED(velocityNorthMS: speedRPC.velocityNorthMS, velocityEastMS:speedRPC.velocityEastMS, velocityDownMS: speedRPC.velocityDownMS)
+    }
+
 }

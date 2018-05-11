@@ -97,6 +97,18 @@ public enum eDroneCoreFlightMode: Int {
     case followMe // = 8
 }
 
+// MARK: - GroundSpeedNED
+public struct GroundSpeedNED: Equatable {
+    public let velocityNorthMS: Float
+    public let velocityEastMS: Float
+    public let velocityDownMS: Float
+   
+    public static func == (lhs: GroundSpeedNED, rhs: GroundSpeedNED) -> Bool {
+        return lhs.velocityNorthMS == rhs.velocityNorthMS
+            && lhs.velocityEastMS == rhs.velocityEastMS
+            && lhs.velocityDownMS == rhs.velocityDownMS
+    }
+}
 // MARK: - TELEMETRY
 public class Telemetry {
     private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
@@ -112,6 +124,7 @@ public class Telemetry {
     public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
     public lazy var healthObservable: Observable<Health> = createHealthObservable()
     public lazy var flightModeObservable: Observable<eDroneCoreFlightMode> = createFlightModeObservable()
+    public lazy var groundSpeedNEDObservable: Observable<GroundSpeedNED> = createGroundSpeedNEDObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -311,9 +324,22 @@ public class Telemetry {
             }.subscribeOn(self.scheduler)
     }
     
-    
-    
-    
-    
+    private func createGroundSpeedNEDObservable() -> Observable<GroundSpeedNED> {
+        return Observable.create { observer in
+            let groundSpeedRequest = Dronecore_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest()
+            
+            do {
+                let call = try self.service.subscribegroundspeedned(groundSpeedRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let groundSpeed : GroundSpeedNED = GroundSpeedNED(velocityNorthMS: response.groundSpeedNed.velocityNorthMS, velocityEastMS: response.groundSpeedNed.velocityEastMS, velocityDownMS: response.groundSpeedNed.velocityDownMS)
+                    observer.onNext(groundSpeed)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to Ground Speed NED stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
 
 }
