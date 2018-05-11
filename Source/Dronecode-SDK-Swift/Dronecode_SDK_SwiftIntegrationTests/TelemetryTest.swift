@@ -88,4 +88,16 @@ class TelemetryTest: XCTestCase {
             XCTFail("GPSInfoObservable is expected to receive at least one event, but it did not!")
         }
     }
+    
+    func testFlightModeEmitsValues() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let telemetry = Telemetry(address: "localhost", port: 50051)
+        
+        do {
+            let flightModeEvents = try telemetry.flightModeObservable.take(1).toBlocking(timeout: 3).toArray()
+        } catch {
+            XCTFail("FlightModeObservable is expected to receive at least one event, but it did not!")
+        }
+    }
 }
