@@ -687,4 +687,66 @@ class TelemetryTest: XCTestCase {
     func translateRPCGPSInfo(gpsInfoRPC: Dronecore_Rpc_Telemetry_GPSInfo) -> GPSInfo {
         return GPSInfo(numSatellites: gpsInfoRPC.numSatellites, fixType: eDroneCoreGPSInfoFix(rawValue: gpsInfoRPC.fixType.rawValue)!)
     }
+    
+    // MARK: - FLIGHT MODE
+    func testFlightModeObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallTestStub()
+        fakeService.subscribeflightmodeCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(eDroneCoreFlightMode.self)
+        
+        let _ = telemetry.flightModeObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+    
+    func testFlightModeObservableReceivesOneEvent() {
+        let flightModeEvents = [eDroneCoreFlightMode.ready]
+        
+        checkFlightModeObservableReceivesEvents(flightModeEvents: flightModeEvents)
+    }
+    
+    func checkFlightModeObservableReceivesEvents(flightModeEvents: [eDroneCoreFlightMode]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallTestStub()
+        
+        for flightModeEvent in flightModeEvents {
+            fakeCall.outputs.append(createFlightModeResponse(flightMode: flightModeEvent))
+        }
+        fakeService.subscribeflightmodeCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(eDroneCoreFlightMode.self)
+        
+        let _ = telemetry.flightModeObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<eDroneCoreFlightMode>>]()
+        for flightModeEvent in flightModeEvents {
+            expectedEvents.append(next(0, flightModeEvent))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func createFlightModeResponse(flightMode: eDroneCoreFlightMode) -> Dronecore_Rpc_Telemetry_FlightModeResponse {
+        var response = Dronecore_Rpc_Telemetry_FlightModeResponse()
+        response.flightMode = Dronecore_Rpc_Telemetry_FlightMode(rawValue: flightMode.rawValue)!
+        
+        return response
+    }
+    func testFlightModeObservableReceivesMultipleEvents() {
+        let flightModeEvents = [eDroneCoreFlightMode.unknown, eDroneCoreFlightMode.ready, eDroneCoreFlightMode.takeoff, eDroneCoreFlightMode.hold, eDroneCoreFlightMode.mission, eDroneCoreFlightMode.returnToLaunch]
+        
+        checkFlightModeObservableReceivesEvents(flightModeEvents: flightModeEvents)
+    }
 }
