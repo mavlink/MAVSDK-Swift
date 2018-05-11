@@ -482,34 +482,66 @@ class TelemetryTest: XCTestCase {
     }
 
     // MARK: - IN AIR
-    func testIsInAirReturnsTrueOnSuccess() {
-        checkIsInAirReturnsCorrectValue(expectedResult: true)
-    }
-
-    func checkIsInAirReturnsCorrectValue(expectedResult: Bool) {
-        var response = Dronecore_Rpc_Telemetry_InAirResponse()
-        response.isInAir = expectedResult
-
+    func testInAirObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallTestStub()
-        fakeCall.outputs.append(response)
         fakeService.subscribeinairCalls.append(fakeCall)
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Bool.self)
 
-        _ = telemetry.isInAir().subscribe { event in
-            switch event {
-            case .success(let isInAir):
-                XCTAssert(isInAir == expectedResult)
-                break
-            case .error(let error):
-                XCTFail("Expecting success, got failure: isInAir() \(error) ")
-            }
-        }
+        let _ = telemetry.inAirObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
     }
 
-    func testIsInAirReturnsFalseOnFailure() {
-        checkIsInAirReturnsCorrectValue(expectedResult: false)
+    func testInAirObservableReceivesOneEvent() {
+        let inAirEvents = [false]
+
+        checkInAirObservableReceivesEvents(inAirEvents: inAirEvents)
+    }
+
+    func checkInAirObservableReceivesEvents(inAirEvents: [Bool]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallTestStub()
+
+        for inAirEvent in inAirEvents {
+            fakeCall.outputs.append(createInAirResponse(isInAir: inAirEvent))
+        }
+        fakeService.subscribeinairCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Bool.self)
+
+        let _ = telemetry.inAirObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<Bool>>]()
+        for inAirEvent in inAirEvents {
+            expectedEvents.append(next(0, inAirEvent))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+
+    func createInAirResponse(isInAir: Bool) -> Dronecore_Rpc_Telemetry_InAirResponse {
+        var response = Dronecore_Rpc_Telemetry_InAirResponse()
+        response.isInAir = isInAir
+
+        return response
+    }
+
+    func testInAirObservableReceivesMultipleEvents() {
+        let inAirEvents = [false, true, true, false, false, true]
+
+        checkInAirObservableReceivesEvents(inAirEvents: inAirEvents)
     }
 
     // MARK: - IS ARMED

@@ -89,10 +89,13 @@ public class Telemetry {
     private let scheduler: SchedulerType
     
     public lazy var positionObservable: Observable<Position> = createPositionObservable()
-    public lazy var healthObservable: Observable<Health> = createHealthObservable()
-    public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
+    public lazy var homePositionObservable: Observable<Position> = createHomePositionObservable()
+    public lazy var inAirObservable: Observable<Bool> = createInAirObservable()
     public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
     public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
+    public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
+    public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
+    public lazy var healthObservable: Observable<Health> = createHealthObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -107,50 +110,6 @@ public class Telemetry {
     }
 
     // MARK: - Public functions
-    public lazy var positionObservable: Observable<Position> = {
-        return createPositionObservable()
-    }()
-    
-    public lazy var healthObservable: Observable<Health> = {
-        return createHealthObservable()
-    }()
-    
-    public lazy var batteryObservable: Observable<Battery> = {
-        return createBatteryObservable()
-    }()
-    
-    public lazy var attitudeEulerObservable: Observable<EulerAngle> = {
-        return createAttitudeEulerObservable()
-    }()
-    
-    public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = {
-        return createCameraAttitudeEulerObservable()
-    }()
-    
-    public lazy var homePositionObservable: Observable<Position> = {
-        return createHomePositionObservable()
-    }()
-    
-    public lazy var GPSInfoObservable: Observable<GPSInfo> = {
-        return createGPSInfoObservable()
-    }()
-    
-    public func isInAir() -> Single<Bool> {
-        return Single<Bool>.create { single in
-            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
-            do {
-                let inAirResponse = try self.service.subscribeinair(inAirRequest, completion: nil)
-                while let response = try? inAirResponse.receive() {
-                    single(.success(response.isInAir))
-                }
-                return Disposables.create {}
-            } catch {
-                single(.error(error))
-                return Disposables.create {}
-            }
-        }
-    }
-    
     public func isArmed() -> Single<Bool> {
         return Single<Bool>.create { single in
             let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
@@ -180,13 +139,30 @@ public class Telemetry {
                     observer.onNext(position)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to position stream")
             }
 
             return Disposables.create()
         }.subscribeOn(self.scheduler)
     }
-    
+
+    private func createInAirObservable() -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
+
+            do {
+                let call = try self.service.subscribeinair(inAirRequest, completion: nil)
+                while let response = try? call.receive() {
+                    observer.onNext(response.isInAir)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to inAir stream: \(error)")
+            }
+
+            return Disposables.create {}
+        }.subscribeOn(self.scheduler)
+    }
+
     private func createHealthObservable() -> Observable<Health> {
         return Observable.create { observer in
             let healthRequest = Dronecore_Rpc_Telemetry_SubscribeHealthRequest()
