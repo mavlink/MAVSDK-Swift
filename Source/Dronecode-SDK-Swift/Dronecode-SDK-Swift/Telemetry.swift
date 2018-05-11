@@ -83,6 +83,20 @@ public struct GPSInfo: Equatable {
     }
 }
 
+// MARK: - FlightMode
+// eDroneCoreFlightMode <=> Dronecore_Rpc_Telemetry_FlightMode in telemetry.grpc.swift
+public enum eDroneCoreFlightMode: Int {
+    case unknown // = 0
+    case ready // = 1
+    case takeoff // = 2
+    case hold // = 3
+    case mission // = 4
+    case returnToLaunch // = 5
+    case land // = 6
+    case offboard // = 7
+    case followMe // = 8
+}
+
 // MARK: - TELEMETRY
 public class Telemetry {
     private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
@@ -97,6 +111,7 @@ public class Telemetry {
     public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
     public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
     public lazy var healthObservable: Observable<Health> = createHealthObservable()
+    public lazy var flightModeObservable: Observable<eDroneCoreFlightMode> = createFlightModeObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -277,6 +292,26 @@ public class Telemetry {
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
+    
+    private func createFlightModeObservable() -> Observable<eDroneCoreFlightMode> {
+        return Observable.create { observer in
+            let flightModeRequest = Dronecore_Rpc_Telemetry_SubscribeFlightModeRequest()
+            
+            do {
+                let call = try self.service.subscribeflightmode(flightModeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let flightMode : eDroneCoreFlightMode = eDroneCoreFlightMode(rawValue: response.flightMode.rawValue)!
+                    observer.onNext(flightMode)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to FlightMode stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    
     
     
     
