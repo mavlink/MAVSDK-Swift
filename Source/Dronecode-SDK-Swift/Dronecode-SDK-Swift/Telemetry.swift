@@ -61,7 +61,7 @@ public struct EulerAngle: Equatable {
             && lhs.yawDeg == rhs.yawDeg
     }
 }
-    
+
 // MARK: - GPSInfo
 // eDroneCoreGPSInfoFix <=> Dronecore_Rpc_Telemetry_FixType in telemetry.grpc.swift
 public enum eDroneCoreGPSInfoFix: Int {
@@ -73,6 +73,7 @@ public enum eDroneCoreGPSInfoFix: Int {
     case rtkFloat // = 5
     case rtkFixed // = 6
 }
+
 public struct GPSInfo: Equatable {
     public let numSatellites: Int32
     public let fixType: eDroneCoreGPSInfoFix
@@ -109,6 +110,7 @@ public struct GroundSpeedNED: Equatable {
             && lhs.velocityDownMS == rhs.velocityDownMS
     }
 }
+
 // MARK: - TELEMETRY
 public class Telemetry {
     private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
@@ -341,5 +343,4 @@ public class Telemetry {
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
-
 }
