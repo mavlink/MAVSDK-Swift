@@ -91,6 +91,7 @@ public class Telemetry {
     public lazy var positionObservable: Observable<Position> = createPositionObservable()
     public lazy var homePositionObservable: Observable<Position> = createHomePositionObservable()
     public lazy var inAirObservable: Observable<Bool> = createInAirObservable()
+    public lazy var armedObservable: Observable<Bool> = createArmedObservable()
     public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
     public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
     public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
@@ -107,23 +108,6 @@ public class Telemetry {
     init(service: Dronecore_Rpc_Telemetry_TelemetryServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
-    }
-
-    // MARK: - Public functions
-    public func isArmed() -> Single<Bool> {
-        return Single<Bool>.create { single in
-            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
-            do {
-                let armedResponse = try self.service.subscribearmed(armedRequest, completion: nil)
-                while let response = try? armedResponse.receive() {
-                    single(.success(response.isArmed))
-                }
-                return Disposables.create {}
-            } catch {
-                single(.error(error))
-                return Disposables.create {}
-            }
-        }
     }
     
     // MARK: - Privates functions
@@ -161,6 +145,23 @@ public class Telemetry {
 
             return Disposables.create {}
         }.subscribeOn(self.scheduler)
+    }
+
+    private func createArmedObservable() -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
+
+            do {
+                let call = try self.service.subscribearmed(armedRequest, completion: nil)
+                while let response = try? call.receive() {
+                    observer.onNext(response.isArmed)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to armed stream: \(error)")
+            }
+
+            return Disposables.create {}
+            }.subscribeOn(self.scheduler)
     }
 
     private func createHealthObservable() -> Observable<Health> {

@@ -545,34 +545,66 @@ class TelemetryTest: XCTestCase {
     }
 
     // MARK: - IS ARMED
-    func testIsArmedReturnsTrueOnSuccess() {
-        checkIsArmedReturnsCorrectValue(expectedResult: true)
-    }
-
-    func checkIsArmedReturnsCorrectValue(expectedResult: Bool) {
-        var response = Dronecore_Rpc_Telemetry_ArmedResponse()
-        response.isArmed = expectedResult
-
+    func testArmedObservableEmitsNothingWhenNoEvent() {
         let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallTestStub()
-        fakeCall.outputs.append(response)
         fakeService.subscribearmedCalls.append(fakeCall)
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Bool.self)
 
-        _ = telemetry.isArmed().subscribe { event in
-            switch event {
-            case .success(let isArmed):
-                XCTAssert(isArmed == expectedResult)
-                break
-            case .error(let error):
-                XCTFail("Expecting success, got failure: isArmed() \(error) ")
-            }
-        }
+        let _ = telemetry.armedObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
     }
 
-    func testIsArmedReturnsFalseOnFailure() {
-        checkIsArmedReturnsCorrectValue(expectedResult: false)
+    func testArmedObservableReceivesOneEvent() {
+        let armedEvents = [false]
+
+        checkArmedObservableReceivesEvents(armedEvents: armedEvents)
+    }
+
+    func checkArmedObservableReceivesEvents(armedEvents: [Bool]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallTestStub()
+
+        for armedEvent in armedEvents {
+            fakeCall.outputs.append(createArmedResponse(isArmed: armedEvent))
+        }
+        fakeService.subscribearmedCalls.append(fakeCall)
+
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Bool.self)
+
+        let _ = telemetry.armedObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+
+        var expectedEvents = [Recorded<Event<Bool>>]()
+        for armedEvent in armedEvents {
+            expectedEvents.append(next(0, armedEvent))
+        }
+        expectedEvents.append(completed(0))
+
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+
+    func createArmedResponse(isArmed: Bool) -> Dronecore_Rpc_Telemetry_ArmedResponse {
+        var response = Dronecore_Rpc_Telemetry_ArmedResponse()
+        response.isArmed = isArmed
+
+        return response
+    }
+
+    func testArmedObservableReceivesMultipleEvents() {
+        let armedEvents = [false, true, true, false, false, true]
+
+        checkArmedObservableReceivesEvents(armedEvents: armedEvents)
     }
 
     // MARK: - GPSInfo
