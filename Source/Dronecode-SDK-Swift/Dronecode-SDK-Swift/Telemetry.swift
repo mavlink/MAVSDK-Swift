@@ -62,6 +62,21 @@ public struct EulerAngle: Equatable {
     }
 }
 
+// MARK: - Quaternion
+public struct Quaternion: Equatable {
+    public let w: Float
+    public let x: Float
+    public let y: Float
+    public let z: Float
+    
+    public static func == (lhs: Quaternion, rhs: Quaternion) -> Bool {
+        return lhs.w == rhs.w
+            && lhs.x == rhs.x
+            && lhs.y == rhs.y
+            && lhs.z == rhs.z
+    }
+}
+
 // MARK: - GPSInfo
 // eDroneCoreGPSInfoFix <=> Dronecore_Rpc_Telemetry_FixType in telemetry.grpc.swift
 public enum eDroneCoreGPSInfoFix: Int {
@@ -133,6 +148,7 @@ public class Telemetry {
     public lazy var homePositionObservable: Observable<Position> = createHomePositionObservable()
     public lazy var inAirObservable: Observable<Bool> = createInAirObservable()
     public lazy var armedObservable: Observable<Bool> = createArmedObservable()
+    public lazy var attitudeQuaternionObservable: Observable<Quaternion> = createAttitudeQuaternionObservable()
     public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
     public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
     public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
@@ -285,6 +301,27 @@ public class Telemetry {
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
+    
+    private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
+        return Observable.create { observer in
+            let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
+            
+            do {
+                let call = try self.service.subscribeattitudequaternion(attitudeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    
+                    let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
+                    
+                    observer.onNext(attitude)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to attitude quaternion stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
     
     private func createHomePositionObservable() -> Observable<Position> {
         return Observable.create { observer in
