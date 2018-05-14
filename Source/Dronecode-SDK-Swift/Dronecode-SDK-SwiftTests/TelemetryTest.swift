@@ -335,6 +335,90 @@ class TelemetryTest: XCTestCase {
     func translateRPCAttitudeEuler(attitudeEulerRPC: Dronecore_Rpc_Telemetry_EulerAngle) -> EulerAngle {
         return EulerAngle(pitchDeg: attitudeEulerRPC.pitchDeg, rollDeg: attitudeEulerRPC.rollDeg, yawDeg: attitudeEulerRPC.yawDeg)
     }
+    
+    // MARK: - ATTITUDE QUARTERNION
+    func testAttitudeQuaternionObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallTestStub()
+        fakeService.subscribeattitudequaternionCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Quaternion.self)
+        
+        let _ = telemetry.attitudeQuaternionObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+    
+    func testAttitudeQuaternionObservableReceivesOneEvent() {
+        let attitudeQuaternion = createRPCAttitudeQuaternion(w: 45.0, x: 35.0, y: 25.0, z: 25.0)
+        let attitudes = [attitudeQuaternion]
+        
+        checkAttitudeQuaternionObservableReceivesEvents(attitudes: attitudes)
+    }
+    
+    func createRPCAttitudeQuaternion(w: Float, x: Float, y: Float, z: Float) -> Dronecore_Rpc_Telemetry_Quaternion {
+        var attitudeQuaternion = Dronecore_Rpc_Telemetry_Quaternion()
+        attitudeQuaternion.w = w
+        attitudeQuaternion.x = x
+        attitudeQuaternion.y = y
+        attitudeQuaternion.z = z
+        
+        return attitudeQuaternion
+    }
+    
+    func checkAttitudeQuaternionObservableReceivesEvents(attitudes: [Dronecore_Rpc_Telemetry_Quaternion]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallTestStub()
+        
+        for attitude in attitudes {
+            fakeCall.outputs.append(createAttitudeQuaternionResponse(attitudeQuaternion: attitude))
+        }
+        fakeService.subscribeattitudequaternionCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(Quaternion.self)
+        
+        let _ = telemetry.attitudeQuaternionObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<Quaternion>>]()
+        for attitude in attitudes {
+            expectedEvents.append(next(0, translateRPCAttitudeQuaternion(attitudeQuaternionRPC: attitude)))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func testAttitudeQuaternionObservableReceivesMultipleEvents() {
+        var attitudes = [Dronecore_Rpc_Telemetry_Quaternion]()
+        attitudes.append(createRPCAttitudeQuaternion(w: 12.0, x: 13.2, y: 24.1, z: 14.1))
+        attitudes.append(createRPCAttitudeQuaternion(w: 13.0, x: 12.2, y: 34.1, z: 24.1))
+        attitudes.append(createRPCAttitudeQuaternion(w: 14.0, x: 11.2, y: 44.1, z: 34.1))
+        attitudes.append(createRPCAttitudeQuaternion(w: 15.0, x: 10.2, y: 54.1, z: 44.1))
+        attitudes.append(createRPCAttitudeQuaternion(w: 16.0, x: 9.2, y: 64.1, z: 54.1))
+        
+        checkAttitudeQuaternionObservableReceivesEvents(attitudes: attitudes)
+    }
+    
+    func createAttitudeQuaternionResponse(attitudeQuaternion: Dronecore_Rpc_Telemetry_Quaternion) -> Dronecore_Rpc_Telemetry_AttitudeQuaternionResponse {
+        var response = Dronecore_Rpc_Telemetry_AttitudeQuaternionResponse()
+        response.attitudeQuaternion = attitudeQuaternion
+        
+        return response
+    }
+    
+    func translateRPCAttitudeQuaternion(attitudeQuaternionRPC: Dronecore_Rpc_Telemetry_Quaternion) -> Quaternion {
+        return Quaternio(w: attitudeQuaternionRPC.w, x: attitudeQuaternionRPC.x, y: attitudeQuaternionRPC.y, z: attitudeQuaternionRPC.z)
+    }
+    
 
     // MARK: - CAMERA ATTITUDE EULER
     func testCameraAttitudeEulerObservableEmitsNothingWhenNoEvent() {
