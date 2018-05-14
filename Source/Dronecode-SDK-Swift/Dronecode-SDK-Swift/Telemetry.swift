@@ -111,6 +111,19 @@ public struct GroundSpeedNED: Equatable {
     }
 }
 
+// MARK: - RCStatus
+public struct RCStatus: Equatable {
+    public let wasAvailableOnce: Bool
+    public let isAvailable: Bool
+    public let signalStrengthPercent: Float
+    
+    public static func == (lhs: RCStatus, rhs: RCStatus) -> Bool {
+        return lhs.wasAvailableOnce == rhs.wasAvailableOnce
+            && lhs.isAvailable == rhs.isAvailable
+            && lhs.signalStrengthPercent == rhs.signalStrengthPercent
+    }
+}
+
 // MARK: - TELEMETRY
 public class Telemetry {
     private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
@@ -127,6 +140,7 @@ public class Telemetry {
     public lazy var healthObservable: Observable<Health> = createHealthObservable()
     public lazy var flightModeObservable: Observable<eDroneCoreFlightMode> = createFlightModeObservable()
     public lazy var groundSpeedNEDObservable: Observable<GroundSpeedNED> = createGroundSpeedNEDObservable()
+    public lazy var rcStatusObservable: Observable<RCStatus> = createRCStatusObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -343,4 +357,23 @@ public class Telemetry {
             return Disposables.create()
             }.subscribeOn(self.scheduler)
     }
+    
+    private func createRCStatusObservable() -> Observable<RCStatus> {
+        return Observable.create { observer in
+            let rcstatusRequest = Dronecore_Rpc_Telemetry_SubscribeRCStatusRequest()
+            
+            do {
+                let call = try self.service.subscribercstatus(rcstatusRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let rcstatus : RCStatus = RCStatus(wasAvailableOnce: response.rcStatus.wasAvailableOnce, isAvailable: response.rcStatus.isAvailable, signalStrengthPercent: response.rcStatus.signalStrengthPercent)
+                    observer.onNext(rcstatus)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to RC Status stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
 }

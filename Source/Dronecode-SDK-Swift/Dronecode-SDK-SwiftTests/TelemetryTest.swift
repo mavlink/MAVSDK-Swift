@@ -831,4 +831,84 @@ class TelemetryTest: XCTestCase {
     func translateRPCGroundSpeedNED(speedRPC: Dronecore_Rpc_Telemetry_SpeedNED) -> GroundSpeedNED {
         return GroundSpeedNED(velocityNorthMS: speedRPC.velocityNorthMS, velocityEastMS:speedRPC.velocityEastMS, velocityDownMS: speedRPC.velocityDownMS)
     }
+    
+    // MARK: - RCStatus
+    func testRCStatusObservableEmitsNothingWhenNoEvent() {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallTestStub()
+        fakeService.subscribercstatusCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(RCStatus.self)
+        
+        let _ = telemetry.rcStatusObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+    }
+    
+    func testRCStatusObservableReceivesOneEvent() {
+        let rcstatus = createRPCRCStatus(wasAvailableOnce: false, isAvailable: true, signalStrengthPercent: 25.6)
+        let rcStatusStates = [rcstatus]
+        
+        checkRCStatusObservableReceivesEvents(rcStatusStates: rcStatusStates)
+    }
+    
+    func createRPCRCStatus(wasAvailableOnce: Bool, isAvailable: Bool, signalStrengthPercent: Float) -> Dronecore_Rpc_Telemetry_RCStatus {
+        var rcStatus = Dronecore_Rpc_Telemetry_RCStatus()
+        rcStatus.wasAvailableOnce = wasAvailableOnce
+        rcStatus.isAvailable = isAvailable
+        rcStatus.signalStrengthPercent = signalStrengthPercent
+        return rcStatus
+    }
+    
+    func checkRCStatusObservableReceivesEvents(rcStatusStates: [Dronecore_Rpc_Telemetry_RCStatus]) {
+        let fakeService = Dronecore_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Dronecore_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallTestStub()
+        
+        for rcStatus in rcStatusStates {
+            fakeCall.outputs.append(createRCStatusResponse(rcStatus: rcStatus))
+        }
+        fakeService.subscribercstatusCalls.append(fakeCall)
+        
+        let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(RCStatus.self)
+        
+        let _ = telemetry.rcStatusObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<RCStatus>>]()
+        for rcStatus in rcStatusStates {
+            expectedEvents.append(next(0, translateRPCRCStatus(rcStatusRPC: rcStatus)))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func testRCStatusObservableReceivesMultipleEvents() {
+        var rcStatusStates = [Dronecore_Rpc_Telemetry_RCStatus]()
+        rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: false, isAvailable: false, signalStrengthPercent: 50))
+        rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: false, isAvailable: true, signalStrengthPercent: 41))
+        rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: false, isAvailable: true, signalStrengthPercent: 32))
+        rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: true, isAvailable: false, signalStrengthPercent: 65))
+        rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: true, isAvailable: false, signalStrengthPercent: 78))
+        checkRCStatusObservableReceivesEvents(rcStatusStates: rcStatusStates)
+    }
+    
+    func createRCStatusResponse(rcStatus: Dronecore_Rpc_Telemetry_RCStatus) -> Dronecore_Rpc_Telemetry_RCStatusResponse {
+        var response = Dronecore_Rpc_Telemetry_RCStatusResponse()
+        response.rcStatus = rcStatus
+        
+        return response
+    }
+    
+    func translateRPCRCStatus(rcStatusRPC: Dronecore_Rpc_Telemetry_RCStatus) -> RCStatus {
+        return RCStatus(wasAvailableOnce: rcStatusRPC.wasAvailableOnce , isAvailable: rcStatusRPC.isAvailable, signalStrengthPercent: rcStatusRPC.signalStrengthPercent)
+    }
 }
