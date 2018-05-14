@@ -77,6 +77,18 @@ class TelemetryTest: XCTestCase {
         }
     }
 
+    func testCameraAttitudeQuaternionEmitsValues() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let telemetry = Telemetry(address: "localhost", port: 50051)
+        
+        do {
+            let attitudeEulerEvents = try telemetry.cameraAttitudeQuaternionObservable.take(5).toBlocking(timeout: 5).toArray()
+        } catch {
+            XCTFail("CameraAttitudeQuaternionObservable is expected to receive 5 events in 5 seconds, but it did not!")
+        }
+    }
+    
     func testHomePositionEmitsValues() {
         let core = Core()
         core.connect().toBlocking().materialize()
