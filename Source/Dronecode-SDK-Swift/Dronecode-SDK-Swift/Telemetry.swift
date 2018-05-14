@@ -150,6 +150,7 @@ public class Telemetry {
     public lazy var armedObservable: Observable<Bool> = createArmedObservable()
     public lazy var attitudeQuaternionObservable: Observable<Quaternion> = createAttitudeQuaternionObservable()
     public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
+    public lazy var cameraAttitudeQuaternionObservable: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
     public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
     public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
     public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
@@ -295,7 +296,7 @@ public class Telemetry {
                     observer.onNext(attitude)
                 }
             } catch {
-                observer.onError("Failed to subscribe to camera attitude stream")
+                observer.onError("Failed to subscribe to camera attitude euler stream")
             }
             
             return Disposables.create()
@@ -322,6 +323,25 @@ public class Telemetry {
             }.subscribeOn(self.scheduler)
     }
     
+    private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
+        return Observable.create { observer in
+            let cameraAttitudeRequest = Dronecore_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
+            
+            do {
+                let call = try self.service.subscribecameraattitudequaternion(cameraAttitudeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    
+                    let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
+                    
+                    observer.onNext(attitude)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to camera attitude quaternion stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
     
     private func createHomePositionObservable() -> Observable<Position> {
         return Observable.create { observer in
