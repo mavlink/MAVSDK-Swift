@@ -59,7 +59,7 @@ class TelemetryEntries {
         }
         
         //Listen Connection
-        let coreStatus: Observable<UInt64> = CoreManager.shared().core.getDiscoverObservable()
+        let coreStatus: Observable<UInt64> = CoreManager.shared().core.discoverObservable
         _ = coreStatus.subscribe(onNext: { uuid in
             self.onDiscoverObservable(uuid: uuid)
         }, onError: { error in
@@ -67,7 +67,7 @@ class TelemetryEntries {
         })
         
         //Listen Timeout
-        let coreTimeout: Observable<Void> = CoreManager.shared().core.getTimeoutObservable()
+        let coreTimeout: Observable<Void> = CoreManager.shared().core.timeoutObservable
         _ = coreTimeout.subscribe({Void in self.onTimeoutObservable()})
         
     }
@@ -81,7 +81,7 @@ class TelemetryEntries {
         entries[EntryType.connection.rawValue].state = 1
         
         //Listen Health
-        let health: Observable<Health> = CoreManager.shared().telemetry.getHealthObservable()
+        let health: Observable<Health> = CoreManager.shared().telemetry.healthObservable
         _ = health.subscribe(onNext: { health in
             //print ("Next health \(health)")
             self.onHealthUpdate(health: health)
@@ -90,7 +90,7 @@ class TelemetryEntries {
         })
         
         //Listen Position
-        let position: Observable<Position> = CoreManager.shared().telemetry.getPositionObservable()
+        let position: Observable<Position> = CoreManager.shared().telemetry.positionObservable
         _ = position.subscribe(onNext: { position in
             //print ("Next Pos \(position)")
             CoreManager.shared().droneState.location2D = CLLocationCoordinate2DMake(position.latitudeDeg,position.longitudeDeg)
