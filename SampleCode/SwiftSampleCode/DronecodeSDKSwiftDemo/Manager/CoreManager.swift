@@ -8,6 +8,7 @@
 
 import Foundation
 import Dronecode_SDK_Swift
+import RxBlocking
 
 class CoreManager {
     
@@ -49,7 +50,7 @@ class CoreManager {
     }
     
     public func start() -> Void{
-        core.connect()
+       _ = core.connect().toBlocking().materialize()
     }
     
 }
