@@ -113,7 +113,6 @@ class TelemetryTest: XCTestCase {
         }
     }
 
-    /* TEST FAILS
     func testRCStatusEmitsValues() {
         let core = Core()
         core.connect().toBlocking().materialize()
@@ -124,5 +123,5 @@ class TelemetryTest: XCTestCase {
         } catch {
             XCTFail("RCStatusObservable is expected to receive at least one event, but it did not!")
         }
-    }*/
+    }
 }
