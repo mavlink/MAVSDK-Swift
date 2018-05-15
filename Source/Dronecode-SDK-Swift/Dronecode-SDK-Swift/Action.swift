@@ -25,15 +25,14 @@ public class Action {
                 let armResponse = try self.service.arm(armRequest)
                 if (armResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot arm: \(armResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
@@ -45,15 +44,14 @@ public class Action {
                 let disarmResponse = try self.service.disarm(disarmRequest)
                 if (disarmResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot disarm: \(disarmResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
@@ -65,15 +63,14 @@ public class Action {
                 let takeoffResponse = try self.service.takeoff(takeoffRequest)
                 if (takeoffResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot takeoff: \(takeoffResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
@@ -85,15 +82,14 @@ public class Action {
                 let landResponse = try self.service.land(landRequest)
                 if (landResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot land: \(landResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
@@ -105,15 +101,14 @@ public class Action {
                 let killResponse = try self.service.kill(killRequest)
                 if (killResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot kill: \(killResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+
+            return Disposables.create()
         }
     }
     
@@ -125,15 +120,14 @@ public class Action {
                 let rtlResponse = try self.service.returntolaunch(rtlRequest)
                 if (rtlResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot return to launch: \(rtlResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
@@ -145,15 +139,14 @@ public class Action {
                 let toFixedWingResponse = try self.service.transitiontofixedwing(toFixedWingRequest)
                 if (toFixedWingResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot transition to fixed wings: \(toFixedWingResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
@@ -165,36 +158,34 @@ public class Action {
                 let toMulticopterResponse = try self.service.transitiontomulticopter(toMulticopterRequest)
                 if (toMulticopterResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
-                    return Disposables.create {}
                 } else {
                     completable(.error("Cannot transition to multicopter: \(toMulticopterResponse.actionResult.result)"))
-                    return Disposables.create {}
                 }
             } catch {
                 completable(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
     
     public func getTakeoffAltitude() -> Single<Float> {
-    
         return Single<Float>.create { single in
             let getTakeoffAltitudeRequest = Dronecore_Rpc_Action_GetTakeoffAltitudeRequest()
+            
             do {
                 let getTakeoffAltitudeResponse = try self.service.gettakeoffaltitude(getTakeoffAltitudeRequest)
                 single(.success(getTakeoffAltitudeResponse.altitudeM))
-                return Disposables.create {}
             } catch {
                 single(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
     public func setTakeoffAltitude(altitude: Float) -> Completable {
-        
         return Completable.create { completable in
             var setTakeoffAltitudeRequest = Dronecore_Rpc_Action_SetTakeoffAltitudeRequest()
             setTakeoffAltitudeRequest.altitudeM = altitude
@@ -206,27 +197,26 @@ public class Action {
                 completable(.error(error))
             }
 
-            return Disposables.create {}
+            return Disposables.create()
         }
     }
     
     public func getMaximumSpeed() -> Single<Float> {
-        
         return Single<Float>.create { single in
             let getMaximumSpeedRequest = Dronecore_Rpc_Action_GetMaximumSpeedRequest()
+            
             do {
                 let getMaximumSpeedResponse = try self.service.getmaximumspeed(getMaximumSpeedRequest)
                 single(.success(getMaximumSpeedResponse.speedMS))
-                return Disposables.create {}
             } catch {
                 single(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
-    public func setMaximumSpeed(speed: Float) -> Completable{
-        
+    public func setMaximumSpeed(speed: Float) -> Completable {
         return Completable.create { completable in
             var setMaximumSpeedRequest = Dronecore_Rpc_Action_SetMaximumSpeedRequest()
             setMaximumSpeedRequest.speedMS = speed
@@ -238,7 +228,7 @@ public class Action {
                 completable(.error(error))
             }
 
-            return Disposables.create {}
+            return Disposables.create()
         }
     }
     

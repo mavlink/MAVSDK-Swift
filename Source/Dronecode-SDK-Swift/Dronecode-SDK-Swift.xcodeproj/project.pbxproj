@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A539337420A26B94004D791F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337320A26B94004D791F /* Camera.swift */; };
+		A539337620A26BAC004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337520A26BAC004D791F /* CameraTest.swift */; };
+		A539337820A2828B004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337720A2828B004D791F /* CameraTest.swift */; };
 		DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0D207CEBEF00CEE035 /* ActionTest.swift */; };
 		DF020A10207D4CC600CEE035 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0F207D4CC600CEE035 /* Telemetry.swift */; };
 		DF020A12207D4CEF00CEE035 /* TelemetryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */; };
@@ -141,6 +144,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A539337320A26B94004D791F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		A539337520A26BAC004D791F /* CameraTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
+		A539337720A2828B004D791F /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
 		DF020A0D207CEBEF00CEE035 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF020A0F207D4CC600CEE035 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryTest.swift; sourceTree = "<group>"; };
@@ -265,6 +271,7 @@
 				DF674CC5206D946E00421042 /* Core.swift */,
 				DF020A1520873D3B00CEE035 /* Mission.swift */,
 				DF020A0F207D4CC600CEE035 /* Telemetry.swift */,
+				A539337320A26B94004D791F /* Camera.swift */,
 				DF68BF14206461DF00175337 /* Generated */,
 				DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */,
 				DF68BEFE2064617900175337 /* Info.plist */,
@@ -275,6 +282,7 @@
 		DF68BF072064617900175337 /* Dronecode-SDK-SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				A539337520A26BAC004D791F /* CameraTest.swift */,
 				DF020A1720873E7D00CEE035 /* MissionTest.swift */,
 				DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */,
 				DF68BF082064617900175337 /* ActionTest.swift */,
@@ -322,6 +330,7 @@
 		DFDA52752077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				A539337720A2828B004D791F /* CameraTest.swift */,
 				DF020A1920877B9900CEE035 /* MissionTest.swift */,
 				DF020A13207E03A100CEE035 /* TelemetryTest.swift */,
 				DF020A0D207CEBEF00CEE035 /* ActionTest.swift */,
@@ -485,6 +494,7 @@
 				DF020A1620873D3B00CEE035 /* Mission.swift in Sources */,
 				DF68BF3B2064633D00175337 /* Action.swift in Sources */,
 				DFA0B040207524EA007BDD4B /* action.pb.swift in Sources */,
+				A539337420A26B94004D791F /* Camera.swift in Sources */,
 				DF674CC6206D946E00421042 /* Core.swift in Sources */,
 				DFA0B03E207524EA007BDD4B /* mission.pb.swift in Sources */,
 				DFA0B03A207524EA007BDD4B /* telemetry.pb.swift in Sources */,
@@ -497,6 +507,7 @@
 			files = (
 				DF020A12207D4CEF00CEE035 /* TelemetryTest.swift in Sources */,
 				DFA0B043207581F1007BDD4B /* CoreTest.swift in Sources */,
+				A539337620A26BAC004D791F /* CameraTest.swift in Sources */,
 				DF020A1820873E7D00CEE035 /* MissionTest.swift in Sources */,
 				DF68BF092064617900175337 /* ActionTest.swift in Sources */,
 			);
@@ -508,6 +519,7 @@
 			files = (
 				DF020A14207E03A100CEE035 /* TelemetryTest.swift in Sources */,
 				DFDA52772077A813008DE8BF /* CoreTest.swift in Sources */,
+				A539337820A2828B004D791F /* CameraTest.swift in Sources */,
 				DF020A1A20877B9900CEE035 /* MissionTest.swift in Sources */,
 				DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */,
 			);
