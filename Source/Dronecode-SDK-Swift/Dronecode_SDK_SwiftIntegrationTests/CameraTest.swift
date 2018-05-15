@@ -9,9 +9,9 @@ class CameraTest: XCTestCase {
     func testTakePhoto() {
         let core = Core()
         core.connect().toBlocking().materialize()
-        let mission = Camera(address: "localhost", port: 50051)
+        let camera = Camera(address: "localhost", port: 50051)
         
-        mission.takePhoto()
+        camera.takePhoto()
             .do(onError: { error in XCTFail("\(error)") })
             .subscribe()
     }

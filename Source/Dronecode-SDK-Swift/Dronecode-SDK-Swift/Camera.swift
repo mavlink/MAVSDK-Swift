@@ -487,7 +487,7 @@ public class Camera {
         return createCaptureInfoObservable()
     }()
 
-    public func createCaptureInfoObservable() -> Observable<CaptureInfo> {
+    private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
         return Observable.create { observer in
             let captureInfoRequest = Dronecore_Rpc_Camera_SubscribeCaptureInfoRequest()
             
