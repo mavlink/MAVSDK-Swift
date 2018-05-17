@@ -13,7 +13,7 @@ Pod::Spec.new do |spec|
 # This description is used to generate tags and improve search results.
   spec.description     = "DroneCore client for swift initialisation"
   spec.homepage        = "https://github.com/dronecore/DroneCore-Swift"
-  spec.license         = 'MIT'
+  spec.license         = { :type => 'BSD', :file => 'LICENSE.md' }
   spec.author          = { "ayameMBS" => "marjory.silvestre@gmail.com" }
   spec.platform        = :ios, '11.0'
   spec.requires_arc    = true
