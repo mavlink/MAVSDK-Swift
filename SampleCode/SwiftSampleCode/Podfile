@@ -3,4 +3,5 @@
  
  target :'DronecodeSDKSwiftDemo' do
      pod 'DroneCore-Swift'
+     pod 'MobileVLCKit'
  end
