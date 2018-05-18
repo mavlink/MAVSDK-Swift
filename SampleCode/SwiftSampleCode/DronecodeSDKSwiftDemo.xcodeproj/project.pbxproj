@@ -23,6 +23,7 @@
 		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
 		2CE6B6CC20AED1AE0086958C /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */; };
 		2CE6B6D120AED1CA0086958C /* empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B6CF20AED1C90086958C /* empty.cpp */; };
+		2CE6B6D420AEECE10086958C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B6D320AEECE10086958C /* CameraViewController.swift */; };
 		2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7270207750AF0060D31B /* ActionsViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		2CE6B6CE20AED1C90086958C /* empty.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = empty.hpp; sourceTree = "<group>"; };
 		2CE6B6CF20AED1C90086958C /* empty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = empty.cpp; sourceTree = "<group>"; };
 		2CE6B6D220AED28E0086958C /* DronecodeSDKSwiftDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DronecodeSDKSwiftDemo-Bridging-Header.h"; path = "DronecodeSDKSwiftDemo/DronecodeSDKSwiftDemo-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		2CE6B6D320AEECE10086958C /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		2CFF7270207750AF0060D31B /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,8 +153,26 @@
 				2C365EC2207610C500F42184 /* TelemetryViewController.swift */,
 				2CFF7270207750AF0060D31B /* ActionsViewController.swift */,
 				2CDBF020207652340064C8A5 /* MapViewController.swift */,
+				2CE6B6D320AEECE10086958C /* CameraViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2CE6B6CD20AED1C90086958C /* MobileVLCKit */ = {
+			isa = PBXGroup;
+			children = (
+				2CE6B6CE20AED1C90086958C /* empty.hpp */,
+				2CE6B6CF20AED1C90086958C /* empty.cpp */,
+			);
+			path = MobileVLCKit;
+			sourceTree = "<group>";
+		};
+		7BA7DDC6076EBCA286224F64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +282,7 @@
 				2C0648D2209214DB002BD970 /* DroneAnnotation.swift in Sources */,
 				2C0648D1209214DB002BD970 /* DroneView.swift in Sources */,
 				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
+				2CE6B6D420AEECE10086958C /* CameraViewController.swift in Sources */,
 				2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */,
 				2CE6B6D120AED1CA0086958C /* empty.cpp in Sources */,
 				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
