@@ -45,21 +45,32 @@
                                     <constraint firstItem="DTu-Cw-OqI" firstAttribute="top" secondItem="A83-em-mWq" secondAttribute="top" constant="25" id="fHr-gG-Wjn"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wuh-gc-pYC">
+                                <rect key="frame" x="0.0" y="88" width="375" height="530"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Wuh-gc-pYC" firstAttribute="top" secondItem="A83-em-mWq" secondAttribute="bottom" id="2L2-Ac-uQN"/>
+                            <constraint firstItem="Wuh-gc-pYC" firstAttribute="bottom" secondItem="bo3-tY-8lP" secondAttribute="bottom" id="5F7-kG-mnR"/>
                             <constraint firstItem="A83-em-mWq" firstAttribute="trailing" secondItem="bo3-tY-8lP" secondAttribute="trailing" id="LY9-gy-VCj"/>
                             <constraint firstItem="A83-em-mWq" firstAttribute="top" secondItem="bo3-tY-8lP" secondAttribute="top" id="Nio-DI-obW"/>
+                            <constraint firstItem="Wuh-gc-pYC" firstAttribute="trailing" secondItem="bo3-tY-8lP" secondAttribute="trailing" id="NwT-Ja-eHO"/>
                             <constraint firstItem="A83-em-mWq" firstAttribute="leading" secondItem="bo3-tY-8lP" secondAttribute="leading" id="k39-I3-8Li"/>
+                            <constraint firstItem="Wuh-gc-pYC" firstAttribute="leading" secondItem="bo3-tY-8lP" secondAttribute="leading" id="x5r-i7-rbS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bo3-tY-8lP"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Camera" image="icon-tab-camera" id="Mmk-XQ-OlW"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="cameraView" destination="Wuh-gc-pYC" id="26w-me-t5f"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N7N-Ag-6l0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1407" y="1022"/>
+            <point key="canvasLocation" x="1405.5999999999999" y="1021.4392803598201"/>
         </scene>
         <!--Map-->
         <scene sceneID="kWy-7e-hNk">
