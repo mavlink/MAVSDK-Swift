@@ -1,15 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SVY-Tk-qzm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SVY-Tk-qzm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Camera-->
+        <scene sceneID="G6E-Ob-T08">
+            <objects>
+                <viewController id="xK4-XX-Ten" userLabel="Camera" customClass="CameraViewController" customModule="DronecodeSDKSwiftDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jAb-yh-EU0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A83-em-mWq" userLabel="Title View">
+                                <rect key="frame" x="0.0" y="20" width="375" height="68"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zVu-60-2xB">
+                                        <rect key="frame" x="127" y="13" width="122" height="43"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-DroneCore-thumb" translatesAutoresizingMaskIntoConstraints="NO" id="DTu-Cw-OqI">
+                                        <rect key="frame" x="8" y="25" width="80" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="FLe-Gp-vgH"/>
+                                            <constraint firstAttribute="width" constant="80" id="NwV-kD-AYe"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="zVu-60-2xB" firstAttribute="centerY" secondItem="A83-em-mWq" secondAttribute="centerY" id="2dg-5l-sFI"/>
+                                    <constraint firstItem="zVu-60-2xB" firstAttribute="centerX" secondItem="A83-em-mWq" secondAttribute="centerX" id="3hH-Gz-tc6"/>
+                                    <constraint firstItem="DTu-Cw-OqI" firstAttribute="leading" secondItem="A83-em-mWq" secondAttribute="leading" constant="8" id="C1l-8D-At6"/>
+                                    <constraint firstAttribute="height" constant="68" id="Ph3-ij-ERT"/>
+                                    <constraint firstItem="DTu-Cw-OqI" firstAttribute="top" secondItem="A83-em-mWq" secondAttribute="top" constant="25" id="fHr-gG-Wjn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="A83-em-mWq" firstAttribute="trailing" secondItem="bo3-tY-8lP" secondAttribute="trailing" id="LY9-gy-VCj"/>
+                            <constraint firstItem="A83-em-mWq" firstAttribute="top" secondItem="bo3-tY-8lP" secondAttribute="top" id="Nio-DI-obW"/>
+                            <constraint firstItem="A83-em-mWq" firstAttribute="leading" secondItem="bo3-tY-8lP" secondAttribute="leading" id="k39-I3-8Li"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bo3-tY-8lP"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Camera" image="icon-tab-camera" id="Mmk-XQ-OlW"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N7N-Ag-6l0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1407" y="1022"/>
+        </scene>
         <!--Map-->
         <scene sceneID="kWy-7e-hNk">
             <objects>
@@ -131,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HsY-YG-XdC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981.60000000000002" y="948.57571214392806"/>
+            <point key="canvasLocation" x="686" y="1022"/>
         </scene>
         <!--Telemetry-->
         <scene sceneID="RNB-95-TvJ">
@@ -240,7 +291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9KX-5y-V5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-463.19999999999999" y="949.47526236881572"/>
+            <point key="canvasLocation" x="-666" y="1022"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hUb-aa-KC5">
@@ -256,6 +307,7 @@
                     <connections>
                         <segue destination="GQQ-gj-UNt" kind="relationship" relationship="viewControllers" id="M2h-Rm-Yfg"/>
                         <segue destination="F62-mM-U7q" kind="relationship" relationship="viewControllers" id="vys-bh-VUx"/>
+                        <segue destination="xK4-XX-Ten" kind="relationship" relationship="viewControllers" id="ENB-Z6-o5U"/>
                         <segue destination="sxF-oW-WnJ" kind="relationship" relationship="viewControllers" id="47r-4T-bSm"/>
                     </connections>
                 </tabBarController>
@@ -372,11 +424,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4F-hw-658" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244" y="948.57571214392806"/>
+            <point key="canvasLocation" x="14" y="1023"/>
         </scene>
     </scenes>
     <resources>
         <image name="icon-tab-action-remote" width="24" height="24"/>
+        <image name="icon-tab-camera" width="24" height="24"/>
         <image name="icon-tab-drone" width="24" height="24"/>
         <image name="icon-tab-placeholder-location" width="24" height="24"/>
         <image name="logo-DroneCore-thumb" width="80" height="18"/>
