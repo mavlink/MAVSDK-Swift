@@ -1,36 +1,25 @@
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "avformat.h"
 #import "avcodec.h"
 #import "avio.h"
 #import "swscale.h"
+#import <UIKit/UIKit.h>
 
 @interface RTSPPlayer : NSObject {
-	AVFormatContext *pFormatCtx;
-	AVCodecContext *pCodecCtx;
+    AVFormatContext *pFormatCtx;
+    AVCodecContext *pCodecCtx;
     AVFrame *pFrame;
     AVPacket packet;
-	AVPicture picture;
-	int videoStream;
-    int audioStream;
-	struct SwsContext *img_convert_ctx;
-	int sourceWidth, sourceHeight;
-	int outputWidth, outputHeight;
-	UIImage *currentImage;
-	double duration;
+    AVPicture picture;
+    int videoStream;
+    
+    struct SwsContext *img_convert_ctx;
+    int sourceWidth, sourceHeight;
+    int outputWidth, outputHeight;
+    UIImage *currentImage;
+    double duration;
     double currentTime;
-    NSLock *audioPacketQueueLock;
-    AVCodecContext *_audioCodecContext;
-    int16_t *_audioBuffer;
-    int audioPacketQueueSize;
-    NSMutableArray *audioPacketQueue;
-    AVStream *_audioStream;
-    NSUInteger _audioBufferSize;
-    BOOL _inBuffer;
-    AVPacket *_packet, _currentPacket;
-    BOOL primed;
-   
-
+    
 }
 
 /* Last decoded picture as UIImage */
@@ -48,7 +37,6 @@
 /* Current time of video in seconds */
 @property (nonatomic, readonly) double currentTime;
 
-
 /* Initialize with movie at moviePath. Output dimensions are set to source dimensions. */
 -(id)initWithVideo:(NSString *)moviePath usesTcp:(BOOL)usesTcp;
 
@@ -58,8 +46,6 @@
 /* Seek to closest keyframe near specified time */
 -(void)seekTime:(double)seconds;
 
--(void)closeAudio;
 
-- (AVPacket*)readPacket;
 
 @end

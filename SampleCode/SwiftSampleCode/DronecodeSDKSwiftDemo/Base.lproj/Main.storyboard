@@ -45,6 +45,10 @@
                                     <constraint firstItem="DTu-Cw-OqI" firstAttribute="top" secondItem="A83-em-mWq" secondAttribute="top" constant="25" id="fHr-gG-Wjn"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pB8-QY-nIT">
+                                <rect key="frame" x="0.0" y="86" width="375" height="539"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -56,10 +60,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Camera" image="icon-tab-camera" id="Mmk-XQ-OlW"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="pB8-QY-nIT" id="Ftb-SU-BMh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N7N-Ag-6l0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1407" y="1022"/>
+            <point key="canvasLocation" x="1405.5999999999999" y="1021.4392803598201"/>
         </scene>
         <!--Map-->
         <scene sceneID="kWy-7e-hNk">
