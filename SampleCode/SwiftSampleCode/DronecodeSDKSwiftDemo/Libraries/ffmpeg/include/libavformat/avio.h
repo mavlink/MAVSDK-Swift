@@ -234,6 +234,12 @@ int avio_put_str(AVIOContext *s, const char *str);
 int avio_put_str16le(AVIOContext *s, const char *str);
 
 /**
+ * Convert an UTF-8 string to UTF-16BE and write it.
+ * @return number of bytes written.
+ */
+int avio_put_str16be(AVIOContext *s, const char *str);
+
+/**
  * Passing this as the "whence" parameter to a seek function causes it to
  * return the filesize without seeking anywhere. Supporting this is optional.
  * If it is not supported then the seek function will return <0.
@@ -426,17 +432,6 @@ int avio_open2(AVIOContext **s, const char *url, int flags,
                const AVIOInterruptCB *int_cb, AVDictionary **options);
 
 /**
- * Open the resource accessed by the AVIOContext:
- * The pb it openned is an empty one. Data is get from external device
- * which is not accessable by ffmpeg
- *
- * @return 0 on success, an AVERROR < 0 on error.
- * @see avio_closep
- */
-
-int avio_open_stream(AVIOContext **s);
-
-/**
  * Close the resource accessed by the AVIOContext s and free it.
  * This function can only be used if s was opened by avio_open().
  *
@@ -447,15 +442,6 @@ int avio_open_stream(AVIOContext **s);
  * @see avio_closep
  */
 int avio_close(AVIOContext *s);
-
-/**
- * Close the resource accessed by the AVIOContext s and free it.
- * This function can only be used if s was opened by avio_open_stream().
- *
- * @return 0 on success, an AVERROR < 0 on error.
- * @see avio_closep
- */
-int avio_close_stream(AVIOContext *s);
 
 /**
  * Close the resource accessed by the AVIOContext *s, free it

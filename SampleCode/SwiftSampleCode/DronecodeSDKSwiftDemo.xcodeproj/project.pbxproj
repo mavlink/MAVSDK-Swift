@@ -16,7 +16,6 @@
 		2C13EE0E20B6EF8F00F2D915 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0620B6EF8F00F2D915 /* libavutil.a */; };
 		2C13EE0F20B6EF8F00F2D915 /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0720B6EF8F00F2D915 /* libavfilter.a */; };
 		2C13EE1020B6EF8F00F2D915 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0820B6EF8F00F2D915 /* libavcodec.a */; };
-		2C13EE1120B6EF8F00F2D915 /* libavresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0920B6EF8F00F2D915 /* libavresample.a */; };
 		2C13EE1220B6EF8F00F2D915 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0A20B6EF8F00F2D915 /* libavformat.a */; };
 		2C13EE1320B6EF8F00F2D915 /* libavdevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0B20B6EF8F00F2D915 /* libavdevice.a */; };
 		2C13EE1420B6EF8F00F2D915 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE0C20B6EF8F00F2D915 /* libswresample.a */; };
@@ -30,6 +29,9 @@
 		2C13EE2720B6F4D500F2D915 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE2620B6F4D500F2D915 /* UIKit.framework */; };
 		2C13EE2920B6F4DB00F2D915 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE2820B6F4DB00F2D915 /* Foundation.framework */; };
 		2C13EE2B20B6F4E500F2D915 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE2A20B6F4E500F2D915 /* CoreGraphics.framework */; };
+		2C13EE3020B7F0CF00F2D915 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE2F20B7F0CF00F2D915 /* libbz2.tbd */; };
+		2C13EE3120B7F0D700F2D915 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE2D20B7F09D00F2D915 /* libz.tbd */; };
+		2C13EE3320B7F0EB00F2D915 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C13EE3220B7F0EB00F2D915 /* libiconv.tbd */; };
 		2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC0207610C500F42184 /* AppDelegate.swift */; };
 		2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC2207610C500F42184 /* TelemetryViewController.swift */; };
 		2C365ECB207610C500F42184 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EC9207610C500F42184 /* Main.storyboard */; };
@@ -152,7 +154,6 @@
 		2C13EE0620B6EF8F00F2D915 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
 		2C13EE0720B6EF8F00F2D915 /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
 		2C13EE0820B6EF8F00F2D915 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
-		2C13EE0920B6EF8F00F2D915 /* libavresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavresample.a; sourceTree = "<group>"; };
 		2C13EE0A20B6EF8F00F2D915 /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavformat.a; sourceTree = "<group>"; };
 		2C13EE0B20B6EF8F00F2D915 /* libavdevice.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavdevice.a; sourceTree = "<group>"; };
 		2C13EE0C20B6EF8F00F2D915 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
@@ -168,6 +169,9 @@
 		2C13EE2820B6F4DB00F2D915 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C13EE2A20B6F4E500F2D915 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2C13EE2C20B6F5CE00F2D915 /* DronecodeSDKSwiftDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DronecodeSDKSwiftDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		2C13EE2D20B7F09D00F2D915 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		2C13EE2F20B7F0CF00F2D915 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		2C13EE3220B7F0EB00F2D915 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C365EC0207610C500F42184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C365EC2207610C500F42184 /* TelemetryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +193,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C13EE3320B7F0EB00F2D915 /* libiconv.tbd in Frameworks */,
+				2C13EE3120B7F0D700F2D915 /* libz.tbd in Frameworks */,
+				2C13EE3020B7F0CF00F2D915 /* libbz2.tbd in Frameworks */,
 				2C13EE2B20B6F4E500F2D915 /* CoreGraphics.framework in Frameworks */,
 				2C13EE2920B6F4DB00F2D915 /* Foundation.framework in Frameworks */,
 				2C13EE2720B6F4D500F2D915 /* UIKit.framework in Frameworks */,
@@ -204,7 +211,6 @@
 				2C13EE1220B6EF8F00F2D915 /* libavformat.a in Frameworks */,
 				2C13EE1520B6EF8F00F2D915 /* libswscale.a in Frameworks */,
 				2C13EE1020B6EF8F00F2D915 /* libavcodec.a in Frameworks */,
-				2C13EE1120B6EF8F00F2D915 /* libavresample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +428,6 @@
 				2C13EE0620B6EF8F00F2D915 /* libavutil.a */,
 				2C13EE0720B6EF8F00F2D915 /* libavfilter.a */,
 				2C13EE0820B6EF8F00F2D915 /* libavcodec.a */,
-				2C13EE0920B6EF8F00F2D915 /* libavresample.a */,
 				2C13EE0A20B6EF8F00F2D915 /* libavformat.a */,
 				2C13EE0B20B6EF8F00F2D915 /* libavdevice.a */,
 				2C13EE0C20B6EF8F00F2D915 /* libswresample.a */,
@@ -510,6 +515,9 @@
 		D5BA020BF8F6587DC7601354 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C13EE3220B7F0EB00F2D915 /* libiconv.tbd */,
+				2C13EE2F20B7F0CF00F2D915 /* libbz2.tbd */,
+				2C13EE2D20B7F09D00F2D915 /* libz.tbd */,
 				2C13EE2A20B6F4E500F2D915 /* CoreGraphics.framework */,
 				2C13EE2820B6F4DB00F2D915 /* Foundation.framework */,
 				2C13EE2620B6F4D500F2D915 /* UIKit.framework */,
