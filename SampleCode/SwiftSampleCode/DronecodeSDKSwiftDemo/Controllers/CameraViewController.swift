@@ -15,8 +15,9 @@ class CameraViewController: UIViewController{
     
     @IBOutlet weak var imageView: UIImageView!
     
-    //TODO use lazy var instead
-    var video:RTSPPlayer? = nil
+    lazy var video: RTSPPlayer = createRTSPVideo()
+    
+    //var video:RTSPPlayer? = nil
     
     var lastFrameTime : Float = 0
     var nextFrameTimer : Timer? = nil
@@ -31,16 +32,18 @@ class CameraViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-       
-        video = RTSPPlayer(video: "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov", usesTcp: false)
-        video?.outputWidth = 426;
-        video?.outputHeight = 320;
-        
-        print("video duration: \(String(describing: video?.duration))");
-        print("video size: \(String(describing: video?.sourceWidth)) x \(String(describing: video?.sourceHeight))");
-        
-        
         self.playVideo()
+    }
+    
+    func createRTSPVideo()-> RTSPPlayer{
+        let player :RTSPPlayer = RTSPPlayer(video: "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov", usesTcp: false)
+        player.outputWidth = 426;
+        player.outputHeight = 320;
+        
+        print("video duration: \(String(describing: player.duration))");
+        print("video size: \(String(describing: player.sourceWidth)) x \(String(describing: player.sourceHeight))");
+        
+        return player
     }
     
     func playVideo(){
@@ -48,7 +51,7 @@ class CameraViewController: UIViewController{
         lastFrameTime = -1;
         
         // seek to 0.0 seconds
-        video?.seekTime(0)
+        video.seekTime(0)
         
         nextFrameTimer?.invalidate()
         nextFrameTimer = Timer.scheduledTimer(timeInterval: 1.0 / 30, target: self, selector: #selector(displayNextFrame), userInfo: nil, repeats: true)
@@ -62,12 +65,12 @@ class CameraViewController: UIViewController{
     
     @objc func displayNextFrame(_ timer: Timer?) {
         let startTime: TimeInterval = Date.timeIntervalSinceReferenceDate
-        if !(video?.stepFrame())! {
+        if !(video.stepFrame()) {
             timer?.invalidate()
             //playButton.enabled = true
             return
         }
-        imageView.image = video?.currentImage
+        imageView.image = video.currentImage
         let frameTime: Float = Float(1.0 / (Date.timeIntervalSinceReferenceDate - startTime))
         if lastFrameTime < 0 {
             lastFrameTime = frameTime
