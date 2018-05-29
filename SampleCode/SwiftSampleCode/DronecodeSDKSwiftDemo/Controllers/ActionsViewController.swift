@@ -18,7 +18,7 @@ class ActionsViewController: UIViewController {
     @IBOutlet weak var takeoffButton: UIButton!
     @IBOutlet weak var landButton: UIButton!
     @IBOutlet weak var disarmButton: UIButton!
-    
+    @IBOutlet weak var killButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class ActionsViewController: UIViewController {
         takeoffButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         landButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
         disarmButton.layer.cornerRadius     = UI_CORNER_RADIUS_BUTTONS
-        
+        killButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,6 +64,13 @@ class ActionsViewController: UIViewController {
          .do(onError: { error in ActionsViewController.showAlert("Land failed", viewController:self) },
          onCompleted: { ActionsViewController.showAlert("Land succeeded", viewController:self) })
          _ = myRoutine.subscribe()
+    }
+    
+    @IBAction func killPressed(_ sender: Any) {
+        let myRoutine = CoreManager.shared().action.kill()
+            .do(onError: { error in ActionsViewController.showAlert("Kill failed", viewController:self) },
+                onCompleted: { ActionsViewController.showAlert("Kill succeeded", viewController:self) })
+        _ = myRoutine.subscribe()
     }
 
     class func showAlert(_ message: String?, viewController: UIViewController?) {
