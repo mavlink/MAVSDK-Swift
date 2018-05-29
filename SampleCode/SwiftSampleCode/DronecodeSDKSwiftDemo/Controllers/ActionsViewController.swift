@@ -22,10 +22,21 @@ class ActionsViewController: UIViewController {
     @IBOutlet weak var returnToLaunchButton: UIButton!
     @IBOutlet weak var transitionToFixedWingButton: UIButton!
     @IBOutlet weak var transitionToMulticopterButton: UIButton!
+    @IBOutlet weak var getTakeoffAltitudeButton: UIButton!
+    @IBOutlet weak var getMaxSpeedButton: UIButton!
+    
+    @IBOutlet weak var feedbackLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // init text for feedback and add round corner and border
+        feedbackLabel.text = "Welcome"
+        feedbackLabel.layer.cornerRadius   = UI_CORNER_RADIUS_BUTTONS
+        feedbackLabel?.layer.masksToBounds = true
+        feedbackLabel?.layer.borderColor = UIColor.lightGray.cgColor
+        feedbackLabel?.layer.borderWidth = 1.0
+        
         // set corners for buttons
         armButton.layer.cornerRadius        = UI_CORNER_RADIUS_BUTTONS
         takeoffButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
@@ -35,6 +46,8 @@ class ActionsViewController: UIViewController {
         returnToLaunchButton.layer.cornerRadius             = UI_CORNER_RADIUS_BUTTONS
         transitionToFixedWingButton.layer.cornerRadius      = UI_CORNER_RADIUS_BUTTONS
         transitionToMulticopterButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        getTakeoffAltitudeButton.layer.cornerRadius      = UI_CORNER_RADIUS_BUTTONS
+        getMaxSpeedButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,6 +111,32 @@ class ActionsViewController: UIViewController {
             .do(onError: { error in ActionsViewController.showAlert("transitionToMulticopter failed", viewController:self) },
                 onCompleted: { ActionsViewController.showAlert("transitionToMulticopter succeeded", viewController:self) })
         _ = myRoutine.subscribe()
+    }
+    
+    @IBAction func getTakeoffAltitudePressed(_ sender: Any) {
+        let myRoutine = CoreManager.shared().action.getTakeoffAltitude()
+        _ = myRoutine.subscribe{ event in
+            switch event {
+            case .success(let altitude):
+                self.feedbackLabel.text = "Takeoff altitude : \(altitude)"
+                break
+            case .error(let error):
+                self.feedbackLabel.text = "failure: getTakeoffAltitude() \(error)"
+            }
+        }
+    }
+    
+    @IBAction func getMaximumSpeedPressed(_ sender: Any) {
+        let myRoutine = CoreManager.shared().action.getMaximumSpeed()
+        _ = myRoutine.subscribe{ event in
+            switch event {
+            case .success(let maxSpeed):
+                self.feedbackLabel.text = "Maximum speed : \(maxSpeed)"
+                break
+            case .error(let error):
+                self.feedbackLabel.text = "failure: getMaximumSpeed() \(error)"
+            }
+        }
     }
 
     class func showAlert(_ message: String?, viewController: UIViewController?) {
