@@ -365,7 +365,7 @@
                                 <rect key="frame" x="0.0" y="144" width="375" height="378"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="V7m-Mb-uls">
-                                        <rect key="frame" x="67" y="51" width="241" height="276"/>
+                                        <rect key="frame" x="67" y="19" width="241" height="340"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-DY-BUo">
                                                 <rect key="frame" x="21" y="20" width="200" height="44"/>
@@ -410,6 +410,16 @@
                                                     <action selector="disarmPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="hWK-qy-Jh0"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbS-E0-Q4J">
+                                                <rect key="frame" x="21" y="276" width="200" height="44"/>
+                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Kill"/>
+                                                <connections>
+                                                    <action selector="killPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="7ok-Za-iHZ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="1UW-DY-BUo" firstAttribute="top" secondItem="V7m-Mb-uls" secondAttribute="top" constant="20" id="yzS-d0-Tnt"/>
@@ -440,6 +450,7 @@
                     <connections>
                         <outlet property="armButton" destination="1UW-DY-BUo" id="P9Z-QG-7AY"/>
                         <outlet property="disarmButton" destination="bou-A2-pSU" id="dgc-4E-u6X"/>
+                        <outlet property="killButton" destination="rbS-E0-Q4J" id="hMr-St-U2F"/>
                         <outlet property="landButton" destination="hIj-zF-IzN" id="ZyA-u0-QxB"/>
                         <outlet property="takeoffButton" destination="Eoe-wM-d5N" id="mD2-FY-dMi"/>
                     </connections>
