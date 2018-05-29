@@ -17,6 +17,7 @@ class ActionsViewController: UIViewController {
     @IBOutlet weak var armButton: UIButton!
     @IBOutlet weak var takeoffButton: UIButton!
     @IBOutlet weak var landButton: UIButton!
+    @IBOutlet weak var disarmButton: UIButton!
     
 
     override func viewDidLoad() {
@@ -26,6 +27,7 @@ class ActionsViewController: UIViewController {
         armButton.layer.cornerRadius        = UI_CORNER_RADIUS_BUTTONS
         takeoffButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         landButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
+        disarmButton.layer.cornerRadius     = UI_CORNER_RADIUS_BUTTONS
         
     }
 
@@ -38,6 +40,14 @@ class ActionsViewController: UIViewController {
         let myRoutine = CoreManager.shared().action.arm()
             .do(onError: { error in ActionsViewController.showAlert("Arming failed : \(error.localizedDescription)", viewController:self) },
                 onCompleted: { ActionsViewController.showAlert("Arming succeeded",viewController:self) })
+        _ = myRoutine.subscribe()
+        
+    }
+    
+    @IBAction func disarmPressed(_ sender: Any) {
+        let myRoutine = CoreManager.shared().action.disarm()
+            .do(onError: { error in ActionsViewController.showAlert("Disarming failed : \(error.localizedDescription)", viewController:self) },
+                onCompleted: { ActionsViewController.showAlert("Disarming succeeded",viewController:self) })
         _ = myRoutine.subscribe()
         
     }
