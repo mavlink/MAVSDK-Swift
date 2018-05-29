@@ -20,6 +20,8 @@ class ActionsViewController: UIViewController {
     @IBOutlet weak var disarmButton: UIButton!
     @IBOutlet weak var killButton: UIButton!
     @IBOutlet weak var returnToLaunchButton: UIButton!
+    @IBOutlet weak var transitionToFixedWingButton: UIButton!
+    @IBOutlet weak var transitionToMulticopterButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,9 @@ class ActionsViewController: UIViewController {
         landButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
         disarmButton.layer.cornerRadius     = UI_CORNER_RADIUS_BUTTONS
         killButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
-        returnToLaunchButton.layer.cornerRadius       = UI_CORNER_RADIUS_BUTTONS
+        returnToLaunchButton.layer.cornerRadius             = UI_CORNER_RADIUS_BUTTONS
+        transitionToFixedWingButton.layer.cornerRadius      = UI_CORNER_RADIUS_BUTTONS
+        transitionToMulticopterButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,7 +85,20 @@ class ActionsViewController: UIViewController {
                 onCompleted: { ActionsViewController.showAlert("Return to launch succeeded", viewController:self) })
         _ = myRoutine.subscribe()
     }
-
+    
+    @IBAction func transitionToFixedWingPressed(_ sender: Any) {
+        let myRoutine = CoreManager.shared().action.transitionToFixedWing()
+            .do(onError: { error in ActionsViewController.showAlert("transitionToFixedWing failed", viewController:self) },
+                onCompleted: { ActionsViewController.showAlert("transitionToFixedWing succeeded", viewController:self) })
+        _ = myRoutine.subscribe()
+    }
+    
+    @IBAction func transitionToMulticopterPressed(_ sender: Any) {
+        let myRoutine = CoreManager.shared().action.transitionToMulticopter()
+            .do(onError: { error in ActionsViewController.showAlert("transitionToMulticopter failed", viewController:self) },
+                onCompleted: { ActionsViewController.showAlert("transitionToMulticopter succeeded", viewController:self) })
+        _ = myRoutine.subscribe()
+    }
 
     class func showAlert(_ message: String?, viewController: UIViewController?) {
         let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)

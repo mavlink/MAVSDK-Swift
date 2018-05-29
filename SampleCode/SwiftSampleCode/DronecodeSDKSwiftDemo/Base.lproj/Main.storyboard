@@ -362,85 +362,122 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRb-9w-pUu">
-                                <rect key="frame" x="0.0" y="144" width="375" height="378"/>
+                                <rect key="frame" x="0.0" y="113" width="375" height="323"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="V7m-Mb-uls">
-                                        <rect key="frame" x="67" y="11" width="241" height="356"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ZDW-HX-4ZY">
+                                        <rect key="frame" x="49" y="0.0" width="276" height="257"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-DY-BUo">
-                                                <rect key="frame" x="21" y="20" width="200" height="36"/>
-                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382705479456" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Arm"/>
-                                                <connections>
-                                                    <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="Q5W-GZ-CNn"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoe-wM-d5N">
-                                                <rect key="frame" x="21" y="76" width="200" height="36"/>
-                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="eLS-GI-eVL"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Takeoff"/>
-                                                <connections>
-                                                    <action selector="takeoffPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="OfR-Wh-140"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIj-zF-IzN">
-                                                <rect key="frame" x="21" y="132" width="200" height="36"/>
-                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Land"/>
-                                                <connections>
-                                                    <action selector="landPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="TBA-7Q-Pzq"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bou-A2-pSU">
-                                                <rect key="frame" x="21" y="188" width="200" height="36"/>
-                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Disarm"/>
-                                                <connections>
-                                                    <action selector="disarmPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="hWK-qy-Jh0"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbS-E0-Q4J">
-                                                <rect key="frame" x="21" y="244" width="200" height="36"/>
-                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Kill"/>
-                                                <connections>
-                                                    <action selector="killPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="7ok-Za-iHZ"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0il-dJ-9Eq">
-                                                <rect key="frame" x="21" y="300" width="200" height="36"/>
-                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Return to launch"/>
-                                                <connections>
-                                                    <action selector="returnToLaunchPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="Inp-jK-iMQ"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="V7m-Mb-uls">
+                                                <rect key="frame" x="0.0" y="0.0" width="138" height="257"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-DY-BUo">
+                                                        <rect key="frame" x="4" y="4" width="130" height="36"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382705479456" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Arm"/>
+                                                        <connections>
+                                                            <action selector="armPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="Q5W-GZ-CNn"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eoe-wM-d5N">
+                                                        <rect key="frame" x="4" y="48" width="130" height="36"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="eLS-GI-eVL"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Takeoff"/>
+                                                        <connections>
+                                                            <action selector="takeoffPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="OfR-Wh-140"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hIj-zF-IzN">
+                                                        <rect key="frame" x="4" y="92" width="130" height="36"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Land"/>
+                                                        <connections>
+                                                            <action selector="landPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="TBA-7Q-Pzq"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bou-A2-pSU">
+                                                        <rect key="frame" x="4" y="136" width="130" height="36"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Disarm"/>
+                                                        <connections>
+                                                            <action selector="disarmPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="hWK-qy-Jh0"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbS-E0-Q4J">
+                                                        <rect key="frame" x="4" y="180" width="130" height="36"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Kill"/>
+                                                        <connections>
+                                                            <action selector="killPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="7ok-Za-iHZ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0il-dJ-9Eq">
+                                                        <rect key="frame" x="4" y="224" width="130" height="29"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Return to launch"/>
+                                                        <connections>
+                                                            <action selector="returnToLaunchPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="Inp-jK-iMQ"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="4" leading="4" bottom="4" trailing="4"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PPl-KM-XFB">
+                                                <rect key="frame" x="138" y="0.0" width="138" height="107"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transitions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xe9-i7-EbO">
+                                                        <rect key="frame" x="4" y="4" width="130" height="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeV-ju-Jww">
+                                                        <rect key="frame" x="4" y="33" width="130" height="29"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="to FixedWing"/>
+                                                        <connections>
+                                                            <action selector="transitionToFixedWingPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="acP-sL-ZHM"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gTf-ab-mzl">
+                                                        <rect key="frame" x="4" y="74" width="130" height="29"/>
+                                                        <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="qy0-am-d2v"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="to Multicopter"/>
+                                                        <connections>
+                                                            <action selector="transitionToMulticopterPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="qTG-KC-MiY"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <directionalEdgeInsets key="directionalLayoutMargins" top="4" leading="4" bottom="4" trailing="4"/>
+                                            </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="1UW-DY-BUo" firstAttribute="top" secondItem="V7m-Mb-uls" secondAttribute="top" constant="20" id="yzS-d0-Tnt"/>
-                                        </constraints>
-                                        <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="21" bottom="20" trailing="20"/>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="V7m-Mb-uls" firstAttribute="centerY" secondItem="JRb-9w-pUu" secondAttribute="centerY" id="7jp-G3-R6v"/>
-                                    <constraint firstItem="V7m-Mb-uls" firstAttribute="centerX" secondItem="JRb-9w-pUu" secondAttribute="centerX" id="w8m-oX-fjh"/>
+                                    <constraint firstItem="ZDW-HX-4ZY" firstAttribute="top" secondItem="JRb-9w-pUu" secondAttribute="top" id="p1T-Po-rq2"/>
+                                    <constraint firstItem="ZDW-HX-4ZY" firstAttribute="centerX" secondItem="JRb-9w-pUu" secondAttribute="centerX" id="qFO-5O-tTz"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -450,8 +487,8 @@
                             <constraint firstItem="JRb-9w-pUu" firstAttribute="trailing" secondItem="BbI-d0-ZTc" secondAttribute="trailing" id="UCm-G7-ODL"/>
                             <constraint firstItem="YWd-zv-R9H" firstAttribute="trailing" secondItem="BbI-d0-ZTc" secondAttribute="trailing" id="VoW-qM-1y5"/>
                             <constraint firstItem="YWd-zv-R9H" firstAttribute="leading" secondItem="BbI-d0-ZTc" secondAttribute="leading" id="WZW-2v-Gbq"/>
-                            <constraint firstItem="BbI-d0-ZTc" firstAttribute="bottom" secondItem="JRb-9w-pUu" secondAttribute="bottom" constant="96" id="aLR-cO-VDZ"/>
-                            <constraint firstItem="JRb-9w-pUu" firstAttribute="top" secondItem="YWd-zv-R9H" secondAttribute="bottom" constant="56" id="aWX-TI-q1J"/>
+                            <constraint firstItem="BbI-d0-ZTc" firstAttribute="bottom" secondItem="JRb-9w-pUu" secondAttribute="bottom" constant="182" id="aLR-cO-VDZ"/>
+                            <constraint firstItem="JRb-9w-pUu" firstAttribute="top" secondItem="YWd-zv-R9H" secondAttribute="bottom" constant="25" id="aWX-TI-q1J"/>
                             <constraint firstItem="JRb-9w-pUu" firstAttribute="leading" secondItem="BbI-d0-ZTc" secondAttribute="leading" id="eRC-UH-F1t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BbI-d0-ZTc"/>
@@ -464,6 +501,8 @@
                         <outlet property="landButton" destination="hIj-zF-IzN" id="ZyA-u0-QxB"/>
                         <outlet property="returnToLaunchButton" destination="0il-dJ-9Eq" id="0vU-tR-vwh"/>
                         <outlet property="takeoffButton" destination="Eoe-wM-d5N" id="mD2-FY-dMi"/>
+                        <outlet property="transitionToFixedWingButton" destination="xeV-ju-Jww" id="Cxd-q0-FeR"/>
+                        <outlet property="transitionToMulticopterButton" destination="gTf-ab-mzl" id="fRT-8c-wrh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K4F-hw-658" userLabel="First Responder" sceneMemberID="firstResponder"/>
