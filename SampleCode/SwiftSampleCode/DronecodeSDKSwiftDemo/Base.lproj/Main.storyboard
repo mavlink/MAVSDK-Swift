@@ -365,7 +365,7 @@
                                 <rect key="frame" x="0.0" y="144" width="375" height="378"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="V7m-Mb-uls">
-                                        <rect key="frame" x="67" y="83" width="241" height="212"/>
+                                        <rect key="frame" x="67" y="51" width="241" height="276"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UW-DY-BUo">
                                                 <rect key="frame" x="21" y="20" width="200" height="44"/>
@@ -400,6 +400,16 @@
                                                     <action selector="landPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="TBA-7Q-Pzq"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bou-A2-pSU">
+                                                <rect key="frame" x="21" y="212" width="200" height="44"/>
+                                                <color key="backgroundColor" red="0.4406479895" green="0.51737356189999995" blue="0.52941578629999997" alpha="0.69571382709999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                                <color key="tintColor" red="0.1647058824" green="0.23137254900000001" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Disarm"/>
+                                                <connections>
+                                                    <action selector="disarmPressed:" destination="sxF-oW-WnJ" eventType="touchUpInside" id="hWK-qy-Jh0"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="1UW-DY-BUo" firstAttribute="top" secondItem="V7m-Mb-uls" secondAttribute="top" constant="20" id="yzS-d0-Tnt"/>
@@ -429,6 +439,7 @@
                     <tabBarItem key="tabBarItem" title="Actions" image="icon-tab-action-remote" id="yNa-Xh-EiY"/>
                     <connections>
                         <outlet property="armButton" destination="1UW-DY-BUo" id="P9Z-QG-7AY"/>
+                        <outlet property="disarmButton" destination="bou-A2-pSU" id="dgc-4E-u6X"/>
                         <outlet property="landButton" destination="hIj-zF-IzN" id="ZyA-u0-QxB"/>
                         <outlet property="takeoffButton" destination="Eoe-wM-d5N" id="mD2-FY-dMi"/>
                     </connections>
