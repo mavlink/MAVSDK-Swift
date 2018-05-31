@@ -20,10 +20,12 @@ class MapViewController: UIViewController {
     @IBOutlet weak var startMissionButton: UIButton!
     @IBOutlet weak var pauseMissionButton: UIButton!
     
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 500
     
     private var droneAnnotation: DroneAnnotation!
     private var timer: Timer?
+    
+    private let missionExample:ExampleMission = ExampleMission()
     
     // MARK: - View life cycle
     
@@ -55,8 +57,11 @@ class MapViewController: UIViewController {
         droneAnnotation = DroneAnnotation(title: "Drone", coordinate:initialLocation.coordinate)
         mapView.addAnnotation(droneAnnotation)
         
-        //timer to get drone state
+        // timer to get drone state
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector:  #selector(updateDroneInfosDisplayed), userInfo: nil, repeats: true)
+        
+        // display mission trace
+        self.createMissionTrace(mapView: mapView, listMissionsItems: missionExample.missionItems)
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,7 +96,7 @@ class MapViewController: UIViewController {
     // MARK: - Missions
     
     func uploadMission(){
-        let missionExample:ExampleMission = ExampleMission()
+        
         let sendMissionRoutine = CoreManager.shared().mission.uploadMission(missionItems: missionExample.missionItems).do(
             onError: { error in self.displayFeedback(message:"Mission uploaded failed \(error)") },
             onCompleted: { self.displayFeedback(message:"Mission uploaded with success") })
@@ -130,6 +135,19 @@ class MapViewController: UIViewController {
         feedbackLabel.text = message
     }
     
+     // MARK: - Mission trace
+    
+    func createMissionTrace(mapView: MKMapView, listMissionsItems : Array<MissionItem>) {
+        var points = [CLLocationCoordinate2D]()
+        
+        for missionItem in listMissionsItems {
+            points.append(CLLocationCoordinate2DMake(missionItem.latitudeDeg, missionItem.longitudeDeg))
+        }
+        
+        let missionTrace = MKPolyline(coordinates: points, count: listMissionsItems.count)
+        mapView.add(missionTrace)
+    }
+    
 }
 
 
@@ -149,6 +167,16 @@ extension MapViewController: MKMapViewDelegate {
             view = DroneView(annotation: annotation, reuseIdentifier: identifier)
         }
         return view
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let lineRenderer = MKPolylineRenderer(polyline: polyline)
+            lineRenderer.strokeColor = .orange
+            lineRenderer.lineWidth = 2.0
+            return lineRenderer
+        }
+        fatalError("Fatal error in mapView MKOverlayRenderer")
     }
 
 }
