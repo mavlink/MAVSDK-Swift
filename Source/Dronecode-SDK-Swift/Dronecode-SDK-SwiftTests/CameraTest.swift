@@ -397,7 +397,7 @@ class CameraTest: XCTestCase {
     func testCaptureInfoReceivesOneEvent() {
         let position = Position(latitudeDeg: 34.44, longitudeDeg: 34.44, absoluteAltitudeM: 34.44, relativeAltitudeM: 34.44)
         let quaternion = Quaternion(w: 4, x: 4, y: 4, z: 4)
-        let captureInfo = CaptureInfo.createRPC(CaptureInfo(position: position, quaternion: quaternion, timeUTC: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest"))
+        let captureInfo = CaptureInfo(position: position, quaternion: quaternion, timeUTC: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest").rpcCaptureInfo
         let captureInfoArray = [captureInfo]
         
         checkCaptureInfoReceivesEvents(captureInfo: captureInfoArray)
@@ -406,10 +406,10 @@ class CameraTest: XCTestCase {
     // Multiple Events
     func testCaptureInfoReceivesMultipleEvents() {
         var captureInfoEvents = [Dronecore_Rpc_Camera_CaptureInfo]()
-        captureInfoEvents.append(CaptureInfo.createRPC(generateRandomCaptureInfo()))
-        captureInfoEvents.append(CaptureInfo.createRPC(generateRandomCaptureInfo()))
-        captureInfoEvents.append(CaptureInfo.createRPC(generateRandomCaptureInfo()))
-        captureInfoEvents.append(CaptureInfo.createRPC(generateRandomCaptureInfo()))
+        captureInfoEvents.append(generateRandomCaptureInfo().rpcCaptureInfo)
+        captureInfoEvents.append(generateRandomCaptureInfo().rpcCaptureInfo)
+        captureInfoEvents.append(generateRandomCaptureInfo().rpcCaptureInfo)
+        captureInfoEvents.append(generateRandomCaptureInfo().rpcCaptureInfo)
         
         checkCaptureInfoReceivesEvents(captureInfo: captureInfoEvents)
     }
@@ -476,7 +476,7 @@ class CameraTest: XCTestCase {
         
         let position = Position(latitudeDeg: Double(randomNumber()), longitudeDeg: Double(randomNumber()), absoluteAltitudeM: Float(randomNumber()), relativeAltitudeM: Float(randomNumber()))
         let quaternion = Quaternion(w: Float(randomNumber()), x: Float(randomNumber()), y: Float(randomNumber()), z: Float(randomNumber()))
-        let captureInfo = CaptureInfo.createRPC(CaptureInfo(position: position, quaternion: quaternion, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()))
+        let captureInfo = CaptureInfo(position: position, quaternion: quaternion, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()).rpcCaptureInfo
         
         return CaptureInfo.translateFromRPC(captureInfo)
     }

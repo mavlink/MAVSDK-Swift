@@ -2,6 +2,7 @@ import Foundation
 import gRPC
 import RxSwift
 
+
 public enum CameraMode {
     case unknown
     case photo
@@ -42,7 +43,7 @@ public enum VideoStreamInfo {
         case .notRunning:
             return .notRunning
         default:
-            return .UNRECOGNIZED(2) // FIXME: 2 is just the first unsupported value
+            return .UNRECOGNIZED(self.hashValue)
         }
     }
     
@@ -75,15 +76,15 @@ public struct VideoStreamSettings: Equatable {
         self.uri = uri
     }
     
-    internal static func createRPC(_ videoStreamSettings: VideoStreamSettings) -> Dronecore_Rpc_Camera_VideoStreamSettings {
+    internal var rpcVideoStreamSettings: Dronecore_Rpc_Camera_VideoStreamSettings {
         var rpcVideoStreamSettings = Dronecore_Rpc_Camera_VideoStreamSettings()
         
-        rpcVideoStreamSettings.frameRateHz = videoStreamSettings.frameRateHz
-        rpcVideoStreamSettings.horizontalResolutionPix = UInt32(UInt(videoStreamSettings.horizontalResolutionPix))
-        rpcVideoStreamSettings.verticalResolutionPix = UInt32(videoStreamSettings.verticalResolutionPix)
-        rpcVideoStreamSettings.bitRateBS = UInt32(videoStreamSettings.bitRateBS)
-        rpcVideoStreamSettings.rotationDeg = UInt32(videoStreamSettings.rotationDegree)
-        rpcVideoStreamSettings.uri = videoStreamSettings.uri
+        rpcVideoStreamSettings.frameRateHz = frameRateHz
+        rpcVideoStreamSettings.horizontalResolutionPix = UInt32(horizontalResolutionPix)
+        rpcVideoStreamSettings.verticalResolutionPix = UInt32(verticalResolutionPix)
+        rpcVideoStreamSettings.bitRateBS = UInt32(bitRateBS)
+        rpcVideoStreamSettings.rotationDeg = UInt32(rotationDegree)
+        rpcVideoStreamSettings.uri = uri
         
         return rpcVideoStreamSettings
     }
@@ -91,7 +92,6 @@ public struct VideoStreamSettings: Equatable {
     internal static func translateFromRPC(_ rpcVideoStreamSettings: Dronecore_Rpc_Camera_VideoStreamSettings) -> VideoStreamSettings {
         return VideoStreamSettings(frameRateHz: rpcVideoStreamSettings.frameRateHz, horizontalResolutionPix: rpcVideoStreamSettings.horizontalResolutionPix, verticalResolutionPix: rpcVideoStreamSettings.verticalResolutionPix, bitRateBS: rpcVideoStreamSettings.bitRateBS, rotationDegree: rpcVideoStreamSettings.rotationDeg, uri: rpcVideoStreamSettings.uri)
     }
-
     
     public static func == (lhs: VideoStreamSettings, rhs: VideoStreamSettings) -> Bool {
         return lhs.frameRateHz == rhs.frameRateHz
@@ -106,7 +106,7 @@ public struct VideoStreamSettings: Equatable {
 public struct CaptureInfo: Equatable {
     public let position: Position
     public let quaternion: Quaternion
-    public let timeUTC: Int
+    public let timeUTC: UInt64
     public let isSuccess: Bool
     public let index: Int
     public let fileURL: String
@@ -114,27 +114,33 @@ public struct CaptureInfo: Equatable {
     public init(position: Position, quaternion: Quaternion, timeUTC: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
         self.position = position
         self.quaternion = quaternion
-        self.timeUTC = Int(timeUTC)
+        self.timeUTC = timeUTC
         self.isSuccess = isSuccess
         self.index = Int(index)
         self.fileURL = fileURL
     }
     
-    internal static func createRPC(_ captureInfo: CaptureInfo) -> Dronecore_Rpc_Camera_CaptureInfo {
+    internal var rpcCaptureInfo: Dronecore_Rpc_Camera_CaptureInfo {
         var rpcCaptureInfo = Dronecore_Rpc_Camera_CaptureInfo()
         
-        rpcCaptureInfo.position = Position.createCameraRPC(captureInfo.position)
-        rpcCaptureInfo.quaternion = Quaternion.createRPC(captureInfo.quaternion)
-        rpcCaptureInfo.timeUtcUs = UInt64(captureInfo.timeUTC)
-        rpcCaptureInfo.isSuccess = captureInfo.isSuccess
-        rpcCaptureInfo.index = Int32(captureInfo.index)
-        rpcCaptureInfo.fileURL = captureInfo.fileURL
+        rpcCaptureInfo.position = position.rpcCameraPosition
+        rpcCaptureInfo.quaternion = Quaternion.createRPC(quaternion)
+        rpcCaptureInfo.timeUtcUs = timeUTC
+        rpcCaptureInfo.isSuccess = isSuccess
+        rpcCaptureInfo.index = Int32(index)
+        rpcCaptureInfo.fileURL = fileURL
         
         return rpcCaptureInfo
     }
     
     internal static func translateFromRPC(_ rpcCaptureInfo: Dronecore_Rpc_Camera_CaptureInfo) -> CaptureInfo {
-        return CaptureInfo(position: Position.createCameraFromRPC(rpcCaptureInfo.position), quaternion: Quaternion.translateFromRPC(rpcCaptureInfo.quaternion), timeUTC: rpcCaptureInfo.timeUtcUs, isSuccess: rpcCaptureInfo.isSuccess, index: rpcCaptureInfo.index, fileURL: rpcCaptureInfo.fileURL)
+        let position = Position(latitudeDeg: rpcCaptureInfo.position.latitudeDeg, longitudeDeg: rpcCaptureInfo.position.longitudeDeg, absoluteAltitudeM: rpcCaptureInfo.position.absoluteAltitudeM, relativeAltitudeM: rpcCaptureInfo.position.relativeAltitudeM)
+        return CaptureInfo(position: position,
+                           quaternion: Quaternion.translateFromRPC(rpcCaptureInfo.quaternion),
+                           timeUTC: rpcCaptureInfo.timeUtcUs,
+                           isSuccess: rpcCaptureInfo.isSuccess,
+                           index: rpcCaptureInfo.index,
+                           fileURL: rpcCaptureInfo.fileURL)
     }
 
     public static func == (lhs: CaptureInfo, rhs: CaptureInfo) -> Bool {
@@ -150,24 +156,24 @@ public struct CaptureInfo: Equatable {
 public struct Setting: Equatable {
     public let id: String
     public let description: String
-    public let option: [Option]
+    public let options: [Option]
     
-    init(id: String, description: String, option: [Option]) {
+    init(id: String, description: String, options: [Option]) {
         self.id = id
         self.description = description
-        self.option = option
+        self.options = options
     }
     
     internal static func translateFromRPC(_ rpcSetting: Dronecore_Rpc_Camera_Setting) -> Setting {
-        return Setting(id: rpcSetting.id, description: rpcSetting.description_p, option: Option.translateFromRPC(rpcSetting.option))
+        return Setting(id: rpcSetting.id, description: rpcSetting.description_p, options: rpcSetting.option.map{ Option.translateFromRPC($0) })
     }
     
-    internal static func createRPC(_ setting: Setting) -> Dronecore_Rpc_Camera_Setting {
+    internal var rpcSettings: Dronecore_Rpc_Camera_Setting {
         var rpcSetting = Dronecore_Rpc_Camera_Setting()
         
-        rpcSetting.id = setting.id
-        rpcSetting.description_p = setting.description
-        rpcSetting.option = Option.createRPC(setting.option)
+        rpcSetting.id = id
+        rpcSetting.description_p = description
+        rpcSetting.option = options.map{ $0.rpcOption }
         
         return rpcSetting
     }
@@ -175,7 +181,7 @@ public struct Setting: Equatable {
     public static func == (lhs: Setting, rhs: Setting) -> Bool {
         return lhs.id == rhs.id
         && lhs.description == rhs.description
-        && lhs.option == rhs.option
+        && lhs.options == rhs.options
     }
 }
 
@@ -184,31 +190,18 @@ public struct Option: Equatable {
     public let description: String
     public let possibleValue: [String]
     
-    internal static func translateFromRPC(_ rpcOption: [Dronecore_Rpc_Camera_Option]) -> [Option] {
-        var options = [Option]()
-        
-        rpcOption.forEach { option in
-            options.append(Option(id: option.id, description: option.description_p, possibleValue: option.possibleValue))
-        }
-        
-        return options
+    internal static func translateFromRPC(_ rpcOption: Dronecore_Rpc_Camera_Option) -> Option {
+        return Option(id: rpcOption.id, description: rpcOption.description_p, possibleValue: rpcOption.possibleValue)
     }
     
-    internal static func createRPC(_ options: [Option]) -> [Dronecore_Rpc_Camera_Option] {
+    internal var rpcOption: Dronecore_Rpc_Camera_Option {
+        var rpcOption = Dronecore_Rpc_Camera_Option()
         
-        var rpcOptions = [Dronecore_Rpc_Camera_Option]()
+        rpcOption.id = id
+        rpcOption.description_p = description
+        rpcOption.possibleValue = possibleValue
         
-        options.forEach { option in
-            var rpcOption = Dronecore_Rpc_Camera_Option()
-            
-            rpcOption.id = option.id
-            rpcOption.description_p = option.description
-            rpcOption.possibleValue = option.possibleValue
-            
-            rpcOptions.append(rpcOption)
-        }
-        
-        return rpcOptions
+        return rpcOption
     }
     
     public static func == (lhs: Option, rhs: Option) -> Bool {
@@ -222,6 +215,10 @@ public class Camera {
     let service: Dronecore_Rpc_Camera_CameraServiceService
     let scheduler: SchedulerType
 
+    public lazy var cameraModeObservable: Observable<CameraMode> = createCameraModeObservable()
+    public lazy var videoStreamInfoObservable: Observable<VideoStreamInfo> = createVideoStreamInfoObservable()
+    public lazy var captureInfoObservable: Observable<CaptureInfo> = createCaptureInfoObservable()
+    
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -387,10 +384,6 @@ public class Camera {
         }
     }
     
-    public lazy var cameraModeObservable: Observable<CameraMode> = {
-        return createCameraModeObservable()
-    }()
-    
     private func createCameraModeObservable() -> Observable<CameraMode> {
         return Observable.create { observer in
             let cameraModeRequest = Dronecore_Rpc_Camera_SubscribeModeRequest()
@@ -411,7 +404,7 @@ public class Camera {
     public func setVideoStreamSettings(settings: VideoStreamSettings) -> Completable {
         return Completable.create { completable in
             var setVideoStreamSettingsRequest = Dronecore_Rpc_Camera_SetVideoStreamSettingsRequest()
-            setVideoStreamSettingsRequest.videoStreamSettings = VideoStreamSettings.createRPC(settings)
+            setVideoStreamSettingsRequest.videoStreamSettings = settings.rpcVideoStreamSettings
 
             do {
                 let _ = try self.service.setvideostreamsettings(setVideoStreamSettingsRequest)
@@ -423,10 +416,6 @@ public class Camera {
             return Disposables.create()
         }
     }
-    
-    public lazy var videoStreamInfoObservable: Observable<VideoStreamInfo> = {
-        return createVideoStreamInfoObservable()
-    }()
     
     private func createVideoStreamInfoObservable() -> Observable<VideoStreamInfo> {
         return Observable.create { observer in
@@ -445,10 +434,6 @@ public class Camera {
             return Disposables.create()
         }
     }
-    
-    public lazy var captureInfoObservable: Observable<CaptureInfo> = {
-        return createCaptureInfoObservable()
-    }()
 
     public func createCaptureInfoObservable() -> Observable<CaptureInfo> {
         return Observable.create { observer in
@@ -474,11 +459,7 @@ public class Camera {
             
             do {
                 let getPossibleSettingsResponse = try self.service.getpossiblesettings(getPossibleSettingsRequest)
-                var settings = [Setting]()
-                
-                getPossibleSettingsResponse.setting.forEach { setting in
-                    settings.append(Setting.translateFromRPC(setting))
-                }
+                let settings = getPossibleSettingsResponse.setting.map{ Setting.translateFromRPC($0) }
                 
                 single(.success(settings))
             } catch {

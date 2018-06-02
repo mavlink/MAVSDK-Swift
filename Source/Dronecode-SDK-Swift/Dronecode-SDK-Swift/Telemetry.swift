@@ -9,18 +9,14 @@ public struct Position: Equatable {
     public let absoluteAltitudeM: Float
     public let relativeAltitudeM: Float
     
-    internal static func createCameraRPC(_ position: Position) -> Dronecore_Rpc_Camera_Position {
+    internal var rpcCameraPosition: Dronecore_Rpc_Camera_Position {
         var rpcPosition = Dronecore_Rpc_Camera_Position()
-        rpcPosition.latitudeDeg = position.latitudeDeg
-        rpcPosition.longitudeDeg = position.longitudeDeg
-        rpcPosition.absoluteAltitudeM = position.absoluteAltitudeM
-        rpcPosition.relativeAltitudeM = position.relativeAltitudeM
+        rpcPosition.latitudeDeg = latitudeDeg
+        rpcPosition.longitudeDeg = longitudeDeg
+        rpcPosition.absoluteAltitudeM = absoluteAltitudeM
+        rpcPosition.relativeAltitudeM = relativeAltitudeM
         
         return rpcPosition
-    }
-    
-    internal static func createCameraFromRPC(_ rpcCameraPosition: Dronecore_Rpc_Camera_Position) -> Position {
-        return Position(latitudeDeg: rpcCameraPosition.latitudeDeg, longitudeDeg: rpcCameraPosition.longitudeDeg, absoluteAltitudeM: rpcCameraPosition.absoluteAltitudeM, relativeAltitudeM: rpcCameraPosition.relativeAltitudeM)
     }
 
     public static func == (lhs: Position, rhs: Position) -> Bool {
