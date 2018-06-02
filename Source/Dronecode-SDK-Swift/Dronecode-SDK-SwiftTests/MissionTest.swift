@@ -241,7 +241,6 @@ class MissionTest: XCTestCase {
         return MissionProgress(currentItemIndex: missionProgressRPC.currentItemIndex, missionCount: missionProgressRPC.missionCount)
     }
     
-    
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
         switch result {

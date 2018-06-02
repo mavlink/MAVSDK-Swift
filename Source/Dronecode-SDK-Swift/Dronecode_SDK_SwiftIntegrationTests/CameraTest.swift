@@ -82,7 +82,7 @@ class CameraTest: XCTestCase {
         let camera = Camera(address: "localhost", port: 50051)
         
         camera.setMode(mode: .photo).do(onError: { error in XCTFail("\(error)") })
-            .andThen( camera.setMode(mode: .video).do(onError: { error in XCTFail("\(error)") }))
+            .andThen( camera.setMode(mode: .photo).do(onError: { error in XCTFail("\(error)") }))
             .subscribe()
     }
     
@@ -136,11 +136,13 @@ class CameraTest: XCTestCase {
         let core = Core()
         core.connect().toBlocking().materialize()
         let camera = Camera(address: "localhost", port: 50051)
-        
+       
         camera.getPossibleSettings()
-            .do(
-                onError: { error in XCTFail("\(error)") },
-                onNext: { settings in XCTAssert(settings != nil)}
+            .do(onSuccess: { (settings) in
+                XCTAssert(settings != nil)
+            },
+                onError: { error in
+                    XCTFail("\(error)") }
             )
             .subscribe()
     }

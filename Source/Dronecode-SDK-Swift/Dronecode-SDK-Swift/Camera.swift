@@ -103,43 +103,6 @@ public struct VideoStreamSettings: Equatable {
     }
 }
 
-public struct Quaternion: Equatable {
-    public let x: Float
-    public let y: Float
-    public let w: Float
-    public let z: Float
-    
-    public init(x: Float, y: Float, w: Float, z: Float) {
-        self.x = x
-        self.y = y
-        self.w = w
-        self.z = z
-    }
-    
-    internal static func createRPC(_ quaternion: Quaternion) -> Dronecore_Rpc_Camera_Quaternion {
-        var rpcQuaternion = Dronecore_Rpc_Camera_Quaternion()
-        
-        rpcQuaternion.x = quaternion.x
-        rpcQuaternion.y = quaternion.y
-        rpcQuaternion.w = quaternion.w
-        rpcQuaternion.z = quaternion.z
-        
-        return rpcQuaternion
-    }
-    
-    internal static func translateFromRPC(_ rpcQuaternion: Dronecore_Rpc_Camera_Quaternion) -> Quaternion {
-        return Quaternion(x: rpcQuaternion.x, y: rpcQuaternion.y, w: rpcQuaternion.w, z: rpcQuaternion.z)
-    }
-    
-    public static func == (lhs: Quaternion, rhs: Quaternion) -> Bool {
-        return lhs.x == rhs.x
-            && lhs.y == rhs.y
-            && lhs.w == rhs.w
-            && lhs.z == rhs.z
-    }
-
-}
-
 public struct CaptureInfo: Equatable {
     public let position: Position
     public let quaternion: Quaternion

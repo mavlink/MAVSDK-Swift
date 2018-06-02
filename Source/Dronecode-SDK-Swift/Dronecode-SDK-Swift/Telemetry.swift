@@ -2,6 +2,7 @@ import Foundation
 import gRPC
 import RxSwift
 
+// MARK: - Position
 public struct Position: Equatable {
     public let latitudeDeg: Double
     public let longitudeDeg: Double
@@ -30,6 +31,7 @@ public struct Position: Equatable {
     }
 }
 
+// MARK: - Health
 public struct Health: Equatable {
     public let isGyrometerCalibrationOk: Bool
     public let isAccelerometerCalibrationOk: Bool
@@ -50,6 +52,7 @@ public struct Health: Equatable {
     }
 }
 
+// MARK: - Battery
 public struct Battery: Equatable {
     public let remainingPercent: Float
     public let voltageV: Float
@@ -60,6 +63,7 @@ public struct Battery: Equatable {
     }
 }
 
+// MARK: - EulerAngle
 public struct EulerAngle: Equatable {
     public let pitchDeg: Float
     public let rollDeg: Float
@@ -72,15 +76,117 @@ public struct EulerAngle: Equatable {
     }
 }
 
+// MARK: - Quaternion
+public struct Quaternion: Equatable {
+    public let w: Float
+    public let x: Float
+    public let y: Float
+    public let z: Float
+    
+    public static func == (lhs: Quaternion, rhs: Quaternion) -> Bool {
+        return lhs.w == rhs.w
+            && lhs.x == rhs.x
+            && lhs.y == rhs.y
+            && lhs.z == rhs.z
+    }
+    
+    internal static func createRPC(_ quaternion: Quaternion) -> Dronecore_Rpc_Camera_Quaternion {
+        var rpcQuaternion = Dronecore_Rpc_Camera_Quaternion()
+
+        rpcQuaternion.x = quaternion.x
+        rpcQuaternion.y = quaternion.y
+        rpcQuaternion.w = quaternion.w
+        rpcQuaternion.z = quaternion.z
+
+        return rpcQuaternion
+    }
+
+    internal static func translateFromRPC(_ rpcQuaternion: Dronecore_Rpc_Camera_Quaternion) -> Quaternion {
+        return Quaternion( w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z)
+    }
+}
+
+// MARK: - GPSInfo
+// eDroneCoreGPSInfoFix <=> Dronecore_Rpc_Telemetry_FixType in telemetry.grpc.swift
+public enum eDroneCoreGPSInfoFix: Int {
+    case noGps // = 0
+    case noFix // = 1
+    case fix2D // = 2
+    case fix3D // = 3
+    case fixDgps // = 4
+    case rtkFloat // = 5
+    case rtkFixed // = 6
+}
+
+public struct GPSInfo: Equatable {
+    public let numSatellites: Int32
+    public let fixType: eDroneCoreGPSInfoFix
+    
+    public static func == (lhs: GPSInfo, rhs: GPSInfo) -> Bool {
+        return lhs.numSatellites == rhs.numSatellites
+            && lhs.fixType == rhs.fixType
+    }
+}
+
+// MARK: - FlightMode
+// eDroneCoreFlightMode <=> Dronecore_Rpc_Telemetry_FlightMode in telemetry.grpc.swift
+public enum eDroneCoreFlightMode: Int {
+    case unknown // = 0
+    case ready // = 1
+    case takeoff // = 2
+    case hold // = 3
+    case mission // = 4
+    case returnToLaunch // = 5
+    case land // = 6
+    case offboard // = 7
+    case followMe // = 8
+}
+
+// MARK: - GroundSpeedNED
+public struct GroundSpeedNED: Equatable {
+    public let velocityNorthMS: Float
+    public let velocityEastMS: Float
+    public let velocityDownMS: Float
+   
+    public static func == (lhs: GroundSpeedNED, rhs: GroundSpeedNED) -> Bool {
+        return lhs.velocityNorthMS == rhs.velocityNorthMS
+            && lhs.velocityEastMS == rhs.velocityEastMS
+            && lhs.velocityDownMS == rhs.velocityDownMS
+    }
+}
+
+// MARK: - RCStatus
+public struct RCStatus: Equatable {
+    public let wasAvailableOnce: Bool
+    public let isAvailable: Bool
+    public let signalStrengthPercent: Float
+    
+    public static func == (lhs: RCStatus, rhs: RCStatus) -> Bool {
+        return lhs.wasAvailableOnce == rhs.wasAvailableOnce
+            && lhs.isAvailable == rhs.isAvailable
+            && lhs.signalStrengthPercent == rhs.signalStrengthPercent
+    }
+}
+
+// MARK: - TELEMETRY
 public class Telemetry {
     private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
     
     public lazy var positionObservable: Observable<Position> = createPositionObservable()
-    public lazy var healthObservable: Observable<Health> = createHealthObservable()
-    public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
+    public lazy var homePositionObservable: Observable<Position> = createHomePositionObservable()
+    public lazy var inAirObservable: Observable<Bool> = createInAirObservable()
+    public lazy var armedObservable: Observable<Bool> = createArmedObservable()
+    public lazy var attitudeQuaternionObservable: Observable<Quaternion> = createAttitudeQuaternionObservable()
     public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
+    public lazy var cameraAttitudeQuaternionObservable: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
     public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
+    public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
+    public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
+    public lazy var healthObservable: Observable<Health> = createHealthObservable()
+    public lazy var flightModeObservable: Observable<eDroneCoreFlightMode> = createFlightModeObservable()
+    public lazy var groundSpeedNEDObservable: Observable<GroundSpeedNED> = createGroundSpeedNEDObservable()
+    public lazy var rcStatusObservable: Observable<RCStatus> = createRCStatusObservable()
 
     public convenience init(address: String, port: Int) {
         let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
@@ -94,6 +200,8 @@ public class Telemetry {
         self.scheduler = scheduler
     }
     
+    // MARK: - Privates functions
+
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let positionRequest = Dronecore_Rpc_Telemetry_SubscribePositionRequest()
@@ -106,11 +214,45 @@ public class Telemetry {
                     observer.onNext(position)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to position stream")
             }
 
             return Disposables.create()
         }.subscribeOn(self.scheduler)
+    }
+
+    private func createInAirObservable() -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
+
+            do {
+                let call = try self.service.subscribeinair(inAirRequest, completion: nil)
+                while let response = try? call.receive() {
+                    observer.onNext(response.isInAir)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to inAir stream: \(error)")
+            }
+
+            return Disposables.create {}
+        }.subscribeOn(self.scheduler)
+    }
+
+    private func createArmedObservable() -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
+
+            do {
+                let call = try self.service.subscribearmed(armedRequest, completion: nil)
+                while let response = try? call.receive() {
+                    observer.onNext(response.isArmed)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to armed stream: \(error)")
+            }
+
+            return Disposables.create {}
+            }.subscribeOn(self.scheduler)
     }
     
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
@@ -126,7 +268,7 @@ public class Telemetry {
                     observer.onNext(attitude)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to attitude euler stream")
             }
             
             return Disposables.create()
@@ -146,7 +288,7 @@ public class Telemetry {
                     observer.onNext(attitude)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to attitude euler stream")
             }
             
             return Disposables.create()
@@ -165,7 +307,7 @@ public class Telemetry {
                     observer.onNext(battery)
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to battery stream")
             }
             
             return Disposables.create()
@@ -190,4 +332,135 @@ public class Telemetry {
             return Disposables.create()
         }.subscribeOn(self.scheduler)
     }
+    
+    private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
+        return Observable.create { observer in
+            let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
+            
+            do {
+                let call = try self.service.subscribeattitudequaternion(attitudeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    
+                    let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
+                    
+                    observer.onNext(attitude)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to attitude quaternion stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
+        return Observable.create { observer in
+            let cameraAttitudeRequest = Dronecore_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
+            
+            do {
+                let call = try self.service.subscribecameraattitudequaternion(cameraAttitudeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    
+                    let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
+                    
+                    observer.onNext(attitude)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to camera attitude quaternion stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createHomePositionObservable() -> Observable<Position> {
+        return Observable.create { observer in
+            let homeRequest = Dronecore_Rpc_Telemetry_SubscribeHomeRequest()
+            
+            do {
+                let call = try self.service.subscribehome(homeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let position = Position(latitudeDeg: response.home.latitudeDeg, longitudeDeg: response.home.longitudeDeg, absoluteAltitudeM: response.home.absoluteAltitudeM, relativeAltitudeM: response.home.relativeAltitudeM)
+                    observer.onNext(position)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to home stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createGPSInfoObservable() -> Observable<GPSInfo> {
+        return Observable.create { observer in
+            let gpsInfoRequest = Dronecore_Rpc_Telemetry_SubscribeGPSInfoRequest()
+            
+            do {
+                let call = try self.service.subscribegpsinfo(gpsInfoRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let gpsInfo = GPSInfo(numSatellites: response.gpsInfo.numSatellites, fixType: eDroneCoreGPSInfoFix(rawValue: response.gpsInfo.fixType.rawValue)!)
+                    observer.onNext(gpsInfo)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to GPSInfo stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createFlightModeObservable() -> Observable<eDroneCoreFlightMode> {
+        return Observable.create { observer in
+            let flightModeRequest = Dronecore_Rpc_Telemetry_SubscribeFlightModeRequest()
+            
+            do {
+                let call = try self.service.subscribeflightmode(flightModeRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let flightMode : eDroneCoreFlightMode = eDroneCoreFlightMode(rawValue: response.flightMode.rawValue)!
+                    observer.onNext(flightMode)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to FlightMode stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createGroundSpeedNEDObservable() -> Observable<GroundSpeedNED> {
+        return Observable.create { observer in
+            let groundSpeedRequest = Dronecore_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest()
+            
+            do {
+                let call = try self.service.subscribegroundspeedned(groundSpeedRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let groundSpeed : GroundSpeedNED = GroundSpeedNED(velocityNorthMS: response.groundSpeedNed.velocityNorthMS, velocityEastMS: response.groundSpeedNed.velocityEastMS, velocityDownMS: response.groundSpeedNed.velocityDownMS)
+                    observer.onNext(groundSpeed)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to Ground Speed NED stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createRCStatusObservable() -> Observable<RCStatus> {
+        return Observable.create { observer in
+            let rcstatusRequest = Dronecore_Rpc_Telemetry_SubscribeRCStatusRequest()
+            
+            do {
+                let call = try self.service.subscribercstatus(rcstatusRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let rcstatus : RCStatus = RCStatus(wasAvailableOnce: response.rcStatus.wasAvailableOnce, isAvailable: response.rcStatus.isAvailable, signalStrengthPercent: response.rcStatus.signalStrengthPercent)
+                    observer.onNext(rcstatus)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to RC Status stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
 }

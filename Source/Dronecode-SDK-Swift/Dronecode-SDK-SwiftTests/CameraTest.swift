@@ -396,7 +396,7 @@ class CameraTest: XCTestCase {
     // One Event
     func testCaptureInfoReceivesOneEvent() {
         let position = Position(latitudeDeg: 34.44, longitudeDeg: 34.44, absoluteAltitudeM: 34.44, relativeAltitudeM: 34.44)
-        let quaternion = Quaternion(x: 4, y: 4, w: 4, z: 4)
+        let quaternion = Quaternion(w: 4, x: 4, y: 4, z: 4)
         let captureInfo = CaptureInfo.createRPC(CaptureInfo(position: position, quaternion: quaternion, timeUTC: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest"))
         let captureInfoArray = [captureInfo]
         
@@ -475,7 +475,7 @@ class CameraTest: XCTestCase {
         }
         
         let position = Position(latitudeDeg: Double(randomNumber()), longitudeDeg: Double(randomNumber()), absoluteAltitudeM: Float(randomNumber()), relativeAltitudeM: Float(randomNumber()))
-        let quaternion = Quaternion(x: Float(randomNumber()), y: Float(randomNumber()), w: Float(randomNumber()), z: Float(randomNumber()))
+        let quaternion = Quaternion(w: Float(randomNumber()), x: Float(randomNumber()), y: Float(randomNumber()), z: Float(randomNumber()))
         let captureInfo = CaptureInfo.createRPC(CaptureInfo(position: position, quaternion: quaternion, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()))
         
         return CaptureInfo.translateFromRPC(captureInfo)
