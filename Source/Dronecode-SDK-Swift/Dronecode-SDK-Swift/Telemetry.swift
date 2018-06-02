@@ -321,7 +321,7 @@ public class Telemetry {
                     observer.onNext(attitude)
                 }
             } catch {
-                observer.onError("Failed to subscribe to attitude euler stream")
+                observer.onError("Failed to subscribe to camera attitude euler stream")
             }
             
             return Disposables.create()
