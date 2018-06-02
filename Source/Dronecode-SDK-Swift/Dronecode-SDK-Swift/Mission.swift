@@ -36,17 +36,17 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         self.cameraAction = cameraAction
     }
     
-    internal static func createRPC(_ missionItem: MissionItem) -> Dronecore_Rpc_Mission_MissionItem {
+    internal var rpcMissionItem: Dronecore_Rpc_Mission_MissionItem {
         var rpcMissionItem = Dronecore_Rpc_Mission_MissionItem()
         
-        rpcMissionItem.latitudeDeg = missionItem.latitudeDeg
-        rpcMissionItem.longitudeDeg = missionItem.longitudeDeg
-        rpcMissionItem.relativeAltitudeM = missionItem.relativeAltitudeM
-        rpcMissionItem.speedMS = missionItem.speedMPS
-        rpcMissionItem.isFlyThrough = missionItem.isFlyThrough
-        rpcMissionItem.gimbalPitchDeg = missionItem.gimbalPitchDeg
-        rpcMissionItem.gimbalYawDeg = missionItem.gimbalYawDeg
-        rpcMissionItem.cameraAction = missionItem.cameraAction.rpcCameraAction
+        rpcMissionItem.latitudeDeg = latitudeDeg
+        rpcMissionItem.longitudeDeg = longitudeDeg
+        rpcMissionItem.relativeAltitudeM = relativeAltitudeM
+        rpcMissionItem.speedMS = speedMPS
+        rpcMissionItem.isFlyThrough = isFlyThrough
+        rpcMissionItem.gimbalPitchDeg = gimbalPitchDeg
+        rpcMissionItem.gimbalYawDeg = gimbalYawDeg
+        rpcMissionItem.cameraAction = cameraAction.rpcCameraAction
         
         return rpcMissionItem
     }
@@ -121,7 +121,7 @@ public enum CameraAction {
             return .startVideo
         case .stopVideo:
             return .stopVideo
-        case .UNRECOGNIZED(_):
+        case .UNRECOGNIZED:
             return .none
         }
     }
@@ -148,10 +148,7 @@ public class Mission {
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
             var uploadMissionRequest = Dronecore_Rpc_Mission_UploadMissionRequest()
-
-            for missionItem in missionItems {
-                uploadMissionRequest.mission.missionItem.append(MissionItem.createRPC(missionItem))
-            }
+            uploadMissionRequest.mission.missionItem = missionItems.map{ $0.rpcMissionItem }
 
             do {
                 let uploadMissionResponse = try self.service.uploadmission(uploadMissionRequest)
@@ -175,11 +172,7 @@ public class Mission {
             do {
                 let downloadMissionResponse = try self.service.downloadmission(downloadMissionRequest)
                 if (downloadMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
-                    var missionItems = [MissionItem]()
-                    
-                    downloadMissionResponse.mission.missionItem.forEach {
-                        missionItems.append(MissionItem.translateFromRPC($0))
-                    }
+                    let missionItems = downloadMissionResponse.mission.missionItem.map{ MissionItem.translateFromRPC($0) }
                     
                     single(.success(missionItems))
                 }

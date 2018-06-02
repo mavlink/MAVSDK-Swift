@@ -20,7 +20,7 @@ class MissionTest: XCTestCase {
     
     // MARK: - Download Mission
     func testDownloadMissionSucceedsOnSuccess() {
-        let expectedResult = [MissionItem.createRPC(MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none))]
+        let expectedResult = [MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none).rpcMissionItem]
         
         let fakeService = Dronecore_Rpc_Mission_MissionServiceServiceTestStub()
         var response = Dronecore_Rpc_Mission_DownloadMissionResponse()

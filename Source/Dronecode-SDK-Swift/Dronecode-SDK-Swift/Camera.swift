@@ -124,7 +124,7 @@ public struct CaptureInfo: Equatable {
         var rpcCaptureInfo = Dronecore_Rpc_Camera_CaptureInfo()
         
         rpcCaptureInfo.position = position.rpcCameraPosition
-        rpcCaptureInfo.quaternion = Quaternion.createRPC(quaternion)
+        rpcCaptureInfo.quaternion = quaternion.rpcCameraQuaternion
         rpcCaptureInfo.timeUtcUs = timeUTC
         rpcCaptureInfo.isSuccess = isSuccess
         rpcCaptureInfo.index = Int32(index)

@@ -32,15 +32,16 @@ class TelemetryTest: XCTestCase {
         checkPositionObservableReceivesEvents(positions: positions)
     }
     
-    // Multiple Events
-    func testPositionObservableReceivesMultipleEvents() {
-        var positions = [Dronecore_Rpc_Telemetry_Position]()
-        positions.append(createRPCPosition(latitudeDeg: 41.848695, longitudeDeg: 75.132751, absoluteAltitudeM: 3002.1, relativeAltitudeM: 50.3));
-        positions.append(createRPCPosition(latitudeDeg: 46.522626, longitudeDeg: 6.635356, absoluteAltitudeM: 542.2, relativeAltitudeM: 79.8));
-        positions.append(createRPCPosition(latitudeDeg: -50.995944711358824, longitudeDeg: -72.99892046835936, absoluteAltitudeM: 1217.12, relativeAltitudeM: 2.52));
+    func createRPCPosition(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, relativeAltitudeM: Float) -> Dronecore_Rpc_Telemetry_Position {
+        var position = Dronecore_Rpc_Telemetry_Position()
+        position.latitudeDeg = latitudeDeg
+        position.longitudeDeg = longitudeDeg
+        position.absoluteAltitudeM = absoluteAltitudeM
+        position.relativeAltitudeM = relativeAltitudeM
         
-        checkPositionObservableReceivesEvents(positions: positions)
+        return position
     }
+
     
     // Generic Methods
     func checkPositionObservableReceivesEvents(positions: [Dronecore_Rpc_Telemetry_Position]) {
@@ -70,14 +71,14 @@ class TelemetryTest: XCTestCase {
         XCTAssertEqual(observer.events, expectedEvents)
     }
     
-    func createRPCPosition(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, relativeAltitudeM: Float) -> Dronecore_Rpc_Telemetry_Position {
-        var position = Dronecore_Rpc_Telemetry_Position()
-        position.latitudeDeg = latitudeDeg
-        position.longitudeDeg = longitudeDeg
-        position.absoluteAltitudeM = absoluteAltitudeM
-        position.relativeAltitudeM = relativeAltitudeM
-
-        return position
+    // Multiple Events
+    func testPositionObservableReceivesMultipleEvents() {
+        var positions = [Dronecore_Rpc_Telemetry_Position]()
+        positions.append(createRPCPosition(latitudeDeg: 41.848695, longitudeDeg: 75.132751, absoluteAltitudeM: 3002.1, relativeAltitudeM: 50.3));
+        positions.append(createRPCPosition(latitudeDeg: 46.522626, longitudeDeg: 6.635356, absoluteAltitudeM: 542.2, relativeAltitudeM: 79.8));
+        positions.append(createRPCPosition(latitudeDeg: -50.995944711358824, longitudeDeg: -72.99892046835936, absoluteAltitudeM: 1217.12, relativeAltitudeM: 2.52));
+        
+        checkPositionObservableReceivesEvents(positions: positions)
     }
 
     func createPositionResponse(position: Dronecore_Rpc_Telemetry_Position) -> Dronecore_Rpc_Telemetry_PositionResponse {

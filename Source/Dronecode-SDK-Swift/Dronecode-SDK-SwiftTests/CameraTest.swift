@@ -487,7 +487,7 @@ class CameraTest: XCTestCase {
         var response = Dronecore_Rpc_Camera_GetPossibleSettingsResponse()
         
         let option = Option(id: "06161989", description: "testDescription", possibleValue: ["TEST_POSSIBLE_VALUE"])
-        let settings = [Setting.createRPC(Setting(id: "06132016", description: "testDescription ", option: [option]))]
+        let settings = [Setting(id: "06132016", description: "testDescription ", options: [option]).rpcSettings]
         
         response.setting = settings
         

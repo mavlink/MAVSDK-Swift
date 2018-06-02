@@ -86,13 +86,12 @@ public struct Quaternion: Equatable {
             && lhs.z == rhs.z
     }
     
-    internal static func createRPC(_ quaternion: Quaternion) -> Dronecore_Rpc_Camera_Quaternion {
+    internal var rpcCameraQuaternion: Dronecore_Rpc_Camera_Quaternion {
         var rpcQuaternion = Dronecore_Rpc_Camera_Quaternion()
-
-        rpcQuaternion.x = quaternion.x
-        rpcQuaternion.y = quaternion.y
-        rpcQuaternion.w = quaternion.w
-        rpcQuaternion.z = quaternion.z
+        rpcQuaternion.x = x
+        rpcQuaternion.y = y
+        rpcQuaternion.w = w
+        rpcQuaternion.z = z
 
         return rpcQuaternion
     }
@@ -251,6 +250,44 @@ public class Telemetry {
             }.subscribeOn(self.scheduler)
     }
     
+    private func createHealthObservable() -> Observable<Health> {
+        return Observable.create { observer in
+            let healthRequest = Dronecore_Rpc_Telemetry_SubscribeHealthRequest()
+            
+            do {
+                let call = try self.service.subscribehealth(healthRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let health = Health(isGyrometerCalibrationOk: response.health.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: response.health.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: response.health.isMagnetometerCalibrationOk, isLevelCalibrationOk: response.health.isLevelCalibrationOk, isLocalPositionOk: response.health.isLocalPositionOk, isGlobalPositionOk: response.health.isGlobalPositionOk, isHomePositionOk: response.health.isHomePositionOk)
+                    
+                    observer.onNext(health)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to health stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
+    private func createBatteryObservable() -> Observable<Battery> {
+        return Observable.create { observer in
+            let batteryRequest = Dronecore_Rpc_Telemetry_SubscribeBatteryRequest()
+            
+            do {
+                let call = try self.service.subscribebattery(batteryRequest, completion: nil)
+                while let response = try? call.receive() {
+                    let battery = Battery(remainingPercent: response.battery.remainingPercent, voltageV: response.battery.voltageV)
+                    
+                    observer.onNext(battery)
+                }
+            } catch {
+                observer.onError("Failed to subscribe to battery stream")
+            }
+            
+            return Disposables.create()
+            }.subscribeOn(self.scheduler)
+    }
+    
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
             let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
@@ -289,44 +326,6 @@ public class Telemetry {
             
             return Disposables.create()
             }.subscribeOn(self.scheduler)
-    }
-    
-    private func createBatteryObservable() -> Observable<Battery> {
-        return Observable.create { observer in
-            let batteryRequest = Dronecore_Rpc_Telemetry_SubscribeBatteryRequest()
-            
-            do {
-                let call = try self.service.subscribebattery(batteryRequest, completion: nil)
-                while let response = try? call.receive() {
-                    let battery = Battery(remainingPercent: response.battery.remainingPercent, voltageV: response.battery.voltageV)
-                    
-                    observer.onNext(battery)
-                }
-            } catch {
-                observer.onError("Failed to subscribe to battery stream")
-            }
-            
-            return Disposables.create()
-            }.subscribeOn(self.scheduler)
-    }
-    
-    private func createHealthObservable() -> Observable<Health> {
-        return Observable.create { observer in
-            let healthRequest = Dronecore_Rpc_Telemetry_SubscribeHealthRequest()
-
-            do {
-                let call = try self.service.subscribehealth(healthRequest, completion: nil)
-                while let response = try? call.receive() {
-                    let health = Health(isGyrometerCalibrationOk: response.health.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: response.health.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: response.health.isMagnetometerCalibrationOk, isLevelCalibrationOk: response.health.isLevelCalibrationOk, isLocalPositionOk: response.health.isLocalPositionOk, isGlobalPositionOk: response.health.isGlobalPositionOk, isHomePositionOk: response.health.isHomePositionOk)
-
-                    observer.onNext(health)
-                }
-            } catch {
-                observer.onError("Failed to subscribe to health stream")
-            }
-
-            return Disposables.create()
-        }.subscribeOn(self.scheduler)
     }
     
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
