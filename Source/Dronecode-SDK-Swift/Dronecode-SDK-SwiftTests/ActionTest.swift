@@ -9,22 +9,17 @@ class ActionTest: XCTestCase {
     let ARBITRARY_ALTITUDE: Float = 123.5
     let ARBITRARY_SPEED: Float = 321.5
     
+    let actionResultsArray: [Dronecore_Rpc_Action_ActionResult.Result] = [.busy, .commandDenied, .commandDeniedNotLanded, .commandDeniedLandedStateUnknown, .connectionError, .noSystem, .noVtolTransitionSupport, .timeout, .unknown, .vtolTransitionSupportUnknown]
+    
     // MARK: - ARM
     func testArmSucceedsOnSuccess() {
         assertSuccess(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
     }
     
     func testArmFailsOnFailure() {
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+        actionResultsArray.forEach { result in
+            assertFailure(result: armWithFakeResult(result: result))
+        }
     }
     
     func armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
@@ -43,16 +38,9 @@ class ActionTest: XCTestCase {
     }
     
     func testDisarmFailsOnFailure() {
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+        actionResultsArray.forEach { result in
+             assertFailure(result: disarmWithFakeResult(result: result))
+        }
     }
     
     func disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
@@ -71,16 +59,9 @@ class ActionTest: XCTestCase {
     }
     
     func testKillFailsOnFailure() {
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+        actionResultsArray.forEach { result in
+            assertFailure(result: killWithFakeResult(result: result))
+        }
     }
     
     func killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
@@ -99,16 +80,9 @@ class ActionTest: XCTestCase {
     }
     
     func testReturnToLaunchFailsOnFailure() {
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+        actionResultsArray.forEach { result in
+             assertFailure(result: returnToLaunchWithFakeResult(result: result))
+        }
     }
     
     func returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
@@ -127,16 +101,9 @@ class ActionTest: XCTestCase {
     }
     
     func testTransitionToFixedWingsFailsOnFailure() {
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+        actionResultsArray.forEach { result in
+            assertFailure(result: transitionToFixedWingsWithFakeResult(result: result))
+        }
     }
     
     func transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
@@ -155,16 +122,9 @@ class ActionTest: XCTestCase {
     }
     
     func testTransitionToMulticopterFailsOnFailure() {
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.busy))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDenied))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedNotLanded))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.commandDeniedLandedStateUnknown))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.connectionError))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noSystem))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.noVtolTransitionSupport))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.timeout))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.unknown))
-        assertFailure(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.vtolTransitionSupportUnknown))
+        actionResultsArray.forEach { result in
+            assertFailure(result: transitionToMulticopterWithFakeResult(result: result))
+        }
     }
     
     func transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
@@ -206,6 +166,7 @@ class ActionTest: XCTestCase {
     func setTakeoffAltitudeWithFakeResult() -> MaterializedSequenceResult<Never> {
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
         let response = Dronecore_Rpc_Action_SetTakeoffAltitudeResponse()
+        
         fakeService.settakeoffaltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
@@ -215,9 +176,11 @@ class ActionTest: XCTestCase {
     // MARK: - GET MAXIMUM SPEED
     func testGetMaximumSpeedSucceedsOnSuccess() {
         let expectedSpeed = ARBITRARY_SPEED
+        
         let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
         var response = Dronecore_Rpc_Action_GetMaximumSpeedResponse()
         response.speedMS = expectedSpeed
+        
         fakeService.getmaximumspeedResponses.append(response)
         let client = Action(service: fakeService)
         

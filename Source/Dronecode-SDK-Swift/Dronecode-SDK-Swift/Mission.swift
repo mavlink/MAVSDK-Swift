@@ -35,6 +35,25 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         self.gimbalYawDeg = gimbalYawDeg
         self.cameraAction = cameraAction
     }
+    
+    internal var rpcMissionItem: Dronecore_Rpc_Mission_MissionItem {
+        var rpcMissionItem = Dronecore_Rpc_Mission_MissionItem()
+        
+        rpcMissionItem.latitudeDeg = latitudeDeg
+        rpcMissionItem.longitudeDeg = longitudeDeg
+        rpcMissionItem.relativeAltitudeM = relativeAltitudeM
+        rpcMissionItem.speedMS = speedMPS
+        rpcMissionItem.isFlyThrough = isFlyThrough
+        rpcMissionItem.gimbalPitchDeg = gimbalPitchDeg
+        rpcMissionItem.gimbalYawDeg = gimbalYawDeg
+        rpcMissionItem.cameraAction = cameraAction.rpcCameraAction
+        
+        return rpcMissionItem
+    }
+    
+    internal static func translateFromRPC(_ rpcMissionItem: Dronecore_Rpc_Mission_MissionItem) -> MissionItem {
+        return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMPS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRPC(rpcMissionItem.cameraAction))
+    }
 
     public static func == (lhs: MissionItem, rhs: MissionItem) -> Bool {
         return lhs.latitudeDeg == rhs.latitudeDeg
@@ -87,6 +106,25 @@ public enum CameraAction {
             return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopVideo
         }
     }
+    
+    internal static func translateFromRPC(_ rpcCameraAction: Dronecore_Rpc_Mission_MissionItem.CameraAction) -> CameraAction {
+        switch rpcCameraAction {
+        case .none:
+            return .none
+        case .takePhoto:
+            return .takePhoto
+        case .startPhotoInterval:
+            return .startPhotoInterval
+        case .stopPhotoInterval:
+            return .stopPhotoInterval
+        case .startVideo:
+            return .startVideo
+        case .stopVideo:
+            return .stopVideo
+        case .UNRECOGNIZED:
+            return .none
+        }
+    }
 }
 
 public class Mission {
@@ -110,20 +148,7 @@ public class Mission {
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
             var uploadMissionRequest = Dronecore_Rpc_Mission_UploadMissionRequest()
-
-            for missionItem in missionItems {
-                var rpcMissionItem = Dronecore_Rpc_Mission_MissionItem()
-                rpcMissionItem.latitudeDeg = missionItem.latitudeDeg
-                rpcMissionItem.longitudeDeg = missionItem.longitudeDeg
-                rpcMissionItem.relativeAltitudeM = missionItem.relativeAltitudeM
-                rpcMissionItem.speedMS = missionItem.speedMPS
-                rpcMissionItem.isFlyThrough = missionItem.isFlyThrough
-                rpcMissionItem.gimbalPitchDeg = missionItem.gimbalPitchDeg
-                rpcMissionItem.gimbalYawDeg = missionItem.gimbalYawDeg
-                rpcMissionItem.cameraAction = missionItem.cameraAction.rpcCameraAction
-
-                uploadMissionRequest.mission.missionItem.append(rpcMissionItem)
-            }
+            uploadMissionRequest.mission.missionItem = missionItems.map{ $0.rpcMissionItem }
 
             do {
                 let uploadMissionResponse = try self.service.uploadmission(uploadMissionRequest)
@@ -136,7 +161,26 @@ public class Mission {
                 completable(.error(error))
             }
 
-            return Disposables.create {}
+            return Disposables.create()
+        }
+    }
+    
+    public func downloadMission() -> Single<[MissionItem]> {
+        return Single<[MissionItem]>.create { single in
+            let downloadMissionRequest = Dronecore_Rpc_Mission_DownloadMissionRequest()
+            
+            do {
+                let downloadMissionResponse = try self.service.downloadmission(downloadMissionRequest)
+                if (downloadMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
+                    let missionItems = downloadMissionResponse.mission.missionItem.map{ MissionItem.translateFromRPC($0) }
+                    
+                    single(.success(missionItems))
+                }
+            } catch {
+                single(.error(error))
+            }
+            
+            return Disposables.create()
         }
     }
 
@@ -155,7 +199,7 @@ public class Mission {
                 completable(.error(error))
             }
 
-            return Disposables.create {}
+            return Disposables.create()
         }
     }
     
@@ -174,7 +218,53 @@ public class Mission {
                 completable(.error(error))
             }
             
-            return Disposables.create {}
+            return Disposables.create()
+        }
+    }
+    
+    public func setCurrentMissionItemIndex(_ index: Int) -> Completable {
+        return Completable.create { completable in
+            var setCurrentMissionItemIndexRequest = Dronecore_Rpc_Mission_SetCurrentMissionItemIndexRequest()
+            setCurrentMissionItemIndexRequest.index = Int32(index)
+            
+            do {
+                let _ = try self.service.setcurrentmissionitemindex(setCurrentMissionItemIndexRequest)
+                completable(.completed)
+            } catch {
+                completable(.error(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    public func getCurrentMissionItemIndex() -> Single<Int> {
+        return Single<Int>.create { single in
+            let getCurrentMissionItemIndexRequest = Dronecore_Rpc_Mission_GetCurrentMissionItemIndexRequest()
+            
+            do {
+                let getCurrentMissionItemIndexResponse = try self.service.getcurrentmissionitemindex(getCurrentMissionItemIndexRequest)
+                single(.success(Int(getCurrentMissionItemIndexResponse.index)))
+            } catch {
+                single(.error(error))
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    public func getMissionCount() -> Single<Int> {
+        return Single<Int>.create { single in
+            let getMissionCountRequest = Dronecore_Rpc_Mission_GetMissionCountRequest()
+            
+            do {
+                let getMissionCountResponse = try self.service.getmissioncount(getMissionCountRequest)
+                single(.success(Int(getMissionCountResponse.count)))
+            } catch {
+                single(.error(error))
+            }
+            
+            return Disposables.create()
         }
     }
     
@@ -184,11 +274,11 @@ public class Mission {
             do {
                 let isMissionFinishedResponse = try self.service.ismissionfinished(isMissionFinishedRequest)
                 single(.success(isMissionFinishedResponse.isFinished))
-                return Disposables.create {}
             } catch {
                 single(.error(error))
-                return Disposables.create {}
             }
+            
+            return Disposables.create()
         }
     }
     
