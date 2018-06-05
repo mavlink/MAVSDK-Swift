@@ -20,7 +20,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var startMissionButton: UIButton!
     @IBOutlet weak var pauseMissionButton: UIButton!
     
-    let regionRadius: CLLocationDistance = 500
+    let regionRadius: CLLocationDistance = 100
     
     private var droneAnnotation: DroneAnnotation!
     private var timer: Timer?
@@ -146,6 +146,19 @@ class MapViewController: UIViewController {
         
         let missionTrace = MKPolyline(coordinates: points, count: listMissionsItems.count)
         mapView.add(missionTrace)
+        
+        // add start pin
+        let point1 = CustomPointAnnotation(title: "START")
+        let missionItem1 = listMissionsItems[0]
+        point1.coordinate = CLLocationCoordinate2DMake(missionItem1.latitudeDeg, missionItem1.longitudeDeg)
+        mapView.addAnnotation(point1)
+        
+        // add stop pin
+        let point2 = CustomPointAnnotation(title: "STOP")
+        let missionItem2 = listMissionsItems[listMissionsItems.count - 1]
+        point2.coordinate = CLLocationCoordinate2DMake(missionItem2.latitudeDeg, missionItem2.longitudeDeg)
+        mapView.addAnnotation(point2)
+        
     }
     
 }
@@ -154,20 +167,30 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? DroneAnnotation else { return nil }
         
-        let identifier = NSStringFromClass(DroneView.self)
-        var view: DroneView
-        
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? DroneView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-        } else {
-            view = DroneView(annotation: annotation, reuseIdentifier: identifier)
+        if(annotation is CustomPointAnnotation){
+            _ = NSStringFromClass(CustomPinAnnotationView.self)
+            let  view :CustomPinAnnotationView = CustomPinAnnotationView(annotation: annotation)
+             return view
+        }else{
+            guard let annotation = annotation as? DroneAnnotation else { return nil }
+            
+            let identifier = NSStringFromClass(DroneView.self)
+            var view: DroneView
+            
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                as? DroneView {
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                view = DroneView(annotation: annotation, reuseIdentifier: identifier)
+            }
+             return view
         }
-        return view
+        
+       
     }
+    
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let polyline = overlay as? MKPolyline {
