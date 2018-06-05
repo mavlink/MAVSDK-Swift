@@ -20,10 +20,12 @@ class MapViewController: UIViewController {
     @IBOutlet weak var startMissionButton: UIButton!
     @IBOutlet weak var pauseMissionButton: UIButton!
     
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 100
     
     private var droneAnnotation: DroneAnnotation!
     private var timer: Timer?
+    
+    private let missionExample:ExampleMission = ExampleMission()
     
     // MARK: - View life cycle
     
@@ -55,8 +57,11 @@ class MapViewController: UIViewController {
         droneAnnotation = DroneAnnotation(title: "Drone", coordinate:initialLocation.coordinate)
         mapView.addAnnotation(droneAnnotation)
         
-        //timer to get drone state
+        // timer to get drone state
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector:  #selector(updateDroneInfosDisplayed), userInfo: nil, repeats: true)
+        
+        // display mission trace
+        self.createMissionTrace(mapView: mapView, listMissionsItems: missionExample.missionItems)
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,7 +96,7 @@ class MapViewController: UIViewController {
     // MARK: - Missions
     
     func uploadMission(){
-        let missionExample:ExampleMission = ExampleMission()
+        
         let sendMissionRoutine = CoreManager.shared().mission.uploadMission(missionItems: missionExample.missionItems).do(
             onError: { error in self.displayFeedback(message:"Mission uploaded failed \(error)") },
             onCompleted: { self.displayFeedback(message:"Mission uploaded with success") })
@@ -130,25 +135,71 @@ class MapViewController: UIViewController {
         feedbackLabel.text = message
     }
     
+     // MARK: - Mission trace
+    
+    func createMissionTrace(mapView: MKMapView, listMissionsItems : Array<MissionItem>) {
+        var points = [CLLocationCoordinate2D]()
+        
+        for missionItem in listMissionsItems {
+            points.append(CLLocationCoordinate2DMake(missionItem.latitudeDeg, missionItem.longitudeDeg))
+        }
+        
+        let missionTrace = MKPolyline(coordinates: points, count: listMissionsItems.count)
+        mapView.add(missionTrace)
+        
+        // add start pin
+        let point1 = CustomPointAnnotation(title: "START")
+        let missionItem1 = listMissionsItems[0]
+        point1.coordinate = CLLocationCoordinate2DMake(missionItem1.latitudeDeg, missionItem1.longitudeDeg)
+        mapView.addAnnotation(point1)
+        
+        // add stop pin
+        let point2 = CustomPointAnnotation(title: "STOP")
+        let missionItem2 = listMissionsItems[listMissionsItems.count - 1]
+        point2.coordinate = CLLocationCoordinate2DMake(missionItem2.latitudeDeg, missionItem2.longitudeDeg)
+        mapView.addAnnotation(point2)
+        
+    }
+    
 }
 
 
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? DroneAnnotation else { return nil }
         
-        let identifier = NSStringFromClass(DroneView.self)
-        var view: DroneView
-        
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? DroneView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-        } else {
-            view = DroneView(annotation: annotation, reuseIdentifier: identifier)
+        if(annotation is CustomPointAnnotation){
+            _ = NSStringFromClass(CustomPinAnnotationView.self)
+            let  view :CustomPinAnnotationView = CustomPinAnnotationView(annotation: annotation)
+             return view
+        }else{
+            guard let annotation = annotation as? DroneAnnotation else { return nil }
+            
+            let identifier = NSStringFromClass(DroneView.self)
+            var view: DroneView
+            
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                as? DroneView {
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                view = DroneView(annotation: annotation, reuseIdentifier: identifier)
+            }
+             return view
         }
-        return view
+        
+       
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let lineRenderer = MKPolylineRenderer(polyline: polyline)
+            lineRenderer.strokeColor = .orange
+            lineRenderer.lineWidth = 2.0
+            return lineRenderer
+        }
+        fatalError("Fatal error in mapView MKOverlayRenderer")
     }
 
 }
