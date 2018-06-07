@@ -5,7 +5,6 @@
 There are three ways to import the DroneCore-Swift SDK for iOS into your project:
 
 * [CocoaPods](https://cocoapods.org/)
-* [Carthage](https://github.com/Carthage/Carthage) 
 * Manually
 
 You should use one of these three ways to import the DroneCore-Swift SDK but not multiple. Importing the SDK in multiple ways loads duplicate copies of the SDK into the project and causes compiler errors.
@@ -39,53 +38,6 @@ You should use one of these three ways to import the DroneCore-Swift SDK but not
 
 4. Open up `*.xcworkspace` with Xcode and start using the SDK.
 
-
-### Carthage
-
-### Use Carthage to get the framework
-
-To use the DroneCore-Swift SDK in your iOS application, you can pull in this framework using [Carthage](https://github.com/Carthage/Carthage).
-
-To install carthage, it's easiest to use [Homebrew](https://brew.sh/):
-
-```
-brew install carthage
-```
-
-Then to add the framework, create the file `Cartfile` in your app's repository with below's content:
-
-```
-# Require the iOS framework of DroneCore SDK
-github "dronecore/DroneCore-Swift" "master"
-```
-
-Then, to pull in the library and build it, run Carthage in your app's repository:
-
-```
-carthage update
-```
-
-This command also needs to be re-run if you want to udpate the framework.
-
-### Add the framework into your project
-
-Open the project in XCode and do the following:
-
-1. Open Project Settings -> General
-2. Find 'Linked frameworks Libraries' and and press *+*
-3. Click Other, go one folder up, and select `Carthage/Build/iOS/Dronecode_SDK_Swift.framework`.
-4. Add also all the frameworks in the folder 'Carthage/Checkouts/DroneCore-Swift/Source/Dronecode-SDK-Swift/Dronecode-SDK-Swift/libs/dronecode-sdk-swift-deps-latest'
-5. Do "Product Clean" and "Product Build"
-6. Set ***Build Settings > Enable Bitcode*** to ***No***; you may have to select "All" for the field to show up.
-
-
-### Use Carthage to check out a developer branch
-
-While developing, you might need a developer version of the iOS wrappers. They can be accessed by using a branch in the `Cartfile`:
-
-```
-github "dronecore/DroneCore-Swift" "branch-name"
-```
 
 ### Manually
 
@@ -125,11 +77,6 @@ When we release a new version of the SDK, you can pick up the changes as describ
 
     **Note**: If your pod is having an issue, you can delete `Podfile.lock` and `Pods/` then run `pod install` to cleanly install the SDK.
 
-### Carthage
-
-1. Run the following command in your project directory. Carthage automatically picks up the new changes.
-
-        $ carthage update
 
 ### Manually
 
