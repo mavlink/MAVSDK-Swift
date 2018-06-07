@@ -20,6 +20,8 @@
 		2C365EE320761F3000F42184 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE120761F3000F42184 /* LaunchScreen.storyboard */; };
 		2C365EE52076247100F42184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE42076247000F42184 /* Assets.xcassets */; };
 		2CCEB7992089F2510086AA37 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEB7982089F2510086AA37 /* CoreManager.swift */; };
+		2CD3189B20C928610061415E /* CustomPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3189920C928610061415E /* CustomPinAnnotationView.swift */; };
+		2CD3189C20C928610061415E /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3189A20C928610061415E /* CustomPointAnnotation.swift */; };
 		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
 		2CE6B6CC20AED1AE0086958C /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */; };
 		2CE6B6D120AED1CA0086958C /* empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B6CF20AED1C90086958C /* empty.cpp */; };
@@ -55,6 +57,8 @@
 		2C365EE220761F3000F42184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C365EE42076247000F42184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2CCEB7982089F2510086AA37 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
+		2CD3189920C928610061415E /* CustomPinAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPinAnnotationView.swift; sourceTree = "<group>"; };
+		2CD3189A20C928610061415E /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = Pods/MobileVLCKit/MobileVLCKit.framework; sourceTree = "<group>"; };
 		2CE6B6CE20AED1C90086958C /* empty.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = empty.hpp; sourceTree = "<group>"; };
@@ -147,12 +151,22 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		2CD3189820C928610061415E /* Mapkit */ = {
+			isa = PBXGroup;
+			children = (
+				2CD3189920C928610061415E /* CustomPinAnnotationView.swift */,
+				2CD3189A20C928610061415E /* CustomPointAnnotation.swift */,
+			);
+			path = Mapkit;
+			sourceTree = "<group>";
+		};
 		2CDBF022207659D00064C8A5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				2C365EC2207610C500F42184 /* TelemetryViewController.swift */,
 				2CFF7270207750AF0060D31B /* ActionsViewController.swift */,
 				2CDBF020207652340064C8A5 /* MapViewController.swift */,
+				2CD3189820C928610061415E /* Mapkit */,
 				2CE6B6D320AEECE10086958C /* CameraViewController.swift */,
 			);
 			path = Controllers;
