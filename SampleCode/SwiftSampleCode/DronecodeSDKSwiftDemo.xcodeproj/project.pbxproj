@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C0648C72091DC06002BD970 /* ExampleMission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648C62091DC06002BD970 /* ExampleMission.swift */; };
 		2C0648CE2091FCC6002BD970 /* DroneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648CD2091FCC6002BD970 /* DroneState.swift */; };
-		2C0648D1209214DB002BD970 /* DroneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648CF209214DB002BD970 /* DroneView.swift */; };
-		2C0648D2209214DB002BD970 /* DroneAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0648D0209214DB002BD970 /* DroneAnnotation.swift */; };
 		2C0A6A5D208F6DB200B3E12F /* TelemetryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */; };
 		2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */; };
 		2C365EC1207610C500F42184 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C365EC0207610C500F42184 /* AppDelegate.swift */; };
@@ -21,6 +19,8 @@
 		2C365EE52076247100F42184 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C365EE42076247000F42184 /* Assets.xcassets */; };
 		2CA1F0CE20CE618700C913D6 /* CustomPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1F0CC20CE618700C913D6 /* CustomPinAnnotationView.swift */; };
 		2CA1F0CF20CE618700C913D6 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1F0CD20CE618700C913D6 /* CustomPointAnnotation.swift */; };
+		2CA1F0D420CE625D00C913D6 /* DroneAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1F0D220CE625D00C913D6 /* DroneAnnotation.swift */; };
+		2CA1F0D520CE625D00C913D6 /* DroneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA1F0D320CE625D00C913D6 /* DroneView.swift */; };
 		2CCEB7992089F2510086AA37 /* CoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEB7982089F2510086AA37 /* CoreManager.swift */; };
 		2CD3189B20C928610061415E /* CustomPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3189920C928610061415E /* CustomPinAnnotationView.swift */; };
 		2CD3189C20C928610061415E /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3189A20C928610061415E /* CustomPointAnnotation.swift */; };
@@ -44,8 +44,6 @@
 /* Begin PBXFileReference section */
 		2C0648C62091DC06002BD970 /* ExampleMission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleMission.swift; sourceTree = "<group>"; };
 		2C0648CD2091FCC6002BD970 /* DroneState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneState.swift; sourceTree = "<group>"; };
-		2C0648CF209214DB002BD970 /* DroneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DroneView.swift; path = DronecodeSDKSwiftDemo/Views/DroneView.swift; sourceTree = SOURCE_ROOT; };
-		2C0648D0209214DB002BD970 /* DroneAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DroneAnnotation.swift; path = DronecodeSDKSwiftDemo/Views/DroneAnnotation.swift; sourceTree = SOURCE_ROOT; };
 		2C0A6A5C208F6DB200B3E12F /* TelemetryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryEntry.swift; sourceTree = "<group>"; };
 		2C0A6A5E208F77E500B3E12F /* TelemetryEntries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryEntries.swift; sourceTree = "<group>"; };
 		2C365EBD207610C500F42184 /* DronecodeSDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DronecodeSDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,6 +58,8 @@
 		2C365EE42076247000F42184 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2CA1F0CC20CE618700C913D6 /* CustomPinAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPinAnnotationView.swift; sourceTree = "<group>"; };
 		2CA1F0CD20CE618700C913D6 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
+		2CA1F0D220CE625D00C913D6 /* DroneAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroneAnnotation.swift; sourceTree = "<group>"; };
+		2CA1F0D320CE625D00C913D6 /* DroneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroneView.swift; sourceTree = "<group>"; };
 		2CCEB7982089F2510086AA37 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
 		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = Pods/MobileVLCKit/MobileVLCKit.framework; sourceTree = "<group>"; };
@@ -148,8 +148,6 @@
 		2CA1F0CA20CE612C00C913D6 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				2C0648D0209214DB002BD970 /* DroneAnnotation.swift */,
-				2C0648CF209214DB002BD970 /* DroneView.swift */,
 				2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */,
 			);
 			name = "Recovered References";
@@ -158,10 +156,28 @@
 		2CA1F0CB20CE618700C913D6 /* Mapkit */ = {
 			isa = PBXGroup;
 			children = (
+				2CA1F0D020CE622800C913D6 /* Drone */,
+				2CA1F0D120CE623300C913D6 /* Pins */,
+			);
+			path = Mapkit;
+			sourceTree = "<group>";
+		};
+		2CA1F0D020CE622800C913D6 /* Drone */ = {
+			isa = PBXGroup;
+			children = (
+				2CA1F0D220CE625D00C913D6 /* DroneAnnotation.swift */,
+				2CA1F0D320CE625D00C913D6 /* DroneView.swift */,
+			);
+			path = Drone;
+			sourceTree = "<group>";
+		};
+		2CA1F0D120CE623300C913D6 /* Pins */ = {
+			isa = PBXGroup;
+			children = (
 				2CA1F0CC20CE618700C913D6 /* CustomPinAnnotationView.swift */,
 				2CA1F0CD20CE618700C913D6 /* CustomPointAnnotation.swift */,
 			);
-			path = Mapkit;
+			path = Pins;
 			sourceTree = "<group>";
 		};
 		2CCEB79A2089F25B0086AA37 /* Manager */ = {
@@ -307,11 +323,11 @@
 				2CA1F0CE20CE618700C913D6 /* CustomPinAnnotationView.swift in Sources */,
 				2CA1F0CF20CE618700C913D6 /* CustomPointAnnotation.swift in Sources */,
 				2C0A6A5D208F6DB200B3E12F /* TelemetryEntry.swift in Sources */,
-				2C0648D2209214DB002BD970 /* DroneAnnotation.swift in Sources */,
-				2C0648D1209214DB002BD970 /* DroneView.swift in Sources */,
+				2CA1F0D420CE625D00C913D6 /* DroneAnnotation.swift in Sources */,
 				2C365EC3207610C500F42184 /* TelemetryViewController.swift in Sources */,
 				2CE6B6D420AEECE10086958C /* CameraViewController.swift in Sources */,
 				2C0A6A5F208F77E500B3E12F /* TelemetryEntries.swift in Sources */,
+				2CA1F0D520CE625D00C913D6 /* DroneView.swift in Sources */,
 				2CE6B6D120AED1CA0086958C /* empty.cpp in Sources */,
 				2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */,
 				2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */,
