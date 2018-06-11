@@ -25,7 +25,6 @@
 		2CD3189B20C928610061415E /* CustomPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3189920C928610061415E /* CustomPinAnnotationView.swift */; };
 		2CD3189C20C928610061415E /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD3189A20C928610061415E /* CustomPointAnnotation.swift */; };
 		2CDBF021207652340064C8A5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDBF020207652340064C8A5 /* MapViewController.swift */; };
-		2CE6B6CC20AED1AE0086958C /* MobileVLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */; };
 		2CE6B6D120AED1CA0086958C /* empty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B6CF20AED1C90086958C /* empty.cpp */; };
 		2CE6B6D420AEECE10086958C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6B6D320AEECE10086958C /* CameraViewController.swift */; };
 		2CFF7271207750AF0060D31B /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFF7270207750AF0060D31B /* ActionsViewController.swift */; };
@@ -62,7 +61,6 @@
 		2CA1F0D320CE625D00C913D6 /* DroneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DroneView.swift; sourceTree = "<group>"; };
 		2CCEB7982089F2510086AA37 /* CoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreManager.swift; sourceTree = "<group>"; };
 		2CDBF020207652340064C8A5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileVLCKit.framework; path = Pods/MobileVLCKit/MobileVLCKit.framework; sourceTree = "<group>"; };
 		2CE6B6CE20AED1C90086958C /* empty.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = empty.hpp; sourceTree = "<group>"; };
 		2CE6B6CF20AED1C90086958C /* empty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = empty.cpp; sourceTree = "<group>"; };
 		2CE6B6D220AED28E0086958C /* DronecodeSDKSwiftDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DronecodeSDKSwiftDemo-Bridging-Header.h"; path = "DronecodeSDKSwiftDemo/DronecodeSDKSwiftDemo-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
@@ -143,14 +141,6 @@
 				2C365ED7207610C500F42184 /* Info.plist */,
 			);
 			path = DronecodeSDKSwiftDemoTests;
-			sourceTree = "<group>";
-		};
-		2CA1F0CA20CE612C00C913D6 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				2CE6B6CB20AED1AE0086958C /* MobileVLCKit.framework */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		2CA1F0CB20CE618700C913D6 /* Mapkit */ = {
