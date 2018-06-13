@@ -44,8 +44,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // set initial location in Zurich
-        let initialLocation = CLLocation(latitude: 47.398039859999997, longitude: 8.5455725400000002)
+        // set initial location of drone and center map on it
+        let initialLocation = CLLocation(latitude: CoreManager.shared().droneState.location2D.latitude , longitude: CoreManager.shared().droneState.location2D.longitude)
         centerMapOnLocation(location: initialLocation)
         
         // init text for feedback and add round corner and border
@@ -133,8 +133,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         self.displayFeedback(message:"Create flightpath at  (\(latitude),\(longitude))")
         
         // remove all annotations and overlays
+        //TODO improve : we could just remove annotations that we want to refresh and keep drone annotations instead of recreate it afterward
         mapView.removeAnnotations(mapView.annotations)
         mapView.removeOverlays(mapView.overlays)
+        
+        // re-create drone annotation
+        droneAnnotation = DroneAnnotation(title: "Drone", coordinate: CoreManager.shared().droneState.location2D)
+        mapView.addAnnotation(droneAnnotation)
         
         // create new mission with first point of mission equal to center of the map
         let centerMapLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
