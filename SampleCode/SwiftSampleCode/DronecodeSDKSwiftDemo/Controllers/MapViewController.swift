@@ -18,7 +18,9 @@ class MapViewController: UIViewController {
     @IBOutlet weak var feedbackLabel: UILabel!
     @IBOutlet weak var uploadMissionButton: UIButton!
     @IBOutlet weak var startMissionButton: UIButton!
-    @IBOutlet weak var pauseMissionButton: UIButton!
+    
+    @IBOutlet weak var createFlightPathButton: UIButton!
+    @IBOutlet weak var centerMapOnUsernButton: UIButton!
     
     let regionRadius: CLLocationDistance = 100
     
@@ -47,7 +49,8 @@ class MapViewController: UIViewController {
         // set corners for buttons
         uploadMissionButton.layer.cornerRadius   = UI_CORNER_RADIUS_BUTTONS
         startMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
-        pauseMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        createFlightPathButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        centerMapOnUsernButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         
         // init mapview delegate
         mapView.delegate = self
@@ -89,10 +92,14 @@ class MapViewController: UIViewController {
        
     }
     
-    @IBAction func pauseMissionPressed(_ sender: Any) {
-        self.displayFeedback(message:"Pause Mission Pressed")
+    // MARK: - Center
+    @IBAction func centerOnUserPressed(_ sender: Any) {
+        self.displayFeedback(message:"Center on user Pressed")
     }
     
+    @IBAction func createFlightPathPressed(_ sender: Any) {
+        self.displayFeedback(message:"Create new flightpath Pressed")
+    }
     // MARK: - Missions
     
     func uploadMission(){
