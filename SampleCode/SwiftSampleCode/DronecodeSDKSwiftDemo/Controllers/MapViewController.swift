@@ -113,7 +113,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
        
     }
     
-    // MARK: - Center
+    // MARK: - Center Map and Create Flightpath
     
     @IBAction func centerOnUserPressed(_ sender: Any) {
         let latitude:String = String(format: "%.4f",
@@ -126,7 +126,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func createFlightPathPressed(_ sender: Any) {
-        self.displayFeedback(message:"Create new flightpath Pressed")
+        let latitude:String = String(format: "%.4f",
+                                     mapView.centerCoordinate.latitude)
+        let longitude:String = String(format: "%.4f",
+                                      mapView.centerCoordinate.longitude)
+        self.displayFeedback(message:"Create flightpath at  (\(latitude),\(longitude))")
+        
+        // remove all annotations and overlays
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
+        
+        // create new mission with first point of mission equal to center of the map
+        let centerMapLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        missionExample.generateSampleMissionForLocation(location: centerMapLocation)
+        self.createMissionTrace(mapView: mapView, listMissionsItems: missionExample.missionItems)
     }
     
     // MARK: - Missions
@@ -201,13 +214,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         defer { currentLocation = locations.last }
         
-        if currentLocation == nil {
+        /*if currentLocation == nil {
             // Zoom to user location
             if let userLocation = locations.last {
                 let viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000)
                 mapView.setRegion(viewRegion, animated: false)
             }
-        }
+        }*/
     }
     
 }
