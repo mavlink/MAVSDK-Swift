@@ -10,9 +10,11 @@ import UIKit
 import Dronecode_SDK_Swift
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     // MARK: - Properties
+    
+    // MARK: IBOutlets -------
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var feedbackLabel: UILabel!
@@ -22,10 +24,18 @@ class MapViewController: UIViewController {
     @IBOutlet weak var createFlightPathButton: UIButton!
     @IBOutlet weak var centerMapOnUsernButton: UIButton!
     
+    // MARK: Location -------
+    
+    private var locationManager: CLLocationManager!
+    private var currentLocation: CLLocation?
     let regionRadius: CLLocationDistance = 100
+    
+    // MARK: Misc -------
     
     private var droneAnnotation: DroneAnnotation!
     private var timer: Timer?
+    
+    // MARK: Mission -------
     
     private let missionExample:ExampleMission = ExampleMission()
     
@@ -45,15 +55,26 @@ class MapViewController: UIViewController {
         feedbackLabel?.layer.borderColor = UIColor.lightGray.cgColor
         feedbackLabel?.layer.borderWidth = 1.0
         
-        
         // set corners for buttons
         uploadMissionButton.layer.cornerRadius   = UI_CORNER_RADIUS_BUTTONS
         startMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         createFlightPathButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         centerMapOnUsernButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
         
+        // location manager
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // Check for Location Services
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
+        
         // init mapview delegate
         mapView.delegate = self
+        mapView.showsUserLocation = true
         
         // drone annotation
         mapView.register(DroneView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(DroneView.self))
@@ -93,13 +114,21 @@ class MapViewController: UIViewController {
     }
     
     // MARK: - Center
+    
     @IBAction func centerOnUserPressed(_ sender: Any) {
-        self.displayFeedback(message:"Center on user Pressed")
+        let latitude:String = String(format: "%.4f",
+                                     currentLocation!.coordinate.latitude)
+        let longitude:String = String(format: "%.4f",
+                                      currentLocation!.coordinate.longitude)
+        self.displayFeedback(message:"User coordinates (\(latitude),\(longitude))")
+        
+        centerMapOnLocation(location: currentLocation!)
     }
     
     @IBAction func createFlightPathPressed(_ sender: Any) {
         self.displayFeedback(message:"Create new flightpath Pressed")
     }
+    
     // MARK: - Missions
     
     func uploadMission(){
@@ -166,6 +195,19 @@ class MapViewController: UIViewController {
         point2.coordinate = CLLocationCoordinate2DMake(missionItem2.latitudeDeg, missionItem2.longitudeDeg)
         mapView.addAnnotation(point2)
         
+    }
+    
+    // MARK: - Location manager
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        defer { currentLocation = locations.last }
+        
+        if currentLocation == nil {
+            // Zoom to user location
+            if let userLocation = locations.last {
+                let viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000)
+                mapView.setRegion(viewRegion, animated: false)
+            }
+        }
     }
     
 }
