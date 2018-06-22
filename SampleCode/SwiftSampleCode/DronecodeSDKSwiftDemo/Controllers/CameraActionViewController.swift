@@ -14,6 +14,8 @@ import Dronecode_SDK_Swift
 class CameraActionViewController: UIViewController {
     
     @IBOutlet weak var feedbackLabel: UILabel!
+    @IBOutlet weak var videoLabel: UIButton!
+    @IBOutlet weak var photoIntervalLabel: UIButton!
     
     // MARK: -
     override func viewDidLoad() {
@@ -39,18 +41,63 @@ class CameraActionViewController: UIViewController {
         _ = myRoutine.subscribe()
     }
     
-    @IBAction func startVideo(_ sender: UIButton) {
-        let myRoutine = CoreManager.shared().camera.startVideo()
-            .do(onError: { error in self.feedbackLabel.text = "Start Video Failed : \(error.localizedDescription)" },
-                onCompleted: {  self.feedbackLabel.text = "Start Video Success" })
+    @IBAction func videoAction(_ sender: UIButton) {
+        if(videoLabel.titleLabel?.text == "Start Video") {
+            let myRoutine = CoreManager.shared().camera.startVideo()
+                .do(onError: { error in self.feedbackLabel.text = "Start Video Failed : \(error.localizedDescription)" },
+                    onCompleted: {
+                        self.feedbackLabel.text = "Start Video Success"
+                        self.videoLabel.setTitle("Stop Video", for: .normal)
+                })
+            _ = myRoutine.subscribe()
+        }
+            
+        else {
+            let myRoutine = CoreManager.shared().camera.stopVideo()
+                .do(onError: { error in self.feedbackLabel.text = "Stop Video Failed : \(error.localizedDescription)" },
+                    onCompleted: {
+                        self.feedbackLabel.text = "Stop Video Success"
+                        self.videoLabel.setTitle("Start Video", for: .normal)
+                })
+            _ = myRoutine.subscribe()
+        }
+        
+    }
+    
+    @IBAction func photoIntervalAction(_ sender: UIButton) {
+        let intervalTimeS = 3
+        if(photoIntervalLabel.titleLabel?.text == "Start Photo Interval") {
+            let myRoutine = CoreManager.shared().camera.startPhotoInteval(interval: Float(intervalTimeS))
+                .do(onError: { error in self.feedbackLabel.text = "Start Photo Interval Failed : \(error.localizedDescription)" },
+                    onCompleted: {
+                        self.feedbackLabel.text = "Start Photo Interval Success"
+                        self.photoIntervalLabel.setTitle("Stop Photo Interval", for: .normal)
+                })
+            _ = myRoutine.subscribe()
+        }
+        else {
+            let myRoutine = CoreManager.shared().camera.stopPhotoInterval()
+                .do(onError: { error in self.feedbackLabel.text = "Stop Photo Interval Failed : \(error.localizedDescription)" },
+                    onCompleted: {
+                        self.feedbackLabel.text = "Stop Photo Interval Success"
+                        self.photoIntervalLabel.setTitle("Start Photo Interval", for: .normal)
+                })
+            _ = myRoutine.subscribe()
+        }
+        
+    }
+    
+    @IBAction func setPhotoMode(_ sender: UIButton) {
+        let myRoutine = CoreManager.shared().camera.setMode(mode: CameraMode.photo)
+            .do(onError: { error in self.feedbackLabel.text = "Set Photo Mode Failed : \(error.localizedDescription)" },
+                onCompleted: {  self.feedbackLabel.text = "Set Photo Mode Success" })
         _ = myRoutine.subscribe()
     }
     
-    @IBAction func startPhotoInterval(_ sender: UIButton) {
-        let intervalTimeS = 3
-        let myRoutine = CoreManager.shared().camera.startPhotoInteval(interval: Float(intervalTimeS))
-            .do(onError: { error in self.feedbackLabel.text = "Start Photo Interval Failed : \(error.localizedDescription)" },
-                onCompleted: {  self.feedbackLabel.text = "Start Photo Interval Success" })
+    @IBAction func setVideoMode(_ sender: UIButton) {
+        let myRoutine = CoreManager.shared().camera.setMode(mode: CameraMode.video)
+            .do(onError: { error in self.feedbackLabel.text = "Set Video Mode Failed : \(error.localizedDescription)" },
+                onCompleted: {  self.feedbackLabel.text = "Set Video Mode Success" })
         _ = myRoutine.subscribe()
     }
     
