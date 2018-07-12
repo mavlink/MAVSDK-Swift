@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		658EBB402F18D9CE1407CE5A /* Pods_Dronecode_SDK_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134508A782FE03348CCCCB82 /* Pods_Dronecode_SDK_SwiftTests.framework */; };
 		A539337420A26B94004D791F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337320A26B94004D791F /* Camera.swift */; };
 		A539337620A26BAC004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337520A26BAC004D791F /* CameraTest.swift */; };
 		A539337820A2828B004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337720A2828B004D791F /* CameraTest.swift */; };
+		B966EB3D4CA1D398183B5AE0 /* Pods_Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC997018D9AA15093CEA09C9 /* Pods_Dronecode_SDK_Swift.framework */; };
 		DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0D207CEBEF00CEE035 /* ActionTest.swift */; };
 		DF020A10207D4CC600CEE035 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0F207D4CC600CEE035 /* Telemetry.swift */; };
 		DF020A12207D4CEF00CEE035 /* TelemetryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */; };
@@ -17,54 +19,26 @@
 		DF020A1620873D3B00CEE035 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1520873D3B00CEE035 /* Mission.swift */; };
 		DF020A1820873E7D00CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1720873E7D00CEE035 /* MissionTest.swift */; };
 		DF020A1A20877B9900CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1920877B9900CEE035 /* MissionTest.swift */; };
-		DF16D54F2074F9610018AF1F /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF16D5502074F9860018AF1F /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
-		DF503DA22077B1C500CA79FB /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
-		DF503DA32077B1C500CA79FB /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; };
-		DF503DA42077B1C500CA79FB /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
-		DF503DA52077B1C500CA79FB /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; };
 		DF503DA62077B1C500CA79FB /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
 		DF503DA72077B1C500CA79FB /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
 		DF503DA82077B1C500CA79FB /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
-		DF503DA92077B1C500CA79FB /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; };
-		DF503DAA2077B1C500CA79FB /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
 		DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DAD2077B20200CA79FB /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DAE2077B20200CA79FB /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DAF2077B20200CA79FB /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DB02077B20200CA79FB /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF503DB12077B20200CA79FB /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF503DB22077B20200CA79FB /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF503DB32077B20200CA79FB /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DB42077B20200CA79FB /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DB52077B20200CA79FB /* SwiftProtobufPluginLibrary.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF674CC6206D946E00421042 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF674CC5206D946E00421042 /* Core.swift */; };
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DF68BF092064617900175337 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* ActionTest.swift */; };
 		DF68BF0B2064617900175337 /* Dronecode_SDK_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF68BF3B2064633D00175337 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF3A2064633D00175337 /* Action.swift */; };
-		DF7798C62074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
-		DF7798C72074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; };
-		DF7798C82074F52D00CD1BE0 /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; };
-		DF7798C92074F52D00CD1BE0 /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; };
-		DF7798CA2074F52D00CD1BE0 /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; };
-		DF7798CB2074F52D00CD1BE0 /* gRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; };
-		DF7798CC2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; };
-		DF7798CD2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */; };
 		DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
 		DF7798CF2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
-		DF7798D02074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
-		DF7798D12074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */; };
 		DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
 		DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
 		DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
 		DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
-		DF7798D82074F52D00CD1BE0 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
-		DF7798D92074F52D00CD1BE0 /* Czlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; };
-		DF7798DC2074F64300CD1BE0 /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF7798DD2074F65600CD1BE0 /* SwiftProtobufPluginLibrary.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFA0B03A207524EA007BDD4B /* telemetry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B032207524EA007BDD4B /* telemetry.pb.swift */; };
 		DFA0B03B207524EA007BDD4B /* action.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B033207524EA007BDD4B /* action.grpc.swift */; };
@@ -79,8 +53,6 @@
 		DFD0792A209BFF5E001C7760 /* camera.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD07928209BFF5E001C7760 /* camera.pb.swift */; };
 		DFDA52772077A813008DE8BF /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA52762077A813008DE8BF /* CoreTest.swift */; };
 		DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
-		DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798BE2074F52D00CD1BE0 /* gRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C52074F52D00CD1BE0 /* Czlib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFF7AB8D2074FC79000767B8 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -110,15 +82,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */,
-				DF503DAD2077B20200CA79FB /* BoringSSL.framework in CopyFiles */,
-				DF503DAE2077B20200CA79FB /* CgRPC.framework in CopyFiles */,
-				DF503DAF2077B20200CA79FB /* Czlib.framework in CopyFiles */,
-				DF503DB02077B20200CA79FB /* gRPC.framework in CopyFiles */,
 				DF503DB12077B20200CA79FB /* RxBlocking.framework in CopyFiles */,
 				DF503DB22077B20200CA79FB /* RxSwift.framework in CopyFiles */,
 				DF503DB32077B20200CA79FB /* RxTest.framework in CopyFiles */,
-				DF503DB42077B20200CA79FB /* SwiftProtobuf.framework in CopyFiles */,
-				DF503DB52077B20200CA79FB /* SwiftProtobufPluginLibrary.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,23 +96,22 @@
 			files = (
 				DFF7AB8D2074FC79000767B8 /* RxBlocking.framework in CopyFiles */,
 				DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */,
-				DFF7AB8B2074FBA7000767B8 /* Czlib.framework in CopyFiles */,
-				DFF7AB8A2074FB92000767B8 /* gRPC.framework in CopyFiles */,
 				DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */,
-				DF16D5502074F9860018AF1F /* BoringSSL.framework in CopyFiles */,
-				DF16D54F2074F9610018AF1F /* SwiftProtobuf.framework in CopyFiles */,
 				DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */,
-				DF7798DD2074F65600CD1BE0 /* SwiftProtobufPluginLibrary.framework in CopyFiles */,
-				DF7798DC2074F64300CD1BE0 /* CgRPC.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		134508A782FE03348CCCCB82 /* Pods_Dronecode_SDK_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dronecode_SDK_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FD8DB0151697447E4A34CDE /* Pods-Dronecode-SDK-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-Swift/Pods-Dronecode-SDK-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		7186F365FA0FCF717B42545D /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
+		834D01275CCEA023FF3EC5AB /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		A539337320A26B94004D791F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		A539337520A26BAC004D791F /* CameraTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
 		A539337720A2828B004D791F /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
+		CDAF153736CE2C8F91AA4040 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-Swift/Pods-Dronecode-SDK-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		DF020A0D207CEBEF00CEE035 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF020A0F207D4CC600CEE035 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryTest.swift; sourceTree = "<group>"; };
@@ -162,16 +127,10 @@
 		DF68BF082064617900175337 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF68BF0A2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF68BF3A2064633D00175337 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobufPluginLibrary.framework; path = ../bin/SwiftProtobufPluginLibrary.framework; sourceTree = "<group>"; };
-		DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = ../bin/CgRPC.framework; sourceTree = "<group>"; };
-		DF7798BE2074F52D00CD1BE0 /* gRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = gRPC.framework; path = ../bin/gRPC.framework; sourceTree = "<group>"; };
-		DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = ../bin/SwiftProtobuf.framework; sourceTree = "<group>"; };
 		DF7798C02074F52D00CD1BE0 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../bin/RxSwift.framework; sourceTree = "<group>"; };
-		DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = ../bin/BoringSSL.framework; sourceTree = "<group>"; };
 		DF7798C22074F52D00CD1BE0 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = ../bin/backend.framework; sourceTree = "<group>"; };
 		DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = ../bin/RxBlocking.framework; sourceTree = "<group>"; };
 		DF7798C42074F52D00CD1BE0 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = ../bin/RxTest.framework; sourceTree = "<group>"; };
-		DF7798C52074F52D00CD1BE0 /* Czlib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Czlib.framework; path = ../bin/Czlib.framework; sourceTree = "<group>"; };
 		DFA0B032207524EA007BDD4B /* telemetry.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.pb.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B033207524EA007BDD4B /* action.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.grpc.swift; path = "Dronecode-SDK-Swift/Generated/action.grpc.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B034207524EA007BDD4B /* core.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = core.grpc.swift; path = "Dronecode-SDK-Swift/Generated/core.grpc.swift"; sourceTree = SOURCE_ROOT; };
@@ -186,6 +145,7 @@
 		DFDA52742077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Dronecode_SDK_SwiftIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFDA52762077A813008DE8BF /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
 		DFDA52782077A813008DE8BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC997018D9AA15093CEA09C9 /* Pods_Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,14 +153,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7798D02074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */,
-				DF7798D82074F52D00CD1BE0 /* Czlib.framework in Frameworks */,
 				DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
-				DF7798C82074F52D00CD1BE0 /* CgRPC.framework in Frameworks */,
-				DF7798CC2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */,
-				DF7798CA2074F52D00CD1BE0 /* gRPC.framework in Frameworks */,
-				DF7798C62074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */,
 				DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */,
+				B966EB3D4CA1D398183B5AE0 /* Pods_Dronecode_SDK_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,17 +163,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7798C92074F52D00CD1BE0 /* CgRPC.framework in Frameworks */,
-				DF7798C72074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework in Frameworks */,
 				DF7798CF2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
-				DF7798CD2074F52D00CD1BE0 /* SwiftProtobuf.framework in Frameworks */,
-				DF7798D12074F52D00CD1BE0 /* BoringSSL.framework in Frameworks */,
 				DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */,
-				DF7798CB2074F52D00CD1BE0 /* gRPC.framework in Frameworks */,
 				DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */,
-				DF7798D92074F52D00CD1BE0 /* Czlib.framework in Frameworks */,
 				DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */,
 				DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */,
+				658EBB402F18D9CE1407CE5A /* Pods_Dronecode_SDK_SwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,21 +178,26 @@
 			files = (
 				DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */,
 				DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */,
-				DF503DA22077B1C500CA79FB /* BoringSSL.framework in Frameworks */,
-				DF503DA32077B1C500CA79FB /* CgRPC.framework in Frameworks */,
-				DF503DA42077B1C500CA79FB /* Czlib.framework in Frameworks */,
-				DF503DA52077B1C500CA79FB /* gRPC.framework in Frameworks */,
 				DF503DA62077B1C500CA79FB /* RxBlocking.framework in Frameworks */,
 				DF503DA72077B1C500CA79FB /* RxSwift.framework in Frameworks */,
 				DF503DA82077B1C500CA79FB /* RxTest.framework in Frameworks */,
-				DF503DA92077B1C500CA79FB /* SwiftProtobuf.framework in Frameworks */,
-				DF503DAA2077B1C500CA79FB /* SwiftProtobufPluginLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B2A98AEE24EE1BF372262E6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CDAF153736CE2C8F91AA4040 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */,
+				6FD8DB0151697447E4A34CDE /* Pods-Dronecode-SDK-Swift.release.xcconfig */,
+				7186F365FA0FCF717B42545D /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */,
+				834D01275CCEA023FF3EC5AB /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		DF68BEF02064617900175337 = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +206,7 @@
 				DFDA52752077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */,
 				DF68BEFB2064617900175337 /* Products */,
 				DF68BF192064624C00175337 /* Frameworks */,
+				3B2A98AEE24EE1BF372262E6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -314,15 +270,11 @@
 			isa = PBXGroup;
 			children = (
 				DF7798C22074F52D00CD1BE0 /* backend.framework */,
-				DF7798C12074F52D00CD1BE0 /* BoringSSL.framework */,
-				DF7798BD2074F52D00CD1BE0 /* CgRPC.framework */,
-				DF7798C52074F52D00CD1BE0 /* Czlib.framework */,
-				DF7798BE2074F52D00CD1BE0 /* gRPC.framework */,
 				DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */,
 				DF7798C02074F52D00CD1BE0 /* RxSwift.framework */,
 				DF7798C42074F52D00CD1BE0 /* RxTest.framework */,
-				DF7798BF2074F52D00CD1BE0 /* SwiftProtobuf.framework */,
-				DF7798BC2074F52D00CD1BE0 /* SwiftProtobufPluginLibrary.framework */,
+				EC997018D9AA15093CEA09C9 /* Pods_Dronecode_SDK_Swift.framework */,
+				134508A782FE03348CCCCB82 /* Pods_Dronecode_SDK_SwiftTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -358,6 +310,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF68BF0E2064617900175337 /* Build configuration list for PBXNativeTarget "Dronecode-SDK-Swift" */;
 			buildPhases = (
+				DE06DD69374DE96844331B92 /* [CP] Check Pods Manifest.lock */,
 				DF68BEF52064617900175337 /* Sources */,
 				DF68BEF62064617900175337 /* Frameworks */,
 				DF68BEF72064617900175337 /* Headers */,
@@ -376,10 +329,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF68BF112064617900175337 /* Build configuration list for PBXNativeTarget "Dronecode-SDK-SwiftTests" */;
 			buildPhases = (
+				ED7462C71A7729C7D24ADC01 /* [CP] Check Pods Manifest.lock */,
 				DF68BEFF2064617900175337 /* Sources */,
 				DF68BF002064617900175337 /* Frameworks */,
 				DF68BF012064617900175337 /* Resources */,
 				DF7798DB2074F63200CD1BE0 /* CopyFiles */,
+				421E70F11BC8E952C59F938F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -477,6 +432,71 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		421E70F11BC8E952C59F938F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftGRPC/SwiftGRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftGRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftProtobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE06DD69374DE96844331B92 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dronecode-SDK-Swift-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED7462C71A7729C7D24ADC01 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Dronecode-SDK-SwiftTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DF68BEF52064617900175337 /* Sources */ = {
@@ -659,12 +679,13 @@
 		};
 		DF68BF0F2064617900175337 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CDAF153736CE2C8F91AA4040 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = HBV2V5DL5C;
+				DEVELOPMENT_TEAM = Y4U8WX82HX;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -692,12 +713,13 @@
 		};
 		DF68BF102064617900175337 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6FD8DB0151697447E4A34CDE /* Pods-Dronecode-SDK-Swift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = HBV2V5DL5C;
+				DEVELOPMENT_TEAM = Y4U8WX82HX;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -724,8 +746,9 @@
 		};
 		DF68BF122064617900175337 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7186F365FA0FCF717B42545D /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63A74UA3T4;
 				INFOPLIST_FILE = "Dronecode-SDK-SwiftTests/Info.plist";
@@ -739,8 +762,9 @@
 		};
 		DF68BF132064617900175337 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 834D01275CCEA023FF3EC5AB /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63A74UA3T4;
 				INFOPLIST_FILE = "Dronecode-SDK-SwiftTests/Info.plist";

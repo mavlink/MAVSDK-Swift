@@ -1,5 +1,5 @@
 import Foundation
-import gRPC
+import SwiftGRPC
 import RxSwift
 
 // MARK: - Position
@@ -9,7 +9,7 @@ public struct Position: Equatable {
     public let absoluteAltitudeM: Float
     public let relativeAltitudeM: Float
     
-    internal var rpcCameraPosition: Dronecore_Rpc_Camera_Position {
+    internal var rpcCameraPosition: DronecodeSdk_Rpc_Camera_Position {
         var rpcPosition = Dronecore_Rpc_Camera_Position()
         rpcPosition.latitudeDeg = latitudeDeg
         rpcPosition.longitudeDeg = longitudeDeg

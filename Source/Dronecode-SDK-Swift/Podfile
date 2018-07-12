@@ -1,0 +1,14 @@
+platform :ios, '9.0'
+
+target 'Dronecode-SDK-Swift' do
+  use_frameworks!
+
+  # Pods for Dronecode-SDK-Swift
+  pod 'SwiftGRPC', '= 0.4.2'
+
+  target 'Dronecode-SDK-SwiftTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
