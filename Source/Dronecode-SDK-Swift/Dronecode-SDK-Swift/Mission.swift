@@ -1,5 +1,5 @@
 import Foundation
-import gRPC
+import SwiftGRPC
 import RxSwift
 
 public struct MissionItem : Equatable {

@@ -1,6 +1,6 @@
 import backend
 import Foundation
-import gRPC
+import SwiftGRPC
 import RxSwift
 
 public struct PluginInfo: Equatable {
