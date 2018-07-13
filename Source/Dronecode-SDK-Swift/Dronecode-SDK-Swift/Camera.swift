@@ -8,7 +8,7 @@ public enum CameraMode {
     case photo
     case video
     
-    internal var rpcCameraMode: Dronecore_Rpc_Camera_CameraMode {
+    internal var rpcCameraMode: DronecodeSdk_Rpc_Camera_CameraMode {
         switch self {
         case .photo:
             return .photo
@@ -19,7 +19,7 @@ public enum CameraMode {
         }
     }
     
-    internal static func translateFromRPC(_ rpcCameraMode: Dronecore_Rpc_Camera_CameraMode) -> CameraMode {
+    internal static func translateFromRPC(_ rpcCameraMode: DronecodeSdk_Rpc_Camera_CameraMode) -> CameraMode {
         switch rpcCameraMode {
         case .photo:
             return .photo
@@ -36,7 +36,7 @@ public enum VideoStreamInfo {
     case inProgress
     case unknown
     
-    internal var rpcVideoStreamInfo: Dronecore_Rpc_Camera_VideoStreamInfo.Status {
+    internal var rpcVideoStreamInfo: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
         switch self {
         case .inProgress:
             return .inProgress
@@ -47,8 +47,8 @@ public enum VideoStreamInfo {
         }
     }
     
-    internal static func translateFromRPC(_ rpcVideoStreamInfo: Dronecore_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
-        switch rpcVideoStreamInfo.status {
+    internal static func translateFromRPC(_ rpcVideoStreamInfo: DronecodeSdk_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
+        switch rpcVideoStreamInfo.videoStreamStatus {
         case .inProgress:
             return .inProgress
         case .notRunning:
@@ -76,8 +76,8 @@ public struct VideoStreamSettings: Equatable {
         self.uri = uri
     }
     
-    internal var rpcVideoStreamSettings: Dronecore_Rpc_Camera_VideoStreamSettings {
-        var rpcVideoStreamSettings = Dronecore_Rpc_Camera_VideoStreamSettings()
+    internal var rpcVideoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings {
+        var rpcVideoStreamSettings = DronecodeSdk_Rpc_Camera_VideoStreamSettings()
         
         rpcVideoStreamSettings.frameRateHz = frameRateHz
         rpcVideoStreamSettings.horizontalResolutionPix = UInt32(horizontalResolutionPix)
@@ -89,7 +89,7 @@ public struct VideoStreamSettings: Equatable {
         return rpcVideoStreamSettings
     }
     
-    internal static func translateFromRPC(_ rpcVideoStreamSettings: Dronecore_Rpc_Camera_VideoStreamSettings) -> VideoStreamSettings {
+    internal static func translateFromRPC(_ rpcVideoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings) -> VideoStreamSettings {
         return VideoStreamSettings(frameRateHz: rpcVideoStreamSettings.frameRateHz, horizontalResolutionPix: rpcVideoStreamSettings.horizontalResolutionPix, verticalResolutionPix: rpcVideoStreamSettings.verticalResolutionPix, bitRateBS: rpcVideoStreamSettings.bitRateBS, rotationDegree: rpcVideoStreamSettings.rotationDeg, uri: rpcVideoStreamSettings.uri)
     }
     
@@ -120,8 +120,8 @@ public struct CaptureInfo: Equatable {
         self.fileURL = fileURL
     }
     
-    internal var rpcCaptureInfo: Dronecore_Rpc_Camera_CaptureInfo {
-        var rpcCaptureInfo = Dronecore_Rpc_Camera_CaptureInfo()
+    internal var rpcCaptureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo {
+        var rpcCaptureInfo = DronecodeSdk_Rpc_Camera_CaptureInfo()
         
         rpcCaptureInfo.position = position.rpcCameraPosition
         rpcCaptureInfo.quaternion = quaternion.rpcCameraQuaternion
@@ -133,7 +133,7 @@ public struct CaptureInfo: Equatable {
         return rpcCaptureInfo
     }
     
-    internal static func translateFromRPC(_ rpcCaptureInfo: Dronecore_Rpc_Camera_CaptureInfo) -> CaptureInfo {
+    internal static func translateFromRPC(_ rpcCaptureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
         let position = Position(latitudeDeg: rpcCaptureInfo.position.latitudeDeg, longitudeDeg: rpcCaptureInfo.position.longitudeDeg, absoluteAltitudeM: rpcCaptureInfo.position.absoluteAltitudeM, relativeAltitudeM: rpcCaptureInfo.position.relativeAltitudeM)
         return CaptureInfo(position: position,
                            quaternion: Quaternion.translateFromRPC(rpcCaptureInfo.quaternion),
@@ -155,64 +155,59 @@ public struct CaptureInfo: Equatable {
 
 public struct Setting: Equatable {
     public let id: String
-    public let description: String
-    public let options: [Option]
+    public let option: Option
     
-    init(id: String, description: String, options: [Option]) {
+    init(id: String, option: Option) {
         self.id = id
-        self.description = description
-        self.options = options
+        self.option = option
     }
     
-    internal static func translateFromRPC(_ rpcSetting: Dronecore_Rpc_Camera_Setting) -> Setting {
-        return Setting(id: rpcSetting.id, description: rpcSetting.description_p, options: rpcSetting.option.map{ Option.translateFromRPC($0) })
+    internal static func translateFromRPC(_ rpcSetting: DronecodeSdk_Rpc_Camera_Setting) -> Setting {
+        return Setting(id: rpcSetting.settingID, option: Option(id: rpcSetting.option.optionID))
     }
     
-    internal var rpcSettings: Dronecore_Rpc_Camera_Setting {
-        var rpcSetting = Dronecore_Rpc_Camera_Setting()
+    internal var rpcSettings: DronecodeSdk_Rpc_Camera_Setting {
+        var rpcSetting = DronecodeSdk_Rpc_Camera_Setting()
         
-        rpcSetting.id = id
-        rpcSetting.description_p = description
-        rpcSetting.option = options.map{ $0.rpcOption }
+        rpcSetting.settingID = id
+        rpcSetting.option = DronecodeSdk_Rpc_Camera_Option()
+        rpcSetting.option.optionID = option.id
         
         return rpcSetting
     }
     
     public static func == (lhs: Setting, rhs: Setting) -> Bool {
         return lhs.id == rhs.id
-        && lhs.description == rhs.description
-        && lhs.options == rhs.options
+        && lhs.option == rhs.option
     }
 }
 
 public struct Option: Equatable {
     public let id: String
-    public let description: String
-    public let possibleValue: [String]
-    
-    internal static func translateFromRPC(_ rpcOption: Dronecore_Rpc_Camera_Option) -> Option {
-        return Option(id: rpcOption.id, description: rpcOption.description_p, possibleValue: rpcOption.possibleValue)
+
+    init(id: String) {
+        self.id = id
+    }
+
+    internal static func translateFromRPC(_ rpcOption: DronecodeSdk_Rpc_Camera_Option) -> Option {
+        return Option(id: rpcOption.optionID)
     }
     
-    internal var rpcOption: Dronecore_Rpc_Camera_Option {
-        var rpcOption = Dronecore_Rpc_Camera_Option()
+    internal var rpcOption: DronecodeSdk_Rpc_Camera_Option {
+        var rpcOption = DronecodeSdk_Rpc_Camera_Option()
         
-        rpcOption.id = id
-        rpcOption.description_p = description
-        rpcOption.possibleValue = possibleValue
-        
+        rpcOption.optionID = id
+
         return rpcOption
     }
     
     public static func == (lhs: Option, rhs: Option) -> Bool {
         return lhs.id == rhs.id
-            && lhs.description == rhs.description
-            && lhs.possibleValue == rhs.possibleValue
     }
 }
 
 public class Camera {
-    let service: Dronecore_Rpc_Camera_CameraServiceService
+    let service: DronecodeSdk_Rpc_Camera_CameraServiceService
     let scheduler: SchedulerType
 
     public lazy var cameraModeObservable: Observable<CameraMode> = createCameraModeObservable()
@@ -220,24 +215,24 @@ public class Camera {
     public lazy var captureInfoObservable: Observable<CaptureInfo> = createCaptureInfoObservable()
     
     public convenience init(address: String, port: Int) {
-        let service = Dronecore_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = DronecodeSdk_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
         self.init(service: service, scheduler: scheduler)
     }
     
-    init(service: Dronecore_Rpc_Camera_CameraServiceService, scheduler: SchedulerType) {
+    init(service: DronecodeSdk_Rpc_Camera_CameraServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
     
     public func takePhoto() -> Completable {
         return Completable.create { completable in
-            let takePhotoRequest = Dronecore_Rpc_Camera_TakePhotoRequest()
+            let takePhotoRequest = DronecodeSdk_Rpc_Camera_TakePhotoRequest()
             
             do {
-                let takePhotoResponse = try self.service.takephoto(takePhotoRequest)
-                if takePhotoResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let takePhotoResponse = try self.service.takePhoto(takePhotoRequest)
+                if takePhotoResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot take photo: \(takePhotoResponse.cameraResult.result)"))
@@ -251,12 +246,12 @@ public class Camera {
     
     public func startPhotoInteval(interval: Float) -> Completable {
         return Completable.create { completable in
-            var startPhotoIntervalRequest = Dronecore_Rpc_Camera_StartPhotoIntervalRequest()
+            var startPhotoIntervalRequest = DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest()
             startPhotoIntervalRequest.intervalS = interval
             
             do {
-                let startPhotoIntevalResponse = try self.service.startphotointerval(startPhotoIntervalRequest)
-                if startPhotoIntevalResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let startPhotoIntevalResponse = try self.service.startPhotoInterval(startPhotoIntervalRequest)
+                if startPhotoIntevalResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot start photo interval: \(startPhotoIntevalResponse.cameraResult.result)"))
@@ -271,11 +266,11 @@ public class Camera {
     
     public func stopPhotoInterval() -> Completable {
         return Completable.create { completable in
-            let stopPhotoIntervalRequest = Dronecore_Rpc_Camera_StopPhotoIntervalRequest()
+            let stopPhotoIntervalRequest = DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest()
             
             do {
-                let stopPhotoIntervalResponse = try self.service.stopphotointerval(stopPhotoIntervalRequest)
-                if stopPhotoIntervalResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let stopPhotoIntervalResponse = try self.service.stopPhotoInterval(stopPhotoIntervalRequest)
+                if stopPhotoIntervalResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot stop photo interval: \(stopPhotoIntervalResponse.cameraResult.result)"))
@@ -290,11 +285,11 @@ public class Camera {
     
     public func startVideo() -> Completable {
         return Completable.create { completable in
-            let startVideoRequest = Dronecore_Rpc_Camera_StartVideoRequest()
+            let startVideoRequest = DronecodeSdk_Rpc_Camera_StartVideoRequest()
             
             do {
-                let startVideoResponse = try self.service.startvideo(startVideoRequest)
-                if startVideoResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let startVideoResponse = try self.service.startVideo(startVideoRequest)
+                if startVideoResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot start video: \(startVideoResponse.cameraResult.result)"))
@@ -309,11 +304,11 @@ public class Camera {
     
     public func stopVideo() -> Completable {
         return Completable.create { completable in
-            let stopVideoRequest = Dronecore_Rpc_Camera_StopVideoRequest()
+            let stopVideoRequest = DronecodeSdk_Rpc_Camera_StopVideoRequest()
             
             do {
-                let stopVideoResponse = try self.service.stopvideo(stopVideoRequest)
-                if stopVideoResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let stopVideoResponse = try self.service.stopVideo(stopVideoRequest)
+                if stopVideoResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot stop video: \(stopVideoResponse.cameraResult.result)"))
@@ -328,11 +323,11 @@ public class Camera {
     
     public func startVideoStreaming() -> Completable {
         return Completable.create { completable in
-            let startVideoStreamingRequest = Dronecore_Rpc_Camera_StartVideoStreamingRequest()
+            let startVideoStreamingRequest = DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest()
             
             do {
-                let startVideoStreamingResponse = try self.service.startvideostreaming(startVideoStreamingRequest)
-                if startVideoStreamingResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let startVideoStreamingResponse = try self.service.startVideoStreaming(startVideoStreamingRequest)
+                if startVideoStreamingResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot start video streaming: \(startVideoStreamingResponse.cameraResult.result)"))
@@ -347,11 +342,11 @@ public class Camera {
     
     public func stopVideoStreaming() -> Completable {
         return Completable.create { completable in
-            let stopVideoSreamingRequest = Dronecore_Rpc_Camera_StopVideoStreamingRequest()
+            let stopVideoSreamingRequest = DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest()
             
             do {
-                let stopVideoStreamingResponse = try self.service.stopvideostreaming(stopVideoSreamingRequest)
-                if stopVideoStreamingResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let stopVideoStreamingResponse = try self.service.stopVideoStreaming(stopVideoSreamingRequest)
+                if stopVideoStreamingResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot stop video streaming: \(stopVideoStreamingResponse.cameraResult.result)"))
@@ -366,12 +361,12 @@ public class Camera {
     
     public func setMode(mode: CameraMode) -> Completable {
         return Completable.create { completable in
-            var setCameraModeRequest = Dronecore_Rpc_Camera_SetModeRequest()
+            var setCameraModeRequest = DronecodeSdk_Rpc_Camera_SetModeRequest()
             setCameraModeRequest.cameraMode = mode.rpcCameraMode
             
             do {
-                let setCameraModeResponse = try self.service.setmode(setCameraModeRequest)
-                if setCameraModeResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
+                let setCameraModeResponse = try self.service.setMode(setCameraModeRequest)
+                if setCameraModeResponse.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot set camera mode: \(setCameraModeResponse.cameraResult.result)"))
@@ -386,12 +381,12 @@ public class Camera {
     
     private func createCameraModeObservable() -> Observable<CameraMode> {
         return Observable.create { observer in
-            let cameraModeRequest = Dronecore_Rpc_Camera_SubscribeModeRequest()
+            let cameraModeRequest = DronecodeSdk_Rpc_Camera_SubscribeModeRequest()
             
             do {
-                let call = try self.service.subscribemode(cameraModeRequest, completion: nil)
+                let call = try self.service.subscribeMode(cameraModeRequest, completion: nil)
                 while let response = try? call.receive() {
-                    let cameraMode = CameraMode.translateFromRPC(response.cameraMode)
+                    let cameraMode = CameraMode.translateFromRPC(response!.cameraMode)
                     observer.onNext(cameraMode)
                 }
             } catch {
@@ -403,11 +398,11 @@ public class Camera {
     
     public func setVideoStreamSettings(settings: VideoStreamSettings) -> Completable {
         return Completable.create { completable in
-            var setVideoStreamSettingsRequest = Dronecore_Rpc_Camera_SetVideoStreamSettingsRequest()
+            var setVideoStreamSettingsRequest = DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest()
             setVideoStreamSettingsRequest.videoStreamSettings = settings.rpcVideoStreamSettings
 
             do {
-                let _ = try self.service.setvideostreamsettings(setVideoStreamSettingsRequest)
+                let _ = try self.service.setVideoStreamSettings(setVideoStreamSettingsRequest)
                 completable(.completed)
             } catch {
                 completable(.error(error))
@@ -419,12 +414,12 @@ public class Camera {
     
     private func createVideoStreamInfoObservable() -> Observable<VideoStreamInfo> {
         return Observable.create { observer in
-            let videoStreamInfoRequest = Dronecore_Rpc_Camera_SubscribeVideoStreamInfoRequest()
+            let videoStreamInfoRequest = DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest()
             
             do {
-                let call = try self.service.subscribevideostreaminfo(videoStreamInfoRequest, completion: nil)
+                let call = try self.service.subscribeVideoStreamInfo(videoStreamInfoRequest, completion: nil)
                 while let response = try? call.receive() {
-                    let videoStreamInfo = VideoStreamInfo.translateFromRPC(response.videoStreamInfo)
+                    let videoStreamInfo = VideoStreamInfo.translateFromRPC(response!.videoStreamInfo)
                     observer.onNext(videoStreamInfo)
                 }
             } catch {
@@ -437,53 +432,16 @@ public class Camera {
 
     public func createCaptureInfoObservable() -> Observable<CaptureInfo> {
         return Observable.create { observer in
-            let captureInfoRequest = Dronecore_Rpc_Camera_SubscribeCaptureInfoRequest()
+            let captureInfoRequest = DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest()
             
             do {
-                let call = try self.service.subscribecaptureinfo(captureInfoRequest, completion: nil)
+                let call = try self.service.subscribeCaptureInfo(captureInfoRequest, completion: nil)
                 while let response = try? call.receive() {
-                    let captureInfo = CaptureInfo.translateFromRPC(response.captureInfo)
+                    let captureInfo = CaptureInfo.translateFromRPC(response!.captureInfo)
                     observer.onNext(captureInfo)
                 }
             } catch {
                 observer.onError("Faile to subscribe to capture info. \(error)")
-            }
-            
-            return Disposables.create()
-        }
-    }
-    
-    public func getPossibleSettings() -> Single<[Setting]> {
-        return Single<[Setting]>.create { single in
-            let getPossibleSettingsRequest = Dronecore_Rpc_Camera_GetPossibleSettingsRequest()
-            
-            do {
-                let getPossibleSettingsResponse = try self.service.getpossiblesettings(getPossibleSettingsRequest)
-                let settings = getPossibleSettingsResponse.setting.map{ Setting.translateFromRPC($0) }
-                
-                single(.success(settings))
-            } catch {
-                single(.error(error))
-            }
-            
-            return Disposables.create()
-        }
-    }
-    
-    public func setOption(option: Option) -> Completable {
-        return Completable.create { completable in
-            var setOptionRequest = Dronecore_Rpc_Camera_SetOptionRequest()
-            setOptionRequest.optionID = option.id
-            
-            do {
-                let setOptionResponse = try self.service.setoption(setOptionRequest)
-                if setOptionResponse.cameraResult.result == Dronecore_Rpc_Camera_CameraResult.Result.success {
-                    completable(.completed)
-                } else {
-                    completable(.error("Cannot set options: \(setOptionResponse.cameraResult.result)"))
-                }
-            } catch {
-                completable(.error(error))
             }
             
             return Disposables.create()

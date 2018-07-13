@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		658EBB402F18D9CE1407CE5A /* Pods_Dronecode_SDK_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134508A782FE03348CCCCB82 /* Pods_Dronecode_SDK_SwiftTests.framework */; };
+		26FDCF437898D98862F449C9 /* Pods_Dronecode_SDK_SwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E090638901D7D7CB3684C7A /* Pods_Dronecode_SDK_SwiftTests.framework */; };
 		A539337420A26B94004D791F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337320A26B94004D791F /* Camera.swift */; };
 		A539337620A26BAC004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337520A26BAC004D791F /* CameraTest.swift */; };
 		A539337820A2828B004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337720A2828B004D791F /* CameraTest.swift */; };
-		B966EB3D4CA1D398183B5AE0 /* Pods_Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC997018D9AA15093CEA09C9 /* Pods_Dronecode_SDK_Swift.framework */; };
+		B6633B0E507F634D9094C8E7 /* Pods_Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51DD7366C748A65190EB8118 /* Pods_Dronecode_SDK_Swift.framework */; };
 		DF020A0E207CEBEF00CEE035 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0D207CEBEF00CEE035 /* ActionTest.swift */; };
 		DF020A10207D4CC600CEE035 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A0F207D4CC600CEE035 /* Telemetry.swift */; };
 		DF020A12207D4CEF00CEE035 /* TelemetryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */; };
@@ -104,14 +104,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		134508A782FE03348CCCCB82 /* Pods_Dronecode_SDK_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dronecode_SDK_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FD8DB0151697447E4A34CDE /* Pods-Dronecode-SDK-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-Swift/Pods-Dronecode-SDK-Swift.release.xcconfig"; sourceTree = "<group>"; };
-		7186F365FA0FCF717B42545D /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
-		834D01275CCEA023FF3EC5AB /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		0795F3EC06A69976AC02073B /* Pods-Dronecode-SDK-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-Swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-Swift/Pods-Dronecode-SDK-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		1135BF39456C766A11C21B80 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-Swift/Pods-Dronecode-SDK-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		2E090638901D7D7CB3684C7A /* Pods_Dronecode_SDK_SwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dronecode_SDK_SwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51DD7366C748A65190EB8118 /* Pods_Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86B1E973E9C632D4BD463AF5 /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-SwiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A539337320A26B94004D791F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		A539337520A26BAC004D791F /* CameraTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
 		A539337720A2828B004D791F /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
-		CDAF153736CE2C8F91AA4040 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-Swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-Swift/Pods-Dronecode-SDK-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		C215639413928611209C500D /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dronecode-SDK-SwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		DF020A0D207CEBEF00CEE035 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF020A0F207D4CC600CEE035 /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
 		DF020A11207D4CEF00CEE035 /* TelemetryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryTest.swift; sourceTree = "<group>"; };
@@ -145,7 +146,6 @@
 		DFDA52742077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Dronecode_SDK_SwiftIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFDA52762077A813008DE8BF /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
 		DFDA52782077A813008DE8BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EC997018D9AA15093CEA09C9 /* Pods_Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +155,7 @@
 			files = (
 				DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
 				DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */,
-				B966EB3D4CA1D398183B5AE0 /* Pods_Dronecode_SDK_Swift.framework in Frameworks */,
+				B6633B0E507F634D9094C8E7 /* Pods_Dronecode_SDK_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +168,7 @@
 				DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */,
 				DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */,
 				DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */,
-				658EBB402F18D9CE1407CE5A /* Pods_Dronecode_SDK_SwiftTests.framework in Frameworks */,
+				26FDCF437898D98862F449C9 /* Pods_Dronecode_SDK_SwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,13 +187,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3B2A98AEE24EE1BF372262E6 /* Pods */ = {
+		CBC701B42C25D4E799C48391 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CDAF153736CE2C8F91AA4040 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */,
-				6FD8DB0151697447E4A34CDE /* Pods-Dronecode-SDK-Swift.release.xcconfig */,
-				7186F365FA0FCF717B42545D /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */,
-				834D01275CCEA023FF3EC5AB /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */,
+				1135BF39456C766A11C21B80 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */,
+				0795F3EC06A69976AC02073B /* Pods-Dronecode-SDK-Swift.release.xcconfig */,
+				86B1E973E9C632D4BD463AF5 /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */,
+				C215639413928611209C500D /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -206,7 +206,7 @@
 				DFDA52752077A813008DE8BF /* Dronecode_SDK_SwiftIntegrationTests */,
 				DF68BEFB2064617900175337 /* Products */,
 				DF68BF192064624C00175337 /* Frameworks */,
-				3B2A98AEE24EE1BF372262E6 /* Pods */,
+				CBC701B42C25D4E799C48391 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -273,8 +273,8 @@
 				DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */,
 				DF7798C02074F52D00CD1BE0 /* RxSwift.framework */,
 				DF7798C42074F52D00CD1BE0 /* RxTest.framework */,
-				EC997018D9AA15093CEA09C9 /* Pods_Dronecode_SDK_Swift.framework */,
-				134508A782FE03348CCCCB82 /* Pods_Dronecode_SDK_SwiftTests.framework */,
+				51DD7366C748A65190EB8118 /* Pods_Dronecode_SDK_Swift.framework */,
+				2E090638901D7D7CB3684C7A /* Pods_Dronecode_SDK_SwiftTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -310,7 +310,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF68BF0E2064617900175337 /* Build configuration list for PBXNativeTarget "Dronecode-SDK-Swift" */;
 			buildPhases = (
-				DE06DD69374DE96844331B92 /* [CP] Check Pods Manifest.lock */,
+				B4DE7E2F5991305DB9E85778 /* [CP] Check Pods Manifest.lock */,
 				DF68BEF52064617900175337 /* Sources */,
 				DF68BEF62064617900175337 /* Frameworks */,
 				DF68BEF72064617900175337 /* Headers */,
@@ -329,12 +329,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DF68BF112064617900175337 /* Build configuration list for PBXNativeTarget "Dronecode-SDK-SwiftTests" */;
 			buildPhases = (
-				ED7462C71A7729C7D24ADC01 /* [CP] Check Pods Manifest.lock */,
+				B582E68FE749ED5E1D862A0D /* [CP] Check Pods Manifest.lock */,
 				DF68BEFF2064617900175337 /* Sources */,
 				DF68BF002064617900175337 /* Frameworks */,
 				DF68BF012064617900175337 /* Resources */,
 				DF7798DB2074F63200CD1BE0 /* CopyFiles */,
-				421E70F11BC8E952C59F938F /* [CP] Embed Pods Frameworks */,
+				7956FFB6727FF1F466D393A1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -372,7 +372,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Dronecode;
 				TargetAttributes = {
 					DF68BEF92064617900175337 = {
@@ -434,7 +434,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		421E70F11BC8E952C59F938F /* [CP] Embed Pods Frameworks */ = {
+		7956FFB6727FF1F466D393A1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -460,7 +460,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dronecode-SDK-SwiftTests/Pods-Dronecode-SDK-SwiftTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE06DD69374DE96844331B92 /* [CP] Check Pods Manifest.lock */ = {
+		B4DE7E2F5991305DB9E85778 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -478,7 +478,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ED7462C71A7729C7D24ADC01 /* [CP] Check Pods Manifest.lock */ = {
+		B582E68FE749ED5E1D862A0D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -575,6 +575,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -582,6 +583,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -613,7 +615,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -636,6 +638,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -643,6 +646,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -679,7 +683,7 @@
 		};
 		DF68BF0F2064617900175337 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDAF153736CE2C8F91AA4040 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */;
+			baseConfigurationReference = 1135BF39456C766A11C21B80 /* Pods-Dronecode-SDK-Swift.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -713,7 +717,7 @@
 		};
 		DF68BF102064617900175337 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FD8DB0151697447E4A34CDE /* Pods-Dronecode-SDK-Swift.release.xcconfig */;
+			baseConfigurationReference = 0795F3EC06A69976AC02073B /* Pods-Dronecode-SDK-Swift.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -746,7 +750,7 @@
 		};
 		DF68BF122064617900175337 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7186F365FA0FCF717B42545D /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */;
+			baseConfigurationReference = 86B1E973E9C632D4BD463AF5 /* Pods-Dronecode-SDK-SwiftTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
@@ -762,7 +766,7 @@
 		};
 		DF68BF132064617900175337 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 834D01275CCEA023FF3EC5AB /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */;
+			baseConfigurationReference = C215639413928611209C500D /* Pods-Dronecode-SDK-SwiftTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
