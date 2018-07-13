@@ -9,11 +9,11 @@ class ActionTest: XCTestCase {
     let ARBITRARY_ALTITUDE: Float = 123.5
     let ARBITRARY_SPEED: Float = 321.5
     
-    let actionResultsArray: [Dronecore_Rpc_Action_ActionResult.Result] = [.busy, .commandDenied, .commandDeniedNotLanded, .commandDeniedLandedStateUnknown, .connectionError, .noSystem, .noVtolTransitionSupport, .timeout, .unknown, .vtolTransitionSupportUnknown]
+    let actionResultsArray: [DronecodeSdk_Rpc_Action_ActionResult.Result] = [.busy, .commandDenied, .commandDeniedNotLanded, .commandDeniedLandedStateUnknown, .connectionError, .noSystem, .noVtolTransitionSupport, .timeout, .unknown, .vtolTransitionSupportUnknown]
     
     // MARK: - ARM
     func testArmSucceedsOnSuccess() {
-        assertSuccess(result: armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: armWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success))
     }
     
     func testArmFailsOnFailure() {
@@ -22,9 +22,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func armWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_ArmResponse()
+    func armWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_ArmResponse()
         response.actionResult.result = result
         fakeService.armResponses.append(response)
         let client = Action(service: fakeService)
@@ -34,7 +34,7 @@ class ActionTest: XCTestCase {
 
     // MARK: - DISARM
     func testDisarmSucceedsOnSuccess() {
-        assertSuccess(result: disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: disarmWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success))
     }
     
     func testDisarmFailsOnFailure() {
@@ -43,9 +43,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func disarmWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_DisarmResponse()
+    func disarmWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_DisarmResponse()
         response.actionResult.result = result
         fakeService.disarmResponses.append(response)
         let client = Action(service: fakeService)
@@ -55,7 +55,7 @@ class ActionTest: XCTestCase {
     
     // MARK: - KILL
     func testKillSucceedsOnSuccess() {
-        assertSuccess(result: killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: killWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success))
     }
     
     func testKillFailsOnFailure() {
@@ -64,9 +64,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func killWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_KillResponse()
+    func killWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_KillResponse()
         response.actionResult.result = result
         fakeService.killResponses.append(response)
         let client = Action(service: fakeService)
@@ -76,7 +76,7 @@ class ActionTest: XCTestCase {
     
     // MARK: - RETURN TO LAUNCH
     func testReturnToLaunchSucceedsOnSuccess() {
-        assertSuccess(result: returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: returnToLaunchWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success))
     }
     
     func testReturnToLaunchFailsOnFailure() {
@@ -85,11 +85,11 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func returnToLaunchWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_ReturnToLaunchResponse()
+    func returnToLaunchWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_ReturnToLaunchResponse()
         response.actionResult.result = result
-        fakeService.returntolaunchResponses.append(response)
+        fakeService.returnToLaunchResponses.append(response)
         let client = Action(service: fakeService)
         
         return client.returnToLaunch().toBlocking().materialize()
@@ -97,7 +97,7 @@ class ActionTest: XCTestCase {
     
     // MARK: - TRANSITION TO FIXED WINGS
     func testTransitionToFixedWingsSucceedsOnSuccess() {
-        assertSuccess(result: transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: transitionToFixedWingsWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success))
     }
     
     func testTransitionToFixedWingsFailsOnFailure() {
@@ -106,11 +106,11 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func transitionToFixedWingsWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_TransitionToFixedWingResponse()
+    func transitionToFixedWingsWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse()
         response.actionResult.result = result
-        fakeService.transitiontofixedwingResponses.append(response)
+        fakeService.transitionToFixedWingResponses.append(response)
         let client = Action(service: fakeService)
         
         return client.transitionToFixedWing().toBlocking().materialize()
@@ -118,7 +118,7 @@ class ActionTest: XCTestCase {
     
     // MARK: - TRANSITION TO MULTICOPTER
     func testTransitionToMulticopterSucceedsOnSuccess() {
-        assertSuccess(result: transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result.success))
+        assertSuccess(result: transitionToMulticopterWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success))
     }
     
     func testTransitionToMulticopterFailsOnFailure() {
@@ -127,11 +127,11 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func transitionToMulticopterWithFakeResult(result: Dronecore_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_TransitionToMulticopterResponse()
+    func transitionToMulticopterWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse()
         response.actionResult.result = result
-        fakeService.transitiontomulticopterResponses.append(response)
+        fakeService.transitionToMulticopterResponses.append(response)
         let client = Action(service: fakeService)
         
         return client.transitionToMulticopter().toBlocking().materialize()
@@ -141,10 +141,10 @@ class ActionTest: XCTestCase {
     func testGetTakeoffAltitudeSucceedsOnSuccess() {
         let expectedAltitude: Float = ARBITRARY_ALTITUDE
         
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_GetTakeoffAltitudeResponse()
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse()
         response.altitudeM = expectedAltitude
-        fakeService.gettakeoffaltitudeResponses.append(response)
+        fakeService.getTakeoffAltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
         _ = client.getTakeoffAltitude().subscribe { event in
@@ -164,10 +164,10 @@ class ActionTest: XCTestCase {
     }
     
     func setTakeoffAltitudeWithFakeResult() -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        let response = Dronecore_Rpc_Action_SetTakeoffAltitudeResponse()
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        let response = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse()
         
-        fakeService.settakeoffaltitudeResponses.append(response)
+        fakeService.setTakeoffAltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
         return client.setTakeoffAltitude(altitude: 20.0).toBlocking().materialize()
@@ -177,11 +177,11 @@ class ActionTest: XCTestCase {
     func testGetMaximumSpeedSucceedsOnSuccess() {
         let expectedSpeed = ARBITRARY_SPEED
         
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        var response = Dronecore_Rpc_Action_GetMaximumSpeedResponse()
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse()
         response.speedMS = expectedSpeed
         
-        fakeService.getmaximumspeedResponses.append(response)
+        fakeService.getMaximumSpeedResponses.append(response)
         let client = Action(service: fakeService)
         
         _ = client.getMaximumSpeed().subscribe { event in
@@ -201,9 +201,9 @@ class ActionTest: XCTestCase {
     }
     
     func setMaximumSpeedWithFakeResult() -> MaterializedSequenceResult<Never> {
-        let fakeService = Dronecore_Rpc_Action_ActionServiceServiceTestStub()
-        let response = Dronecore_Rpc_Action_SetMaximumSpeedResponse()
-        fakeService.setmaximumspeedResponses.append(response)
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        let response = DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse()
+        fakeService.setMaximumSpeedResponses.append(response)
         let client = Action(service: fakeService)
         
         return client.setMaximumSpeed(speed: 20.0).toBlocking().materialize()

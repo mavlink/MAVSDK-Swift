@@ -36,8 +36,8 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         self.cameraAction = cameraAction
     }
     
-    internal var rpcMissionItem: Dronecore_Rpc_Mission_MissionItem {
-        var rpcMissionItem = Dronecore_Rpc_Mission_MissionItem()
+    internal var rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem {
+        var rpcMissionItem = DronecodeSdk_Rpc_Mission_MissionItem()
         
         rpcMissionItem.latitudeDeg = latitudeDeg
         rpcMissionItem.longitudeDeg = longitudeDeg
@@ -51,7 +51,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         return rpcMissionItem
     }
     
-    internal static func translateFromRPC(_ rpcMissionItem: Dronecore_Rpc_Mission_MissionItem) -> MissionItem {
+    internal static func translateFromRPC(_ rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem) -> MissionItem {
         return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMPS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRPC(rpcMissionItem.cameraAction))
     }
 
@@ -90,24 +90,24 @@ public enum CameraAction {
     case startVideo
     case stopVideo
     
-    internal var rpcCameraAction: Dronecore_Rpc_Mission_MissionItem.CameraAction {
+    internal var rpcCameraAction: DronecodeSdk_Rpc_Mission_MissionItem.CameraAction {
         switch (self) {
         case .none:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.none
+            return DronecodeSdk_Rpc_Mission_MissionItem.CameraAction.none
         case .takePhoto:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.takePhoto
+            return DronecodeSdk_Rpc_Mission_MissionItem.CameraAction.takePhoto
         case .startPhotoInterval:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startPhotoInterval
+            return DronecodeSdk_Rpc_Mission_MissionItem.CameraAction.startPhotoInterval
         case .stopPhotoInterval:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopPhotoInterval
+            return DronecodeSdk_Rpc_Mission_MissionItem.CameraAction.stopPhotoInterval
         case .startVideo:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.startVideo
+            return DronecodeSdk_Rpc_Mission_MissionItem.CameraAction.startVideo
         case .stopVideo:
-            return Dronecore_Rpc_Mission_MissionItem.CameraAction.stopVideo
+            return DronecodeSdk_Rpc_Mission_MissionItem.CameraAction.stopVideo
         }
     }
     
-    internal static func translateFromRPC(_ rpcCameraAction: Dronecore_Rpc_Mission_MissionItem.CameraAction) -> CameraAction {
+    internal static func translateFromRPC(_ rpcCameraAction: DronecodeSdk_Rpc_Mission_MissionItem.CameraAction) -> CameraAction {
         switch rpcCameraAction {
         case .none:
             return .none
@@ -128,31 +128,31 @@ public enum CameraAction {
 }
 
 public class Mission {
-    private let service: Dronecore_Rpc_Mission_MissionServiceService
+    private let service: DronecodeSdk_Rpc_Mission_MissionServiceService
     private let scheduler: SchedulerType
     
     public lazy var missionProgressObservable: Observable<MissionProgress> = createMissionProgressObservable()
 
     public convenience init(address: String, port: Int) {
-        let service = Dronecore_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = DronecodeSdk_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
         
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: Dronecore_Rpc_Mission_MissionServiceService, scheduler: SchedulerType) {
+    init(service: DronecodeSdk_Rpc_Mission_MissionServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
 
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
-            var uploadMissionRequest = Dronecore_Rpc_Mission_UploadMissionRequest()
+            var uploadMissionRequest = DronecodeSdk_Rpc_Mission_UploadMissionRequest()
             uploadMissionRequest.mission.missionItem = missionItems.map{ $0.rpcMissionItem }
 
             do {
-                let uploadMissionResponse = try self.service.uploadmission(uploadMissionRequest)
-                if (uploadMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
+                let uploadMissionResponse = try self.service.uploadMission(uploadMissionRequest)
+                if (uploadMissionResponse.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot upload mission: \(uploadMissionResponse.missionResult.result)"))
@@ -167,11 +167,11 @@ public class Mission {
     
     public func downloadMission() -> Single<[MissionItem]> {
         return Single<[MissionItem]>.create { single in
-            let downloadMissionRequest = Dronecore_Rpc_Mission_DownloadMissionRequest()
+            let downloadMissionRequest = DronecodeSdk_Rpc_Mission_DownloadMissionRequest()
             
             do {
-                let downloadMissionResponse = try self.service.downloadmission(downloadMissionRequest)
-                if (downloadMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
+                let downloadMissionResponse = try self.service.downloadMission(downloadMissionRequest)
+                if (downloadMissionResponse.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
                     let missionItems = downloadMissionResponse.mission.missionItem.map{ MissionItem.translateFromRPC($0) }
                     
                     single(.success(missionItems))
@@ -186,11 +186,11 @@ public class Mission {
 
     public func startMission() -> Completable {
         return Completable.create { completable in
-            let startMissionRequest = Dronecore_Rpc_Mission_StartMissionRequest()
+            let startMissionRequest = DronecodeSdk_Rpc_Mission_StartMissionRequest()
 
             do {
-                let startMissionResponse = try self.service.startmission(startMissionRequest)
-                if (startMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
+                let startMissionResponse = try self.service.startMission(startMissionRequest)
+                if (startMissionResponse.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot start mission: \(startMissionResponse.missionResult.result)"))
@@ -205,11 +205,11 @@ public class Mission {
     
     public func pauseMission() -> Completable {
         return Completable.create { completable in
-            let pauseMissionRequest = Dronecore_Rpc_Mission_PauseMissionRequest()
+            let pauseMissionRequest = DronecodeSdk_Rpc_Mission_PauseMissionRequest()
             
             do {
-                let pauseMissionResponse = try self.service.pausemission(pauseMissionRequest)
-                if (pauseMissionResponse.missionResult.result == Dronecore_Rpc_Mission_MissionResult.Result.success) {
+                let pauseMissionResponse = try self.service.pauseMission(pauseMissionRequest)
+                if (pauseMissionResponse.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot pause mission: \(pauseMissionResponse.missionResult.result)"))
@@ -224,11 +224,11 @@ public class Mission {
     
     public func setCurrentMissionItemIndex(_ index: Int) -> Completable {
         return Completable.create { completable in
-            var setCurrentMissionItemIndexRequest = Dronecore_Rpc_Mission_SetCurrentMissionItemIndexRequest()
+            var setCurrentMissionItemIndexRequest = DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest()
             setCurrentMissionItemIndexRequest.index = Int32(index)
             
             do {
-                let _ = try self.service.setcurrentmissionitemindex(setCurrentMissionItemIndexRequest)
+                let _ = try self.service.setCurrentMissionItemIndex(setCurrentMissionItemIndexRequest)
                 completable(.completed)
             } catch {
                 completable(.error(error))
@@ -240,10 +240,10 @@ public class Mission {
     
     public func getCurrentMissionItemIndex() -> Single<Int> {
         return Single<Int>.create { single in
-            let getCurrentMissionItemIndexRequest = Dronecore_Rpc_Mission_GetCurrentMissionItemIndexRequest()
+            let getCurrentMissionItemIndexRequest = DronecodeSdk_Rpc_Mission_GetCurrentMissionItemIndexRequest()
             
             do {
-                let getCurrentMissionItemIndexResponse = try self.service.getcurrentmissionitemindex(getCurrentMissionItemIndexRequest)
+                let getCurrentMissionItemIndexResponse = try self.service.getCurrentMissionItemIndex(getCurrentMissionItemIndexRequest)
                 single(.success(Int(getCurrentMissionItemIndexResponse.index)))
             } catch {
                 single(.error(error))
@@ -255,10 +255,10 @@ public class Mission {
     
     public func getMissionCount() -> Single<Int> {
         return Single<Int>.create { single in
-            let getMissionCountRequest = Dronecore_Rpc_Mission_GetMissionCountRequest()
+            let getMissionCountRequest = DronecodeSdk_Rpc_Mission_GetMissionCountRequest()
             
             do {
-                let getMissionCountResponse = try self.service.getmissioncount(getMissionCountRequest)
+                let getMissionCountResponse = try self.service.getMissionCount(getMissionCountRequest)
                 single(.success(Int(getMissionCountResponse.count)))
             } catch {
                 single(.error(error))
@@ -270,9 +270,9 @@ public class Mission {
     
     public func isMissionFinished() -> Single<Bool> {
         return Single<Bool>.create { single in
-            let isMissionFinishedRequest = Dronecore_Rpc_Mission_IsMissionFinishedRequest()
+            let isMissionFinishedRequest = DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest()
             do {
-                let isMissionFinishedResponse = try self.service.ismissionfinished(isMissionFinishedRequest)
+                let isMissionFinishedResponse = try self.service.isMissionFinished(isMissionFinishedRequest)
                 single(.success(isMissionFinishedResponse.isFinished))
             } catch {
                 single(.error(error))
@@ -284,24 +284,17 @@ public class Mission {
     
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
         return Observable.create { observer in
-            let missionProgressRequest = Dronecore_Rpc_Mission_SubscribeMissionProgressRequest()
+            let missionProgressRequest = DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest()
             
             do {
-                print("Enter MissionProgressObservable")
-                let call = try self.service.subscribemissionprogress(missionProgressRequest, completion: nil)
-                print("Create a Call MissionProgressObservable")
+                let call = try self.service.subscribeMissionProgress(missionProgressRequest, completion: nil)
                 while let response = try? call.receive() {
-                    print("Response MissionProgressObservable")
-                    let missionProgres = MissionProgress(currentItemIndex: response.currentItemIndex , missionCount: response.missionCount)
-                    print("MissionProgres in MissionProgressObservable : \(missionProgres.currentItemIndex)/ \(missionProgres.missionCount)")
+                    let missionProgres = MissionProgress(currentItemIndex: response!.currentItemIndex , missionCount: response!.missionCount)
                     observer.onNext(missionProgres)
-                    print("After OnNext MissionProgressObservable")
                 }
             } catch {
-                print("Failed to subscribe to discovery stream. MissionProgressObservable")
                 observer.onError("Failed to subscribe to discovery stream")
             }
-            print("Disposables.create() MissionProgressObservable")
             return Disposables.create()
         }.subscribeOn(self.scheduler)
     }

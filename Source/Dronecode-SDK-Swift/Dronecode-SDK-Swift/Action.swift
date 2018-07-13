@@ -6,24 +6,24 @@ extension String: Error {
 }
 
 public class Action {
-    private let service: Dronecore_Rpc_Action_ActionServiceService
+    private let service: DronecodeSdk_Rpc_Action_ActionServiceService
 
     public convenience init(address: String, port: Int) {
-        let service = Dronecore_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = DronecodeSdk_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
         self.init(service: service)
     }
     
-    init(service: Dronecore_Rpc_Action_ActionServiceService) {
+    init(service: DronecodeSdk_Rpc_Action_ActionServiceService) {
         self.service = service
     }
 
     public func arm() -> Completable {
         return Completable.create { completable in
-            let armRequest = Dronecore_Rpc_Action_ArmRequest()
+            let armRequest = DronecodeSdk_Rpc_Action_ArmRequest()
             
             do {
                 let armResponse = try self.service.arm(armRequest)
-                if (armResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                if (armResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot arm: \(armResponse.actionResult.result)"))
@@ -38,11 +38,11 @@ public class Action {
     
     public func disarm() -> Completable {
         return Completable.create { completable in
-            let disarmRequest = Dronecore_Rpc_Action_DisarmRequest()
+            let disarmRequest = DronecodeSdk_Rpc_Action_DisarmRequest()
             
             do {
                 let disarmResponse = try self.service.disarm(disarmRequest)
-                if (disarmResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                if (disarmResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot disarm: \(disarmResponse.actionResult.result)"))
@@ -57,11 +57,11 @@ public class Action {
     
     public func takeoff() -> Completable {
         return Completable.create { completable in
-            let takeoffRequest = Dronecore_Rpc_Action_TakeoffRequest()
+            let takeoffRequest = DronecodeSdk_Rpc_Action_TakeoffRequest()
             
             do {
                 let takeoffResponse = try self.service.takeoff(takeoffRequest)
-                if (takeoffResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                if (takeoffResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot takeoff: \(takeoffResponse.actionResult.result)"))
@@ -76,11 +76,11 @@ public class Action {
     
     public func land() -> Completable {
         return Completable.create { completable in
-            let landRequest = Dronecore_Rpc_Action_LandRequest()
+            let landRequest = DronecodeSdk_Rpc_Action_LandRequest()
             
             do {
                 let landResponse = try self.service.land(landRequest)
-                if (landResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                if (landResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot land: \(landResponse.actionResult.result)"))
@@ -95,11 +95,11 @@ public class Action {
     
     public func kill() -> Completable {
         return Completable.create { completable in
-            let killRequest = Dronecore_Rpc_Action_KillRequest()
+            let killRequest = DronecodeSdk_Rpc_Action_KillRequest()
             
             do {
                 let killResponse = try self.service.kill(killRequest)
-                if (killResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                if (killResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot kill: \(killResponse.actionResult.result)"))
@@ -114,11 +114,11 @@ public class Action {
     
     public func returnToLaunch() -> Completable {
         return Completable.create { completable in
-            let rtlRequest = Dronecore_Rpc_Action_ReturnToLaunchRequest()
+            let rtlRequest = DronecodeSdk_Rpc_Action_ReturnToLaunchRequest()
             
             do {
-                let rtlResponse = try self.service.returntolaunch(rtlRequest)
-                if (rtlResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                let rtlResponse = try self.service.returnToLaunch(rtlRequest)
+                if (rtlResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot return to launch: \(rtlResponse.actionResult.result)"))
@@ -133,11 +133,11 @@ public class Action {
     
     public func transitionToFixedWing() -> Completable {
         return Completable.create { completable in
-            let toFixedWingRequest = Dronecore_Rpc_Action_TransitionToFixedWingRequest()
+            let toFixedWingRequest = DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest()
             
             do {
-                let toFixedWingResponse = try self.service.transitiontofixedwing(toFixedWingRequest)
-                if (toFixedWingResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                let toFixedWingResponse = try self.service.transitionToFixedWing(toFixedWingRequest)
+                if (toFixedWingResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot transition to fixed wings: \(toFixedWingResponse.actionResult.result)"))
@@ -152,11 +152,11 @@ public class Action {
     
     public func transitionToMulticopter() -> Completable {
         return Completable.create { completable in
-            let toMulticopterRequest = Dronecore_Rpc_Action_TransitionToMulticopterRequest()
+            let toMulticopterRequest = DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest()
             
             do {
-                let toMulticopterResponse = try self.service.transitiontomulticopter(toMulticopterRequest)
-                if (toMulticopterResponse.actionResult.result == Dronecore_Rpc_Action_ActionResult.Result.success) {
+                let toMulticopterResponse = try self.service.transitionToMulticopter(toMulticopterRequest)
+                if (toMulticopterResponse.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error("Cannot transition to multicopter: \(toMulticopterResponse.actionResult.result)"))
@@ -172,10 +172,10 @@ public class Action {
     
     public func getTakeoffAltitude() -> Single<Float> {
         return Single<Float>.create { single in
-            let getTakeoffAltitudeRequest = Dronecore_Rpc_Action_GetTakeoffAltitudeRequest()
+            let getTakeoffAltitudeRequest = DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest()
             
             do {
-                let getTakeoffAltitudeResponse = try self.service.gettakeoffaltitude(getTakeoffAltitudeRequest)
+                let getTakeoffAltitudeResponse = try self.service.getTakeoffAltitude(getTakeoffAltitudeRequest)
                 single(.success(getTakeoffAltitudeResponse.altitudeM))
             } catch {
                 single(.error(error))
@@ -187,11 +187,11 @@ public class Action {
     
     public func setTakeoffAltitude(altitude: Float) -> Completable {
         return Completable.create { completable in
-            var setTakeoffAltitudeRequest = Dronecore_Rpc_Action_SetTakeoffAltitudeRequest()
+            var setTakeoffAltitudeRequest = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest()
             setTakeoffAltitudeRequest.altitudeM = altitude
             
             do {
-                let _ = try self.service.settakeoffaltitude(setTakeoffAltitudeRequest)
+                let _ = try self.service.setTakeoffAltitude(setTakeoffAltitudeRequest)
                 completable(.completed)
             } catch {
                 completable(.error(error))
@@ -203,10 +203,10 @@ public class Action {
     
     public func getMaximumSpeed() -> Single<Float> {
         return Single<Float>.create { single in
-            let getMaximumSpeedRequest = Dronecore_Rpc_Action_GetMaximumSpeedRequest()
+            let getMaximumSpeedRequest = DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest()
             
             do {
-                let getMaximumSpeedResponse = try self.service.getmaximumspeed(getMaximumSpeedRequest)
+                let getMaximumSpeedResponse = try self.service.getMaximumSpeed(getMaximumSpeedRequest)
                 single(.success(getMaximumSpeedResponse.speedMS))
             } catch {
                 single(.error(error))
@@ -218,11 +218,11 @@ public class Action {
     
     public func setMaximumSpeed(speed: Float) -> Completable {
         return Completable.create { completable in
-            var setMaximumSpeedRequest = Dronecore_Rpc_Action_SetMaximumSpeedRequest()
+            var setMaximumSpeedRequest = DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest()
             setMaximumSpeedRequest.speedMS = speed
             
             do {
-                let _ = try self.service.setmaximumspeed(setMaximumSpeedRequest)
+                let _ = try self.service.setMaximumSpeed(setMaximumSpeedRequest)
                 completable(.completed)
             } catch {
                 completable(.error(error))
