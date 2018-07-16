@@ -68,8 +68,8 @@ public class Core {
 
             do {
                 let call = try self.service.subscribeDiscover(discoverRequest, completion: nil)
-                while let response = try? call.receive() {
-                    observer.onNext(response!.uuid)
+                while let response = try call.receive() {
+                    observer.onNext(response.uuid)
                 }
             } catch {
                 observer.onError("Failed to subscribe to discovery stream")
@@ -85,7 +85,7 @@ public class Core {
 
             do {
                 let call = try self.service.subscribeTimeout(timeoutRequest, completion: nil)
-                while let _ = try? call.receive() {
+                while let _ = try call.receive() {
                     observer.onNext(())
                 }
             } catch {
