@@ -385,8 +385,8 @@ public class Camera {
             
             do {
                 let call = try self.service.subscribeMode(cameraModeRequest, completion: nil)
-                while let response = try? call.receive() {
-                    let cameraMode = CameraMode.translateFromRPC(response!.cameraMode)
+                while let response = try call.receive() {
+                    let cameraMode = CameraMode.translateFromRPC(response.cameraMode)
                     observer.onNext(cameraMode)
                 }
             } catch {
@@ -418,8 +418,8 @@ public class Camera {
             
             do {
                 let call = try self.service.subscribeVideoStreamInfo(videoStreamInfoRequest, completion: nil)
-                while let response = try? call.receive() {
-                    let videoStreamInfo = VideoStreamInfo.translateFromRPC(response!.videoStreamInfo)
+                while let response = try call.receive() {
+                    let videoStreamInfo = VideoStreamInfo.translateFromRPC(response.videoStreamInfo)
                     observer.onNext(videoStreamInfo)
                 }
             } catch {
@@ -436,8 +436,8 @@ public class Camera {
             
             do {
                 let call = try self.service.subscribeCaptureInfo(captureInfoRequest, completion: nil)
-                while let response = try? call.receive() {
-                    let captureInfo = CaptureInfo.translateFromRPC(response!.captureInfo)
+                while let response = try call.receive() {
+                    let captureInfo = CaptureInfo.translateFromRPC(response.captureInfo)
                     observer.onNext(captureInfo)
                 }
             } catch {

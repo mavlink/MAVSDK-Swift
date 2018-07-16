@@ -288,8 +288,8 @@ public class Mission {
             
             do {
                 let call = try self.service.subscribeMissionProgress(missionProgressRequest, completion: nil)
-                while let response = try? call.receive() {
-                    let missionProgres = MissionProgress(currentItemIndex: response!.currentItemIndex , missionCount: response!.missionCount)
+                while let response = try call.receive() {
+                    let missionProgres = MissionProgress(currentItemIndex: response.currentItemIndex , missionCount: response.missionCount)
                     observer.onNext(missionProgres)
                 }
             } catch {
