@@ -131,29 +131,4 @@ class CameraTest: XCTestCase {
             XCTFail("SubscribeCaptureInfo is expected to receive 1 events in 5 seconds, but it did not!")
         }
     }
-    
-    func testGetPossibleSettings() {
-        let core = Core()
-        core.connect().toBlocking().materialize()
-        let camera = Camera(address: "localhost", port: 50051)
-       
-        camera.getPossibleSettings()
-            .do(onSuccess: { (settings) in
-                XCTAssert(settings != nil)
-            },
-                onError: { error in
-                    XCTFail("\(error)") }
-            )
-            .subscribe()
-    }
-    
-    func testSetOption() {
-        let core = Core()
-        core.connect().toBlocking().materialize()
-        let camera = Camera(address: "localhost", port: 50051)
-        
-        camera.setOption(option: .init(id: "Setting1", description: "Description1", possibleValue: ["Value1", "Value2"])) // TODO: Change this to set options based on getting possible settings.
-            .do(onError: { error in XCTFail("\(error)") })
-            .subscribe()
-    }
 }

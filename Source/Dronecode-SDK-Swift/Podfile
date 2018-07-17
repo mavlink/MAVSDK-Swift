@@ -11,6 +11,10 @@ target 'Dronecode-SDK-Swift' do
     # Pods for testing
   end
 
+  target 'Dronecode_SDK_SwiftIntegrationTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
 end
 
 post_install do |installer_representation|
