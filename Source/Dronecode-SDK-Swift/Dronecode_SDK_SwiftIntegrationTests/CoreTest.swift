@@ -28,6 +28,7 @@ class CoreTest: XCTestCase {
             checkPluginInfoListContains(pluginInfoList: plugins, name: "action")
             checkPluginInfoListContains(pluginInfoList: plugins, name: "mission")
             checkPluginInfoListContains(pluginInfoList: plugins, name: "telemetry")
+            checkPluginInfoListContains(pluginInfoList: plugins, name: "camera")
         } catch {
             XCTFail("Failed to fetch running plugins")
         }

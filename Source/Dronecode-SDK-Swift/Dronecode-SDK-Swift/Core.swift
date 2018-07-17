@@ -101,8 +101,10 @@ public class Core {
         let response = try? self.service.listRunningPlugins(request)
 
         return Observable.create { observer in
-            for pluginInfo in (response?.pluginInfo)! {
-                observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
+            if let pluginInfos = response?.pluginInfo {
+                for pluginInfo in pluginInfos {
+                    observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
+                }
             }
 
             observer.onCompleted()
