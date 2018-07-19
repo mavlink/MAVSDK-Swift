@@ -19,25 +19,14 @@
 		DF020A1A20877B9900CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1920877B9900CEE035 /* MissionTest.swift */; };
 		DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
-		DF503DA62077B1C500CA79FB /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
-		DF503DA72077B1C500CA79FB /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
-		DF503DA82077B1C500CA79FB /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
 		DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DB12077B20200CA79FB /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DB22077B20200CA79FB /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DB32077B20200CA79FB /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF674CC6206D946E00421042 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF674CC5206D946E00421042 /* Core.swift */; };
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DF68BF092064617900175337 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* ActionTest.swift */; };
 		DF68BF0B2064617900175337 /* Dronecode_SDK_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF68BF3B2064633D00175337 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF3A2064633D00175337 /* Action.swift */; };
-		DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
-		DF7798CF2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; };
 		DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
 		DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
-		DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; };
-		DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; };
-		DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C02074F52D00CD1BE0 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFA0B03A207524EA007BDD4B /* telemetry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B032207524EA007BDD4B /* telemetry.pb.swift */; };
 		DFA0B03B207524EA007BDD4B /* action.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B033207524EA007BDD4B /* action.grpc.swift */; };
 		DFA0B03C207524EA007BDD4B /* core.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B034207524EA007BDD4B /* core.grpc.swift */; };
@@ -51,8 +40,6 @@
 		DFD0792A209BFF5E001C7760 /* camera.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD07928209BFF5E001C7760 /* camera.pb.swift */; };
 		DFDA52772077A813008DE8BF /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDA52762077A813008DE8BF /* CoreTest.swift */; };
 		DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
-		DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C42074F52D00CD1BE0 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DFF7AB8D2074FC79000767B8 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,9 +67,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */,
-				DF503DB12077B20200CA79FB /* RxBlocking.framework in CopyFiles */,
-				DF503DB22077B20200CA79FB /* RxSwift.framework in CopyFiles */,
-				DF503DB32077B20200CA79FB /* RxTest.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,10 +76,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DFF7AB8D2074FC79000767B8 /* RxBlocking.framework in CopyFiles */,
-				DFF7AB8C2074FC64000767B8 /* RxTest.framework in CopyFiles */,
 				DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */,
-				DF7798DE2074F67D00CD1BE0 /* RxSwift.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,10 +101,7 @@
 		DF68BF082064617900175337 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF68BF0A2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF68BF3A2064633D00175337 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		DF7798C02074F52D00CD1BE0 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = ../bin/RxSwift.framework; sourceTree = "<group>"; };
 		DF7798C22074F52D00CD1BE0 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = ../bin/backend.framework; sourceTree = "<group>"; };
-		DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = ../bin/RxBlocking.framework; sourceTree = "<group>"; };
-		DF7798C42074F52D00CD1BE0 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = ../bin/RxTest.framework; sourceTree = "<group>"; };
 		DFA0B032207524EA007BDD4B /* telemetry.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.pb.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B033207524EA007BDD4B /* action.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.grpc.swift; path = "Dronecode-SDK-Swift/Generated/action.grpc.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B034207524EA007BDD4B /* core.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = core.grpc.swift; path = "Dronecode-SDK-Swift/Generated/core.grpc.swift"; sourceTree = SOURCE_ROOT; };
@@ -145,7 +123,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7798CE2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
 				DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,11 +131,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7798CF2074F52D00CD1BE0 /* RxSwift.framework in Frameworks */,
 				DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */,
 				DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */,
-				DF7798D72074F52D00CD1BE0 /* RxTest.framework in Frameworks */,
-				DF7798D52074F52D00CD1BE0 /* RxBlocking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,9 +142,6 @@
 			files = (
 				DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */,
 				DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */,
-				DF503DA62077B1C500CA79FB /* RxBlocking.framework in Frameworks */,
-				DF503DA72077B1C500CA79FB /* RxSwift.framework in Frameworks */,
-				DF503DA82077B1C500CA79FB /* RxTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,9 +219,6 @@
 			isa = PBXGroup;
 			children = (
 				DF7798C22074F52D00CD1BE0 /* backend.framework */,
-				DF7798C32074F52D00CD1BE0 /* RxBlocking.framework */,
-				DF7798C02074F52D00CD1BE0 /* RxSwift.framework */,
-				DF7798C42074F52D00CD1BE0 /* RxTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
