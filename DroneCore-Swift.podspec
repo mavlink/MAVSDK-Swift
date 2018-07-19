@@ -5,10 +5,12 @@
 # Any lines starting with a # are optional
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 
+currentVersion = '0.1.0'
+
 Pod::Spec.new do |spec|
   spec.name             = "DroneCore-Swift"
-  spec.version          = "0.0.6"
-  spec.summary          = "DronecodeSDK client for Swift"
+  spec.version          = currentVersion
+  spec.summary          = "Dronecode SDK"
 
 # This description is used to generate tags and improve search results.
   spec.description     = "DronecodeSDK client for Swift"
@@ -17,7 +19,8 @@ Pod::Spec.new do |spec|
   spec.author          = { "ayameMBS" => "marjory.silvestre@gmail.com" }
   spec.platform        = :ios, '11.0'
   spec.requires_arc    = true
-  spec.source          = { :http => "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecode-sdk-swift-latest.zip"}
-  spec.vendored_frameworks = 'backend.framework','Dronecode_SDK_Swift.framework','RxSwift.framework','RxBlocking.framework'
+  spec.source          = { :http => "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/dronecode-sdk-swift-#{currentVersion}.zip"}
+  spec.vendored_frameworks = 'backend.framework','Dronecode_SDK_Swift.framework'
   spec.dependency 'SwiftGRPC', '= 0.4.2'
+  spec.dependency 'RxSwift', '= 4.0'
 end
