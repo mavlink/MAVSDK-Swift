@@ -14,7 +14,7 @@ mkdir -p ${DRONECORE_SWIFT_DIR}
 mkdir -p ${DRONECORE_DIR}
 
 # Build dronecore backend
-git clone -b develop https://github.com/dronecore/dronecore.git ${DRONECORE_DIR}
+git clone -b develop https://github.com/dronecode/dronecodesdk.git ${DRONECORE_DIR}
 git -C ${DRONECORE_DIR} submodule update --init --recursive
 
 cd ${DRONECORE_DIR}
