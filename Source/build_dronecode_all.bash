@@ -28,6 +28,8 @@ git clone https://github.com/dronecore/dronecore-swift.git ${DRONECORE_SWIFT_DIR
 mkdir -p ${DRONECORE_SWIFT_DIR}/Source/bin
 cp -r ${DRONECORE_DIR}/build/fat_bin/backend.framework ${DRONECORE_SWIFT_DIR}/Source/bin/backend.framework
 
+bash ${DRONECORE_SWIFT_DIR}/Source/build_grpc.bash
+bash ${DRONECORE_SWIFT_DIR}/Source/build_rxswift.bash
 bash ${DRONECORE_SWIFT_DIR}/Source/build_dronecode_sdk.bash
 
 # Copy resulting frameworks into ${BIN_DIR}
