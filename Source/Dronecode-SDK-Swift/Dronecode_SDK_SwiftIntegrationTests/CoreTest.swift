@@ -12,6 +12,7 @@ class CoreTest: XCTestCase {
         
         do {
             let uuid = try core.discoverObservable.take(1).toBlocking(timeout: 2).single()
+            print("UUID: \(uuid)")
         } catch {
             XCTFail("At least one system should be discovered when the backend is connected!")
         }
@@ -28,6 +29,7 @@ class CoreTest: XCTestCase {
             checkPluginInfoListContains(pluginInfoList: plugins, name: "action")
             checkPluginInfoListContains(pluginInfoList: plugins, name: "mission")
             checkPluginInfoListContains(pluginInfoList: plugins, name: "telemetry")
+            checkPluginInfoListContains(pluginInfoList: plugins, name: "camera")
         } catch {
             XCTFail("Failed to fetch running plugins")
         }

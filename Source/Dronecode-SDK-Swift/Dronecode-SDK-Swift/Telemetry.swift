@@ -1,5 +1,5 @@
 import Foundation
-import gRPC
+import SwiftGRPC
 import RxSwift
 
 // MARK: - Position
@@ -9,8 +9,8 @@ public struct Position: Equatable {
     public let absoluteAltitudeM: Float
     public let relativeAltitudeM: Float
     
-    internal var rpcCameraPosition: Dronecore_Rpc_Camera_Position {
-        var rpcPosition = Dronecore_Rpc_Camera_Position()
+    internal var rpcCameraPosition: DronecodeSdk_Rpc_Camera_Position {
+        var rpcPosition = DronecodeSdk_Rpc_Camera_Position()
         rpcPosition.latitudeDeg = latitudeDeg
         rpcPosition.longitudeDeg = longitudeDeg
         rpcPosition.absoluteAltitudeM = absoluteAltitudeM
@@ -86,8 +86,8 @@ public struct Quaternion: Equatable {
             && lhs.z == rhs.z
     }
     
-    internal var rpcCameraQuaternion: Dronecore_Rpc_Camera_Quaternion {
-        var rpcQuaternion = Dronecore_Rpc_Camera_Quaternion()
+    internal var rpcCameraQuaternion: DronecodeSdk_Rpc_Camera_Quaternion {
+        var rpcQuaternion = DronecodeSdk_Rpc_Camera_Quaternion()
         rpcQuaternion.x = x
         rpcQuaternion.y = y
         rpcQuaternion.w = w
@@ -96,13 +96,13 @@ public struct Quaternion: Equatable {
         return rpcQuaternion
     }
 
-    internal static func translateFromRPC(_ rpcQuaternion: Dronecore_Rpc_Camera_Quaternion) -> Quaternion {
+    internal static func translateFromRPC(_ rpcQuaternion: DronecodeSdk_Rpc_Camera_Quaternion) -> Quaternion {
         return Quaternion( w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z)
     }
 }
 
 // MARK: - GPSInfo
-// eDroneCoreGPSInfoFix <=> Dronecore_Rpc_Telemetry_FixType in telemetry.grpc.swift
+// eDroneCoreGPSInfoFix <=> DronecodeSdk_Rpc_Telemetry_FixType in telemetry.grpc.swift
 public enum eDroneCoreGPSInfoFix: Int {
     case noGps // = 0
     case noFix // = 1
@@ -124,7 +124,7 @@ public struct GPSInfo: Equatable {
 }
 
 // MARK: - FlightMode
-// eDroneCoreFlightMode <=> Dronecore_Rpc_Telemetry_FlightMode in telemetry.grpc.swift
+// eDroneCoreFlightMode <=> DronecodeSdk_Rpc_Telemetry_FlightMode in telemetry.grpc.swift
 public enum eDroneCoreFlightMode: Int {
     case unknown // = 0
     case ready // = 1
@@ -165,7 +165,7 @@ public struct RCStatus: Equatable {
 
 // MARK: - TELEMETRY
 public class Telemetry {
-    private let service: Dronecore_Rpc_Telemetry_TelemetryServiceService
+    private let service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
     
     public lazy var positionObservable: Observable<Position> = createPositionObservable()
@@ -184,13 +184,13 @@ public class Telemetry {
     public lazy var rcStatusObservable: Observable<RCStatus> = createRCStatusObservable()
 
     public convenience init(address: String, port: Int) {
-        let service = Dronecore_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: Dronecore_Rpc_Telemetry_TelemetryServiceService, scheduler: SchedulerType) {
+    init(service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -199,11 +199,11 @@ public class Telemetry {
 
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
-            let positionRequest = Dronecore_Rpc_Telemetry_SubscribePositionRequest()
+            let positionRequest = DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest()
 
             do {
-                let call = try self.service.subscribeposition(positionRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribePosition(positionRequest, completion: nil)
+                while let response = try call.receive() {
                     let position = Position(latitudeDeg: response.position.latitudeDeg, longitudeDeg: response.position.longitudeDeg, absoluteAltitudeM: response.position.absoluteAltitudeM, relativeAltitudeM: response.position.relativeAltitudeM)
 
                     observer.onNext(position)
@@ -213,16 +213,18 @@ public class Telemetry {
             }
 
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     private func createInAirObservable() -> Observable<Bool> {
         return Observable<Bool>.create { observer in
-            let inAirRequest = Dronecore_Rpc_Telemetry_SubscribeInAirRequest()
+            let inAirRequest = DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest()
 
             do {
-                let call = try self.service.subscribeinair(inAirRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeInAir(inAirRequest, completion: nil)
+                while let response = try call.receive() {
                     observer.onNext(response.isInAir)
                 }
             } catch {
@@ -230,16 +232,18 @@ public class Telemetry {
             }
 
             return Disposables.create {}
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     private func createArmedObservable() -> Observable<Bool> {
         return Observable<Bool>.create { observer in
-            let armedRequest = Dronecore_Rpc_Telemetry_SubscribeArmedRequest()
+            let armedRequest = DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest()
 
             do {
-                let call = try self.service.subscribearmed(armedRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeArmed(armedRequest, completion: nil)
+                while let response = try call.receive() {
                     observer.onNext(response.isArmed)
                 }
             } catch {
@@ -247,16 +251,18 @@ public class Telemetry {
             }
 
             return Disposables.create {}
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createHealthObservable() -> Observable<Health> {
         return Observable.create { observer in
-            let healthRequest = Dronecore_Rpc_Telemetry_SubscribeHealthRequest()
+            let healthRequest = DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest()
             
             do {
-                let call = try self.service.subscribehealth(healthRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeHealth(healthRequest, completion: nil)
+                while let response = try call.receive() {
                     let health = Health(isGyrometerCalibrationOk: response.health.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: response.health.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: response.health.isMagnetometerCalibrationOk, isLevelCalibrationOk: response.health.isLevelCalibrationOk, isLocalPositionOk: response.health.isLocalPositionOk, isGlobalPositionOk: response.health.isGlobalPositionOk, isHomePositionOk: response.health.isHomePositionOk)
                     
                     observer.onNext(health)
@@ -266,16 +272,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createBatteryObservable() -> Observable<Battery> {
         return Observable.create { observer in
-            let batteryRequest = Dronecore_Rpc_Telemetry_SubscribeBatteryRequest()
+            let batteryRequest = DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest()
             
             do {
-                let call = try self.service.subscribebattery(batteryRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeBattery(batteryRequest, completion: nil)
+                while let response = try call.receive() {
                     let battery = Battery(remainingPercent: response.battery.remainingPercent, voltageV: response.battery.voltageV)
                     
                     observer.onNext(battery)
@@ -285,16 +293,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
-            let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
+            let attitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
             
             do {
-                let call = try self.service.subscribeattitudeeuler(attitudeRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeAttitudeEuler(attitudeRequest, completion: nil)
+                while let response = try call.receive() {
                     
                     let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
                     
@@ -305,16 +315,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
-            let cameraAttitudeRequest = Dronecore_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
+            let cameraAttitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
             
             do {
-                let call = try self.service.subscribecameraattitudeeuler(cameraAttitudeRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeCameraAttitudeEuler(cameraAttitudeRequest, completion: nil)
+                while let response = try call.receive() {
                     
                     let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
                     
@@ -325,16 +337,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
-            let attitudeRequest = Dronecore_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
+            let attitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
             
             do {
-                let call = try self.service.subscribeattitudequaternion(attitudeRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeAttitudeQuaternion(attitudeRequest, completion: nil)
+                while let response = try call.receive() {
                     
                     let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
                     
@@ -345,16 +359,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
-            let cameraAttitudeRequest = Dronecore_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
+            let cameraAttitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
             
             do {
-                let call = try self.service.subscribecameraattitudequaternion(cameraAttitudeRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeCameraAttitudeQuaternion(cameraAttitudeRequest, completion: nil)
+                while let response = try call.receive() {
                     
                     let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
                     
@@ -365,16 +381,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createHomePositionObservable() -> Observable<Position> {
         return Observable.create { observer in
-            let homeRequest = Dronecore_Rpc_Telemetry_SubscribeHomeRequest()
+            let homeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest()
             
             do {
-                let call = try self.service.subscribehome(homeRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeHome(homeRequest, completion: nil)
+                while let response = try call.receive() {
                     let position = Position(latitudeDeg: response.home.latitudeDeg, longitudeDeg: response.home.longitudeDeg, absoluteAltitudeM: response.home.absoluteAltitudeM, relativeAltitudeM: response.home.relativeAltitudeM)
                     observer.onNext(position)
                 }
@@ -383,16 +401,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createGPSInfoObservable() -> Observable<GPSInfo> {
         return Observable.create { observer in
-            let gpsInfoRequest = Dronecore_Rpc_Telemetry_SubscribeGPSInfoRequest()
+            let gpsInfoRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest()
             
             do {
-                let call = try self.service.subscribegpsinfo(gpsInfoRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeGPSInfo(gpsInfoRequest, completion: nil)
+                while let response = try call.receive() {
                     let gpsInfo = GPSInfo(numSatellites: response.gpsInfo.numSatellites, fixType: eDroneCoreGPSInfoFix(rawValue: response.gpsInfo.fixType.rawValue)!)
                     observer.onNext(gpsInfo)
                 }
@@ -401,16 +421,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createFlightModeObservable() -> Observable<eDroneCoreFlightMode> {
         return Observable.create { observer in
-            let flightModeRequest = Dronecore_Rpc_Telemetry_SubscribeFlightModeRequest()
+            let flightModeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest()
             
             do {
-                let call = try self.service.subscribeflightmode(flightModeRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeFlightMode(flightModeRequest, completion: nil)
+                while let response = try call.receive() {
                     let flightMode : eDroneCoreFlightMode = eDroneCoreFlightMode(rawValue: response.flightMode.rawValue)!
                     observer.onNext(flightMode)
                 }
@@ -419,16 +441,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createGroundSpeedNEDObservable() -> Observable<GroundSpeedNED> {
         return Observable.create { observer in
-            let groundSpeedRequest = Dronecore_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest()
+            let groundSpeedRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest()
             
             do {
-                let call = try self.service.subscribegroundspeedned(groundSpeedRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeGroundSpeedNED(groundSpeedRequest, completion: nil)
+                while let response = try call.receive() {
                     let groundSpeed : GroundSpeedNED = GroundSpeedNED(velocityNorthMS: response.groundSpeedNed.velocityNorthMS, velocityEastMS: response.groundSpeedNed.velocityEastMS, velocityDownMS: response.groundSpeedNed.velocityDownMS)
                     observer.onNext(groundSpeed)
                 }
@@ -437,16 +461,18 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createRCStatusObservable() -> Observable<RCStatus> {
         return Observable.create { observer in
-            let rcstatusRequest = Dronecore_Rpc_Telemetry_SubscribeRCStatusRequest()
+            let rcstatusRequest = DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest()
             
             do {
-                let call = try self.service.subscribercstatus(rcstatusRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeRCStatus(rcstatusRequest, completion: nil)
+                while let response = try call.receive() {
                     let rcstatus : RCStatus = RCStatus(wasAvailableOnce: response.rcStatus.wasAvailableOnce, isAvailable: response.rcStatus.isAvailable, signalStrengthPercent: response.rcStatus.signalStrengthPercent)
                     observer.onNext(rcstatus)
                 }
@@ -455,7 +481,8 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
-    
 }

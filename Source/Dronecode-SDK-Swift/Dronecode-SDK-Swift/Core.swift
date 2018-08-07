@@ -1,6 +1,6 @@
 import backend
 import Foundation
-import gRPC
+import SwiftGRPC
 import RxSwift
 
 public struct PluginInfo: Equatable {
@@ -16,7 +16,7 @@ public struct PluginInfo: Equatable {
 public class Core {
     private let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
     private let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
-    private let service: Dronecore_Rpc_Core_CoreServiceService
+    private let service: DronecodeSdk_Rpc_Core_CoreServiceService
     private let scheduler: SchedulerType
     
     public lazy var discoverObservable: Observable<UInt64> = createDiscoverObservable()
@@ -24,13 +24,13 @@ public class Core {
     public lazy var timeoutObservable: Observable<Void> = createTimeoutObservable()
 
     public convenience init(address: String = "localhost", port: Int32 = 50051) {
-        let service = Dronecore_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = DronecodeSdk_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: Dronecore_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
+    init(service: DronecodeSdk_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
 
@@ -59,16 +59,18 @@ public class Core {
             }
             
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createDiscoverObservable() -> Observable<UInt64> {
         return Observable.create { observer in
-            let discoverRequest = Dronecore_Rpc_Core_SubscribeDiscoverRequest()
+            let discoverRequest = DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest()
 
             do {
-                let call = try self.service.subscribediscover(discoverRequest, completion: nil)
-                while let response = try? call.receive() {
+                let call = try self.service.subscribeDiscover(discoverRequest, completion: nil)
+                while let response = try call.receive() {
                     observer.onNext(response.uuid)
                 }
             } catch {
@@ -76,16 +78,18 @@ public class Core {
             }
 
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     private func createTimeoutObservable() -> Observable<Void> {
         return Observable.create { observer in
-            let timeoutRequest = Dronecore_Rpc_Core_SubscribeTimeoutRequest()
+            let timeoutRequest = DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest()
 
             do {
-                let call = try self.service.subscribetimeout(timeoutRequest, completion: nil)
-                while let _ = try? call.receive() {
+                let call = try self.service.subscribeTimeout(timeoutRequest, completion: nil)
+                while let _ = try call.receive() {
                     observer.onNext(())
                 }
             } catch {
@@ -93,20 +97,26 @@ public class Core {
             }
 
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createRunningPluginsObservable() -> Observable<PluginInfo> {
-        let request = Dronecore_Rpc_Core_ListRunningPluginsRequest()
-        let response = try? self.service.listrunningplugins(request)
+        let request = DronecodeSdk_Rpc_Core_ListRunningPluginsRequest()
+        let response = try? self.service.listRunningPlugins(request)
 
         return Observable.create { observer in
-            for pluginInfo in (response?.pluginInfo)! {
-                observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
+            if let pluginInfos = response?.pluginInfo {
+                for pluginInfo in pluginInfos {
+                    observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
+                }
             }
 
             observer.onCompleted()
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 }
