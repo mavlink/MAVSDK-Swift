@@ -176,7 +176,7 @@ public class Action {
             
             do {
                 let getTakeoffAltitudeResponse = try self.service.getTakeoffAltitude(getTakeoffAltitudeRequest)
-                single(.success(getTakeoffAltitudeResponse.altitudeM))
+                single(.success(getTakeoffAltitudeResponse.altitude))
             } catch {
                 single(.error(error))
             }
@@ -188,7 +188,7 @@ public class Action {
     public func setTakeoffAltitude(altitude: Float) -> Completable {
         return Completable.create { completable in
             var setTakeoffAltitudeRequest = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest()
-            setTakeoffAltitudeRequest.altitudeM = altitude
+            setTakeoffAltitudeRequest.altitude = altitude
             
             do {
                 let _ = try self.service.setTakeoffAltitude(setTakeoffAltitudeRequest)
@@ -207,7 +207,7 @@ public class Action {
             
             do {
                 let getMaximumSpeedResponse = try self.service.getMaximumSpeed(getMaximumSpeedRequest)
-                single(.success(getMaximumSpeedResponse.speedMS))
+                single(.success(getMaximumSpeedResponse.speed))
             } catch {
                 single(.error(error))
             }
@@ -219,7 +219,7 @@ public class Action {
     public func setMaximumSpeed(speed: Float) -> Completable {
         return Completable.create { completable in
             var setMaximumSpeedRequest = DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest()
-            setMaximumSpeedRequest.speedMS = speed
+            setMaximumSpeedRequest.speed = speed
             
             do {
                 let _ = try self.service.setMaximumSpeed(setMaximumSpeedRequest)

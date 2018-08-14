@@ -143,7 +143,7 @@ class ActionTest: XCTestCase {
         
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse()
-        response.altitudeM = expectedAltitude
+        response.altitude = expectedAltitude
         fakeService.getTakeoffAltitudeResponses.append(response)
         let client = Action(service: fakeService)
         
@@ -179,7 +179,7 @@ class ActionTest: XCTestCase {
         
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse()
-        response.speedMS = expectedSpeed
+        response.speed = expectedSpeed
         
         fakeService.getMaximumSpeedResponses.append(response)
         let client = Action(service: fakeService)
