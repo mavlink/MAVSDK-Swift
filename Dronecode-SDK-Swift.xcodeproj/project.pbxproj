@@ -17,16 +17,49 @@
 		DF020A1620873D3B00CEE035 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1520873D3B00CEE035 /* Mission.swift */; };
 		DF020A1820873E7D00CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1720873E7D00CEE035 /* MissionTest.swift */; };
 		DF020A1A20877B9900CEE035 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF020A1920877B9900CEE035 /* MissionTest.swift */; };
-		DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
-		DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF674CC6206D946E00421042 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF674CC5206D946E00421042 /* Core.swift */; };
 		DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF68BEFA2064617900175337 /* Dronecode_SDK_Swift.framework */; };
 		DF68BF092064617900175337 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF082064617900175337 /* ActionTest.swift */; };
 		DF68BF0B2064617900175337 /* Dronecode_SDK_Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF68BF3B2064633D00175337 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68BF3A2064633D00175337 /* Action.swift */; };
-		DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
-		DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF7798C22074F52D00CD1BE0 /* backend.framework */; };
+		DF9C05B5212388A300C854CF /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */; };
+		DF9C05B6212388A300C854CF /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B0212388A200C854CF /* backend.framework */; };
+		DF9C05B7212388A300C854CF /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B1212388A200C854CF /* CgRPC.framework */; };
+		DF9C05B8212388A300C854CF /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B2212388A200C854CF /* BoringSSL.framework */; };
+		DF9C05B9212388A300C854CF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B3212388A300C854CF /* RxSwift.framework */; };
+		DF9C05BA212388A300C854CF /* SwiftGRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B4212388A300C854CF /* SwiftGRPC.framework */; };
+		DF9C05BD2123894400C854CF /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05BB2123894400C854CF /* RxBlocking.framework */; };
+		DF9C05BE2123894400C854CF /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05BC2123894400C854CF /* RxTest.framework */; };
+		DF9C05BF2123897C00C854CF /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B2212388A200C854CF /* BoringSSL.framework */; };
+		DF9C05C02123897C00C854CF /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B1212388A200C854CF /* CgRPC.framework */; };
+		DF9C05C12123897C00C854CF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B3212388A300C854CF /* RxSwift.framework */; };
+		DF9C05C22123897C00C854CF /* SwiftGRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B4212388A300C854CF /* SwiftGRPC.framework */; };
+		DF9C05C32123897C00C854CF /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */; };
+		DF9C05C4212389DA00C854CF /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05BB2123894400C854CF /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05C5212389E700C854CF /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05BC2123894400C854CF /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05C6212389F800C854CF /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B2212388A200C854CF /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05C7212389F800C854CF /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B1212388A200C854CF /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05C8212389F800C854CF /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B3212388A300C854CF /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05C9212389F800C854CF /* SwiftGRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B4212388A300C854CF /* SwiftGRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05CA212389F800C854CF /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05CB21238A0700C854CF /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B0212388A200C854CF /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05CC21238A1200C854CF /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B0212388A200C854CF /* backend.framework */; };
+		DF9C05CD21238B2E00C854CF /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05BB2123894400C854CF /* RxBlocking.framework */; };
+		DF9C05CE21238B2E00C854CF /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05BC2123894400C854CF /* RxTest.framework */; };
+		DF9C05CF21238B2E00C854CF /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B0212388A200C854CF /* backend.framework */; };
+		DF9C05D021238B2E00C854CF /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B2212388A200C854CF /* BoringSSL.framework */; };
+		DF9C05D121238B2E00C854CF /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B1212388A200C854CF /* CgRPC.framework */; };
+		DF9C05D221238B2E00C854CF /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B3212388A300C854CF /* RxSwift.framework */; };
+		DF9C05D321238B2E00C854CF /* SwiftGRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05B4212388A300C854CF /* SwiftGRPC.framework */; };
+		DF9C05D421238B2E00C854CF /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */; };
+		DF9C05D521238B5200C854CF /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05BB2123894400C854CF /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05D621238B5200C854CF /* RxTest.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05BC2123894400C854CF /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05D721238B5200C854CF /* backend.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B0212388A200C854CF /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05D821238B5200C854CF /* BoringSSL.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B2212388A200C854CF /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05D921238B5200C854CF /* CgRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B1212388A200C854CF /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05DA21238B5200C854CF /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B3212388A300C854CF /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05DB21238B5200C854CF /* SwiftGRPC.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05B4212388A300C854CF /* SwiftGRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF9C05DC21238B5200C854CF /* SwiftProtobuf.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DFA0B03A207524EA007BDD4B /* telemetry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B032207524EA007BDD4B /* telemetry.pb.swift */; };
 		DFA0B03B207524EA007BDD4B /* action.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B033207524EA007BDD4B /* action.grpc.swift */; };
 		DFA0B03C207524EA007BDD4B /* core.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA0B034207524EA007BDD4B /* core.grpc.swift */; };
@@ -66,7 +99,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DF503DAC2077B20200CA79FB /* backend.framework in CopyFiles */,
+				DF9C05D521238B5200C854CF /* RxBlocking.framework in CopyFiles */,
+				DF9C05D621238B5200C854CF /* RxTest.framework in CopyFiles */,
+				DF9C05D721238B5200C854CF /* backend.framework in CopyFiles */,
+				DF9C05D821238B5200C854CF /* BoringSSL.framework in CopyFiles */,
+				DF9C05D921238B5200C854CF /* CgRPC.framework in CopyFiles */,
+				DF9C05DA21238B5200C854CF /* RxSwift.framework in CopyFiles */,
+				DF9C05DB21238B5200C854CF /* SwiftGRPC.framework in CopyFiles */,
+				DF9C05DC21238B5200C854CF /* SwiftProtobuf.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +116,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DF16D5512074F9A40018AF1F /* backend.framework in CopyFiles */,
+				DF9C05C4212389DA00C854CF /* RxBlocking.framework in CopyFiles */,
+				DF9C05C5212389E700C854CF /* RxTest.framework in CopyFiles */,
+				DF9C05C6212389F800C854CF /* BoringSSL.framework in CopyFiles */,
+				DF9C05C7212389F800C854CF /* CgRPC.framework in CopyFiles */,
+				DF9C05C8212389F800C854CF /* RxSwift.framework in CopyFiles */,
+				DF9C05C9212389F800C854CF /* SwiftGRPC.framework in CopyFiles */,
+				DF9C05CA212389F800C854CF /* SwiftProtobuf.framework in CopyFiles */,
+				DF9C05CB21238A0700C854CF /* backend.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +148,14 @@
 		DF68BF082064617900175337 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		DF68BF0A2064617900175337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF68BF3A2064633D00175337 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		DF7798C22074F52D00CD1BE0 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = ../bin/backend.framework; sourceTree = "<group>"; };
+		DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftProtobuf.framework; path = Carthage/Build/iOS/SwiftProtobuf.framework; sourceTree = "<group>"; };
+		DF9C05B0212388A200C854CF /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = backend.framework; path = Carthage/Build/iOS/backend.framework; sourceTree = "<group>"; };
+		DF9C05B1212388A200C854CF /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CgRPC.framework; path = Carthage/Build/iOS/CgRPC.framework; sourceTree = "<group>"; };
+		DF9C05B2212388A200C854CF /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BoringSSL.framework; path = Carthage/Build/iOS/BoringSSL.framework; sourceTree = "<group>"; };
+		DF9C05B3212388A300C854CF /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		DF9C05B4212388A300C854CF /* SwiftGRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftGRPC.framework; path = Carthage/Build/iOS/SwiftGRPC.framework; sourceTree = "<group>"; };
+		DF9C05BB2123894400C854CF /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
+		DF9C05BC2123894400C854CF /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTest.framework; path = Carthage/Build/iOS/RxTest.framework; sourceTree = "<group>"; };
 		DFA0B032207524EA007BDD4B /* telemetry.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = telemetry.pb.swift; path = "Dronecode-SDK-Swift/Generated/telemetry.pb.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B033207524EA007BDD4B /* action.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = action.grpc.swift; path = "Dronecode-SDK-Swift/Generated/action.grpc.swift"; sourceTree = SOURCE_ROOT; };
 		DFA0B034207524EA007BDD4B /* core.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = core.grpc.swift; path = "Dronecode-SDK-Swift/Generated/core.grpc.swift"; sourceTree = SOURCE_ROOT; };
@@ -123,7 +177,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7798D22074F52D00CD1BE0 /* backend.framework in Frameworks */,
+				DF9C05B5212388A300C854CF /* SwiftProtobuf.framework in Frameworks */,
+				DF9C05B6212388A300C854CF /* backend.framework in Frameworks */,
+				DF9C05B7212388A300C854CF /* CgRPC.framework in Frameworks */,
+				DF9C05B8212388A300C854CF /* BoringSSL.framework in Frameworks */,
+				DF9C05B9212388A300C854CF /* RxSwift.framework in Frameworks */,
+				DF9C05BA212388A300C854CF /* SwiftGRPC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,8 +190,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF7798D32074F52D00CD1BE0 /* backend.framework in Frameworks */,
 				DF68BF042064617900175337 /* Dronecode_SDK_Swift.framework in Frameworks */,
+				DF9C05CC21238A1200C854CF /* backend.framework in Frameworks */,
+				DF9C05BD2123894400C854CF /* RxBlocking.framework in Frameworks */,
+				DF9C05BE2123894400C854CF /* RxTest.framework in Frameworks */,
+				DF9C05BF2123897C00C854CF /* BoringSSL.framework in Frameworks */,
+				DF9C05C02123897C00C854CF /* CgRPC.framework in Frameworks */,
+				DF9C05C12123897C00C854CF /* RxSwift.framework in Frameworks */,
+				DF9C05C22123897C00C854CF /* SwiftGRPC.framework in Frameworks */,
+				DF9C05C32123897C00C854CF /* SwiftProtobuf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +207,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFDA52792077A813008DE8BF /* Dronecode_SDK_Swift.framework in Frameworks */,
-				DF503DA12077B1C500CA79FB /* backend.framework in Frameworks */,
+				DF9C05CD21238B2E00C854CF /* RxBlocking.framework in Frameworks */,
+				DF9C05CE21238B2E00C854CF /* RxTest.framework in Frameworks */,
+				DF9C05CF21238B2E00C854CF /* backend.framework in Frameworks */,
+				DF9C05D021238B2E00C854CF /* BoringSSL.framework in Frameworks */,
+				DF9C05D121238B2E00C854CF /* CgRPC.framework in Frameworks */,
+				DF9C05D221238B2E00C854CF /* RxSwift.framework in Frameworks */,
+				DF9C05D321238B2E00C854CF /* SwiftGRPC.framework in Frameworks */,
+				DF9C05D421238B2E00C854CF /* SwiftProtobuf.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +291,14 @@
 		DF68BF192064624C00175337 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF7798C22074F52D00CD1BE0 /* backend.framework */,
+				DF9C05BB2123894400C854CF /* RxBlocking.framework */,
+				DF9C05BC2123894400C854CF /* RxTest.framework */,
+				DF9C05B0212388A200C854CF /* backend.framework */,
+				DF9C05B2212388A200C854CF /* BoringSSL.framework */,
+				DF9C05B1212388A200C854CF /* CgRPC.framework */,
+				DF9C05B3212388A300C854CF /* RxSwift.framework */,
+				DF9C05B4212388A300C854CF /* SwiftGRPC.framework */,
+				DF9C05AF212388A200C854CF /* SwiftProtobuf.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -474,7 +554,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../bin";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -537,7 +617,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../bin";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -572,6 +652,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Dronecode-SDK-Swift/Info.plist";
@@ -605,6 +686,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Dronecode-SDK-Swift/Info.plist";
@@ -628,6 +710,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63A74UA3T4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Dronecode-SDK-SwiftTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.dronecode.Dronecode-SDK-SwiftTests";
@@ -643,6 +729,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63A74UA3T4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Dronecode-SDK-SwiftTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.dronecode.Dronecode-SDK-SwiftTests";
@@ -657,6 +747,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63A74UA3T4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Dronecode_SDK_SwiftIntegrationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -673,6 +767,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63A74UA3T4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Dronecode_SDK_SwiftIntegrationTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
