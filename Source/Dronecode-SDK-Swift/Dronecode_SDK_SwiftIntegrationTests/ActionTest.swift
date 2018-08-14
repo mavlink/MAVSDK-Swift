@@ -20,7 +20,6 @@ class ActionTest: XCTestCase {
                 XCTFail("\(error)")
             })
         
-        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 10.0)
     }
     
@@ -43,7 +42,6 @@ class ActionTest: XCTestCase {
                 XCTFail("\(error)")
             })
         
-        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 20.0)
     }
 
@@ -73,7 +71,6 @@ class ActionTest: XCTestCase {
                 XCTFail("\(error)")
             })
         
-        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 20.0)
     }
     
@@ -96,7 +93,6 @@ class ActionTest: XCTestCase {
                 XCTFail("\(error)")
             })
 
-        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 20.0)
     }
     

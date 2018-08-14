@@ -29,6 +29,7 @@ class CameraTest: XCTestCase {
                 XCTFail("\(error)")
             })
         
+        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 10.0)
     }
     
@@ -60,6 +61,43 @@ class CameraTest: XCTestCase {
             }, onError: { (error) in
                 XCTFail("\(error)")
             })
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testStartVideo() {
+        let expectation = XCTestExpectation(description: "Stop video succeeded.")
+        
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let camera = Camera(address: "localhost", port: 50051)
+        
+        camera.startVideo()
+            .do(onError: { error in XCTFail("\(error)") })
+            .subscribe(onCompleted: {
+                expectation.fulfill()
+            }) { (error) in
+                XCTFail("\(error)")
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    
+    func testStopVideo() {
+        let expectation = XCTestExpectation(description: "Stop video succeeded.")
+        
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let camera = Camera(address: "localhost", port: 50051)
+        
+        camera.stopVideo()
+            .do(onError: { error in XCTFail("\(error)") })
+            .subscribe(onCompleted: {
+                expectation.fulfill()
+            }) { (error) in
+                XCTFail("\(error)")
+        }
         
         wait(for: [expectation], timeout: 10.0)
     }
@@ -140,6 +178,26 @@ class CameraTest: XCTestCase {
         wait(for: [expectation], timeout: 10.0)
     }
     
+    func testStartVideoStreaming() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let camera = Camera(address: "localhost", port: 50051)
+        
+        camera.startVideoStreaming()
+            .do(onError: { error in XCTFail("\(error)") })
+            .subscribe()
+    }
+    
+    func testStopVideoStreaming() {
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let camera = Camera(address: "localhost", port: 50051)
+        
+        camera.stopVideoStreaming()
+            .do(onError: { error in XCTFail("\(error)") })
+            .subscribe()
+    }
+    
     func testSetVideoStreamSettings() {
         let expectation = XCTestExpectation(description: "Set video stream settings.")
         
@@ -205,7 +263,6 @@ class CameraTest: XCTestCase {
         
         do {
             let cameraStatus = try camera.cameraStatusObservable.take(5).toBlocking(timeout: 20).toArray()
-//            print("CameraStatus: ", cameraStatus)
         } catch {
             XCTFail("SubscribeCameraStatus is expected to receive 1 events in 5 seconds, but it did not!")
         }
@@ -218,9 +275,8 @@ class CameraTest: XCTestCase {
         
         do {
             let currentSettings = try camera.currentSettingsObservable.take(1).toBlocking(timeout: 10).toArray()
-//            print("CurrentSettings: ", currentSettings)
         } catch {
-            XCTFail("SubscribeCurrentSettings is expected to receive 1 events in 5 seconds, but it did not!")
+            XCTFail("SubscribeCurrentSettings is expected to receive 1 events in 10 seconds, but it did not!")
         }
     }
     
@@ -231,14 +287,6 @@ class CameraTest: XCTestCase {
         
         do {
             let possibleSettingOptions = try camera.possibleSettingOptionsObservable.take(1).toBlocking(timeout: 5).toArray()
-//            print("PossibleSettings: ", possibleSettingOptions)
-//
-//            possibleSettingOptions[0].forEach {
-//                print("SettingID: ", $0.settingId)
-//                $0.options.forEach({ (option) in
-//                    print("     OptionID: \(option.id)")
-//                })
-//            }
         } catch {
             XCTFail("SubscribePossibleSettingOptions is expected to receive 1 events in 5 seconds, but it did not!")
         }
@@ -261,65 +309,6 @@ class CameraTest: XCTestCase {
         // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
         wait(for: [expectation], timeout: 10.0)
     }
-    
-    //    func testStartVideo() {
-    //        let expectation = XCTestExpectation(description: "Stop video succeeded.")
-    //
-    //        let core = Core()
-    //        core.connect().toBlocking().materialize()
-    //        let camera = Camera(address: "localhost", port: 50051)
-    //
-    //        camera.startVideo()
-    //            .do(onError: { error in XCTFail("\(error)") })
-    //            .subscribe(onCompleted: {
-    //                expectation.fulfill()
-    //            }) { (error) in
-    //                XCTFail("\(error)")
-    //        }
-    //
-    //        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
-    //        wait(for: [expectation], timeout: 10.0)
-    //    }
-    //
-    //
-    //    func testStopVideo() {
-    //        let expectation = XCTestExpectation(description: "Stop video succeeded.")
-    //
-    //        let core = Core()
-    //        core.connect().toBlocking().materialize()
-    //        let camera = Camera(address: "localhost", port: 50051)
-    //
-    //        camera.stopVideo()
-    //            .do(onError: { error in XCTFail("\(error)") })
-    //            .subscribe(onCompleted: {
-    //                expectation.fulfill()
-    //            }) { (error) in
-    //                XCTFail("\(error)")
-    //        }
-    //
-    //        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
-    //        wait(for: [expectation], timeout: 10.0)
-    //    }
-    
-    //    func testStartVideoStreaming() {
-    //        let core = Core()
-    //        core.connect().toBlocking().materialize()
-    //        let camera = Camera(address: "localhost", port: 50051)
-    //
-    //        camera.startVideoStreaming()
-    //            .do(onError: { error in XCTFail("\(error)") })
-    //            .subscribe()
-    //    }
-    //
-    //    func testStopVideoStreaming() {
-    //        let core = Core()
-    //        core.connect().toBlocking().materialize()
-    //        let camera = Camera(address: "localhost", port: 50051)
-    //
-    //        camera.stopVideoStreaming()
-    //            .do(onError: { error in XCTFail("\(error)") })
-    //            .subscribe()
-    //    }
 }
 
 
