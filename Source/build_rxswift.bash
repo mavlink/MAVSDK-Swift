@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source ${SCRIPT_DIR}/init_variables.bash
 
 if [ ! -d ${BUILD_DIR}/rxswift ]; then
-    git -C ${BUILD_DIR} clone https://github.com/reactivex/rxswift.git
+    git -C ${BUILD_DIR} clone -b 4.0.0 https://github.com/reactivex/rxswift.git
     git -C ${BUILD_DIR}/rxswift checkout 4431b623751ac5525e8a8c2d6e82f29b983af07c
 fi
 

@@ -10,28 +10,42 @@ import UIKit
 import Dronecode_SDK_Swift
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     // MARK: - Properties
+    
+    // MARK: IBOutlets -------
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var feedbackLabel: UILabel!
     @IBOutlet weak var uploadMissionButton: UIButton!
     @IBOutlet weak var startMissionButton: UIButton!
-    @IBOutlet weak var pauseMissionButton: UIButton!
     
-    let regionRadius: CLLocationDistance = 1000
+    @IBOutlet weak var createFlightPathButton: UIButton!
+    @IBOutlet weak var centerMapOnUsernButton: UIButton!
+    
+    // MARK: Location -------
+    
+    private var locationManager: CLLocationManager!
+    private var currentLocation: CLLocation?
+    let regionRadius: CLLocationDistance = 100
+    
+    // MARK: Misc -------
     
     private var droneAnnotation: DroneAnnotation!
     private var timer: Timer?
+    
+    // MARK: Mission -------
+    
+    private let missionExample:ExampleMission = ExampleMission()
     
     // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // set initial location in Zurich
-        let initialLocation = CLLocation(latitude: 47.398039859999997, longitude: 8.5455725400000002)
+        // set initial location of drone and center map on it
+        let initialLocation = CLLocation(latitude: CoreManager.shared().droneState.location2D.latitude , longitude: CoreManager.shared().droneState.location2D.longitude)
         centerMapOnLocation(location: initialLocation)
         
         // init text for feedback and add round corner and border
@@ -41,22 +55,37 @@ class MapViewController: UIViewController {
         feedbackLabel?.layer.borderColor = UIColor.lightGray.cgColor
         feedbackLabel?.layer.borderWidth = 1.0
         
-        
         // set corners for buttons
         uploadMissionButton.layer.cornerRadius   = UI_CORNER_RADIUS_BUTTONS
         startMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
-        pauseMissionButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        createFlightPathButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        centerMapOnUsernButton.layer.cornerRadius    = UI_CORNER_RADIUS_BUTTONS
+        
+        // location manager
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // Check for Location Services
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+        }
         
         // init mapview delegate
         mapView.delegate = self
+        mapView.showsUserLocation = true
         
         // drone annotation
         mapView.register(DroneView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(DroneView.self))
         droneAnnotation = DroneAnnotation(title: "Drone", coordinate:initialLocation.coordinate)
         mapView.addAnnotation(droneAnnotation)
         
-        //timer to get drone state
+        // timer to get drone state
         timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector:  #selector(updateDroneInfosDisplayed), userInfo: nil, repeats: true)
+        
+        // display mission trace
+        self.createMissionTrace(mapView: mapView, listMissionsItems: missionExample.missionItems)
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,14 +113,44 @@ class MapViewController: UIViewController {
        
     }
     
-    @IBAction func pauseMissionPressed(_ sender: Any) {
-        self.displayFeedback(message:"Pause Mission Pressed")
+    // MARK: - Center Map and Create Flightpath
+    
+    @IBAction func centerOnUserPressed(_ sender: Any) {
+        let latitude:String = String(format: "%.4f",
+                                     currentLocation!.coordinate.latitude)
+        let longitude:String = String(format: "%.4f",
+                                      currentLocation!.coordinate.longitude)
+        self.displayFeedback(message:"User coordinates (\(latitude),\(longitude))")
+        
+        centerMapOnLocation(location: currentLocation!)
+    }
+    
+    @IBAction func createFlightPathPressed(_ sender: Any) {
+        let latitude:String = String(format: "%.4f",
+                                     mapView.centerCoordinate.latitude)
+        let longitude:String = String(format: "%.4f",
+                                      mapView.centerCoordinate.longitude)
+        self.displayFeedback(message:"Create flightpath at  (\(latitude),\(longitude))")
+        
+        // remove all annotations and overlays
+        //TODO improve : we could just remove annotations that we want to refresh and keep drone annotations instead of recreate it afterward
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.removeOverlays(mapView.overlays)
+        
+        // re-create drone annotation
+        droneAnnotation = DroneAnnotation(title: "Drone", coordinate: CoreManager.shared().droneState.location2D)
+        mapView.addAnnotation(droneAnnotation)
+        
+        // create new mission with first point of mission equal to center of the map
+        let centerMapLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        missionExample.generateSampleMissionForLocation(location: centerMapLocation)
+        self.createMissionTrace(mapView: mapView, listMissionsItems: missionExample.missionItems)
     }
     
     // MARK: - Missions
     
     func uploadMission(){
-        let missionExample:ExampleMission = ExampleMission()
+        
         let sendMissionRoutine = CoreManager.shared().mission.uploadMission(missionItems: missionExample.missionItems).do(
             onError: { error in self.displayFeedback(message:"Mission uploaded failed \(error)") },
             onCompleted: { self.displayFeedback(message:"Mission uploaded with success") })
@@ -130,25 +189,84 @@ class MapViewController: UIViewController {
         feedbackLabel.text = message
     }
     
+     // MARK: - Mission trace
+    
+    func createMissionTrace(mapView: MKMapView, listMissionsItems : Array<MissionItem>) {
+        var points = [CLLocationCoordinate2D]()
+        
+        for missionItem in listMissionsItems {
+            points.append(CLLocationCoordinate2DMake(missionItem.latitudeDeg, missionItem.longitudeDeg))
+        }
+        
+        let missionTrace = MKPolyline(coordinates: points, count: listMissionsItems.count)
+        mapView.add(missionTrace)
+        
+        // add start pin
+        let point1 = CustomPointAnnotation(title: "START")
+        let missionItem1 = listMissionsItems[0]
+        point1.coordinate = CLLocationCoordinate2DMake(missionItem1.latitudeDeg, missionItem1.longitudeDeg)
+        mapView.addAnnotation(point1)
+        
+        // add stop pin
+        let point2 = CustomPointAnnotation(title: "STOP")
+        let missionItem2 = listMissionsItems[listMissionsItems.count - 1]
+        point2.coordinate = CLLocationCoordinate2DMake(missionItem2.latitudeDeg, missionItem2.longitudeDeg)
+        mapView.addAnnotation(point2)
+        
+    }
+    
+    // MARK: - Location manager
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        defer { currentLocation = locations.last }
+        
+        /*if currentLocation == nil {
+            // Zoom to user location
+            if let userLocation = locations.last {
+                let viewRegion = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 2000, 2000)
+                mapView.setRegion(viewRegion, animated: false)
+            }
+        }*/
+    }
+    
 }
 
 
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? DroneAnnotation else { return nil }
         
-        let identifier = NSStringFromClass(DroneView.self)
-        var view: DroneView
-        
-        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? DroneView {
-            dequeuedView.annotation = annotation
-            view = dequeuedView
-        } else {
-            view = DroneView(annotation: annotation, reuseIdentifier: identifier)
+        if(annotation is CustomPointAnnotation){
+            _ = NSStringFromClass(CustomPinAnnotationView.self)
+            let  view :CustomPinAnnotationView = CustomPinAnnotationView(annotation: annotation)
+             return view
+        }else{
+            guard let annotation = annotation as? DroneAnnotation else { return nil }
+            
+            let identifier = NSStringFromClass(DroneView.self)
+            var view: DroneView
+            
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                as? DroneView {
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                view = DroneView(annotation: annotation, reuseIdentifier: identifier)
+            }
+             return view
         }
-        return view
+        
+       
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let lineRenderer = MKPolylineRenderer(polyline: polyline)
+            lineRenderer.strokeColor = .orange
+            lineRenderer.lineWidth = 2.0
+            return lineRenderer
+        }
+        fatalError("Fatal error in mapView MKOverlayRenderer")
     }
 
 }

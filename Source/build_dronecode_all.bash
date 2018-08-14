@@ -13,8 +13,8 @@ mkdir -p ${BIN_DIR}
 mkdir -p ${DRONECORE_SWIFT_DIR}
 mkdir -p ${DRONECORE_DIR}
 
-# Build dronecore backend and copy it into ${DRONECORE_SWIFT_DIR}/Source/bin where it is needed to build the SDK
-git clone -b develop https://github.com/dronecore/dronecore.git ${DRONECORE_DIR}
+# Build dronecore backend
+git clone -b develop https://github.com/dronecode/dronecodesdk.git ${DRONECORE_DIR}
 git -C ${DRONECORE_DIR} submodule update --init --recursive
 
 cd ${DRONECORE_DIR}
@@ -22,14 +22,14 @@ make BUILD_BACKEND=YES && make BUILD_BACKEND=YES ios && make BUILD_BACKEND=YES i
 
 bash ${DRONECORE_DIR}/backend/tools/package_backend_framework.bash
 
-# Build rxswift and grpc-swift
+# Build SDK
 git clone https://github.com/dronecore/dronecore-swift.git ${DRONECORE_SWIFT_DIR}
 
 mkdir -p ${DRONECORE_SWIFT_DIR}/Source/bin
 cp -r ${DRONECORE_DIR}/build/fat_bin/backend.framework ${DRONECORE_SWIFT_DIR}/Source/bin/backend.framework
 
-bash ${DRONECORE_SWIFT_DIR}/Source/build_rxswift.bash
 bash ${DRONECORE_SWIFT_DIR}/Source/build_grpc.bash
+bash ${DRONECORE_SWIFT_DIR}/Source/build_rxswift.bash
 bash ${DRONECORE_SWIFT_DIR}/Source/build_dronecode_sdk.bash
 
 # Copy resulting frameworks into ${BIN_DIR}

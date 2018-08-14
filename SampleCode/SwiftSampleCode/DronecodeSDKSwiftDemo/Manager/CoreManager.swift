@@ -20,6 +20,8 @@ class CoreManager {
     let action = Action(address: "localhost", port: 50051)
     // Mission
     let mission = Mission(address: "localhost", port: 50051)
+    // Camera
+    let camera = Camera(address: "localhost", port: 50051)
     
     // Core System
     let core: Core
