@@ -295,20 +295,6 @@ class CameraTest: XCTestCase {
         return client.setVideoStreamSettings(settings: videoStreamSettings).toBlocking().materialize()
     }
     
-    // Anotacao
-    //    func testSetVideoStreamSettingsFail() {
-    //        let videoStreamSettings = VideoStreamSettings(frameRateHz: Float(randomNumber()),
-    //                                                      horizontalResolutionPix: randomNumber(),
-    //                                                      verticalResolutionPix: randomNumber(),
-    //                                                      bitRateBS: randomNumber(),
-    //                                                      rotationDegree: randomNumber(),
-    //                                                      uri: randomString())
-    //
-    //        cameraResultsArray.forEach { result in
-    //            assertSuccess(result: setVideoStreamSettingsWithFakeResult(videoStreamSettings: videoStreamSettings, result: result)) // Anotacao: Never fails? Why?
-    //        }
-    //    }
-    
     // MARK: - Subscribe Video Stream Info
     // No Event
     func testVideoStreamInfoEmitsNothingWhenNoEvents() {
@@ -683,7 +669,7 @@ class CameraTest: XCTestCase {
         possibleSettingOptionsEvents.append(generateRandomPossibleSettingOptions())
         
         possibleSettingOptionsEvents.forEach {
-            checkPossibleSettingOptionsReceivesEvents(possibleSettingOptions: $0) // Anotacao: Ta correto passar assim, ou tenho que passar como se fosse todos ao mesmo tempo e so entao checar quais sao validos?
+            checkPossibleSettingOptionsReceivesEvents(possibleSettingOptions: $0)
         }
     }
     
