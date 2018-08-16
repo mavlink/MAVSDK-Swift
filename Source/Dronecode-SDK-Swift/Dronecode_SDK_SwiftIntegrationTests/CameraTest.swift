@@ -66,7 +66,7 @@ class CameraTest: XCTestCase {
     }
     
     func testStartVideo() {
-        let expectation = XCTestExpectation(description: "Stop video succeeded.")
+        let expectation = XCTestExpectation(description: "Start video succeeded.")
         
         let core = Core()
         core.connect().toBlocking().materialize()
