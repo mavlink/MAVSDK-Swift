@@ -361,10 +361,10 @@ public enum StorageStatus {
 // MARK: - Setting
 public struct Setting: Equatable {
     public let id: String
-    public let description: String
+    public let description: String?
     public let option: Option
     
-    public init(id: String, description: String, option: Option) {
+    public init(id: String, description: String? = nil, option: Option) {
         self.id = id
         self.description = description
         self.option = option
@@ -380,7 +380,11 @@ public struct Setting: Equatable {
         var rpcSetting = DronecodeSdk_Rpc_Camera_Setting()
         
         rpcSetting.settingID = id
-        rpcSetting.settingDescription = description
+        
+        if let description = description {
+            rpcSetting.settingDescription = description
+        }
+        
         rpcSetting.option = option.rpcOption
         
         return rpcSetting
@@ -388,7 +392,7 @@ public struct Setting: Equatable {
     
     public static func == (lhs: Setting, rhs: Setting) -> Bool {
         return lhs.id == rhs.id
-            && lhs.description == rhs.description
+//            && lhs.description == rhs.description
             && lhs.option == rhs.option
     }
 }
@@ -396,9 +400,9 @@ public struct Setting: Equatable {
 // MARK: - Option
 public struct Option: Equatable {
     public let id: String
-    public let description: String
+    public let description: String?
     
-    public init(id: String, description: String) {
+    public init(id: String, description: String? = nil) {
         self.id = id
         self.description = description
     }
@@ -409,20 +413,24 @@ public struct Option: Equatable {
     }
     
     internal static func translateFromRPC(_ rpcOption: DronecodeSdk_Rpc_Camera_Option) -> Option {
-        return Option(id: rpcOption.optionID, description: rpcOption.optionDescription)
+        return Option(id: rpcOption.optionID,
+                      description: rpcOption.optionDescription)
     }
     
     internal var rpcOption: DronecodeSdk_Rpc_Camera_Option {
         var rpcOption = DronecodeSdk_Rpc_Camera_Option()
         rpcOption.optionID = id
-        rpcOption.optionDescription = description
         
+        if let description = description {
+            rpcOption.optionDescription = description
+        }
+
         return rpcOption
     }
     
     public static func == (lhs: Option, rhs: Option) -> Bool {
         return lhs.id == rhs.id
-        && lhs.description == rhs.description
+//        && lhs.description == rhs.description
     }
 }
 
