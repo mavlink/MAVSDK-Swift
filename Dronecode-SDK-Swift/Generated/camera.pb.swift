@@ -50,19 +50,6 @@ enum DronecodeSdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Camera_CameraMode: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_CameraMode] = [
-    .unknown,
-    .photo,
-    .video,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct DronecodeSdk_Rpc_Camera_TakePhotoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -607,24 +594,6 @@ struct DronecodeSdk_Rpc_Camera_CameraResult {
   init() {}
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Camera_CameraResult.Result: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_CameraResult.Result] = [
-    .unknown,
-    .success,
-    .inProgress,
-    .busy,
-    .denied,
-    .error,
-    .timeout,
-    .wrongArgument,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -787,18 +756,6 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfo {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
-    .notRunning,
-    .inProgress,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct DronecodeSdk_Rpc_Camera_CameraStatus {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -852,19 +809,6 @@ struct DronecodeSdk_Rpc_Camera_CameraStatus {
   init() {}
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus] = [
-    .notAvailable,
-    .unformatted,
-    .formatted,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct DronecodeSdk_Rpc_Camera_Setting {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -873,6 +817,11 @@ struct DronecodeSdk_Rpc_Camera_Setting {
   var settingID: String {
     get {return _storage._settingID}
     set {_uniqueStorage()._settingID = newValue}
+  }
+
+  var settingDescription: String {
+    get {return _storage._settingDescription}
+    set {_uniqueStorage()._settingDescription = newValue}
   }
 
   var option: DronecodeSdk_Rpc_Camera_Option {
@@ -897,6 +846,8 @@ struct DronecodeSdk_Rpc_Camera_Option {
   // methods supported on all messages.
 
   var optionID: String = String()
+
+  var optionDescription: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2624,11 +2575,13 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
   static let protoMessageName: String = _protobuf_package + ".Setting"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "setting_id"),
-    2: .same(proto: "option"),
+    2: .standard(proto: "setting_description"),
+    3: .same(proto: "option"),
   ]
 
   fileprivate class _StorageClass {
     var _settingID: String = String()
+    var _settingDescription: String = String()
     var _option: DronecodeSdk_Rpc_Camera_Option? = nil
 
     static let defaultInstance = _StorageClass()
@@ -2637,6 +2590,7 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
 
     init(copying source: _StorageClass) {
       _settingID = source._settingID
+      _settingDescription = source._settingDescription
       _option = source._option
     }
   }
@@ -2654,7 +2608,8 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularStringField(value: &_storage._settingID)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._option)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._settingDescription)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._option)
         default: break
         }
       }
@@ -2666,8 +2621,11 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
       if !_storage._settingID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._settingID, fieldNumber: 1)
       }
+      if !_storage._settingDescription.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._settingDescription, fieldNumber: 2)
+      }
       if let v = _storage._option {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2679,6 +2637,7 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
         let _storage = _args.0
         let other_storage = _args.1
         if _storage._settingID != other_storage._settingID {return false}
+        if _storage._settingDescription != other_storage._settingDescription {return false}
         if _storage._option != other_storage._option {return false}
         return true
       }
@@ -2693,12 +2652,14 @@ extension DronecodeSdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._
   static let protoMessageName: String = _protobuf_package + ".Option"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "option_id"),
+    2: .standard(proto: "option_description"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.optionID)
+      case 2: try decoder.decodeSingularStringField(value: &self.optionDescription)
       default: break
       }
     }
@@ -2708,11 +2669,15 @@ extension DronecodeSdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.optionID.isEmpty {
       try visitor.visitSingularStringField(value: self.optionID, fieldNumber: 1)
     }
+    if !self.optionDescription.isEmpty {
+      try visitor.visitSingularStringField(value: self.optionDescription, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_Option) -> Bool {
     if self.optionID != other.optionID {return false}
+    if self.optionDescription != other.optionDescription {return false}
     if unknownFields != other.unknownFields {return false}
     return true
   }

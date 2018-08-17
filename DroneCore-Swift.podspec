@@ -5,7 +5,7 @@
 # Any lines starting with a # are optional
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 
-currentVersion = '0.1.1'
+currentVersion = '0.2.0'
 
 Pod::Spec.new do |spec|
   spec.name             = "DroneCore-Swift"
