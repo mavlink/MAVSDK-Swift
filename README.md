@@ -1,42 +1,36 @@
-# DroneCore-Swift SDK for iOS
+# Building Dronecode-SDK-Swift
 
-## Include the SDK for iOS in an Existing Application
+## Install dependencies
 
-### CocoaPods
+### Cocoapods dependencies
 
-1. The DroneCore-Swift SDK for iOS is available through [CocoaPods](http://cocoapods.org). CocoaPods can be installed with the following commands:
+Run the following command from the root of the SDK:
 
-        $ gem install cocoapods
-        $ pod setup
+```
+pod install
+```
 
-2. In your project directory (the directory where your `*.xcodeproj` file is), create a plain text file named `Podfile` (without any file extension) and add the lines below. Replace `YourTarget` with your actual target name.
+### Vendor dependencies
 
-        source 'https://github.com/CocoaPods/Specs.git'
-        
-        platform :ios, '8.0'
-        use_frameworks!
-        
-        target :'YourTarget' do
-            pod 'DroneCore-Swift', '= 0.1.0'
-        end
-        
-3. Then run the following command:
-    
-        $ pod install
+The backend framework needs to be fetched (and will end up in `bin/`):
 
-4. Open up `*.xcworkspace` with Xcode and start using the SDK.
+```
+bash fetch_backend.bash
+```
 
+## Build SDK framework
 
-## Update the SDK to a Newer Version
+Dronecode-SDK-Swift depends on gRPC and RxSwift (installation is described above). It can be opened in Xcode (open the workspace created by Cocoapods), or built with the following command:
 
-When we release a new version of the SDK, you can pick up the changes as described below.
+```
+bash build_dronecode_sdk.bash
+```
 
-### CocoaPods
+## Publishing archives to Amazon S3
 
-1. Update the version number in your Podfile.
+With the right permissions, one can publish a release to Amazon S3 with the following commands:
 
-2. Run the following command in your project directory. CocoaPods automatically picks up the new changes.
-
-        $ pod update
-
-    **Note**: If your pod is having an issue, you can delete `Podfile.lock` and `Pods/` then run `pod install` to cleanly install the SDK.
+```
+bash create_archives.bash
+bash push_archives_to_s3.bash
+```
