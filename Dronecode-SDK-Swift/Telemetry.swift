@@ -213,7 +213,9 @@ public class Telemetry {
             }
 
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     private func createInAirObservable() -> Observable<Bool> {
@@ -230,7 +232,9 @@ public class Telemetry {
             }
 
             return Disposables.create {}
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     private func createArmedObservable() -> Observable<Bool> {
@@ -247,7 +251,9 @@ public class Telemetry {
             }
 
             return Disposables.create {}
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createHealthObservable() -> Observable<Health> {
@@ -266,7 +272,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createBatteryObservable() -> Observable<Battery> {
@@ -285,7 +293,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
@@ -305,7 +315,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
@@ -325,7 +337,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
@@ -345,7 +359,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
@@ -365,7 +381,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createHomePositionObservable() -> Observable<Position> {
@@ -383,7 +401,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createGPSInfoObservable() -> Observable<GPSInfo> {
@@ -401,7 +421,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createFlightModeObservable() -> Observable<eDroneCoreFlightMode> {
@@ -419,7 +441,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createGroundSpeedNEDObservable() -> Observable<GroundSpeedNED> {
@@ -437,7 +461,9 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createRCStatusObservable() -> Observable<RCStatus> {
@@ -455,7 +481,8 @@ public class Telemetry {
             }
             
             return Disposables.create()
-            }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
-    
 }

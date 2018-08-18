@@ -9,6 +9,7 @@ class ActionTest: XCTestCase {
     let ARBITRARY_ALTITUDE: Float = 123.5
     let ARBITRARY_SPEED: Float = 321.5
     
+    let scheduler = MainScheduler.instance
     let actionResultsArray: [DronecodeSdk_Rpc_Action_ActionResult.Result] = [.busy, .commandDenied, .commandDeniedNotLanded, .commandDeniedLandedStateUnknown, .connectionError, .noSystem, .noVtolTransitionSupport, .timeout, .unknown, .vtolTransitionSupportUnknown]
     
     // MARK: - ARM
@@ -27,7 +28,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_ArmResponse()
         response.actionResult.result = result
         fakeService.armResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.arm().toBlocking().materialize()
     }
@@ -48,7 +49,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_DisarmResponse()
         response.actionResult.result = result
         fakeService.disarmResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.disarm().toBlocking().materialize()
     }
@@ -69,7 +70,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_KillResponse()
         response.actionResult.result = result
         fakeService.killResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.kill().toBlocking().materialize()
     }
@@ -90,7 +91,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_ReturnToLaunchResponse()
         response.actionResult.result = result
         fakeService.returnToLaunchResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.returnToLaunch().toBlocking().materialize()
     }
@@ -111,7 +112,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse()
         response.actionResult.result = result
         fakeService.transitionToFixedWingResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.transitionToFixedWing().toBlocking().materialize()
     }
@@ -132,7 +133,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse()
         response.actionResult.result = result
         fakeService.transitionToMulticopterResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.transitionToMulticopter().toBlocking().materialize()
     }
@@ -145,7 +146,7 @@ class ActionTest: XCTestCase {
         var response = DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse()
         response.altitude = expectedAltitude
         fakeService.getTakeoffAltitudeResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         _ = client.getTakeoffAltitude().subscribe { event in
             switch event {
@@ -168,7 +169,7 @@ class ActionTest: XCTestCase {
         let response = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse()
         
         fakeService.setTakeoffAltitudeResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.setTakeoffAltitude(altitude: 20.0).toBlocking().materialize()
     }
@@ -182,7 +183,7 @@ class ActionTest: XCTestCase {
         response.speed = expectedSpeed
         
         fakeService.getMaximumSpeedResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         _ = client.getMaximumSpeed().subscribe { event in
             switch event {
@@ -204,7 +205,7 @@ class ActionTest: XCTestCase {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
         let response = DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse()
         fakeService.setMaximumSpeedResponses.append(response)
-        let client = Action(service: fakeService)
+        let client = Action(service: fakeService, scheduler: scheduler)
         
         return client.setMaximumSpeed(speed: 20.0).toBlocking().materialize()
     }

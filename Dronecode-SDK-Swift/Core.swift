@@ -59,7 +59,9 @@ public class Core {
             }
             
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createDiscoverObservable() -> Observable<UInt64> {
@@ -76,7 +78,9 @@ public class Core {
             }
 
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     private func createTimeoutObservable() -> Observable<Void> {
@@ -93,7 +97,9 @@ public class Core {
             }
 
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createRunningPluginsObservable() -> Observable<PluginInfo> {
@@ -110,5 +116,7 @@ public class Core {
             observer.onCompleted()
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 }

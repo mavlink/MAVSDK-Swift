@@ -91,7 +91,7 @@ class CameraTest: XCTestCase {
         fakeService.startVideoResponses.append(response)
         
         let client = Camera(service: fakeService, scheduler: scheduler)
-
+        
         return client.startVideo().toBlocking().materialize()
     }
     
@@ -103,7 +103,7 @@ class CameraTest: XCTestCase {
     
     // MARK: - Stop Video
     func testStopVideo() {
-       assertSuccess(result: stopPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
+        assertSuccess(result: stopPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
     }
     
     func stopVideoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
@@ -114,7 +114,7 @@ class CameraTest: XCTestCase {
         fakeService.stopVideoResponses.append(response)
         
         let client = Camera(service: fakeService, scheduler: scheduler)
-
+        
         return client.stopVideo().toBlocking().materialize()
     }
     
@@ -160,7 +160,7 @@ class CameraTest: XCTestCase {
         fakeService.stopVideoStreamingResponses.append(response)
         
         let client = Camera(service: fakeService, scheduler: scheduler)
-
+        
         return client.stopVideoStreaming().toBlocking().materialize()
     }
     
@@ -193,7 +193,7 @@ class CameraTest: XCTestCase {
     
     func testSetModeFail() {
         let cameraModeArray: [CameraMode] = [.unknown, .photo, .video]
-
+        
         cameraResultsArray.forEach { result in
             cameraModeArray.forEach { mode in
                 assertFailure(result: setModeWithFakeResult(mode: mode, result: result))
@@ -215,7 +215,7 @@ class CameraTest: XCTestCase {
         let _ = camera.cameraModeObservable.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
-
+        
         XCTAssertEqual(1, observer.events.count)
     }
     
@@ -233,7 +233,7 @@ class CameraTest: XCTestCase {
         cameraModeStates.append(createRPCCameraMode(status: .photo))
         cameraModeStates.append(createRPCCameraMode(status: .video))
         cameraModeStates.append(createRPCCameraMode(status: .unknown))
-
+        
         checkSubscribeModeReceivesEvents(cameraModeStates: cameraModeStates)
     }
     
@@ -246,7 +246,7 @@ class CameraTest: XCTestCase {
             fakeCall.outputs.append(createCameraModeResponse(cameraMode: $0))
         }
         fakeService.subscribeModeCalls.append(fakeCall)
-
+        
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(CameraMode.self)
@@ -281,17 +281,16 @@ class CameraTest: XCTestCase {
     
     // MARK: - Set Video Stream Settings
     func testSetVideoStreamSettings() {
-        assertSuccess(result: setVideoStreamSettingsWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
+        let videoStreamSettings = VideoStreamSettings(frameRateHz: 4.5, horizontalResolutionPix: 32, verticalResolutionPix: 32, bitRateBS: 32, rotationDegree: 32, uri: "testUri") // Random values
+        assertSuccess(result: setVideoStreamSettingsWithFakeResult(videoStreamSettings: videoStreamSettings, result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
     }
-
-    func setVideoStreamSettingsWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
+    
+    func setVideoStreamSettingsWithFakeResult(videoStreamSettings: VideoStreamSettings, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
         let response = DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse()
         
         fakeService.setVideoStreamSettingsResponses.append(response)
         let client = Camera(service: fakeService, scheduler: scheduler)
-        
-        let videoStreamSettings = VideoStreamSettings(frameRateHz: 4.5, horizontalResolutionPix: 32, verticalResolutionPix: 32, bitRateBS: 32, rotationDegree: 32, uri: "testUri") // Random values
         
         return client.setVideoStreamSettings(settings: videoStreamSettings).toBlocking().materialize()
     }
@@ -313,7 +312,7 @@ class CameraTest: XCTestCase {
         
         XCTAssertEqual(1, observer.events.count)
     }
-
+    
     // One Event
     func testVideoStreamInfoObservableReceivesOneEvent() {
         let videoStreamInfo = createRPCVideoStreamInfo(status: .inProgress)
@@ -451,34 +450,305 @@ class CameraTest: XCTestCase {
     
     func generateRandomCaptureInfo() -> CaptureInfo {
         
-        let randomBool = {
-            return arc4random_uniform(2) == 0
-        }
-        
-        let randomString = { () -> String in
-            // Source: https://learnappmaking.com/random-numbers-swift/
-            let n = 10
-            
-            let a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-            var s = ""
-            
-            for _ in 0..<n {
-                let r = Int(arc4random_uniform(UInt32(a.count)))
-                s += String(a[a.index(a.startIndex, offsetBy: r)])
-            }
-            
-            return s
-        }
-        
-        let randomNumber = {
-            return arc4random_uniform(10000)
-        }
-        
         let position = Position(latitudeDeg: Double(randomNumber()), longitudeDeg: Double(randomNumber()), absoluteAltitudeM: Float(randomNumber()), relativeAltitudeM: Float(randomNumber()))
         let quaternion = Quaternion(w: Float(randomNumber()), x: Float(randomNumber()), y: Float(randomNumber()), z: Float(randomNumber()))
         let captureInfo = CaptureInfo(position: position, quaternion: quaternion, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()).rpcCaptureInfo
         
         return CaptureInfo.translateFromRPC(captureInfo)
+    }
+    
+    // MARK: - Subscribe Camera Status
+    // No events
+    func testCameraStatusEmitsNothingWhenNoEvents() {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallTestStub()
+        fakeService.subscribeCameraStatusCalls.append(fakeCall)
+        
+        let camera = Camera(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(CameraStatus.self)
+        
+        let _ = camera.cameraStatusObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        XCTAssertEqual(1, observer.events.count)
+    }
+    
+    // One Event
+    func testCameraStatusRecievesOneEvent() {
+        let cameraStatus = CameraStatus(videoOn: true,
+                                        photoIntervalOn: false,
+                                        usedStorageMib: 100.0,
+                                        availableStorageMib: 200.0,
+                                        totalStorageMib: 300.0,
+                                        storageStatus: .formatted).rpcCameraStatus
+        
+        let cameraStatusArray = [cameraStatus]
+        checkCameraStatusRecievesEvents(cameraStatus: cameraStatusArray)
+    }
+    
+    // Multiple Events
+    func testCameraStatusReceivesMultipleEvents() {
+        var cameraStatusEvents = [DronecodeSdk_Rpc_Camera_CameraStatus]()
+        
+        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
+        
+        checkCameraStatusRecievesEvents(cameraStatus: cameraStatusEvents)
+    }
+    
+    // Generic Methods
+    func checkCameraStatusRecievesEvents(cameraStatus: [DronecodeSdk_Rpc_Camera_CameraStatus]) {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallTestStub()
+        
+        cameraStatus.forEach {
+            fakeCall.outputs.append(createCameraStatusResponse(cameraStatus: $0))
+        }
+        fakeService.subscribeCameraStatusCalls.append(fakeCall)
+        
+        let camera = Camera(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver(CameraStatus.self)
+        
+        let _ = camera.cameraStatusObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<CameraStatus>>]()
+        cameraStatus.forEach {
+            expectedEvents.append(next(0, CameraStatus.translateFromRPC($0)))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func createCameraStatusResponse(cameraStatus: DronecodeSdk_Rpc_Camera_CameraStatus) -> DronecodeSdk_Rpc_Camera_CameraStatusResponse {
+        var response = DronecodeSdk_Rpc_Camera_CameraStatusResponse()
+        response.cameraStatus = cameraStatus
+        
+        return response
+    }
+    
+    func generateRandomCameraStaus() -> CameraStatus {
+        
+        let storageStatusArray: [StorageStatus] = [.formatted, .unformatted, .notAvailable]
+        let randomIndex = Int(arc4random_uniform(UInt32(storageStatusArray.count)))
+        
+        return CameraStatus(videoOn: randomBool(),
+                            photoIntervalOn: randomBool(),
+                            usedStorageMib: Float(randomNumber()),
+                            availableStorageMib: Float(randomNumber()),
+                            totalStorageMib: Float(randomNumber()),
+                            storageStatus: storageStatusArray[randomIndex])
+    }
+    
+    // MARK: - Subscribe Current Settings
+    // No Events
+    func testCurrentSettingsEmitsNothingWhenNoEvents() {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallTestStub()
+        fakeService.subscribeCurrentSettingsCalls.append(fakeCall)
+        
+        let camera = Camera(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver([Setting].self)
+        
+        let _ = camera.currentSettingsObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        XCTAssertEqual(1, observer.events.count)
+    }
+    
+    // One Event
+    func testCurrentSettingsReceivesOneEvent() {
+        let option = Option(id: randomString())
+        let currentSettings = Setting(id: randomString(), option: option).rpcSetting
+        
+        let currentSettingsArray = [currentSettings]
+        checkCurrentSettingsReceivesEvents(currentSettings: currentSettingsArray)
+    }
+    
+    // Multiple Events
+    func testCurrentSettingsReceivesMultipleEvents() {
+        var currentSettingsEvents = [[DronecodeSdk_Rpc_Camera_Setting]]()
+        
+        currentSettingsEvents.append(generateRandomCurrentSettings())
+        currentSettingsEvents.append(generateRandomCurrentSettings())
+        currentSettingsEvents.append(generateRandomCurrentSettings())
+        currentSettingsEvents.append(generateRandomCurrentSettings())
+        
+        currentSettingsEvents.forEach {
+            checkCurrentSettingsReceivesEvents(currentSettings: $0)
+        }
+    }
+    
+    // Generic Methods
+    func checkCurrentSettingsReceivesEvents(currentSettings: [DronecodeSdk_Rpc_Camera_Setting]) {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallTestStub()
+        
+        currentSettings.forEach {
+            fakeCall.outputs.append(createCurrentSettingsResponse(currentSettings: [$0]))
+        }
+        fakeService.subscribeCurrentSettingsCalls.append(fakeCall)
+        
+        let camera = Camera(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver([Setting].self)
+        
+        let _ = camera.currentSettingsObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<[Setting]>>]()
+        currentSettings.forEach {
+            expectedEvents.append(next(0, [Setting.translateFromRPC($0)]))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func createCurrentSettingsResponse(currentSettings: [DronecodeSdk_Rpc_Camera_Setting]) -> DronecodeSdk_Rpc_Camera_CurrentSettingsResponse {
+        var response = DronecodeSdk_Rpc_Camera_CurrentSettingsResponse()
+        response.currentSettings = currentSettings
+        
+        return response
+    }
+    
+    func generateRandomCurrentSettings() -> [DronecodeSdk_Rpc_Camera_Setting] {
+        var randomSettings: [DronecodeSdk_Rpc_Camera_Setting] = []
+        
+        for _ in 0...Int(randomNumber()) {
+            let randomOption = Option(id: randomString())
+            randomSettings.append(Setting(id: randomString(), option: randomOption).rpcSetting)
+        }
+        
+        return randomSettings
+    }
+    
+    // MARK: - Subscribe Possible SettingsOptions
+    // No Events
+    func testPossibleSettingOptionsEmitsNothingWhenNoEvents() {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCallTestStub()
+        fakeService.subscribePossibleSettingOptionsCalls.append(fakeCall)
+        
+        let camera = Camera(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver([SettingOptions].self)
+        
+        let _ = camera.possibleSettingOptionsObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        XCTAssertEqual(1, observer.events.count)
+    }
+    
+    // One Event
+    func testPossibleSettingOptionsReceivesOneEvent() {
+        let option = Option(id: randomString())
+        let possibleSettingOptions = SettingOptions(settingId: randomString(), options: [option]).rpcSettingOptions
+        
+        let possibleSettingOptionsArray = [possibleSettingOptions]
+        checkPossibleSettingOptionsReceivesEvents(possibleSettingOptions: possibleSettingOptionsArray)
+    }
+    
+    // Multiple Events
+    func testPossibleSettingOptionMultipleEvents() {
+        var possibleSettingOptionsEvents = [[DronecodeSdk_Rpc_Camera_SettingOptions]]()
+        
+        possibleSettingOptionsEvents.append(generateRandomPossibleSettingOptions())
+        possibleSettingOptionsEvents.append(generateRandomPossibleSettingOptions())
+        possibleSettingOptionsEvents.append(generateRandomPossibleSettingOptions())
+        possibleSettingOptionsEvents.append(generateRandomPossibleSettingOptions())
+        
+        possibleSettingOptionsEvents.forEach {
+            checkPossibleSettingOptionsReceivesEvents(possibleSettingOptions: $0)
+        }
+    }
+    
+    // Generic Methods
+    func checkPossibleSettingOptionsReceivesEvents(possibleSettingOptions: [DronecodeSdk_Rpc_Camera_SettingOptions]) {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCallTestStub()
+        
+        possibleSettingOptions.forEach {
+            fakeCall.outputs.append(createPossibleSettingOptionsResponse(possibleSettingOptions: [$0]))
+        }
+        fakeService.subscribePossibleSettingOptionsCalls.append(fakeCall)
+        
+        let camera = Camera(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let observer = scheduler.createObserver([SettingOptions].self)
+        
+        let _ = camera.possibleSettingOptionsObservable.subscribe(observer)
+        scheduler.start()
+        observer.onCompleted()
+        
+        var expectedEvents = [Recorded<Event<[SettingOptions]>>]()
+        possibleSettingOptions.forEach {
+            expectedEvents.append(next(0, [SettingOptions.translateFromRPC($0)]))
+        }
+        expectedEvents.append(completed(0))
+        
+        XCTAssertEqual(expectedEvents.count, observer.events.count)
+        XCTAssertEqual(observer.events, expectedEvents)
+    }
+    
+    func createPossibleSettingOptionsResponse(possibleSettingOptions: [DronecodeSdk_Rpc_Camera_SettingOptions]) -> DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse {
+        var response = DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse()
+        response.settingOptions = possibleSettingOptions
+        
+        return response
+    }
+    
+    func generateRandomPossibleSettingOptions() -> [DronecodeSdk_Rpc_Camera_SettingOptions] {
+        
+        var possibleSettingOptions: [DronecodeSdk_Rpc_Camera_SettingOptions] = []
+        
+        for _ in 0...Int(randomNumber()) {
+            var options: [Option] = []
+            options.append(Option(id: randomString()))
+            options.append(Option(id: randomString()))
+            possibleSettingOptions.append(SettingOptions(settingId: randomString(), options: options).rpcSettingOptions)
+        }
+        
+        return possibleSettingOptions
+    }
+    
+    // MARK: - Set Setting
+    func testSetSetting() {
+        let option = Option(id: randomString())
+        let setting: Setting = Setting(id: randomString(), option: option)
+        
+        assertSuccess(result: setSettingWithFakeResult(setting: setting, result:  DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
+    }
+    
+    func setSettingWithFakeResult(setting: Setting, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Camera_SetSettingResponse()
+        
+        response.cameraResult.result = result
+        fakeService.setSettingResponses.append(response)
+        
+        let client = Camera(service: fakeService, scheduler: scheduler)
+        
+        return client.setSetting(setting: setting).toBlocking().materialize()
+    }
+    
+    func testSetSettingFail() {
+        let option = Option(id: randomString())
+        let setting: Setting = Setting(id: randomString(), option: option)
+        
+        cameraResultsArray.forEach { result in
+            assertFailure(result: setSettingWithFakeResult(setting: setting, result: result))
+        }
     }
     
     // MARK: - Utils
@@ -498,5 +768,28 @@ class CameraTest: XCTestCase {
         case .failed:
             break
         }
+    }
+    
+    let randomBool = {
+        return arc4random_uniform(2) == 0
+    }
+    
+    let randomString = { () -> String in
+        // Source: https://learnappmaking.com/random-numbers-swift/
+        let n = 10
+        
+        let a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+        var s = ""
+        
+        for _ in 0..<n {
+            let r = Int(arc4random_uniform(UInt32(a.count)))
+            s += String(a[a.index(a.startIndex, offsetBy: r)])
+        }
+        
+        return s
+    }
+    
+    let randomNumber = {
+        return arc4random_uniform(10000)
     }
 }

@@ -7,14 +7,18 @@ extension String: Error {
 
 public class Action {
     private let service: DronecodeSdk_Rpc_Action_ActionServiceService
+    let scheduler: SchedulerType
 
     public convenience init(address: String, port: Int) {
         let service = DronecodeSdk_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
-        self.init(service: service)
+        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+        
+        self.init(service: service, scheduler: scheduler)
     }
     
-    init(service: DronecodeSdk_Rpc_Action_ActionServiceService) {
+    init(service: DronecodeSdk_Rpc_Action_ActionServiceService, scheduler: SchedulerType) {
         self.service = service
+        self.scheduler = scheduler
     }
 
     public func arm() -> Completable {
@@ -33,7 +37,9 @@ public class Action {
             }
             
             return Disposables.create()
-        }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     public func disarm() -> Completable {
@@ -53,6 +59,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func takeoff() -> Completable {
@@ -72,6 +80,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func land() -> Completable {
@@ -91,6 +101,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func kill() -> Completable {
@@ -110,6 +122,8 @@ public class Action {
 
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func returnToLaunch() -> Completable {
@@ -129,6 +143,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func transitionToFixedWing() -> Completable {
@@ -148,6 +164,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func transitionToMulticopter() -> Completable {
@@ -167,6 +185,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     
@@ -183,6 +203,8 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func setTakeoffAltitude(altitude: Float) -> Completable {
@@ -199,6 +221,8 @@ public class Action {
 
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func getMaximumSpeed() -> Single<Float> {
@@ -214,6 +238,9 @@ public class Action {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
+        
     }
     
     public func setMaximumSpeed(speed: Float) -> Completable {
@@ -230,6 +257,8 @@ public class Action {
 
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
 }

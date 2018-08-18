@@ -163,6 +163,8 @@ public class Mission {
 
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func downloadMission() -> Single<[MissionItem]> {
@@ -182,6 +184,8 @@ public class Mission {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 
     public func startMission() -> Completable {
@@ -201,6 +205,8 @@ public class Mission {
 
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func pauseMission() -> Completable {
@@ -220,6 +226,8 @@ public class Mission {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func setCurrentMissionItemIndex(_ index: Int) -> Completable {
@@ -236,6 +244,8 @@ public class Mission {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func getCurrentMissionItemIndex() -> Single<Int> {
@@ -251,6 +261,8 @@ public class Mission {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func getMissionCount() -> Single<Int> {
@@ -266,6 +278,8 @@ public class Mission {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     public func isMissionFinished() -> Single<Bool> {
@@ -280,6 +294,8 @@ public class Mission {
             
             return Disposables.create()
         }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
@@ -296,6 +312,8 @@ public class Mission {
                 observer.onError("Failed to subscribe to discovery stream")
             }
             return Disposables.create()
-        }.subscribeOn(self.scheduler)
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
 }
