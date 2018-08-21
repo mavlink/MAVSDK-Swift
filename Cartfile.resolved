@@ -1,3 +1,3 @@
-binary "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/backend.json" "0.0.2"
+binary "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/backend.json" "0.1.0"
 github "ReactiveX/RxSwift" "4.0.0"
-github "grpc/grpc-swift" "89d0aa2a9449cc990f6fdfbae584aad78a94a881"
+github "grpc/grpc-swift" "5c11a4451e4f5f0c4bda26f939a7134f4609fad9"
