@@ -364,22 +364,6 @@ struct DronecodeSdk_Rpc_Mission_MissionItem {
   init() {}
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Mission_MissionItem.CameraAction: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Mission_MissionItem.CameraAction] = [
-    .none,
-    .takePhoto,
-    .startPhotoInterval,
-    .stopPhotoInterval,
-    .startVideo,
-    .stopVideo,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 struct DronecodeSdk_Rpc_Mission_MissionResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -451,28 +435,6 @@ struct DronecodeSdk_Rpc_Mission_MissionResult {
 
   init() {}
 }
-
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Mission_MissionResult.Result: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Mission_MissionResult.Result] = [
-    .unknown,
-    .success,
-    .error,
-    .tooManyMissionItems,
-    .busy,
-    .timeout,
-    .invalidArgument,
-    .unsupported,
-    .noMissionAvailable,
-    .failedToOpenQgcPlan,
-    .failedToParseQgcPlan,
-    .unsupportedMissionCmd,
-  ]
-}
-
-#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 

@@ -477,28 +477,6 @@ struct DronecodeSdk_Rpc_Action_ActionResult {
   init() {}
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Action_ActionResult.Result: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Action_ActionResult.Result] = [
-    .unknown,
-    .success,
-    .noSystem,
-    .connectionError,
-    .busy,
-    .commandDenied,
-    .commandDeniedLandedStateUnknown,
-    .commandDeniedNotLanded,
-    .timeout,
-    .vtolTransitionSupportUnknown,
-    .noVtolTransitionSupport,
-    .parameterError,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "dronecode_sdk.rpc.action"

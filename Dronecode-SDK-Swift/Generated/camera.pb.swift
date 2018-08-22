@@ -861,6 +861,8 @@ struct DronecodeSdk_Rpc_Camera_SettingOptions {
 
   var settingID: String = String()
 
+  var settingDescription: String = String()
+
   var options: [DronecodeSdk_Rpc_Camera_Option] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -2687,14 +2689,16 @@ extension DronecodeSdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftPr
   static let protoMessageName: String = _protobuf_package + ".SettingOptions"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "setting_id"),
-    2: .same(proto: "options"),
+    2: .standard(proto: "setting_description"),
+    3: .same(proto: "options"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.settingID)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.options)
+      case 2: try decoder.decodeSingularStringField(value: &self.settingDescription)
+      case 3: try decoder.decodeRepeatedMessageField(value: &self.options)
       default: break
       }
     }
@@ -2704,14 +2708,18 @@ extension DronecodeSdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftPr
     if !self.settingID.isEmpty {
       try visitor.visitSingularStringField(value: self.settingID, fieldNumber: 1)
     }
+    if !self.settingDescription.isEmpty {
+      try visitor.visitSingularStringField(value: self.settingDescription, fieldNumber: 2)
+    }
     if !self.options.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.options, fieldNumber: 2)
+      try visitor.visitRepeatedMessageField(value: self.options, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SettingOptions) -> Bool {
     if self.settingID != other.settingID {return false}
+    if self.settingDescription != other.settingDescription {return false}
     if self.options != other.options {return false}
     if unknownFields != other.unknownFields {return false}
     return true
