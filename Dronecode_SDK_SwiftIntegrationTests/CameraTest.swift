@@ -275,6 +275,7 @@ class CameraTest: XCTestCase {
         
         do {
             let currentSettings = try camera.currentSettingsObservable.take(1).toBlocking(timeout: 10).toArray()
+            print(currentSettings)
         } catch {
             XCTFail("SubscribeCurrentSettings is expected to receive 1 events in 10 seconds, but it did not!")
         }
@@ -287,6 +288,7 @@ class CameraTest: XCTestCase {
         
         do {
             let possibleSettingOptions = try camera.possibleSettingOptionsObservable.take(1).toBlocking(timeout: 5).toArray()
+            print(possibleSettingOptions)
         } catch {
             XCTFail("SubscribePossibleSettingOptions is expected to receive 1 events in 5 seconds, but it did not!")
         }

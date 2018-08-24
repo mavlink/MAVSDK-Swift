@@ -407,7 +407,7 @@ public struct Option: Equatable {
         self.description = description
     }
     
-    public init(id: AnyObject, description: AnyObject) {
+    public init(id: AnyObject, description: AnyObject? = nil) {
         self.id = String(describing: id)
         self.description = String(describing: description)
     }
@@ -430,24 +430,31 @@ public struct Option: Equatable {
     
     public static func == (lhs: Option, rhs: Option) -> Bool {
         return lhs.id == rhs.id
-//        && lhs.description == rhs.description
+        && lhs.description == rhs.description
     }
 }
 
 // MARK: - SettingOptions
 public struct SettingOptions: Equatable {
     public let settingId: String
+    public let settingDescription: String?
     public let options: [Option]
     
-    public init(settingId: String, options: [Option]) {
+    public init(settingId: String, settingDescription: String? = nil, options: [Option]) {
         self.settingId = settingId
         self.options = options
+        self.settingDescription = settingDescription
     }
     
     internal var rpcSettingOptions: DronecodeSdk_Rpc_Camera_SettingOptions {
         var rpcSettingOptions = DronecodeSdk_Rpc_Camera_SettingOptions()
         
         rpcSettingOptions.settingID = settingId
+        
+        if let settingDescription = settingDescription {
+            rpcSettingOptions.settingDescription = settingDescription
+        }
+        
         rpcSettingOptions.options = options.map { $0.rpcOption }
         
         return rpcSettingOptions
@@ -455,6 +462,7 @@ public struct SettingOptions: Equatable {
     
     internal static func translateFromRPC(_ rpcCameraSettingOptions: DronecodeSdk_Rpc_Camera_SettingOptions) -> SettingOptions {
         return SettingOptions(settingId: rpcCameraSettingOptions.settingID,
+                              settingDescription: rpcCameraSettingOptions.settingDescription,
                               options: rpcCameraSettingOptions.options.map { Option.translateFromRPC($0) })
     }
     

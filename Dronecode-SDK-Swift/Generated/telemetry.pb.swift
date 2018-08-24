@@ -62,23 +62,6 @@ enum DronecodeSdk_Rpc_Telemetry_FixType: SwiftProtobuf.Enum {
 
 }
 
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Telemetry_FixType: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Telemetry_FixType] = [
-    .noGps,
-    .noFix,
-    .fix2D,
-    .fix3D,
-    .fixDgps,
-    .rtkFloat,
-    .rtkFixed,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
 enum DronecodeSdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case unknown // = 0
@@ -127,25 +110,6 @@ enum DronecodeSdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
   }
 
 }
-
-#if swift(>=4.2)
-
-extension DronecodeSdk_Rpc_Telemetry_FlightMode: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Telemetry_FlightMode] = [
-    .unknown,
-    .ready,
-    .takeoff,
-    .hold,
-    .mission,
-    .returnToLaunch,
-    .land,
-    .offboard,
-    .followMe,
-  ]
-}
-
-#endif  // swift(>=4.2)
 
 struct DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
