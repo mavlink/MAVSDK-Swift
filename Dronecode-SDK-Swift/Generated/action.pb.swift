@@ -41,7 +41,7 @@ struct DronecodeSdk_Rpc_Action_ArmResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -72,7 +72,7 @@ struct DronecodeSdk_Rpc_Action_DisarmResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -103,7 +103,7 @@ struct DronecodeSdk_Rpc_Action_TakeoffResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -134,7 +134,7 @@ struct DronecodeSdk_Rpc_Action_LandResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -165,7 +165,7 @@ struct DronecodeSdk_Rpc_Action_KillResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -196,7 +196,7 @@ struct DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -227,7 +227,7 @@ struct DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -258,7 +258,7 @@ struct DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -289,7 +289,7 @@ struct DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var altitude: Float {
     get {return _storage._altitude}
@@ -327,7 +327,7 @@ struct DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -358,7 +358,7 @@ struct DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var speed: Float {
     get {return _storage._speed}
@@ -396,7 +396,76 @@ struct DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
   /// Returns true if `actionResult` has been explicitly set.
   var hasActionResult: Bool {return _storage._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_storage._actionResult = nil}
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+    set {_uniqueStorage()._actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return _storage._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
+
+  var relativeAltitudeM: Float {
+    get {return _storage._relativeAltitudeM}
+    set {_uniqueStorage()._relativeAltitudeM = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var relativeAltitudeM: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+    set {_uniqueStorage()._actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return _storage._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -477,6 +546,28 @@ struct DronecodeSdk_Rpc_Action_ActionResult {
   init() {}
 }
 
+#if swift(>=4.2)
+
+extension DronecodeSdk_Rpc_Action_ActionResult.Result: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [DronecodeSdk_Rpc_Action_ActionResult.Result] = [
+    .unknown,
+    .success,
+    .noSystem,
+    .connectionError,
+    .busy,
+    .commandDenied,
+    .commandDeniedLandedStateUnknown,
+    .commandDeniedNotLanded,
+    .timeout,
+    .vtolTransitionSupportUnknown,
+    .noVtolTransitionSupport,
+    .parameterError,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "dronecode_sdk.rpc.action"
@@ -494,8 +585,8 @@ extension DronecodeSdk_Rpc_Action_ArmRequest: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_ArmRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_ArmRequest, rhs: DronecodeSdk_Rpc_Action_ArmRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -546,17 +637,17 @@ extension DronecodeSdk_Rpc_Action_ArmResponse: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_ArmResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_ArmResponse, rhs: DronecodeSdk_Rpc_Action_ArmResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -574,8 +665,8 @@ extension DronecodeSdk_Rpc_Action_DisarmRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_DisarmRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_DisarmRequest, rhs: DronecodeSdk_Rpc_Action_DisarmRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -626,17 +717,17 @@ extension DronecodeSdk_Rpc_Action_DisarmResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_DisarmResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_DisarmResponse, rhs: DronecodeSdk_Rpc_Action_DisarmResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -654,8 +745,8 @@ extension DronecodeSdk_Rpc_Action_TakeoffRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_TakeoffRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_TakeoffRequest, rhs: DronecodeSdk_Rpc_Action_TakeoffRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -706,17 +797,17 @@ extension DronecodeSdk_Rpc_Action_TakeoffResponse: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_TakeoffResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_TakeoffResponse, rhs: DronecodeSdk_Rpc_Action_TakeoffResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -734,8 +825,8 @@ extension DronecodeSdk_Rpc_Action_LandRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_LandRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_LandRequest, rhs: DronecodeSdk_Rpc_Action_LandRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -786,17 +877,17 @@ extension DronecodeSdk_Rpc_Action_LandResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_LandResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_LandResponse, rhs: DronecodeSdk_Rpc_Action_LandResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -814,8 +905,8 @@ extension DronecodeSdk_Rpc_Action_KillRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_KillRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_KillRequest, rhs: DronecodeSdk_Rpc_Action_KillRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -866,17 +957,17 @@ extension DronecodeSdk_Rpc_Action_KillResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_KillResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_KillResponse, rhs: DronecodeSdk_Rpc_Action_KillResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -894,8 +985,8 @@ extension DronecodeSdk_Rpc_Action_ReturnToLaunchRequest: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, rhs: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -946,17 +1037,17 @@ extension DronecodeSdk_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_ReturnToLaunchResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_ReturnToLaunchResponse, rhs: DronecodeSdk_Rpc_Action_ReturnToLaunchResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -974,8 +1065,8 @@ extension DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, rhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1026,17 +1117,17 @@ extension DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse, rhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1054,8 +1145,8 @@ extension DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, rhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1106,17 +1197,17 @@ extension DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse, rhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1134,8 +1225,8 @@ extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1193,18 +1284,18 @@ extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
-        if _storage._altitude != other_storage._altitude {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
+        if _storage._altitude != rhs_storage._altitude {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1231,9 +1322,9 @@ extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) -> Bool {
-    if self.altitude != other.altitude {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) -> Bool {
+    if lhs.altitude != rhs.altitude {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1284,17 +1375,17 @@ extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1312,8 +1403,8 @@ extension DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, rhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1371,18 +1462,18 @@ extension DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse, rhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
-        if _storage._speed != other_storage._speed {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
+        if _storage._speed != rhs_storage._speed {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1409,9 +1500,9 @@ extension DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) -> Bool {
-    if self.speed != other.speed {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, rhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) -> Bool {
+    if lhs.speed != rhs.speed {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1462,17 +1553,195 @@ extension DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse, rhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._actionResult != other_storage._actionResult {return false}
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReturnToLaunchAltitudeRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReturnToLaunchAltitudeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+    2: .standard(proto: "relative_altitude_m"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _relativeAltitudeM: Float = 0
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _actionResult = source._actionResult
+      _relativeAltitudeM = source._relativeAltitudeM
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
+        case 2: try decoder.decodeSingularFloatField(value: &_storage._relativeAltitudeM)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._actionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._relativeAltitudeM != 0 {
+        try visitor.visitSingularFloatField(value: _storage._relativeAltitudeM, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
+        if _storage._relativeAltitudeM != rhs_storage._relativeAltitudeM {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetReturnToLaunchAltitudeRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "relative_altitude_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.relativeAltitudeM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.relativeAltitudeM != 0 {
+      try visitor.visitSingularFloatField(value: self.relativeAltitudeM, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) -> Bool {
+    if lhs.relativeAltitudeM != rhs.relativeAltitudeM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetReturnToLaunchAltitudeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _actionResult = source._actionResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._actionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1504,10 +1773,10 @@ extension DronecodeSdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Action_ActionResult) -> Bool {
-    if self.result != other.result {return false}
-    if self.resultStr != other.resultStr {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Action_ActionResult, rhs: DronecodeSdk_Rpc_Action_ActionResult) -> Bool {
+    if lhs.result != rhs.result {return false}
+    if lhs.resultStr != rhs.resultStr {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

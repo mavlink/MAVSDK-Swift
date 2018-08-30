@@ -116,8 +116,8 @@ extension DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, rhs: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -144,9 +144,9 @@ extension DronecodeSdk_Rpc_Core_DiscoverResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_DiscoverResponse) -> Bool {
-    if self.uuid != other.uuid {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_DiscoverResponse, rhs: DronecodeSdk_Rpc_Core_DiscoverResponse) -> Bool {
+    if lhs.uuid != rhs.uuid {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -164,8 +164,8 @@ extension DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, rhs: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -183,8 +183,8 @@ extension DronecodeSdk_Rpc_Core_TimeoutResponse: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_TimeoutResponse) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_TimeoutResponse, rhs: DronecodeSdk_Rpc_Core_TimeoutResponse) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -202,8 +202,8 @@ extension DronecodeSdk_Rpc_Core_ListRunningPluginsRequest: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, rhs: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -230,9 +230,9 @@ extension DronecodeSdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse) -> Bool {
-    if self.pluginInfo != other.pluginInfo {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse, rhs: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse) -> Bool {
+    if lhs.pluginInfo != rhs.pluginInfo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -269,11 +269,11 @@ extension DronecodeSdk_Rpc_Core_PluginInfo: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Core_PluginInfo) -> Bool {
-    if self.name != other.name {return false}
-    if self.address != other.address {return false}
-    if self.port != other.port {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Core_PluginInfo, rhs: DronecodeSdk_Rpc_Core_PluginInfo) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.address != rhs.address {return false}
+    if lhs.port != rhs.port {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
