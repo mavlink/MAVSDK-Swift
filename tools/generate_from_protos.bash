@@ -5,7 +5,7 @@ set -e
 command -v protoc || { echo >&2 "Protobuf needs to be installed (e.g. '$ brew install protobuf') for this script to run!"; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROTO_DIR="${SCRIPT_DIR}/../proto"
+PROTO_DIR="${SCRIPT_DIR}/../proto/protos"
 OUTPUT_DIR="${SCRIPT_DIR}/../Dronecode-SDK-Swift/Generated"
 
 if [ ! -d ${PROTO_DIR} ]; then

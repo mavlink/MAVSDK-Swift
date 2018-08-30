@@ -50,6 +50,19 @@ enum DronecodeSdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
 
 }
 
+#if swift(>=4.2)
+
+extension DronecodeSdk_Rpc_Camera_CameraMode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [DronecodeSdk_Rpc_Camera_CameraMode] = [
+    .unknown,
+    .photo,
+    .video,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct DronecodeSdk_Rpc_Camera_TakePhotoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -72,7 +85,7 @@ struct DronecodeSdk_Rpc_Camera_TakePhotoResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -105,7 +118,7 @@ struct DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -136,7 +149,7 @@ struct DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -167,7 +180,7 @@ struct DronecodeSdk_Rpc_Camera_StartVideoResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -198,7 +211,7 @@ struct DronecodeSdk_Rpc_Camera_StopVideoResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -229,7 +242,7 @@ struct DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -260,7 +273,7 @@ struct DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -293,7 +306,7 @@ struct DronecodeSdk_Rpc_Camera_SetModeResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -336,7 +349,7 @@ struct DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest {
   /// Returns true if `videoStreamSettings` has been explicitly set.
   var hasVideoStreamSettings: Bool {return _storage._videoStreamSettings != nil}
   /// Clears the value of `videoStreamSettings`. Subsequent reads from it will return its default value.
-  mutating func clearVideoStreamSettings() {_storage._videoStreamSettings = nil}
+  mutating func clearVideoStreamSettings() {_uniqueStorage()._videoStreamSettings = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -377,7 +390,7 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse {
   /// Returns true if `videoStreamInfo` has been explicitly set.
   var hasVideoStreamInfo: Bool {return _storage._videoStreamInfo != nil}
   /// Clears the value of `videoStreamInfo`. Subsequent reads from it will return its default value.
-  mutating func clearVideoStreamInfo() {_storage._videoStreamInfo = nil}
+  mutating func clearVideoStreamInfo() {_uniqueStorage()._videoStreamInfo = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -408,7 +421,7 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfoResponse {
   /// Returns true if `captureInfo` has been explicitly set.
   var hasCaptureInfo: Bool {return _storage._captureInfo != nil}
   /// Clears the value of `captureInfo`. Subsequent reads from it will return its default value.
-  mutating func clearCaptureInfo() {_storage._captureInfo = nil}
+  mutating func clearCaptureInfo() {_uniqueStorage()._captureInfo = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -439,7 +452,7 @@ struct DronecodeSdk_Rpc_Camera_CameraStatusResponse {
   /// Returns true if `cameraStatus` has been explicitly set.
   var hasCameraStatus: Bool {return _storage._cameraStatus != nil}
   /// Clears the value of `cameraStatus`. Subsequent reads from it will return its default value.
-  mutating func clearCameraStatus() {_storage._cameraStatus = nil}
+  mutating func clearCameraStatus() {_uniqueStorage()._cameraStatus = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -504,7 +517,7 @@ struct DronecodeSdk_Rpc_Camera_SetSettingRequest {
   /// Returns true if `setting` has been explicitly set.
   var hasSetting: Bool {return _storage._setting != nil}
   /// Clears the value of `setting`. Subsequent reads from it will return its default value.
-  mutating func clearSetting() {_storage._setting = nil}
+  mutating func clearSetting() {_uniqueStorage()._setting = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -525,7 +538,7 @@ struct DronecodeSdk_Rpc_Camera_SetSettingResponse {
   /// Returns true if `cameraResult` has been explicitly set.
   var hasCameraResult: Bool {return _storage._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
-  mutating func clearCameraResult() {_storage._cameraResult = nil}
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -594,6 +607,24 @@ struct DronecodeSdk_Rpc_Camera_CameraResult {
   init() {}
 }
 
+#if swift(>=4.2)
+
+extension DronecodeSdk_Rpc_Camera_CameraResult.Result: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [DronecodeSdk_Rpc_Camera_CameraResult.Result] = [
+    .unknown,
+    .success,
+    .inProgress,
+    .busy,
+    .denied,
+    .error,
+    .timeout,
+    .wrongArgument,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -606,7 +637,7 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   /// Returns true if `position` has been explicitly set.
   var hasPosition: Bool {return _storage._position != nil}
   /// Clears the value of `position`. Subsequent reads from it will return its default value.
-  mutating func clearPosition() {_storage._position = nil}
+  mutating func clearPosition() {_uniqueStorage()._position = nil}
 
   var quaternion: DronecodeSdk_Rpc_Camera_Quaternion {
     get {return _storage._quaternion ?? DronecodeSdk_Rpc_Camera_Quaternion()}
@@ -615,7 +646,7 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   /// Returns true if `quaternion` has been explicitly set.
   var hasQuaternion: Bool {return _storage._quaternion != nil}
   /// Clears the value of `quaternion`. Subsequent reads from it will return its default value.
-  mutating func clearQuaternion() {_storage._quaternion = nil}
+  mutating func clearQuaternion() {_uniqueStorage()._quaternion = nil}
 
   var timeUtcUs: UInt64 {
     get {return _storage._timeUtcUs}
@@ -714,7 +745,7 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfo {
   /// Returns true if `videoStreamSettings` has been explicitly set.
   var hasVideoStreamSettings: Bool {return _storage._videoStreamSettings != nil}
   /// Clears the value of `videoStreamSettings`. Subsequent reads from it will return its default value.
-  mutating func clearVideoStreamSettings() {_storage._videoStreamSettings = nil}
+  mutating func clearVideoStreamSettings() {_uniqueStorage()._videoStreamSettings = nil}
 
   var videoStreamStatus: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
     get {return _storage._videoStreamStatus}
@@ -756,6 +787,18 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfo {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+#if swift(>=4.2)
+
+extension DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
+    .notRunning,
+    .inProgress,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct DronecodeSdk_Rpc_Camera_CameraStatus {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -770,6 +813,10 @@ struct DronecodeSdk_Rpc_Camera_CameraStatus {
   var availableStorageMib: Float = 0
 
   var totalStorageMib: Float = 0
+
+  var recordingTimeS: Float = 0
+
+  var mediaFolderName: String = String()
 
   var storageStatus: DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus = .notAvailable
 
@@ -809,6 +856,19 @@ struct DronecodeSdk_Rpc_Camera_CameraStatus {
   init() {}
 }
 
+#if swift(>=4.2)
+
+extension DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus] = [
+    .notAvailable,
+    .unformatted,
+    .formatted,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct DronecodeSdk_Rpc_Camera_Setting {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -831,7 +891,7 @@ struct DronecodeSdk_Rpc_Camera_Setting {
   /// Returns true if `option` has been explicitly set.
   var hasOption: Bool {return _storage._option != nil}
   /// Clears the value of `option`. Subsequent reads from it will return its default value.
-  mutating func clearOption() {_storage._option = nil}
+  mutating func clearOption() {_uniqueStorage()._option = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -895,8 +955,8 @@ extension DronecodeSdk_Rpc_Camera_TakePhotoRequest: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_TakePhotoRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_TakePhotoRequest, rhs: DronecodeSdk_Rpc_Camera_TakePhotoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -947,17 +1007,17 @@ extension DronecodeSdk_Rpc_Camera_TakePhotoResponse: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_TakePhotoResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_TakePhotoResponse, rhs: DronecodeSdk_Rpc_Camera_TakePhotoResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -984,9 +1044,9 @@ extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) -> Bool {
-    if self.intervalS != other.intervalS {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, rhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) -> Bool {
+    if lhs.intervalS != rhs.intervalS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1037,17 +1097,17 @@ extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse, rhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1065,8 +1125,8 @@ extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, rhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1117,17 +1177,17 @@ extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse, rhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1145,8 +1205,8 @@ extension DronecodeSdk_Rpc_Camera_StartVideoRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StartVideoRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoRequest, rhs: DronecodeSdk_Rpc_Camera_StartVideoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1197,17 +1257,17 @@ extension DronecodeSdk_Rpc_Camera_StartVideoResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StartVideoResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoResponse, rhs: DronecodeSdk_Rpc_Camera_StartVideoResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1225,8 +1285,8 @@ extension DronecodeSdk_Rpc_Camera_StopVideoRequest: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StopVideoRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoRequest, rhs: DronecodeSdk_Rpc_Camera_StopVideoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1277,17 +1337,17 @@ extension DronecodeSdk_Rpc_Camera_StopVideoResponse: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StopVideoResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoResponse, rhs: DronecodeSdk_Rpc_Camera_StopVideoResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1305,8 +1365,8 @@ extension DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, rhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1357,17 +1417,17 @@ extension DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse, rhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1385,8 +1445,8 @@ extension DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, rhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1437,17 +1497,17 @@ extension DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse, rhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1474,9 +1534,9 @@ extension DronecodeSdk_Rpc_Camera_SetModeRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SetModeRequest) -> Bool {
-    if self.cameraMode != other.cameraMode {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetModeRequest, rhs: DronecodeSdk_Rpc_Camera_SetModeRequest) -> Bool {
+    if lhs.cameraMode != rhs.cameraMode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1527,17 +1587,17 @@ extension DronecodeSdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SetModeResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetModeResponse, rhs: DronecodeSdk_Rpc_Camera_SetModeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1555,8 +1615,8 @@ extension DronecodeSdk_Rpc_Camera_SubscribeModeRequest: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SubscribeModeRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeModeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1583,9 +1643,9 @@ extension DronecodeSdk_Rpc_Camera_ModeResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_ModeResponse) -> Bool {
-    if self.cameraMode != other.cameraMode {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_ModeResponse, rhs: DronecodeSdk_Rpc_Camera_ModeResponse) -> Bool {
+    if lhs.cameraMode != rhs.cameraMode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1636,17 +1696,17 @@ extension DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, rhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._videoStreamSettings != other_storage._videoStreamSettings {return false}
+        let rhs_storage = _args.1
+        if _storage._videoStreamSettings != rhs_storage._videoStreamSettings {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1664,8 +1724,8 @@ extension DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse, rhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1683,8 +1743,8 @@ extension DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1735,17 +1795,17 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse, rhs: DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._videoStreamInfo != other_storage._videoStreamInfo {return false}
+        let rhs_storage = _args.1
+        if _storage._videoStreamInfo != rhs_storage._videoStreamInfo {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1763,8 +1823,8 @@ extension DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1815,17 +1875,17 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_CaptureInfoResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_CaptureInfoResponse, rhs: DronecodeSdk_Rpc_Camera_CaptureInfoResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._captureInfo != other_storage._captureInfo {return false}
+        let rhs_storage = _args.1
+        if _storage._captureInfo != rhs_storage._captureInfo {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1843,8 +1903,8 @@ extension DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1895,17 +1955,17 @@ extension DronecodeSdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_CameraStatusResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_CameraStatusResponse, rhs: DronecodeSdk_Rpc_Camera_CameraStatusResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraStatus != other_storage._cameraStatus {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraStatus != rhs_storage._cameraStatus {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1923,8 +1983,8 @@ extension DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1951,9 +2011,9 @@ extension DronecodeSdk_Rpc_Camera_CurrentSettingsResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_CurrentSettingsResponse) -> Bool {
-    if self.currentSettings != other.currentSettings {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_CurrentSettingsResponse, rhs: DronecodeSdk_Rpc_Camera_CurrentSettingsResponse) -> Bool {
+    if lhs.currentSettings != rhs.currentSettings {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1971,8 +2031,8 @@ extension DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest: SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest) -> Bool {
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -1999,9 +2059,9 @@ extension DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse) -> Bool {
-    if self.settingOptions != other.settingOptions {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse, rhs: DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse) -> Bool {
+    if lhs.settingOptions != rhs.settingOptions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2052,17 +2112,17 @@ extension DronecodeSdk_Rpc_Camera_SetSettingRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SetSettingRequest) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetSettingRequest, rhs: DronecodeSdk_Rpc_Camera_SetSettingRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._setting != other_storage._setting {return false}
+        let rhs_storage = _args.1
+        if _storage._setting != rhs_storage._setting {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2113,17 +2173,17 @@ extension DronecodeSdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SetSettingResponse) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetSettingResponse, rhs: DronecodeSdk_Rpc_Camera_SetSettingResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._cameraResult != other_storage._cameraResult {return false}
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2155,10 +2215,10 @@ extension DronecodeSdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_CameraResult) -> Bool {
-    if self.result != other.result {return false}
-    if self.resultStr != other.resultStr {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_CameraResult, rhs: DronecodeSdk_Rpc_Camera_CameraResult) -> Bool {
+    if lhs.result != rhs.result {return false}
+    if lhs.resultStr != rhs.resultStr {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2257,22 +2317,22 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_CaptureInfo) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_CaptureInfo, rhs: DronecodeSdk_Rpc_Camera_CaptureInfo) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._position != other_storage._position {return false}
-        if _storage._quaternion != other_storage._quaternion {return false}
-        if _storage._timeUtcUs != other_storage._timeUtcUs {return false}
-        if _storage._isSuccess != other_storage._isSuccess {return false}
-        if _storage._index != other_storage._index {return false}
-        if _storage._fileURL != other_storage._fileURL {return false}
+        let rhs_storage = _args.1
+        if _storage._position != rhs_storage._position {return false}
+        if _storage._quaternion != rhs_storage._quaternion {return false}
+        if _storage._timeUtcUs != rhs_storage._timeUtcUs {return false}
+        if _storage._isSuccess != rhs_storage._isSuccess {return false}
+        if _storage._index != rhs_storage._index {return false}
+        if _storage._fileURL != rhs_storage._fileURL {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2314,12 +2374,12 @@ extension DronecodeSdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_Position) -> Bool {
-    if self.latitudeDeg != other.latitudeDeg {return false}
-    if self.longitudeDeg != other.longitudeDeg {return false}
-    if self.absoluteAltitudeM != other.absoluteAltitudeM {return false}
-    if self.relativeAltitudeM != other.relativeAltitudeM {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_Position, rhs: DronecodeSdk_Rpc_Camera_Position) -> Bool {
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
+    if lhs.relativeAltitudeM != rhs.relativeAltitudeM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2361,12 +2421,12 @@ extension DronecodeSdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_Quaternion) -> Bool {
-    if self.w != other.w {return false}
-    if self.x != other.x {return false}
-    if self.y != other.y {return false}
-    if self.z != other.z {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_Quaternion, rhs: DronecodeSdk_Rpc_Camera_Quaternion) -> Bool {
+    if lhs.w != rhs.w {return false}
+    if lhs.x != rhs.x {return false}
+    if lhs.y != rhs.y {return false}
+    if lhs.z != rhs.z {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2418,14 +2478,14 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_VideoStreamSettings) -> Bool {
-    if self.frameRateHz != other.frameRateHz {return false}
-    if self.horizontalResolutionPix != other.horizontalResolutionPix {return false}
-    if self.verticalResolutionPix != other.verticalResolutionPix {return false}
-    if self.bitRateBS != other.bitRateBS {return false}
-    if self.rotationDeg != other.rotationDeg {return false}
-    if self.uri != other.uri {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_VideoStreamSettings, rhs: DronecodeSdk_Rpc_Camera_VideoStreamSettings) -> Bool {
+    if lhs.frameRateHz != rhs.frameRateHz {return false}
+    if lhs.horizontalResolutionPix != rhs.horizontalResolutionPix {return false}
+    if lhs.verticalResolutionPix != rhs.verticalResolutionPix {return false}
+    if lhs.bitRateBS != rhs.bitRateBS {return false}
+    if lhs.rotationDeg != rhs.rotationDeg {return false}
+    if lhs.uri != rhs.uri {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2483,18 +2543,18 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_VideoStreamInfo) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_VideoStreamInfo, rhs: DronecodeSdk_Rpc_Camera_VideoStreamInfo) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._videoStreamSettings != other_storage._videoStreamSettings {return false}
-        if _storage._videoStreamStatus != other_storage._videoStreamStatus {return false}
+        let rhs_storage = _args.1
+        if _storage._videoStreamSettings != rhs_storage._videoStreamSettings {return false}
+        if _storage._videoStreamStatus != rhs_storage._videoStreamStatus {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2514,7 +2574,9 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProt
     3: .standard(proto: "used_storage_mib"),
     4: .standard(proto: "available_storage_mib"),
     5: .standard(proto: "total_storage_mib"),
-    6: .standard(proto: "storage_status"),
+    6: .standard(proto: "recording_time_s"),
+    7: .standard(proto: "media_folder_name"),
+    8: .standard(proto: "storage_status"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2525,7 +2587,9 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProt
       case 3: try decoder.decodeSingularFloatField(value: &self.usedStorageMib)
       case 4: try decoder.decodeSingularFloatField(value: &self.availableStorageMib)
       case 5: try decoder.decodeSingularFloatField(value: &self.totalStorageMib)
-      case 6: try decoder.decodeSingularEnumField(value: &self.storageStatus)
+      case 6: try decoder.decodeSingularFloatField(value: &self.recordingTimeS)
+      case 7: try decoder.decodeSingularStringField(value: &self.mediaFolderName)
+      case 8: try decoder.decodeSingularEnumField(value: &self.storageStatus)
       default: break
       }
     }
@@ -2547,20 +2611,28 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProt
     if self.totalStorageMib != 0 {
       try visitor.visitSingularFloatField(value: self.totalStorageMib, fieldNumber: 5)
     }
+    if self.recordingTimeS != 0 {
+      try visitor.visitSingularFloatField(value: self.recordingTimeS, fieldNumber: 6)
+    }
+    if !self.mediaFolderName.isEmpty {
+      try visitor.visitSingularStringField(value: self.mediaFolderName, fieldNumber: 7)
+    }
     if self.storageStatus != .notAvailable {
-      try visitor.visitSingularEnumField(value: self.storageStatus, fieldNumber: 6)
+      try visitor.visitSingularEnumField(value: self.storageStatus, fieldNumber: 8)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_CameraStatus) -> Bool {
-    if self.videoOn != other.videoOn {return false}
-    if self.photoIntervalOn != other.photoIntervalOn {return false}
-    if self.usedStorageMib != other.usedStorageMib {return false}
-    if self.availableStorageMib != other.availableStorageMib {return false}
-    if self.totalStorageMib != other.totalStorageMib {return false}
-    if self.storageStatus != other.storageStatus {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_CameraStatus, rhs: DronecodeSdk_Rpc_Camera_CameraStatus) -> Bool {
+    if lhs.videoOn != rhs.videoOn {return false}
+    if lhs.photoIntervalOn != rhs.photoIntervalOn {return false}
+    if lhs.usedStorageMib != rhs.usedStorageMib {return false}
+    if lhs.availableStorageMib != rhs.availableStorageMib {return false}
+    if lhs.totalStorageMib != rhs.totalStorageMib {return false}
+    if lhs.recordingTimeS != rhs.recordingTimeS {return false}
+    if lhs.mediaFolderName != rhs.mediaFolderName {return false}
+    if lhs.storageStatus != rhs.storageStatus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2633,19 +2705,19 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_Setting) -> Bool {
-    if _storage !== other._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((_storage, other._storage)) { (_args: (_StorageClass, _StorageClass)) in
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_Setting, rhs: DronecodeSdk_Rpc_Camera_Setting) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
-        let other_storage = _args.1
-        if _storage._settingID != other_storage._settingID {return false}
-        if _storage._settingDescription != other_storage._settingDescription {return false}
-        if _storage._option != other_storage._option {return false}
+        let rhs_storage = _args.1
+        if _storage._settingID != rhs_storage._settingID {return false}
+        if _storage._settingDescription != rhs_storage._settingDescription {return false}
+        if _storage._option != rhs_storage._option {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if unknownFields != other.unknownFields {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2677,10 +2749,10 @@ extension DronecodeSdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_Option) -> Bool {
-    if self.optionID != other.optionID {return false}
-    if self.optionDescription != other.optionDescription {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_Option, rhs: DronecodeSdk_Rpc_Camera_Option) -> Bool {
+    if lhs.optionID != rhs.optionID {return false}
+    if lhs.optionDescription != rhs.optionDescription {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
@@ -2717,11 +2789,11 @@ extension DronecodeSdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  func _protobuf_generated_isEqualTo(other: DronecodeSdk_Rpc_Camera_SettingOptions) -> Bool {
-    if self.settingID != other.settingID {return false}
-    if self.settingDescription != other.settingDescription {return false}
-    if self.options != other.options {return false}
-    if unknownFields != other.unknownFields {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_SettingOptions, rhs: DronecodeSdk_Rpc_Camera_SettingOptions) -> Bool {
+    if lhs.settingID != rhs.settingID {return false}
+    if lhs.settingDescription != rhs.settingDescription {return false}
+    if lhs.options != rhs.options {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }

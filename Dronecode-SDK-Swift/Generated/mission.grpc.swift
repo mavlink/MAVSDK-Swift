@@ -93,6 +93,18 @@ class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStu
   override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SubscribeMissionProgress" }
 }
 
+internal protocol DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall: ClientCallUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission" }
+}
+
+internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall: ClientCallUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
+}
+
 
 /// Instantiate DronecodeSdk_Rpc_Mission_MissionServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Mission_MissionServiceService: ServiceClient {
@@ -140,6 +152,16 @@ internal protocol DronecodeSdk_Rpc_Mission_MissionServiceService: ServiceClient 
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
   func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
+
+  /// Synchronous. Unary.
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
+  /// Asynchronous. Unary.
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
+
+  /// Synchronous. Unary.
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
+  /// Asynchronous. Unary.
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
 
 }
 
@@ -237,6 +259,28 @@ internal final class DronecodeSdk_Rpc_Mission_MissionServiceServiceClient: Servi
   /// Use methods on the returned object to get streamed responses.
   internal func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase(channel)
+      .start(request: request, metadata: metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+    return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
+      .run(request: request, metadata: metadata)
+  }
+  /// Asynchronous. Unary.
+  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+    return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
+      .start(request: request, metadata: metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+    return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
+      .run(request: request, metadata: metadata)
+  }
+  /// Asynchronous. Unary.
+  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+    return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
@@ -339,6 +383,28 @@ class DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestS
     return subscribeMissionProgressCalls.first!
   }
 
+  var getReturnToLaunchAfterMissionRequests: [DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest] = []
+  var getReturnToLaunchAfterMissionResponses: [DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse] = []
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+    getReturnToLaunchAfterMissionRequests.append(request)
+    defer { getReturnToLaunchAfterMissionResponses.removeFirst() }
+    return getReturnToLaunchAfterMissionResponses.first!
+  }
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+    fatalError("not implemented")
+  }
+
+  var setReturnToLaunchAfterMissionRequests: [DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest] = []
+  var setReturnToLaunchAfterMissionResponses: [DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse] = []
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+    setReturnToLaunchAfterMissionRequests.append(request)
+    defer { setReturnToLaunchAfterMissionResponses.removeFirst() }
+    return setReturnToLaunchAfterMissionResponses.first!
+  }
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+    fatalError("not implemented")
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -354,6 +420,8 @@ internal protocol DronecodeSdk_Rpc_Mission_MissionServiceProvider: ServiceProvid
   func getMissionCount(request: DronecodeSdk_Rpc_Mission_GetMissionCountRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceGetMissionCountSession) throws -> DronecodeSdk_Rpc_Mission_GetMissionCountResponse
   func isMissionFinished(request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSession) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse
   func subscribeMissionProgress(request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession) throws -> ServerStatus?
+  func getReturnToLaunchAfterMission(request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
+  func setReturnToLaunchAfterMission(request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
 }
 
 extension DronecodeSdk_Rpc_Mission_MissionServiceProvider {
@@ -407,6 +475,16 @@ extension DronecodeSdk_Rpc_Mission_MissionServiceProvider {
       return try DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase(
         handler: handler,
         providerBlock: { try self.subscribeMissionProgress(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase) })
+          .run()
+    case "/dronecode_sdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission":
+      return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase(
+        handler: handler,
+        providerBlock: { try self.getReturnToLaunchAfterMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase) })
+          .run()
+    case "/dronecode_sdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission":
+      return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase(
+        handler: handler,
+        providerBlock: { try self.setReturnToLaunchAfterMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -482,4 +560,16 @@ internal extension DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgre
 fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, DronecodeSdk_Rpc_Mission_MissionProgressResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {}
 
 class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Mission_MissionProgressResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {}
+
+internal protocol DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession: ServerSessionUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession {}
+
+class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession {}
+
+internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession: ServerSessionUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
+
+class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
 

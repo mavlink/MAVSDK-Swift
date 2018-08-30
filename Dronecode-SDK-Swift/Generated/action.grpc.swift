@@ -97,6 +97,18 @@ fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall
   override class var method: String { return "/dronecode_sdk.rpc.action.ActionService/SetMaximumSpeed" }
 }
 
+internal protocol DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall: ClientCallUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>, DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+  override class var method: String { return "/dronecode_sdk.rpc.action.ActionService/GetReturnToLaunchAltitude" }
+}
+
+internal protocol DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall: ClientCallUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>, DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+  override class var method: String { return "/dronecode_sdk.rpc.action.ActionService/SetReturnToLaunchAltitude" }
+}
+
 
 /// Instantiate DronecodeSdk_Rpc_Action_ActionServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Action_ActionServiceService: ServiceClient {
@@ -159,6 +171,16 @@ internal protocol DronecodeSdk_Rpc_Action_ActionServiceService: ServiceClient {
   func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse
   /// Asynchronous. Unary.
   func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall
+
+  /// Synchronous. Unary.
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse
+  /// Asynchronous. Unary.
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall
+
+  /// Synchronous. Unary.
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse
+  /// Asynchronous. Unary.
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall
 
 }
 
@@ -292,6 +314,28 @@ internal final class DronecodeSdk_Rpc_Action_ActionServiceServiceClient: Service
   /// Asynchronous. Unary.
   internal func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCallBase(channel)
+      .start(request: request, metadata: metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+    return try DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase(channel)
+      .run(request: request, metadata: metadata)
+  }
+  /// Asynchronous. Unary.
+  internal func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+    return try DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase(channel)
+      .start(request: request, metadata: metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+    return try DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase(channel)
+      .run(request: request, metadata: metadata)
+  }
+  /// Asynchronous. Unary.
+  internal func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+    return try DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
@@ -430,6 +474,28 @@ class DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStu
     fatalError("not implemented")
   }
 
+  var getReturnToLaunchAltitudeRequests: [DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest] = []
+  var getReturnToLaunchAltitudeResponses: [DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse] = []
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+    getReturnToLaunchAltitudeRequests.append(request)
+    defer { getReturnToLaunchAltitudeResponses.removeFirst() }
+    return getReturnToLaunchAltitudeResponses.first!
+  }
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+    fatalError("not implemented")
+  }
+
+  var setReturnToLaunchAltitudeRequests: [DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest] = []
+  var setReturnToLaunchAltitudeResponses: [DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse] = []
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+    setReturnToLaunchAltitudeRequests.append(request)
+    defer { setReturnToLaunchAltitudeResponses.removeFirst() }
+    return setReturnToLaunchAltitudeResponses.first!
+  }
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+    fatalError("not implemented")
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -448,6 +514,8 @@ internal protocol DronecodeSdk_Rpc_Action_ActionServiceProvider: ServiceProvider
   func setTakeoffAltitude(request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, session: DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeSession) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse
   func getMaximumSpeed(request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, session: DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedSession) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse
   func setMaximumSpeed(request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, session: DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSession) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse
+  func getReturnToLaunchAltitude(request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, session: DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSession) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse
+  func setReturnToLaunchAltitude(request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, session: DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSession) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse
 }
 
 extension DronecodeSdk_Rpc_Action_ActionServiceProvider {
@@ -516,6 +584,16 @@ extension DronecodeSdk_Rpc_Action_ActionServiceProvider {
       return try DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSessionBase(
         handler: handler,
         providerBlock: { try self.setMaximumSpeed(request: $0, session: $1 as! DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSessionBase) })
+          .run()
+    case "/dronecode_sdk.rpc.action.ActionService/GetReturnToLaunchAltitude":
+      return try DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSessionBase(
+        handler: handler,
+        providerBlock: { try self.getReturnToLaunchAltitude(request: $0, session: $1 as! DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSessionBase) })
+          .run()
+    case "/dronecode_sdk.rpc.action.ActionService/SetReturnToLaunchAltitude":
+      return try DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSessionBase(
+        handler: handler,
+        providerBlock: { try self.setReturnToLaunchAltitude(request: $0, session: $1 as! DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -594,4 +672,16 @@ internal protocol DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSession: S
 fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse>, DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSession {}
 
 class DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedSession {}
+
+internal protocol DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSession: ServerSessionUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>, DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSession {}
+
+class DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeSession {}
+
+internal protocol DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSession: ServerSessionUnary {}
+
+fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>, DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSession {}
+
+class DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeSession {}
 
