@@ -210,6 +210,42 @@ class ActionTest: XCTestCase {
         return client.setMaximumSpeed(speed: 20.0).toBlocking().materialize()
     }
     
+    // MARK: - GET RTL ALTITUDE
+    func testGetReturnToHomeAltitudeSucceedsOnSuccess() {
+        let expectedAltitude: Float = 32.0
+        
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse()
+        response.relativeAltitudeM = expectedAltitude
+        
+        fakeService.getReturnToLaunchAltitudeResponses.append(response)
+        let client = Action(service: fakeService, scheduler: scheduler)
+        
+        _ = client.getReturnToLaunchAltitude().subscribe { event in
+            switch event {
+            case .success(let speed):
+                XCTAssert(speed == expectedAltitude)
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: getMaximumSpeed() \(error) ")
+            }
+        }
+    }
+
+    // MARK: - SET RTL ALTITUDE
+    func testSetReturnToHomeAltitude() {
+        assertSuccess(result: setReturnToHomeAltitudeWithFakeResult())
+    }
+    
+    func setReturnToHomeAltitudeWithFakeResult() -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
+        let response = DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse()
+        fakeService.setReturnToLaunchAltitudeResponses.append(response)
+        let client = Action(service: fakeService, scheduler: scheduler)
+        
+        return client.setReturnToLaunchAltitude(altitude: 30).toBlocking().materialize()
+    }
+    
     // MARK: - Utils
     func assertSuccess(result: MaterializedSequenceResult<Never>) {
         switch result {

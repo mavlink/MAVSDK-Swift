@@ -70,6 +70,20 @@ public struct EulerAngle: Equatable {
             && lhs.rollDeg == rhs.rollDeg
             && lhs.yawDeg == rhs.yawDeg
     }
+    
+    internal var rpcCameraEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle {
+        var rpcEulerAngle = DronecodeSdk_Rpc_Camera_EulerAngle()
+        rpcEulerAngle.pitchDeg = pitchDeg
+        rpcEulerAngle.rollDeg = rollDeg
+        rpcEulerAngle.yawDeg = yawDeg
+        
+        return rpcEulerAngle
+    }
+    
+    internal static func translateFromRPC(_ rpcEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle) -> EulerAngle {
+        return EulerAngle(pitchDeg: rpcEulerAngle.pitchDeg, rollDeg: rpcEulerAngle.rollDeg, yawDeg: rpcEulerAngle.yawDeg)
+    }
+
 }
 
 // MARK: - Quaternion

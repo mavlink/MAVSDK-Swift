@@ -96,5 +96,40 @@ class ActionTest: XCTestCase {
         wait(for: [expectation], timeout: 20.0)
     }
     
+    func testSetReturnToLaunchAltitude() {
+        let expectation = XCTestExpectation(description: "Set return to launch altitude succeeded.")
+        
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let action = Action(address: "localhost", port: 50051)
+        
+        action.setReturnToLaunchAltitude(altitude: 32)
+            .do(onError: { error in XCTFail("\(error)") })
+            .subscribe(onCompleted: {
+                expectation.fulfill()
+            }) { (error) in
+                XCTFail("\(error)")
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testGetReturnToLaunchAltitude() {
+        let expectation = XCTestExpectation(description: "Get return to launch altitude succeeded.")
+        
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let action = Action(address: "localhost", port: 50051)
+        
+        action.getReturnToLaunchAltitude()
+            .subscribe(onSuccess: { (_) in
+                expectation.fulfill()
+            }, onError: { (error) in
+                XCTFail("\(error)")
+            })
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
     //TODO add tests ReturnToLaunch, transitionToFixedWings, transitionToMulticopter, getTakeoffAltitude, setTakeoffAltitude
 }

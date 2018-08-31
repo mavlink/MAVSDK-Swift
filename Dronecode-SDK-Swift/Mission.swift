@@ -10,6 +10,7 @@ public struct MissionItem : Equatable {
     public let isFlyThrough: Bool
     public let gimbalPitchDeg: Float
     public let gimbalYawDeg: Float
+    public let loiteTimeS: Float
     public let cameraAction: CameraAction
 
 /**
@@ -25,7 +26,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
      - gimbalYawDeg: gimbal yaw relative to the aircraft yaw. Valid range [0.0, 360.0]
      - cameraAction: camera action type
 */
-    public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMPS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction) {
+    public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMPS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, loiterTimeS: Float, cameraAction: CameraAction) {
         self.latitudeDeg = latitudeDeg
         self.longitudeDeg = longitudeDeg
         self.relativeAltitudeM = relativeAltitudeM
@@ -33,6 +34,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         self.isFlyThrough = isFlyThrough
         self.gimbalPitchDeg = gimbalPitchDeg
         self.gimbalYawDeg = gimbalYawDeg
+        self.loiteTimeS = loiterTimeS
         self.cameraAction = cameraAction
     }
     
@@ -46,13 +48,22 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         rpcMissionItem.isFlyThrough = isFlyThrough
         rpcMissionItem.gimbalPitchDeg = gimbalPitchDeg
         rpcMissionItem.gimbalYawDeg = gimbalYawDeg
+        rpcMissionItem.loiterTimeS = loiteTimeS
         rpcMissionItem.cameraAction = cameraAction.rpcCameraAction
         
         return rpcMissionItem
     }
     
     internal static func translateFromRPC(_ rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem) -> MissionItem {
-        return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMPS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRPC(rpcMissionItem.cameraAction))
+        return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg,
+                           longitudeDeg: rpcMissionItem.longitudeDeg,
+                           relativeAltitudeM: rpcMissionItem.relativeAltitudeM,
+                           speedMPS: rpcMissionItem.speedMS,
+                           isFlyThrough: rpcMissionItem.isFlyThrough,
+                           gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg,
+                           gimbalYawDeg: rpcMissionItem.gimbalYawDeg,
+                           loiterTimeS: rpcMissionItem.loiterTimeS,
+                           cameraAction: CameraAction.translateFromRPC(rpcMissionItem.cameraAction))
     }
 
     public static func == (lhs: MissionItem, rhs: MissionItem) -> Bool {
@@ -63,6 +74,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
             && lhs.isFlyThrough == rhs.isFlyThrough
             && lhs.gimbalPitchDeg == rhs.gimbalPitchDeg
             && lhs.gimbalYawDeg == rhs.gimbalYawDeg
+            && lhs.loiteTimeS == rhs.loiteTimeS
             && lhs.cameraAction == rhs.cameraAction
     }
 }
@@ -229,6 +241,39 @@ public class Mission {
         .subscribeOn(scheduler)
         .observeOn(MainScheduler.instance)
     }
+        
+    public func setReturnToLaunchAfterMission(_ enable: Bool) -> Completable {
+        return Completable.create { completable in
+            var setRTLAfterMissionRequest = DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest()
+            setRTLAfterMissionRequest.enable = enable
+            
+            do {
+                let _ = try self.service.setReturnToLaunchAfterMission(setRTLAfterMissionRequest)
+                completable(.completed)
+            } catch {
+                completable(.error(error))
+            }
+            return Disposables.create()
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
+    }
+    
+    public func getReturnToLaunchAfterMission() -> Single<Bool> {
+        return Single<Bool>.create { single in
+            let rtlAfterMissionRequest = DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest()
+            do {
+                let rtlAfterMissionResponse = try self.service.getReturnToLaunchAfterMission(rtlAfterMissionRequest)
+                single(.success(rtlAfterMissionResponse.enable))
+            } catch {
+                single(.error(error))
+            }
+            
+            return Disposables.create()
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
+    }
     
     public func setCurrentMissionItemIndex(_ index: Int) -> Completable {
         return Completable.create { completable in
@@ -305,7 +350,7 @@ public class Mission {
             do {
                 let call = try self.service.subscribeMissionProgress(missionProgressRequest, completion: nil)
                 while let response = try call.receive() {
-                    let missionProgres = MissionProgress(currentItemIndex: response.currentItemIndex , missionCount: response.missionCount)
+                    let missionProgres = MissionProgress(currentItemIndex: response.missionProgress.currentItemIndex , missionCount: response.missionProgress.missionCount)
                     observer.onNext(missionProgres)
                 }
             } catch {
