@@ -261,4 +261,41 @@ public class Action {
         .observeOn(MainScheduler.instance)
     }
     
+    public func getReturnToLaunchAltitude() -> Single<Float> {
+        return Single<Float>.create { single in
+            let getReturnToLaunchAltitudeRequest = DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest()
+            
+            do {
+                let getReturnToLaunchAltitudeResponse = try self.service.getReturnToLaunchAltitude(getReturnToLaunchAltitudeRequest)
+                single(.success(getReturnToLaunchAltitudeResponse.relativeAltitudeM))
+            } catch {
+                single(.error(error))
+            }
+            
+            return Disposables.create()
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
+    }
+    
+    public func setReturnToLaunchAltitude(altitude: Float) -> Completable {
+        return Completable.create { completable in
+            var setReturnToLaunchRequest = DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest()
+            setReturnToLaunchRequest.relativeAltitudeM = altitude
+            
+            do {
+                let _ = try self.service.setReturnToLaunchAltitude(setReturnToLaunchRequest)
+                completable(.completed)
+            } catch {
+                completable(.error(error))
+            }
+            
+            return Disposables.create()
+        }
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
+    }
+    
+
+    
 }

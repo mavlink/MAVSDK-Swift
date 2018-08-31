@@ -396,7 +396,8 @@ class CameraTest: XCTestCase {
     func testCaptureInfoReceivesOneEvent() {
         let position = Position(latitudeDeg: 34.44, longitudeDeg: 34.44, absoluteAltitudeM: 34.44, relativeAltitudeM: 34.44)
         let quaternion = Quaternion(w: 4, x: 4, y: 4, z: 4)
-        let captureInfo = CaptureInfo(position: position, quaternion: quaternion, timeUTC: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest").rpcCaptureInfo
+        let eulerAngle = EulerAngle(pitchDeg: 34, rollDeg: 34, yawDeg: 34)
+        let captureInfo = CaptureInfo(position: position, quaternion: quaternion, eulerAngle: eulerAngle, timeUTC: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest").rpcCaptureInfo
         let captureInfoArray = [captureInfo]
         
         checkCaptureInfoReceivesEvents(captureInfo: captureInfoArray)
@@ -452,7 +453,8 @@ class CameraTest: XCTestCase {
         
         let position = Position(latitudeDeg: Double(randomNumber()), longitudeDeg: Double(randomNumber()), absoluteAltitudeM: Float(randomNumber()), relativeAltitudeM: Float(randomNumber()))
         let quaternion = Quaternion(w: Float(randomNumber()), x: Float(randomNumber()), y: Float(randomNumber()), z: Float(randomNumber()))
-        let captureInfo = CaptureInfo(position: position, quaternion: quaternion, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()).rpcCaptureInfo
+        let eulerAngle = EulerAngle(pitchDeg: Float(randomNumber()), rollDeg: Float(randomNumber()), yawDeg: Float(randomNumber()))
+        let captureInfo = CaptureInfo(position: position, quaternion: quaternion, eulerAngle: eulerAngle, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()).rpcCaptureInfo
         
         return CaptureInfo.translateFromRPC(captureInfo)
     }
@@ -477,7 +479,9 @@ class CameraTest: XCTestCase {
     // One Event
     func testCameraStatusRecievesOneEvent() {
         let cameraStatus = CameraStatus(videoOn: true,
+                                        recordingTimeS: 3,
                                         photoIntervalOn: false,
+                                        mediaFolderName: "name",
                                         usedStorageMib: 100.0,
                                         availableStorageMib: 200.0,
                                         totalStorageMib: 300.0,
@@ -540,7 +544,9 @@ class CameraTest: XCTestCase {
         let randomIndex = Int(arc4random_uniform(UInt32(storageStatusArray.count)))
         
         return CameraStatus(videoOn: randomBool(),
+                            recordingTimeS: Float(randomNumber()),
                             photoIntervalOn: randomBool(),
+                            mediaFolderName: randomString(),
                             usedStorageMib: Float(randomNumber()),
                             availableStorageMib: Float(randomNumber()),
                             totalStorageMib: Float(randomNumber()),

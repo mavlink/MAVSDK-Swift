@@ -20,7 +20,7 @@ class MissionTest: XCTestCase {
         
         wait(for: [expectation], timeout: 10.0)
     }
-
+    
     func testUploadOneItemSucceeds() {
         let expectation = XCTestExpectation(description: "Upload one item mission succeeded.")
         
@@ -28,7 +28,7 @@ class MissionTest: XCTestCase {
         core.connect().toBlocking().materialize()
         let mission = Mission(address: "localhost", port: 50051)
 
-        let missionItem = MissionItem(latitudeDeg: 47.3977121, longitudeDeg: 8.5456788, relativeAltitudeM: 42, speedMPS: 8.4, isFlyThrough: false, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none)
+        let missionItem = MissionItem(latitudeDeg: 47.3977121, longitudeDeg: 8.5456788, relativeAltitudeM: 42, speedMPS: 8.4, isFlyThrough: false, gimbalPitchDeg: 90, gimbalYawDeg: 23, loiterTimeS: 3, cameraAction: CameraAction.none)
 
         mission.uploadMission(missionItems: [missionItem])
             .do(onError: { error in XCTFail("\(error)") })
@@ -105,5 +105,40 @@ class MissionTest: XCTestCase {
         } catch {
             XCTFail("MissionProgressObservable is expected to receive 1 events in 5 seconds, but it did not!")
         }
+    }
+    
+    func testSetReturnToLaunchAfterMission() {
+        let expectation = XCTestExpectation(description: "Set return to launch after mission succeeded.")
+        
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let mission = Mission(address: "localhost", port: 50051)
+        
+        mission.setReturnToLaunchAfterMission(true)
+            .do(onError: { error in XCTFail("\(error)") })
+            .subscribe(onCompleted: {
+                expectation.fulfill()
+            }) { (error) in
+                XCTFail("\(error)")
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func testGetReturnToLaunchAfterMission() {
+        let expectation = XCTestExpectation(description: "Get return to launch after mission succeeded.")
+        
+        let core = Core()
+        core.connect().toBlocking().materialize()
+        let mission = Mission(address: "localhost", port: 50051)
+        
+        mission.getReturnToLaunchAfterMission()
+            .subscribe(onSuccess: { (_) in
+                 expectation.fulfill()
+            }, onError: { (error) in
+                XCTFail("\(error)")
+            })
+        
+        wait(for: [expectation], timeout: 10.0)
     }
 }

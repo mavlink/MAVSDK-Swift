@@ -121,14 +121,16 @@ public enum CameraMode {
 public struct CaptureInfo: Equatable {
     public let position: Position
     public let quaternion: Quaternion
+    public let eulerAngle: EulerAngle
     public let timeUTC: UInt64
     public let isSuccess: Bool
     public let index: Int
     public let fileURL: String
     
-    public init(position: Position, quaternion: Quaternion, timeUTC: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
+    public init(position: Position, quaternion: Quaternion, eulerAngle: EulerAngle, timeUTC: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
         self.position = position
         self.quaternion = quaternion
+        self.eulerAngle = eulerAngle
         self.timeUTC = timeUTC
         self.isSuccess = isSuccess
         self.index = Int(index)
@@ -139,7 +141,8 @@ public struct CaptureInfo: Equatable {
         var rpcCaptureInfo = DronecodeSdk_Rpc_Camera_CaptureInfo()
         
         rpcCaptureInfo.position = position.rpcCameraPosition
-        rpcCaptureInfo.quaternion = quaternion.rpcCameraQuaternion
+        rpcCaptureInfo.attitudeQuaternion = quaternion.rpcCameraQuaternion
+        rpcCaptureInfo.attitudeEulerAngle = eulerAngle.rpcCameraEulerAngle
         rpcCaptureInfo.timeUtcUs = timeUTC
         rpcCaptureInfo.isSuccess = isSuccess
         rpcCaptureInfo.index = Int32(index)
@@ -151,7 +154,8 @@ public struct CaptureInfo: Equatable {
     internal static func translateFromRPC(_ rpcCaptureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
         let position = Position(latitudeDeg: rpcCaptureInfo.position.latitudeDeg, longitudeDeg: rpcCaptureInfo.position.longitudeDeg, absoluteAltitudeM: rpcCaptureInfo.position.absoluteAltitudeM, relativeAltitudeM: rpcCaptureInfo.position.relativeAltitudeM)
         return CaptureInfo(position: position,
-                           quaternion: Quaternion.translateFromRPC(rpcCaptureInfo.quaternion),
+                           quaternion: Quaternion.translateFromRPC(rpcCaptureInfo.attitudeQuaternion),
+                           eulerAngle: EulerAngle.translateFromRPC(rpcCaptureInfo.attitudeEulerAngle),
                            timeUTC: rpcCaptureInfo.timeUtcUs,
                            isSuccess: rpcCaptureInfo.isSuccess,
                            index: rpcCaptureInfo.index,
@@ -161,6 +165,7 @@ public struct CaptureInfo: Equatable {
     public static func == (lhs: CaptureInfo, rhs: CaptureInfo) -> Bool {
         return lhs.position == rhs.position
             && lhs.quaternion == rhs.quaternion
+            && lhs.eulerAngle == rhs.eulerAngle
             && lhs.timeUTC == rhs.timeUTC
             && lhs.isSuccess == rhs.isSuccess
             && lhs.index == rhs.index
@@ -280,15 +285,19 @@ public enum VideoStreamStatus {
 // MARK: - CameraStatus
 public struct CameraStatus: Equatable {
     public let videoOn: Bool
+    public let recordingTimeS: Float
     public let photoIntervalOn: Bool
+    public let mediaFolderName: String
     public let usedStorageMib: Float
     public let availableStorageMib: Float
     public let totalStorageMib: Float
     public let storageStatus: StorageStatus
     
-    public init(videoOn: Bool, photoIntervalOn: Bool, usedStorageMib: Float, availableStorageMib: Float, totalStorageMib: Float, storageStatus: StorageStatus) {
+    public init(videoOn: Bool, recordingTimeS: Float, photoIntervalOn: Bool, mediaFolderName: String, usedStorageMib: Float, availableStorageMib: Float, totalStorageMib: Float, storageStatus: StorageStatus) {
         self.videoOn = videoOn
+        self.recordingTimeS = recordingTimeS
         self.photoIntervalOn = photoIntervalOn
+        self.mediaFolderName = mediaFolderName
         self.usedStorageMib = usedStorageMib
         self.availableStorageMib = availableStorageMib
         self.totalStorageMib = totalStorageMib
@@ -299,7 +308,9 @@ public struct CameraStatus: Equatable {
         var rpcCameraStatus = DronecodeSdk_Rpc_Camera_CameraStatus()
         
         rpcCameraStatus.videoOn = videoOn
+        rpcCameraStatus.recordingTimeS = recordingTimeS
         rpcCameraStatus.photoIntervalOn = photoIntervalOn
+        rpcCameraStatus.mediaFolderName = mediaFolderName
         rpcCameraStatus.usedStorageMib = usedStorageMib
         rpcCameraStatus.availableStorageMib = availableStorageMib
         rpcCameraStatus.totalStorageMib = totalStorageMib
@@ -310,7 +321,9 @@ public struct CameraStatus: Equatable {
     
     internal static func translateFromRPC(_ rpcCameraStatus: DronecodeSdk_Rpc_Camera_CameraStatus) -> CameraStatus {
         return CameraStatus(videoOn: rpcCameraStatus.videoOn,
+                            recordingTimeS: rpcCameraStatus.recordingTimeS,
                             photoIntervalOn: rpcCameraStatus.photoIntervalOn,
+                            mediaFolderName: rpcCameraStatus.mediaFolderName,
                             usedStorageMib: rpcCameraStatus.usedStorageMib,
                             availableStorageMib: rpcCameraStatus.availableStorageMib,
                             totalStorageMib: rpcCameraStatus.totalStorageMib,
@@ -319,7 +332,9 @@ public struct CameraStatus: Equatable {
     
     public static func == (lhs: CameraStatus, rhs: CameraStatus) -> Bool {
         return lhs.videoOn == rhs.videoOn
+            && lhs.recordingTimeS == rhs.recordingTimeS
             && lhs.photoIntervalOn == rhs.photoIntervalOn
+            && lhs.mediaFolderName == lhs.mediaFolderName
             && lhs.usedStorageMib == rhs.usedStorageMib
             && lhs.availableStorageMib == rhs.availableStorageMib
             && lhs.totalStorageMib == rhs.totalStorageMib

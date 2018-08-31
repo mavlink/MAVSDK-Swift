@@ -13,14 +13,14 @@ class MissionTest: XCTestCase {
         let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
         let mission = Mission(service: fakeService, scheduler: scheduler)
 
-        let missionItem = MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none)
+        let missionItem = MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, loiterTimeS: 2, cameraAction: CameraAction.none)
 
         _ = mission.uploadMission(missionItems: [missionItem])
     }
     
     // MARK: - Download Mission
     func testDownloadMissionSucceedsOnSuccess() {
-        let expectedResult = [MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: CameraAction.none).rpcMissionItem]
+        let expectedResult = [MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, loiterTimeS: 2, cameraAction: CameraAction.none).rpcMissionItem]
         
         let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Mission_DownloadMissionResponse()
@@ -80,6 +80,44 @@ class MissionTest: XCTestCase {
             assertFailure(result: pauseWithFakeResult(result: result))
         }
     }
+    
+    // MARK: - Set Return to Launch After Mission
+    func testSetReturnToLaunchAfterMissionOnSuccess() {
+        assertSuccess(result: setReturnToLaunchAfterMissionWithFakeResults())
+    }
+    
+    func setReturnToLaunchAfterMissionWithFakeResults() -> MaterializedSequenceResult<Never> {
+        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
+        let response = DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse()
+        fakeService.setReturnToLaunchAfterMissionResponses.append(response)
+        
+        let client = Mission(service: fakeService, scheduler: self.scheduler)
+        
+        return client.setReturnToLaunchAfterMission(true).toBlocking().materialize()
+    }
+    
+    // MARK: - Get Return to Launch After Mission
+    func testGetReturnToLaunchAfterMissionOnSuccess() {
+        let expectedValue = true
+        
+        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse()
+        response.enable = expectedValue
+        
+        fakeService.getReturnToLaunchAfterMissionResponses.append(response)
+        let client = Mission(service: fakeService, scheduler: self.scheduler)
+        
+        _ = client.getReturnToLaunchAfterMission().subscribe { event in
+            switch event {
+            case .success(let index):
+                XCTAssert(index == expectedValue)
+                break
+            case .error(let error):
+                XCTFail("Expecting success, got failure: getReturnToLaunchAfterMission() \(error)")
+            }
+        }
+    }
+
     
     // MARK: - Set Current Mission Item Index
     func testSetCurrentMissionItemIndexOnSuccess() {
@@ -230,15 +268,15 @@ class MissionTest: XCTestCase {
     }
     
     func createRPCMissionProgress(currentItemIndex: Int32, missionCount: Int32) -> DronecodeSdk_Rpc_Mission_MissionProgressResponse {
-        var missionProgress = DronecodeSdk_Rpc_Mission_MissionProgressResponse()
-        missionProgress.currentItemIndex = currentItemIndex
-        missionProgress.missionCount = missionCount
+        var response = DronecodeSdk_Rpc_Mission_MissionProgressResponse()
+        response.missionProgress.currentItemIndex = currentItemIndex
+        response.missionProgress.missionCount = missionCount
         
-        return missionProgress
+        return response
     }
     
     func translateRPCMissionProgress(missionProgressRPC: DronecodeSdk_Rpc_Mission_MissionProgressResponse) -> MissionProgress {
-        return MissionProgress(currentItemIndex: missionProgressRPC.currentItemIndex, missionCount: missionProgressRPC.missionCount)
+        return MissionProgress(currentItemIndex: missionProgressRPC.missionProgress.currentItemIndex, missionCount: missionProgressRPC.missionProgress.missionCount)
     }
     
     // MARK: - Utils
