@@ -639,14 +639,23 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   /// Clears the value of `position`. Subsequent reads from it will return its default value.
   mutating func clearPosition() {_uniqueStorage()._position = nil}
 
-  var quaternion: DronecodeSdk_Rpc_Camera_Quaternion {
-    get {return _storage._quaternion ?? DronecodeSdk_Rpc_Camera_Quaternion()}
-    set {_uniqueStorage()._quaternion = newValue}
+  var attitudeQuaternion: DronecodeSdk_Rpc_Camera_Quaternion {
+    get {return _storage._attitudeQuaternion ?? DronecodeSdk_Rpc_Camera_Quaternion()}
+    set {_uniqueStorage()._attitudeQuaternion = newValue}
   }
-  /// Returns true if `quaternion` has been explicitly set.
-  var hasQuaternion: Bool {return _storage._quaternion != nil}
-  /// Clears the value of `quaternion`. Subsequent reads from it will return its default value.
-  mutating func clearQuaternion() {_uniqueStorage()._quaternion = nil}
+  /// Returns true if `attitudeQuaternion` has been explicitly set.
+  var hasAttitudeQuaternion: Bool {return _storage._attitudeQuaternion != nil}
+  /// Clears the value of `attitudeQuaternion`. Subsequent reads from it will return its default value.
+  mutating func clearAttitudeQuaternion() {_uniqueStorage()._attitudeQuaternion = nil}
+
+  var attitudeEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle {
+    get {return _storage._attitudeEulerAngle ?? DronecodeSdk_Rpc_Camera_EulerAngle()}
+    set {_uniqueStorage()._attitudeEulerAngle = newValue}
+  }
+  /// Returns true if `attitudeEulerAngle` has been explicitly set.
+  var hasAttitudeEulerAngle: Bool {return _storage._attitudeEulerAngle != nil}
+  /// Clears the value of `attitudeEulerAngle`. Subsequent reads from it will return its default value.
+  mutating func clearAttitudeEulerAngle() {_uniqueStorage()._attitudeEulerAngle = nil}
 
   var timeUtcUs: UInt64 {
     get {return _storage._timeUtcUs}
@@ -705,6 +714,22 @@ struct DronecodeSdk_Rpc_Camera_Quaternion {
   var y: Float = 0
 
   var z: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct DronecodeSdk_Rpc_Camera_EulerAngle {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var rollDeg: Float = 0
+
+  var pitchDeg: Float = 0
+
+  var yawDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2240,16 +2265,18 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
   static let protoMessageName: String = _protobuf_package + ".CaptureInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
-    2: .same(proto: "quaternion"),
-    3: .standard(proto: "time_utc_us"),
-    4: .standard(proto: "is_success"),
-    5: .same(proto: "index"),
-    6: .standard(proto: "file_url"),
+    2: .standard(proto: "attitude_quaternion"),
+    3: .standard(proto: "attitude_euler_angle"),
+    4: .standard(proto: "time_utc_us"),
+    5: .standard(proto: "is_success"),
+    6: .same(proto: "index"),
+    7: .standard(proto: "file_url"),
   ]
 
   fileprivate class _StorageClass {
     var _position: DronecodeSdk_Rpc_Camera_Position? = nil
-    var _quaternion: DronecodeSdk_Rpc_Camera_Quaternion? = nil
+    var _attitudeQuaternion: DronecodeSdk_Rpc_Camera_Quaternion? = nil
+    var _attitudeEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle? = nil
     var _timeUtcUs: UInt64 = 0
     var _isSuccess: Bool = false
     var _index: Int32 = 0
@@ -2261,7 +2288,8 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
 
     init(copying source: _StorageClass) {
       _position = source._position
-      _quaternion = source._quaternion
+      _attitudeQuaternion = source._attitudeQuaternion
+      _attitudeEulerAngle = source._attitudeEulerAngle
       _timeUtcUs = source._timeUtcUs
       _isSuccess = source._isSuccess
       _index = source._index
@@ -2282,11 +2310,12 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._position)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._quaternion)
-        case 3: try decoder.decodeSingularUInt64Field(value: &_storage._timeUtcUs)
-        case 4: try decoder.decodeSingularBoolField(value: &_storage._isSuccess)
-        case 5: try decoder.decodeSingularInt32Field(value: &_storage._index)
-        case 6: try decoder.decodeSingularStringField(value: &_storage._fileURL)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._attitudeQuaternion)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._attitudeEulerAngle)
+        case 4: try decoder.decodeSingularUInt64Field(value: &_storage._timeUtcUs)
+        case 5: try decoder.decodeSingularBoolField(value: &_storage._isSuccess)
+        case 6: try decoder.decodeSingularInt32Field(value: &_storage._index)
+        case 7: try decoder.decodeSingularStringField(value: &_storage._fileURL)
         default: break
         }
       }
@@ -2298,20 +2327,23 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
       if let v = _storage._position {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if let v = _storage._quaternion {
+      if let v = _storage._attitudeQuaternion {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
+      if let v = _storage._attitudeEulerAngle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
       if _storage._timeUtcUs != 0 {
-        try visitor.visitSingularUInt64Field(value: _storage._timeUtcUs, fieldNumber: 3)
+        try visitor.visitSingularUInt64Field(value: _storage._timeUtcUs, fieldNumber: 4)
       }
       if _storage._isSuccess != false {
-        try visitor.visitSingularBoolField(value: _storage._isSuccess, fieldNumber: 4)
+        try visitor.visitSingularBoolField(value: _storage._isSuccess, fieldNumber: 5)
       }
       if _storage._index != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._index, fieldNumber: 5)
+        try visitor.visitSingularInt32Field(value: _storage._index, fieldNumber: 6)
       }
       if !_storage._fileURL.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._fileURL, fieldNumber: 6)
+        try visitor.visitSingularStringField(value: _storage._fileURL, fieldNumber: 7)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2323,7 +2355,8 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._position != rhs_storage._position {return false}
-        if _storage._quaternion != rhs_storage._quaternion {return false}
+        if _storage._attitudeQuaternion != rhs_storage._attitudeQuaternion {return false}
+        if _storage._attitudeEulerAngle != rhs_storage._attitudeEulerAngle {return false}
         if _storage._timeUtcUs != rhs_storage._timeUtcUs {return false}
         if _storage._isSuccess != rhs_storage._isSuccess {return false}
         if _storage._index != rhs_storage._index {return false}
@@ -2426,6 +2459,47 @@ extension DronecodeSdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtob
     if lhs.x != rhs.x {return false}
     if lhs.y != rhs.y {return false}
     if lhs.z != rhs.z {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".EulerAngle"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "roll_deg"),
+    2: .standard(proto: "pitch_deg"),
+    3: .standard(proto: "yaw_deg"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.rollDeg)
+      case 2: try decoder.decodeSingularFloatField(value: &self.pitchDeg)
+      case 3: try decoder.decodeSingularFloatField(value: &self.yawDeg)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rollDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.rollDeg, fieldNumber: 1)
+    }
+    if self.pitchDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.pitchDeg, fieldNumber: 2)
+    }
+    if self.yawDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Camera_EulerAngle, rhs: DronecodeSdk_Rpc_Camera_EulerAngle) -> Bool {
+    if lhs.rollDeg != rhs.rollDeg {return false}
+    if lhs.pitchDeg != rhs.pitchDeg {return false}
+    if lhs.yawDeg != rhs.yawDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
