@@ -120,17 +120,17 @@ public enum CameraMode {
 // MARK: - CaptureInfo
 public struct CaptureInfo: Equatable {
     public let position: Position
-    public let quaternion: Quaternion
-    public let eulerAngle: EulerAngle
+    public let attitudeQuaternion: Quaternion
+    public let attitudeEulerAngle: EulerAngle
     public let timeUTC: UInt64
     public let isSuccess: Bool
     public let index: Int
     public let fileURL: String
     
-    public init(position: Position, quaternion: Quaternion, eulerAngle: EulerAngle, timeUTC: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
+    public init(position: Position, attitudeQuaternion: Quaternion, attitudeEulerAngle: EulerAngle, timeUTC: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
         self.position = position
-        self.quaternion = quaternion
-        self.eulerAngle = eulerAngle
+        self.attitudeQuaternion = attitudeQuaternion
+        self.attitudeEulerAngle = attitudeEulerAngle
         self.timeUTC = timeUTC
         self.isSuccess = isSuccess
         self.index = Int(index)
@@ -141,8 +141,8 @@ public struct CaptureInfo: Equatable {
         var rpcCaptureInfo = DronecodeSdk_Rpc_Camera_CaptureInfo()
         
         rpcCaptureInfo.position = position.rpcCameraPosition
-        rpcCaptureInfo.attitudeQuaternion = quaternion.rpcCameraQuaternion
-        rpcCaptureInfo.attitudeEulerAngle = eulerAngle.rpcCameraEulerAngle
+        rpcCaptureInfo.attitudeQuaternion = attitudeQuaternion.rpcCameraQuaternion
+        rpcCaptureInfo.attitudeEulerAngle = attitudeEulerAngle.rpcCameraEulerAngle
         rpcCaptureInfo.timeUtcUs = timeUTC
         rpcCaptureInfo.isSuccess = isSuccess
         rpcCaptureInfo.index = Int32(index)
@@ -154,8 +154,8 @@ public struct CaptureInfo: Equatable {
     internal static func translateFromRPC(_ rpcCaptureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
         let position = Position(latitudeDeg: rpcCaptureInfo.position.latitudeDeg, longitudeDeg: rpcCaptureInfo.position.longitudeDeg, absoluteAltitudeM: rpcCaptureInfo.position.absoluteAltitudeM, relativeAltitudeM: rpcCaptureInfo.position.relativeAltitudeM)
         return CaptureInfo(position: position,
-                           quaternion: Quaternion.translateFromRPC(rpcCaptureInfo.attitudeQuaternion),
-                           eulerAngle: EulerAngle.translateFromRPC(rpcCaptureInfo.attitudeEulerAngle),
+                           attitudeQuaternion: Quaternion.translateFromRPC(rpcCaptureInfo.attitudeQuaternion),
+                           attitudeEulerAngle: EulerAngle.translateFromRPC(rpcCaptureInfo.attitudeEulerAngle),
                            timeUTC: rpcCaptureInfo.timeUtcUs,
                            isSuccess: rpcCaptureInfo.isSuccess,
                            index: rpcCaptureInfo.index,
@@ -164,8 +164,8 @@ public struct CaptureInfo: Equatable {
     
     public static func == (lhs: CaptureInfo, rhs: CaptureInfo) -> Bool {
         return lhs.position == rhs.position
-            && lhs.quaternion == rhs.quaternion
-            && lhs.eulerAngle == rhs.eulerAngle
+            && lhs.attitudeQuaternion == rhs.attitudeQuaternion
+            && lhs.attitudeEulerAngle == rhs.attitudeEulerAngle
             && lhs.timeUTC == rhs.timeUTC
             && lhs.isSuccess == rhs.isSuccess
             && lhs.index == rhs.index
