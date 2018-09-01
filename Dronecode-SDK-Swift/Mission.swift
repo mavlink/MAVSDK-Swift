@@ -10,7 +10,7 @@ public struct MissionItem : Equatable {
     public let isFlyThrough: Bool
     public let gimbalPitchDeg: Float
     public let gimbalYawDeg: Float
-    public let loiteTimeS: Float
+    public let loiterTimeS: Float
     public let cameraAction: CameraAction
 
 /**
@@ -34,7 +34,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         self.isFlyThrough = isFlyThrough
         self.gimbalPitchDeg = gimbalPitchDeg
         self.gimbalYawDeg = gimbalYawDeg
-        self.loiteTimeS = loiterTimeS
+        self.loiterTimeS = loiterTimeS
         self.cameraAction = cameraAction
     }
     
@@ -48,7 +48,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
         rpcMissionItem.isFlyThrough = isFlyThrough
         rpcMissionItem.gimbalPitchDeg = gimbalPitchDeg
         rpcMissionItem.gimbalYawDeg = gimbalYawDeg
-        rpcMissionItem.loiterTimeS = loiteTimeS
+        rpcMissionItem.loiterTimeS = loiterTimeS
         rpcMissionItem.cameraAction = cameraAction.rpcCameraAction
         
         return rpcMissionItem
@@ -74,7 +74,7 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
             && lhs.isFlyThrough == rhs.isFlyThrough
             && lhs.gimbalPitchDeg == rhs.gimbalPitchDeg
             && lhs.gimbalYawDeg == rhs.gimbalYawDeg
-            && lhs.loiteTimeS == rhs.loiteTimeS
+            && lhs.loiterTimeS == rhs.loiterTimeS
             && lhs.cameraAction == rhs.cameraAction
     }
 }
