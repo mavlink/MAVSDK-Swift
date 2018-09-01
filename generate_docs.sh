@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+if ! [ -x "$(command -v jazzy)" ]; then
+    echo 'Error: jazzy is not installed.' >&2
+    echo '       Install using: `gem install jazzy`.' >&2
+    exit 1
+fi
+
+jazzy \
+    --clean \
+    --exclude "Dronecode-SDK-Swift/Generated/" \
+    --author Dronecode SDK developers \
+    --author_url https://sdk.dronecode.org \
+    --github_url https://github.com/Dronecode/DronecodeSDKSwift \
+    --github-file-prefix https://github.com/Dronecode/DronecodeSDK-Swift/tree/master \
+    --module-version 0.2.1 \
+    --xcodebuild-arguments -project,Dronecode-SDK-Swift.xcodeproj,-scheme,Dronecode-SDK-Swift \
+    --module Dronecode-SDK-Swift \
+    --root-url https://sdk.dronecode.org/docs/swift \
+    --output docs/swift_output \
+    --module Dronecode_SDK_Swift
