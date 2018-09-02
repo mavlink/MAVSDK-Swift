@@ -1,0 +1,27 @@
+language: Swift
+os: osx
+osx_image: xcode9.3
+
+install:
+- gem install jazzy
+- pip install --user s3cmd;
+  PATH=$PATH:`python -c "import site; print(site.USER_BASE)"`/bin;
+
+script:
+- "./generate_docs.sh"
+
+after_success:
+- if [[ ! "${TRAVIS_PULL_REQUEST}" ]]; then
+    echo "Pushing master branch";
+    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/master/;
+  elif [[ "${TRAVIS_TAG}" ]]; then
+    echo "Pushing tag: ${TRAVIS_TAG}";
+    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/${TRAVIS_TAG}/;
+  else
+    echo "Not deploying pull request";
+  fi
+
+env:
+  global:
+  - secure: XdfCbE+3tmWZTkuXArqjcs3CBe7T41iT2Jf9cqOBuO/bGJmL+dWU4JEl9/VsZEZBvAiMrXzZQxZVFjVpwoK2c95EkmG9OZyp5zMmmv16eiUbJEi0Vr3pfq6R5V4kzVlvX3fPX6WI0BGg+XaeoQwU/qDkB7Y49GjaJrBf6wJRAabvx3mhAVZIc2pe/mEFepueJRZqNhXy5cQ3i7KS2HLncZXL9cOMlXlSeM8DP83HMwdKotC32LP2Yq8xbhg1gfoWwGUK8cGVhjAsbz1ufzcA8h4IhdEtegLAWUT7qSb05lcCl1rf8xEYAHznxE5ph70inSD4Dw102GeReUcLmAarKI4vnZsP0LTANAWCyY6CUDdoCsyBGlmKrAW3EWV9sTDsMrmWLZTG8I+LzoFMoZ7xqhjE7+MnK6QSAyb9kk84rxOZwTYbp91OZXpL78m7I4Fbgx3Hy0UXKnQ99cpVtebfbrbWgijKmE3aolBM14MlZuqMCZVQlluefchhXjCAdX1nfS4Xnc6NrYpdgNjwtL6S732NkvKB0ow2NkBmSAxFhQgykfFqD5PN830JvOqN6aHev18GH8oR6Ey0gUNBjryz1+IdUKjaPZt8QiMNSCKpl3CN5vAKO/b8RscLHkNtEuwKflGKuT7ScPH9jpmyJZoDOUU28QS2eekESJ6FqQuae6c=
+  - secure: GtKNWNjxb+QGxCZRgb42R64zMOHcs0NxBWnsQzrQz0xkwdlZOXBmO2rzkSj6j3djUcowhThi3bRhmJy/stHvs+0eAEY3UvW0TMrnC34+JN6WnAx60EfQSLr0Imrzv55RDbLWDVyzC50ks95iRSCtkZnXL2OUdoIqTZMiV3fbJS1kxy8K3k00qiBLwviHC9FSV+Ujz9nIQDJfLEELDzQVFEOMRd+qfJYkkVIRUl9VThC25T1ykN0A3jL1SI9tc5+XHdEy8poKjtncXjdGu9AS1vxSJsc0oOkbn9quRW+GYq3J105BHtMjfTHWRVsTyMeRgimxeMWq+l9bD28/K8ou1dhvdY1CAZLZUOeDDDPsWrWDYdD3pk+Dehur2H0raEOMvfEOfYKgN2vRPxX0hlwFTaumCHElEHZN0sHw5fwDYOo4uCFEUr1kMm2KBth3NvckHLpOGI+yrUuSmeVgrnpz5aO9V4/I9+lK1FarcvBeh6ERThO33bcTpF1GVWYdFxS4p9xoggtz5mra+nddNS1jrVJYa4P1AL9HFKcu7wjCRZFSLHL1lPP+4p2N4nIRxiWmjX5aG2gASDO/qld5ZtwhePyI5JxAMp0vMBTx9aFEbc7y2F0SlyPtUKin0RQ1SRG8q+P37Jug936EAbhsVm3/Wi/KtDCGxyM0zqMs06ANidU=
