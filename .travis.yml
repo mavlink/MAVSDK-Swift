@@ -2,10 +2,6 @@ language: Swift
 os: osx
 osx_image: xcode9.3
 
-stages:
-- name: deploy
-  if: branch = master
-
 install:
 - gem install jazzy
 - pip install --user s3cmd;
@@ -15,7 +11,10 @@ script:
 - "./generate_docs.sh"
 
 deploy:
-- s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/
+
+- if [[ "$TRAVIS_BRANCH" = "master" ]]; then
+    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/;
+  fi
 
 env:
   global:
