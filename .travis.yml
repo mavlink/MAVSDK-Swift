@@ -11,12 +11,13 @@ script:
 - "./generate_docs.sh"
 
 after_success:
-- if [[ "$TRAVIS_BRANCH" = "master" ]]; then
-    echo "master branch";
-    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/;
+- if [[ ! "${TRAVIS_PULL_REQUEST}" ]]; then
+    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/master/;
+  elif [[ "${TRAVIS_TAG}" ]]; then
+    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/${TRAVIS_TAG}/;
   else
-    echo "not master branch";
-    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/;
+    echo "pull request";
+    s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/pr/;
   fi
 
 env:
