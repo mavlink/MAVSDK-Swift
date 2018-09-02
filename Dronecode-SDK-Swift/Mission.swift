@@ -102,10 +102,22 @@ public struct MissionItem : Equatable {
     }
 }
 
+/**
+ Mission progress type.
+ */
 public struct MissionProgress : Equatable {
+    /// Current mission item (0 based).
     public let currentItemIndex: Int
+    /// Total number of mission items.
     public let missionCount: Int
     
+    /**
+     Initialize `MissionProgress`.
+     
+     - Parameters:
+       - currentItemIndex: Current mission item (0 based).
+       - missionCount: Total number of mission items.
+     */
     public init(currentItemIndex: Int32, missionCount: Int32) {
         self.currentItemIndex = Int(currentItemIndex)
         self.missionCount = Int(missionCount)
