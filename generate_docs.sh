@@ -15,7 +15,7 @@ jazzy \
     --author_url https://sdk.dronecode.org \
     --github_url https://github.com/Dronecode/DronecodeSDKSwift \
     --github-file-prefix https://github.com/Dronecode/DronecodeSDK-Swift/tree/master \
-    --module-version 0.2.1 \
+    --module-version master \
     --xcodebuild-arguments -project,Dronecode-SDK-Swift.xcodeproj,-scheme,Dronecode-SDK-Swift \
     --module Dronecode-SDK-Swift \
     --root-url https://sdk.dronecode.org/docs/swift \
