@@ -1,36 +1,41 @@
-# Building Dronecode-SDK-Swift
+# Dronecode-SDK-Swift
 
-## Install dependencies
+## Use framework in iOS application
 
-### Cocoapods dependencies
+### Get using carthage
 
-Run the following command from the root of the SDK:
-
-```
-pod install
-```
-
-### Vendor dependencies
-
-The backend framework needs to be fetched (and will end up in `bin/`):
+To use this framework, add this to your `Cartfile`:
 
 ```
-bash fetch_backend.bash
+github "Dronecode/DronecodeSDK-Swift" "master"
 ```
 
-## Build SDK framework
+## Develop on this framework
 
-Dronecode-SDK-Swift depends on gRPC and RxSwift (installation is described above). It can be opened in Xcode (open the workspace created by Cocoapods), or built with the following command:
+### Build
+
+To compile this framework, you need to build the dependencies first:
+```
+carthage build --platform ios --no-skip-current --verbose
+```
+
+Then you can open `Dronecode-SDK-Swift.xcodeproj` in XCode and build it, or do:
+```
+xcodebuild -scheme Dronecode-SDK-Swift
+```
+
+### Generate docs
+
+**Note**: The docs are generated in travis-ci for the master branch and pushed to a [s3 bucket](http://dronecode-sdk-swift.s3.eu-central-1.amazonaws.com/docs/master/index.html).
+
+To test the doc generation locally, install [jazzy](https://github.com/realm/jazzy):
 
 ```
-bash build_dronecode_sdk.bash
+gem install jazzy
 ```
 
-## Publishing archives to Amazon S3
-
-With the right permissions, one can publish a release to Amazon S3 with the following commands:
-
+Then, to generate the docs, just run:
 ```
-bash create_archives.bash
-bash push_archives_to_s3.bash
+./generate_docs.sh
 ```
+
