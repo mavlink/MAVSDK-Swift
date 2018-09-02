@@ -12,13 +12,9 @@ script:
 
 after_success:
 - if [[ ! "${TRAVIS_PULL_REQUEST}" ]]; then
-    echo "Pushing master branch";
     s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/master/;
   elif [[ "${TRAVIS_TAG}" ]]; then
-    echo "Pushing tag: ${TRAVIS_TAG}";
     s3cmd --acl-public --access_key=${AWS_ACCESS_KEY_ID} --secret_key=${AWS_SECRET_ACCESS_KEY} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/${TRAVIS_TAG}/;
-  else
-    echo "Not deploying pull request";
   fi
 
 env:
