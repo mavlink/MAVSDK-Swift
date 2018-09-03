@@ -101,5 +101,5 @@ Check out the [iOS example application](https://github.com/Dronecode/DronecodeSD
 ## Develop for this framework
 
 For instructions how to develop on the Swift wrappers and contribute, please check out:
-[CONTRIBUTING.md](CONTRIBUTING.md).
+[CONTRIBUTING.md](https://github.com/Dronecode/DronecodeSDK-Swift/blob/master/CONTRIBUTING.md).
 
