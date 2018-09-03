@@ -2,11 +2,22 @@ import Foundation
 import SwiftGRPC
 import RxSwift
 
-// MARK: - CameraResult
+/**
+ Possible results returned for camera commands.
+ */
 public struct CameraResult: Equatable {
+    /// The result enum.
     public let result: Result
+    /// The result as a human readable string.
     public let resultString: String
     
+    /**
+     Initialize a camera result.
+ 
+     - Parameters:
+        - result: The result enum.
+        - resultString: The human readable string for a result.
+     */
     public init(result: Result, resultString: String) {
         self.result = result
         self.resultString = resultString
@@ -32,15 +43,25 @@ public struct CameraResult: Equatable {
     }
 }
 
-// MARK: - Result
+/**
+ The camera result enum.
+ */
 public enum Result {
+    /// The result is unknown.
     case unknown
+    /// Camera command executed successfully.
     case success
+    /// Camera command is in progress.
     case inProgress
+    /// Camera is busy and rejected command.
     case busy
+    /// Camera has denied the command.
     case denied
+    /// An error has occurred while executing the command.
     case error
+    /// Camera has not responded in time and the command has timed out.
     case timeout
+    /// The command has wrong arguments.
     case wrongArgument
     
     internal var rpcResult: DronecodeSdk_Rpc_Camera_CameraResult.Result {
@@ -88,10 +109,15 @@ public enum Result {
     }
 }
 
-// MARK: - CameraMode
+/**
+ Camera mode type.
+ */
 public enum CameraMode {
+    /// Unknown mode.
     case unknown
+    /// Photo mode.
     case photo
+    /// Video mode.
     case video
     
     internal var rpcCameraMode: DronecodeSdk_Rpc_Camera_CameraMode {
@@ -117,16 +143,37 @@ public enum CameraMode {
     }
 }
 
-// MARK: - CaptureInfo
+/**
+ Information about a picture just captured.
+ */
 public struct CaptureInfo: Equatable {
+    /// Position when image was captured.
     public let position: Position
+    /// Camera attitude of image captured as quaternion.
     public let attitudeQuaternion: Quaternion
+    /// Camera attitude of image captured as Euler angle.
     public let attitudeEulerAngle: EulerAngle
+    /// Time UTC of image captured in UTC in microseconds.
     public let timeUTC: UInt64
+    /// True if capture was successful.
     public let isSuccess: Bool
+    /// Zero-based index of this image since armed.
     public let index: Int
+    /// Download URL for captured image.
     public let fileURL: String
     
+    /**
+     Initialize `CaptureInfo`.
+     
+     - Parameters:
+       - position: Position.
+       - attitudeQuaternion: Attitude as quaternion.
+       - attitudeEulerAngle: Attitude as Euler angle.
+       - timeUTC: Time in UTC in microseconds.
+       - isSuccess: True if capture was successful.
+       - index: Zero based index of this image since armed.
+       - fileURL: Download URL for captured image.
+     */
     public init(position: Position, attitudeQuaternion: Quaternion, attitudeEulerAngle: EulerAngle, timeUTC: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
         self.position = position
         self.attitudeQuaternion = attitudeQuaternion
@@ -173,19 +220,34 @@ public struct CaptureInfo: Equatable {
     }
 }
 
-// MARK: - Position
-
-// MARK: - Quaternion
-
-// MARK: - VideoStreamSettings
+/**
+ Type for video stream settings.
+ */
 public struct VideoStreamSettings: Equatable {
+    /// Frames per second.
     public let frameRateHz: Float
+    /// Horizontal resolution in pixels.
     public let horizontalResolutionPix: Int
+    /// Vertical resolution in pixels.
     public let verticalResolutionPix: Int
+    /// Bit rate in bits per second.
     public let bitRateBS: Int
+    /// Video image rotation clockwise (0-359 degrees).
     public let rotationDegree: Int
+    /// Video stream URI.
     public let uri: String
     
+    /**
+     Initialize `VideoStreamSettings`.
+     
+     - Parameters:
+       - frameRateHz: Frames per second.
+       - horizontalResolutionPix: Horizontal resolution in pixels.
+       - verticalResolutionPix: Vertical resolution in pixels.
+       - bitRateBS: Bit rate in bits per second.
+       - rotationDegree: Video image rotation clockwise (0-359 degrees).
+       - uri: Video stream URI.
+     */
     public init(frameRateHz: Float, horizontalResolutionPix: UInt32, verticalResolutionPix: UInt32, bitRateBS: UInt32, rotationDegree: UInt32, uri: String) {
         self.frameRateHz = frameRateHz
         self.horizontalResolutionPix = Int(horizontalResolutionPix)
@@ -222,12 +284,22 @@ public struct VideoStreamSettings: Equatable {
     }
 }
 
-
-// MARK: - VideoStreamInfo
+/**
+ Video stream information.
+ */
 public struct VideoStreamInfo: Equatable {
+    /// Video stream settings.
     public let videoStreamSettings: VideoStreamSettings
+    /// Video stream status.
     public let videoStreamStatus: VideoStreamStatus
     
+    /**
+     Initialize `VideoStreamInfo`.
+     
+     - Parameters:
+       - videoStreamSettings: Video stream settings.
+       - videoStreamStatus: Video stream status.
+     */
     public init(videoStreamSettings: VideoStreamSettings, videoStreamStatus: VideoStreamStatus) {
         self.videoStreamSettings = videoStreamSettings
         self.videoStreamStatus = videoStreamStatus
@@ -253,10 +325,15 @@ public struct VideoStreamInfo: Equatable {
     }
 }
 
-// MARK: - VideoStreamStatus
+/**
+ Video stream status.
+ */
 public enum VideoStreamStatus {
+    /// Not running.
     case notRunning
+    /// In Progress.
     case inProgress
+    /// Unknown.
     case unknown
     
     internal var rpcVideoStreamStatus: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
@@ -282,17 +359,40 @@ public enum VideoStreamStatus {
     }
 }
 
-// MARK: - CameraStatus
+/**
+ Information about camera status.
+ */
 public struct CameraStatus: Equatable {
+    /// true if video capture is currently running.
     public let videoOn: Bool
+    /// Elapsed time since starting a video recording in seconds.
     public let recordingTimeS: Float
+    /// true if video timelapse is currently active.
     public let photoIntervalOn: Bool
+    /// Current folder name where media is saved.
     public let mediaFolderName: String
+    /// Used storage in MiB.
     public let usedStorageMib: Float
+    /// Available storage in MiB.
     public let availableStorageMib: Float
+    /// Total storage in MiB.
     public let totalStorageMib: Float
+    /// Storage status.
     public let storageStatus: StorageStatus
     
+    /**
+     Initialize camera status.
+     
+     - Parameters:
+     - videoOn: true if video capture is currently running.
+     - recordingTimeS: Elapsed time since starting a video recording in seconds.
+     - photoIntervalOn: true if video timelapse is currently active.
+     - mediaFolderName: Current folder name where media is saved.
+     - usedStorageMib: Used storage in MiB.
+     - availableStorageMib: Available storage in MiB.
+     - totalStorageMib: Total storage in MiB.
+     - storageStatus: Storage status.
+     */
     public init(videoOn: Bool, recordingTimeS: Float, photoIntervalOn: Bool, mediaFolderName: String, usedStorageMib: Float, availableStorageMib: Float, totalStorageMib: Float, storageStatus: StorageStatus) {
         self.videoOn = videoOn
         self.recordingTimeS = recordingTimeS
@@ -342,10 +442,15 @@ public struct CameraStatus: Equatable {
     }
 }
 
-// MARK: - StorageStatus
+/**
+ Storage status type.
+ */
 public enum StorageStatus {
+    /// Storage status not available.
     case notAvailable
+    /// Storage is not formatted (has no recognized file system).
     case unformatted
+    /// Storage is formatted (has recognized a file system).
     case formatted
     
     internal var rpcStorageStatus: DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus {
@@ -373,12 +478,25 @@ public enum StorageStatus {
     }
 }
 
-// MARK: - Setting
+/**
+ Type to represent a setting with a selected option.
+ */
 public struct Setting: Equatable {
+    /// Name of the setting (machine readable).
     public let id: String
+    /// Description of the setting (human readable).
     public let description: String?
+    /// Selected option.
     public let option: Option
     
+    /**
+     Initialize setting.
+ 
+     - Parameters:
+       - id: Name of the setting.
+       - description: Description of the setting.
+       - option: Selected option.
+     */
     public init(id: String, description: String? = nil, option: Option) {
         self.id = id
         self.description = description
@@ -412,16 +530,36 @@ public struct Setting: Equatable {
     }
 }
 
-// MARK: - Option
+/**
+ Type to represent a setting option.
+ 
+ This can be e.g. a color mode option such as "enhanced" or a shutter speed value like "1/50".
+ */
 public struct Option: Equatable {
+    /// Name of the option (machine readable).
     public let id: String
+    /// Description of the description (human readable).
     public let description: String?
     
+    /**
+     Initialize a setting option from `String`.
+     
+     - Parameters:
+       - id: Name of the option.
+       - description: Description of the option.
+     */
     public init(id: String, description: String? = nil) {
         self.id = id
         self.description = description
     }
     
+    /**
+     Initialize a setting option from `AnyObject`.
+     
+     - Parameters:
+     - id: Name of the option.
+     - description: Description of the option.
+     */
     public init(id: AnyObject, description: AnyObject? = nil) {
         self.id = String(describing: id)
         self.description = String(describing: description)
@@ -449,12 +587,25 @@ public struct Option: Equatable {
     }
 }
 
-// MARK: - SettingOptions
+/**
+ Type to represent a setting with a list of options to choose from.
+ */
 public struct SettingOptions: Equatable {
+    /// Name of the setting (machine readable).
     public let settingId: String
+    /// Description of the setting (human readable).
     public let settingDescription: String?
+    /// Array of options.
     public let options: [Option]
     
+    /**
+     Initialize `SettingOptions`.
+     
+     - Parameters:
+       - settingId: Name of the setting.
+       - settingDescription: Description of the setting.
+       - options: Array of options.
+     */
     public init(settingId: String, settingDescription: String? = nil, options: [Option]) {
         self.settingId = settingId
         self.options = options
@@ -487,17 +638,65 @@ public struct SettingOptions: Equatable {
     }
 }
 
+/**
+ The Camera class can be used to manage cameras that implement the
+ MAVLink Camera Protocol: https://mavlink.io/en/protocol/camera.html.
+ 
+ Currently only a single camera is supported.
+ When multiple cameras are supported the plugin will need to be instantiated separately for every camera.
+ */
 public class Camera {
     let service: DronecodeSdk_Rpc_Camera_CameraServiceService
     let scheduler: SchedulerType
     
+    /**
+     Subscribe to camera mode.
+     
+     - Returns: a stream of `CameraMode`.
+     */
     public lazy var cameraModeObservable: Observable<CameraMode> = createCameraModeObservable()
+    
+    /**
+     Subscribe to video stream info.
+     
+     - Returns: a stream of `VideoStreamInfo`.
+     */
     public lazy var videoStreamInfoObservable: Observable<VideoStreamInfo> = createVideoStreamInfoObservable()
+    
+    /**
+     Subscribe to capture info info.
+     
+     - Returns: a stream of `CaptureInfo`.
+     */
     public lazy var captureInfoObservable: Observable<CaptureInfo> = createCaptureInfoObservable()
+    
+    /**
+     Subscribe to camera status.
+     
+     - Returns: a stream of camera status.
+     */
     public lazy var cameraStatusObservable: Observable<CameraStatus> = createCameraStatusObservable()
+    
+    /**
+     Subscribe to currently selected settings.
+     
+     - Returns: a stream of a settings array.
+     */
     public lazy var currentSettingsObservable: Observable<[Setting]> = createCurrentSettingsObservable()
+    
+    /**
+     Subscribe to all possible setting options.
+     
+     - Returns: a stream of a setting options array.
+     */
     public lazy var possibleSettingOptionsObservable: Observable<[SettingOptions]> = createPossibleSettingOptionsObservable()
     
+    /**
+     Helper function to connect `Camera` object to the backend.
+     
+     - Parameter address: Network address of backend (IP or "localhost").
+     - Parameter port: Port number of backend.
+     */
     public convenience init(address: String, port: Int) {
         let service = DronecodeSdk_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -510,6 +709,13 @@ public class Camera {
         self.scheduler = scheduler
     }
     
+    /**
+     Take photo
+     
+     This takes one photo.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func takePhoto() -> Completable {        
         return Completable.create { completable in
             let takePhotoRequest = DronecodeSdk_Rpc_Camera_TakePhotoRequest()
@@ -530,6 +736,14 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Start photo interval.
+     
+     Starts a photo timelapse with a given interval.
+     
+     - Parameter interval: The interval between photos in seconds.
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func startPhotoInteval(interval: Float) -> Completable {
         return Completable.create { completable in
             var startPhotoIntervalRequest = DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest()
@@ -552,6 +766,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Stop photo interval.
+     
+     Stops a photo timelapse, previously started with `startPhotoInteval`.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func stopPhotoInterval() -> Completable {
         return Completable.create { completable in
             let stopPhotoIntervalRequest = DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest()
@@ -573,6 +794,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Start video capture.
+     
+     This starts a video recording.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func startVideo() -> Completable {
         return Completable.create { completable in
             let startVideoRequest = DronecodeSdk_Rpc_Camera_StartVideoRequest()
@@ -594,6 +822,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Stop video capture.
+     
+     This stops a video recording, previously started with `startVideo`.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func stopVideo() -> Completable {
         return Completable.create { completable in
             let stopVideoRequest = DronecodeSdk_Rpc_Camera_StopVideoRequest()
@@ -615,6 +850,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Starts video streaming.
+     
+     Sends a request to start video streaming.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func startVideoStreaming() -> Completable {
         return Completable.create { completable in
             let startVideoStreamingRequest = DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest()
@@ -636,6 +878,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Stop the current video streaming
+     
+     Sends a request to stop ongoing video streaming.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func stopVideoStreaming() -> Completable {
         return Completable.create { completable in
             let stopVideoSreamingRequest = DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest()
@@ -657,6 +906,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Setter for camera mode.
+     
+     - Parameter mode: `CameraMode` to set.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func setMode(mode: CameraMode) -> Completable {
         return Completable.create { completable in
             var setCameraModeRequest = DronecodeSdk_Rpc_Camera_SetModeRequest()
@@ -699,6 +955,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Sets video stream settings.
+
+     - Parameter settings: video stream settings to set.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func setVideoStreamSettings(settings: VideoStreamSettings) -> Completable {
         return Completable.create { completable in
             var setVideoStreamSettingsRequest = DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest()
@@ -737,7 +1000,7 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
-    public func createCaptureInfoObservable() -> Observable<CaptureInfo> {
+    private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
         return Observable.create { observer in
             let captureInfoRequest = DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest()
             
@@ -757,7 +1020,7 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
-    public func createCameraStatusObservable() -> Observable<CameraStatus> {
+    private func createCameraStatusObservable() -> Observable<CameraStatus> {
         return Observable.create { observer in
             let cameraStatusRequest = DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest()
             
@@ -777,7 +1040,7 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
-    public func createCurrentSettingsObservable() -> Observable<[Setting]> {
+    private func createCurrentSettingsObservable() -> Observable<[Setting]> {
         return Observable.create { observer in
             let currentSettingsRequest = DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest()
             
@@ -796,8 +1059,8 @@ public class Camera {
         .subscribeOn(scheduler)
         .observeOn(MainScheduler.instance)
     }
-    
-    public func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
+
+    private func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
         return Observable.create { observer in
             let possibleSettingOptionsRequest = DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest()
             
@@ -817,6 +1080,13 @@ public class Camera {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Set an option of a setting.
+     
+     - Parameter setting: Setting with option to set.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func setSetting(setting: Setting) -> Completable {
         return Completable.create { completable in
             var setSettingRequest = DronecodeSdk_Rpc_Camera_SetSettingRequest()
