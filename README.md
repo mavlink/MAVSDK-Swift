@@ -10,6 +10,11 @@ To use this framework, add this to your `Cartfile`:
 github "Dronecode/DronecodeSDK-Swift" "master"
 ```
 
+And then get the framework using:
+```
+carthage bootstrap --platform ios
+```
+
 ### First steps to use framework
 
 **Note:** The steps below assume that your iOS device has a network connection to the drone, e.g. using WiFi.
