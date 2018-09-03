@@ -33,21 +33,21 @@ public class Core {
      Subscribes to drone discovery. When an event is emitted in this stream, it means that the
      drone is connected. Disconnection is provided by `timeoutObservable`.
 
-     Returns: `Observable` of UUID.
+     - Returns: `Observable` of UUID.
      */
     public lazy var discoverObservable: Observable<UInt64> = createDiscoverObservable()
     /**
      Subscribes to running plugins `Observable`.
 
-     Returns: `PluginInfo` `Observable`.
+     - Returns: `PluginInfo` `Observable`.
      */
     public lazy var runningPluginsObservable: Observable<PluginInfo> = createRunningPluginsObservable()
     /**
      Subscribes to timeout events.
 
-     Returns: `Observable` of timeout event. When an event is emitted in this stream, it means that
+     - Returns: `Observable` of timeout event. When an event is emitted in this stream, it means that
      the drone is disconnected. Connection is monitored by `discoverObservable`.
-    */
+     */
     public lazy var timeoutObservable: Observable<Void> = createTimeoutObservable()
 
     /**
@@ -73,8 +73,8 @@ public class Core {
     /**
      Initializes the backend and start connecting to the drone.
 
-     Returns: connect `Completable`.
-    */
+     - Returns: connect `Completable`.
+     */
     public func connect() -> Completable {
         return Completable.create { completable in
             let semaphore = DispatchSemaphore(value: 0)
