@@ -46,9 +46,6 @@ class CoreManager {
         core = Core()
     }
 
-    deinit {
-    }
-
     class func shared() -> CoreManager {
         return sharedCoreManager
     }
