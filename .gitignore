@@ -8,3 +8,6 @@ bin/
 .idea
 
 SampleCode/SwiftSampleCode/Pods/
+
+Carthage/
+docs/

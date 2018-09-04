@@ -1,36 +1,105 @@
-# Building Dronecode-SDK-Swift
+# Dronecode-SDK-Swift
 
-## Install dependencies
+## Use framework in iOS application
 
-### Cocoapods dependencies
+### Get framework using carthage
 
-Run the following command from the root of the SDK:
-
-```
-pod install
-```
-
-### Vendor dependencies
-
-The backend framework needs to be fetched (and will end up in `bin/`):
+To use this framework, add this to your `Cartfile`:
 
 ```
-bash fetch_backend.bash
+github "Dronecode/DronecodeSDK-Swift" "master"
 ```
 
-## Build SDK framework
-
-Dronecode-SDK-Swift depends on gRPC and RxSwift (installation is described above). It can be opened in Xcode (open the workspace created by Cocoapods), or built with the following command:
-
+And then get the framework using:
 ```
-bash build_dronecode_sdk.bash
+carthage bootstrap --platform ios
 ```
 
-## Publishing archives to Amazon S3
+### First steps to use framework
 
-With the right permissions, one can publish a release to Amazon S3 with the following commands:
+**Note:** The steps below assume that your iOS device has a network connection to the drone, e.g. using WiFi.
+
+To connect to the drone, add a CoreManager to your iOS application:
 
 ```
-bash create_archives.bash
-bash push_archives_to_s3.bash
+import Foundation
+import Dronecode_SDK_Swift
+import MFiAdapter
+import RxSwift
+
+class CoreManager {
+    let disposeBag = DisposeBag()
+
+    let core: Core
+
+    let telemetry = Telemetry(address: "localhost", port: 50051)
+    let action = Action(address: "localhost", port: 50051)
+    let mission = Mission(address: "localhost", port: 50051)
+    let camera = Camera(address: "localhost", port: 50051)
+
+    private static var sharedCoreManager: CoreManager = {
+        let coreManager = CoreManager()
+        return coreManager
+    }()
+
+    private init() {
+        core = Core()
+    }
+
+    class func shared() -> CoreManager {
+        return sharedCoreManager
+    }
+
+    public func start() -> Void {
+        core.connect()
+            .subscribe(onCompleted: {
+                print("Core connected")
+            }) { (error) in
+                print("Failed connect to core with error: \(error.localizedDescription)")
+            }
+            .disposed(by: disposeBag)
+    }
+}
 ```
+
+Then, you can for instance use the `CoreManager` in your view controller like this:
+```
+import Dronecode_SDK_Swift
+import RxSwift
+
+class MyViewController: UIViewController {
+
+    @IBOutlet weak var armButton: UIButton!
+    @IBOutlet weak var feedbackLabel: UILabel!
+
+    private let disposeBag = DisposeBag()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    @IBAction func armPressed(_ sender: Any) {
+        CoreManager.shared().action.arm()
+            .do(onError: { error in
+                self.feedbackLabel.text = "Arming failed : \(error.localizedDescription)"
+            }, onCompleted: {
+                self.feedbackLabel.text = "Arming succeeded"
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
+}
+```
+
+### Example of iOS application
+
+Check out the [iOS example application](https://github.com/Dronecode/DronecodeSDK-Swift-Example) for a complete example project using this framework.
+
+## Develop for this framework
+
+For instructions how to develop on the Swift wrappers and contribute, please check out:
+[CONTRIBUTING.md](https://github.com/Dronecode/DronecodeSDK-Swift/blob/master/CONTRIBUTING.md).
+

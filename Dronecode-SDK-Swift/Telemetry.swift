@@ -2,11 +2,17 @@ import Foundation
 import SwiftGRPC
 import RxSwift
 
-// MARK: - Position
+/**
+ Position type in global coordinates.
+ */
 public struct Position: Equatable {
+    /// Latitude in degrees (range: -90 to +90).
     public let latitudeDeg: Double
+    /// Longitude in degrees (range: -180 to 180).
     public let longitudeDeg: Double
+    /// Altitude AMSL (above mean sea level) in metres.
     public let absoluteAltitudeM: Float
+    /// Altitude relative to takeoff altitude in metres.
     public let relativeAltitudeM: Float
     
     internal var rpcCameraPosition: DronecodeSdk_Rpc_Camera_Position {
@@ -27,14 +33,23 @@ public struct Position: Equatable {
     }
 }
 
-// MARK: - Health
+/**
+ Various health flags.
+ */
 public struct Health: Equatable {
+    /// true if the gyrometer is calibrated.
     public let isGyrometerCalibrationOk: Bool
+    /// true if the accelerometer is calibrated.
     public let isAccelerometerCalibrationOk: Bool
+    /// true if the magnetometer is calibrated.
     public let isMagnetometerCalibrationOk: Bool
+    /// true if the vehicle has a valid level calibration.
     public let isLevelCalibrationOk: Bool
+    /// true if the local position estimate is good enough to fly in a position control mode.
     public let isLocalPositionOk: Bool
+    /// true if the global position estimate is good enough to fly in a position controlled mode
     public let isGlobalPositionOk: Bool
+    /// true if the home position has been initialized properly.
     public let isHomePositionOk: Bool
 
     public static func == (lhs: Health, rhs: Health) -> Bool {
@@ -48,7 +63,9 @@ public struct Health: Equatable {
     }
 }
 
-// MARK: - Battery
+/**
+ Get the current battery status.
+ */
 public struct Battery: Equatable {
     public let remainingPercent: Float
     public let voltageV: Float
@@ -59,10 +76,19 @@ public struct Battery: Equatable {
     }
 }
 
-// MARK: - EulerAngle
+/**
+ Euler angle type.
+ 
+ All rotations and axis systems follow the right-hand rule.
+ The Euler angles follow the convention of a 3-2-1 intrinsic Tait-Bryan rotation sequence.
+ For more info see https://en.wikipedia.org/wiki/Euler_angles
+ */
 public struct EulerAngle: Equatable {
+    /// Roll angle in degrees, positive is banking to the right.
     public let pitchDeg: Float
+    /// Pitch angle in degrees, positive is pitching nose up.
     public let rollDeg: Float
+    /// Yaw angle in degrees, positive is clock-wise seen from above.
     public let yawDeg: Float
     
     public static func == (lhs: EulerAngle, rhs: EulerAngle) -> Bool {
@@ -86,11 +112,24 @@ public struct EulerAngle: Equatable {
 
 }
 
-// MARK: - Quaternion
+/**
+ Quaternion type.
+ 
+ All rotations and axis systems follow the right-hand rule.
+ The Hamilton quaternion product definition is used.
+ A zero-rotation quaternion is represented by (1,0,0,0).
+ The quaternion could also be written as w + xi + yj + zk.
+ 
+ For more info see: https://en.wikipedia.org/wiki/Quaternion
+ */
 public struct Quaternion: Equatable {
+    /// Quaternion entry 0 also denoted as a.
     public let w: Float
+    /// Quaternion entry 1 also denoted as b.
     public let x: Float
+    /// Quaternion entry 2 also denoted as c.
     public let y: Float
+    /// Quaternion entry 3 also denoted as d.
     public let z: Float
     
     public static func == (lhs: Quaternion, rhs: Quaternion) -> Bool {
@@ -115,20 +154,35 @@ public struct Quaternion: Equatable {
     }
 }
 
-// MARK: - GPSInfo
-// eDroneCoreGPSInfoFix <=> DronecodeSdk_Rpc_Telemetry_FixType in telemetry.grpc.swift
+/**
+ GPS fix type.
+ 
+ - Todo: fix name
+ */
 public enum eDroneCoreGPSInfoFix: Int {
+    /// No GPS.
     case noGps // = 0
+    /// No fix.
     case noFix // = 1
+    /// 2D fix.
     case fix2D // = 2
+    /// 3D fix.
     case fix3D // = 3
+    /// DGPS fix.
     case fixDgps // = 4
+    /// RTK floating.
     case rtkFloat // = 5
+    /// RTK fixed.
     case rtkFixed // = 6
 }
 
+/**
+ GPS information type.
+ */
 public struct GPSInfo: Equatable {
+    /// Number of visible satellites used for solution.
     public let numSatellites: Int32
+    /// Fix type.
     public let fixType: eDroneCoreGPSInfoFix
     
     public static func == (lhs: GPSInfo, rhs: GPSInfo) -> Bool {
@@ -137,24 +191,43 @@ public struct GPSInfo: Equatable {
     }
 }
 
-// MARK: - FlightMode
-// eDroneCoreFlightMode <=> DronecodeSdk_Rpc_Telemetry_FlightMode in telemetry.grpc.swift
+/**
+ Flight mode.
+ 
+ - Todo: fix name
+ */
 public enum eDroneCoreFlightMode: Int {
+    /// Unknown.
     case unknown // = 0
+    /// Ready.
     case ready // = 1
+    /// Takeoff.
     case takeoff // = 2
+    /// Hold.
     case hold // = 3
+    /// Mission.
     case mission // = 4
+    /// Return-to-launch.
     case returnToLaunch // = 5
+    /// Land.
     case land // = 6
+    /// Offboard.
     case offboard // = 7
+    /// Follow-me.
     case followMe // = 8
 }
 
-// MARK: - GroundSpeedNED
+/**
+ Ground speed type.
+ 
+ The ground speed is represented in the NED (North East Down) frame and in metres/second.
+ */
 public struct GroundSpeedNED: Equatable {
+    /// Velocity in North direction in metres/second.
     public let velocityNorthMS: Float
+    /// Velocity in East direction in metres/second.
     public let velocityEastMS: Float
+    /// Velocity in Down direction in metres/second.
     public let velocityDownMS: Float
    
     public static func == (lhs: GroundSpeedNED, rhs: GroundSpeedNED) -> Bool {
@@ -164,10 +237,15 @@ public struct GroundSpeedNED: Equatable {
     }
 }
 
-// MARK: - RCStatus
+/**
+ Remote control status type.
+ */
 public struct RCStatus: Equatable {
+    /// true if an RC signal has been available once.
     public let wasAvailableOnce: Bool
+    /// true if the RC signal is available now.
     public let isAvailable: Bool
+    /// Signal strength as a percentage (range: 0 to 100).
     public let signalStrengthPercent: Float
     
     public static func == (lhs: RCStatus, rhs: RCStatus) -> Bool {
@@ -177,26 +255,117 @@ public struct RCStatus: Equatable {
     }
 }
 
-// MARK: - TELEMETRY
+/**
+ This class allows users to get vehicle telemetry and state information (e.g. battery, GPS, RC connection, flight mode etc.) and set telemetry update rates.
+ */
 public class Telemetry {
     private let service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
     
+    /**
+     Subscribe to position updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var positionObservable: Observable<Position> = createPositionObservable()
+    
+    /**
+     Subscribe to home position updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var homePositionObservable: Observable<Position> = createHomePositionObservable()
+    
+    /**
+     Subscribe to in-air updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var inAirObservable: Observable<Bool> = createInAirObservable()
+    
+    /**
+     Subscribe to home position updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var armedObservable: Observable<Bool> = createArmedObservable()
+    
+    /**
+     Subscribe to attitude updates in quaternion.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var attitudeQuaternionObservable: Observable<Quaternion> = createAttitudeQuaternionObservable()
+    
+    /**
+     Subscribe to attitude updates in Euler angle.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var attitudeEulerObservable: Observable<EulerAngle> = createAttitudeEulerObservable()
+    
+    /**
+     Subscribe to the camera attitude updates in quaternion.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var cameraAttitudeQuaternionObservable: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
+    
+    /**
+     Subscribe to camera attitude updates in Euler angle.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var cameraAttitudeEulerObservable: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
+    
+    /**
+     Subscribe to GPS info updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
+    
+    /**
+     Subscribe to GPS info updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var batteryObservable: Observable<Battery> = createBatteryObservable()
+    
+    /**
+     Subscribe to health updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var healthObservable: Observable<Health> = createHealthObservable()
+    
+    /**
+     Subscribe to flight mode updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var flightModeObservable: Observable<eDroneCoreFlightMode> = createFlightModeObservable()
+    
+    /**
+     Subscribe to ground speed updates in NED.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var groundSpeedNEDObservable: Observable<GroundSpeedNED> = createGroundSpeedNEDObservable()
+    
+    /**
+     Subscribe to RC status updates.
+     
+     - Returns: A stream of updates.
+     */
     public lazy var rcStatusObservable: Observable<RCStatus> = createRCStatusObservable()
 
+    /**
+     Helper function to connect `Telemetry` object to the backend.
+     
+     - Parameter address: Network address of backend (IP or "localhost").
+     - Parameter port: Port number of backend.
+     */
     public convenience init(address: String, port: Int) {
         let service = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -209,8 +378,6 @@ public class Telemetry {
         self.scheduler = scheduler
     }
     
-    // MARK: - Privates functions
-
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let positionRequest = DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest()

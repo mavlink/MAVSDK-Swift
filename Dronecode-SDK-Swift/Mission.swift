@@ -2,30 +2,54 @@ import Foundation
 import SwiftGRPC
 import RxSwift
 
+/**
+ The struct represents a mission item. A mission consist of an array of mission items.
+ */
 public struct MissionItem : Equatable {
+    
+    /// Latitude of the waypoint in degrees.
     public let latitudeDeg: Double
+
+    /// Longitude of the waypoint in degrees.
     public let longitudeDeg: Double
+    
+    /// Altitude relative to takeoff position in metres.
     public let relativeAltitudeM: Float
+    
+    /// Speed in meters/second to be used after this mission item.
     public let speedMPS: Float
+    
+    /// Whether drone should fly through waypoint (`true`) or stop at waypoint (`false`).
     public let isFlyThrough: Bool
+    
+    /// The new pitch angle of the gimbal in degrees (0: horizontal, positive up, -90: vertical downward facing).
     public let gimbalPitchDeg: Float
+    
+    /// The new yaw angle of the gimbal in degrees (0: forward, positive clock-wise, 90: to the right).
     public let gimbalYawDeg: Float
+    
+    /// Loiter time in seconds.
     public let loiterTimeS: Float
+    
+    /// `CameraAction` to perform at waypoint.
     public let cameraAction: CameraAction
 
-/**
-The struct represents a waypoint item. A mission consist of an array of waypoint items.
+    /**
+     Create a mission item.
      
-- Parameters:
-     - latitudeDeg: latitude of the waypoint
-     - longitudeDeg: longtitude of the waypoint
-     - relativeAltitudeM: altitude relative to the takeoff altitude
-     - speedMPS: speed in meters per second
-     - isFlyThrough: if enabled, the aircraft will fly through the waypoint and stop at waypoint
-     - gimbalPitchDeg: gimbal pitch. Valid range [-90.0, 0.0]
-     - gimbalYawDeg: gimbal yaw relative to the aircraft yaw. Valid range [0.0, 360.0]
-     - cameraAction: camera action type
-*/
+     To ignore a `Float` or `Double` parameter, set it to `Float.NAN` respectively `Double.NAN`.
+     
+     - Parameters:
+       - latitudeDeg: Latitude of the waypoint in degrees.
+       - longitudeDeg: Longitude of the waypoint in degrees.
+       - relativeAltitudeM: Altitude relative to takeoff position in metres.
+       - speedMPS: Speed in meters/second to be used after this mission item.
+       - isFlyThrough: Whether drone should fly through waypoint (`true`) or stop at waypoint (`false`).
+       - gimbalPitchDeg: The new pitch angle of the gimbal in degrees (0: horizontal, positive up, -90: vertical downward facing).
+       - gimbalYawDeg: The new yaw angle of the gimbal in degrees (0: forward, positive clock-wise, 90: to the right).
+       - loiterTimeS: Loiter time in seconds.
+       - cameraAction: `CameraAction` to perform at waypoint.
+     */
     public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMPS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, loiterTimeS: Float, cameraAction: CameraAction) {
         self.latitudeDeg = latitudeDeg
         self.longitudeDeg = longitudeDeg
@@ -40,7 +64,6 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
     
     internal var rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem {
         var rpcMissionItem = DronecodeSdk_Rpc_Mission_MissionItem()
-        
         rpcMissionItem.latitudeDeg = latitudeDeg
         rpcMissionItem.longitudeDeg = longitudeDeg
         rpcMissionItem.relativeAltitudeM = relativeAltitudeM
@@ -79,10 +102,22 @@ The struct represents a waypoint item. A mission consist of an array of waypoint
     }
 }
 
+/**
+ Mission progress type.
+ */
 public struct MissionProgress : Equatable {
+    /// Current mission item (0 based).
     public let currentItemIndex: Int
+    /// Total number of mission items.
     public let missionCount: Int
     
+    /**
+     Initialize `MissionProgress`.
+     
+     - Parameters:
+       - currentItemIndex: Current mission item (0 based).
+       - missionCount: Total number of mission items.
+     */
     public init(currentItemIndex: Int32, missionCount: Int32) {
         self.currentItemIndex = Int(currentItemIndex)
         self.missionCount = Int(missionCount)
@@ -94,12 +129,21 @@ public struct MissionProgress : Equatable {
     }
 }
 
+/**
+ Possible camera actions at a mission item.
+ */
 public enum CameraAction {
+    /// No camera action.
     case none
+    /// Take single photo.
     case takePhoto
+    /// Start capturing photos at regular intervals.
     case startPhotoInterval
+    /// Stop capturing photos at regular intervals.
     case stopPhotoInterval
+    /// Start capturing video.
     case startVideo
+    /// Stop capturing video.
     case stopVideo
     
     internal var rpcCameraAction: DronecodeSdk_Rpc_Mission_MissionItem.CameraAction {
@@ -139,12 +183,26 @@ public enum CameraAction {
     }
 }
 
+/**
+ The Mission class enables waypoint missions.
+ */
 public class Mission {
     private let service: DronecodeSdk_Rpc_Mission_MissionServiceService
     private let scheduler: SchedulerType
     
+    /**
+     Subscribes to mission progress.
+     
+     Returns: `MissionProgress` `Observable`
+     */
     public lazy var missionProgressObservable: Observable<MissionProgress> = createMissionProgressObservable()
-
+    
+    /**
+     Helper function to connect `Mission` object to the backend.
+     
+     - Parameter address: Network address of backend (IP or "localhost").
+     - Parameter port: Port number of backend.
+     */
     public convenience init(address: String, port: Int) {
         let service = DronecodeSdk_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -157,6 +215,15 @@ public class Mission {
         self.scheduler = scheduler
     }
 
+    /**
+     Uploads a vector of mission items to the system.
+ 
+     The mission items are uploaded to a drone. Once uploaded the mission can be started and executed even if a connection is lost.
+
+     - Parameter missionItems: Reference to a `MissionItem` array.
+     
+     - Returns: a `Completable` indicating success or an error.
+    */
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
             var uploadMissionRequest = DronecodeSdk_Rpc_Mission_UploadMissionRequest()
@@ -179,6 +246,13 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Downloads a vector of mission items from the system.
+     
+     - Note: The method will fail if any of the downloaded mission items are not supported by the Dronecode SDK API.
+     
+     - Returns: a `Single` containing a `MissionItem` array or an error.
+     */
     public func downloadMission() -> Single<[MissionItem]> {
         return Single<[MissionItem]>.create { single in
             let downloadMissionRequest = DronecodeSdk_Rpc_Mission_DownloadMissionRequest()
@@ -199,7 +273,14 @@ public class Mission {
         .subscribeOn(scheduler)
         .observeOn(MainScheduler.instance)
     }
-
+    
+    /**
+     Starts the mission.
+     
+     - Note: The mission must be uploaded to the vehicle using `uploadMission` before this method is called.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func startMission() -> Completable {
         return Completable.create { completable in
             let startMissionRequest = DronecodeSdk_Rpc_Mission_StartMissionRequest()
@@ -221,6 +302,14 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Pauses the mission.
+     
+     Pausing the mission puts the vehicle into [HOLD mode](https://docs.px4.io/en/flight_modes/hold.html).
+     A multicopter should just hover at the spot while a fixedwing vehicle should loiter around the location where it paused.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func pauseMission() -> Completable {
         return Completable.create { completable in
             let pauseMissionRequest = DronecodeSdk_Rpc_Mission_PauseMissionRequest()
@@ -241,7 +330,18 @@ public class Mission {
         .subscribeOn(scheduler)
         .observeOn(MainScheduler.instance)
     }
-        
+    
+    /**
+     Set whether to trigger Return-to-Launch (RTL) after mission is complete.
+     
+     This enables/disables to command RTL at the end of a mission.
+     
+     - Note: After setting this option, the mission needs to be re-uploaded.
+     
+     - Parameter enable: Enables RTL after mission is complete.
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func setReturnToLaunchAfterMission(_ enable: Bool) -> Completable {
         return Completable.create { completable in
             var setRTLAfterMissionRequest = DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest()
@@ -259,6 +359,13 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Get whether to trigger Return-to-Launch (RTL) after mission is complete.
+     
+     - Note: Before getting this option, it needs to be set, or a mission needs to be downloaded.
+     
+     - Returns: `Single` containing whether RTL after mission is enabled or error.
+     */
     public func getReturnToLaunchAfterMission() -> Single<Bool> {
         return Single<Bool>.create { single in
             let rtlAfterMissionRequest = DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest()
@@ -275,6 +382,18 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Sets the mission item index to go to.
+     
+     By setting the current index to 0, the mission is restarted from the beginning.
+     If it is set to a specific index of a mission item, the mission will be set to this item.
+     
+     - Note: This is not necessarily true for general missions using MAVLink if loop counters are used.
+     
+     - Parameter index: Index for mission index to go to next (0 based).
+     
+     - Returns: a `Completable` indicating success or an error.
+     */
     public func setCurrentMissionItemIndex(_ index: Int) -> Completable {
         return Completable.create { completable in
             var setCurrentMissionItemIndexRequest = DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest()
@@ -293,6 +412,13 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Returns the current mission item index.
+     
+     If the mission is finished, the current mission item will be the total number of mission items (so the last mission item index + 1).
+     
+     - Returns: a `Single` containing the current mission item index (0 based).
+     */
     public func getCurrentMissionItemIndex() -> Single<Int> {
         return Single<Int>.create { single in
             let getCurrentMissionItemIndexRequest = DronecodeSdk_Rpc_Mission_GetCurrentMissionItemIndexRequest()
@@ -310,6 +436,11 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Returns the total number of mission items.
+     
+     - Returns: a `Single` containing the total number of mission items.
+     */
     public func getMissionCount() -> Single<Int> {
         return Single<Int>.create { single in
             let getMissionCountRequest = DronecodeSdk_Rpc_Mission_GetMissionCountRequest()
@@ -327,6 +458,11 @@ public class Mission {
         .observeOn(MainScheduler.instance)
     }
     
+    /**
+     Checks if mission has been finished.
+ 
+     - Returns: `true` if mission is finished and the last mission item has been reached.
+     */
     public func isMissionFinished() -> Single<Bool> {
         return Single<Bool>.create { single in
             let isMissionFinishedRequest = DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest()

@@ -3,9 +3,15 @@ import Foundation
 import SwiftGRPC
 import RxSwift
 
+/**
+ Plugin info type.
+ */
 public struct PluginInfo: Equatable {
+    /// Name (identifier).
     public let name: String
+    /// IP address.
     public let address: String
+    /// Port.
     public let port: Int32
 
     public static func == (lhs: PluginInfo, rhs: PluginInfo) -> Bool {
@@ -13,16 +19,43 @@ public struct PluginInfo: Equatable {
     }
 }
 
+/**
+ The Core class is responsible for discovering the drone, monitoring the connection to it and
+ providing a list of running plugins.
+ */
 public class Core {
     private let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
     private let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
     private let service: DronecodeSdk_Rpc_Core_CoreServiceService
     private let scheduler: SchedulerType
-    
+
+    /**
+     Subscribes to drone discovery. When an event is emitted in this stream, it means that the
+     drone is connected. Disconnection is provided by `timeoutObservable`.
+
+     - Returns: `Observable` of UUID.
+     */
     public lazy var discoverObservable: Observable<UInt64> = createDiscoverObservable()
+    /**
+     Subscribes to running plugins `Observable`.
+
+     - Returns: `PluginInfo` `Observable`.
+     */
     public lazy var runningPluginsObservable: Observable<PluginInfo> = createRunningPluginsObservable()
+    /**
+     Subscribes to timeout events.
+
+     - Returns: `Observable` of timeout event. When an event is emitted in this stream, it means that
+     the drone is disconnected. Connection is monitored by `discoverObservable`.
+     */
     public lazy var timeoutObservable: Observable<Void> = createTimeoutObservable()
 
+    /**
+     Helper function to initialize the `Core` object, necessary to initiate and monitor a connection to the drone.
+
+     - Parameter address: Network address of backend (IP or "localhost").
+     - Parameter port: Port number of backend.
+     */
     public convenience init(address: String = "localhost", port: Int32 = 50051) {
         let service = DronecodeSdk_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
@@ -37,6 +70,11 @@ public class Core {
         gRPC.initialize()
     }
 
+    /**
+     Initializes the backend and start connecting to the drone.
+
+     - Returns: connect `Completable`.
+     */
     public func connect() -> Completable {
         return Completable.create { completable in
             let semaphore = DispatchSemaphore(value: 0)
