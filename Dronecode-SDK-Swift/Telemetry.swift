@@ -504,21 +504,28 @@ public class Telemetry {
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
             let cameraAttitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
-            while (true) {
-                do {
-                    let call = try self.service.subscribeCameraAttitudeEuler(cameraAttitudeRequest, completion: nil)
-                    guard let response = try call.receive()
-                        else { break }  // End of stream
-                    print("Receiving")
+                
+            do {
+                let call = try self.service.subscribeCameraAttitudeEuler(cameraAttitudeRequest, completion: nil)
+                while true {
+                    do {
+                        let response = try call.receive()
+                        if response != nil {
+                            print("Receiving")
+                            let attitude = EulerAngle(pitchDeg: (response?.attitudeEuler.pitchDeg)!, rollDeg: (response?.attitudeEuler.rollDeg)!, yawDeg: (response?.attitudeEuler.yawDeg)!)
+                            
+                            observer.onNext(attitude)
+                        } else {
+                            print("no response")
+                        }
+                    } catch {
+                        print("receive error!")
+                    }
                     
-                    let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
-                    
-                    observer.onNext(attitude)
-
-                } catch {
-                    observer.onError("Failed to subscribe to camera attitude euler stream")
                 }
-                print("Just repeat")
+
+            } catch {
+                observer.onError("Failed to subscribe to camera attitude euler stream")
             }
             
             return Disposables.create()
