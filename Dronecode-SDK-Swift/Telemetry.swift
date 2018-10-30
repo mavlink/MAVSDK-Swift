@@ -509,6 +509,8 @@ public class Telemetry {
                 let call = try self.service.subscribeCameraAttitudeEuler(cameraAttitudeRequest, completion: nil)
                 while let response = try call.receive() {
                     
+                    print("Receiving")
+                    
                     let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
                     
                     observer.onNext(attitude)
