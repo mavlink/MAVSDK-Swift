@@ -515,6 +515,8 @@ public class Telemetry {
                     
                     observer.onNext(attitude)
                 }
+                print("done with this")
+
             } catch {
                 observer.onError("Failed to subscribe to camera attitude euler stream")
             }
