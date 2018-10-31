@@ -261,7 +261,7 @@ public struct RCStatus: Equatable {
 public class Telemetry {
     private let service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
-    
+
     /**
      Subscribe to position updates.
      
@@ -381,49 +381,41 @@ public class Telemetry {
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let positionRequest = DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest()
-            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall?
-            
-            func subscribePosition() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall? {
-                do {
-                    return try self.service.subscribePosition(positionRequest, completion: { (callResult) in
-                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
-                            call = subscribePosition()
-                        }
-                    })
-                } catch {
-                    observer.onError("Failed to subscribe to position stream: \(error)")
-                    return nil
-                }
-            }
-            
-            call = subscribePosition()
-            
-            func receive() {
-                guard let call = call else {
-                    return
-                }
-                
-                try? call.receive(completion: { (result) in
-                    if let rpcPosition = result.result??.position {
-                        let position = Position(latitudeDeg: rpcPosition.latitudeDeg,
-                                                longitudeDeg: rpcPosition.longitudeDeg,
-                                                absoluteAltitudeM: rpcPosition.absoluteAltitudeM,
-                                                relativeAltitudeM: rpcPosition.relativeAltitudeM)
-                        
-                        observer.onNext(position)
+
+            do {
+                let call = try self.service.subscribePosition(positionRequest, completion: { callResult in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
                     }
-                    receive()
                 })
+
+                DispatchQueue.init(label: "positionReceiver").async {
+                    do {
+                        while let response = try call.receive() {
+                            let position = Position(latitudeDeg: response.position.latitudeDeg, longitudeDeg: response.position.longitudeDeg, absoluteAltitudeM: response.position.absoluteAltitudeM, relativeAltitudeM: response.position.relativeAltitudeM)
+
+                            observer.onNext(position)
+                        }
+
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+
+                return Disposables.create {
+                    call.cancel()
+                }
+            } catch {
+                observer.onError("Failed to subscribe to position stream")
+                return Disposables.create()
             }
-            receive()
-            
-            return Disposables.create {
-                call?.cancel()
-                call = nil
-            }
-            }
-            .subscribeOn(scheduler)
-            .observeOn(MainScheduler.instance)
+        }
+        .retry()
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createInAirObservable() -> Observable<Bool> {
