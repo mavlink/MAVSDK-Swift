@@ -381,289 +381,649 @@ public class Telemetry {
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let positionRequest = DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest()
-
-            do {
-                let call = try self.service.subscribePosition(positionRequest, completion: nil)
-                while let response = try call.receive() {
-                    let position = Position(latitudeDeg: response.position.latitudeDeg, longitudeDeg: response.position.longitudeDeg, absoluteAltitudeM: response.position.absoluteAltitudeM, relativeAltitudeM: response.position.relativeAltitudeM)
-
-                    observer.onNext(position)
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall?
+            
+            func subscribePosition() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall? {
+                do {
+                    return try self.service.subscribePosition(positionRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribePosition()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to position stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to position stream")
             }
-
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            
+            call = subscribePosition()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcPosition = result.result??.position {
+                        let position = Position(latitudeDeg: rpcPosition.latitudeDeg,
+                                                longitudeDeg: rpcPosition.longitudeDeg,
+                                                absoluteAltitudeM: rpcPosition.absoluteAltitudeM,
+                                                relativeAltitudeM: rpcPosition.relativeAltitudeM)
+                        
+                        observer.onNext(position)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
-
+    
     private func createInAirObservable() -> Observable<Bool> {
         return Observable<Bool>.create { observer in
             let inAirRequest = DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest()
-
-            do {
-                let call = try self.service.subscribeInAir(inAirRequest, completion: nil)
-                while let response = try call.receive() {
-                    observer.onNext(response.isInAir)
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall?
+            
+            func subscribeInAir() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall? {
+                do {
+                    return try self.service.subscribeInAir(inAirRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeInAir()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to inAir stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to inAir stream: \(error)")
             }
-
-            return Disposables.create {}
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            
+            call = subscribeInAir()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let isInAir = result.result??.isInAir {
+                        observer.onNext(isInAir)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
-
+    
     private func createArmedObservable() -> Observable<Bool> {
         return Observable<Bool>.create { observer in
             let armedRequest = DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest()
-
-            do {
-                let call = try self.service.subscribeArmed(armedRequest, completion: nil)
-                while let response = try call.receive() {
-                    observer.onNext(response.isArmed)
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall?
+            
+            func subscribeArmed() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall? {
+                do {
+                    return try self.service.subscribeArmed(armedRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeArmed()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to armed stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to armed stream: \(error)")
             }
-
-            return Disposables.create {}
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            
+            call = subscribeArmed()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let isArmed = result.result??.isArmed {
+                        observer.onNext(isArmed)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createHealthObservable() -> Observable<Health> {
         return Observable.create { observer in
             let healthRequest = DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall?
             
-            do {
-                let call = try self.service.subscribeHealth(healthRequest, completion: nil)
-                while let response = try call.receive() {
-                    let health = Health(isGyrometerCalibrationOk: response.health.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: response.health.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: response.health.isMagnetometerCalibrationOk, isLevelCalibrationOk: response.health.isLevelCalibrationOk, isLocalPositionOk: response.health.isLocalPositionOk, isGlobalPositionOk: response.health.isGlobalPositionOk, isHomePositionOk: response.health.isHomePositionOk)
-                    
-                    observer.onNext(health)
+            func subscribeHealth() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall? {
+                do {
+                    return try self.service.subscribeHealth(healthRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeHealth()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to health stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to health stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeHealth()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcHealth = result.result??.health {
+                        let health = Health(isGyrometerCalibrationOk: rpcHealth.isGyrometerCalibrationOk,
+                                            isAccelerometerCalibrationOk: rpcHealth.isAccelerometerCalibrationOk,
+                                            isMagnetometerCalibrationOk: rpcHealth.isMagnetometerCalibrationOk,
+                                            isLevelCalibrationOk: rpcHealth.isLevelCalibrationOk,
+                                            isLocalPositionOk: rpcHealth.isLocalPositionOk,
+                                            isGlobalPositionOk: rpcHealth.isGlobalPositionOk,
+                                            isHomePositionOk: rpcHealth.isHomePositionOk)
+                        
+                        observer.onNext(health)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createBatteryObservable() -> Observable<Battery> {
         return Observable.create { observer in
             let batteryRequest = DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall?
             
-            do {
-                let call = try self.service.subscribeBattery(batteryRequest, completion: nil)
-                while let response = try call.receive() {
-                    let battery = Battery(remainingPercent: response.battery.remainingPercent, voltageV: response.battery.voltageV)
-                    
-                    observer.onNext(battery)
+            func subscribeBattery() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall? {
+                do {
+                    return try self.service.subscribeBattery(batteryRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeBattery()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to battery stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to battery stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeBattery()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcBattery = result.result??.battery {
+                        let battery = Battery(remainingPercent: rpcBattery.remainingPercent,
+                                              voltageV: rpcBattery.voltageV)
+                        
+                        observer.onNext(battery)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
             let attitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall?
             
-            do {
-                let call = try self.service.subscribeAttitudeEuler(attitudeRequest, completion: nil)
-                while let response = try call.receive() {
-                    
-                    let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
-                    
-                    observer.onNext(attitude)
+            func subscribeAttitudeEuler() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall? {
+                do {
+                    return try self.service.subscribeAttitudeEuler(attitudeRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeAttitudeEuler()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to attitude euler stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to attitude euler stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeAttitudeEuler()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcAttitudeEuler = result.result??.attitudeEuler {
+                        let attitude = EulerAngle(pitchDeg: rpcAttitudeEuler.pitchDeg,
+                                                  rollDeg: rpcAttitudeEuler.rollDeg,
+                                                  yawDeg: rpcAttitudeEuler.yawDeg)
+                        
+                        observer.onNext(attitude)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
             let cameraAttitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall?
             
-            do {
-                let call = try self.service.subscribeCameraAttitudeEuler(cameraAttitudeRequest, completion: nil)
-                while let response = try call.receive() {
-                    
-                    let attitude = EulerAngle(pitchDeg: response.attitudeEuler.pitchDeg, rollDeg: response.attitudeEuler.rollDeg, yawDeg: response.attitudeEuler.yawDeg)
-                    
-                    observer.onNext(attitude)
+            func subscribeCameraAttitudeEuler() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall? {
+                do {
+                    return try self.service.subscribeCameraAttitudeEuler(cameraAttitudeRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeCameraAttitudeEuler()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to camera attitude euler stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to camera attitude euler stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeCameraAttitudeEuler()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcAttitudeEuler = result.result??.attitudeEuler {
+                        let attitude = EulerAngle(pitchDeg: rpcAttitudeEuler.pitchDeg,
+                                                  rollDeg: rpcAttitudeEuler.rollDeg,
+                                                  yawDeg: rpcAttitudeEuler.yawDeg)
+                        
+                        observer.onNext(attitude)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
             let attitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall?
             
-            do {
-                let call = try self.service.subscribeAttitudeQuaternion(attitudeRequest, completion: nil)
-                while let response = try call.receive() {
-                    
-                    let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
-                    
-                    observer.onNext(attitude)
+            func subscribeAttitudeQuaternion() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall? {
+                do {
+                    return try self.service.subscribeAttitudeQuaternion(attitudeRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeAttitudeQuaternion()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to attitude quaternion stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to attitude quaternion stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeAttitudeQuaternion()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcAttitudeQuaternion = result.result??.attitudeQuaternion {
+                        let attitude = Quaternion(w: rpcAttitudeQuaternion.w,
+                                                  x: rpcAttitudeQuaternion.x,
+                                                  y: rpcAttitudeQuaternion.y,
+                                                  z: rpcAttitudeQuaternion.z)
+                        
+                        observer.onNext(attitude)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
             let cameraAttitudeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall?
             
-            do {
-                let call = try self.service.subscribeCameraAttitudeQuaternion(cameraAttitudeRequest, completion: nil)
-                while let response = try call.receive() {
-                    
-                    let attitude = Quaternion(w: response.attitudeQuaternion.w, x: response.attitudeQuaternion.x, y: response.attitudeQuaternion.y, z: response.attitudeQuaternion.z)
-                    
-                    observer.onNext(attitude)
+            func subscribeCameraAttitudeQuaternion() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall? {
+                do {
+                    return try self.service.subscribeCameraAttitudeQuaternion(cameraAttitudeRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeCameraAttitudeQuaternion()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to camera attitude quaternion stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to camera attitude quaternion stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeCameraAttitudeQuaternion()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcAttitudeQuaternion = result.result??.attitudeQuaternion {
+                        let attitude = Quaternion(w: rpcAttitudeQuaternion.w,
+                                                  x: rpcAttitudeQuaternion.x,
+                                                  y: rpcAttitudeQuaternion.y,
+                                                  z: rpcAttitudeQuaternion.z)
+                        
+                        observer.onNext(attitude)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createHomePositionObservable() -> Observable<Position> {
         return Observable.create { observer in
             let homeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall?
             
-            do {
-                let call = try self.service.subscribeHome(homeRequest, completion: nil)
-                while let response = try call.receive() {
-                    let position = Position(latitudeDeg: response.home.latitudeDeg, longitudeDeg: response.home.longitudeDeg, absoluteAltitudeM: response.home.absoluteAltitudeM, relativeAltitudeM: response.home.relativeAltitudeM)
-                    observer.onNext(position)
+            func subscribeHome() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall? {
+                do {
+                    return try self.service.subscribeHome(homeRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeHome()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to home stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to home stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeHome()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcHome = result.result??.home {
+                        let position = Position(latitudeDeg: rpcHome.latitudeDeg,
+                                                longitudeDeg: rpcHome.longitudeDeg,
+                                                absoluteAltitudeM: rpcHome.absoluteAltitudeM,
+                                                relativeAltitudeM: rpcHome.relativeAltitudeM)
+                        observer.onNext(position)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createGPSInfoObservable() -> Observable<GPSInfo> {
         return Observable.create { observer in
             let gpsInfoRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall?
             
-            do {
-                let call = try self.service.subscribeGPSInfo(gpsInfoRequest, completion: nil)
-                while let response = try call.receive() {
-                    let gpsInfo = GPSInfo(numSatellites: response.gpsInfo.numSatellites, fixType: eDroneCoreGPSInfoFix(rawValue: response.gpsInfo.fixType.rawValue)!)
-                    observer.onNext(gpsInfo)
+            func subscribeGPSInfo() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall? {
+                do {
+                    return try self.service.subscribeGPSInfo(gpsInfoRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeGPSInfo()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to GPSInfo stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to GPSInfo stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeGPSInfo()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcGPSInfo = result.result??.gpsInfo {
+                        let gpsInfo = GPSInfo(numSatellites: rpcGPSInfo.numSatellites,
+                                              fixType: eDroneCoreGPSInfoFix(rawValue: rpcGPSInfo.fixType.rawValue)!)
+                        observer.onNext(gpsInfo)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createFlightModeObservable() -> Observable<eDroneCoreFlightMode> {
         return Observable.create { observer in
             let flightModeRequest = DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall?
             
-            do {
-                let call = try self.service.subscribeFlightMode(flightModeRequest, completion: nil)
-                while let response = try call.receive() {
-                    let flightMode : eDroneCoreFlightMode = eDroneCoreFlightMode(rawValue: response.flightMode.rawValue)!
-                    observer.onNext(flightMode)
+            func subscribeFlightMode() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall? {
+                do {
+                    return try self.service.subscribeFlightMode(flightModeRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeFlightMode()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to FlightMode stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to FlightMode stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeFlightMode()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcFlightMode = result.result??.flightMode {
+                        let flightMode = eDroneCoreFlightMode(rawValue: rpcFlightMode.rawValue)!
+                        observer.onNext(flightMode)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createGroundSpeedNEDObservable() -> Observable<GroundSpeedNED> {
         return Observable.create { observer in
             let groundSpeedRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall?
             
-            do {
-                let call = try self.service.subscribeGroundSpeedNED(groundSpeedRequest, completion: nil)
-                while let response = try call.receive() {
-                    let groundSpeed : GroundSpeedNED = GroundSpeedNED(velocityNorthMS: response.groundSpeedNed.velocityNorthMS, velocityEastMS: response.groundSpeedNed.velocityEastMS, velocityDownMS: response.groundSpeedNed.velocityDownMS)
-                    observer.onNext(groundSpeed)
+            func subscribeGroundSpeedNED() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall? {
+                do {
+                    return try self.service.subscribeGroundSpeedNED(groundSpeedRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeGroundSpeedNED()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to Ground Speed NED stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to Ground Speed NED stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeGroundSpeedNED()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcGroundSpeedNed = result.result??.groundSpeedNed {
+                        let groundSpeed = GroundSpeedNED(velocityNorthMS: rpcGroundSpeedNed.velocityNorthMS,
+                                                         velocityEastMS: rpcGroundSpeedNed.velocityEastMS,
+                                                         velocityDownMS: rpcGroundSpeedNed.velocityDownMS)
+                        observer.onNext(groundSpeed)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createRCStatusObservable() -> Observable<RCStatus> {
         return Observable.create { observer in
             let rcstatusRequest = DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest()
+            var call: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall?
             
-            do {
-                let call = try self.service.subscribeRCStatus(rcstatusRequest, completion: nil)
-                while let response = try call.receive() {
-                    let rcstatus : RCStatus = RCStatus(wasAvailableOnce: response.rcStatus.wasAvailableOnce, isAvailable: response.rcStatus.isAvailable, signalStrengthPercent: response.rcStatus.signalStrengthPercent)
-                    observer.onNext(rcstatus)
+            func subscribeRCStatus() -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall? {
+                do {
+                    return try self.service.subscribeRCStatus(rcstatusRequest, completion: { (callResult) in
+                        if callResult.statusCode != .cancelled && callResult.statusCode != .ok {
+                            call = subscribeRCStatus()
+                        }
+                    })
+                } catch {
+                    observer.onError("Failed to subscribe to RC Status  stream: \(error)")
+                    return nil
                 }
-            } catch {
-                observer.onError("Failed to subscribe to RC Status stream")
             }
             
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            call = subscribeRCStatus()
+            
+            func receive() {
+                guard let call = call else {
+                    return
+                }
+                
+                try? call.receive(completion: { (result) in
+                    if let rpcRCStatus = result.result??.rcStatus {
+                        let rcstatus = RCStatus(wasAvailableOnce: rpcRCStatus.wasAvailableOnce,
+                                                isAvailable: rpcRCStatus.isAvailable,
+                                                signalStrengthPercent: rpcRCStatus.signalStrengthPercent)
+                        observer.onNext(rcstatus)
+                    }
+                    receive()
+                })
+            }
+            receive()
+            
+            return Disposables.create {
+                call?.cancel()
+                call = nil
+            }
+            }
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
 }
