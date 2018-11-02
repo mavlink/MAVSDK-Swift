@@ -940,24 +940,42 @@ public class Camera {
             let cameraModeRequest = DronecodeSdk_Rpc_Camera_SubscribeModeRequest()
             
             do {
-                let call = try self.service.subscribeMode(cameraModeRequest, completion: nil)
-                while let response = try call.receive() {
-                    let cameraMode = CameraMode.translateFromRPC(response.cameraMode)
-                    observer.onNext(cameraMode)
+                let call = try self.service.subscribeMode(cameraModeRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeCameraModeReceiver").async {
+                    do {
+                        while let rpcCameraMode = try call.receive()?.cameraMode {
+                            let cameraMode = CameraMode.translateFromRPC(rpcCameraMode)
+                            observer.onNext(cameraMode)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
                 observer.onError("Failed to subscribe to camera mode stream. \(error)")
+                return Disposables.create()
             }
-            
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     /**
      Sets video stream settings.
-
+     
      - Parameter settings: video stream settings to set.
      
      - Returns: a `Completable` indicating success or an error.
@@ -985,19 +1003,37 @@ public class Camera {
             let videoStreamInfoRequest = DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest()
             
             do {
-                let call = try self.service.subscribeVideoStreamInfo(videoStreamInfoRequest, completion: nil)
-                while let response = try call.receive() {
-                    let videoStreamInfo = VideoStreamInfo.translateFromRPC(response.videoStreamInfo)
-                    observer.onNext(videoStreamInfo)
+                let call = try self.service.subscribeVideoStreamInfo(videoStreamInfoRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeVideoStreamInfoReceiver").async {
+                    do {
+                        while let rpcVideoStreamInfo = try call.receive()?.videoStreamInfo {
+                            let videoStreamInfo = VideoStreamInfo.translateFromRPC(rpcVideoStreamInfo)
+                            observer.onNext(videoStreamInfo)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to video stream info. \(error)")
+                observer.onError("Failed to subscribe to video stream info stream. \(error)")
+                return Disposables.create()
             }
-            
-            return Disposables.create()
-        }
-        .subscribeOn(self.scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(self.scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
@@ -1005,19 +1041,37 @@ public class Camera {
             let captureInfoRequest = DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest()
             
             do {
-                let call = try self.service.subscribeCaptureInfo(captureInfoRequest, completion: nil)
-                while let response = try call.receive() {
-                    let captureInfo = CaptureInfo.translateFromRPC(response.captureInfo)
-                    observer.onNext(captureInfo)
+                let call = try self.service.subscribeCaptureInfo(captureInfoRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeCaptureInfoReceiver").async {
+                    do {
+                        while let rpcCaptureInfo = try call.receive()?.captureInfo {
+                            let captureInfo = CaptureInfo.translateFromRPC(rpcCaptureInfo)
+                            observer.onNext(captureInfo)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to capture info. \(error)")
+                observer.onError("Failed to subscribe to capture info stream. \(error)")
+                return Disposables.create()
             }
-            
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createCameraStatusObservable() -> Observable<CameraStatus> {
@@ -1025,19 +1079,37 @@ public class Camera {
             let cameraStatusRequest = DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest()
             
             do {
-                let call = try self.service.subscribeCameraStatus(cameraStatusRequest, completion: nil)
-                while let response = try call.receive() {
-                    let cameraStatus = CameraStatus.translateFromRPC(response.cameraStatus)
-                    observer.onNext(cameraStatus)
+                let call = try self.service.subscribeCameraStatus(cameraStatusRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeCameraStatusReceiver").async {
+                    do {
+                        while let rpcCameraStatus = try call.receive()?.cameraStatus {
+                            let cameraStatus = CameraStatus.translateFromRPC(rpcCameraStatus)
+                            observer.onNext(cameraStatus)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to camera status. \(error)")
+                observer.onError("Failed to subscribe to camera statrus stream. \(error)")
+                return Disposables.create()
             }
-            
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createCurrentSettingsObservable() -> Observable<[Setting]> {
@@ -1045,39 +1117,75 @@ public class Camera {
             let currentSettingsRequest = DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest()
             
             do {
-                let call = try self.service.subscribeCurrentSettings(currentSettingsRequest, completion: nil)
-                while let response = try call.receive() {
-                    let currentSettings = response.currentSettings.map { Setting.translateFromRPC($0) }
-                    observer.onNext(currentSettings)
+                let call = try self.service.subscribeCurrentSettings(currentSettingsRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeCameraCurrentSettingsReceiver").async {
+                    do {
+                        while let rpcCurrentSettings = try call.receive()?.currentSettings {
+                            let currentSettings = rpcCurrentSettings.map { Setting.translateFromRPC($0) }
+                            observer.onNext(currentSettings)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to current settings. \(error)")
+                observer.onError("Failed to subscribe to camera current settings stream. \(error)")
+                return Disposables.create()
             }
-            
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
-
+    
     private func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
         return Observable.create { observer in
             let possibleSettingOptionsRequest = DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest()
             
             do {
-                let call = try self.service.subscribePossibleSettingOptions(possibleSettingOptionsRequest, completion: nil)
-                while let response = try call.receive() {
-                    let possibleSettingOptions = response.settingOptions.map { SettingOptions.translateFromRPC($0) }
-                    observer.onNext(possibleSettingOptions)
+                let call = try self.service.subscribePossibleSettingOptions(possibleSettingOptionsRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeCameraPossibleSettingsReceiver").async {
+                    do {
+                        while let rpcSettingOptions = try call.receive()?.settingOptions {
+                            let possibleSettingOptions = rpcSettingOptions.map { SettingOptions.translateFromRPC($0) }
+                            observer.onNext(possibleSettingOptions)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to possible setting options. \(error)")
+                observer.onError("Failed to subscribe to camera settings options stream. \(error)")
+                return Disposables.create()
             }
-            
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     /**

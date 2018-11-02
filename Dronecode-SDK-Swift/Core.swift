@@ -105,52 +105,89 @@ public class Core {
     private func createDiscoverObservable() -> Observable<UInt64> {
         return Observable.create { observer in
             let discoverRequest = DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest()
-
+            
             do {
-                let call = try self.service.subscribeDiscover(discoverRequest, completion: nil)
-                while let response = try call.receive() {
-                    observer.onNext(response.uuid)
+                let call = try self.service.subscribeDiscover(discoverRequest, completion: { callResult in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue(label: "DronecodeDiscoverReceiver").async {
+                    do {
+                        while let uuid = try call.receive()?.uuid {
+                            observer.onNext(uuid)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to discover stream. \(error)")
+                return Disposables.create()
             }
-
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
-
+    
     private func createTimeoutObservable() -> Observable<Void> {
         return Observable.create { observer in
             let timeoutRequest = DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest()
-
+            
             do {
-                let call = try self.service.subscribeTimeout(timeoutRequest, completion: nil)
-                while let _ = try call.receive() {
-                    observer.onNext(())
+                let call = try self.service.subscribeTimeout(timeoutRequest, completion: { callResult in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue(label: "DronecodeTimeoutReceiver").async {
+                    do {
+                        while let _ = try call.receive() {
+                            observer.onNext(())
+                        }
+                        
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to timeout stream")
+                observer.onError("Failed to subscribe to timeout stream. \(error)")
+                return Disposables.create()
             }
-
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
     
     private func createRunningPluginsObservable() -> Observable<PluginInfo> {
         let request = DronecodeSdk_Rpc_Core_ListRunningPluginsRequest()
         let response = try? self.service.listRunningPlugins(request)
-
+        
         return Observable.create { observer in
             if let pluginInfos = response?.pluginInfo {
                 for pluginInfo in pluginInfos {
                     observer.onNext(PluginInfo(name: pluginInfo.name, address: pluginInfo.address, port: pluginInfo.port))
                 }
             }
-
+            
             observer.onCompleted()
             return Disposables.create()
         }

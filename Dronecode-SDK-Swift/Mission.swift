@@ -484,17 +484,37 @@ public class Mission {
             let missionProgressRequest = DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest()
             
             do {
-                let call = try self.service.subscribeMissionProgress(missionProgressRequest, completion: nil)
-                while let response = try call.receive() {
-                    let missionProgres = MissionProgress(currentItemIndex: response.missionProgress.currentItemIndex , missionCount: response.missionProgress.missionCount)
-                    observer.onNext(missionProgres)
+                let call = try self.service.subscribeMissionProgress(missionProgressRequest, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(callResult.statusMessage!)
+                    }
+                })
+                
+                DispatchQueue.init(label: "DronecodeMissionProgressReceiver").async {
+                    do {
+                        while let rpcMissionProgress = try call.receive()?.missionProgress {
+                            let missionProgres = MissionProgress(currentItemIndex: rpcMissionProgress.currentItemIndex,
+                                                                 missionCount: rpcMissionProgress.missionCount)
+                            observer.onNext(missionProgres)
+                        }
+                        observer.onError("Broken pipe")
+                    } catch {
+                        observer.onError(error)
+                    }
+                }
+                
+                return Disposables.create {
+                    call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to discovery stream")
+                observer.onError("Failed to subscribe to mission progress stream. \(error)")
+                return Disposables.create()
             }
-            return Disposables.create()
-        }
-        .subscribeOn(scheduler)
-        .observeOn(MainScheduler.instance)
+            }
+            .retry()
+            .subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
     }
 }
