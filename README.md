@@ -4,7 +4,7 @@
 
 ### Get framework using carthage
 
-To use this framework, add this to your `Cartfile`:
+To use this framework, add the following to your `Cartfile`:
 
 ```
 github "Dronecode/DronecodeSDK-Swift" "master"
@@ -17,52 +17,45 @@ carthage bootstrap --platform ios
 
 ### First steps to use framework
 
-**Note:** The steps below assume that your iOS device has a network connection to the drone, e.g. using WiFi.
+The steps below assume that your iOS device has a network connection to the drone, e.g. using WiFi.
 
-To connect to the drone, add a CoreManager to your iOS application:
+By default, the backend will connect using MAVLink on UDP port 14540 which is running by default when PX4 is run in SITL (software in the loop simulation).
+To change the connection port, check [this line in the backend](https://github.com/Dronecode/DronecodeSDK/blob/d4fb6ca56f8e4ce01252ed498835c500e477d2d2/backend/src/backend.cpp#L19). For now, the backend is limited to UDP even though the core supports UDP, TCP, and serial.
+
+One way to start is to add a CoreManager to your iOS application:
 
 ```
 import Foundation
 import Dronecode_SDK_Swift
-import MFiAdapter
 import RxSwift
 
 class CoreManager {
+
+    static let shared = CoreManager()
+
     let disposeBag = DisposeBag()
 
-    let core: Core
-
+    let core = Core()
     let telemetry = Telemetry(address: "localhost", port: 50051)
     let action = Action(address: "localhost", port: 50051)
     let mission = Mission(address: "localhost", port: 50051)
     let camera = Camera(address: "localhost", port: 50051)
 
-    private static var sharedCoreManager: CoreManager = {
-        let coreManager = CoreManager()
-        return coreManager
-    }()
+    private init() {}
 
-    private init() {
-        core = Core()
-    }
+    lazy var startCompletable = createStartCompletable()
 
-    class func shared() -> CoreManager {
-        return sharedCoreManager
-    }
-
-    public func start() -> Void {
-        core.connect()
-            .subscribe(onCompleted: {
-                print("Core connected")
-            }) { (error) in
-                print("Failed connect to core with error: \(error.localizedDescription)")
-            }
-            .disposed(by: disposeBag)
+    private func createStartCompletable() -> Observable<Never> {
+        let startCompletable = core.connect().asObservable().replay(1)
+        startCompletable.connect().disposed(by: disposeBag)
+        
+        return startCompletable.asObservable()
     }
 }
 ```
 
-Then, you can for instance use the `CoreManager` in your view controller like this:
+Then, use the `CoreManager` in your view controller like this:
+
 ```
 import Dronecode_SDK_Swift
 import RxSwift
@@ -74,21 +67,10 @@ class MyViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
     @IBAction func armPressed(_ sender: Any) {
-        CoreManager.shared().action.arm()
-            .do(onError: { error in
-                self.feedbackLabel.text = "Arming failed : \(error.localizedDescription)"
-            }, onCompleted: {
-                self.feedbackLabel.text = "Arming succeeded"
-            })
+        CoreManager.shared.action.arm()
+            .do(onError: { error in self.feedbackLabel.text = "Arming failed : \(error.localizedDescription)" },
+                onCompleted: { self.feedbackLabel.text = "Arming succeeded" })
             .subscribe()
             .disposed(by: disposeBag)
 }
