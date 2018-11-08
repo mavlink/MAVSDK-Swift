@@ -7,7 +7,7 @@
 To use this framework, add the following to your `Cartfile`:
 
 ```
-github "Dronecode/DronecodeSDK-Swift" 0.1.6
+github "Dronecode/DronecodeSDK-Swift" == 0.1.6
 ```
 
 And then get the framework using:
