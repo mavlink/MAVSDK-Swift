@@ -7,5 +7,6 @@
     "bool": "Bool",
     "std::string": "String",
     "std::byte": "Data",
-    "uint32_t": "UInt32"
+    "uint32_t": "UInt32",
+    "repeated": { "prefix": "[", "suffix": "]" }
 }
