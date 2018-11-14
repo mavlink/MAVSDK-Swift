@@ -1,20 +1,26 @@
-public func {{ name }}({% for param in params %}{{ param.name }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %}) -> Single<{{ return_type.name }}> {
+
+public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %}) -> Single<{{ return_type.name }}> {
     return Single<{{ return_type.name }}>.create { single in
-        let {{ name }}Request = {{ request_rpc_type }}()
+        let {{ name.lower_camel_case }}Request = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()
 
         do {
-            let response = try self.service.{{ name.lower() }}({{ name }}Request)
-            {% if return_type.is_primitive -%}
-               let {{ return_name }} = response.{{ return_name }}
-            {%- else -%}
-                let {{ return_name }} = {{ return_type.name }}.translateFromRPC(response.{{ return_name }})
-            {%- endif %}
-
-            single(.success({{ return_name }}))
+            let {{ name.lower_camel_case }}Response = try self.service.{{ name.lower_camel_case }}({{ name.lower_camel_case }}Request)
+            if ({{ name.lower_camel_case }}Response.{{ plugin_name.lower_camel_case }}Result.result == {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
+                {% if return_type.is_primitive -%}
+                   let {{ return_name.lower_camel_case }} = {{ name.lower_camel_case }}Response.{{ return_name.lower_camel_case }}
+                {%- else -%}
+                    let {{ return_name.lower_camel_case }} = {{ return_name.upper_camel_case }}.translateFromRPC({{ name.lower_camel_case }}Response.{{ return_name.lower_camel_case }})
+                {%- endif %}
+                single(.success({{ return_name.lower_camel_case }}))
+            } else {
+                single(.error("Cannot {{ name.lower_camel_case }}: \({{ name.lower_camel_case }}Response.{{ plugin_name.lower_camel_case }}Result.result)"))
+            }
         } catch {
             single(.error(error))
         }
 
         return Disposables.create()
     }
+    .subscribeOn(scheduler)
+    .observeOn(MainScheduler.instance)
 }

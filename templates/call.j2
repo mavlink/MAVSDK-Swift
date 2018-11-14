@@ -1,3 +1,4 @@
+
 public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.upper_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Completable {
     return Completable.create { completable in
         let {{ name.lower_camel_case }}Request = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()
