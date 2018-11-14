@@ -1,27 +1,45 @@
+
 public lazy var {{ name.lower_camel_case }}: Observable<{{ return_type.name }}> = create{{ name.upper_camel_case }}Observable({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %})
 
 private func create{{ name.upper_camel_case }}Observable({% for param in params %}{{ param.name }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %}) -> Observable<{{ return_type.name }}> {
     return Observable.create { observer in
-        let {{ name.lower_camel_case }}Request = {{ request_rpc_type }}()
+        let {{ name.lower_camel_case }}Request = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_Subscribe{{ name.upper_camel_case }}Request()
 
         do {
-            let call = try self.service.subscribe{{ name.upper_camel_case }}({{ name.lower_camel_case }}Request, completion: nil)
-            while let response = try? call.receive() {
+            let call = try self.service.subscribe{{ name.upper_camel_case }}({{ name.lower_camel_case }}Request, completion: { (callResult) in 
+                if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                    observer.onCompleted()
+                } else {
+                    observer.onError(callResult.statusMessage!)
+                }
+            })
 
-                {% if return_type.is_primitive -%}
-                   let {{ name.lower_camel_case }} = response.{{ name.lower_camel_case }}
-                {% else -%}
-                    let {{ name.lower_camel_case }} = {{ name.upper_camel_case }}.translateFromRPC(response.{{ name.lower_camel_case }})
-                {%- endif %}
+            DispatchQueue.init(label: "Dronecode{{ name.upper_camel_case }}Receiver").async {
+                do {
+                    while let rpc{{ name.upper_camel_case }} = try? call.receive()?.{{ name.lower_camel_case }} {
+                        {% if return_type.is_primitive -%}
+                            let {{ name.lower_camel_case }} = rpc{{ name.upper_camel_case }}
+                        {% else -%}
+                            let {{ name.lower_camel_case }} = {{ name.upper_camel_case }}.translateFromRPC(rpc{{ name.upper_camel_case }})
+                        {%- endif %}
 
-                observer.onNext({{ name.lower_camel_case }})
+                        observer.onNext({{ name.lower_camel_case }})
+                    }
+                    observer.onError("Broken pipe")
+                } catch {
+                    observer.onError(error)
+                }
+            }
+
+            return Disposables.create {
+                call.cancel()
             }
         } catch {
             observer.onError("Failed to subscribe to {{ name.lower_camel_case }} stream. \(error)")
+            return Disposables.create()
         }
-
-        return Disposables.create()
     }
+    .retry()
     .subscribeOn(scheduler)
     .observeOn(MainScheduler.instance)
 }
