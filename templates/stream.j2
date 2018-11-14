@@ -1,0 +1,27 @@
+public lazy var {{ name.lower_camel_case }}: Observable<{{ return_type.name }}> = create{{ name.upper_camel_case }}Observable({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %})
+
+private func create{{ name.upper_camel_case }}Observable({% for param in params %}{{ param.name }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %}) -> Observable<{{ return_type.name }}> {
+    return Observable.create { observer in
+        let {{ name.lower_camel_case }}Request = {{ request_rpc_type }}()
+
+        do {
+            let call = try self.service.subscribe{{ name.upper_camel_case }}({{ name.lower_camel_case }}Request, completion: nil)
+            while let response = try? call.receive() {
+
+                {% if return_type.is_primitive -%}
+                   let {{ name.lower_camel_case }} = response.{{ name.lower_camel_case }}
+                {% else -%}
+                    let {{ name.lower_camel_case }} = {{ name.upper_camel_case }}.translateFromRPC(response.{{ name.lower_camel_case }})
+                {%- endif %}
+
+                observer.onNext({{ name.lower_camel_case }})
+            }
+        } catch {
+            observer.onError("Failed to subscribe to {{ name.lower_camel_case }} stream. \(error)")
+        }
+
+        return Disposables.create()
+    }
+    .subscribeOn(scheduler)
+    .observeOn(MainScheduler.instance)
+}

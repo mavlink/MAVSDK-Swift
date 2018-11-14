@@ -1,0 +1,32 @@
+public struct {{ name.upper_camel_case }}: Equatable {
+    {%- for field in fields %}
+    public let {{ field.name.lower_camel_case }}: {{ field.type_info.name }}
+    {%- endfor %}
+
+    public init({% for field in fields %}{{ field.name.lower_camel_case }}: {{ field.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) {
+        {%- for field in fields %}
+        self.{{ field.name.lower_camel_case }} = {{ field.name.lower_camel_case }}
+        {%- endfor %}
+    }
+
+    internal var rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }} {
+        var rpc{{ name.upper_camel_case }} = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}()
+
+        {%- for field in fields %}
+        rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }} = {{ field.name.lower_camel_case }}
+        {%- endfor %}
+
+        return rpc{{ name.upper_camel_case }}
+    }
+
+    internal static func translateFromRPC(_ rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}) -> {{ name.upper_camel_case }} {
+        return {{ name.upper_camel_case }}({% for field in fields %}{{ field.name.lower_camel_case }}: {% if field.type_info.is_primitive %}rpc{{ name.upper_camel_case }}.{{ field.name.upper_camel_case }}{% else %}{{ field.type_info.name }}.translateFromRPC(rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}){% endif %}{{ ", " if not loop.last }}{% endfor %})
+    }
+
+    public static func == (lhs: {{ name.upper_camel_case }}, rhs:: {{ name.upper_camel_case }}) -> Bool {
+        return lhs.{{ fields[0].name.lower_camel_case }} == rhs.{{ fields[0].name.lower_camel_case }}
+            {%- for field in fields[1:] %}
+            && lhs.{{ field.name.lower_camel_case }} == rhs.{{ field.name.lower_camel_case }}
+            {%- endfor %}
+    }
+}
