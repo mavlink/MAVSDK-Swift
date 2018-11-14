@@ -5,8 +5,8 @@ set -e
 command -v protoc || { echo >&2 "Protobuf needs to be installed (e.g. '$ brew install protobuf') for this script to run!"; exit 1; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROTO_DIR="${SCRIPT_DIR}/../proto/protos"
-OUTPUT_DIR="${SCRIPT_DIR}/../Dronecode-SDK-Swift/Generated"
+PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
+OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Dronecode-SDK-Swift/Generated"}
 
 if [ ! -d ${PROTO_DIR} ]; then
     echo "Script is not in the right location! It will look for the proto files in '${PROTO_DIR}', which doesn't exist!"
@@ -20,13 +20,14 @@ if [ ! -d ${OUTPUT_DIR} ]; then
     exit 1
 fi
 
-TMP_DIR="$(mktemp -d)"
-echo "Making a temporary directory for this build: ${TMP_DIR}"
+TMP_DIR=${TMP_DIR:-"$(mktemp -d)"}
+echo "Temporary directory for this build: ${TMP_DIR}"
 
-git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift
-cd ${TMP_DIR}/grpc-swift
-git checkout 23a0ebdee9613f615f2f2469ed3e700df5856417
-make
+if [ ! -d ${TMP_DIR}/grpc-swift ]; then
+    git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift
+fi
+
+cd ${TMP_DIR}/grpc-swift && make
 
 for plugin in action camera core mission telemetry info; do
     protoc ${plugin}.proto -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --swiftgrpc_opt=TestStubs=true --plugin=protoc-gen-swift=${TMP_DIR}/grpc-swift/protoc-gen-swift --plugin=protoc-gen-swiftgrpc=${TMP_DIR}/grpc-swift/protoc-gen-swiftgrpc
