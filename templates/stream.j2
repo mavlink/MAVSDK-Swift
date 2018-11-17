@@ -20,7 +20,7 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
                         {% if return_type.is_primitive -%}
                             let {{ name.lower_camel_case }} = rpc{{ name.upper_camel_case }}
                         {% else -%}
-                            let {{ name.lower_camel_case }} = {{ name.upper_camel_case }}.translateFromRPC(rpc{{ name.upper_camel_case }})
+                            let {{ name.lower_camel_case }} = {{ name.lower_camel_case }}.translateFromRPC(rpc{{ name.upper_camel_case }})
                         {%- endif %}
 
                         observer.onNext({{ name.lower_camel_case }})
