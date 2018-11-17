@@ -1,15 +1,30 @@
 import Foundation
-import gRPC
 import RxSwift
+import SwiftGRPC
 
 public class {{ plugin_name.upper_camel_case }} {
+    private let service: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceService
+    private let scheduler: SchedulerType
+
+    public convenience init(address: String, port: Int) {
+        let service = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
+
+        self.init(service: service, scheduler: scheduler)
+    }
+
+    init(service: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceService, scheduler: SchedulerType) {
+        self.service = service
+        self.scheduler = scheduler
+    }
+
 {%- for enum in enums %}
 {{ indent(enum, 1) }}
 {%- endfor %}
 
-{%- for struct in structs %}
+{% for struct in structs %}
 {{ indent(struct, 1) }}
-{%- endfor %}
+{% endfor %}
 
 {%- for method in methods %}
 {{ indent(method, 1) }}

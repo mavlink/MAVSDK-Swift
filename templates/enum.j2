@@ -1,13 +1,14 @@
+
 public enum {{ name.upper_camel_case }} {
     {%- for value in values %}
-    case {{ value.lowercase }}
+    case {{ value.lower_camel_case }}
     {%- endfor %}
 
     internal var rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }} {
         switch self {
         {%- for value in values %}
-        case .{{ value.lowercase }}:
-            return .{{ value.lowercase }}
+        case .{{ value.lower_camel_case }}:
+            return .{{ value.lower_camel_case }}
         {%- endfor %}
         }
     }
@@ -15,8 +16,8 @@ public enum {{ name.upper_camel_case }} {
     internal static func translateFromRPC(_ rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}) -> {{ name.upper_camel_case }} {
         switch rpc{{ name.upper_camel_case }} {
         {%- for value in values %}
-        case .{{ value.lowercase }}:
-            return .{{ value.lowercase }}
+        case .{{ value.lower_camel_case }}:
+            return .{{ value.lower_camel_case }}
         {%- endfor %}
         }
     }
