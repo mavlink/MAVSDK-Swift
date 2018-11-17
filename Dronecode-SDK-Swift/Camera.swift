@@ -1068,10 +1068,10 @@ public class Camera {
                 observer.onError("Failed to subscribe to capture info stream. \(error)")
                 return Disposables.create()
             }
-            }
-            .retry()
-            .subscribeOn(scheduler)
-            .observeOn(MainScheduler.instance)
+        }
+        .retry()
+        .subscribeOn(scheduler)
+        .observeOn(MainScheduler.instance)
     }
     
     private func createCameraStatusObservable() -> Observable<CameraStatus> {
