@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		086B1C0921A8525F00578907 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086B1C0821A8525F00578907 /* Info.swift */; };
+		086B1C0C21A852F900578907 /* info.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086B1C0A21A852F900578907 /* info.grpc.swift */; };
+		086B1C0D21A852F900578907 /* info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086B1C0B21A852F900578907 /* info.pb.swift */; };
 		A539337420A26B94004D791F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337320A26B94004D791F /* Camera.swift */; };
 		A539337620A26BAC004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337520A26BAC004D791F /* CameraTest.swift */; };
 		A539337820A2828B004D791F /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A539337720A2828B004D791F /* CameraTest.swift */; };
@@ -134,6 +137,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		086B1C0821A8525F00578907 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		086B1C0A21A852F900578907 /* info.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = info.grpc.swift; path = "Dronecode-SDK-Swift/Generated/info.grpc.swift"; sourceTree = SOURCE_ROOT; };
+		086B1C0B21A852F900578907 /* info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = info.pb.swift; path = "Dronecode-SDK-Swift/Generated/info.pb.swift"; sourceTree = SOURCE_ROOT; };
 		A539337320A26B94004D791F /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		A539337520A26BAC004D791F /* CameraTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
 		A539337720A2828B004D791F /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
@@ -262,6 +268,7 @@
 				DF68BF14206461DF00175337 /* Generated */,
 				DF68BEFD2064617900175337 /* Dronecode_SDK_Swift.h */,
 				DF68BEFE2064617900175337 /* Info.plist */,
+				086B1C0821A8525F00578907 /* Info.swift */,
 			);
 			path = "Dronecode-SDK-Swift";
 			sourceTree = "<group>";
@@ -282,6 +289,8 @@
 		DF68BF14206461DF00175337 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				086B1C0A21A852F900578907 /* info.grpc.swift */,
+				086B1C0B21A852F900578907 /* info.pb.swift */,
 				DF2A206F219F91C80068CBAC /* calibration.grpc.swift */,
 				DF2A2070219F91C80068CBAC /* calibration.pb.swift */,
 				DFD07927209BFF5D001C7760 /* camera.grpc.swift */,
@@ -471,6 +480,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				086B1C0C21A852F900578907 /* info.grpc.swift in Sources */,
+				086B1C0D21A852F900578907 /* info.pb.swift in Sources */,
 				DFD07929209BFF5E001C7760 /* camera.grpc.swift in Sources */,
 				DFD0792A209BFF5E001C7760 /* camera.pb.swift in Sources */,
 				DFA0B041207524EA007BDD4B /* telemetry.grpc.swift in Sources */,
@@ -479,6 +490,7 @@
 				DF2A2068219DB7C50068CBAC /* Calibration.swift in Sources */,
 				DFA0B03F207524EA007BDD4B /* mission.grpc.swift in Sources */,
 				DFA0B03D207524EA007BDD4B /* core.pb.swift in Sources */,
+				086B1C0921A8525F00578907 /* Info.swift in Sources */,
 				DFA0B03C207524EA007BDD4B /* core.grpc.swift in Sources */,
 				DF020A10207D4CC600CEE035 /* Telemetry.swift in Sources */,
 				DF020A1620873D3B00CEE035 /* Mission.swift in Sources */,
