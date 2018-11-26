@@ -27,6 +27,6 @@ git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift
 cd ${TMP_DIR}/grpc-swift
 make
 
-for plugin in action camera core mission telemetry; do
+for plugin in action camera core mission telemetry info; do
     protoc ${plugin}.proto -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --swiftgrpc_opt=TestStubs=true --plugin=protoc-gen-swift=${TMP_DIR}/grpc-swift/protoc-gen-swift --plugin=protoc-gen-swiftgrpc=${TMP_DIR}/grpc-swift/protoc-gen-swiftgrpc
 done
