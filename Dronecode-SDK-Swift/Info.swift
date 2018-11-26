@@ -1,11 +1,3 @@
-//
-//  Info.swift
-//  Dronecode-SDK-Swift
-//
-//  Created by Julian Oes on 23.11.18.
-//  Copyright © 2018 Dronecode. All rights reserved.
-//
-
 import Foundation
 import SwiftGRPC
 import RxSwift
