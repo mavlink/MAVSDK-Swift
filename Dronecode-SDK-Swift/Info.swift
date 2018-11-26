@@ -81,11 +81,6 @@ public class Info {
                                       osSwMajor: getVersionResponse.version.osSwMajor,
                                       osSwMinor: getVersionResponse.version.osSwMinor,
                                       osSwPatch: getVersionResponse.version.osSwPatch)
-                // FIXME: remove debug prints
-                print("PX4 Version is: %d.%d.%d",
-                      version.flightSwMajor, version.flightSwMinor, version.flightSwPatch)
-                print("Vendor version is: %d.%d.%d",
-                      version.flightSwVendorMajor, version.flightSwVendorMinor, version.flightSwVendorPatch)
                 
                 single(.success(version))
             } catch {
