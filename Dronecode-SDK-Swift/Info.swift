@@ -74,7 +74,7 @@ public class Info {
                 let getVersionResponse = try self.service.getVersion(getVersionRequest)
                 let version = Version(flightSwMajor: getVersionResponse.version.flightSwMajor,
                                       flightSwMinor: getVersionResponse.version.flightSwMinor,
-                                      flightSwPatch: getVersionResponse.version.flightSwVendorPatch,
+                                      flightSwPatch: getVersionResponse.version.flightSwPatch,
                                       flightSwVendorMajor: getVersionResponse.version.flightSwVendorMajor,
                                       flightSwVendorMinor: getVersionResponse.version.flightSwVendorMinor,
                                       flightSwVendorPatch: getVersionResponse.version.flightSwVendorPatch,
