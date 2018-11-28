@@ -25,6 +25,7 @@ echo "Making a temporary directory for this build: ${TMP_DIR}"
 
 git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift
 cd ${TMP_DIR}/grpc-swift
+git checkout 23a0ebdee9613f615f2f2469ed3e700df5856417
 make
 
 for plugin in action camera core mission telemetry info; do
