@@ -185,44 +185,44 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCal
   override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler" }
 }
 
-internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall: ClientCallServerStreaming {
+internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse?
+  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse?>) -> Void) throws
 }
 
-internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall {
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest, DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall {
-  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGroundSpeedNED" }
+fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGroundSpeedNed" }
 }
 
-class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall {
-  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGroundSpeedNED" }
+class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGroundSpeedNed" }
 }
 
-internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall: ClientCallServerStreaming {
+internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Telemetry_GPSInfoResponse?
+  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Telemetry_GpsInfoResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Telemetry_GPSInfoResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Telemetry_GpsInfoResponse?>) -> Void) throws
 }
 
-internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall {
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Telemetry_GPSInfoResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Telemetry_GpsInfoResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest, DronecodeSdk_Rpc_Telemetry_GPSInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall {
-  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGPSInfo" }
+fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, DronecodeSdk_Rpc_Telemetry_GpsInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo" }
 }
 
-class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GPSInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall {
-  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGPSInfo" }
+class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GpsInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo" }
 }
 
 internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall: ClientCallServerStreaming {
@@ -285,24 +285,24 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub: Cl
   override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeHealth" }
 }
 
-internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall: ClientCallServerStreaming {
+internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Telemetry_RCStatusResponse?
+  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Telemetry_RcStatusResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Telemetry_RCStatusResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Telemetry_RcStatusResponse?>) -> Void) throws
 }
 
-internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall {
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Telemetry_RCStatusResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Telemetry_RcStatusResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest, DronecodeSdk_Rpc_Telemetry_RCStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall {
-  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeRCStatus" }
+fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, DronecodeSdk_Rpc_Telemetry_RcStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeRcStatus" }
 }
 
-class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_RCStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall {
-  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeRCStatus" }
+class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_RcStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+  override class var method: String { return "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeRcStatus" }
 }
 
 
@@ -351,12 +351,12 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceService: ServiceCli
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeGroundSpeedNED(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall
+  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeGPSInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall
+  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
@@ -376,7 +376,7 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceService: ServiceCli
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeRCStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall
+  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall
 
 }
 
@@ -448,16 +448,16 @@ internal final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient: S
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeGroundSpeedNED(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall {
-    return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallBase(channel)
+  internal func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+    return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeGPSInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall {
-    return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallBase(channel)
+  internal func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+    return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
@@ -488,8 +488,8 @@ internal final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient: S
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeRCStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall {
-    return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallBase(channel)
+  internal func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+    return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
@@ -560,20 +560,20 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
     return subscribeCameraAttitudeEulerCalls.first!
   }
 
-  var subscribeGroundSpeedNEDRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest] = []
-  var subscribeGroundSpeedNEDCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall] = []
-  func subscribeGroundSpeedNED(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCall {
-    subscribeGroundSpeedNEDRequests.append(request)
-    defer { subscribeGroundSpeedNEDCalls.removeFirst() }
-    return subscribeGroundSpeedNEDCalls.first!
+  var subscribeGroundSpeedNedRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest] = []
+  var subscribeGroundSpeedNedCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall] = []
+  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+    subscribeGroundSpeedNedRequests.append(request)
+    defer { subscribeGroundSpeedNedCalls.removeFirst() }
+    return subscribeGroundSpeedNedCalls.first!
   }
 
-  var subscribeGPSInfoRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest] = []
-  var subscribeGPSInfoCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall] = []
-  func subscribeGPSInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCall {
-    subscribeGPSInfoRequests.append(request)
-    defer { subscribeGPSInfoCalls.removeFirst() }
-    return subscribeGPSInfoCalls.first!
+  var subscribeGpsInfoRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest] = []
+  var subscribeGpsInfoCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall] = []
+  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+    subscribeGpsInfoRequests.append(request)
+    defer { subscribeGpsInfoCalls.removeFirst() }
+    return subscribeGpsInfoCalls.first!
   }
 
   var subscribeBatteryRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest] = []
@@ -600,12 +600,12 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
     return subscribeHealthCalls.first!
   }
 
-  var subscribeRCStatusRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest] = []
-  var subscribeRCStatusCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall] = []
-  func subscribeRCStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCall {
-    subscribeRCStatusRequests.append(request)
-    defer { subscribeRCStatusCalls.removeFirst() }
-    return subscribeRCStatusCalls.first!
+  var subscribeRcStatusRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest] = []
+  var subscribeRcStatusCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall] = []
+  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+    subscribeRcStatusRequests.append(request)
+    defer { subscribeRcStatusCalls.removeFirst() }
+    return subscribeRcStatusCalls.first!
   }
 
 }
@@ -622,12 +622,12 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceProvider: ServicePr
   func subscribeAttitudeEuler(request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession) throws -> ServerStatus?
   func subscribeCameraAttitudeQuaternion(request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession) throws -> ServerStatus?
   func subscribeCameraAttitudeEuler(request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession) throws -> ServerStatus?
-  func subscribeGroundSpeedNED(request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSession) throws -> ServerStatus?
-  func subscribeGPSInfo(request: DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSession) throws -> ServerStatus?
+  func subscribeGroundSpeedNed(request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSession) throws -> ServerStatus?
+  func subscribeGpsInfo(request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession) throws -> ServerStatus?
   func subscribeBattery(request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession) throws -> ServerStatus?
   func subscribeFlightMode(request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSession) throws -> ServerStatus?
   func subscribeHealth(request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession) throws -> ServerStatus?
-  func subscribeRCStatus(request: DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSession) throws -> ServerStatus?
+  func subscribeRcStatus(request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, session: DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession) throws -> ServerStatus?
 }
 
 extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceProvider {
@@ -677,15 +677,15 @@ extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceProvider {
         handler: handler,
         providerBlock: { try self.subscribeCameraAttitudeEuler(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGroundSpeedNED":
-      return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSessionBase(
+    case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGroundSpeedNed":
+      return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeGroundSpeedNED(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSessionBase) })
+        providerBlock: { try self.subscribeGroundSpeedNed(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGPSInfo":
-      return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSessionBase(
+    case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo":
+      return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeGPSInfo(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSessionBase) })
+        providerBlock: { try self.subscribeGpsInfo(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionBase) })
           .run()
     case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeBattery":
       return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySessionBase(
@@ -702,10 +702,10 @@ extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceProvider {
         handler: handler,
         providerBlock: { try self.subscribeHealth(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeRCStatus":
-      return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSessionBase(
+    case "/dronecode_sdk.rpc.telemetry.TelemetryService/SubscribeRcStatus":
+      return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeRCStatus(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSessionBase) })
+        providerBlock: { try self.subscribeRcStatus(request: $0, session: $1 as! DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -881,11 +881,11 @@ fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCame
 
 class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession {}
 
-internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSession: ServerSessionServerStreaming {
+internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse, timeout: DispatchTime) throws
+  func _send(_ message: DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -893,20 +893,20 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpee
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSession {
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest, DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSession {}
+fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSession {}
 
-class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDSession {}
+class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSession {}
 
-internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSession: ServerSessionServerStreaming {
+internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Telemetry_GPSInfoResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: DronecodeSdk_Rpc_Telemetry_GpsInfoResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Telemetry_GPSInfoResponse, timeout: DispatchTime) throws
+  func _send(_ message: DronecodeSdk_Rpc_Telemetry_GpsInfoResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -914,14 +914,14 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSes
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSession {
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Telemetry_GPSInfoResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: DronecodeSdk_Rpc_Telemetry_GpsInfoResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest, DronecodeSdk_Rpc_Telemetry_GPSInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSession {}
+fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, DronecodeSdk_Rpc_Telemetry_GpsInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession {}
 
-class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GPSInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoSession {}
+class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_GpsInfoResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession {}
 
 internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
@@ -986,11 +986,11 @@ fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHeal
 
 class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_HealthResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession {}
 
-internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSession: ServerSessionServerStreaming {
+internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Telemetry_RCStatusResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: DronecodeSdk_Rpc_Telemetry_RcStatusResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Telemetry_RCStatusResponse, timeout: DispatchTime) throws
+  func _send(_ message: DronecodeSdk_Rpc_Telemetry_RcStatusResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -998,12 +998,12 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSe
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSession {
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Telemetry_RCStatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: DronecodeSdk_Rpc_Telemetry_RcStatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest, DronecodeSdk_Rpc_Telemetry_RCStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSession {}
+fileprivate final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, DronecodeSdk_Rpc_Telemetry_RcStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession {}
 
-class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_RCStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusSession {}
+class DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Telemetry_RcStatusResponse>, DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession {}
 

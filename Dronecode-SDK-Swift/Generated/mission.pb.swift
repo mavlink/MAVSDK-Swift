@@ -24,14 +24,14 @@ struct DronecodeSdk_Rpc_Mission_UploadMissionRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var mission: DronecodeSdk_Rpc_Mission_Mission {
-    get {return _storage._mission ?? DronecodeSdk_Rpc_Mission_Mission()}
-    set {_uniqueStorage()._mission = newValue}
+  var missionItems: DronecodeSdk_Rpc_Mission_MissionItems {
+    get {return _storage._missionItems ?? DronecodeSdk_Rpc_Mission_MissionItems()}
+    set {_uniqueStorage()._missionItems = newValue}
   }
-  /// Returns true if `mission` has been explicitly set.
-  var hasMission: Bool {return _storage._mission != nil}
-  /// Clears the value of `mission`. Subsequent reads from it will return its default value.
-  mutating func clearMission() {_uniqueStorage()._mission = nil}
+  /// Returns true if `missionItems` has been explicitly set.
+  var hasMissionItems: Bool {return _storage._missionItems != nil}
+  /// Clears the value of `missionItems`. Subsequent reads from it will return its default value.
+  mutating func clearMissionItems() {_uniqueStorage()._missionItems = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -85,14 +85,14 @@ struct DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
   /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
   mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
 
-  var mission: DronecodeSdk_Rpc_Mission_Mission {
-    get {return _storage._mission ?? DronecodeSdk_Rpc_Mission_Mission()}
-    set {_uniqueStorage()._mission = newValue}
+  var missionItems: DronecodeSdk_Rpc_Mission_MissionItems {
+    get {return _storage._missionItems ?? DronecodeSdk_Rpc_Mission_MissionItems()}
+    set {_uniqueStorage()._missionItems = newValue}
   }
-  /// Returns true if `mission` has been explicitly set.
-  var hasMission: Bool {return _storage._mission != nil}
-  /// Clears the value of `mission`. Subsequent reads from it will return its default value.
-  mutating func clearMission() {_uniqueStorage()._mission = nil}
+  /// Returns true if `missionItems` has been explicitly set.
+  var hasMissionItems: Bool {return _storage._missionItems != nil}
+  /// Clears the value of `missionItems`. Subsequent reads from it will return its default value.
+  mutating func clearMissionItems() {_uniqueStorage()._missionItems = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -337,12 +337,12 @@ struct DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Mission_Mission {
+struct DronecodeSdk_Rpc_Mission_MissionItems {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var missionItem: [DronecodeSdk_Rpc_Mission_MissionItem] = []
+  var missionItems: [DronecodeSdk_Rpc_Mission_MissionItem] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -548,18 +548,18 @@ fileprivate let _protobuf_package = "dronecode_sdk.rpc.mission"
 extension DronecodeSdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".UploadMissionRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "mission"),
+    1: .standard(proto: "mission_items"),
   ]
 
   fileprivate class _StorageClass {
-    var _mission: DronecodeSdk_Rpc_Mission_Mission? = nil
+    var _missionItems: DronecodeSdk_Rpc_Mission_MissionItems? = nil
 
     static let defaultInstance = _StorageClass()
 
     private init() {}
 
     init(copying source: _StorageClass) {
-      _mission = source._mission
+      _missionItems = source._missionItems
     }
   }
 
@@ -575,7 +575,7 @@ extension DronecodeSdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, 
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._mission)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionItems)
         default: break
         }
       }
@@ -584,7 +584,7 @@ extension DronecodeSdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, 
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._mission {
+      if let v = _storage._missionItems {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
     }
@@ -596,7 +596,7 @@ extension DronecodeSdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, 
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._mission != rhs_storage._mission {return false}
+        if _storage._missionItems != rhs_storage._missionItems {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -690,12 +690,12 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
   static let protoMessageName: String = _protobuf_package + ".DownloadMissionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "mission_result"),
-    2: .same(proto: "mission"),
+    2: .standard(proto: "mission_items"),
   ]
 
   fileprivate class _StorageClass {
     var _missionResult: DronecodeSdk_Rpc_Mission_MissionResult? = nil
-    var _mission: DronecodeSdk_Rpc_Mission_Mission? = nil
+    var _missionItems: DronecodeSdk_Rpc_Mission_MissionItems? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -703,7 +703,7 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
 
     init(copying source: _StorageClass) {
       _missionResult = source._missionResult
-      _mission = source._mission
+      _missionItems = source._missionItems
     }
   }
 
@@ -720,7 +720,7 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._mission)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._missionItems)
         default: break
         }
       }
@@ -732,7 +732,7 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
       if let v = _storage._missionResult {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if let v = _storage._mission {
+      if let v = _storage._missionItems {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
     }
@@ -745,7 +745,7 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._missionResult != rhs_storage._missionResult {return false}
-        if _storage._mission != rhs_storage._mission {return false}
+        if _storage._missionItems != rhs_storage._missionItems {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1325,30 +1325,30 @@ extension DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: SwiftP
   }
 }
 
-extension DronecodeSdk_Rpc_Mission_Mission: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Mission"
+extension DronecodeSdk_Rpc_Mission_MissionItems: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MissionItems"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "mission_item"),
+    1: .standard(proto: "mission_items"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.missionItem)
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.missionItems)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.missionItem.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.missionItem, fieldNumber: 1)
+    if !self.missionItems.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.missionItems, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Mission_Mission, rhs: DronecodeSdk_Rpc_Mission_Mission) -> Bool {
-    if lhs.missionItem != rhs.missionItem {return false}
+  static func ==(lhs: DronecodeSdk_Rpc_Mission_MissionItems, rhs: DronecodeSdk_Rpc_Mission_MissionItems) -> Bool {
+    if lhs.missionItems != rhs.missionItems {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
