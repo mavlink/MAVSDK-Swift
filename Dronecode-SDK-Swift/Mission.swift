@@ -227,7 +227,7 @@ public class Mission {
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
             var uploadMissionRequest = DronecodeSdk_Rpc_Mission_UploadMissionRequest()
-            uploadMissionRequest.mission.missionItem = missionItems.map{ $0.rpcMissionItem }
+            uploadMissionRequest.missionItems.missionItems = missionItems.map{ $0.rpcMissionItem }
 
             do {
                 let uploadMissionResponse = try self.service.uploadMission(uploadMissionRequest)
@@ -260,7 +260,7 @@ public class Mission {
             do {
                 let downloadMissionResponse = try self.service.downloadMission(downloadMissionRequest)
                 if (downloadMissionResponse.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
-                    let missionItems = downloadMissionResponse.mission.missionItem.map{ MissionItem.translateFromRPC($0) }
+                    let missionItems = downloadMissionResponse.missionItems.missionItems.map{ MissionItem.translateFromRPC($0) }
                     
                     single(.success(missionItems))
                 }

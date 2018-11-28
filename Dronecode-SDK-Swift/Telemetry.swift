@@ -159,7 +159,7 @@ public struct Quaternion: Equatable {
  
  - Todo: fix name
  */
-public enum eDroneCoreGPSInfoFix: Int {
+public enum eDroneCoreGpsInfoFix: Int {
     /// No GPS.
     case noGps // = 0
     /// No fix.
@@ -179,13 +179,13 @@ public enum eDroneCoreGPSInfoFix: Int {
 /**
  GPS information type.
  */
-public struct GPSInfo: Equatable {
+public struct GpsInfo: Equatable {
     /// Number of visible satellites used for solution.
     public let numSatellites: Int32
     /// Fix type.
-    public let fixType: eDroneCoreGPSInfoFix
+    public let fixType: eDroneCoreGpsInfoFix
     
-    public static func == (lhs: GPSInfo, rhs: GPSInfo) -> Bool {
+    public static func == (lhs: GpsInfo, rhs: GpsInfo) -> Bool {
         return lhs.numSatellites == rhs.numSatellites
             && lhs.fixType == rhs.fixType
     }
@@ -222,7 +222,7 @@ public enum eDroneCoreFlightMode: Int {
  
  The ground speed is represented in the NED (North East Down) frame and in metres/second.
  */
-public struct GroundSpeedNED: Equatable {
+public struct GroundSpeedNed: Equatable {
     /// Velocity in North direction in metres/second.
     public let velocityNorthMS: Float
     /// Velocity in East direction in metres/second.
@@ -230,7 +230,7 @@ public struct GroundSpeedNED: Equatable {
     /// Velocity in Down direction in metres/second.
     public let velocityDownMS: Float
    
-    public static func == (lhs: GroundSpeedNED, rhs: GroundSpeedNED) -> Bool {
+    public static func == (lhs: GroundSpeedNed, rhs: GroundSpeedNed) -> Bool {
         return lhs.velocityNorthMS == rhs.velocityNorthMS
             && lhs.velocityEastMS == rhs.velocityEastMS
             && lhs.velocityDownMS == rhs.velocityDownMS
@@ -240,7 +240,7 @@ public struct GroundSpeedNED: Equatable {
 /**
  Remote control status type.
  */
-public struct RCStatus: Equatable {
+public struct RcStatus: Equatable {
     /// true if an RC signal has been available once.
     public let wasAvailableOnce: Bool
     /// true if the RC signal is available now.
@@ -248,7 +248,7 @@ public struct RCStatus: Equatable {
     /// Signal strength as a percentage (range: 0 to 100).
     public let signalStrengthPercent: Float
     
-    public static func == (lhs: RCStatus, rhs: RCStatus) -> Bool {
+    public static func == (lhs: RcStatus, rhs: RcStatus) -> Bool {
         return lhs.wasAvailableOnce == rhs.wasAvailableOnce
             && lhs.isAvailable == rhs.isAvailable
             && lhs.signalStrengthPercent == rhs.signalStrengthPercent
@@ -323,7 +323,7 @@ public class Telemetry {
      
      - Returns: A stream of updates.
      */
-    public lazy var GPSInfoObservable: Observable<GPSInfo> = createGPSInfoObservable()
+    public lazy var GpsInfoObservable: Observable<GpsInfo> = createGpsInfoObservable()
     
     /**
      Subscribe to GPS info updates.
@@ -351,14 +351,14 @@ public class Telemetry {
      
      - Returns: A stream of updates.
      */
-    public lazy var groundSpeedNEDObservable: Observable<GroundSpeedNED> = createGroundSpeedNEDObservable()
+    public lazy var groundSpeedNEDObservable: Observable<GroundSpeedNed> = createGroundSpeedNedObservable()
     
     /**
      Subscribe to RC status updates.
      
      - Returns: A stream of updates.
      */
-    public lazy var rcStatusObservable: Observable<RCStatus> = createRCStatusObservable()
+    public lazy var rcStatusObservable: Observable<RcStatus> = createRcStatusObservable()
 
     /**
      Helper function to connect `Telemetry` object to the backend.
@@ -783,12 +783,12 @@ public class Telemetry {
             .observeOn(MainScheduler.instance)
     }
     
-    private func createGPSInfoObservable() -> Observable<GPSInfo> {
+    private func createGpsInfoObservable() -> Observable<GpsInfo> {
         return Observable.create { observer in
-            let gpsInfoRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGPSInfoRequest()
+            let gpsInfoRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest()
             
             do {
-                let call = try self.service.subscribeGPSInfo(gpsInfoRequest, completion: { (callResult) in
+                let call = try self.service.subscribeGpsInfo(gpsInfoRequest, completion: { (callResult) in
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
@@ -796,11 +796,11 @@ public class Telemetry {
                     }
                 })
                 
-                DispatchQueue.init(label: "DronecodeGPSInfoReceiver").async {
+                DispatchQueue.init(label: "DronecodeGpsInfoReceiver").async {
                     do {
-                        while let rpcGPSInfo = try call.receive()?.gpsInfo {
-                            let gpsInfo = GPSInfo(numSatellites: rpcGPSInfo.numSatellites,
-                                                  fixType: eDroneCoreGPSInfoFix(rawValue: rpcGPSInfo.fixType.rawValue)!)
+                        while let rpcGpsInfo = try call.receive()?.gpsInfo {
+                            let gpsInfo = GpsInfo(numSatellites: rpcGpsInfo.numSatellites,
+                                                  fixType: eDroneCoreGpsInfoFix(rawValue: rpcGpsInfo.fixType.rawValue)!)
                             observer.onNext(gpsInfo)
                         }
                         observer.onError("Broken pipe")
@@ -813,7 +813,7 @@ public class Telemetry {
                     call.cancel()
                 }
             } catch {
-                observer.onError("Failed to subscribe to GPSInfo stream. \(error)")
+                observer.onError("Failed to subscribe to GpsInfo stream. \(error)")
                 return Disposables.create()
             }
             }
@@ -860,12 +860,12 @@ public class Telemetry {
             .observeOn(MainScheduler.instance)
     }
     
-    private func createGroundSpeedNEDObservable() -> Observable<GroundSpeedNED> {
+    private func createGroundSpeedNedObservable() -> Observable<GroundSpeedNed> {
         return Observable.create { observer in
-            let groundSpeedRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNEDRequest()
+            let groundSpeedRequest = DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest()
             
             do {
-                let call = try self.service.subscribeGroundSpeedNED(groundSpeedRequest, completion: { (callResult) in
+                let call = try self.service.subscribeGroundSpeedNed(groundSpeedRequest, completion: { (callResult) in
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
@@ -873,10 +873,10 @@ public class Telemetry {
                     }
                 })
                 
-                DispatchQueue.init(label: "DronecodeGroundSpeedNEDReceiver").async {
+                DispatchQueue.init(label: "DronecodeGroundSpeedNedReceiver").async {
                     do {
                         while let rpcGroundSpeedNed = try call.receive()?.groundSpeedNed {
-                            let groundSpeed = GroundSpeedNED(velocityNorthMS: rpcGroundSpeedNed.velocityNorthMS,
+                            let groundSpeed = GroundSpeedNed(velocityNorthMS: rpcGroundSpeedNed.velocityNorthMS,
                                                              velocityEastMS: rpcGroundSpeedNed.velocityEastMS,
                                                              velocityDownMS: rpcGroundSpeedNed.velocityDownMS)
                             observer.onNext(groundSpeed)
@@ -900,12 +900,12 @@ public class Telemetry {
             .observeOn(MainScheduler.instance)
     }
     
-    private func createRCStatusObservable() -> Observable<RCStatus> {
+    private func createRcStatusObservable() -> Observable<RcStatus> {
         return Observable.create { observer in
-            let rcstatusRequest = DronecodeSdk_Rpc_Telemetry_SubscribeRCStatusRequest()
+            let rcstatusRequest = DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest()
             
             do {
-                let call = try self.service.subscribeRCStatus(rcstatusRequest, completion: { (callResult) in
+                let call = try self.service.subscribeRcStatus(rcstatusRequest, completion: { (callResult) in
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
@@ -913,12 +913,12 @@ public class Telemetry {
                     }
                 })
                 
-                DispatchQueue.init(label: "DronecodeRCStatusReceiver").async {
+                DispatchQueue.init(label: "DronecodeRcStatusReceiver").async {
                     do {
-                        while let rpcRCStatus = try call.receive()?.rcStatus {
-                            let rcstatus = RCStatus(wasAvailableOnce: rpcRCStatus.wasAvailableOnce,
-                                                    isAvailable: rpcRCStatus.isAvailable,
-                                                    signalStrengthPercent: rpcRCStatus.signalStrengthPercent)
+                        while let rpcRcStatus = try call.receive()?.rcStatus {
+                            let rcstatus = RcStatus(wasAvailableOnce: rpcRcStatus.wasAvailableOnce,
+                                                    isAvailable: rpcRcStatus.isAvailable,
+                                                    signalStrengthPercent: rpcRcStatus.signalStrengthPercent)
                             observer.onNext(rcstatus)
                         }
                         observer.onError("Broken pipe")
