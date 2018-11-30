@@ -7,7 +7,7 @@
 To use this framework, add the following to your `Cartfile`:
 
 ```
-github "Dronecode/DronecodeSDK-Swift" == 0.1.6
+github "Dronecode/DronecodeSDK-Swift" ~> 0.2.1
 ```
 
 And then get the framework using:
@@ -48,7 +48,7 @@ class CoreManager {
     private func createStartCompletable() -> Observable<Never> {
         let startCompletable = core.connect().asObservable().replay(1)
         startCompletable.connect().disposed(by: disposeBag)
-        
+
         return startCompletable.asObservable()
     }
 }
