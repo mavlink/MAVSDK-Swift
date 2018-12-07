@@ -249,7 +249,6 @@ public class Calibration {
     private func createCalibrateMagnetometerObservable() -> Observable<ProgressData> {
         return Observable.create { observer in
             let calibrateMagnetometerRequest = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
-            print("createCalibrateMagnetometerObservable start")
             do {
                 let call = try self.service.subscribeCalibrateMagnetometer(calibrateMagnetometerRequest, completion: { (callResult) in 
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
