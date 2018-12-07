@@ -163,15 +163,15 @@ public class Calibration {
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
-                        observer.onError(callResult.statusMessage!)
+                        observer.onError(callResult.statusMessage ?? "Error: callResult.statusMessage")
                     }
                 })
 
                 DispatchQueue.init(label: "DronecodeCalibrateGyroReceiver").async {
-                    while let response = try? call.receive() {
-                        let calibrationResult =  CalibrationResult.translateFromRPC((response?.calibrationResult)!)
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                        let calibrationResult =  CalibrationResult.translateFromRPC(response.calibrationResult)
 
-                        let progressData = ProgressData.translateFromRPC((response?.progressData)!)
+                        let progressData = ProgressData.translateFromRPC(response.progressData)
 
                         switch (calibrationResult.result) {
                         case .success:
@@ -205,19 +205,19 @@ public class Calibration {
             let calibrateAccelerometerRequest = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest()
 
             do {
-                let call = try self.service.subscribeCalibrateAccelerometer(calibrateAccelerometerRequest, completion: { (callResult) in 
+                let call = try self.service.subscribeCalibrateAccelerometer(calibrateAccelerometerRequest, completion: { (callResult) in
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
-                        observer.onError(callResult.statusMessage!)
+                        observer.onError(callResult.statusMessage ?? "Error: callResult.statusMessage")
                     }
                 })
 
                 DispatchQueue.init(label: "DronecodeCalibrateAccelerometerReceiver").async {
-                    while let response = try? call.receive() {
-                        let calibrationResult =  CalibrationResult.translateFromRPC((response?.calibrationResult)!)
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                        let calibrationResult =  CalibrationResult.translateFromRPC(response.calibrationResult)
 
-                        let progressData = ProgressData.translateFromRPC((response?.progressData)!)
+                        let progressData = ProgressData.translateFromRPC(response.progressData)
 
                         switch (calibrationResult.result) {
                         case .success:
@@ -249,21 +249,20 @@ public class Calibration {
     private func createCalibrateMagnetometerObservable() -> Observable<ProgressData> {
         return Observable.create { observer in
             let calibrateMagnetometerRequest = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
-
             do {
                 let call = try self.service.subscribeCalibrateMagnetometer(calibrateMagnetometerRequest, completion: { (callResult) in 
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
-                        observer.onError(callResult.statusMessage!)
+                        observer.onError(callResult.statusMessage ?? "Error: callResult.statusMessage")
                     }
                 })
 
                 DispatchQueue.init(label: "DronecodeCalibrateMagnetometerReceiver").async {
-                    while let response = try? call.receive() {
-                        let calibrationResult =  CalibrationResult.translateFromRPC((response?.calibrationResult)!)
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                        let calibrationResult =  CalibrationResult.translateFromRPC(response.calibrationResult)
 
-                        let progressData = ProgressData.translateFromRPC((response?.progressData)!)
+                        let progressData = ProgressData.translateFromRPC(response.progressData)
 
                         switch (calibrationResult.result) {
                         case .success:
@@ -301,15 +300,15 @@ public class Calibration {
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
-                        observer.onError(callResult.statusMessage!)
+                        observer.onError(callResult.statusMessage ?? "Error: callResult.statusMessage")
                     }
                 })
 
                 DispatchQueue.init(label: "DronecodeCalibrateGimbalAccelerometerReceiver").async {
-                    while let response = try? call.receive() {
-                        let calibrationResult =  CalibrationResult.translateFromRPC((response?.calibrationResult)!)
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                        let calibrationResult =  CalibrationResult.translateFromRPC(response.calibrationResult)
 
-                        let progressData = ProgressData.translateFromRPC((response?.progressData)!)
+                        let progressData = ProgressData.translateFromRPC(response.progressData)
 
                         switch (calibrationResult.result) {
                         case .success:
