@@ -1,3 +1,3 @@
-github "grpc/grpc-swift" "23a0ebdee9613f615f2f2469ed3e700df5856417"
+github "3drobotics/grpc-swift" "master"
 github "ReactiveX/RxSwift" ~> 4.0
 binary "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/backend.json" ~> 0.10.0
