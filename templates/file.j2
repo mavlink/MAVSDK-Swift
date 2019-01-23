@@ -3,20 +3,35 @@ import RxSwift
 import SwiftGRPC
 
 public class {{ plugin_name.upper_camel_case }} {
-    private let service: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceService
+    private let service: {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String, port: Int) {
-        let service = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceServiceClient(address: "\(address):\(port)", secure: false)
         let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceService, scheduler: SchedulerType) {
+    init(service: {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}ServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
+
+    struct Runtime{{ plugin_name.upper_camel_case }}Error: Error {
+        let description: String
+
+        init(_ description: String) {
+            self.description = description
+        }
+    }
+
+    {% if has_result %}
+    struct {{ plugin_name.upper_camel_case }}Error: Error {
+        let code: {{ plugin_name.upper_camel_case }}.{{ plugin_name.upper_camel_case }}Result.Result
+        let description: String
+    }
+    {% endif %}
 
 {%- for enum in enums %}
 {{ indent(enum, 1) }}

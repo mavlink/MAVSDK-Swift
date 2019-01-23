@@ -1,20 +1,37 @@
 
-public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name }}: {{ param.type }}{{ ", " if not loop.last }}{% endfor %}) -> Single<{{ return_type.name }}> {
+public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Single<{{ return_type.name }}> {
     return Single<{{ return_type.name }}>.create { single in
-        let {{ name.lower_camel_case }}Request = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()
+        {% if params|length > 0 %}var{% else %}let{% endif %} request = {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()
+
+        {% for param in params %}
+            {% if param.type_info.is_primitive %}
+        request.{{ param.name.lower_camel_case }} = {{ param.name.lower_camel_case }}
+            {% else %}
+        request.{{ param.name.lower_camel_case }} = {{ param.name.lower_camel_case }}.rpc{{ param.name.upper_camel_case }}
+            {% endif %}
+        {% endfor %}
 
         do {
-            let {{ name.lower_camel_case }}Response = try self.service.{{ name.lower_camel_case }}({{ name.lower_camel_case }}Request)
-            if ({{ name.lower_camel_case }}Response.{{ plugin_name.lower_camel_case }}Result.result == {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
-                {% if return_type.is_primitive -%}
-                   let {{ return_name.lower_camel_case }} = {{ name.lower_camel_case }}Response.{{ return_name.lower_camel_case }}
-                {%- else -%}
-                    let {{ return_name.lower_camel_case }} = {{ return_name.upper_camel_case }}.translateFromRPC({{ name.lower_camel_case }}Response.{{ return_name.lower_camel_case }})
-                {%- endif %}
-                single(.success({{ return_name.lower_camel_case }}))
-            } else {
-                single(.error("Cannot {{ name.lower_camel_case }}: \({{ name.lower_camel_case }}Response.{{ plugin_name.lower_camel_case }}Result.result)"))
+            let response = try self.service.{{ name.lower_camel_case }}(request)
+
+            {% if has_result %}
+            if (response.{{ plugin_name.lower_camel_case }}Result.result != {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
+                single(.error({{ plugin_name.upper_camel_case }}Error(code: {{ plugin_name.upper_camel_case }}Result.Result.translateFromRpc(response.{{ plugin_name.lower_camel_case }}Result.result), description: response.{{ plugin_name.lower_camel_case }}Result.resultStr)))
+
+                return Disposables.create()
             }
+            {% endif %}
+
+            {% if return_type.is_repeated %}
+            let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_name.upper_camel_case }}.translateFromRpc($0) }
+            {% else %}
+                {% if return_type.is_primitive -%}
+            let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}
+                {%- else -%}
+            let {{ return_name.lower_camel_case }} = {{ return_name.upper_camel_case }}.translateFromRpc(response.{{ return_name.lower_camel_case }})
+                {%- endif %}
+            {% endif %}
+            single(.success({{ return_name.lower_camel_case }}))
         } catch {
             single(.error(error))
         }
@@ -22,5 +39,4 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name }
         return Disposables.create()
     }
     .subscribeOn(scheduler)
-    .observeOn(MainScheduler.instance)
 }

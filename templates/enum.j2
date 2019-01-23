@@ -1,24 +1,29 @@
 
-public enum {{ name.upper_camel_case }} {
+public enum {{ name.upper_camel_case }}: Equatable {
     {%- for value in values %}
     case {{ value.lower_camel_case }}
     {%- endfor %}
+    case UNRECOGNIZED(Int)
 
-    internal var rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }} {
+    internal var rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}{% if parent_struct is not none %}_{{ parent_struct.upper_camel_case }}.{% else %}_{% endif %}{{ name.upper_camel_case }} {
         switch self {
         {%- for value in values %}
         case .{{ value.lower_camel_case }}:
             return .{{ value.lower_camel_case }}
         {%- endfor %}
+        case .UNRECOGNIZED(let i):
+            return .UNRECOGNIZED(i)
         }
     }
 
-    internal static func translateFromRPC(_ rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}) -> {{ name.upper_camel_case }} {
+    internal static func translateFromRpc(_ rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}{% if parent_struct is not none %}_{{ parent_struct.upper_camel_case }}.{% else %}_{% endif %}{{ name.upper_camel_case }}) -> {{ name.upper_camel_case }} {
         switch rpc{{ name.upper_camel_case }} {
         {%- for value in values %}
         case .{{ value.lower_camel_case }}:
             return .{{ value.lower_camel_case }}
         {%- endfor %}
+        case .UNRECOGNIZED(let i):
+            return .UNRECOGNIZED(i)
         }
     }
 }

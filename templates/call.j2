@@ -1,15 +1,29 @@
 
-public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.upper_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Completable {
+public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Completable {
     return Completable.create { completable in
-        let {{ name.lower_camel_case }}Request = {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()
+        {% if params|length > 0 %}var{% else %}let{% endif %} request = {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()
+
+        {% for param in params %}
+            {% if param.type_info.is_primitive %}
+        request.{{ param.name.lower_camel_case }} = {{ param.name.lower_camel_case }}
+            {% else %}
+        request.{{ param.name.lower_camel_case }} = {{ param.name.lower_camel_case }}.rpc{{ param.name.upper_camel_case }}
+            {% endif %}
+        {% endfor %}
 
         do {
-            let {{ name.lower_camel_case }}Response = try self.service.{{ name.lower_camel_case }}({{ name.lower_camel_case }}Request)
-            if ({{ name.lower_camel_case }}Response.{{ plugin_name.lower_camel_case }}Result.result == {{ package.upper_camel_case.title().replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
+            {% if has_result %}
+            let response = try self.service.{{ name.lower_camel_case }}(request)
+
+            if (response.{{ plugin_name.lower_camel_case }}Result.result == {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
                 completable(.completed)
             } else {
-                completable(.error("Cannot {{ name.lower_camel_case }}: \({{ name.lower_camel_case }}Response.{{ plugin_name.lower_camel_case }}Result.result)"))
+                completable(.error({{ plugin_name.upper_camel_case }}Error(code: {{ plugin_name.upper_camel_case }}Result.Result.translateFromRpc(response.{{ plugin_name.lower_camel_case }}Result.result), description: response.{{ plugin_name.lower_camel_case }}Result.resultStr)))
             }
+            {% else %}
+            let _ = try self.service.{{ name.lower_camel_case }}(request)
+            completable(.completed)
+            {% endif %}
         } catch {
             completable(.error(error))
         }
@@ -17,5 +31,4 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.u
         return Disposables.create()
     }
     .subscribeOn(scheduler)
-    .observeOn(MainScheduler.instance)
 }
