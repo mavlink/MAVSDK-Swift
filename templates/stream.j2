@@ -71,13 +71,9 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
             return Disposables.create()
         }
     }
-    .retryWhen{ errors in
-        errors.flatMap { error -> Observable<Void.Type> in
-            if (error is Runtime{{ plugin_name.upper_camel_case }}Error) {
-                return Observable.just(Void.self)
-            } else {
-                return Observable.error(error)
-            }
+    .retryWhen { error in
+        error.map {
+            guard $0 is Runtime{{ plugin_name.upper_camel_case }}Error else { throw $0 }
         }
     }
     .subscribeOn(scheduler)
