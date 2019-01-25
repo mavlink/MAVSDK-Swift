@@ -46,7 +46,7 @@ class CameraTest: XCTestCase {
         
         let client = Camera(service: fakeService, scheduler: scheduler)
         
-        return client.startPhotoInteval(interval: 5).toBlocking().materialize()
+        return client.startPhotoInterval(intervalS: 5).toBlocking().materialize()
     }
     
     func testStartPhotoIntervalFail() {
@@ -172,14 +172,14 @@ class CameraTest: XCTestCase {
     
     // MARK: - Set Mode
     func testSetMode() {
-        let cameraModeArray: [CameraMode] = [.unknown, .photo, .video]
+        let cameraModeArray: [Camera.CameraMode] = [.unknown, .photo, .video]
         
         cameraModeArray.forEach { mode in
             assertSuccess(result: setModeWithFakeResult(mode: mode, result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
         }
     }
     
-    func setModeWithFakeResult(mode: CameraMode, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
+    func setModeWithFakeResult(mode: Camera.CameraMode, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Camera_SetModeResponse()
         
@@ -188,11 +188,11 @@ class CameraTest: XCTestCase {
         
         let client = Camera(service: fakeService, scheduler: scheduler)
         
-        return client.setMode(mode: mode).toBlocking().materialize()
+        return client.setMode(cameraMode: mode).toBlocking().materialize()
     }
     
     func testSetModeFail() {
-        let cameraModeArray: [CameraMode] = [.unknown, .photo, .video]
+        let cameraModeArray: [Camera.CameraMode] = [.unknown, .photo, .video]
         
         cameraResultsArray.forEach { result in
             cameraModeArray.forEach { mode in
@@ -210,9 +210,9 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(CameraMode.self)
+        let observer = scheduler.createObserver(Camera.CameraMode.self)
         
-        let _ = camera.cameraModeObservable.subscribe(observer)
+        let _ = camera.mode.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -249,15 +249,15 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(CameraMode.self)
+        let observer = scheduler.createObserver(Camera.CameraMode.self)
         
-        let _ = camera.cameraModeObservable.subscribe(observer)
+        let _ = camera.mode.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<CameraMode>>]()
+        var expectedEvents = [Recorded<Event<Camera.CameraMode>>]()
         cameraModeStates.forEach {
-            expectedEvents.append(next(0, CameraMode.translateFromRPC($0)))
+            expectedEvents.append(next(0, Camera.CameraMode.translateFromRpc($0)))
         }
         expectedEvents.append(completed(0))
         
@@ -281,18 +281,18 @@ class CameraTest: XCTestCase {
     
     // MARK: - Set Video Stream Settings
     func testSetVideoStreamSettings() {
-        let videoStreamSettings = VideoStreamSettings(frameRateHz: 4.5, horizontalResolutionPix: 32, verticalResolutionPix: 32, bitRateBS: 32, rotationDegree: 32, uri: "testUri") // Random values
+        let videoStreamSettings = Camera.VideoStreamSettings(frameRateHz: 4.5, horizontalResolutionPix: 32, verticalResolutionPix: 32, bitRateBS: 32, rotationDeg: 32, uri: "testUri") // Random values
         assertSuccess(result: setVideoStreamSettingsWithFakeResult(videoStreamSettings: videoStreamSettings, result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
     }
     
-    func setVideoStreamSettingsWithFakeResult(videoStreamSettings: VideoStreamSettings, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
+    func setVideoStreamSettingsWithFakeResult(videoStreamSettings: Camera.VideoStreamSettings, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
         let response = DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse()
         
         fakeService.setVideoStreamSettingsResponses.append(response)
         let client = Camera(service: fakeService, scheduler: scheduler)
         
-        return client.setVideoStreamSettings(settings: videoStreamSettings).toBlocking().materialize()
+        return client.setVideoStreamSettings(videoStreamSettings: videoStreamSettings).toBlocking().materialize()
     }
     
     // MARK: - Subscribe Video Stream Info
@@ -304,9 +304,9 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(VideoStreamInfo.self)
+        let observer = scheduler.createObserver(Camera.VideoStreamInfo.self)
         
-        let _ = camera.videoStreamInfoObservable.subscribe(observer)
+        let _ = camera.videoStreamInfo.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -344,15 +344,15 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(VideoStreamInfo.self)
+        let observer = scheduler.createObserver(Camera.VideoStreamInfo.self)
         
-        let _ = camera.videoStreamInfoObservable.subscribe(observer)
+        let _ = camera.videoStreamInfo.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<VideoStreamInfo>>]()
+        var expectedEvents = [Recorded<Event<Camera.VideoStreamInfo>>]()
         videoStreamStates.forEach {
-            expectedEvents.append(next(0, VideoStreamInfo.translateFromRPC($0)))
+            expectedEvents.append(next(0, Camera.VideoStreamInfo.translateFromRpc($0)))
         }
         expectedEvents.append(completed(0))
         
@@ -383,9 +383,9 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(CaptureInfo.self)
+        let observer = scheduler.createObserver(Camera.CaptureInfo.self)
         
-        let _ = camera.captureInfoObservable.subscribe(observer)
+        let _ = camera.captureInfo.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -394,10 +394,10 @@ class CameraTest: XCTestCase {
     
     // One Event
     func testCaptureInfoReceivesOneEvent() {
-        let position = Position(latitudeDeg: 34.44, longitudeDeg: 34.44, absoluteAltitudeM: 34.44, relativeAltitudeM: 34.44)
-        let quaternion = Quaternion(w: 4, x: 4, y: 4, z: 4)
-        let eulerAngle = EulerAngle(pitchDeg: 34, rollDeg: 34, yawDeg: 34)
-        let captureInfo = CaptureInfo(position: position, attitudeQuaternion: quaternion, attitudeEulerAngle: eulerAngle, timeUTC: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest").rpcCaptureInfo
+        let position = Camera.Position(latitudeDeg: 34.44, longitudeDeg: 34.44, absoluteAltitudeM: 34.44, relativeAltitudeM: 34.44)
+        let quaternion = Camera.Quaternion(w: 4, x: 4, y: 4, z: 4)
+        let eulerAngle = Camera.EulerAngle(rollDeg: 34, pitchDeg: 34, yawDeg: 34)
+        let captureInfo = Camera.CaptureInfo(position: position, attitudeQuaternion: quaternion, attitudeEulerAngle: eulerAngle, timeUtcUs: 5455454, isSuccess: true, index: 45, fileURL: "fileURLTest").rpcCaptureInfo
         let captureInfoArray = [captureInfo]
         
         checkCaptureInfoReceivesEvents(captureInfo: captureInfoArray)
@@ -426,15 +426,15 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(CaptureInfo.self)
+        let observer = scheduler.createObserver(Camera.CaptureInfo.self)
         
-        let _ = camera.captureInfoObservable.subscribe(observer)
+        let _ = camera.captureInfo.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<CaptureInfo>>]()
+        var expectedEvents = [Recorded<Event<Camera.CaptureInfo>>]()
         captureInfo.forEach {
-            expectedEvents.append(next(0, CaptureInfo.translateFromRPC($0)))
+            expectedEvents.append(next(0, Camera.CaptureInfo.translateFromRpc($0)))
         }
         expectedEvents.append(completed(0))
         
@@ -449,14 +449,14 @@ class CameraTest: XCTestCase {
         return response
     }
     
-    func generateRandomCaptureInfo() -> CaptureInfo {
+    func generateRandomCaptureInfo() -> Camera.CaptureInfo {
         
-        let position = Position(latitudeDeg: Double(randomNumber()), longitudeDeg: Double(randomNumber()), absoluteAltitudeM: Float(randomNumber()), relativeAltitudeM: Float(randomNumber()))
-        let quaternion = Quaternion(w: Float(randomNumber()), x: Float(randomNumber()), y: Float(randomNumber()), z: Float(randomNumber()))
-        let eulerAngle = EulerAngle(pitchDeg: Float(randomNumber()), rollDeg: Float(randomNumber()), yawDeg: Float(randomNumber()))
-        let captureInfo = CaptureInfo(position: position, attitudeQuaternion: quaternion, attitudeEulerAngle: eulerAngle, timeUTC: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()).rpcCaptureInfo
+        let position = Camera.Position(latitudeDeg: Double(randomNumber()), longitudeDeg: Double(randomNumber()), absoluteAltitudeM: Float(randomNumber()), relativeAltitudeM: Float(randomNumber()))
+        let quaternion = Camera.Quaternion(w: Float(randomNumber()), x: Float(randomNumber()), y: Float(randomNumber()), z: Float(randomNumber()))
+        let eulerAngle = Camera.EulerAngle(rollDeg: Float(randomNumber()), pitchDeg: Float(randomNumber()), yawDeg: Float(randomNumber()))
+        let captureInfo = Camera.CaptureInfo(position: position, attitudeQuaternion: quaternion, attitudeEulerAngle: eulerAngle, timeUtcUs: UInt64(randomNumber()), isSuccess: randomBool(), index: Int32(randomNumber()), fileURL: randomString()).rpcCaptureInfo
         
-        return CaptureInfo.translateFromRPC(captureInfo)
+        return Camera.CaptureInfo.translateFromRpc(captureInfo)
     }
     
     // MARK: - Subscribe Camera Status
@@ -468,9 +468,9 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(CameraStatus.self)
+        let observer = scheduler.createObserver(Camera.CameraStatus.self)
         
-        let _ = camera.cameraStatusObservable.subscribe(observer)
+        let _ = camera.cameraStatus.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         XCTAssertEqual(1, observer.events.count)
@@ -478,14 +478,14 @@ class CameraTest: XCTestCase {
     
     // One Event
     func testCameraStatusRecievesOneEvent() {
-        let cameraStatus = CameraStatus(videoOn: true,
-                                        recordingTimeS: 3,
-                                        photoIntervalOn: false,
-                                        mediaFolderName: "name",
-                                        usedStorageMib: 100.0,
-                                        availableStorageMib: 200.0,
-                                        totalStorageMib: 300.0,
-                                        storageStatus: .formatted).rpcCameraStatus
+        let cameraStatus = Camera.CameraStatus(videoOn: true,
+                                               photoIntervalOn: false,
+                                               usedStorageMib: 100.0,
+                                               availableStorageMib: 200.0,
+                                               totalStorageMib: 300.0,
+                                               recordingTimeS: 3,
+                                               mediaFolderName: "name",
+                                               storageStatus: .formatted).rpcCameraStatus
         
         let cameraStatusArray = [cameraStatus]
         checkCameraStatusRecievesEvents(cameraStatus: cameraStatusArray)
@@ -495,10 +495,10 @@ class CameraTest: XCTestCase {
     func testCameraStatusReceivesMultipleEvents() {
         var cameraStatusEvents = [DronecodeSdk_Rpc_Camera_CameraStatus]()
         
-        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
-        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
-        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
-        cameraStatusEvents.append(generateRandomCameraStaus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStatus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStatus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStatus().rpcCameraStatus)
+        cameraStatusEvents.append(generateRandomCameraStatus().rpcCameraStatus)
         
         checkCameraStatusRecievesEvents(cameraStatus: cameraStatusEvents)
     }
@@ -515,15 +515,15 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(CameraStatus.self)
+        let observer = scheduler.createObserver(Camera.CameraStatus.self)
         
-        let _ = camera.cameraStatusObservable.subscribe(observer)
+        let _ = camera.cameraStatus.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<CameraStatus>>]()
+        var expectedEvents = [Recorded<Event<Camera.CameraStatus>>]()
         cameraStatus.forEach {
-            expectedEvents.append(next(0, CameraStatus.translateFromRPC($0)))
+            expectedEvents.append(next(0, Camera.CameraStatus.translateFromRpc($0)))
         }
         expectedEvents.append(completed(0))
         
@@ -538,19 +538,19 @@ class CameraTest: XCTestCase {
         return response
     }
     
-    func generateRandomCameraStaus() -> CameraStatus {
+    func generateRandomCameraStatus() -> Camera.CameraStatus {
         
-        let storageStatusArray: [StorageStatus] = [.formatted, .unformatted, .notAvailable]
+        let storageStatusArray: [Camera.CameraStatus.StorageStatus] = [.formatted, .unformatted, .notAvailable]
         let randomIndex = Int(arc4random_uniform(UInt32(storageStatusArray.count)))
         
-        return CameraStatus(videoOn: randomBool(),
-                            recordingTimeS: Float(randomNumber()),
-                            photoIntervalOn: randomBool(),
-                            mediaFolderName: randomString(),
-                            usedStorageMib: Float(randomNumber()),
-                            availableStorageMib: Float(randomNumber()),
-                            totalStorageMib: Float(randomNumber()),
-                            storageStatus: storageStatusArray[randomIndex])
+        return Camera.CameraStatus(videoOn: randomBool(),
+                                   photoIntervalOn: randomBool(),
+                                   usedStorageMib: Float(randomNumber()),
+                                   availableStorageMib: Float(randomNumber()),
+                                   totalStorageMib: Float(randomNumber()),
+                                   recordingTimeS: Float(randomNumber()),
+                                   mediaFolderName: randomString(),
+                                   storageStatus: storageStatusArray[randomIndex])
     }
     
     // MARK: - Subscribe Current Settings
@@ -562,9 +562,9 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver([Setting].self)
+        let observer = scheduler.createObserver([Camera.Setting].self)
         
-        let _ = camera.currentSettingsObservable.subscribe(observer)
+        let _ = camera.currentSettings.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         XCTAssertEqual(1, observer.events.count)
@@ -572,8 +572,8 @@ class CameraTest: XCTestCase {
     
     // One Event
     func testCurrentSettingsReceivesOneEvent() {
-        let option = Option(id: randomString())
-        let currentSettings = Setting(id: randomString(), option: option).rpcSetting
+        let option = Camera.Option(optionID: randomString(), optionDescription: randomString())
+        let currentSettings = Camera.Setting(settingID: randomString(), settingDescription: randomString(), option: option).rpcSetting
         
         let currentSettingsArray = [currentSettings]
         checkCurrentSettingsReceivesEvents(currentSettings: currentSettingsArray)
@@ -605,15 +605,15 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver([Setting].self)
+        let observer = scheduler.createObserver([Camera.Setting].self)
         
-        let _ = camera.currentSettingsObservable.subscribe(observer)
+        let _ = camera.currentSettings.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<[Setting]>>]()
+        var expectedEvents = [Recorded<Event<[Camera.Setting]>>]()
         currentSettings.forEach {
-            expectedEvents.append(next(0, [Setting.translateFromRPC($0)]))
+            expectedEvents.append(next(0, [Camera.Setting.translateFromRpc($0)]))
         }
         expectedEvents.append(completed(0))
         
@@ -632,8 +632,8 @@ class CameraTest: XCTestCase {
         var randomSettings: [DronecodeSdk_Rpc_Camera_Setting] = []
         
         for _ in 0...Int(randomNumber()) {
-            let randomOption = Option(id: randomString())
-            randomSettings.append(Setting(id: randomString(), option: randomOption).rpcSetting)
+            let randomOption = Camera.Option(optionID: randomString(), optionDescription: randomString())
+            randomSettings.append(Camera.Setting(settingID: randomString(), settingDescription: randomString(), option: randomOption).rpcSetting)
         }
         
         return randomSettings
@@ -648,9 +648,9 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver([SettingOptions].self)
+        let observer = scheduler.createObserver([Camera.SettingOptions].self)
         
-        let _ = camera.possibleSettingOptionsObservable.subscribe(observer)
+        let _ = camera.possibleSettingOptions.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         XCTAssertEqual(1, observer.events.count)
@@ -658,8 +658,8 @@ class CameraTest: XCTestCase {
     
     // One Event
     func testPossibleSettingOptionsReceivesOneEvent() {
-        let option = Option(id: randomString())
-        let possibleSettingOptions = SettingOptions(settingId: randomString(), options: [option]).rpcSettingOptions
+        let option = Camera.Option(optionID: randomString(), optionDescription: randomString())
+        let possibleSettingOptions = Camera.SettingOptions(settingID: randomString(), settingDescription: randomString(), options: [option]).rpcSettingOptions
         
         let possibleSettingOptionsArray = [possibleSettingOptions]
         checkPossibleSettingOptionsReceivesEvents(possibleSettingOptions: possibleSettingOptionsArray)
@@ -691,15 +691,15 @@ class CameraTest: XCTestCase {
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver([SettingOptions].self)
+        let observer = scheduler.createObserver([Camera.SettingOptions].self)
         
-        let _ = camera.possibleSettingOptionsObservable.subscribe(observer)
+        let _ = camera.possibleSettingOptions.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<[SettingOptions]>>]()
+        var expectedEvents = [Recorded<Event<[Camera.SettingOptions]>>]()
         possibleSettingOptions.forEach {
-            expectedEvents.append(next(0, [SettingOptions.translateFromRPC($0)]))
+            expectedEvents.append(next(0, [Camera.SettingOptions.translateFromRpc($0)]))
         }
         expectedEvents.append(completed(0))
         
@@ -719,10 +719,10 @@ class CameraTest: XCTestCase {
         var possibleSettingOptions: [DronecodeSdk_Rpc_Camera_SettingOptions] = []
         
         for _ in 0...Int(randomNumber()) {
-            var options: [Option] = []
-            options.append(Option(id: randomString()))
-            options.append(Option(id: randomString()))
-            possibleSettingOptions.append(SettingOptions(settingId: randomString(), options: options).rpcSettingOptions)
+            var options: [Camera.Option] = []
+            options.append(Camera.Option(optionID: randomString(), optionDescription: randomString()))
+            options.append(Camera.Option(optionID: randomString(), optionDescription: randomString()))
+            possibleSettingOptions.append(Camera.SettingOptions(settingID: randomString(), settingDescription: randomString(), options: options).rpcSettingOptions)
         }
         
         return possibleSettingOptions
@@ -730,13 +730,13 @@ class CameraTest: XCTestCase {
     
     // MARK: - Set Setting
     func testSetSetting() {
-        let option = Option(id: randomString())
-        let setting: Setting = Setting(id: randomString(), option: option)
+        let option = Camera.Option(optionID: randomString(), optionDescription: randomString())
+        let setting = Camera.Setting(settingID: randomString(), settingDescription: randomString(), option: option)
         
         assertSuccess(result: setSettingWithFakeResult(setting: setting, result:  DronecodeSdk_Rpc_Camera_CameraResult.Result.success))
     }
     
-    func setSettingWithFakeResult(setting: Setting, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
+    func setSettingWithFakeResult(setting: Camera.Setting, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Camera_SetSettingResponse()
         
@@ -749,8 +749,8 @@ class CameraTest: XCTestCase {
     }
     
     func testSetSettingFail() {
-        let option = Option(id: randomString())
-        let setting: Setting = Setting(id: randomString(), option: option)
+        let option = Camera.Option(optionID: randomString(), optionDescription: randomString())
+        let setting = Camera.Setting(settingID: randomString(), settingDescription: randomString(), option: option)
         
         cameraResultsArray.forEach { result in
             assertFailure(result: setSettingWithFakeResult(setting: setting, result: result))

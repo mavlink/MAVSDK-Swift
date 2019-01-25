@@ -145,6 +145,7 @@ class ActionTest: XCTestCase {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse()
         response.altitude = expectedAltitude
+        response.actionResult.result = .success
         fakeService.getTakeoffAltitudeResponses.append(response)
         let client = Action(service: fakeService, scheduler: scheduler)
         
@@ -166,7 +167,8 @@ class ActionTest: XCTestCase {
     
     func setTakeoffAltitudeWithFakeResult() -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        let response = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse()
+        var response = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse()
+        response.actionResult.result = .success
         
         fakeService.setTakeoffAltitudeResponses.append(response)
         let client = Action(service: fakeService, scheduler: scheduler)
@@ -181,6 +183,7 @@ class ActionTest: XCTestCase {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse()
         response.speed = expectedSpeed
+        response.actionResult.result = .success
         
         fakeService.getMaximumSpeedResponses.append(response)
         let client = Action(service: fakeService, scheduler: scheduler)
@@ -203,7 +206,8 @@ class ActionTest: XCTestCase {
     
     func setMaximumSpeedWithFakeResult() -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        let response = DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse()
+        var response = DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse()
+        response.actionResult.result = .success
         fakeService.setMaximumSpeedResponses.append(response)
         let client = Action(service: fakeService, scheduler: scheduler)
         
@@ -217,6 +221,7 @@ class ActionTest: XCTestCase {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse()
         response.relativeAltitudeM = expectedAltitude
+        response.actionResult.result = .success
         
         fakeService.getReturnToLaunchAltitudeResponses.append(response)
         let client = Action(service: fakeService, scheduler: scheduler)
@@ -239,7 +244,8 @@ class ActionTest: XCTestCase {
     
     func setReturnToHomeAltitudeWithFakeResult() -> MaterializedSequenceResult<Never> {
         let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        let response = DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse()
+        var response = DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse()
+        response.actionResult.result = .success
         fakeService.setReturnToLaunchAltitudeResponses.append(response)
         let client = Action(service: fakeService, scheduler: scheduler)
         

@@ -15,9 +15,9 @@ class TelemetryTest: XCTestCase {
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Position.self)
+        let observer = scheduler.createObserver(Telemetry.Position.self)
 
-        let _ = telemetry.positionObservable.subscribe(observer)
+        let _ = telemetry.position.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -55,13 +55,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Position.self)
+        let observer = scheduler.createObserver(Telemetry.Position.self)
         
-        let _ = telemetry.positionObservable.subscribe(observer)
+        let _ = telemetry.position.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<Position>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.Position>>]()
         for position in positions {
             expectedEvents.append(next(0, translateRPCPosition(positionRPC: position)))
         }
@@ -88,8 +88,8 @@ class TelemetryTest: XCTestCase {
         return response
     }
 
-    func translateRPCPosition(positionRPC: DronecodeSdk_Rpc_Telemetry_Position) -> Position {
-        return Position(latitudeDeg: positionRPC.latitudeDeg, longitudeDeg: positionRPC.longitudeDeg, absoluteAltitudeM: positionRPC.absoluteAltitudeM, relativeAltitudeM: positionRPC.relativeAltitudeM)
+    func translateRPCPosition(positionRPC: DronecodeSdk_Rpc_Telemetry_Position) -> Telemetry.Position {
+        return Telemetry.Position(latitudeDeg: positionRPC.latitudeDeg, longitudeDeg: positionRPC.longitudeDeg, absoluteAltitudeM: positionRPC.absoluteAltitudeM, relativeAltitudeM: positionRPC.relativeAltitudeM)
     }
 
     // MARK: - HEALTH
@@ -100,9 +100,9 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Health.self)
+        let observer = scheduler.createObserver(Telemetry.Health.self)
         
-        let _ = telemetry.healthObservable.subscribe(observer)
+        let _ = telemetry.health.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -136,13 +136,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Health.self)
+        let observer = scheduler.createObserver(Telemetry.Health.self)
         
-        let _ = telemetry.healthObservable.subscribe(observer)
+        let _ = telemetry.health.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<Health>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.Health>>]()
         for health in healths {
             expectedEvents.append(next(0, translateRPCHealth(healthRPC: health)))
         }
@@ -152,8 +152,8 @@ class TelemetryTest: XCTestCase {
         XCTAssertEqual(observer.events, expectedEvents)
     }
     
-    func translateRPCHealth(healthRPC: DronecodeSdk_Rpc_Telemetry_Health) -> Health {
-        return Health(isGyrometerCalibrationOk: healthRPC.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: healthRPC.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: healthRPC.isMagnetometerCalibrationOk, isLevelCalibrationOk: healthRPC.isLevelCalibrationOk, isLocalPositionOk: healthRPC.isLocalPositionOk, isGlobalPositionOk: healthRPC.isGlobalPositionOk, isHomePositionOk: healthRPC.isHomePositionOk)
+    func translateRPCHealth(healthRPC: DronecodeSdk_Rpc_Telemetry_Health) -> Telemetry.Health {
+        return Telemetry.Health(isGyrometerCalibrationOk: healthRPC.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: healthRPC.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: healthRPC.isMagnetometerCalibrationOk, isLevelCalibrationOk: healthRPC.isLevelCalibrationOk, isLocalPositionOk: healthRPC.isLocalPositionOk, isGlobalPositionOk: healthRPC.isGlobalPositionOk, isHomePositionOk: healthRPC.isHomePositionOk)
     }
     
     func createHealthResponse(health: DronecodeSdk_Rpc_Telemetry_Health) -> DronecodeSdk_Rpc_Telemetry_HealthResponse {
@@ -189,9 +189,9 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(EulerAngle.self)
+        let observer = scheduler.createObserver(Telemetry.EulerAngle.self)
         
-        let _ = telemetry.cameraAttitudeEulerObservable.subscribe(observer)
+        let _ = telemetry.cameraAttitudeEuler.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -230,13 +230,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(EulerAngle.self)
+        let observer = scheduler.createObserver(Telemetry.EulerAngle.self)
         
-        let _ = telemetry.cameraAttitudeEulerObservable.subscribe(observer)
+        let _ = telemetry.cameraAttitudeEuler.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<EulerAngle>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.EulerAngle>>]()
         for attitude in attitudes {
             expectedEvents.append(next(0, translateRPCAttitudeEuler(attitudeEulerRPC: attitude)))
         }
@@ -270,9 +270,9 @@ class TelemetryTest: XCTestCase {
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Battery.self)
+        let observer = scheduler.createObserver(Telemetry.Battery.self)
 
-        let _ = telemetry.batteryObservable.subscribe(observer)
+        let _ = telemetry.battery.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -319,13 +319,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Battery.self)
+        let observer = scheduler.createObserver(Telemetry.Battery.self)
         
-        let _ = telemetry.batteryObservable.subscribe(observer)
+        let _ = telemetry.battery.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<Battery>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.Battery>>]()
         for battery in batteryStates {
             expectedEvents.append(next(0, translateRPCBattery(batteryRPC: battery)))
         }
@@ -342,8 +342,8 @@ class TelemetryTest: XCTestCase {
         return response
     }
 
-    func translateRPCBattery(batteryRPC: DronecodeSdk_Rpc_Telemetry_Battery) -> Battery {
-        return Battery(remainingPercent: batteryRPC.remainingPercent, voltageV: batteryRPC.voltageV)
+    func translateRPCBattery(batteryRPC: DronecodeSdk_Rpc_Telemetry_Battery) -> Telemetry.Battery {
+        return Telemetry.Battery(voltageV: batteryRPC.voltageV, remainingPercent: batteryRPC.remainingPercent)
     }
     
      // MARK: - ATTITUDE EULER
@@ -354,9 +354,9 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(EulerAngle.self)
+        let observer = scheduler.createObserver(Telemetry.EulerAngle.self)
         
-        let _ = telemetry.attitudeEulerObservable.subscribe(observer)
+        let _ = telemetry.attitudeEuler.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -395,13 +395,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(EulerAngle.self)
+        let observer = scheduler.createObserver(Telemetry.EulerAngle.self)
         
-        let _ = telemetry.attitudeEulerObservable.subscribe(observer)
+        let _ = telemetry.attitudeEuler.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<EulerAngle>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.EulerAngle>>]()
         for attitude in attitudes {
             expectedEvents.append(next(0, translateRPCAttitudeEuler(attitudeEulerRPC: attitude)))
         }
@@ -427,8 +427,8 @@ class TelemetryTest: XCTestCase {
         return response
     }
     
-    func translateRPCAttitudeEuler(attitudeEulerRPC: DronecodeSdk_Rpc_Telemetry_EulerAngle) -> EulerAngle {
-        return EulerAngle(pitchDeg: attitudeEulerRPC.pitchDeg, rollDeg: attitudeEulerRPC.rollDeg, yawDeg: attitudeEulerRPC.yawDeg)
+    func translateRPCAttitudeEuler(attitudeEulerRPC: DronecodeSdk_Rpc_Telemetry_EulerAngle) -> Telemetry.EulerAngle {
+        return Telemetry.EulerAngle(rollDeg: attitudeEulerRPC.rollDeg, pitchDeg: attitudeEulerRPC.pitchDeg, yawDeg: attitudeEulerRPC.yawDeg)
     }
     
     // MARK: - ATTITUDE QUARTERNION
@@ -439,9 +439,9 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Quaternion.self)
+        let observer = scheduler.createObserver(Telemetry.Quaternion.self)
         
-        let _ = telemetry.attitudeQuaternionObservable.subscribe(observer)
+        let _ = telemetry.attitudeQuaternion.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -476,13 +476,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Quaternion.self)
+        let observer = scheduler.createObserver(Telemetry.Quaternion.self)
         
-        let _ = telemetry.attitudeQuaternionObservable.subscribe(observer)
+        let _ = telemetry.attitudeQuaternion.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<Quaternion>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.Quaternion>>]()
         for attitude in attitudes {
             expectedEvents.append(next(0, translateRPCAttitudeQuaternion(attitudeQuaternionRPC: attitude)))
         }
@@ -510,8 +510,8 @@ class TelemetryTest: XCTestCase {
         return response
     }
 
-    func translateRPCAttitudeQuaternion(attitudeQuaternionRPC: DronecodeSdk_Rpc_Telemetry_Quaternion) -> Quaternion {
-        return Quaternion(w: attitudeQuaternionRPC.w, x: attitudeQuaternionRPC.x, y: attitudeQuaternionRPC.y, z: attitudeQuaternionRPC.z)
+    func translateRPCAttitudeQuaternion(attitudeQuaternionRPC: DronecodeSdk_Rpc_Telemetry_Quaternion) -> Telemetry.Quaternion {
+        return Telemetry.Quaternion(w: attitudeQuaternionRPC.w, x: attitudeQuaternionRPC.x, y: attitudeQuaternionRPC.y, z: attitudeQuaternionRPC.z)
     }
 
     // MARK: - CAMERA ATTITUDE QUATERNION
@@ -522,9 +522,9 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Quaternion.self)
+        let observer = scheduler.createObserver(Telemetry.Quaternion.self)
         
-        let _ = telemetry.cameraAttitudeQuaternionObservable.subscribe(observer)
+        let _ = telemetry.cameraAttitudeQuaternion.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -558,13 +558,13 @@ class TelemetryTest: XCTestCase {
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Quaternion.self)
+        let observer = scheduler.createObserver(Telemetry.Quaternion.self)
         
-        let _ = telemetry.cameraAttitudeQuaternionObservable.subscribe(observer)
+        let _ = telemetry.cameraAttitudeQuaternion.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<Quaternion>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.Quaternion>>]()
         for attitude in attitudes {
             expectedEvents.append(next(0, translateRPCAttitudeQuaternion(attitudeQuaternionRPC: attitude)))
         }
@@ -600,9 +600,9 @@ class TelemetryTest: XCTestCase {
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Position.self)
+        let observer = scheduler.createObserver(Telemetry.Position.self)
 
-        let _ = telemetry.homePositionObservable.subscribe(observer)
+        let _ = telemetry.home.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -627,13 +627,13 @@ class TelemetryTest: XCTestCase {
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(Position.self)
+        let observer = scheduler.createObserver(Telemetry.Position.self)
 
-        let _ = telemetry.homePositionObservable.subscribe(observer)
+        let _ = telemetry.home.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
-        var expectedEvents = [Recorded<Event<Position>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.Position>>]()
         for position in positions {
             expectedEvents.append(next(0, translateRPCPosition(positionRPC: position)))
         }
@@ -669,7 +669,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Bool.self)
 
-        let _ = telemetry.inAirObservable.subscribe(observer)
+        let _ = telemetry.inAir.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -695,7 +695,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Bool.self)
 
-        let _ = telemetry.inAirObservable.subscribe(observer)
+        let _ = telemetry.inAir.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -732,7 +732,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Bool.self)
 
-        let _ = telemetry.armedObservable.subscribe(observer)
+        let _ = telemetry.armed.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -758,7 +758,7 @@ class TelemetryTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Bool.self)
 
-        let _ = telemetry.armedObservable.subscribe(observer)
+        let _ = telemetry.armed.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -788,14 +788,14 @@ class TelemetryTest: XCTestCase {
     // MARK: - GPSInfo
     func testGPSInfoObservableEmitsNothingWhenNoEvent() {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallTestStub()
-        fakeService.subscribeGPSInfoCalls.append(fakeCall)
+        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallTestStub()
+        fakeService.subscribeGpsInfoCalls.append(fakeCall)
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(GPSInfo.self)
+        let observer = scheduler.createObserver(Telemetry.GpsInfo.self)
 
-        let _ = telemetry.GPSInfoObservable.subscribe(observer)
+        let _ = telemetry.gpsInfo.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -803,38 +803,38 @@ class TelemetryTest: XCTestCase {
     }
 
     func testGPSInfoObservableReceivesOneEvent() {
-        let gpsInfo = createRPCGPSInfo(numSatellites: 10, fixType: eDroneCoreGPSInfoFix.fix2D)
+        let gpsInfo = createRPCGPSInfo(numSatellites: 10, fixType:  DronecodeSdk_Rpc_Telemetry_FixType.fix2D)
         let gpsInfoStates = [gpsInfo]
 
         checkGPSInfoObservableReceivesEvents(gpsInfoStates: gpsInfoStates)
     }
 
-    func createRPCGPSInfo(numSatellites: Int32, fixType: eDroneCoreGPSInfoFix) -> DronecodeSdk_Rpc_Telemetry_GPSInfo {
-        var gpsInfo = DronecodeSdk_Rpc_Telemetry_GPSInfo()
+    func createRPCGPSInfo(numSatellites: Int32, fixType: DronecodeSdk_Rpc_Telemetry_FixType) -> DronecodeSdk_Rpc_Telemetry_GpsInfo {
+        var gpsInfo = DronecodeSdk_Rpc_Telemetry_GpsInfo()
         gpsInfo.numSatellites = numSatellites
         gpsInfo.fixType = DronecodeSdk_Rpc_Telemetry_FixType(rawValue: fixType.rawValue)!
 
         return gpsInfo
     }
 
-    func checkGPSInfoObservableReceivesEvents(gpsInfoStates: [DronecodeSdk_Rpc_Telemetry_GPSInfo]) {
+    func checkGPSInfoObservableReceivesEvents(gpsInfoStates: [DronecodeSdk_Rpc_Telemetry_GpsInfo]) {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGPSInfoCallTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallTestStub()
 
         for gpsInfo in gpsInfoStates {
             fakeCall.outputs.append(createGPSInfoResponse(gpsInfo: gpsInfo))
         }
-        fakeService.subscribeGPSInfoCalls.append(fakeCall)
+        fakeService.subscribeGpsInfoCalls.append(fakeCall)
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(GPSInfo.self)
+        let observer = scheduler.createObserver(Telemetry.GpsInfo.self)
 
-        let _ = telemetry.GPSInfoObservable.subscribe(observer)
+        let _ = telemetry.gpsInfo.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
-        var expectedEvents = [Recorded<Event<GPSInfo>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.GpsInfo>>]()
         for gpsInfo in gpsInfoStates {
             expectedEvents.append(next(0, translateRPCGPSInfo(gpsInfoRPC: gpsInfo)))
         }
@@ -845,25 +845,25 @@ class TelemetryTest: XCTestCase {
     }
 
     func testGPSInfoObservableReceivesMultipleEvents() {
-        var gpsInfoStates = [DronecodeSdk_Rpc_Telemetry_GPSInfo]()
-        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 6, fixType: eDroneCoreGPSInfoFix.noFix))
-        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 7, fixType: eDroneCoreGPSInfoFix.noGps))
-        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 9, fixType: eDroneCoreGPSInfoFix.fix2D))
-        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 10, fixType: eDroneCoreGPSInfoFix.fix3D))
-        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 12, fixType: eDroneCoreGPSInfoFix.fixDgps))
+        var gpsInfoStates = [DronecodeSdk_Rpc_Telemetry_GpsInfo]()
+        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 6, fixType: DronecodeSdk_Rpc_Telemetry_FixType.noFix))
+        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 7, fixType: DronecodeSdk_Rpc_Telemetry_FixType.noGps))
+        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 9, fixType: DronecodeSdk_Rpc_Telemetry_FixType.fix2D))
+        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 10, fixType: DronecodeSdk_Rpc_Telemetry_FixType.fix3D))
+        gpsInfoStates.append(createRPCGPSInfo(numSatellites: 12, fixType: DronecodeSdk_Rpc_Telemetry_FixType.fixDgps))
 
         checkGPSInfoObservableReceivesEvents(gpsInfoStates: gpsInfoStates)
     }
 
-    func createGPSInfoResponse(gpsInfo: DronecodeSdk_Rpc_Telemetry_GPSInfo) -> DronecodeSdk_Rpc_Telemetry_GPSInfoResponse {
-        var response = DronecodeSdk_Rpc_Telemetry_GPSInfoResponse()
+    func createGPSInfoResponse(gpsInfo: DronecodeSdk_Rpc_Telemetry_GpsInfo) -> DronecodeSdk_Rpc_Telemetry_GpsInfoResponse {
+        var response = DronecodeSdk_Rpc_Telemetry_GpsInfoResponse()
         response.gpsInfo = gpsInfo
 
         return response
     }
 
-    func translateRPCGPSInfo(gpsInfoRPC: DronecodeSdk_Rpc_Telemetry_GPSInfo) -> GPSInfo {
-        return GPSInfo(numSatellites: gpsInfoRPC.numSatellites, fixType: eDroneCoreGPSInfoFix(rawValue: gpsInfoRPC.fixType.rawValue)!)
+    func translateRPCGPSInfo(gpsInfoRPC: DronecodeSdk_Rpc_Telemetry_GpsInfo) -> Telemetry.GpsInfo {
+        return Telemetry.GpsInfo(numSatellites: gpsInfoRPC.numSatellites, fixType: Telemetry.FixType.translateFromRpc(gpsInfoRPC.fixType))
     }
 
     // MARK: - FLIGHT MODE
@@ -874,9 +874,9 @@ class TelemetryTest: XCTestCase {
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(eDroneCoreFlightMode.self)
+        let observer = scheduler.createObserver(Telemetry.FlightMode.self)
 
-        let _ = telemetry.flightModeObservable.subscribe(observer)
+        let _ = telemetry.flightMode.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -884,12 +884,12 @@ class TelemetryTest: XCTestCase {
     }
 
     func testFlightModeObservableReceivesOneEvent() {
-        let flightModeEvents = [eDroneCoreFlightMode.ready]
+        let flightModeEvents = [DronecodeSdk_Rpc_Telemetry_FlightMode.ready]
         
         checkFlightModeObservableReceivesEvents(flightModeEvents: flightModeEvents)
     }
 
-    func checkFlightModeObservableReceivesEvents(flightModeEvents: [eDroneCoreFlightMode]) {
+    func checkFlightModeObservableReceivesEvents(flightModeEvents: [DronecodeSdk_Rpc_Telemetry_FlightMode]) {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
         let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallTestStub()
 
@@ -900,15 +900,15 @@ class TelemetryTest: XCTestCase {
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(eDroneCoreFlightMode.self)
+        let observer = scheduler.createObserver(Telemetry.FlightMode.self)
 
-        let _ = telemetry.flightModeObservable.subscribe(observer)
+        let _ = telemetry.flightMode.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
-        var expectedEvents = [Recorded<Event<eDroneCoreFlightMode>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.FlightMode>>]()
         for flightModeEvent in flightModeEvents {
-            expectedEvents.append(next(0, flightModeEvent))
+            expectedEvents.append(next(0, Telemetry.FlightMode.translateFromRpc(flightModeEvent)))
         }
         expectedEvents.append(completed(0))
 
@@ -916,7 +916,7 @@ class TelemetryTest: XCTestCase {
         XCTAssertEqual(observer.events, expectedEvents)
     }
 
-    func createFlightModeResponse(flightMode: eDroneCoreFlightMode) -> DronecodeSdk_Rpc_Telemetry_FlightModeResponse {
+    func createFlightModeResponse(flightMode: DronecodeSdk_Rpc_Telemetry_FlightMode) -> DronecodeSdk_Rpc_Telemetry_FlightModeResponse {
         var response = DronecodeSdk_Rpc_Telemetry_FlightModeResponse()
         response.flightMode = DronecodeSdk_Rpc_Telemetry_FlightMode(rawValue: flightMode.rawValue)!
 
@@ -924,7 +924,12 @@ class TelemetryTest: XCTestCase {
     }
 
     func testFlightModeObservableReceivesMultipleEvents() {
-        let flightModeEvents = [eDroneCoreFlightMode.unknown, eDroneCoreFlightMode.ready, eDroneCoreFlightMode.takeoff, eDroneCoreFlightMode.hold, eDroneCoreFlightMode.mission, eDroneCoreFlightMode.returnToLaunch]
+        let flightModeEvents = [DronecodeSdk_Rpc_Telemetry_FlightMode.unknown,
+                                DronecodeSdk_Rpc_Telemetry_FlightMode.ready,
+                                DronecodeSdk_Rpc_Telemetry_FlightMode.takeoff,
+                                DronecodeSdk_Rpc_Telemetry_FlightMode.hold,
+                                DronecodeSdk_Rpc_Telemetry_FlightMode.mission,
+                                DronecodeSdk_Rpc_Telemetry_FlightMode.returnToLaunch]
 
         checkFlightModeObservableReceivesEvents(flightModeEvents: flightModeEvents)
     }
@@ -932,14 +937,14 @@ class TelemetryTest: XCTestCase {
     // MARK: - GroundSpeedNED
     func testGroundSpeedNEDObservableEmitsNothingWhenNoEvent() {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallTestStub()
-        fakeService.subscribeGroundSpeedNEDCalls.append(fakeCall)
+        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCallTestStub()
+        fakeService.subscribeGroundSpeedNedCalls.append(fakeCall)
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(GroundSpeedNED.self)
+        let observer = scheduler.createObserver(Telemetry.SpeedNed.self)
 
-        let _ = telemetry.groundSpeedNEDObservable.subscribe(observer)
+        let _ = telemetry.groundSpeedNed.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -953,32 +958,32 @@ class TelemetryTest: XCTestCase {
         checkGroundSpeedNEDObservableReceivesEvents(speedStates: speedStates)
     }
 
-    func createRPCGroundSpeedNED(velocityNorthMS: Float, velocityEastMS: Float, velocityDownMS: Float) -> DronecodeSdk_Rpc_Telemetry_SpeedNED {
-        var speedNED = DronecodeSdk_Rpc_Telemetry_SpeedNED()
+    func createRPCGroundSpeedNED(velocityNorthMS: Float, velocityEastMS: Float, velocityDownMS: Float) -> DronecodeSdk_Rpc_Telemetry_SpeedNed {
+        var speedNED = DronecodeSdk_Rpc_Telemetry_SpeedNed()
         speedNED.velocityNorthMS = velocityNorthMS
         speedNED.velocityEastMS = velocityEastMS
         speedNED.velocityDownMS = velocityDownMS
         return speedNED
     }
 
-    func checkGroundSpeedNEDObservableReceivesEvents(speedStates: [DronecodeSdk_Rpc_Telemetry_SpeedNED]) {
+    func checkGroundSpeedNEDObservableReceivesEvents(speedStates: [DronecodeSdk_Rpc_Telemetry_SpeedNed]) {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNEDCallTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCallTestStub()
 
         for speed in speedStates {
             fakeCall.outputs.append(createGroundSpeedNEDResponse(speed: speed))
         }
-        fakeService.subscribeGroundSpeedNEDCalls.append(fakeCall)
+        fakeService.subscribeGroundSpeedNedCalls.append(fakeCall)
 
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(GroundSpeedNED.self)
+        let observer = scheduler.createObserver(Telemetry.SpeedNed.self)
 
-        let _ = telemetry.groundSpeedNEDObservable.subscribe(observer)
+        let _ = telemetry.groundSpeedNed.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
-        var expectedEvents = [Recorded<Event<GroundSpeedNED>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.SpeedNed>>]()
         for speed in speedStates {
             expectedEvents.append(next(0, translateRPCGroundSpeedNED(speedRPC: speed)))
         }
@@ -989,7 +994,7 @@ class TelemetryTest: XCTestCase {
     }
 
     func testGroundSpeedNEDObservableReceivesMultipleEvents() {
-        var speedStates = [DronecodeSdk_Rpc_Telemetry_SpeedNED]()
+        var speedStates = [DronecodeSdk_Rpc_Telemetry_SpeedNed]()
         speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 1.6, velocityEastMS: 1.6, velocityDownMS: 1.6 ))
         speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 2.7, velocityEastMS: 2.6, velocityDownMS: 1.6 ))
         speedStates.append(createRPCGroundSpeedNED(velocityNorthMS: 3.9, velocityEastMS: 3.6, velocityDownMS: 1.6 ))
@@ -999,28 +1004,28 @@ class TelemetryTest: XCTestCase {
         checkGroundSpeedNEDObservableReceivesEvents(speedStates: speedStates)
     }
 
-    func createGroundSpeedNEDResponse(speed: DronecodeSdk_Rpc_Telemetry_SpeedNED) -> DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse {
-        var response = DronecodeSdk_Rpc_Telemetry_GroundSpeedNEDResponse()
+    func createGroundSpeedNEDResponse(speed: DronecodeSdk_Rpc_Telemetry_SpeedNed) -> DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse {
+        var response = DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse()
         response.groundSpeedNed = speed
 
         return response
     }
 
-    func translateRPCGroundSpeedNED(speedRPC: DronecodeSdk_Rpc_Telemetry_SpeedNED) -> GroundSpeedNED {
-        return GroundSpeedNED(velocityNorthMS: speedRPC.velocityNorthMS, velocityEastMS:speedRPC.velocityEastMS, velocityDownMS: speedRPC.velocityDownMS)
+    func translateRPCGroundSpeedNED(speedRPC: DronecodeSdk_Rpc_Telemetry_SpeedNed) -> Telemetry.SpeedNed {
+        return Telemetry.SpeedNed(velocityNorthMS: speedRPC.velocityNorthMS, velocityEastMS:speedRPC.velocityEastMS, velocityDownMS: speedRPC.velocityDownMS)
     }
     
     // MARK: - RCStatus
     func testRCStatusObservableEmitsNothingWhenNoEvent() {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallTestStub()
-        fakeService.subscribeRCStatusCalls.append(fakeCall)
+        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallTestStub()
+        fakeService.subscribeRcStatusCalls.append(fakeCall)
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(RCStatus.self)
+        let observer = scheduler.createObserver(Telemetry.RcStatus.self)
         
-        let _ = telemetry.rcStatusObservable.subscribe(observer)
+        let _ = telemetry.rcStatus.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
@@ -1034,32 +1039,32 @@ class TelemetryTest: XCTestCase {
         checkRCStatusObservableReceivesEvents(rcStatusStates: rcStatusStates)
     }
     
-    func createRPCRCStatus(wasAvailableOnce: Bool, isAvailable: Bool, signalStrengthPercent: Float) -> DronecodeSdk_Rpc_Telemetry_RCStatus {
-        var rcStatus = DronecodeSdk_Rpc_Telemetry_RCStatus()
+    func createRPCRCStatus(wasAvailableOnce: Bool, isAvailable: Bool, signalStrengthPercent: Float) -> DronecodeSdk_Rpc_Telemetry_RcStatus {
+        var rcStatus = DronecodeSdk_Rpc_Telemetry_RcStatus()
         rcStatus.wasAvailableOnce = wasAvailableOnce
         rcStatus.isAvailable = isAvailable
         rcStatus.signalStrengthPercent = signalStrengthPercent
         return rcStatus
     }
     
-    func checkRCStatusObservableReceivesEvents(rcStatusStates: [DronecodeSdk_Rpc_Telemetry_RCStatus]) {
+    func checkRCStatusObservableReceivesEvents(rcStatusStates: [DronecodeSdk_Rpc_Telemetry_RcStatus]) {
         let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRCStatusCallTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallTestStub()
         
         for rcStatus in rcStatusStates {
             fakeCall.outputs.append(createRCStatusResponse(rcStatus: rcStatus))
         }
-        fakeService.subscribeRCStatusCalls.append(fakeCall)
+        fakeService.subscribeRcStatusCalls.append(fakeCall)
         
         let telemetry = Telemetry(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(RCStatus.self)
+        let observer = scheduler.createObserver(Telemetry.RcStatus.self)
         
-        let _ = telemetry.rcStatusObservable.subscribe(observer)
+        let _ = telemetry.rcStatus.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<RCStatus>>]()
+        var expectedEvents = [Recorded<Event<Telemetry.RcStatus>>]()
         for rcStatus in rcStatusStates {
             expectedEvents.append(next(0, translateRPCRCStatus(rcStatusRPC: rcStatus)))
         }
@@ -1070,7 +1075,7 @@ class TelemetryTest: XCTestCase {
     }
     
     func testRCStatusObservableReceivesMultipleEvents() {
-        var rcStatusStates = [DronecodeSdk_Rpc_Telemetry_RCStatus]()
+        var rcStatusStates = [DronecodeSdk_Rpc_Telemetry_RcStatus]()
         rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: false, isAvailable: false, signalStrengthPercent: 50))
         rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: false, isAvailable: true, signalStrengthPercent: 41))
         rcStatusStates.append(createRPCRCStatus(wasAvailableOnce: false, isAvailable: true, signalStrengthPercent: 32))
@@ -1079,14 +1084,14 @@ class TelemetryTest: XCTestCase {
         checkRCStatusObservableReceivesEvents(rcStatusStates: rcStatusStates)
     }
     
-    func createRCStatusResponse(rcStatus: DronecodeSdk_Rpc_Telemetry_RCStatus) -> DronecodeSdk_Rpc_Telemetry_RCStatusResponse {
-        var response = DronecodeSdk_Rpc_Telemetry_RCStatusResponse()
+    func createRCStatusResponse(rcStatus: DronecodeSdk_Rpc_Telemetry_RcStatus) -> DronecodeSdk_Rpc_Telemetry_RcStatusResponse {
+        var response = DronecodeSdk_Rpc_Telemetry_RcStatusResponse()
         response.rcStatus = rcStatus
         
         return response
     }
     
-    func translateRPCRCStatus(rcStatusRPC: DronecodeSdk_Rpc_Telemetry_RCStatus) -> RCStatus {
-        return RCStatus(wasAvailableOnce: rcStatusRPC.wasAvailableOnce , isAvailable: rcStatusRPC.isAvailable, signalStrengthPercent: rcStatusRPC.signalStrengthPercent)
+    func translateRPCRCStatus(rcStatusRPC: DronecodeSdk_Rpc_Telemetry_RcStatus) -> Telemetry.RcStatus {
+        return Telemetry.RcStatus(wasAvailableOnce: rcStatusRPC.wasAvailableOnce , isAvailable: rcStatusRPC.isAvailable, signalStrengthPercent: rcStatusRPC.signalStrengthPercent)
     }
 }

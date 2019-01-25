@@ -22,7 +22,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
-        let _ = client.discoverObservable.subscribe(observer)
+        let _ = client.discover.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -41,7 +41,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
-        let _ = client.discoverObservable.subscribe(observer)
+        let _ = client.discover.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -76,7 +76,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(UInt64.self)
 
-        let _ = client.discoverObservable.subscribe(observer)
+        let _ = client.discover.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -99,7 +99,7 @@ class CoreTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observer = scheduler.createObserver(Void.self)
 
-        let _ = client.timeoutObservable.subscribe(observer)
+        let _ = client.timeout.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
