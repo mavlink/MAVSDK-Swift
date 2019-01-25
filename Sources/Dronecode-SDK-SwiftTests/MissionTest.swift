@@ -13,18 +13,19 @@ class MissionTest: XCTestCase {
         let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
         let mission = Mission(service: fakeService, scheduler: scheduler)
 
-        let missionItem = MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, loiterTimeS: 2, cameraAction: CameraAction.none)
+        let missionItem = Mission.MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: 2)
 
-        _ = mission.uploadMission(missionItems: [missionItem])
+        let missionItems = Mission.MissionItems(missionItems: [missionItem])
+        _ = mission.uploadMission(missionItems: missionItems)
     }
     
     // MARK: - Download Mission
     func testDownloadMissionSucceedsOnSuccess() {
-        let expectedResult = [MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMPS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, loiterTimeS: 2, cameraAction: CameraAction.none).rpcMissionItem]
+        let expectedResult = [Mission.MissionItem(latitudeDeg: 46.0, longitudeDeg: 6.0, relativeAltitudeM: Float(50), speedMS: Float(3.4), isFlyThrough: true, gimbalPitchDeg: Float(90), gimbalYawDeg: Float(23), cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: Float(2)).rpcMissionItem]
         
         let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Mission_DownloadMissionResponse()
-        response.mission.missionItem = expectedResult
+        response.missionItems.missionItems = expectedResult
         
         fakeService.downloadMissionResponses.append(response)
         let client = Mission(service: fakeService, scheduler: self.scheduler)
@@ -32,7 +33,7 @@ class MissionTest: XCTestCase {
         _ = client.downloadMission().subscribe { event in
             switch event {
             case .success(let mission):
-                XCTAssert(mission == [MissionItem.translateFromRPC(expectedResult.first!)])
+                XCTAssert(mission.missionItems == [Mission.MissionItem.translateFromRpc(expectedResult.first!)])
             case .error(let error):
                 XCTFail("Expecting success, got failure: downloadMission() \(error)")
             }
@@ -93,7 +94,7 @@ class MissionTest: XCTestCase {
         
         let client = Mission(service: fakeService, scheduler: self.scheduler)
         
-        return client.setReturnToLaunchAfterMission(true).toBlocking().materialize()
+        return client.setReturnToLaunchAfterMission(enable: true).toBlocking().materialize()
     }
     
     // MARK: - Get Return to Launch After Mission
@@ -131,51 +132,7 @@ class MissionTest: XCTestCase {
         
         let client = Mission(service: fakeService, scheduler: self.scheduler)
         
-        return client.setCurrentMissionItemIndex(2).toBlocking().materialize()
-    }
-    
-    // MARK: - Get Current Mission Item Index
-    func testGetCurrentMissionItemIndexSucceedsOnSuccess() {
-        let expectedIndex = 32
-        
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_GetCurrentMissionItemIndexResponse()
-        response.index = Int32(expectedIndex)
-        
-        fakeService.getCurrentMissionItemIndexResponses.append(response)
-        let client = Mission(service: fakeService, scheduler: self.scheduler)
-        
-        _ = client.getCurrentMissionItemIndex().subscribe { event in
-            switch event {
-            case .success(let index):
-                XCTAssert(index == expectedIndex)
-                break
-            case .error(let error):
-                XCTFail("Expecting success, got failure: getCurrentMissionItemIndex() \(error)")
-            }
-        }
-    }
-    
-    // MARK: - Get Mission Count
-    func testGetMissionCountSucceedsOnSuccess() {
-        let expectedMissionCount = 40
-        
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_GetMissionCountResponse()
-        response.count = Int32(expectedMissionCount)
-        
-        fakeService.getMissionCountResponses.append(response)
-        let client = Mission(service: fakeService, scheduler: self.scheduler)
-
-        _ = client.getMissionCount().subscribe { event in
-            switch event {
-            case .success(let count):
-                XCTAssert(count == expectedMissionCount)
-            case .error(let error):
-                XCTFail("Expecting success, got failure: getMissionCount() \(error)")
-            }
-        }
-        
+        return client.setCurrentMissionItemIndex(index: 2).toBlocking().materialize()
     }
     
     // MARK: - Is Mission Finished
@@ -208,9 +165,9 @@ class MissionTest: XCTestCase {
 
         let mission = Mission(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(MissionProgress.self)
+        let observer = scheduler.createObserver(Mission.MissionProgress.self)
 
-        let _ = mission.missionProgressObservable.subscribe(observer)
+        let _ = mission.missionProgress.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
 
@@ -251,13 +208,13 @@ class MissionTest: XCTestCase {
         
         let mission = Mission(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
-        let observer = scheduler.createObserver(MissionProgress.self)
+        let observer = scheduler.createObserver(Mission.MissionProgress.self)
         
-        let _ = mission.missionProgressObservable.subscribe(observer)
+        let _ = mission.missionProgress.subscribe(observer)
         scheduler.start()
         observer.onCompleted()
         
-        var expectedEvents = [Recorded<Event<MissionProgress>>]()
+        var expectedEvents = [Recorded<Event<Mission.MissionProgress>>]()
         for missionProgress in missionProgressArray {
             expectedEvents.append(next(0, translateRPCMissionProgress(missionProgressRPC: missionProgress)))
         }
@@ -275,8 +232,8 @@ class MissionTest: XCTestCase {
         return response
     }
     
-    func translateRPCMissionProgress(missionProgressRPC: DronecodeSdk_Rpc_Mission_MissionProgressResponse) -> MissionProgress {
-        return MissionProgress(currentItemIndex: missionProgressRPC.missionProgress.currentItemIndex, missionCount: missionProgressRPC.missionProgress.missionCount)
+    func translateRPCMissionProgress(missionProgressRPC: DronecodeSdk_Rpc_Mission_MissionProgressResponse) -> Mission.MissionProgress {
+        return Mission.MissionProgress(currentItemIndex: missionProgressRPC.missionProgress.currentItemIndex, missionCount: missionProgressRPC.missionProgress.missionCount)
     }
     
     // MARK: - Utils

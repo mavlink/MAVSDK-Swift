@@ -22,17 +22,15 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
                 }
             })
 
-            DispatchQueue.init(label: "Dronecode{{ name.upper_camel_case }}Receiver").async {
+            let disposable = self.scheduler.schedule(0, action: { _ in
+                var cancel = false
+
                 {% if not return_name %}
-                do {
-                    while let _ = try call.receive() {
-                        observer.onNext(())
-                    }
-                } catch {
-                    observer.onError(error)
-                }
+	        while let _ = try? call.receive(), cancel == false {
+	            observer.onNext(())
+	        }
                 {% else %}
-                while let responseOptional = try? call.receive(), let response = responseOptional {
+                while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                     {% if return_type.is_repeated %}
                         let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
                     {% else %}
@@ -60,10 +58,11 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
                 }
                 {% endif %}
 
-                observer.onError(Runtime{{ plugin_name.upper_camel_case }}Error("Broken pipe"))
-            }
+                return Disposables.create { cancel = true }
+            })
 
             return Disposables.create {
+                disposable.dispose()
                 call.cancel()
             }
         } catch {

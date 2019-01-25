@@ -28,6 +28,8 @@ targets:
       - carthage: backend
       - carthage: BoringSSL
       - carthage: CgRPC
+      - carthage: RxBlocking
       - carthage: RxSwift
+      - carthage: RxTest
       - carthage: SwiftGRPC
       - carthage: SwiftProtobuf
