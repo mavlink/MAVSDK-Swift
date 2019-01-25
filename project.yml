@@ -1,0 +1,33 @@
+name: Dronecode-SDK-Swift
+options:
+  deploymentTarget:
+    iOS: "9.0"
+  bundleIdPrefix: org.dronecode.sdk
+settings:
+  ENABLE_BITCODE: NO
+targets:
+  Dronecode-SDK-Swift:
+    name: Dronecode_SDK_Swift
+    type: framework
+    platform: iOS
+    sources: [Sources/Dronecode-SDK-Swift]
+    dependencies:
+      - carthage: backend
+      - carthage: BoringSSL
+      - carthage: CgRPC
+      - carthage: RxSwift
+      - carthage: SwiftGRPC
+      - carthage: SwiftProtobuf
+  Dronecode-SDK-SwiftTests:
+    name: Dronecode_SDK_SwiftTests
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Sources/Dronecode-SDK-SwiftTests]
+    dependencies:
+      - target: Dronecode_SDK_Swift
+      - carthage: backend
+      - carthage: BoringSSL
+      - carthage: CgRPC
+      - carthage: RxSwift
+      - carthage: SwiftGRPC
+      - carthage: SwiftProtobuf
