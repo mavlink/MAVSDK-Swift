@@ -6,9 +6,10 @@ public class Core {
     private let service: DronecodeSdk_Rpc_Core_CoreServiceService
     private let scheduler: SchedulerType
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost",
+                            port: Int32 = 50051,
+                            scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let service = DronecodeSdk_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
-        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
@@ -92,9 +93,11 @@ public class Core {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeDiscoverReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let discover = response.uuid
                             
@@ -106,10 +109,11 @@ public class Core {
                     }
                     
 
-                    observer.onError(RuntimeCoreError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -142,21 +146,20 @@ public class Core {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeTimeoutReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    do {
-                        while let _ = try call.receive() {
-                            observer.onNext(())
-                        }
-                    } catch {
-                        observer.onError(error)
-                    }
+    	        while let _ = try? call.receive(), cancel == false {
+    	            observer.onNext(())
+    	        }
                     
 
-                    observer.onError(RuntimeCoreError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {

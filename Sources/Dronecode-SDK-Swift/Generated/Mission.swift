@@ -6,9 +6,10 @@ public class Mission {
     private let service: DronecodeSdk_Rpc_Mission_MissionServiceService
     private let scheduler: SchedulerType
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost",
+                            port: Int32 = 50051,
+                            scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let service = DronecodeSdk_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
-        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
@@ -538,9 +539,11 @@ public class Mission {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeMissionProgressReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
                         
@@ -551,10 +554,11 @@ public class Mission {
                     }
                     
 
-                    observer.onError(RuntimeMissionError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {

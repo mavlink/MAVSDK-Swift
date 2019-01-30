@@ -6,9 +6,10 @@ public class Telemetry {
     private let service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost",
+                            port: Int32 = 50051,
+                            scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let service = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
-        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
@@ -555,9 +556,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodePositionReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let position = Position.translateFromRpc(response.position)
                         
@@ -568,10 +571,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -604,9 +608,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeHomeReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let home = Position.translateFromRpc(response.home)
                         
@@ -617,10 +623,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -653,9 +660,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeInAirReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let inAir = response.isInAir
                             
@@ -667,10 +676,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -703,9 +713,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeArmedReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let armed = response.isArmed
                             
@@ -717,10 +729,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -753,9 +766,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeAttitudeQuaternionReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
                         
@@ -766,10 +781,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -802,9 +818,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeAttitudeEulerReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
                         
@@ -815,10 +833,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -851,9 +870,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCameraAttitudeQuaternionReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
                         
@@ -864,10 +885,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -900,9 +922,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCameraAttitudeEulerReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
                         
@@ -913,10 +937,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -949,9 +974,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeGroundSpeedNedReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let groundSpeedNed = SpeedNed.translateFromRpc(response.groundSpeedNed)
                         
@@ -962,10 +989,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -998,9 +1026,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeGpsInfoReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
                         
@@ -1011,10 +1041,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1047,9 +1078,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeBatteryReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let battery = Battery.translateFromRpc(response.battery)
                         
@@ -1060,10 +1093,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1096,9 +1130,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeFlightModeReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let flightMode = FlightMode.translateFromRpc(response.flightMode)
                         
@@ -1109,10 +1145,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1145,9 +1182,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeHealthReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let health = Health.translateFromRpc(response.health)
                         
@@ -1158,10 +1197,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1194,9 +1234,11 @@ public class Telemetry {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeRcStatusReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
                         
@@ -1207,10 +1249,11 @@ public class Telemetry {
                     }
                     
 
-                    observer.onError(RuntimeTelemetryError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {

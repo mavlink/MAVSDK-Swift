@@ -33,3 +33,18 @@ targets:
       - carthage: RxTest
       - carthage: SwiftGRPC
       - carthage: SwiftProtobuf
+  Dronecode-SDK-SwiftIntegrationTests:
+    name: Dronecode_SDK_SwiftIntegrationTests
+    type: bundle.unit-test
+    platform: iOS
+    sources: [Sources/Dronecode-SDK-SwiftIntegrationTests]
+    dependencies:
+      - target: Dronecode_SDK_Swift
+      - carthage: backend
+      - carthage: BoringSSL
+      - carthage: CgRPC
+      - carthage: RxBlocking
+      - carthage: RxSwift
+      - carthage: RxTest
+      - carthage: SwiftGRPC
+      - carthage: SwiftProtobuf

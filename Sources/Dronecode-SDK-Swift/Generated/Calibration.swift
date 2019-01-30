@@ -6,9 +6,10 @@ public class Calibration {
     private let service: DronecodeSdk_Rpc_Calibration_CalibrationServiceService
     private let scheduler: SchedulerType
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost",
+                            port: Int32 = 50051,
+                            scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let service = DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceClient(address: "\(address):\(port)", secure: false)
-        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
@@ -217,9 +218,11 @@ public class Calibration {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCalibrateGyroReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
                         
@@ -239,10 +242,11 @@ public class Calibration {
                     }
                     
 
-                    observer.onError(RuntimeCalibrationError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -275,9 +279,11 @@ public class Calibration {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCalibrateAccelerometerReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
                         
@@ -297,10 +303,11 @@ public class Calibration {
                     }
                     
 
-                    observer.onError(RuntimeCalibrationError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -333,9 +340,11 @@ public class Calibration {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCalibrateMagnetometerReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
                         
@@ -355,10 +364,11 @@ public class Calibration {
                     }
                     
 
-                    observer.onError(RuntimeCalibrationError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -391,9 +401,11 @@ public class Calibration {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCalibrateGimbalAccelerometerReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
                         
@@ -413,10 +425,11 @@ public class Calibration {
                     }
                     
 
-                    observer.onError(RuntimeCalibrationError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {

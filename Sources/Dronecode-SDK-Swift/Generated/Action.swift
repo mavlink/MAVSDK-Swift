@@ -6,9 +6,10 @@ public class Action {
     private let service: DronecodeSdk_Rpc_Action_ActionServiceService
     private let scheduler: SchedulerType
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost",
+                            port: Int32 = 50051,
+                            scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let service = DronecodeSdk_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
-        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
