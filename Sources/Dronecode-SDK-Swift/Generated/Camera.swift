@@ -6,9 +6,10 @@ public class Camera {
     private let service: DronecodeSdk_Rpc_Camera_CameraServiceService
     private let scheduler: SchedulerType
 
-    public convenience init(address: String, port: Int) {
+    public convenience init(address: String = "localhost",
+                            port: Int32 = 50051,
+                            scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let service = DronecodeSdk_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
-        let scheduler = ConcurrentDispatchQueueScheduler(qos: .background)
 
         self.init(service: service, scheduler: scheduler)
     }
@@ -999,9 +1000,11 @@ public class Camera {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeModeReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let mode = CameraMode.translateFromRpc(response.cameraMode)
                         
@@ -1012,10 +1015,11 @@ public class Camera {
                     }
                     
 
-                    observer.onError(RuntimeCameraError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1072,9 +1076,11 @@ public class Camera {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeVideoStreamInfoReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
                         
@@ -1085,10 +1091,11 @@ public class Camera {
                     }
                     
 
-                    observer.onError(RuntimeCameraError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1121,9 +1128,11 @@ public class Camera {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCaptureInfoReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
                         
@@ -1134,10 +1143,11 @@ public class Camera {
                     }
                     
 
-                    observer.onError(RuntimeCameraError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1170,9 +1180,11 @@ public class Camera {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCameraStatusReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let cameraStatus = CameraStatus.translateFromRpc(response.cameraStatus)
                         
@@ -1183,10 +1195,11 @@ public class Camera {
                     }
                     
 
-                    observer.onError(RuntimeCameraError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1219,9 +1232,11 @@ public class Camera {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodeCurrentSettingsReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
                         
@@ -1232,10 +1247,11 @@ public class Camera {
                     }
                     
 
-                    observer.onError(RuntimeCameraError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
@@ -1268,9 +1284,11 @@ public class Camera {
                     }
                 })
 
-                DispatchQueue.init(label: "DronecodePossibleSettingOptionsReceiver").async {
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    var cancel = false
+
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
                             let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
                         
@@ -1281,10 +1299,11 @@ public class Camera {
                     }
                     
 
-                    observer.onError(RuntimeCameraError("Broken pipe"))
-                }
+                    return Disposables.create { cancel = true }
+                })
 
                 return Disposables.create {
+                    disposable.dispose()
                     call.cancel()
                 }
             } catch {
