@@ -562,7 +562,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let position = Position.translateFromRpc(response.position)
+                            
+                        let position = Position.translateFromRpc(response.position)
                         
 
                         
@@ -588,7 +589,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var home: Observable<Position> = createHomeObservable()
@@ -614,7 +614,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let home = Position.translateFromRpc(response.home)
+                            
+                        let home = Position.translateFromRpc(response.home)
                         
 
                         
@@ -640,7 +641,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var inAir: Observable<Bool> = createInAirObservable()
@@ -666,7 +666,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let inAir = response.isInAir
+                            
+                        let inAir = response.isInAir
                             
                         
 
@@ -693,7 +694,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var armed: Observable<Bool> = createArmedObservable()
@@ -719,7 +719,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let armed = response.isArmed
+                            
+                        let armed = response.isArmed
                             
                         
 
@@ -746,7 +747,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
@@ -772,7 +772,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
+                            
+                        let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
                         
 
                         
@@ -798,7 +799,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var attitudeEuler: Observable<EulerAngle> = createAttitudeEulerObservable()
@@ -824,7 +824,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
+                            
+                        let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
                         
 
                         
@@ -850,7 +851,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var cameraAttitudeQuaternion: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
@@ -876,7 +876,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
+                            
+                        let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
                         
 
                         
@@ -902,7 +903,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var cameraAttitudeEuler: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
@@ -928,7 +928,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
+                            
+                        let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
                         
 
                         
@@ -954,7 +955,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var groundSpeedNed: Observable<SpeedNed> = createGroundSpeedNedObservable()
@@ -980,7 +980,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let groundSpeedNed = SpeedNed.translateFromRpc(response.groundSpeedNed)
+                            
+                        let groundSpeedNed = SpeedNed.translateFromRpc(response.groundSpeedNed)
                         
 
                         
@@ -1006,7 +1007,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var gpsInfo: Observable<GpsInfo> = createGpsInfoObservable()
@@ -1032,7 +1032,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
+                            
+                        let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
                         
 
                         
@@ -1058,7 +1059,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var battery: Observable<Battery> = createBatteryObservable()
@@ -1084,7 +1084,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let battery = Battery.translateFromRpc(response.battery)
+                            
+                        let battery = Battery.translateFromRpc(response.battery)
                         
 
                         
@@ -1110,7 +1111,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var flightMode: Observable<FlightMode> = createFlightModeObservable()
@@ -1136,7 +1136,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let flightMode = FlightMode.translateFromRpc(response.flightMode)
+                            
+                        let flightMode = FlightMode.translateFromRpc(response.flightMode)
                         
 
                         
@@ -1162,7 +1163,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var health: Observable<Health> = createHealthObservable()
@@ -1188,7 +1188,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let health = Health.translateFromRpc(response.health)
+                            
+                        let health = Health.translateFromRpc(response.health)
                         
 
                         
@@ -1214,7 +1215,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var rcStatus: Observable<RcStatus> = createRcStatusObservable()
@@ -1240,7 +1240,8 @@ public class Telemetry {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
+                            
+                        let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
                         
 
                         
@@ -1266,6 +1267,5 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 }

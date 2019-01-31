@@ -228,6 +228,5 @@ public class Info {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 }

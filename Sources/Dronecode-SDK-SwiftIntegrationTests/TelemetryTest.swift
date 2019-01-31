@@ -12,6 +12,7 @@ class TelemetryTest: XCTestCase {
         _ = try drone.connect()
                      .andThen(drone.telemetry.position)
                      .take(expectedCount)
-                     .toBlocking(timeout: 2).toArray()
+                     .toBlocking(timeout: 2)
+                     .toArray()
     }
 }

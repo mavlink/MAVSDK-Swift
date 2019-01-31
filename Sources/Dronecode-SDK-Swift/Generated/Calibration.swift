@@ -224,7 +224,8 @@ public class Calibration {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
+                            
+                        let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
                         
 
                         
@@ -259,7 +260,6 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var calibrateAccelerometer: Observable<ProgressData> = createCalibrateAccelerometerObservable()
@@ -285,7 +285,8 @@ public class Calibration {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
+                            
+                        let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
                         
 
                         
@@ -320,7 +321,6 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var calibrateMagnetometer: Observable<ProgressData> = createCalibrateMagnetometerObservable()
@@ -346,7 +346,8 @@ public class Calibration {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
+                            
+                        let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
                         
 
                         
@@ -381,7 +382,6 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var calibrateGimbalAccelerometer: Observable<ProgressData> = createCalibrateGimbalAccelerometerObservable()
@@ -407,7 +407,8 @@ public class Calibration {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
+                            
+                        let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
                         
 
                         
@@ -442,6 +443,5 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 }
