@@ -26,18 +26,18 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
                 var cancel = false
 
                 {% if not return_name %}
-	        while let _ = try? call.receive(), cancel == false {
+	        while let responseOptional = try? call.receive(), let _ = responseOptional, cancel == false {
 	            observer.onNext(())
 	        }
                 {% else %}
                 while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                     {% if return_type.is_repeated %}
-                        let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
+		    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
                     {% else %}
-                        {% if return_type.is_primitive -%}
-                        let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}
-                        {% else -%}
-                        let {{ name.lower_camel_case }} = {{ return_type.name }}.translateFromRpc(response.{{ return_name.lower_camel_case }})
+                        {% if return_type.is_primitive %}
+                    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}
+                        {% else %}
+                    let {{ name.lower_camel_case }} = {{ return_type.name }}.translateFromRpc(response.{{ return_name.lower_camel_case }})
                         {%- endif %}
                     {% endif %}
 
@@ -75,5 +75,4 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
             guard $0 is Runtime{{ plugin_name.upper_camel_case }}Error else { throw $0 }
         }
     }
-    .subscribeOn(scheduler)
 }

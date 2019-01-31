@@ -797,7 +797,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func startPhotoInterval(intervalS: Float) -> Completable {
@@ -826,7 +825,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func stopPhotoInterval() -> Completable {
@@ -851,7 +849,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func startVideo() -> Completable {
@@ -876,7 +873,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func stopVideo() -> Completable {
@@ -901,7 +897,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func startVideoStreaming() -> Completable {
@@ -926,7 +921,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func stopVideoStreaming() -> Completable {
@@ -951,7 +945,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func setMode(cameraMode: CameraMode) -> Completable {
@@ -980,7 +973,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var mode: Observable<CameraMode> = createModeObservable()
@@ -1006,7 +998,8 @@ public class Camera {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let mode = CameraMode.translateFromRpc(response.cameraMode)
+                            
+                        let mode = CameraMode.translateFromRpc(response.cameraMode)
                         
 
                         
@@ -1032,7 +1025,6 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public func setVideoStreamSettings(videoStreamSettings: VideoStreamSettings) -> Completable {
@@ -1056,7 +1048,6 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var videoStreamInfo: Observable<VideoStreamInfo> = createVideoStreamInfoObservable()
@@ -1082,7 +1073,8 @@ public class Camera {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
+                            
+                        let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
                         
 
                         
@@ -1108,7 +1100,6 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var captureInfo: Observable<CaptureInfo> = createCaptureInfoObservable()
@@ -1134,7 +1125,8 @@ public class Camera {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
+                            
+                        let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
                         
 
                         
@@ -1160,7 +1152,6 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var cameraStatus: Observable<CameraStatus> = createCameraStatusObservable()
@@ -1186,7 +1177,8 @@ public class Camera {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let cameraStatus = CameraStatus.translateFromRpc(response.cameraStatus)
+                            
+                        let cameraStatus = CameraStatus.translateFromRpc(response.cameraStatus)
                         
 
                         
@@ -1212,7 +1204,6 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var currentSettings: Observable<[Setting]> = createCurrentSettingsObservable()
@@ -1238,7 +1229,7 @@ public class Camera {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
+    		    let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
                         
 
                         
@@ -1264,7 +1255,6 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var possibleSettingOptions: Observable<[SettingOptions]> = createPossibleSettingOptionsObservable()
@@ -1290,7 +1280,7 @@ public class Camera {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
+    		    let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
                         
 
                         
@@ -1316,7 +1306,6 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public func setSetting(setting: Setting) -> Completable {
@@ -1345,6 +1334,5 @@ public class Camera {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 }

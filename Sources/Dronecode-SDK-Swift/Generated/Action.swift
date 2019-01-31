@@ -175,7 +175,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func disarm() -> Completable {
@@ -200,7 +199,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func takeoff() -> Completable {
@@ -225,7 +223,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func land() -> Completable {
@@ -250,7 +247,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func kill() -> Completable {
@@ -275,7 +271,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func returnToLaunch() -> Completable {
@@ -300,7 +295,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func transitionToFixedWing() -> Completable {
@@ -325,7 +319,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func transitionToMulticopter() -> Completable {
@@ -350,7 +343,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func getTakeoffAltitude() -> Single<Float> {
@@ -380,7 +372,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func setTakeoffAltitude(altitude: Float) -> Completable {
@@ -409,7 +400,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func getMaximumSpeed() -> Single<Float> {
@@ -439,7 +429,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func setMaximumSpeed(speed: Float) -> Completable {
@@ -468,7 +457,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func getReturnToLaunchAltitude() -> Single<Float> {
@@ -498,7 +486,6 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func setReturnToLaunchAltitude(relativeAltitudeM: Float) -> Completable {
@@ -527,6 +514,5 @@ public class Action {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 }

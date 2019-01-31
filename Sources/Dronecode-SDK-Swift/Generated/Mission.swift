@@ -386,7 +386,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func downloadMission() -> Single<MissionItems> {
@@ -416,7 +415,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func startMission() -> Completable {
@@ -441,7 +439,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func pauseMission() -> Completable {
@@ -466,7 +463,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func setCurrentMissionItemIndex(index: Int32) -> Completable {
@@ -495,7 +491,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func isMissionFinished() -> Single<Bool> {
@@ -519,7 +514,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var missionProgress: Observable<MissionProgress> = createMissionProgressObservable()
@@ -545,7 +539,8 @@ public class Mission {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
+                            
+                        let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
                         
 
                         
@@ -571,7 +566,6 @@ public class Mission {
                 guard $0 is RuntimeMissionError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public func getReturnToLaunchAfterMission() -> Single<Bool> {
@@ -595,7 +589,6 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 
     public func setReturnToLaunchAfterMission(enable: Bool) -> Completable {
@@ -619,6 +612,5 @@ public class Mission {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 }

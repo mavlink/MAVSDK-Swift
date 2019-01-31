@@ -99,7 +99,8 @@ public class Core {
                     
                     while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
                         
-                            let discover = response.uuid
+                            
+                        let discover = response.uuid
                             
                         
 
@@ -126,7 +127,6 @@ public class Core {
                 guard $0 is RuntimeCoreError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public lazy var timeout: Observable<Void> = createTimeoutObservable()
@@ -150,7 +150,7 @@ public class Core {
                     var cancel = false
 
                     
-    	        while let _ = try? call.receive(), cancel == false {
+    	        while let responseOptional = try? call.receive(), let _ = responseOptional, cancel == false {
     	            observer.onNext(())
     	        }
                     
@@ -172,7 +172,6 @@ public class Core {
                 guard $0 is RuntimeCoreError else { throw $0 }
             }
         }
-        .subscribeOn(scheduler)
     }
 
     public func listRunningPlugins() -> Single<[PluginInfo]> {
@@ -196,6 +195,5 @@ public class Core {
 
             return Disposables.create()
         }
-        .subscribeOn(scheduler)
     }
 }

@@ -30,5 +30,4 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.l
 
         return Disposables.create()
     }
-    .subscribeOn(scheduler)
 }

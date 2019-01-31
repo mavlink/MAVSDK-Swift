@@ -11,22 +11,19 @@ class CoreTest: XCTestCase {
     let ARBITRARY_PLUGIN_ADDRESS: String = "localhost"
     let ARBITRARY_PLUGIN_PORT: Int32 = 1291
 
-    let scheduler = MainScheduler.instance
-
     func testDiscoverObservableEmitsNothingWhenNoEvent() {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
         let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallTestStub()
         fakeService.subscribeDiscoverCalls.append(fakeCall)
 
-        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
         let observer = scheduler.createObserver(UInt64.self)
 
         let _ = client.discover.subscribe(observer)
         scheduler.start()
-        observer.onCompleted()
 
-        XCTAssertEqual(1, observer.events.count) // "completed" is one event
+        XCTAssertTrue(observer.events.isEmpty)
     }
 
     func testDiscoverObservableReceivesOneEvent() {
@@ -37,21 +34,21 @@ class CoreTest: XCTestCase {
         fakeCall.outputs = [createDiscoverResponse(uuid: expectedUUID)]
         fakeService.subscribeDiscoverCalls.append(fakeCall)
 
-        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
         let observer = scheduler.createObserver(UInt64.self)
 
         let _ = client.discover.subscribe(observer)
         scheduler.start()
-        observer.onCompleted()
 
         let expectedEvents = [
             next(0, expectedUUID),
-            completed(0)
         ]
 
         XCTAssertEqual(expectedEvents.count, observer.events.count)
-        XCTAssertEqual(observer.events, expectedEvents)
+        XCTAssertTrue(observer.events.elementsEqual(expectedEvents, by: { (observed, expected) in
+            observed.value == expected.value
+        }))
     }
 
     func createDiscoverResponse(uuid: UInt64) -> DronecodeSdk_Rpc_Core_DiscoverResponse {
@@ -72,22 +69,22 @@ class CoreTest: XCTestCase {
         }
         fakeService.subscribeDiscoverCalls.append(fakeCall)
 
-        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
         let observer = scheduler.createObserver(UInt64.self)
 
         let _ = client.discover.subscribe(observer)
         scheduler.start()
-        observer.onCompleted()
 
         var expectedEvents = [Recorded<Event<UInt64>>]()
         for expectedUUID in expectedUUIDs {
             expectedEvents.append(next(0, UInt64(expectedUUID)))
         }
-        expectedEvents.append(completed(0))
 
         XCTAssertEqual(expectedEvents.count, observer.events.count)
-        XCTAssertEqual(expectedEvents, observer.events)
+        XCTAssertTrue(observer.events.elementsEqual(expectedEvents, by: { (observed, expected) in
+            observed.value == expected.value
+        }))
     }
 
     func testTimeoutObservableEmitsNothingWhenNoEvent() {
@@ -95,15 +92,14 @@ class CoreTest: XCTestCase {
         let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCallTestStub()
         fakeService.subscribeTimeoutCalls.append(fakeCall)
 
-        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
         let observer = scheduler.createObserver(Void.self)
 
         let _ = client.timeout.subscribe(observer)
         scheduler.start()
-        observer.onCompleted()
 
-        XCTAssertEqual(1, observer.events.count)
+        XCTAssertTrue(observer.events.isEmpty)
     }
 
     func testTimeoutObservableReceivesOneEvent() {
@@ -120,15 +116,14 @@ class CoreTest: XCTestCase {
         }
         fakeService.subscribeTimeoutCalls.append(fakeCall)
 
-        let client = Core(service: fakeService, scheduler: self.scheduler)
         let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
         let observer = scheduler.createObserver(Void.self)
 
         let _ = client.timeout.subscribe(observer)
         scheduler.start()
-        observer.onCompleted()
 
-        XCTAssertEqual(nbEvents + 1, observer.events.count) // "completed" is one event
+        XCTAssertEqual(nbEvents, observer.events.count)
     }
 
     func testTimeoutObservableReceivesMultipleEvents() {
@@ -138,25 +133,29 @@ class CoreTest: XCTestCase {
     func testListRunningPluginsEmitsNothingWhenEmpty() {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
         fakeService.listRunningPluginsResponses.append(DronecodeSdk_Rpc_Core_ListRunningPluginsResponse())
-        let client = Core(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
+        scheduler.start()
 
         let pluginInfos = try! client.listRunningPlugins().toBlocking().single()
 
-        XCTAssertEqual(0, pluginInfos.count)
+        XCTAssertTrue(pluginInfos.isEmpty)
     }
 
-    func testListRunningPluginsEmitsOnePluginInfo() {
+    func testListRunningPluginsEmitsOnePluginInfo() throws {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Core_ListRunningPluginsResponse()
         response.pluginInfo.append(createRPCPluginInfo(name: ARBITRARY_PLUGIN_NAME, address: ARBITRARY_PLUGIN_ADDRESS, port: ARBITRARY_PLUGIN_PORT))
         fakeService.listRunningPluginsResponses.append(response)
-        let client = Core(service: fakeService, scheduler: self.scheduler)
-        let expectedPluginInfo = translateRPCPluginInfo(pluginInfoRPC: response.pluginInfo[0])
+        let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
+        let expectedPluginInfo = Core.PluginInfo.translateFromRpc(response.pluginInfo[0])
 
-        let pluginInfos = try? client.listRunningPlugins().toBlocking().single()
+        scheduler.start()
+        let pluginInfos = try client.listRunningPlugins().toBlocking().single()
 
-        XCTAssertEqual(1, pluginInfos?.count)
-        XCTAssertEqual(expectedPluginInfo, pluginInfos![0])
+        XCTAssertEqual(1, pluginInfos.count)
+        XCTAssertEqual(expectedPluginInfo, pluginInfos.first)
     }
 
     func createRPCPluginInfo(name: String, address: String, port: Int32) -> DronecodeSdk_Rpc_Core_PluginInfo {
@@ -168,25 +167,23 @@ class CoreTest: XCTestCase {
         return pluginInfo
     }
 
-    func translateRPCPluginInfo(pluginInfoRPC: DronecodeSdk_Rpc_Core_PluginInfo) -> Core.PluginInfo {
-        return Core.PluginInfo(name: pluginInfoRPC.name, address: pluginInfoRPC.address, port: pluginInfoRPC.port)
-    }
-
-    func testListRunningPluginsEmitsMultiplePluginInfos() {
+    func testListRunningPluginsEmitsMultiplePluginInfos() throws {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Core_ListRunningPluginsResponse()
         response.pluginInfo.append(createRPCPluginInfo(name: "name1", address: "add1", port: 1291))
         response.pluginInfo.append(createRPCPluginInfo(name: "name2", address: "add2", port: 1492))
         response.pluginInfo.append(createRPCPluginInfo(name: "name3", address: "add3", port: 1515))
         fakeService.listRunningPluginsResponses.append(response)
-        let client = Core(service: fakeService, scheduler: self.scheduler)
+        let scheduler = TestScheduler(initialClock: 0)
+        let client = Core(service: fakeService, scheduler: scheduler)
 
-        let pluginInfos = try? client.listRunningPlugins().toBlocking().single()
+        scheduler.start()
+        let pluginInfos = try client.listRunningPlugins().toBlocking().single()
 
-        XCTAssertEqual(pluginInfos?.count, response.pluginInfo.count)
+        XCTAssertEqual(pluginInfos.count, response.pluginInfo.count)
 
-        for i in 0 ... pluginInfos!.count - 1 {
-            XCTAssertEqual(translateRPCPluginInfo(pluginInfoRPC: response.pluginInfo[i]), pluginInfos![i])
+        for i in 0 ... pluginInfos.count - 1 {
+            XCTAssertEqual(Core.PluginInfo.translateFromRpc(response.pluginInfo[i]), pluginInfos[i])
         }
     }
 }
