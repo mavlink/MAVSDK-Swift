@@ -9,7 +9,7 @@ class TelemetryTest: XCTestCase {
         let expectedCount = 5
 
         let drone = Drone()
-        _ = try drone.connect()
+        _ = try drone.startMavlink()
                      .andThen(drone.telemetry.position)
                      .take(expectedCount)
                      .toBlocking(timeout: 2)

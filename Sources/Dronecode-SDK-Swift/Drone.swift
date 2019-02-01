@@ -25,9 +25,9 @@ public class Drone {
     /**
      Initializes the backend and start connecting to the drone.
 
-     - Returns: connect `Completable`.
+     - Returns: startMavlink `Completable`.
      */
-    public func connect(mavlinkPort: Int32 = 14540) -> Completable {
+    public func startMavlink(mavlinkPort: Int32 = 14540) -> Completable {
         return Completable.create { completable in
             let semaphore = DispatchSemaphore(value: 0)
 
