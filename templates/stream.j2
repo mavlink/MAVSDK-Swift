@@ -23,14 +23,12 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
             })
 
             let disposable = self.scheduler.schedule(0, action: { _ in
-                var cancel = false
-
                 {% if not return_name %}
-	        while let responseOptional = try? call.receive(), let _ = responseOptional, cancel == false {
+	        while let responseOptional = try? call.receive(), let _ = responseOptional {
 	            observer.onNext(())
 	        }
                 {% else %}
-                while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                while let responseOptional = try? call.receive(), let response = responseOptional {
                     {% if return_type.is_repeated %}
 		    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
                     {% else %}
@@ -58,12 +56,12 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
                 }
                 {% endif %}
 
-                return Disposables.create { cancel = true }
+                return Disposables.create()
             })
 
             return Disposables.create {
-                disposable.dispose()
                 call.cancel()
+                disposable.dispose()
             }
         } catch {
             observer.onError(error)

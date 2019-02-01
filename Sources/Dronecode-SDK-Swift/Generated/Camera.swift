@@ -993,10 +993,8 @@ public class Camera {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let mode = CameraMode.translateFromRpc(response.cameraMode)
@@ -1008,12 +1006,12 @@ public class Camera {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1068,10 +1066,8 @@ public class Camera {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
@@ -1083,12 +1079,12 @@ public class Camera {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1120,10 +1116,8 @@ public class Camera {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
@@ -1135,12 +1129,12 @@ public class Camera {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1172,10 +1166,8 @@ public class Camera {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let cameraStatus = CameraStatus.translateFromRpc(response.cameraStatus)
@@ -1187,12 +1179,12 @@ public class Camera {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1224,10 +1216,8 @@ public class Camera {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
     		    let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
                         
@@ -1238,12 +1228,12 @@ public class Camera {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1275,10 +1265,8 @@ public class Camera {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
     		    let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
                         
@@ -1289,12 +1277,12 @@ public class Camera {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
