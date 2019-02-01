@@ -10,13 +10,12 @@ fi
 
 jazzy \
     --clean \
-    --exclude "Dronecode-SDK-Swift/Generated/" \
     --author Dronecode SDK developers \
     --author_url https://sdk.dronecode.org \
-    --github_url https://github.com/Dronecode/DronecodeSDKSwift \
+    --github_url https://github.com/Dronecode/DronecodeSDK-Swift \
     --github-file-prefix https://github.com/Dronecode/DronecodeSDK-Swift/tree/master \
     --module-version master \
-    --xcodebuild-arguments -project,Dronecode-SDK-Swift.xcodeproj,-scheme,Dronecode-SDK-Swift \
+    --xcodebuild-arguments -project,Dronecode-SDK-Swift.xcodeproj \
     --module Dronecode-SDK-Swift \
     --root-url https://sdk.dronecode.org/docs/swift \
     --output docs/swift_output \
