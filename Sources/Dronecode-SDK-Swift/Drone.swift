@@ -10,7 +10,10 @@ public class Drone {
     private let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
 
     public let action: Action
+    public let calibration: Calibration
+    public let camera: Camera
     public let core: Core
+    public let info: Info
     public let mission: Mission
     public let telemetry: Telemetry
 
@@ -20,7 +23,10 @@ public class Drone {
         self.scheduler = MainScheduler.instance
 
         self.action = Action(address: address, port: port, scheduler: scheduler)
+        self.calibration = Calibration(address: address, port: port, scheduler: scheduler)
+        self.camera = Camera(address: address, port: port, scheduler: scheduler)
         self.core = Core(address: address, port: port, scheduler: scheduler)
+        self.info = Info(address: address, port: port, scheduler: scheduler)
         self.mission = Mission(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
     }
