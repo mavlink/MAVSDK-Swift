@@ -5,6 +5,8 @@ xcuserdata/
 build/
 bin/
 
+.build
+
 .idea
 
 SampleCode/SwiftSampleCode/Pods/

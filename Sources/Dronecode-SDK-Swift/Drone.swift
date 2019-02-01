@@ -1,6 +1,9 @@
-import backend
 import Foundation
 import RxSwift
+
+#if os(iOS)
+import backend
+#endif
 
 public class Drone {
     private let scheduler: SchedulerType
@@ -22,6 +25,7 @@ public class Drone {
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
     }
 
+#if os(iOS)
     /**
      Initializes the backend and start connecting to the drone.
 
@@ -56,4 +60,5 @@ public class Drone {
             }
         }
     }
+#endif
 }
