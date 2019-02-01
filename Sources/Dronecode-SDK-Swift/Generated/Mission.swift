@@ -534,10 +534,8 @@ public class Mission {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
@@ -549,12 +547,12 @@ public class Mission {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)

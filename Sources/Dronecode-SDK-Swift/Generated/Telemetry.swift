@@ -557,10 +557,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let position = Position.translateFromRpc(response.position)
@@ -572,12 +570,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -609,10 +607,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let home = Position.translateFromRpc(response.home)
@@ -624,12 +620,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -661,10 +657,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let inAir = response.isInAir
@@ -677,12 +671,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -714,10 +708,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let armed = response.isArmed
@@ -730,12 +722,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -767,10 +759,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
@@ -782,12 +772,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -819,10 +809,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
@@ -834,12 +822,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -871,10 +859,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
@@ -886,12 +872,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -923,10 +909,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
@@ -938,12 +922,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -975,10 +959,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let groundSpeedNed = SpeedNed.translateFromRpc(response.groundSpeedNed)
@@ -990,12 +972,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1027,10 +1009,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
@@ -1042,12 +1022,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1079,10 +1059,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let battery = Battery.translateFromRpc(response.battery)
@@ -1094,12 +1072,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1131,10 +1109,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let flightMode = FlightMode.translateFromRpc(response.flightMode)
@@ -1146,12 +1122,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1183,10 +1159,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let health = Health.translateFromRpc(response.health)
@@ -1198,12 +1172,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -1235,10 +1209,8 @@ public class Telemetry {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
@@ -1250,12 +1222,12 @@ public class Telemetry {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)

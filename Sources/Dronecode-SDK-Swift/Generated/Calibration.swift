@@ -219,10 +219,8 @@ public class Calibration {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
@@ -243,12 +241,12 @@ public class Calibration {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -280,10 +278,8 @@ public class Calibration {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
@@ -304,12 +300,12 @@ public class Calibration {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -341,10 +337,8 @@ public class Calibration {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
@@ -365,12 +359,12 @@ public class Calibration {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -402,10 +396,8 @@ public class Calibration {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
@@ -426,12 +418,12 @@ public class Calibration {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)

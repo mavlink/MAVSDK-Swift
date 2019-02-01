@@ -94,10 +94,8 @@ public class Core {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional, cancel == false {
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
                         let discover = response.uuid
@@ -110,12 +108,12 @@ public class Core {
                     }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
@@ -147,20 +145,18 @@ public class Core {
                 })
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
-                    var cancel = false
-
                     
-    	        while let responseOptional = try? call.receive(), let _ = responseOptional, cancel == false {
+    	        while let responseOptional = try? call.receive(), let _ = responseOptional {
     	            observer.onNext(())
     	        }
                     
 
-                    return Disposables.create { cancel = true }
+                    return Disposables.create()
                 })
 
                 return Disposables.create {
-                    disposable.dispose()
                     call.cancel()
+                    disposable.dispose()
                 }
             } catch {
                 observer.onError(error)
