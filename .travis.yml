@@ -8,7 +8,7 @@ install:
   PATH=$PATH:`python -c "import site; print(site.USER_BASE)"`/bin;
 
 script:
-- "./generate_docs.sh"
+- "./tools/generate_docs.sh"
 
 after_success:
 - if [ "${TRAVIS_PULL_REQUEST}" = false ]; then
