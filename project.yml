@@ -10,6 +10,7 @@ targets:
     name: Dronecode_SDK_Swift
     type: framework
     platform: iOS
+    scheme: {}
     sources: [Sources/Dronecode-SDK-Swift]
     dependencies:
       - carthage: backend
