@@ -10,6 +10,8 @@ targets:
     name: Dronecode_SDK_Swift
     type: framework
     platform: iOS
+    info:
+      path: Sources/Dronecode-SDK-Swift/Info.plist
     scheme: {}
     sources: [Sources/Dronecode-SDK-Swift]
     dependencies:
