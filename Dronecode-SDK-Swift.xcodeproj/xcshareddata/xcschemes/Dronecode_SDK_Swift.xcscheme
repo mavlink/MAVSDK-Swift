@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NT_C2CE6F3BFB726F3F68030AE32C88258F"
+               BuildableName = "Dronecode_SDK_SwiftTests.xctest"
+               BlueprintName = "Dronecode_SDK_SwiftTests"
+               ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "NT_4DDE12F2BF90E823AE0D34CFD56CDEAF"
+               BuildableName = "Dronecode_SDK_SwiftIntegrationTests.xctest"
+               BlueprintName = "Dronecode_SDK_SwiftIntegrationTests"
+               ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
@@ -38,8 +58,6 @@
             ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -62,8 +80,6 @@
             ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -83,8 +99,6 @@
             ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

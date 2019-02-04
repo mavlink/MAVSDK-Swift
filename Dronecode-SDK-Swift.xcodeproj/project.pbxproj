@@ -184,6 +184,7 @@
 		FR_E4E4ED923986D183370CFC2F46F63A43 /* CalibrationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationTest.swift; sourceTree = "<group>"; };
 		FR_E5A9122F4C8DCB173D5D7CA3AB94EF57 /* Calibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calibration.swift; sourceTree = "<group>"; };
 		FR_EBA83ABD0C0B50327A1132FD6349C64C /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
+		FR_EC550DD66D6556A953E00E95C2BFCEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FR_F1B8A2065FA04F09B124C6CFC5DE74E9 /* telemetry.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = telemetry.pb.swift; sourceTree = "<group>"; };
 		FR_F42F9DB1355155B0749253288E939DB8 /* core.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = core.pb.swift; sourceTree = "<group>"; };
 		FR_FE1D274B50DB4C0951BAE3B5F12F6C47 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
@@ -336,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				FR_BB6226CC551BD0029F23C52C07C2F906 /* Drone.swift */,
+				FR_EC550DD66D6556A953E00E95C2BFCEBE /* Info.plist */,
 				G_39F3212D3A6D806E128EAD9881F82BFB /* Generated */,
 			);
 			name = "Dronecode-SDK-Swift";
