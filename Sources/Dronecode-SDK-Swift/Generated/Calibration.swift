@@ -258,6 +258,7 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var calibrateAccelerometer: Observable<ProgressData> = createCalibrateAccelerometerObservable()
@@ -317,6 +318,7 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var calibrateMagnetometer: Observable<ProgressData> = createCalibrateMagnetometerObservable()
@@ -376,6 +378,7 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var calibrateGimbalAccelerometer: Observable<ProgressData> = createCalibrateGimbalAccelerometerObservable()
@@ -435,5 +438,6 @@ public class Calibration {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 }

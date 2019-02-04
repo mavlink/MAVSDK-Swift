@@ -564,6 +564,7 @@ public class Mission {
                 guard $0 is RuntimeMissionError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public func getReturnToLaunchAfterMission() -> Single<Bool> {

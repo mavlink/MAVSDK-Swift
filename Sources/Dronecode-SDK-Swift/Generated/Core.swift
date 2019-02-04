@@ -125,6 +125,7 @@ public class Core {
                 guard $0 is RuntimeCoreError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var timeout: Observable<Void> = createTimeoutObservable()
@@ -168,6 +169,7 @@ public class Core {
                 guard $0 is RuntimeCoreError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public func listRunningPlugins() -> Single<[PluginInfo]> {

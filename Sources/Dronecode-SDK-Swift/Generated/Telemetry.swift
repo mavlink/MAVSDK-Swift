@@ -587,6 +587,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var home: Observable<Position> = createHomeObservable()
@@ -637,6 +638,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var inAir: Observable<Bool> = createInAirObservable()
@@ -688,6 +690,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var armed: Observable<Bool> = createArmedObservable()
@@ -739,6 +742,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
@@ -789,6 +793,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var attitudeEuler: Observable<EulerAngle> = createAttitudeEulerObservable()
@@ -839,6 +844,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var cameraAttitudeQuaternion: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
@@ -889,6 +895,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var cameraAttitudeEuler: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
@@ -939,6 +946,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var groundSpeedNed: Observable<SpeedNed> = createGroundSpeedNedObservable()
@@ -989,6 +997,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var gpsInfo: Observable<GpsInfo> = createGpsInfoObservable()
@@ -1039,6 +1048,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var battery: Observable<Battery> = createBatteryObservable()
@@ -1089,6 +1099,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var flightMode: Observable<FlightMode> = createFlightModeObservable()
@@ -1139,6 +1150,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var health: Observable<Health> = createHealthObservable()
@@ -1189,6 +1201,7 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var rcStatus: Observable<RcStatus> = createRcStatusObservable()
@@ -1239,5 +1252,6 @@ public class Telemetry {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 }
