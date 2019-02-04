@@ -32,19 +32,35 @@ public class Drone {
     }
 
 #if os(iOS)
+    private var mavlinkPort: Int32 = 14540
+
+    /**
+     Sets the port on which the mavlink server will be listening for
+     a drone. Defaults to 14540.
+
+     Must be set before subscribing to `startMavlink()`.
+
+     - Parameter mavlinkPort: The port on which to listen for the drone.
+     */
+    public func setMavlinkPort(mavlinkPort: Int32) {
+        self.mavlinkPort = mavlinkPort
+    }
+
     /**
      Initializes the backend and start connecting to the drone.
 
      - Returns: startMavlink `Completable`.
      */
-    public func startMavlink(mavlinkPort: Int32 = 14540) -> Completable {
+    public lazy var startMavlink = createStartMavlinkCompletable()
+
+    private func createStartMavlinkCompletable() -> Completable {
         return Completable.create { completable in
             let semaphore = DispatchSemaphore(value: 0)
 
             self.backendQueue.async {
-                print("Running backend in background (MAVLink port: \(mavlinkPort)")
+                print("Running backend in background (MAVLink port: \(self.mavlinkPort)")
 
-                runBackend(mavlinkPort,
+                runBackend(self.mavlinkPort,
                            { unmanagedSemaphore in
                             let semaphore = Unmanaged<DispatchSemaphore>.fromOpaque(unmanagedSemaphore!).takeRetainedValue();
                             semaphore.signal()
@@ -64,7 +80,7 @@ public class Drone {
             return Disposables.create {
                 signalDisposable.dispose()
             }
-        }
+        }.asObservable().share(replay: 0, scope: .forever).ignoreElements()
     }
 #endif
 }
