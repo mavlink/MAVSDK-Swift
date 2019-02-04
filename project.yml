@@ -12,7 +12,10 @@ targets:
     platform: iOS
     info:
       path: Sources/Dronecode-SDK-Swift/Info.plist
-    scheme: {}
+    scheme:
+      testTargets:
+        - Dronecode_SDK_SwiftTests
+        - Dronecode_SDK_SwiftIntegrationTests
     sources: [Sources/Dronecode-SDK-Swift]
     dependencies:
       - carthage: backend
