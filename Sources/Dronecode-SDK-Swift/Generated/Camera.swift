@@ -1023,6 +1023,7 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public func setVideoStreamSettings(videoStreamSettings: VideoStreamSettings) -> Completable {
@@ -1096,6 +1097,7 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var captureInfo: Observable<CaptureInfo> = createCaptureInfoObservable()
@@ -1146,6 +1148,7 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var cameraStatus: Observable<CameraStatus> = createCameraStatusObservable()
@@ -1196,6 +1199,7 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var currentSettings: Observable<[Setting]> = createCurrentSettingsObservable()
@@ -1245,6 +1249,7 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public lazy var possibleSettingOptions: Observable<[SettingOptions]> = createPossibleSettingOptionsObservable()
@@ -1294,6 +1299,7 @@ public class Camera {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
         }
+        .share(replay: 1)
     }
 
     public func setSetting(setting: Setting) -> Completable {

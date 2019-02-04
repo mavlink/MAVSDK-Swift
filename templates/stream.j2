@@ -73,4 +73,5 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
             guard $0 is Runtime{{ plugin_name.upper_camel_case }}Error else { throw $0 }
         }
     }
+    .share(replay: 1)
 }

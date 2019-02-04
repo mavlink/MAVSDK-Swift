@@ -6,7 +6,7 @@ class ActionTest: XCTestCase {
 
     func testArmSucceeds() {
         let drone = Drone()
-        _ = drone.startMavlink()
+        _ = drone.startMavlink
                  .andThen(drone.action.arm())
                  .do(onError: { error in XCTFail("\(error)") })
                  .toBlocking()
@@ -15,7 +15,7 @@ class ActionTest: XCTestCase {
 
     func testDisarmSucceeds() {
         let drone = Drone()
-        _ = drone.startMavlink()
+        _ = drone.startMavlink
             .andThen(drone.action.arm())
             .delay(2, scheduler: MainScheduler.instance)
             .andThen(drone.action.disarm())
@@ -26,7 +26,7 @@ class ActionTest: XCTestCase {
 
     func testTakeoffAndLandSucceeds() {
         let drone = Drone()
-        _ = drone.startMavlink()
+        _ = drone.startMavlink
             .andThen(drone.action.arm())
             .andThen(drone.action.takeoff())
             .delay(5, scheduler: MainScheduler.instance)
@@ -41,7 +41,7 @@ class ActionTest: XCTestCase {
         let expectedSecondAltitude: Float = 5
 
         let drone = Drone()
-        _ = drone.startMavlink().toBlocking().materialize()
+        _ = drone.startMavlink.toBlocking().materialize()
 
         let firstAltitude = try drone.action.setReturnToLaunchAltitude(relativeAltitudeM: expectedFirstAltitude)
                                      .andThen(drone.action.getReturnToLaunchAltitude())

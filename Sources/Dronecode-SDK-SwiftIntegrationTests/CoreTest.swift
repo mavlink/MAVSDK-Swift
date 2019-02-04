@@ -8,7 +8,7 @@ class CoreTest: XCTestCase {
         let expectedCount = 1
 
         let drone = Drone()
-        _ = try drone.startMavlink()
+        _ = try drone.startMavlink
             .andThen(drone.core.discover.take(expectedCount))
             .toBlocking(timeout: 2)
             .toArray()
@@ -18,7 +18,7 @@ class CoreTest: XCTestCase {
         let expectedPlugins = ["action", "mission", "telemetry", "info"]
 
         let drone = Drone()
-        let pluginNames = try drone.startMavlink()
+        let pluginNames = try drone.startMavlink
                            .andThen(drone.core.listRunningPlugins())
                            .toBlocking()
                            .first()!.map({ pluginInfo in pluginInfo.name })
