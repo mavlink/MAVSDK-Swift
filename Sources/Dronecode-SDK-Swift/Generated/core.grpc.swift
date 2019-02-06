@@ -25,44 +25,24 @@ import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall: ClientCallServerStreaming {
+internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Core_DiscoverResponse?
+  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Core_ConnectionStateResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Core_DiscoverResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Core_ConnectionStateResponse?>) -> Void) throws
 }
 
-internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall {
+internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Core_DiscoverResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Core_ConnectionStateResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, DronecodeSdk_Rpc_Core_DiscoverResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeDiscover" }
+fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeConnectionState" }
 }
 
-class DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Core_DiscoverResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeDiscover" }
-}
-
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Core_TimeoutResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Core_TimeoutResponse?>) -> Void) throws
-}
-
-internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Core_TimeoutResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, DronecodeSdk_Rpc_Core_TimeoutResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeTimeout" }
-}
-
-class DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Core_TimeoutResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeTimeout" }
+class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeConnectionState" }
 }
 
 internal protocol DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall: ClientCallUnary {}
@@ -77,12 +57,7 @@ internal protocol DronecodeSdk_Rpc_Core_CoreServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeDiscover(_ request: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeTimeout(_ request: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall
+  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
 
   /// Synchronous. Unary.
   func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse
@@ -95,16 +70,8 @@ internal final class DronecodeSdk_Rpc_Core_CoreServiceServiceClient: ServiceClie
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeDiscover(_ request: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall {
-    return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeTimeout(_ request: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall {
-    return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCallBase(channel)
+  internal func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+    return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 
@@ -122,20 +89,12 @@ internal final class DronecodeSdk_Rpc_Core_CoreServiceServiceClient: ServiceClie
 }
 
 class DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Core_CoreServiceService {
-  var subscribeDiscoverRequests: [DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest] = []
-  var subscribeDiscoverCalls: [DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall] = []
-  func subscribeDiscover(_ request: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCall {
-    subscribeDiscoverRequests.append(request)
-    defer { subscribeDiscoverCalls.removeFirst() }
-    return subscribeDiscoverCalls.first!
-  }
-
-  var subscribeTimeoutRequests: [DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest] = []
-  var subscribeTimeoutCalls: [DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall] = []
-  func subscribeTimeout(_ request: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCall {
-    subscribeTimeoutRequests.append(request)
-    defer { subscribeTimeoutCalls.removeFirst() }
-    return subscribeTimeoutCalls.first!
+  var subscribeConnectionStateRequests: [DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest] = []
+  var subscribeConnectionStateCalls: [DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall] = []
+  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+    subscribeConnectionStateRequests.append(request)
+    defer { subscribeConnectionStateCalls.removeFirst() }
+    return subscribeConnectionStateCalls.first!
   }
 
   var listRunningPluginsRequests: [DronecodeSdk_Rpc_Core_ListRunningPluginsRequest] = []
@@ -155,8 +114,7 @@ class DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBas
 /// If one of the methods returning `ServerStatus?` returns nil,
 /// it is expected that you have already returned a status to the client by means of `session.close`.
 internal protocol DronecodeSdk_Rpc_Core_CoreServiceProvider: ServiceProvider {
-  func subscribeDiscover(request: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, session: DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSession) throws -> ServerStatus?
-  func subscribeTimeout(request: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, session: DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSession) throws -> ServerStatus?
+  func subscribeConnectionState(request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, session: DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession) throws -> ServerStatus?
   func listRunningPlugins(request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, session: DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSession) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse
 }
 
@@ -167,15 +125,10 @@ extension DronecodeSdk_Rpc_Core_CoreServiceProvider {
   /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
   internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
     switch method {
-    case "/dronecode_sdk.rpc.core.CoreService/SubscribeDiscover":
-      return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSessionBase(
+    case "/dronecode_sdk.rpc.core.CoreService/SubscribeConnectionState":
+      return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeDiscover(request: $0, session: $1 as! DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSessionBase) })
-          .run()
-    case "/dronecode_sdk.rpc.core.CoreService/SubscribeTimeout":
-      return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeTimeout(request: $0, session: $1 as! DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSessionBase) })
+        providerBlock: { try self.subscribeConnectionState(request: $0, session: $1 as! DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase) })
           .run()
     case "/dronecode_sdk.rpc.core.CoreService/ListRunningPlugins":
       return try DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase(
@@ -188,11 +141,11 @@ extension DronecodeSdk_Rpc_Core_CoreServiceProvider {
   }
 }
 
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSession: ServerSessionServerStreaming {
+internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Core_DiscoverResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: DronecodeSdk_Rpc_Core_ConnectionStateResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Core_DiscoverResponse, timeout: DispatchTime) throws
+  func _send(_ message: DronecodeSdk_Rpc_Core_ConnectionStateResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -200,35 +153,14 @@ internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSession: Ser
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSession {
+internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Core_DiscoverResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: DronecodeSdk_Rpc_Core_ConnectionStateResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, DronecodeSdk_Rpc_Core_DiscoverResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSession {}
+fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {}
 
-class DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Core_DiscoverResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverSession {}
-
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Core_TimeoutResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Core_TimeoutResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Core_TimeoutResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, DronecodeSdk_Rpc_Core_TimeoutResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSession {}
-
-class DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Core_TimeoutResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutSession {}
+class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {}
 
 internal protocol DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSession: ServerSessionUnary {}
 

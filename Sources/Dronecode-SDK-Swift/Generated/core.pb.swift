@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest {
+struct DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -29,36 +29,25 @@ struct DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Core_DiscoverResponse {
+struct DronecodeSdk_Rpc_Core_ConnectionStateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var uuid: UInt64 = 0
+  var connectionState: DronecodeSdk_Rpc_Core_ConnectionState {
+    get {return _storage._connectionState ?? DronecodeSdk_Rpc_Core_ConnectionState()}
+    set {_uniqueStorage()._connectionState = newValue}
+  }
+  /// Returns true if `connectionState` has been explicitly set.
+  var hasConnectionState: Bool {return _storage._connectionState != nil}
+  /// Clears the value of `connectionState`. Subsequent reads from it will return its default value.
+  mutating func clearConnectionState() {_uniqueStorage()._connectionState = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-}
 
-struct DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct DronecodeSdk_Rpc_Core_TimeoutResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct DronecodeSdk_Rpc_Core_ListRunningPluginsRequest {
@@ -77,6 +66,20 @@ struct DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
   // methods supported on all messages.
 
   var pluginInfo: [DronecodeSdk_Rpc_Core_PluginInfo] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct DronecodeSdk_Rpc_Core_ConnectionState {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var uuid: UInt64 = 0
+
+  var isConnected: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -103,8 +106,8 @@ struct DronecodeSdk_Rpc_Core_PluginInfo {
 
 fileprivate let _protobuf_package = "dronecode_sdk.rpc.core"
 
-extension DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SubscribeDiscoverRequest"
+extension DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeConnectionStateRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -116,74 +119,68 @@ extension DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest, rhs: DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest) -> Bool {
+  static func ==(lhs: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, rhs: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Core_DiscoverResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".DiscoverResponse"
+extension DronecodeSdk_Rpc_Core_ConnectionStateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ConnectionStateResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "uuid"),
+    1: .standard(proto: "connection_state"),
   ]
 
+  fileprivate class _StorageClass {
+    var _connectionState: DronecodeSdk_Rpc_Core_ConnectionState? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _connectionState = source._connectionState
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt64Field(value: &self.uuid)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._connectionState)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.uuid != 0 {
-      try visitor.visitSingularUInt64Field(value: self.uuid, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._connectionState {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_DiscoverResponse, rhs: DronecodeSdk_Rpc_Core_DiscoverResponse) -> Bool {
-    if lhs.uuid != rhs.uuid {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SubscribeTimeoutRequest"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+  static func ==(lhs: DronecodeSdk_Rpc_Core_ConnectionStateResponse, rhs: DronecodeSdk_Rpc_Core_ConnectionStateResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._connectionState != rhs_storage._connectionState {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
     }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest, rhs: DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension DronecodeSdk_Rpc_Core_TimeoutResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TimeoutResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: DronecodeSdk_Rpc_Core_TimeoutResponse, rhs: DronecodeSdk_Rpc_Core_TimeoutResponse) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -232,6 +229,41 @@ extension DronecodeSdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Messag
 
   static func ==(lhs: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse, rhs: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse) -> Bool {
     if lhs.pluginInfo != rhs.pluginInfo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ConnectionState"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "uuid"),
+    2: .standard(proto: "is_connected"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt64Field(value: &self.uuid)
+      case 2: try decoder.decodeSingularBoolField(value: &self.isConnected)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.uuid != 0 {
+      try visitor.visitSingularUInt64Field(value: self.uuid, fieldNumber: 1)
+    }
+    if self.isConnected != false {
+      try visitor.visitSingularBoolField(value: self.isConnected, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Core_ConnectionState, rhs: DronecodeSdk_Rpc_Core_ConnectionState) -> Bool {
+    if lhs.uuid != rhs.uuid {return false}
+    if lhs.isConnected != rhs.isConnected {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

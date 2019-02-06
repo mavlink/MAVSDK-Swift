@@ -11,38 +11,38 @@ class CoreTest: XCTestCase {
     let ARBITRARY_PLUGIN_ADDRESS: String = "localhost"
     let ARBITRARY_PLUGIN_PORT: Int32 = 1291
 
-    func testDiscoverObservableEmitsNothingWhenNoEvent() {
+    func testConnectionStateObservableEmitsNothingWhenNoEvent() {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallTestStub()
-        fakeService.subscribeDiscoverCalls.append(fakeCall)
+        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
+        fakeService.subscribeConnectionStateCalls.append(fakeCall)
 
         let scheduler = TestScheduler(initialClock: 0)
         let client = Core(service: fakeService, scheduler: scheduler)
-        let observer = scheduler.createObserver(UInt64.self)
+        let observer = scheduler.createObserver(Core.ConnectionState.self)
 
-        let _ = client.discover.subscribe(observer)
+        let _ = client.connectionState.subscribe(observer)
         scheduler.start()
 
         XCTAssertTrue(observer.events.isEmpty)
     }
 
-    func testDiscoverObservableReceivesOneEvent() {
+    func testConnectionStateObservableReceivesOneEvent() {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
 
-        let expectedUUID = ARBITRARY_UUID
-        fakeCall.outputs = [createDiscoverResponse(uuid: expectedUUID)]
-        fakeService.subscribeDiscoverCalls.append(fakeCall)
+        let expectedConnectionState = Core.ConnectionState(uuid: ARBITRARY_UUID, isConnected: true)
+        fakeCall.outputs = [createConnectionStateResponse(connectionState: expectedConnectionState)]
+        fakeService.subscribeConnectionStateCalls.append(fakeCall)
 
         let scheduler = TestScheduler(initialClock: 0)
         let client = Core(service: fakeService, scheduler: scheduler)
-        let observer = scheduler.createObserver(UInt64.self)
+        let observer = scheduler.createObserver(Core.ConnectionState.self)
 
-        let _ = client.discover.subscribe(observer)
+        let _ = client.connectionState.subscribe(observer)
         scheduler.start()
 
         let expectedEvents = [
-            next(0, expectedUUID),
+            next(0, expectedConnectionState),
         ]
 
         XCTAssertEqual(expectedEvents.count, observer.events.count)
@@ -51,83 +51,40 @@ class CoreTest: XCTestCase {
         }))
     }
 
-    func createDiscoverResponse(uuid: UInt64) -> DronecodeSdk_Rpc_Core_DiscoverResponse {
-        var response = DronecodeSdk_Rpc_Core_DiscoverResponse()
-        response.uuid = uuid
+    func createConnectionStateResponse(connectionState: Core.ConnectionState) -> DronecodeSdk_Rpc_Core_ConnectionStateResponse {
+        var response = DronecodeSdk_Rpc_Core_ConnectionStateResponse()
+        response.connectionState.uuid = connectionState.uuid
+        response.connectionState.isConnected = connectionState.isConnected
 
         return response
     }
 
     func testDiscoverObservableReceivesMultipleEvents() {
         let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeDiscoverCallTestStub()
+        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
 
         fakeCall.outputs = []
-        let expectedUUIDs = [4433522, 7654454, 1234567]
-        for expectedUUID in expectedUUIDs {
-            fakeCall.outputs.append(createDiscoverResponse(uuid: UInt64(expectedUUID)))
+        var expectedConnectionStates = [Core.ConnectionState]()
+        expectedConnectionStates.append(Core.ConnectionState(uuid: 4352334, isConnected: false))
+        expectedConnectionStates.append(Core.ConnectionState(uuid: 213534, isConnected: true))
+        expectedConnectionStates.append(Core.ConnectionState(uuid: 12, isConnected: false))
+        expectedConnectionStates.append(Core.ConnectionState(uuid: 9985232, isConnected: false))
+        expectedConnectionStates.append(Core.ConnectionState(uuid: 1872358, isConnected: true))
+
+        for expectedConnectionState in expectedConnectionStates {
+            fakeCall.outputs.append(createConnectionStateResponse(connectionState: expectedConnectionState))
         }
-        fakeService.subscribeDiscoverCalls.append(fakeCall)
+        fakeService.subscribeConnectionStateCalls.append(fakeCall)
 
         let scheduler = TestScheduler(initialClock: 0)
         let client = Core(service: fakeService, scheduler: scheduler)
-        let observer = scheduler.createObserver(UInt64.self)
+        let observer = scheduler.createObserver(Core.ConnectionState.self)
 
-        let _ = client.discover.subscribe(observer)
+        let _ = client.connectionState.subscribe(observer)
         scheduler.start()
 
-        var expectedEvents = [Recorded<Event<UInt64>>]()
-        for expectedUUID in expectedUUIDs {
-            expectedEvents.append(next(0, UInt64(expectedUUID)))
-        }
-
-        XCTAssertEqual(expectedEvents.count, observer.events.count)
-        XCTAssertTrue(observer.events.elementsEqual(expectedEvents, by: { (observed, expected) in
-            observed.value == expected.value
-        }))
-    }
-
-    func testTimeoutObservableEmitsNothingWhenNoEvent() {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCallTestStub()
-        fakeService.subscribeTimeoutCalls.append(fakeCall)
-
-        let scheduler = TestScheduler(initialClock: 0)
-        let client = Core(service: fakeService, scheduler: scheduler)
-        let observer = scheduler.createObserver(Void.self)
-
-        let _ = client.timeout.subscribe(observer)
-        scheduler.start()
-
-        XCTAssertTrue(observer.events.isEmpty)
-    }
-
-    func testTimeoutObservableReceivesOneEvent() {
-        checkTimeoutObservableReceivesEvents(nbEvents: 1)
-    }
-
-    func checkTimeoutObservableReceivesEvents(nbEvents: Int) {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeTimeoutCallTestStub()
-
-        fakeCall.outputs = []
-        for _ in 1...nbEvents {
-            fakeCall.outputs.append(DronecodeSdk_Rpc_Core_TimeoutResponse())
-        }
-        fakeService.subscribeTimeoutCalls.append(fakeCall)
-
-        let scheduler = TestScheduler(initialClock: 0)
-        let client = Core(service: fakeService, scheduler: scheduler)
-        let observer = scheduler.createObserver(Void.self)
-
-        let _ = client.timeout.subscribe(observer)
-        scheduler.start()
-
-        XCTAssertEqual(nbEvents, observer.events.count)
-    }
-
-    func testTimeoutObservableReceivesMultipleEvents() {
-        checkTimeoutObservableReceivesEvents(nbEvents: 5)
+        XCTAssertEqual(expectedConnectionStates.count, observer.events.count)
+        XCTAssertTrue(observer.events.elementsEqual(expectedConnectionStates.map({ connState in next(1, connState) }), by: { (observed, expected) in observed.value == expected.value}))
     }
 
     func testListRunningPluginsEmitsNothingWhenEmpty() {

@@ -35,33 +35,6 @@ public class Mission {
     
 
 
-    public struct MissionItems: Equatable {
-        public let missionItems: [MissionItem]
-
-        
-
-        public init(missionItems: [MissionItem]) {
-            self.missionItems = missionItems
-        }
-
-        internal var rpcMissionItems: DronecodeSdk_Rpc_Mission_MissionItems {
-            var rpcMissionItems = DronecodeSdk_Rpc_Mission_MissionItems()
-            
-            rpcMissionItems.missionItems = missionItems.map{ $0.rpcMissionItem }
-            
-
-            return rpcMissionItems
-        }
-
-        internal static func translateFromRpc(_ rpcMissionItems: DronecodeSdk_Rpc_Mission_MissionItems) -> MissionItems {
-            return MissionItems(missionItems: rpcMissionItems.missionItems.map{ MissionItem.translateFromRpc($0) })
-        }
-
-        public static func == (lhs: MissionItems, rhs: MissionItems) -> Bool {
-            return lhs.missionItems == rhs.missionItems
-        }
-    }
-
     public struct MissionItem: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
@@ -72,6 +45,7 @@ public class Mission {
         public let gimbalYawDeg: Float
         public let cameraAction: CameraAction
         public let loiterTimeS: Float
+        public let cameraPhotoIntervalS: Double
 
         
         
@@ -125,7 +99,7 @@ public class Mission {
         }
         
 
-        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float) {
+        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
             self.relativeAltitudeM = relativeAltitudeM
@@ -135,6 +109,7 @@ public class Mission {
             self.gimbalYawDeg = gimbalYawDeg
             self.cameraAction = cameraAction
             self.loiterTimeS = loiterTimeS
+            self.cameraPhotoIntervalS = cameraPhotoIntervalS
         }
 
         internal var rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem {
@@ -184,12 +159,17 @@ public class Mission {
             rpcMissionItem.loiterTimeS = loiterTimeS
                 
             
+            
+                
+            rpcMissionItem.cameraPhotoIntervalS = cameraPhotoIntervalS
+                
+            
 
             return rpcMissionItem
         }
 
         internal static func translateFromRpc(_ rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem) -> MissionItem {
-            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS)
+            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS)
         }
 
         public static func == (lhs: MissionItem, rhs: MissionItem) -> Bool {
@@ -202,6 +182,7 @@ public class Mission {
                 && lhs.gimbalYawDeg == rhs.gimbalYawDeg
                 && lhs.cameraAction == rhs.cameraAction
                 && lhs.loiterTimeS == rhs.loiterTimeS
+                && lhs.cameraPhotoIntervalS == rhs.cameraPhotoIntervalS
         }
     }
 
@@ -360,13 +341,13 @@ public class Mission {
     }
 
 
-    public func uploadMission(missionItems: MissionItems) -> Completable {
+    public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
             var request = DronecodeSdk_Rpc_Mission_UploadMissionRequest()
 
             
                 
-            request.missionItems = missionItems.rpcMissionItems
+            missionItems.forEach({ elem in request.missionItems.append(elem.rpcMissionItem) })
                 
             
 
@@ -388,8 +369,8 @@ public class Mission {
         }
     }
 
-    public func downloadMission() -> Single<MissionItems> {
-        return Single<MissionItems>.create { single in
+    public func downloadMission() -> Single<[MissionItem]> {
+        return Single<[MissionItem]>.create { single in
             let request = DronecodeSdk_Rpc_Mission_DownloadMissionRequest()
 
             
@@ -406,7 +387,7 @@ public class Mission {
                 
 
                 
-                    let missionItems = MissionItems.translateFromRpc(response.missionItems)
+                let missionItems = response.missionItems.map{ MissionItem.translateFromRpc($0) }
                 
                 single(.success(missionItems))
             } catch {

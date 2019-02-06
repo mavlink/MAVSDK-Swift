@@ -24,20 +24,11 @@ struct DronecodeSdk_Rpc_Mission_UploadMissionRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var missionItems: DronecodeSdk_Rpc_Mission_MissionItems {
-    get {return _storage._missionItems ?? DronecodeSdk_Rpc_Mission_MissionItems()}
-    set {_uniqueStorage()._missionItems = newValue}
-  }
-  /// Returns true if `missionItems` has been explicitly set.
-  var hasMissionItems: Bool {return _storage._missionItems != nil}
-  /// Clears the value of `missionItems`. Subsequent reads from it will return its default value.
-  mutating func clearMissionItems() {_uniqueStorage()._missionItems = nil}
+  var missionItems: [DronecodeSdk_Rpc_Mission_MissionItem] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct DronecodeSdk_Rpc_Mission_UploadMissionResponse {
@@ -85,14 +76,10 @@ struct DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
   /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
   mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
 
-  var missionItems: DronecodeSdk_Rpc_Mission_MissionItems {
-    get {return _storage._missionItems ?? DronecodeSdk_Rpc_Mission_MissionItems()}
+  var missionItems: [DronecodeSdk_Rpc_Mission_MissionItem] {
+    get {return _storage._missionItems}
     set {_uniqueStorage()._missionItems = newValue}
   }
-  /// Returns true if `missionItems` has been explicitly set.
-  var hasMissionItems: Bool {return _storage._missionItems != nil}
-  /// Clears the value of `missionItems`. Subsequent reads from it will return its default value.
-  mutating func clearMissionItems() {_uniqueStorage()._missionItems = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -293,18 +280,6 @@ struct DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Mission_MissionItems {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var missionItems: [DronecodeSdk_Rpc_Mission_MissionItem] = []
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
 struct DronecodeSdk_Rpc_Mission_MissionItem {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -327,6 +302,8 @@ struct DronecodeSdk_Rpc_Mission_MissionItem {
   var cameraAction: DronecodeSdk_Rpc_Mission_MissionItem.CameraAction = .none
 
   var loiterTimeS: Float = 0
+
+  var cameraPhotoIntervalS: Double = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -507,56 +484,24 @@ extension DronecodeSdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, 
     1: .standard(proto: "mission_items"),
   ]
 
-  fileprivate class _StorageClass {
-    var _missionItems: DronecodeSdk_Rpc_Mission_MissionItems? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _missionItems = source._missionItems
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionItems)
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.missionItems)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._missionItems {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
+    if !self.missionItems.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.missionItems, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: DronecodeSdk_Rpc_Mission_UploadMissionRequest, rhs: DronecodeSdk_Rpc_Mission_UploadMissionRequest) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._missionItems != rhs_storage._missionItems {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs.missionItems != rhs.missionItems {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -651,7 +596,7 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
 
   fileprivate class _StorageClass {
     var _missionResult: DronecodeSdk_Rpc_Mission_MissionResult? = nil
-    var _missionItems: DronecodeSdk_Rpc_Mission_MissionItems? = nil
+    var _missionItems: [DronecodeSdk_Rpc_Mission_MissionItem] = []
 
     static let defaultInstance = _StorageClass()
 
@@ -676,7 +621,7 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._missionItems)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._missionItems)
         default: break
         }
       }
@@ -688,8 +633,8 @@ extension DronecodeSdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Messag
       if let v = _storage._missionResult {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if let v = _storage._missionItems {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      if !_storage._missionItems.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._missionItems, fieldNumber: 2)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -1185,35 +1130,6 @@ extension DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: SwiftP
   }
 }
 
-extension DronecodeSdk_Rpc_Mission_MissionItems: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".MissionItems"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "mission_items"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.missionItems)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.missionItems.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.missionItems, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: DronecodeSdk_Rpc_Mission_MissionItems, rhs: DronecodeSdk_Rpc_Mission_MissionItems) -> Bool {
-    if lhs.missionItems != rhs.missionItems {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension DronecodeSdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".MissionItem"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1226,6 +1142,7 @@ extension DronecodeSdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProt
     7: .standard(proto: "gimbal_yaw_deg"),
     8: .standard(proto: "camera_action"),
     9: .standard(proto: "loiter_time_s"),
+    10: .standard(proto: "camera_photo_interval_s"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1240,6 +1157,7 @@ extension DronecodeSdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProt
       case 7: try decoder.decodeSingularFloatField(value: &self.gimbalYawDeg)
       case 8: try decoder.decodeSingularEnumField(value: &self.cameraAction)
       case 9: try decoder.decodeSingularFloatField(value: &self.loiterTimeS)
+      case 10: try decoder.decodeSingularDoubleField(value: &self.cameraPhotoIntervalS)
       default: break
       }
     }
@@ -1273,6 +1191,9 @@ extension DronecodeSdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProt
     if self.loiterTimeS != 0 {
       try visitor.visitSingularFloatField(value: self.loiterTimeS, fieldNumber: 9)
     }
+    if self.cameraPhotoIntervalS != 0 {
+      try visitor.visitSingularDoubleField(value: self.cameraPhotoIntervalS, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1286,6 +1207,7 @@ extension DronecodeSdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProt
     if lhs.gimbalYawDeg != rhs.gimbalYawDeg {return false}
     if lhs.cameraAction != rhs.cameraAction {return false}
     if lhs.loiterTimeS != rhs.loiterTimeS {return false}
+    if lhs.cameraPhotoIntervalS != rhs.cameraPhotoIntervalS {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
