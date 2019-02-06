@@ -19,8 +19,8 @@ public class Camera {
         self.scheduler = scheduler
     }
 
-    struct RuntimeCameraError: Error {
-        let description: String
+    public struct RuntimeCameraError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description
@@ -28,9 +28,9 @@ public class Camera {
     }
 
     
-    struct CameraError: Error {
-        let code: Camera.CameraResult.Result
-        let description: String
+    public struct CameraError: Error {
+        public let code: Camera.CameraResult.Result
+        public let description: String
     }
     
 

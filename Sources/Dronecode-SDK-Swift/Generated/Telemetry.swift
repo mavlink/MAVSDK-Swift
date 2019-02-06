@@ -19,8 +19,8 @@ public class Telemetry {
         self.scheduler = scheduler
     }
 
-    struct RuntimeTelemetryError: Error {
-        let description: String
+    public struct RuntimeTelemetryError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description

@@ -19,8 +19,8 @@ public class Action {
         self.scheduler = scheduler
     }
 
-    struct RuntimeActionError: Error {
-        let description: String
+    public struct RuntimeActionError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description
@@ -28,9 +28,9 @@ public class Action {
     }
 
     
-    struct ActionError: Error {
-        let code: Action.ActionResult.Result
-        let description: String
+    public struct ActionError: Error {
+        public let code: Action.ActionResult.Result
+        public let description: String
     }
     
 

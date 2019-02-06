@@ -19,8 +19,8 @@ public class Core {
         self.scheduler = scheduler
     }
 
-    struct RuntimeCoreError: Error {
-        let description: String
+    public struct RuntimeCoreError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description

@@ -19,8 +19,8 @@ public class Calibration {
         self.scheduler = scheduler
     }
 
-    struct RuntimeCalibrationError: Error {
-        let description: String
+    public struct RuntimeCalibrationError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description
@@ -28,9 +28,9 @@ public class Calibration {
     }
 
     
-    struct CalibrationError: Error {
-        let code: Calibration.CalibrationResult.Result
-        let description: String
+    public struct CalibrationError: Error {
+        public let code: Calibration.CalibrationResult.Result
+        public let description: String
     }
     
 
