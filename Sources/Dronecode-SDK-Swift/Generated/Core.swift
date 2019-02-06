@@ -30,6 +30,43 @@ public class Core {
     
 
 
+    public struct ConnectionState: Equatable {
+        public let uuid: UInt64
+        public let isConnected: Bool
+
+        
+
+        public init(uuid: UInt64, isConnected: Bool) {
+            self.uuid = uuid
+            self.isConnected = isConnected
+        }
+
+        internal var rpcConnectionState: DronecodeSdk_Rpc_Core_ConnectionState {
+            var rpcConnectionState = DronecodeSdk_Rpc_Core_ConnectionState()
+            
+                
+            rpcConnectionState.uuid = uuid
+                
+            
+            
+                
+            rpcConnectionState.isConnected = isConnected
+                
+            
+
+            return rpcConnectionState
+        }
+
+        internal static func translateFromRpc(_ rpcConnectionState: DronecodeSdk_Rpc_Core_ConnectionState) -> ConnectionState {
+            return ConnectionState(uuid: rpcConnectionState.uuid, isConnected: rpcConnectionState.isConnected)
+        }
+
+        public static func == (lhs: ConnectionState, rhs: ConnectionState) -> Bool {
+            return lhs.uuid == rhs.uuid
+                && lhs.isConnected == rhs.isConnected
+        }
+    }
+
     public struct PluginInfo: Equatable {
         public let name: String
         public let address: String
@@ -76,16 +113,16 @@ public class Core {
     }
 
 
-    public lazy var discover: Observable<UInt64> = createDiscoverObservable()
+    public lazy var connectionState: Observable<ConnectionState> = createConnectionStateObservable()
 
-    private func createDiscoverObservable() -> Observable<UInt64> {
+    private func createConnectionStateObservable() -> Observable<ConnectionState> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Core_SubscribeDiscoverRequest()
+            let request = DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest()
 
             
 
             do {
-                let call = try self.service.subscribeDiscover(request, completion: { (callResult) in
+                let call = try self.service.subscribeConnectionState(request, completion: { (callResult) in
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
@@ -98,58 +135,13 @@ public class Core {
                     while let responseOptional = try? call.receive(), let response = responseOptional {
                         
                             
-                        let discover = response.uuid
-                            
+                        let connectionState = ConnectionState.translateFromRpc(response.connectionState)
                         
 
                         
-                        observer.onNext(discover)
+                        observer.onNext(connectionState)
                         
                     }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeCoreError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-    public lazy var timeout: Observable<Void> = createTimeoutObservable()
-
-    private func createTimeoutObservable() -> Observable<Void> {
-        return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Core_SubscribeTimeoutRequest()
-
-            
-
-            do {
-                let call = try self.service.subscribeTimeout(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCoreError(callResult.statusMessage!))
-                    }
-                })
-
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-    	        while let responseOptional = try? call.receive(), let _ = responseOptional {
-    	            observer.onNext(())
-    	        }
                     
 
                     return Disposables.create()

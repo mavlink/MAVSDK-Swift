@@ -23,7 +23,7 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.l
             {% endif %}
 
             {% if return_type.is_repeated %}
-            let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_name.upper_camel_case }}.translateFromRpc($0) }
+            let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
             {% else %}
                 {% if return_type.is_primitive -%}
             let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}

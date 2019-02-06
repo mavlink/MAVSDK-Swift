@@ -13,19 +13,18 @@ class MissionTest: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let mission = Mission(service: fakeService, scheduler: scheduler)
 
-        let missionItem = Mission.MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: 2)
+        let missionItem = Mission.MissionItem(latitudeDeg: 46, longitudeDeg: 6, relativeAltitudeM: 50, speedMS: 3.4, isFlyThrough: true, gimbalPitchDeg: 90, gimbalYawDeg: 23, cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: 2, cameraPhotoIntervalS: 1)
 
-        let missionItems = Mission.MissionItems(missionItems: [missionItem])
-        _ = mission.uploadMission(missionItems: missionItems)
+        _ = mission.uploadMission(missionItems: [missionItem])
     }
     
     func testDownloadMissionSucceedsOnSuccess() {
-        let expectedResult = [Mission.MissionItem(latitudeDeg: 46.0, longitudeDeg: 6.0, relativeAltitudeM: Float(50), speedMS: Float(3.4), isFlyThrough: true, gimbalPitchDeg: Float(90), gimbalYawDeg: Float(23), cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: Float(2)).rpcMissionItem]
+        let expectedResult = [Mission.MissionItem(latitudeDeg: 46.0, longitudeDeg: 6.0, relativeAltitudeM: Float(50), speedMS: Float(3.4), isFlyThrough: true, gimbalPitchDeg: Float(90), gimbalYawDeg: Float(23), cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: Float(2), cameraPhotoIntervalS: 1).rpcMissionItem]
         
         let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
         var response = DronecodeSdk_Rpc_Mission_DownloadMissionResponse()
         response.missionResult.result = DronecodeSdk_Rpc_Mission_MissionResult.Result.success
-        response.missionItems.missionItems = expectedResult
+        response.missionItems = expectedResult
         
         fakeService.downloadMissionResponses.append(response)
 
