@@ -19,8 +19,8 @@ public class {{ plugin_name.upper_camel_case }} {
         self.scheduler = scheduler
     }
 
-    struct Runtime{{ plugin_name.upper_camel_case }}Error: Error {
-        let description: String
+    public struct Runtime{{ plugin_name.upper_camel_case }}Error: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description
@@ -28,9 +28,9 @@ public class {{ plugin_name.upper_camel_case }} {
     }
 
     {% if has_result %}
-    struct {{ plugin_name.upper_camel_case }}Error: Error {
-        let code: {{ plugin_name.upper_camel_case }}.{{ plugin_name.upper_camel_case }}Result.Result
-        let description: String
+    public struct {{ plugin_name.upper_camel_case }}Error: Error {
+        public let code: {{ plugin_name.upper_camel_case }}.{{ plugin_name.upper_camel_case }}Result.Result
+        public let description: String
     }
     {% endif %}
 

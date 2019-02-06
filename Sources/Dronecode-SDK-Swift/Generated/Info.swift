@@ -19,8 +19,8 @@ public class Info {
         self.scheduler = scheduler
     }
 
-    struct RuntimeInfoError: Error {
-        let description: String
+    public struct RuntimeInfoError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description
@@ -28,9 +28,9 @@ public class Info {
     }
 
     
-    struct InfoError: Error {
-        let code: Info.InfoResult.Result
-        let description: String
+    public struct InfoError: Error {
+        public let code: Info.InfoResult.Result
+        public let description: String
     }
     
 

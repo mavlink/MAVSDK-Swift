@@ -19,8 +19,8 @@ public class Mission {
         self.scheduler = scheduler
     }
 
-    struct RuntimeMissionError: Error {
-        let description: String
+    public struct RuntimeMissionError: Error {
+        public let description: String
 
         init(_ description: String) {
             self.description = description
@@ -28,9 +28,9 @@ public class Mission {
     }
 
     
-    struct MissionError: Error {
-        let code: Mission.MissionResult.Result
-        let description: String
+    public struct MissionError: Error {
+        public let code: Mission.MissionResult.Result
+        public let description: String
     }
     
 
