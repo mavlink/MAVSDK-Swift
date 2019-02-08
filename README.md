@@ -1,87 +1,90 @@
 # Dronecode-SDK-Swift
 
-## Use framework in iOS application
+## Getting started in iOS
 
-### Get framework using carthage
+### Carthage
 
-To use this framework, add the following to your `Cartfile`:
+Add the following to your `Cartfile`:
 
-```
-github "Dronecode/DronecodeSDK-Swift" ~> 0.2.1
+```shell
+github "Dronecode/DronecodeSDK-Swift" ~> 0.3.0
 ```
 
 And then get the framework using:
-```
+
+```shell
 carthage bootstrap --platform ios
 ```
 
-### First steps to use framework
+### Start MAVLink connection
 
 The steps below assume that your iOS device has a network connection to the drone, e.g. using WiFi.
 
-By default, the backend will connect using MAVLink on UDP port 14540 which is running by default when PX4 is run in SITL (software in the loop simulation).
-To change the connection port, check [this line in the backend](https://github.com/Dronecode/DronecodeSDK/blob/d4fb6ca56f8e4ce01252ed498835c500e477d2d2/backend/src/backend.cpp#L19). For now, the backend is limited to UDP even though the core supports UDP, TCP, and serial.
+By default, the SDK will connect using MAVLink on UDP port 14540, which is running by default when PX4 is run in SITL (software in the loop simulation).
+For now, the backend is limited to UDP even though the core supports UDP, TCP, and serial.
 
-One way to start is to add a CoreManager to your iOS application:
-
-```
-import Foundation
+```swift
 import Dronecode_SDK_Swift
-import RxSwift
 
-class CoreManager {
-
-    static let shared = CoreManager()
-
-    let disposeBag = DisposeBag()
-
-    let core = Core()
-    let telemetry = Telemetry(address: "localhost", port: 50051)
-    let action = Action(address: "localhost", port: 50051)
-    let mission = Mission(address: "localhost", port: 50051)
-    let camera = Camera(address: "localhost", port: 50051)
-
-    private init() {}
-
-    lazy var startCompletable = createStartCompletable()
-
-    private func createStartCompletable() -> Observable<Never> {
-        let startCompletable = core.connect().asObservable().replay(1)
-        startCompletable.connect().disposed(by: disposeBag)
-
-        return startCompletable.asObservable()
-    }
-}
+let drone = Drone()
+drone.startMavlink.subscribe()
 ```
 
-Then, use the `CoreManager` in your view controller like this:
+After that, you can start writing some code [as described below](#start-writing-code).
 
-```
-import Dronecode_SDK_Swift
-import RxSwift
+__For advanced users:__ note that `startMavlink` will run the SDK backend in a background thread on the iOS device. You could connect the SDK to another backend (say, running on a computer with IP `192.168.0.42` by omitting the second line above and running only: `let drone = Drone(address: "192.168.0.42", port: 50051)`.
 
-class MyViewController: UIViewController {
+## Start writing code
+After that, you can start using the SDK, for instance:
 
-    @IBOutlet weak var armButton: UIButton!
-    @IBOutlet weak var feedbackLabel: UILabel!
-
-    private let disposeBag = DisposeBag()
-
-    @IBAction func armPressed(_ sender: Any) {
-        CoreManager.shared.action.arm()
-            .do(onError: { error in self.feedbackLabel.text = "Arming failed : \(error.localizedDescription)" },
-                onCompleted: { self.feedbackLabel.text = "Arming succeeded" })
-            .subscribe()
-            .disposed(by: disposeBag)
-}
+```swift
+drone.action.arm()
+     .andThen(drone.action.takeoff())
+     .subscribe()
 ```
 
-### Example of iOS application
+or
 
-Check out the [iOS example application](https://github.com/Dronecode/DronecodeSDK-Swift-Example) for a complete example project using this framework.
+```swift
+drone.telemetry.position()
+     .do(onNext: { next in print(next) })
+     .subscribe()
+```
 
-## Develop for this framework
+Learn more about RxSwift [here](https://github.com/ReactiveX/RxSwift), and have a look at our [examples](#examples).
 
-For instructions how to develop on the Swift wrappers and contribute, please check out:
-[CONTRIBUTING.md](https://github.com/Dronecode/DronecodeSDK-Swift/blob/master/CONTRIBUTING.md).
+### Examples
 
+Check out the [examples](https://github.com/Dronecode/DronecodeSDK-Swift-Example) for more examples using this framework.
+
+## Contribute
+
+If you want to contribute, please check out: [CONTRIBUTING.md](https://github.com/Dronecode/DronecodeSDK-Swift/blob/master/CONTRIBUTING.md).
+
+### Build the SDK
+
+Most of the SDK is auto-generated from the proto files (see in _proto/protos_). Note that they come from a submodule (i.e. you may need to `$ git submodule update --init --recursive`).
+
+To generate the source code, run:
+
+```shell
+bash tools/generate_from_protos.bash
+```
+
+After that, you can either build the code with SwiftPM using:
+
+```shell
+swift build
+```
+
+Or generate an iOS Xcode project with:
+
+```shell
+xcodegen
+```
+
+This will create the `Dronecode-SDK-Swift.xcodeproj` project file from `project.yml`. If you don't have it already, install Xcodegen with:
+
+```shell
+brew install xcodegen
+```
