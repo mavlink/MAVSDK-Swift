@@ -97,147 +97,227 @@ fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunch
 /// Instantiate DronecodeSdk_Rpc_Mission_MissionServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Mission_MissionServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse
+  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse
   /// Asynchronous. Unary.
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall
+  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall
 
   /// Synchronous. Unary.
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse
+  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse
   /// Asynchronous. Unary.
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall
+  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall
 
   /// Synchronous. Unary.
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse
+  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse
   /// Asynchronous. Unary.
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall
+  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall
 
   /// Synchronous. Unary.
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse
+  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse
   /// Asynchronous. Unary.
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall
+  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall
 
   /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
+  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
   /// Asynchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
+  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
 
   /// Synchronous. Unary.
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse
+  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse
   /// Asynchronous. Unary.
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall
+  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
+  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
 
   /// Synchronous. Unary.
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
   /// Asynchronous. Unary.
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
 
   /// Synchronous. Unary.
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
   /// Asynchronous. Unary.
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Mission_MissionServiceService {
+  /// Synchronous. Unary.
+  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
+    return try self.uploadMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
+    return try self.uploadMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
+    return try self.downloadMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+    return try self.downloadMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
+    return try self.startMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
+    return try self.startMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
+    return try self.pauseMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
+    return try self.pauseMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+    return try self.setCurrentMissionItemIndex(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+    return try self.setCurrentMissionItemIndex(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
+    return try self.isMissionFinished(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+    return try self.isMissionFinished(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+    return try self.subscribeMissionProgress(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+    return try self.getReturnToLaunchAfterMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+    return try self.getReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+    return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+    return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
 internal final class DronecodeSdk_Rpc_Mission_MissionServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Mission_MissionServiceService {
   /// Synchronous. Unary.
-  internal func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
+  internal func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  internal func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
+  internal func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  internal func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
+  internal func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
+  internal func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
+  internal func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
+  internal func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
     return try DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+  internal func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  internal func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
+  internal func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  internal func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  internal func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
     return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
     return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
@@ -245,73 +325,73 @@ internal final class DronecodeSdk_Rpc_Mission_MissionServiceServiceClient: Servi
 class DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Mission_MissionServiceService {
   var uploadMissionRequests: [DronecodeSdk_Rpc_Mission_UploadMissionRequest] = []
   var uploadMissionResponses: [DronecodeSdk_Rpc_Mission_UploadMissionResponse] = []
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
+  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
     uploadMissionRequests.append(request)
     defer { uploadMissionResponses.removeFirst() }
     return uploadMissionResponses.first!
   }
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
     fatalError("not implemented")
   }
 
   var downloadMissionRequests: [DronecodeSdk_Rpc_Mission_DownloadMissionRequest] = []
   var downloadMissionResponses: [DronecodeSdk_Rpc_Mission_DownloadMissionResponse] = []
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
+  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
     downloadMissionRequests.append(request)
     defer { downloadMissionResponses.removeFirst() }
     return downloadMissionResponses.first!
   }
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
     fatalError("not implemented")
   }
 
   var startMissionRequests: [DronecodeSdk_Rpc_Mission_StartMissionRequest] = []
   var startMissionResponses: [DronecodeSdk_Rpc_Mission_StartMissionResponse] = []
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
+  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
     startMissionRequests.append(request)
     defer { startMissionResponses.removeFirst() }
     return startMissionResponses.first!
   }
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
+  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
     fatalError("not implemented")
   }
 
   var pauseMissionRequests: [DronecodeSdk_Rpc_Mission_PauseMissionRequest] = []
   var pauseMissionResponses: [DronecodeSdk_Rpc_Mission_PauseMissionResponse] = []
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
+  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
     pauseMissionRequests.append(request)
     defer { pauseMissionResponses.removeFirst() }
     return pauseMissionResponses.first!
   }
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
+  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
     fatalError("not implemented")
   }
 
   var setCurrentMissionItemIndexRequests: [DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest] = []
   var setCurrentMissionItemIndexResponses: [DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse] = []
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     setCurrentMissionItemIndexRequests.append(request)
     defer { setCurrentMissionItemIndexResponses.removeFirst() }
     return setCurrentMissionItemIndexResponses.first!
   }
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
     fatalError("not implemented")
   }
 
   var isMissionFinishedRequests: [DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest] = []
   var isMissionFinishedResponses: [DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse] = []
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
+  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
     isMissionFinishedRequests.append(request)
     defer { isMissionFinishedResponses.removeFirst() }
     return isMissionFinishedResponses.first!
   }
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
     fatalError("not implemented")
   }
 
   var subscribeMissionProgressRequests: [DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest] = []
   var subscribeMissionProgressCalls: [DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall] = []
-  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     subscribeMissionProgressRequests.append(request)
     defer { subscribeMissionProgressCalls.removeFirst() }
     return subscribeMissionProgressCalls.first!
@@ -319,23 +399,23 @@ class DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestS
 
   var getReturnToLaunchAfterMissionRequests: [DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest] = []
   var getReturnToLaunchAfterMissionResponses: [DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse] = []
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
     getReturnToLaunchAfterMissionRequests.append(request)
     defer { getReturnToLaunchAfterMissionResponses.removeFirst() }
     return getReturnToLaunchAfterMissionResponses.first!
   }
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
     fatalError("not implemented")
   }
 
   var setReturnToLaunchAfterMissionRequests: [DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest] = []
   var setReturnToLaunchAfterMissionResponses: [DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse] = []
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
     setReturnToLaunchAfterMissionRequests.append(request)
     defer { setReturnToLaunchAfterMissionResponses.removeFirst() }
     return setReturnToLaunchAfterMissionResponses.first!
   }
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
     fatalError("not implemented")
   }
 

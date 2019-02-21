@@ -113,230 +113,359 @@ fileprivate final class DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAl
 /// Instantiate DronecodeSdk_Rpc_Action_ActionServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Action_ActionServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest) throws -> DronecodeSdk_Rpc_Action_ArmResponse
+  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_ArmResponse
   /// Asynchronous. Unary.
-  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall
+  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall
 
   /// Synchronous. Unary.
-  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest) throws -> DronecodeSdk_Rpc_Action_DisarmResponse
+  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_DisarmResponse
   /// Asynchronous. Unary.
-  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall
+  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall
 
   /// Synchronous. Unary.
-  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse
+  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse
   /// Asynchronous. Unary.
-  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall
+  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall
 
   /// Synchronous. Unary.
-  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest) throws -> DronecodeSdk_Rpc_Action_LandResponse
+  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_LandResponse
   /// Asynchronous. Unary.
-  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall
+  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall
 
   /// Synchronous. Unary.
-  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest) throws -> DronecodeSdk_Rpc_Action_KillResponse
+  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_KillResponse
   /// Asynchronous. Unary.
-  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall
+  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall
 
   /// Synchronous. Unary.
-  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse
+  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse
   /// Asynchronous. Unary.
-  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall
+  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall
 
   /// Synchronous. Unary.
-  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse
+  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse
   /// Asynchronous. Unary.
-  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall
+  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall
 
   /// Synchronous. Unary.
-  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse
+  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse
   /// Asynchronous. Unary.
-  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall
+  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall
 
   /// Synchronous. Unary.
-  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse
+  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse
   /// Asynchronous. Unary.
-  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall
+  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall
 
   /// Synchronous. Unary.
-  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse
+  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse
   /// Asynchronous. Unary.
-  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall
+  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall
 
   /// Synchronous. Unary.
-  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse
+  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse
   /// Asynchronous. Unary.
-  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall
+  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall
 
   /// Synchronous. Unary.
-  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse
+  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse
   /// Asynchronous. Unary.
-  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall
+  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall
 
   /// Synchronous. Unary.
-  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse
   /// Asynchronous. Unary.
-  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall
 
   /// Synchronous. Unary.
-  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse
   /// Asynchronous. Unary.
-  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Action_ActionServiceService {
+  /// Synchronous. Unary.
+  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest) throws -> DronecodeSdk_Rpc_Action_ArmResponse {
+    return try self.arm(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall {
+    return try self.arm(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest) throws -> DronecodeSdk_Rpc_Action_DisarmResponse {
+    return try self.disarm(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall {
+    return try self.disarm(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse {
+    return try self.takeoff(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall {
+    return try self.takeoff(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest) throws -> DronecodeSdk_Rpc_Action_LandResponse {
+    return try self.land(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall {
+    return try self.land(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest) throws -> DronecodeSdk_Rpc_Action_KillResponse {
+    return try self.kill(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall {
+    return try self.kill(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
+    return try self.returnToLaunch(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall {
+    return try self.returnToLaunch(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
+    return try self.transitionToFixedWing(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+    return try self.transitionToFixedWing(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
+    return try self.transitionToMulticopter(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
+    return try self.transitionToMulticopter(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
+    return try self.getTakeoffAltitude(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
+    return try self.getTakeoffAltitude(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
+    return try self.setTakeoffAltitude(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
+    return try self.setTakeoffAltitude(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
+    return try self.getMaximumSpeed(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
+    return try self.getMaximumSpeed(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
+    return try self.setMaximumSpeed(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
+    return try self.setMaximumSpeed(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+    return try self.getReturnToLaunchAltitude(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+    return try self.getReturnToLaunchAltitude(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+    return try self.setReturnToLaunchAltitude(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+    return try self.setReturnToLaunchAltitude(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
 internal final class DronecodeSdk_Rpc_Action_ActionServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Action_ActionServiceService {
   /// Synchronous. Unary.
-  internal func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest) throws -> DronecodeSdk_Rpc_Action_ArmResponse {
+  internal func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_ArmResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceArmCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall {
+  internal func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceArmCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest) throws -> DronecodeSdk_Rpc_Action_DisarmResponse {
+  internal func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_DisarmResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceDisarmCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall {
+  internal func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceDisarmCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse {
+  internal func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceTakeoffCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall {
+  internal func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceTakeoffCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func land(_ request: DronecodeSdk_Rpc_Action_LandRequest) throws -> DronecodeSdk_Rpc_Action_LandResponse {
+  internal func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_LandResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceLandCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall {
+  internal func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceLandCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest) throws -> DronecodeSdk_Rpc_Action_KillResponse {
+  internal func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_KillResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceKillCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall {
+  internal func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceKillCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
+  internal func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall {
+  internal func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
+  internal func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+  internal func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
+  internal func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
+  internal func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
+  internal func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
+  internal func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
+  internal func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
+  internal func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
+  internal func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
+  internal func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
+  internal func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
+  internal func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+  internal func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+  internal func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+  internal func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+  internal func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
     return try DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
@@ -344,155 +473,155 @@ internal final class DronecodeSdk_Rpc_Action_ActionServiceServiceClient: Service
 class DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Action_ActionServiceService {
   var armRequests: [DronecodeSdk_Rpc_Action_ArmRequest] = []
   var armResponses: [DronecodeSdk_Rpc_Action_ArmResponse] = []
-  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest) throws -> DronecodeSdk_Rpc_Action_ArmResponse {
+  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_ArmResponse {
     armRequests.append(request)
     defer { armResponses.removeFirst() }
     return armResponses.first!
   }
-  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall {
+  func arm(_ request: DronecodeSdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceArmCall {
     fatalError("not implemented")
   }
 
   var disarmRequests: [DronecodeSdk_Rpc_Action_DisarmRequest] = []
   var disarmResponses: [DronecodeSdk_Rpc_Action_DisarmResponse] = []
-  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest) throws -> DronecodeSdk_Rpc_Action_DisarmResponse {
+  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_DisarmResponse {
     disarmRequests.append(request)
     defer { disarmResponses.removeFirst() }
     return disarmResponses.first!
   }
-  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall {
+  func disarm(_ request: DronecodeSdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceDisarmCall {
     fatalError("not implemented")
   }
 
   var takeoffRequests: [DronecodeSdk_Rpc_Action_TakeoffRequest] = []
   var takeoffResponses: [DronecodeSdk_Rpc_Action_TakeoffResponse] = []
-  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse {
+  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TakeoffResponse {
     takeoffRequests.append(request)
     defer { takeoffResponses.removeFirst() }
     return takeoffResponses.first!
   }
-  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall {
+  func takeoff(_ request: DronecodeSdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTakeoffCall {
     fatalError("not implemented")
   }
 
   var landRequests: [DronecodeSdk_Rpc_Action_LandRequest] = []
   var landResponses: [DronecodeSdk_Rpc_Action_LandResponse] = []
-  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest) throws -> DronecodeSdk_Rpc_Action_LandResponse {
+  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_LandResponse {
     landRequests.append(request)
     defer { landResponses.removeFirst() }
     return landResponses.first!
   }
-  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall {
+  func land(_ request: DronecodeSdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceLandCall {
     fatalError("not implemented")
   }
 
   var killRequests: [DronecodeSdk_Rpc_Action_KillRequest] = []
   var killResponses: [DronecodeSdk_Rpc_Action_KillResponse] = []
-  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest) throws -> DronecodeSdk_Rpc_Action_KillResponse {
+  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_KillResponse {
     killRequests.append(request)
     defer { killResponses.removeFirst() }
     return killResponses.first!
   }
-  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall {
+  func kill(_ request: DronecodeSdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceKillCall {
     fatalError("not implemented")
   }
 
   var returnToLaunchRequests: [DronecodeSdk_Rpc_Action_ReturnToLaunchRequest] = []
   var returnToLaunchResponses: [DronecodeSdk_Rpc_Action_ReturnToLaunchResponse] = []
-  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
+  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
     returnToLaunchRequests.append(request)
     defer { returnToLaunchResponses.removeFirst() }
     return returnToLaunchResponses.first!
   }
-  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall {
+  func returnToLaunch(_ request: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceReturnToLaunchCall {
     fatalError("not implemented")
   }
 
   var transitionToFixedWingRequests: [DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest] = []
   var transitionToFixedWingResponses: [DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse] = []
-  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
+  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
     transitionToFixedWingRequests.append(request)
     defer { transitionToFixedWingResponses.removeFirst() }
     return transitionToFixedWingResponses.first!
   }
-  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+  func transitionToFixedWing(_ request: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
     fatalError("not implemented")
   }
 
   var transitionToMulticopterRequests: [DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest] = []
   var transitionToMulticopterResponses: [DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse] = []
-  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
+  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
     transitionToMulticopterRequests.append(request)
     defer { transitionToMulticopterResponses.removeFirst() }
     return transitionToMulticopterResponses.first!
   }
-  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
+  func transitionToMulticopter(_ request: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
     fatalError("not implemented")
   }
 
   var getTakeoffAltitudeRequests: [DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest] = []
   var getTakeoffAltitudeResponses: [DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse] = []
-  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
+  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
     getTakeoffAltitudeRequests.append(request)
     defer { getTakeoffAltitudeResponses.removeFirst() }
     return getTakeoffAltitudeResponses.first!
   }
-  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
+  func getTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
     fatalError("not implemented")
   }
 
   var setTakeoffAltitudeRequests: [DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest] = []
   var setTakeoffAltitudeResponses: [DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse] = []
-  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
+  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
     setTakeoffAltitudeRequests.append(request)
     defer { setTakeoffAltitudeResponses.removeFirst() }
     return setTakeoffAltitudeResponses.first!
   }
-  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
+  func setTakeoffAltitude(_ request: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
     fatalError("not implemented")
   }
 
   var getMaximumSpeedRequests: [DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest] = []
   var getMaximumSpeedResponses: [DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse] = []
-  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
+  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
     getMaximumSpeedRequests.append(request)
     defer { getMaximumSpeedResponses.removeFirst() }
     return getMaximumSpeedResponses.first!
   }
-  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
+  func getMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
     fatalError("not implemented")
   }
 
   var setMaximumSpeedRequests: [DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest] = []
   var setMaximumSpeedResponses: [DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse] = []
-  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
+  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
     setMaximumSpeedRequests.append(request)
     defer { setMaximumSpeedResponses.removeFirst() }
     return setMaximumSpeedResponses.first!
   }
-  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
+  func setMaximumSpeed(_ request: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
     fatalError("not implemented")
   }
 
   var getReturnToLaunchAltitudeRequests: [DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest] = []
   var getReturnToLaunchAltitudeResponses: [DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse] = []
-  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
     getReturnToLaunchAltitudeRequests.append(request)
     defer { getReturnToLaunchAltitudeResponses.removeFirst() }
     return getReturnToLaunchAltitudeResponses.first!
   }
-  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+  func getReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
     fatalError("not implemented")
   }
 
   var setReturnToLaunchAltitudeRequests: [DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest] = []
   var setReturnToLaunchAltitudeResponses: [DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse] = []
-  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
     setReturnToLaunchAltitudeRequests.append(request)
     defer { setReturnToLaunchAltitudeResponses.removeFirst() }
     return setReturnToLaunchAltitudeResponses.first!
   }
-  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+  func setReturnToLaunchAltitude(_ request: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
     fatalError("not implemented")
   }
 
