@@ -64,5 +64,5 @@ source ${PB_PLUGINS_DIR}/venv/bin/activate
 export TEMPLATE_PATH=${TEMPLATE_PATH:-"${SCRIPT_DIR}/../templates"}
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which dcsdkgen) -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=swift
+    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which dcsdkgen) -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
 done
