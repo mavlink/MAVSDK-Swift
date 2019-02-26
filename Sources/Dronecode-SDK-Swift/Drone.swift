@@ -8,6 +8,7 @@ import backend
 public class Drone {
     private let scheduler: SchedulerType
     private let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
+    private let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
 
     public let action: Action
     public let calibration: Calibration
@@ -69,17 +70,14 @@ public class Drone {
                 )
                 semaphore.signal()
             }
-
-            let signalDisposable = self.scheduler.schedule(0, action: { _ in
+            
+            self.connectionQueue.async {
                 semaphore.wait()
                 completable(.completed)
-
-                return Disposables.create()
-            })
-
-            return Disposables.create {
-                signalDisposable.dispose()
             }
+
+             return Disposables.create()
+
         }.asObservable().share(replay: 0, scope: .forever).ignoreElements()
     }
 #endif
