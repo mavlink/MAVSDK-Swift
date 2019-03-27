@@ -369,6 +369,25 @@ public class Mission {
         }
     }
 
+    public func cancelMissionUpload() -> Completable {
+        return Completable.create { completable in
+            let request = DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest()
+
+            
+
+            do {
+                
+                let _ = try self.service.cancelMissionUpload(request)
+                completable(.completed)
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
     public func downloadMission() -> Single<[MissionItem]> {
         return Single<[MissionItem]>.create { single in
             let request = DronecodeSdk_Rpc_Mission_DownloadMissionRequest()
@@ -392,6 +411,25 @@ public class Mission {
                 single(.success(missionItems))
             } catch {
                 single(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func cancelMissionDownload() -> Completable {
+        return Completable.create { completable in
+            let request = DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest()
+
+            
+
+            do {
+                
+                let _ = try self.service.cancelMissionDownload(request)
+                completable(.completed)
+                
+            } catch {
+                completable(.error(error))
             }
 
             return Disposables.create()

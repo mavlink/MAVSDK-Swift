@@ -249,6 +249,30 @@ public class Action {
         }
     }
 
+    public func reboot() -> Completable {
+        return Completable.create { completable in
+            let request = DronecodeSdk_Rpc_Action_RebootRequest()
+
+            
+
+            do {
+                
+                let response = try self.service.reboot(request)
+
+                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
     public func kill() -> Completable {
         return Completable.create { completable in
             let request = DronecodeSdk_Rpc_Action_KillRequest()

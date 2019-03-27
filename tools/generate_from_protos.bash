@@ -37,7 +37,7 @@ if [ ! -d ${TMP_DIR}/grpc-swift ]; then
     echo "--- Cloning grpc-swift"
     echo ""
 
-    git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift
+    git -C ${TMP_DIR} clone https://github.com/3drobotics/grpc-swift
 fi
 
 cd ${TMP_DIR}/grpc-swift && make
@@ -64,5 +64,5 @@ source ${PB_PLUGINS_DIR}/venv/bin/activate
 export TEMPLATE_PATH=${TEMPLATE_PATH:-"${SCRIPT_DIR}/../templates"}
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which dcsdkgen) -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
+    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-dcsdk) -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
 done
