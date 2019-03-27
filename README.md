@@ -4,6 +4,12 @@
 
 ### Carthage
 
+Firstly, make sure you have [RubyGems](https://rubygems.org/pages/download) installed, then install the xcodeproj gem:
+
+```
+gem install --user xcodeproj
+```
+
 Add the following to your `Cartfile`:
 
 ```shell
