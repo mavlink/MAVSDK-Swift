@@ -440,4 +440,23 @@ public class Calibration {
         }
         .share(replay: 1)
     }
+
+    public func cancel() -> Completable {
+        return Completable.create { completable in
+            let request = DronecodeSdk_Rpc_Calibration_CancelRequest()
+
+            
+
+            do {
+                
+                let _ = try self.service.cancel(request)
+                completable(.completed)
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }
