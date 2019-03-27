@@ -57,12 +57,29 @@ internal protocol DronecodeSdk_Rpc_Core_CoreServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
+  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
 
   /// Synchronous. Unary.
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse
+  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse
   /// Asynchronous. Unary.
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall
+  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Core_CoreServiceService {
+  /// Asynchronous. Server-streaming.
+  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+    return try self.subscribeConnectionState(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
+    return try self.listRunningPlugins(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+    return try self.listRunningPlugins(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
@@ -70,20 +87,20 @@ internal final class DronecodeSdk_Rpc_Core_CoreServiceServiceClient: ServiceClie
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  internal func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
     return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
+  internal func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
     return try DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  internal func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
     return try DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
@@ -91,7 +108,7 @@ internal final class DronecodeSdk_Rpc_Core_CoreServiceServiceClient: ServiceClie
 class DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Core_CoreServiceService {
   var subscribeConnectionStateRequests: [DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest] = []
   var subscribeConnectionStateCalls: [DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall] = []
-  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
     subscribeConnectionStateRequests.append(request)
     defer { subscribeConnectionStateCalls.removeFirst() }
     return subscribeConnectionStateCalls.first!
@@ -99,12 +116,12 @@ class DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBas
 
   var listRunningPluginsRequests: [DronecodeSdk_Rpc_Core_ListRunningPluginsRequest] = []
   var listRunningPluginsResponses: [DronecodeSdk_Rpc_Core_ListRunningPluginsResponse] = []
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
+  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
     listRunningPluginsRequests.append(request)
     defer { listRunningPluginsResponses.removeFirst() }
     return listRunningPluginsResponses.first!
   }
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
     fatalError("not implemented")
   }
 
