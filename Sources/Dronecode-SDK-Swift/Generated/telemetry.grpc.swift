@@ -311,72 +311,145 @@ internal protocol DronecodeSdk_Rpc_Telemetry_TelemetryServiceService: ServiceCli
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall
+  func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall
+  func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall
+  func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall
+  func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall
+  func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall
+  func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall
+  func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall
+  func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall
+  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall
+  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall
+  func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall
+  func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall
+  func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall
+  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Telemetry_TelemetryServiceService {
+  /// Asynchronous. Server-streaming.
+  func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
+    return try self.subscribePosition(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
+    return try self.subscribeHome(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
+    return try self.subscribeInAir(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
+    return try self.subscribeArmed(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
+    return try self.subscribeAttitudeQuaternion(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
+    return try self.subscribeAttitudeEuler(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
+    return try self.subscribeCameraAttitudeQuaternion(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
+    return try self.subscribeCameraAttitudeEuler(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+    return try self.subscribeGroundSpeedNed(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+    return try self.subscribeGpsInfo(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
+    return try self.subscribeBattery(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
+    return try self.subscribeFlightMode(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
+    return try self.subscribeHealth(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+    return try self.subscribeRcStatus(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
@@ -384,113 +457,113 @@ internal final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient: S
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
+  internal func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
+  internal func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
+  internal func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
+  internal func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
+  internal func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
+  internal func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
+  internal func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
+  internal func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+  internal func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+  internal func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
+  internal func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
+  internal func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
+  internal func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+  internal func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
     return try DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
@@ -498,7 +571,7 @@ internal final class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient: S
 class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Telemetry_TelemetryServiceService {
   var subscribePositionRequests: [DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest] = []
   var subscribePositionCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall] = []
-  func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
+  func subscribePosition(_ request: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
     subscribePositionRequests.append(request)
     defer { subscribePositionCalls.removeFirst() }
     return subscribePositionCalls.first!
@@ -506,7 +579,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeHomeRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest] = []
   var subscribeHomeCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall] = []
-  func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
+  func subscribeHome(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
     subscribeHomeRequests.append(request)
     defer { subscribeHomeCalls.removeFirst() }
     return subscribeHomeCalls.first!
@@ -514,7 +587,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeInAirRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest] = []
   var subscribeInAirCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall] = []
-  func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
+  func subscribeInAir(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
     subscribeInAirRequests.append(request)
     defer { subscribeInAirCalls.removeFirst() }
     return subscribeInAirCalls.first!
@@ -522,7 +595,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeArmedRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest] = []
   var subscribeArmedCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall] = []
-  func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
+  func subscribeArmed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
     subscribeArmedRequests.append(request)
     defer { subscribeArmedCalls.removeFirst() }
     return subscribeArmedCalls.first!
@@ -530,7 +603,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeAttitudeQuaternionRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest] = []
   var subscribeAttitudeQuaternionCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall] = []
-  func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
+  func subscribeAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
     subscribeAttitudeQuaternionRequests.append(request)
     defer { subscribeAttitudeQuaternionCalls.removeFirst() }
     return subscribeAttitudeQuaternionCalls.first!
@@ -538,7 +611,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeAttitudeEulerRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest] = []
   var subscribeAttitudeEulerCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall] = []
-  func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
+  func subscribeAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
     subscribeAttitudeEulerRequests.append(request)
     defer { subscribeAttitudeEulerCalls.removeFirst() }
     return subscribeAttitudeEulerCalls.first!
@@ -546,7 +619,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeCameraAttitudeQuaternionRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest] = []
   var subscribeCameraAttitudeQuaternionCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall] = []
-  func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
+  func subscribeCameraAttitudeQuaternion(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
     subscribeCameraAttitudeQuaternionRequests.append(request)
     defer { subscribeCameraAttitudeQuaternionCalls.removeFirst() }
     return subscribeCameraAttitudeQuaternionCalls.first!
@@ -554,7 +627,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeCameraAttitudeEulerRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest] = []
   var subscribeCameraAttitudeEulerCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall] = []
-  func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
+  func subscribeCameraAttitudeEuler(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
     subscribeCameraAttitudeEulerRequests.append(request)
     defer { subscribeCameraAttitudeEulerCalls.removeFirst() }
     return subscribeCameraAttitudeEulerCalls.first!
@@ -562,7 +635,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeGroundSpeedNedRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest] = []
   var subscribeGroundSpeedNedCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall] = []
-  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
+  func subscribeGroundSpeedNed(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedCall {
     subscribeGroundSpeedNedRequests.append(request)
     defer { subscribeGroundSpeedNedCalls.removeFirst() }
     return subscribeGroundSpeedNedCalls.first!
@@ -570,7 +643,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeGpsInfoRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest] = []
   var subscribeGpsInfoCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall] = []
-  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
+  func subscribeGpsInfo(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
     subscribeGpsInfoRequests.append(request)
     defer { subscribeGpsInfoCalls.removeFirst() }
     return subscribeGpsInfoCalls.first!
@@ -578,7 +651,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeBatteryRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest] = []
   var subscribeBatteryCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall] = []
-  func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
+  func subscribeBattery(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
     subscribeBatteryRequests.append(request)
     defer { subscribeBatteryCalls.removeFirst() }
     return subscribeBatteryCalls.first!
@@ -586,7 +659,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeFlightModeRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest] = []
   var subscribeFlightModeCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall] = []
-  func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
+  func subscribeFlightMode(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
     subscribeFlightModeRequests.append(request)
     defer { subscribeFlightModeCalls.removeFirst() }
     return subscribeFlightModeCalls.first!
@@ -594,7 +667,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeHealthRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest] = []
   var subscribeHealthCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall] = []
-  func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
+  func subscribeHealth(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
     subscribeHealthRequests.append(request)
     defer { subscribeHealthCalls.removeFirst() }
     return subscribeHealthCalls.first!
@@ -602,7 +675,7 @@ class DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientT
 
   var subscribeRcStatusRequests: [DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest] = []
   var subscribeRcStatusCalls: [DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall] = []
-  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
+  func subscribeRcStatus(_ request: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
     subscribeRcStatusRequests.append(request)
     defer { subscribeRcStatusCalls.removeFirst() }
     return subscribeRcStatusCalls.first!
