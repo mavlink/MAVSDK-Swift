@@ -1,3 +1,4 @@
 [submodule "proto"]
 	path = proto
-	url = https://github.com/dronecode/dronecodesdk-proto
+	url = https://github.com/3drobotics/DronecodeSDK-Proto
+	branch = douglas/add_reboot_action

@@ -16,6 +16,8 @@ public class Drone {
     public let core: Core
     public let info: Info
     public let mission: Mission
+    public let param: Param
+    public let gimbal: Gimbal
     public let telemetry: Telemetry
 
     public init(address: String = "localhost",
@@ -30,6 +32,8 @@ public class Drone {
         self.info = Info(address: address, port: port, scheduler: scheduler)
         self.mission = Mission(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
+        self.param = Param(address: address, port: port, scheduler: scheduler)
+        self.gimbal = Gimbal(address: address, port: port, scheduler: scheduler)
     }
 
 #if os(iOS)
