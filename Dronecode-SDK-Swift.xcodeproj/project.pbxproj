@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A5CB9E57225689B7005D36AF /* gimbal.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E54225689B7005D36AF /* gimbal.grpc.swift */; };
+		A5CB9E58225689B7005D36AF /* gimbal.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E55225689B7005D36AF /* gimbal.pb.swift */; };
+		A5CB9E59225689B7005D36AF /* Gimbal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E56225689B7005D36AF /* Gimbal.swift */; };
+		A5CB9E5D225689C8005D36AF /* param.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E5A225689C8005D36AF /* param.pb.swift */; };
+		A5CB9E5E225689C8005D36AF /* Param.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E5B225689C8005D36AF /* Param.swift */; };
+		A5CB9E5F225689C8005D36AF /* param.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E5C225689C8005D36AF /* param.grpc.swift */; };
 		BF_05D8089E7A15C48FB9A93017F9DE2984 /* BoringSSL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_2950B9C59944B0394C8E90ADDC73FF9F /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF_065B47F9332008D0E40304100B6CBD0C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_160C7A71726F52BDE703E5243CEEB386 /* RxSwift.framework */; };
 		BF_08E05438004F2AE05A446461C94246FD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_7BEADD9B27E0B1A2D04F84F699621B80 /* RxTest.framework */; };
@@ -143,6 +149,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A5CB9E54225689B7005D36AF /* gimbal.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gimbal.grpc.swift; sourceTree = "<group>"; };
+		A5CB9E55225689B7005D36AF /* gimbal.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gimbal.pb.swift; sourceTree = "<group>"; };
+		A5CB9E56225689B7005D36AF /* Gimbal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gimbal.swift; sourceTree = "<group>"; };
+		A5CB9E5A225689C8005D36AF /* param.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = param.pb.swift; sourceTree = "<group>"; };
+		A5CB9E5B225689C8005D36AF /* Param.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Param.swift; sourceTree = "<group>"; };
+		A5CB9E5C225689C8005D36AF /* param.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = param.grpc.swift; sourceTree = "<group>"; };
 		FR_01B68A39E24E517C12AEFC5C512FD54B /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
 		FR_0407F0DFFCD2029CD57AD50A4401DBD7 /* info.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = info.grpc.swift; sourceTree = "<group>"; };
 		FR_160C7A71726F52BDE703E5243CEEB386 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
@@ -289,9 +301,15 @@
 				FR_A5EBDA48C8E58C02BB15C2E2A129296D /* core.grpc.swift */,
 				FR_F42F9DB1355155B0749253288E939DB8 /* core.pb.swift */,
 				FR_C780076834FE934EE6F7261285FCE609 /* Core.swift */,
+				A5CB9E54225689B7005D36AF /* gimbal.grpc.swift */,
+				A5CB9E55225689B7005D36AF /* gimbal.pb.swift */,
+				A5CB9E56225689B7005D36AF /* Gimbal.swift */,
 				FR_0407F0DFFCD2029CD57AD50A4401DBD7 /* info.grpc.swift */,
 				FR_D9A1AFC61A33C1C580CE7CD29E90FE2B /* info.pb.swift */,
 				FR_D935B78007703F268F6060204557261C /* Info.swift */,
+				A5CB9E5C225689C8005D36AF /* param.grpc.swift */,
+				A5CB9E5A225689C8005D36AF /* param.pb.swift */,
+				A5CB9E5B225689C8005D36AF /* Param.swift */,
 				FR_C8F16D870D021E3001ECC33653AD866F /* mission.grpc.swift */,
 				FR_414E441E1CD3D1E6B201AC5D3541A116 /* mission.pb.swift */,
 				FR_4EA6062A72888D46EEA43AB9E016C0E5 /* Mission.swift */,
@@ -466,11 +484,16 @@
 				BF_BC4C752C8C451290D87EC270214CA7C9 /* Mission.swift in Sources */,
 				BF_14268B50D86F6FC684EBD2C8170827E4 /* Telemetry.swift in Sources */,
 				BF_F262FA8DBF05B825708D282A52686A50 /* action.grpc.swift in Sources */,
+				A5CB9E59225689B7005D36AF /* Gimbal.swift in Sources */,
+				A5CB9E5F225689C8005D36AF /* param.grpc.swift in Sources */,
 				BF_C5D7C1F9511D5A301081B3F0D9A7AF18 /* action.pb.swift in Sources */,
+				A5CB9E57225689B7005D36AF /* gimbal.grpc.swift in Sources */,
 				BF_ECC109D553CF91CBF474139764E9F48B /* calibration.grpc.swift in Sources */,
 				BF_184B14249D87802D1311D02282A98DFA /* calibration.pb.swift in Sources */,
 				BF_3B255EF91297509A37DF716215B14E23 /* camera.grpc.swift in Sources */,
+				A5CB9E5E225689C8005D36AF /* Param.swift in Sources */,
 				BF_7D6CC411BE321B9025A7E7D52D8B73AE /* camera.pb.swift in Sources */,
+				A5CB9E5D225689C8005D36AF /* param.pb.swift in Sources */,
 				BF_E0E5AF075CC01F6BF482C18252EBAEDD /* core.grpc.swift in Sources */,
 				BF_FE8A8923977E8598DB624AF6D3510FFF /* core.pb.swift in Sources */,
 				BF_E843F5AE0FE7B4CB8BC768A1E9C439F9 /* info.grpc.swift in Sources */,
@@ -478,6 +501,7 @@
 				BF_CCFF11A061BC7B41945C77341DC72424 /* mission.grpc.swift in Sources */,
 				BF_B40DCB1F07207FD866CD78261E5B64C0 /* mission.pb.swift in Sources */,
 				BF_172240AE869402A35A81ACF724974097 /* telemetry.grpc.swift in Sources */,
+				A5CB9E58225689B7005D36AF /* gimbal.pb.swift in Sources */,
 				BF_0A11664893F185759EF859CEFC5BF57C /* telemetry.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

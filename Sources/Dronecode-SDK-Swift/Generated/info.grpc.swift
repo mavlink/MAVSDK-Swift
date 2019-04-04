@@ -35,34 +35,22 @@ fileprivate final class DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallBase: Cli
 /// Instantiate DronecodeSdk_Rpc_Info_InfoServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Info_InfoServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse
+  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse
   /// Asynchronous. Unary.
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall
-
-}
-
-internal extension DronecodeSdk_Rpc_Info_InfoServiceService {
-  /// Synchronous. Unary.
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
-    return try self.getVersion(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
-    return try self.getVersion(request, metadata: self.metadata, completion: completion)
-  }
+  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall
 
 }
 
 internal final class DronecodeSdk_Rpc_Info_InfoServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Info_InfoServiceService {
   /// Synchronous. Unary.
-  internal func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
+  internal func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
     return try DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  internal func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
+  internal func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
     return try DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
 }
@@ -70,12 +58,12 @@ internal final class DronecodeSdk_Rpc_Info_InfoServiceServiceClient: ServiceClie
 class DronecodeSdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Info_InfoServiceService {
   var getVersionRequests: [DronecodeSdk_Rpc_Info_GetVersionRequest] = []
   var getVersionResponses: [DronecodeSdk_Rpc_Info_GetVersionResponse] = []
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
+  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
     getVersionRequests.append(request)
     defer { getVersionResponses.removeFirst() }
     return getVersionResponses.first!
   }
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
+  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
     fatalError("not implemented")
   }
 

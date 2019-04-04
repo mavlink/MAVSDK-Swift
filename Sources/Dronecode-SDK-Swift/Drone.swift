@@ -14,8 +14,10 @@ public class Drone {
     public let calibration: Calibration
     public let camera: Camera
     public let core: Core
+    public let gimbal: Gimbal
     public let info: Info
     public let mission: Mission
+    public let param: Param
     public let telemetry: Telemetry
 
     public init(address: String = "localhost",
@@ -27,8 +29,10 @@ public class Drone {
         self.calibration = Calibration(address: address, port: port, scheduler: scheduler)
         self.camera = Camera(address: address, port: port, scheduler: scheduler)
         self.core = Core(address: address, port: port, scheduler: scheduler)
+        self.gimbal = Gimbal(address: address, port: port, scheduler: scheduler)
         self.info = Info(address: address, port: port, scheduler: scheduler)
         self.mission = Mission(address: address, port: port, scheduler: scheduler)
+        self.param = Param(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
     }
 
