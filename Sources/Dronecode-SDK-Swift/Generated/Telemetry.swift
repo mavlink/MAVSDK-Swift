@@ -538,6 +538,78 @@ public class Telemetry {
         }
     }
 
+    public struct StatusText: Equatable {
+        public let type: StatusType
+        public let text: String
+
+        
+        
+
+        public enum StatusType: Equatable {
+            case info
+            case warning
+            case critical
+            case UNRECOGNIZED(Int)
+
+            internal var rpcStatusType: DronecodeSdk_Rpc_Telemetry_StatusText.StatusType {
+                switch self {
+                case .info:
+                    return .info
+                case .warning:
+                    return .warning
+                case .critical:
+                    return .critical
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+
+            internal static func translateFromRpc(_ rpcStatusType: DronecodeSdk_Rpc_Telemetry_StatusText.StatusType) -> StatusType {
+                switch rpcStatusType {
+                case .info:
+                    return .info
+                case .warning:
+                    return .warning
+                case .critical:
+                    return .critical
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+        }
+        
+
+        public init(type: StatusType, text: String) {
+            self.type = type
+            self.text = text
+        }
+
+        internal var rpcStatusText: DronecodeSdk_Rpc_Telemetry_StatusText {
+            var rpcStatusText = DronecodeSdk_Rpc_Telemetry_StatusText()
+            
+                
+            rpcStatusText.type = type.rpcStatusType
+                
+            
+            
+                
+            rpcStatusText.text = text
+                
+            
+
+            return rpcStatusText
+        }
+
+        internal static func translateFromRpc(_ rpcStatusText: DronecodeSdk_Rpc_Telemetry_StatusText) -> StatusText {
+            return StatusText(type: StatusType.translateFromRpc(rpcStatusText.type), text: rpcStatusText.text)
+        }
+
+        public static func == (lhs: StatusText, rhs: StatusText) -> Bool {
+            return lhs.type == rhs.type
+                && lhs.text == rhs.text
+        }
+    }
+
 
     public lazy var position: Observable<Position> = createPositionObservable()
 
@@ -1231,6 +1303,57 @@ public class Telemetry {
 
                         
                         observer.onNext(rcStatus)
+                        
+                    }
+                    
+
+                    return Disposables.create()
+                })
+
+                return Disposables.create {
+                    call.cancel()
+                    disposable.dispose()
+                }
+            } catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+    public lazy var statusText: Observable<StatusText> = createStatusTextObservable()
+
+    private func createStatusTextObservable() -> Observable<StatusText> {
+        return Observable.create { observer in
+            let request = DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest()
+
+            
+
+            do {
+                let call = try self.service.subscribeStatusText(request, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
+                    }
+                })
+
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    
+                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                        
+                            
+                        let statusText = StatusText.translateFromRpc(response.statusText)
+                        
+
+                        
+                        observer.onNext(statusText)
                         
                     }
                     
