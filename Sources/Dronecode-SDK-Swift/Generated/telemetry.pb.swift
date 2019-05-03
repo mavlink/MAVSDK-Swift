@@ -554,6 +554,37 @@ struct DronecodeSdk_Rpc_Telemetry_RcStatusResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct DronecodeSdk_Rpc_Telemetry_StatusTextResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var statusText: DronecodeSdk_Rpc_Telemetry_StatusText {
+    get {return _storage._statusText ?? DronecodeSdk_Rpc_Telemetry_StatusText()}
+    set {_uniqueStorage()._statusText = newValue}
+  }
+  /// Returns true if `statusText` has been explicitly set.
+  var hasStatusText: Bool {return _storage._statusText != nil}
+  /// Clears the value of `statusText`. Subsequent reads from it will return its default value.
+  mutating func clearStatusText() {_uniqueStorage()._statusText = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 struct DronecodeSdk_Rpc_Telemetry_Position {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -689,6 +720,64 @@ struct DronecodeSdk_Rpc_Telemetry_RcStatus {
 
   init() {}
 }
+
+struct DronecodeSdk_Rpc_Telemetry_StatusText {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var type: DronecodeSdk_Rpc_Telemetry_StatusText.StatusType = .info
+
+  var text: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum StatusType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case info // = 0
+    case warning // = 1
+    case critical // = 2
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .info
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .info
+      case 1: self = .warning
+      case 2: self = .critical
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .info: return 0
+      case .warning: return 1
+      case .critical: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension DronecodeSdk_Rpc_Telemetry_StatusText.StatusType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [DronecodeSdk_Rpc_Telemetry_StatusText.StatusType] = [
+    .info,
+    .warning,
+    .critical,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -1744,6 +1833,86 @@ extension DronecodeSdk_Rpc_Telemetry_RcStatusResponse: SwiftProtobuf.Message, Sw
   }
 }
 
+extension DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeStatusTextRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Telemetry_StatusTextResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StatusTextResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "status_text"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _statusText: DronecodeSdk_Rpc_Telemetry_StatusText? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _statusText = source._statusText
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._statusText)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._statusText {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_StatusTextResponse, rhs: DronecodeSdk_Rpc_Telemetry_StatusTextResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._statusText != rhs_storage._statusText {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension DronecodeSdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Position"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2094,4 +2263,47 @@ extension DronecodeSdk_Rpc_Telemetry_RcStatus: SwiftProtobuf.Message, SwiftProto
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension DronecodeSdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StatusText"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "type"),
+    2: .same(proto: "text"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.type)
+      case 2: try decoder.decodeSingularStringField(value: &self.text)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.type != .info {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
+    }
+    if !self.text.isEmpty {
+      try visitor.visitSingularStringField(value: self.text, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_StatusText, rhs: DronecodeSdk_Rpc_Telemetry_StatusText) -> Bool {
+    if lhs.type != rhs.type {return false}
+    if lhs.text != rhs.text {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DronecodeSdk_Rpc_Telemetry_StatusText.StatusType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "INFO"),
+    1: .same(proto: "WARNING"),
+    2: .same(proto: "CRITICAL"),
+  ]
 }
