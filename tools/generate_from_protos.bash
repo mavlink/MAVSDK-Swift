@@ -37,7 +37,7 @@ if [ ! -d ${TMP_DIR}/grpc-swift ]; then
     echo "--- Cloning grpc-swift"
     echo ""
 
-    git -C ${TMP_DIR} clone -b 0.8.0 https://github.com/grpc/grpc-swift
+    git -C ${TMP_DIR} clone -b 0.8.1 https://github.com/grpc/grpc-swift
 fi
 
 cd ${TMP_DIR}/grpc-swift && make
