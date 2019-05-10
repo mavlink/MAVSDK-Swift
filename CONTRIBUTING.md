@@ -11,7 +11,7 @@ carthage build --platform ios --no-skip-current --verbose
 
 Then you can open `Dronecode-SDK-Swift.xcodeproj` in XCode and build it, or do:
 ```
-xcodebuild -scheme Dronecode-SDK-Swift
+xcodebuild -scheme Dronecode_SDK_Swift
 ```
 
 ### Generate docs
