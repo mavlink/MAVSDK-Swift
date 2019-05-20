@@ -37,7 +37,7 @@ public class Drone {
     }
 
 #if os(iOS)
-    private var mavlinkPort: Int32 = 14540
+    private var mavlinkPort: String = "udp://:14540"
 
     /**
      Sets the port on which the mavlink server will be listening for
@@ -47,7 +47,7 @@ public class Drone {
 
      - Parameter mavlinkPort: The port on which to listen for the drone.
      */
-    public func setMavlinkPort(mavlinkPort: Int32) {
+    public func setMavlinkPort(mavlinkPort: String) {
         self.mavlinkPort = mavlinkPort
     }
 
