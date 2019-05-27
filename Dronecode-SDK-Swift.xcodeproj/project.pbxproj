@@ -7,17 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A5CB9E57225689B7005D36AF /* gimbal.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E54225689B7005D36AF /* gimbal.grpc.swift */; };
-		A5CB9E58225689B7005D36AF /* gimbal.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E55225689B7005D36AF /* gimbal.pb.swift */; };
-		A5CB9E59225689B7005D36AF /* Gimbal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E56225689B7005D36AF /* Gimbal.swift */; };
-		A5CB9E5D225689C8005D36AF /* param.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E5A225689C8005D36AF /* param.pb.swift */; };
-		A5CB9E5E225689C8005D36AF /* Param.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E5B225689C8005D36AF /* Param.swift */; };
-		A5CB9E5F225689C8005D36AF /* param.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB9E5C225689C8005D36AF /* param.grpc.swift */; };
 		BF_05D8089E7A15C48FB9A93017F9DE2984 /* BoringSSL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_2950B9C59944B0394C8E90ADDC73FF9F /* BoringSSL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF_065B47F9332008D0E40304100B6CBD0C /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_160C7A71726F52BDE703E5243CEEB386 /* RxSwift.framework */; };
 		BF_08E05438004F2AE05A446461C94246FD /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_7BEADD9B27E0B1A2D04F84F699621B80 /* RxTest.framework */; };
 		BF_099439D6018996DAC6D331694DD06E8A /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_B2CABE224F80B40A686E6EDE452A44B4 /* backend.framework */; };
 		BF_0A11664893F185759EF859CEFC5BF57C /* telemetry.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_F1B8A2065FA04F09B124C6CFC5DE74E9 /* telemetry.pb.swift */; };
+		BF_0AD1D84A9B6E1A9309BA363BDC499BBB /* Param.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_8F09A986F5485E2A0FF0534E982585D3 /* Param.swift */; };
 		BF_138D6035B4C6F923C30A2B7252BABFD6 /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_58E696F7B3E5972E3AF00D8ED3011056 /* CameraTest.swift */; };
 		BF_13CDC68D3752324F9A01F5D0EE1F6C22 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_2950B9C59944B0394C8E90ADDC73FF9F /* BoringSSL.framework */; };
 		BF_14268B50D86F6FC684EBD2C8170827E4 /* Telemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_5B564586C171DC3B39D202068F9B4470 /* Telemetry.swift */; };
@@ -44,10 +39,13 @@
 		BF_534120D1A45D57C867C144DA23545671 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D935B78007703F268F6060204557261C /* Info.swift */; };
 		BF_561B781A04295A7E05C0B0C29A49FC58 /* SwiftGRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_5D041CBDB086B50EE906850F572FC6C6 /* SwiftGRPC.framework */; };
 		BF_59A6DB04592A3FEB785F65D31AE32538 /* RxSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_160C7A71726F52BDE703E5243CEEB386 /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BF_5AA3C56028E3E83C0581ECA8EF4E6B81 /* gimbal.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_F57D2EC63950F84DE68072E4A93FF173 /* gimbal.pb.swift */; };
+		BF_5C9E7965903F3755BDD50FF79F96AAEC /* gimbal.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_650E68539C9F2EC5E51D6BD48CD0CC6D /* gimbal.grpc.swift */; };
 		BF_60E71275E39C4F95C7605172EB7C25A5 /* SwiftProtobuf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_C72CECF509DF8F346C302F46C5F32F69 /* SwiftProtobuf.framework */; };
 		BF_7157DD58351382D150473C32CAEBD978 /* SwiftGRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_5D041CBDB086B50EE906850F572FC6C6 /* SwiftGRPC.framework */; };
 		BF_71DD132FEBF6E23FC8673BCCFF2F4A97 /* info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_D9A1AFC61A33C1C580CE7CD29E90FE2B /* info.pb.swift */; };
 		BF_763980008B136C2EB8DD3765E3B500DD /* CgRPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_81CEB367D555C93464D95D9BDD49CC9F /* CgRPC.framework */; };
+		BF_77746E3E7B381B355B7EE9F084149B0C /* Gimbal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_7A4B3A14E9AC693987D574071F053173 /* Gimbal.swift */; };
 		BF_7813F6FDFF97D9453B9229E6754BB25C /* CameraTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_01B68A39E24E517C12AEFC5C512FD54B /* CameraTest.swift */; };
 		BF_7AAC750F2907CB4C5355E4F2EB6B9DDD /* CgRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_81CEB367D555C93464D95D9BDD49CC9F /* CgRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF_7CA6AA61874E7BB95CC12D261D8A1682 /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_ADFEB5DDD0C62CB1B0467F4BB5F16396 /* CoreTest.swift */; };
@@ -58,6 +56,7 @@
 		BF_8E3361BAD97CB0EBC0F03EAF48106A9A /* backend.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_B2CABE224F80B40A686E6EDE452A44B4 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF_90627B8B3D3841E818F90E7C7643D999 /* Dronecode_SDK_Swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_82137BC7227989825728C484DC0C1615 /* Dronecode_SDK_Swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF_9469897B7D4FE15307C49E99284E64E1 /* backend.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_B2CABE224F80B40A686E6EDE452A44B4 /* backend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BF_A132C6933FBB9EF0ADA45673674742F4 /* param.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_F0E764562625C67699411532B4EF485C /* param.grpc.swift */; };
 		BF_A1B4A7F36B21CD32D55730C23210B666 /* backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_B2CABE224F80B40A686E6EDE452A44B4 /* backend.framework */; };
 		BF_A50CAEE9F3542B07CF61FF18225FAAB3 /* CoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_653E1E23E224CA36C2A275623F6A7DB6 /* CoreTest.swift */; };
 		BF_B0155F8B23A83C15B86C7829ED9124D8 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_2950B9C59944B0394C8E90ADDC73FF9F /* BoringSSL.framework */; };
@@ -67,6 +66,7 @@
 		BF_BC36D870DF36F65E08ABCB35EE1BA278 /* Dronecode_SDK_Swift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FR_82137BC7227989825728C484DC0C1615 /* Dronecode_SDK_Swift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF_BC4C752C8C451290D87EC270214CA7C9 /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_4EA6062A72888D46EEA43AB9E016C0E5 /* Mission.swift */; };
 		BF_BE17FDD4941B6FD368E917DCF6974955 /* MissionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_9D1151BE6EF0550B1D48314D87599E35 /* MissionTest.swift */; };
+		BF_BEACF4CB9448429D0419B584C2A7E14D /* param.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_ACFDFE0A2279FC166F9ED9B91C79BF3A /* param.pb.swift */; };
 		BF_C1803E11ABA3938A0A8F9833790E896F /* Dronecode_SDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_82137BC7227989825728C484DC0C1615 /* Dronecode_SDK_Swift.framework */; };
 		BF_C5D7C1F9511D5A301081B3F0D9A7AF18 /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_62B5EDDFA62AC6745B29EF022108E1FE /* action.pb.swift */; };
 		BF_CCFF11A061BC7B41945C77341DC72424 /* mission.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_C8F16D870D021E3001ECC33653AD866F /* mission.grpc.swift */; };
@@ -149,12 +149,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A5CB9E54225689B7005D36AF /* gimbal.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gimbal.grpc.swift; sourceTree = "<group>"; };
-		A5CB9E55225689B7005D36AF /* gimbal.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gimbal.pb.swift; sourceTree = "<group>"; };
-		A5CB9E56225689B7005D36AF /* Gimbal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gimbal.swift; sourceTree = "<group>"; };
-		A5CB9E5A225689C8005D36AF /* param.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = param.pb.swift; sourceTree = "<group>"; };
-		A5CB9E5B225689C8005D36AF /* Param.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Param.swift; sourceTree = "<group>"; };
-		A5CB9E5C225689C8005D36AF /* param.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = param.grpc.swift; sourceTree = "<group>"; };
 		FR_01B68A39E24E517C12AEFC5C512FD54B /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
 		FR_0407F0DFFCD2029CD57AD50A4401DBD7 /* info.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = info.grpc.swift; sourceTree = "<group>"; };
 		FR_160C7A71726F52BDE703E5243CEEB386 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
@@ -171,10 +165,13 @@
 		FR_5D041CBDB086B50EE906850F572FC6C6 /* SwiftGRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftGRPC.framework; sourceTree = "<group>"; };
 		FR_5FEE84F34EB0308A13466D09EB1FAF4B /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = "<group>"; };
 		FR_62B5EDDFA62AC6745B29EF022108E1FE /* action.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = action.pb.swift; sourceTree = "<group>"; };
+		FR_650E68539C9F2EC5E51D6BD48CD0CC6D /* gimbal.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gimbal.grpc.swift; sourceTree = "<group>"; };
 		FR_653E1E23E224CA36C2A275623F6A7DB6 /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
+		FR_7A4B3A14E9AC693987D574071F053173 /* Gimbal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gimbal.swift; sourceTree = "<group>"; };
 		FR_7BEADD9B27E0B1A2D04F84F699621B80 /* RxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxTest.framework; sourceTree = "<group>"; };
 		FR_81CEB367D555C93464D95D9BDD49CC9F /* CgRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CgRPC.framework; sourceTree = "<group>"; };
 		FR_82137BC7227989825728C484DC0C1615 /* Dronecode_SDK_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Dronecode_SDK_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FR_8F09A986F5485E2A0FF0534E982585D3 /* Param.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Param.swift; sourceTree = "<group>"; };
 		FR_971478C4BFD3A9EE6E862613105A5AB0 /* MissionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTest.swift; sourceTree = "<group>"; };
 		FR_9C728E0FDC11A148215267D276D56294 /* calibration.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calibration.grpc.swift; sourceTree = "<group>"; };
 		FR_9D1151BE6EF0550B1D48314D87599E35 /* MissionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionTest.swift; sourceTree = "<group>"; };
@@ -182,6 +179,7 @@
 		FR_A2C1CD992E70095223681E2C37F8A05A /* action.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = action.grpc.swift; sourceTree = "<group>"; };
 		FR_A3039CF407D1ECC59C02CA3C16E98292 /* TelemetryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelemetryTest.swift; sourceTree = "<group>"; };
 		FR_A5EBDA48C8E58C02BB15C2E2A129296D /* core.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = core.grpc.swift; sourceTree = "<group>"; };
+		FR_ACFDFE0A2279FC166F9ED9B91C79BF3A /* param.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = param.pb.swift; sourceTree = "<group>"; };
 		FR_ADFEB5DDD0C62CB1B0467F4BB5F16396 /* CoreTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTest.swift; sourceTree = "<group>"; };
 		FR_B2CABE224F80B40A686E6EDE452A44B4 /* backend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = backend.framework; sourceTree = "<group>"; };
 		FR_BB6226CC551BD0029F23C52C07C2F906 /* Drone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drone.swift; sourceTree = "<group>"; };
@@ -197,8 +195,10 @@
 		FR_E5A9122F4C8DCB173D5D7CA3AB94EF57 /* Calibration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calibration.swift; sourceTree = "<group>"; };
 		FR_EBA83ABD0C0B50327A1132FD6349C64C /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 		FR_EC550DD66D6556A953E00E95C2BFCEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FR_F0E764562625C67699411532B4EF485C /* param.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = param.grpc.swift; sourceTree = "<group>"; };
 		FR_F1B8A2065FA04F09B124C6CFC5DE74E9 /* telemetry.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = telemetry.pb.swift; sourceTree = "<group>"; };
 		FR_F42F9DB1355155B0749253288E939DB8 /* core.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = core.pb.swift; sourceTree = "<group>"; };
+		FR_F57D2EC63950F84DE68072E4A93FF173 /* gimbal.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gimbal.pb.swift; sourceTree = "<group>"; };
 		FR_FE1D274B50DB4C0951BAE3B5F12F6C47 /* ActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,18 +301,18 @@
 				FR_A5EBDA48C8E58C02BB15C2E2A129296D /* core.grpc.swift */,
 				FR_F42F9DB1355155B0749253288E939DB8 /* core.pb.swift */,
 				FR_C780076834FE934EE6F7261285FCE609 /* Core.swift */,
-				A5CB9E54225689B7005D36AF /* gimbal.grpc.swift */,
-				A5CB9E55225689B7005D36AF /* gimbal.pb.swift */,
-				A5CB9E56225689B7005D36AF /* Gimbal.swift */,
+				FR_650E68539C9F2EC5E51D6BD48CD0CC6D /* gimbal.grpc.swift */,
+				FR_F57D2EC63950F84DE68072E4A93FF173 /* gimbal.pb.swift */,
+				FR_7A4B3A14E9AC693987D574071F053173 /* Gimbal.swift */,
 				FR_0407F0DFFCD2029CD57AD50A4401DBD7 /* info.grpc.swift */,
 				FR_D9A1AFC61A33C1C580CE7CD29E90FE2B /* info.pb.swift */,
 				FR_D935B78007703F268F6060204557261C /* Info.swift */,
-				A5CB9E5C225689C8005D36AF /* param.grpc.swift */,
-				A5CB9E5A225689C8005D36AF /* param.pb.swift */,
-				A5CB9E5B225689C8005D36AF /* Param.swift */,
 				FR_C8F16D870D021E3001ECC33653AD866F /* mission.grpc.swift */,
 				FR_414E441E1CD3D1E6B201AC5D3541A116 /* mission.pb.swift */,
 				FR_4EA6062A72888D46EEA43AB9E016C0E5 /* Mission.swift */,
+				FR_F0E764562625C67699411532B4EF485C /* param.grpc.swift */,
+				FR_ACFDFE0A2279FC166F9ED9B91C79BF3A /* param.pb.swift */,
+				FR_8F09A986F5485E2A0FF0534E982585D3 /* Param.swift */,
 				FR_BBC380B5FBA190638D51890F750B4B96 /* telemetry.grpc.swift */,
 				FR_F1B8A2065FA04F09B124C6CFC5DE74E9 /* telemetry.pb.swift */,
 				FR_5B564586C171DC3B39D202068F9B4470 /* Telemetry.swift */,
@@ -480,28 +480,28 @@
 				BF_CF04E3CA9A4C2C58A46BAE1F04D5703C /* Camera.swift in Sources */,
 				BF_4DD73420A084A3192E06DFDCCE3BCA37 /* Core.swift in Sources */,
 				BF_E69FAAF99ECBBEA22F47E9A0CCD974F7 /* Drone.swift in Sources */,
+				BF_77746E3E7B381B355B7EE9F084149B0C /* Gimbal.swift in Sources */,
 				BF_534120D1A45D57C867C144DA23545671 /* Info.swift in Sources */,
 				BF_BC4C752C8C451290D87EC270214CA7C9 /* Mission.swift in Sources */,
+				BF_0AD1D84A9B6E1A9309BA363BDC499BBB /* Param.swift in Sources */,
 				BF_14268B50D86F6FC684EBD2C8170827E4 /* Telemetry.swift in Sources */,
 				BF_F262FA8DBF05B825708D282A52686A50 /* action.grpc.swift in Sources */,
-				A5CB9E59225689B7005D36AF /* Gimbal.swift in Sources */,
-				A5CB9E5F225689C8005D36AF /* param.grpc.swift in Sources */,
 				BF_C5D7C1F9511D5A301081B3F0D9A7AF18 /* action.pb.swift in Sources */,
-				A5CB9E57225689B7005D36AF /* gimbal.grpc.swift in Sources */,
 				BF_ECC109D553CF91CBF474139764E9F48B /* calibration.grpc.swift in Sources */,
 				BF_184B14249D87802D1311D02282A98DFA /* calibration.pb.swift in Sources */,
 				BF_3B255EF91297509A37DF716215B14E23 /* camera.grpc.swift in Sources */,
-				A5CB9E5E225689C8005D36AF /* Param.swift in Sources */,
 				BF_7D6CC411BE321B9025A7E7D52D8B73AE /* camera.pb.swift in Sources */,
-				A5CB9E5D225689C8005D36AF /* param.pb.swift in Sources */,
 				BF_E0E5AF075CC01F6BF482C18252EBAEDD /* core.grpc.swift in Sources */,
 				BF_FE8A8923977E8598DB624AF6D3510FFF /* core.pb.swift in Sources */,
+				BF_5C9E7965903F3755BDD50FF79F96AAEC /* gimbal.grpc.swift in Sources */,
+				BF_5AA3C56028E3E83C0581ECA8EF4E6B81 /* gimbal.pb.swift in Sources */,
 				BF_E843F5AE0FE7B4CB8BC768A1E9C439F9 /* info.grpc.swift in Sources */,
 				BF_71DD132FEBF6E23FC8673BCCFF2F4A97 /* info.pb.swift in Sources */,
 				BF_CCFF11A061BC7B41945C77341DC72424 /* mission.grpc.swift in Sources */,
 				BF_B40DCB1F07207FD866CD78261E5B64C0 /* mission.pb.swift in Sources */,
+				BF_A132C6933FBB9EF0ADA45673674742F4 /* param.grpc.swift in Sources */,
+				BF_BEACF4CB9448429D0419B584C2A7E14D /* param.pb.swift in Sources */,
 				BF_172240AE869402A35A81ACF724974097 /* telemetry.grpc.swift in Sources */,
-				A5CB9E58225689B7005D36AF /* gimbal.pb.swift in Sources */,
 				BF_0A11664893F185759EF859CEFC5BF57C /* telemetry.pb.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
