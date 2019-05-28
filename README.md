@@ -19,8 +19,43 @@ github "Dronecode/DronecodeSDK-Swift" ~> 0.3.0
 And then get the framework using:
 
 ```shell
+rm -rf Carthage ~/Library/Caches/org.carthage.CarthageKit ~/Library/Caches/carthage
 carthage bootstrap --platform ios
 ```
+
+Back in your Xcode project you will need to import the libraries. On your application targets’ General settings tab, in the “Linked Frameworks and Libraries” section, drag and drop all files with the file extension `.framework` into here, except for `RxTest.framework` or your app will crash.
+
+On your application targets’ Build Phases settings tab, click the + icon and choose New Run Script Phase. Create a Run Script in which you specify your shell (ex: /bin/sh), add the following contents to the script area below the shell:
+```
+/usr/local/bin/carthage copy-frameworks
+```
+Add the paths to the frameworks under “Input Files".
+```
+$(SRCROOT)/Carthage/Build/iOS/SwiftProtobuf.framework
+$(SRCROOT)/Carthage/Build/iOS/SwiftGRPC.framework
+$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework
+$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework
+$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework
+$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework
+$(SRCROOT)/Carthage/Build/iOS/Dronecode_SDK_Swift.framework
+$(SRCROOT)/Carthage/Build/iOS/CgRPC.framework
+$(SRCROOT)/Carthage/Build/iOS/BoringSSL.framework
+$(SRCROOT)/Carthage/Build/iOS/backend.framework
+```
+Add the paths to the copied frameworks to the “Output Files”.
+```
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftProtobuf.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftGRPC.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Dronecode_SDK_Swift.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CgRPC.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BoringSSL.framework
+$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/backend.framework
+```
+
 
 ### Start MAVLink connection
 
