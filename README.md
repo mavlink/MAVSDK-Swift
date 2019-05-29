@@ -19,7 +19,6 @@ github "Dronecode/DronecodeSDK-Swift" ~> 0.3.0
 And then get the framework using:
 
 ```shell
-rm -rf Carthage ~/Library/Caches/org.carthage.CarthageKit ~/Library/Caches/carthage
 carthage bootstrap --platform ios
 ```
 
@@ -55,7 +54,11 @@ $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CgRPC.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BoringSSL.framework
 $(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/backend.framework
 ```
-
+#### Troubleshooting
+If you run into any issues with running the carthage command then you can clear the cache and try it again
+```
+rm -rf Carthage ~/Library/Caches/org.carthage.CarthageKit ~/Library/Caches/carthage
+```
 
 ### Start MAVLink connection
 
