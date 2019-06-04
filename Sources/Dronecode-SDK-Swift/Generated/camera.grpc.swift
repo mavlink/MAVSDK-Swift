@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import Dispatch
+import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -89,10 +89,6 @@ fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCallBa
   override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeMode" }
 }
 
-class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_ModeResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
-  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeMode" }
-}
-
 internal protocol DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall: ClientCallUnary {}
 
 fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
@@ -115,10 +111,6 @@ fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStrea
   override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeVideoStreamInfo" }
 }
 
-class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
-  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeVideoStreamInfo" }
-}
-
 internal protocol DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Camera_CaptureInfoResponse?
@@ -132,10 +124,6 @@ internal extension DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall
 }
 
 fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, DronecodeSdk_Rpc_Camera_CaptureInfoResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
-  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCaptureInfo" }
-}
-
-class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_CaptureInfoResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
   override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCaptureInfo" }
 }
 
@@ -155,10 +143,6 @@ fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStat
   override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCameraStatus" }
 }
 
-class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_CameraStatusResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
-  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCameraStatus" }
-}
-
 internal protocol DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Camera_CurrentSettingsResponse?
@@ -172,10 +156,6 @@ internal extension DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettings
 }
 
 fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, DronecodeSdk_Rpc_Camera_CurrentSettingsResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
-  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCurrentSettings" }
-}
-
-class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_CurrentSettingsResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
   override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCurrentSettings" }
 }
 
@@ -195,10 +175,6 @@ fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSe
   override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribePossibleSettingOptions" }
 }
 
-class DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
-  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribePossibleSettingOptions" }
-}
-
 internal protocol DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall: ClientCallUnary {}
 
 fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Camera_SetSettingRequest, DronecodeSdk_Rpc_Camera_SetSettingResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
@@ -209,340 +185,589 @@ fileprivate final class DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCallBase:
 /// Instantiate DronecodeSdk_Rpc_Camera_CameraServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Camera_CameraServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse
+  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse
   /// Asynchronous. Unary.
-  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall
+  @discardableResult
+  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall
 
   /// Synchronous. Unary.
-  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse
+  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse
   /// Asynchronous. Unary.
-  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall
+  @discardableResult
+  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall
 
   /// Synchronous. Unary.
-  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse
+  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse
   /// Asynchronous. Unary.
-  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall
+  @discardableResult
+  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall
 
   /// Synchronous. Unary.
-  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse
+  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse
   /// Asynchronous. Unary.
-  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall
+  @discardableResult
+  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall
 
   /// Synchronous. Unary.
-  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse
+  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse
   /// Asynchronous. Unary.
-  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall
+  @discardableResult
+  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall
 
   /// Synchronous. Unary.
-  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse
+  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse
   /// Asynchronous. Unary.
-  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall
+  @discardableResult
+  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall
 
   /// Synchronous. Unary.
-  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse
+  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse
   /// Asynchronous. Unary.
-  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall
+  @discardableResult
+  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall
 
   /// Synchronous. Unary.
-  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse
+  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse
   /// Asynchronous. Unary.
-  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall
+  @discardableResult
+  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall
+  func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall
 
   /// Synchronous. Unary.
-  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse
+  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse
   /// Asynchronous. Unary.
-  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall
+  @discardableResult
+  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall
+  func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall
+  func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall
+  func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall
+  func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall
+  func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall
 
   /// Synchronous. Unary.
-  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse
+  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse
   /// Asynchronous. Unary.
-  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall
+  @discardableResult
+  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Camera_CameraServiceService {
+  /// Synchronous. Unary.
+  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse {
+    return try self.takePhoto(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall {
+    return try self.takePhoto(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
+    return try self.startPhotoInterval(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall {
+    return try self.startPhotoInterval(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
+    return try self.stopPhotoInterval(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall {
+    return try self.stopPhotoInterval(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse {
+    return try self.startVideo(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall {
+    return try self.startVideo(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse {
+    return try self.stopVideo(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall {
+    return try self.stopVideo(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
+    return try self.startVideoStreaming(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall {
+    return try self.startVideoStreaming(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
+    return try self.stopVideoStreaming(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall {
+    return try self.stopVideoStreaming(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse {
+    return try self.setMode(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall {
+    return try self.setMode(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
+    return try self.subscribeMode(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
+    return try self.setVideoStreamSettings(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
+    return try self.setVideoStreamSettings(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
+    return try self.subscribeVideoStreamInfo(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
+    return try self.subscribeCaptureInfo(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
+    return try self.subscribeCameraStatus(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
+    return try self.subscribeCurrentSettings(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
+    return try self.subscribePossibleSettingOptions(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse {
+    return try self.setSetting(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
+    return try self.setSetting(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
 internal final class DronecodeSdk_Rpc_Camera_CameraServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Camera_CameraServiceService {
   /// Synchronous. Unary.
-  internal func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse {
+  internal func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall {
+  @discardableResult
+  internal func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
+  internal func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall {
+  @discardableResult
+  internal func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
+  internal func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall {
+  @discardableResult
+  internal func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse {
+  internal func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall {
+  @discardableResult
+  internal func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse {
+  internal func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall {
+  @discardableResult
+  internal func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
+  internal func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall {
+  @discardableResult
+  internal func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
+  internal func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall {
+  @discardableResult
+  internal func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse {
+  internal func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSetModeCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall {
+  @discardableResult
+  internal func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSetModeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
+  internal func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
+  internal func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
+  @discardableResult
+  internal func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
+  internal func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
+  internal func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
+  internal func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
+  internal func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
+  internal func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse {
+  internal func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
+  @discardableResult
+  internal func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
     return try DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/TakePhoto" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/StartPhotoInterval" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/StopPhotoInterval" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/StartVideo" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/StopVideo" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/StartVideoStreaming" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/StopVideoStreaming" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSetModeCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SetMode" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_ModeResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeMode" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SetVideoStreamSettings" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeVideoStreamInfo" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_CaptureInfoResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCaptureInfo" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_CameraStatusResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCameraStatus" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_CurrentSettingsResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribeCurrentSettings" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse>, DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SubscribePossibleSettingOptions" }
+}
+
+class DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
+  override class var method: String { return "/dronecode_sdk.rpc.camera.CameraService/SetSetting" }
 }
 
 class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Camera_CameraServiceService {
   var takePhotoRequests: [DronecodeSdk_Rpc_Camera_TakePhotoRequest] = []
   var takePhotoResponses: [DronecodeSdk_Rpc_Camera_TakePhotoResponse] = []
-  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse {
+  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_TakePhotoResponse {
     takePhotoRequests.append(request)
     defer { takePhotoResponses.removeFirst() }
     return takePhotoResponses.first!
   }
-  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall {
-    fatalError("not implemented")
+  @discardableResult
+  func takePhoto(_ request: DronecodeSdk_Rpc_Camera_TakePhotoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_TakePhotoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCall {
+    let response = try self.takePhoto(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceTakePhotoCallTestStub()
   }
 
   var startPhotoIntervalRequests: [DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest] = []
   var startPhotoIntervalResponses: [DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse] = []
-  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
+  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
     startPhotoIntervalRequests.append(request)
     defer { startPhotoIntervalResponses.removeFirst() }
     return startPhotoIntervalResponses.first!
   }
-  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall {
-    fatalError("not implemented")
+  @discardableResult
+  func startPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCall {
+    let response = try self.startPhotoInterval(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceStartPhotoIntervalCallTestStub()
   }
 
   var stopPhotoIntervalRequests: [DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest] = []
   var stopPhotoIntervalResponses: [DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse] = []
-  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
+  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
     stopPhotoIntervalRequests.append(request)
     defer { stopPhotoIntervalResponses.removeFirst() }
     return stopPhotoIntervalResponses.first!
   }
-  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall {
-    fatalError("not implemented")
+  @discardableResult
+  func stopPhotoInterval(_ request: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCall {
+    let response = try self.stopPhotoInterval(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceStopPhotoIntervalCallTestStub()
   }
 
   var startVideoRequests: [DronecodeSdk_Rpc_Camera_StartVideoRequest] = []
   var startVideoResponses: [DronecodeSdk_Rpc_Camera_StartVideoResponse] = []
-  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse {
+  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartVideoResponse {
     startVideoRequests.append(request)
     defer { startVideoResponses.removeFirst() }
     return startVideoResponses.first!
   }
-  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall {
-    fatalError("not implemented")
+  @discardableResult
+  func startVideo(_ request: DronecodeSdk_Rpc_Camera_StartVideoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCall {
+    let response = try self.startVideo(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceStartVideoCallTestStub()
   }
 
   var stopVideoRequests: [DronecodeSdk_Rpc_Camera_StopVideoRequest] = []
   var stopVideoResponses: [DronecodeSdk_Rpc_Camera_StopVideoResponse] = []
-  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse {
+  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopVideoResponse {
     stopVideoRequests.append(request)
     defer { stopVideoResponses.removeFirst() }
     return stopVideoResponses.first!
   }
-  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall {
-    fatalError("not implemented")
+  @discardableResult
+  func stopVideo(_ request: DronecodeSdk_Rpc_Camera_StopVideoRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCall {
+    let response = try self.stopVideo(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceStopVideoCallTestStub()
   }
 
   var startVideoStreamingRequests: [DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest] = []
   var startVideoStreamingResponses: [DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse] = []
-  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
+  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
     startVideoStreamingRequests.append(request)
     defer { startVideoStreamingResponses.removeFirst() }
     return startVideoStreamingResponses.first!
   }
-  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall {
-    fatalError("not implemented")
+  @discardableResult
+  func startVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCall {
+    let response = try self.startVideoStreaming(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceStartVideoStreamingCallTestStub()
   }
 
   var stopVideoStreamingRequests: [DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest] = []
   var stopVideoStreamingResponses: [DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse] = []
-  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
+  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
     stopVideoStreamingRequests.append(request)
     defer { stopVideoStreamingResponses.removeFirst() }
     return stopVideoStreamingResponses.first!
   }
-  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall {
-    fatalError("not implemented")
+  @discardableResult
+  func stopVideoStreaming(_ request: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCall {
+    let response = try self.stopVideoStreaming(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceStopVideoStreamingCallTestStub()
   }
 
   var setModeRequests: [DronecodeSdk_Rpc_Camera_SetModeRequest] = []
   var setModeResponses: [DronecodeSdk_Rpc_Camera_SetModeResponse] = []
-  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse {
+  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetModeResponse {
     setModeRequests.append(request)
     defer { setModeResponses.removeFirst() }
     return setModeResponses.first!
   }
-  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall {
-    fatalError("not implemented")
+  @discardableResult
+  func setMode(_ request: DronecodeSdk_Rpc_Camera_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetModeResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetModeCall {
+    let response = try self.setMode(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceSetModeCallTestStub()
   }
 
   var subscribeModeRequests: [DronecodeSdk_Rpc_Camera_SubscribeModeRequest] = []
   var subscribeModeCalls: [DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall] = []
-  func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
+  func subscribeMode(_ request: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCall {
     subscribeModeRequests.append(request)
     defer { subscribeModeCalls.removeFirst() }
     return subscribeModeCalls.first!
@@ -550,18 +775,22 @@ class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStu
 
   var setVideoStreamSettingsRequests: [DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest] = []
   var setVideoStreamSettingsResponses: [DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse] = []
-  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
+  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
     setVideoStreamSettingsRequests.append(request)
     defer { setVideoStreamSettingsResponses.removeFirst() }
     return setVideoStreamSettingsResponses.first!
   }
-  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
-    fatalError("not implemented")
+  @discardableResult
+  func setVideoStreamSettings(_ request: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCall {
+    let response = try self.setVideoStreamSettings(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceSetVideoStreamSettingsCallTestStub()
   }
 
   var subscribeVideoStreamInfoRequests: [DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest] = []
   var subscribeVideoStreamInfoCalls: [DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall] = []
-  func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
+  func subscribeVideoStreamInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
     subscribeVideoStreamInfoRequests.append(request)
     defer { subscribeVideoStreamInfoCalls.removeFirst() }
     return subscribeVideoStreamInfoCalls.first!
@@ -569,7 +798,7 @@ class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStu
 
   var subscribeCaptureInfoRequests: [DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest] = []
   var subscribeCaptureInfoCalls: [DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall] = []
-  func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
+  func subscribeCaptureInfo(_ request: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCall {
     subscribeCaptureInfoRequests.append(request)
     defer { subscribeCaptureInfoCalls.removeFirst() }
     return subscribeCaptureInfoCalls.first!
@@ -577,7 +806,7 @@ class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStu
 
   var subscribeCameraStatusRequests: [DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest] = []
   var subscribeCameraStatusCalls: [DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall] = []
-  func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
+  func subscribeCameraStatus(_ request: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
     subscribeCameraStatusRequests.append(request)
     defer { subscribeCameraStatusCalls.removeFirst() }
     return subscribeCameraStatusCalls.first!
@@ -585,7 +814,7 @@ class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStu
 
   var subscribeCurrentSettingsRequests: [DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest] = []
   var subscribeCurrentSettingsCalls: [DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall] = []
-  func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
+  func subscribeCurrentSettings(_ request: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
     subscribeCurrentSettingsRequests.append(request)
     defer { subscribeCurrentSettingsCalls.removeFirst() }
     return subscribeCurrentSettingsCalls.first!
@@ -593,7 +822,7 @@ class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStu
 
   var subscribePossibleSettingOptionsRequests: [DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest] = []
   var subscribePossibleSettingOptionsCalls: [DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall] = []
-  func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
+  func subscribePossibleSettingOptions(_ request: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCall {
     subscribePossibleSettingOptionsRequests.append(request)
     defer { subscribePossibleSettingOptionsCalls.removeFirst() }
     return subscribePossibleSettingOptionsCalls.first!
@@ -601,13 +830,17 @@ class DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStu
 
   var setSettingRequests: [DronecodeSdk_Rpc_Camera_SetSettingRequest] = []
   var setSettingResponses: [DronecodeSdk_Rpc_Camera_SetSettingResponse] = []
-  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse {
+  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Camera_SetSettingResponse {
     setSettingRequests.append(request)
     defer { setSettingResponses.removeFirst() }
     return setSettingResponses.first!
   }
-  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
-    fatalError("not implemented")
+  @discardableResult
+  func setSetting(_ request: DronecodeSdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCall {
+    let response = try self.setSetting(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Camera_CameraServiceSetSettingCallTestStub()
   }
 
 }

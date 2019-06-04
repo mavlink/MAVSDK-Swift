@@ -445,6 +445,7 @@ struct DronecodeSdk_Rpc_Mission_MissionResult {
     case failedToOpenQgcPlan // = 9
     case failedToParseQgcPlan // = 10
     case unsupportedMissionCmd // = 11
+    case transferCancelled // = 12
     case UNRECOGNIZED(Int)
 
     init() {
@@ -465,6 +466,7 @@ struct DronecodeSdk_Rpc_Mission_MissionResult {
       case 9: self = .failedToOpenQgcPlan
       case 10: self = .failedToParseQgcPlan
       case 11: self = .unsupportedMissionCmd
+      case 12: self = .transferCancelled
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -483,6 +485,7 @@ struct DronecodeSdk_Rpc_Mission_MissionResult {
       case .failedToOpenQgcPlan: return 9
       case .failedToParseQgcPlan: return 10
       case .unsupportedMissionCmd: return 11
+      case .transferCancelled: return 12
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -509,6 +512,7 @@ extension DronecodeSdk_Rpc_Mission_MissionResult.Result: CaseIterable {
     .failedToOpenQgcPlan,
     .failedToParseQgcPlan,
     .unsupportedMissionCmd,
+    .transferCancelled,
   ]
 }
 
@@ -1424,5 +1428,6 @@ extension DronecodeSdk_Rpc_Mission_MissionResult.Result: SwiftProtobuf._ProtoNam
     9: .same(proto: "FAILED_TO_OPEN_QGC_PLAN"),
     10: .same(proto: "FAILED_TO_PARSE_QGC_PLAN"),
     11: .same(proto: "UNSUPPORTED_MISSION_CMD"),
+    12: .same(proto: "TRANSFER_CANCELLED"),
   ]
 }

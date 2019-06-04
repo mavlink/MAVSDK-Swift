@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import Dispatch
+import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -53,117 +53,200 @@ fileprivate final class DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCallBase
 /// Instantiate DronecodeSdk_Rpc_Param_ParamServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Param_ParamServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse
+  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse
   /// Asynchronous. Unary.
-  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall
+  @discardableResult
+  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall
 
   /// Synchronous. Unary.
-  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse
+  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse
   /// Asynchronous. Unary.
-  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall
+  @discardableResult
+  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall
 
   /// Synchronous. Unary.
-  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse
+  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse
   /// Asynchronous. Unary.
-  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall
+  @discardableResult
+  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall
 
   /// Synchronous. Unary.
-  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse
+  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse
   /// Asynchronous. Unary.
-  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall
+  @discardableResult
+  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Param_ParamServiceService {
+  /// Synchronous. Unary.
+  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse {
+    return try self.getIntParam(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall {
+    return try self.getIntParam(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse {
+    return try self.setIntParam(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall {
+    return try self.setIntParam(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse {
+    return try self.getFloatParam(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall {
+    return try self.getFloatParam(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse {
+    return try self.setFloatParam(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall {
+    return try self.setFloatParam(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
 internal final class DronecodeSdk_Rpc_Param_ParamServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Param_ParamServiceService {
   /// Synchronous. Unary.
-  internal func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse {
+  internal func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse {
     return try DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall {
+  @discardableResult
+  internal func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall {
     return try DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse {
+  internal func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse {
     return try DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall {
+  @discardableResult
+  internal func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall {
     return try DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse {
+  internal func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse {
     return try DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall {
+  @discardableResult
+  internal func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall {
     return try DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse {
+  internal func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse {
     return try DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall {
+  @discardableResult
+  internal func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall {
     return try DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+}
+
+class DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall {
+  override class var method: String { return "/dronecode_sdk.rpc.param.ParamService/GetIntParam" }
+}
+
+class DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall {
+  override class var method: String { return "/dronecode_sdk.rpc.param.ParamService/SetIntParam" }
+}
+
+class DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall {
+  override class var method: String { return "/dronecode_sdk.rpc.param.ParamService/GetFloatParam" }
+}
+
+class DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall {
+  override class var method: String { return "/dronecode_sdk.rpc.param.ParamService/SetFloatParam" }
 }
 
 class DronecodeSdk_Rpc_Param_ParamServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Param_ParamServiceService {
   var getIntParamRequests: [DronecodeSdk_Rpc_Param_GetIntParamRequest] = []
   var getIntParamResponses: [DronecodeSdk_Rpc_Param_GetIntParamResponse] = []
-  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse {
+  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_GetIntParamResponse {
     getIntParamRequests.append(request)
     defer { getIntParamResponses.removeFirst() }
     return getIntParamResponses.first!
   }
-  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall {
-    fatalError("not implemented")
+  @discardableResult
+  func getIntParam(_ request: DronecodeSdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCall {
+    let response = try self.getIntParam(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Param_ParamServiceGetIntParamCallTestStub()
   }
 
   var setIntParamRequests: [DronecodeSdk_Rpc_Param_SetIntParamRequest] = []
   var setIntParamResponses: [DronecodeSdk_Rpc_Param_SetIntParamResponse] = []
-  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse {
+  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_SetIntParamResponse {
     setIntParamRequests.append(request)
     defer { setIntParamResponses.removeFirst() }
     return setIntParamResponses.first!
   }
-  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall {
-    fatalError("not implemented")
+  @discardableResult
+  func setIntParam(_ request: DronecodeSdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCall {
+    let response = try self.setIntParam(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Param_ParamServiceSetIntParamCallTestStub()
   }
 
   var getFloatParamRequests: [DronecodeSdk_Rpc_Param_GetFloatParamRequest] = []
   var getFloatParamResponses: [DronecodeSdk_Rpc_Param_GetFloatParamResponse] = []
-  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse {
+  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_GetFloatParamResponse {
     getFloatParamRequests.append(request)
     defer { getFloatParamResponses.removeFirst() }
     return getFloatParamResponses.first!
   }
-  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall {
-    fatalError("not implemented")
+  @discardableResult
+  func getFloatParam(_ request: DronecodeSdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCall {
+    let response = try self.getFloatParam(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Param_ParamServiceGetFloatParamCallTestStub()
   }
 
   var setFloatParamRequests: [DronecodeSdk_Rpc_Param_SetFloatParamRequest] = []
   var setFloatParamResponses: [DronecodeSdk_Rpc_Param_SetFloatParamResponse] = []
-  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse {
+  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Param_SetFloatParamResponse {
     setFloatParamRequests.append(request)
     defer { setFloatParamResponses.removeFirst() }
     return setFloatParamResponses.first!
   }
-  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall {
-    fatalError("not implemented")
+  @discardableResult
+  func setFloatParam(_ request: DronecodeSdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCall {
+    let response = try self.setFloatParam(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Param_ParamServiceSetFloatParamCallTestStub()
   }
 
 }
