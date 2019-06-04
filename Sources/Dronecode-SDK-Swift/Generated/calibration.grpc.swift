@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import Dispatch
+import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -41,10 +41,6 @@ fileprivate final class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribe
   override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro" }
 }
 
-class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
-  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro" }
-}
-
 internal protocol DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse?
@@ -58,10 +54,6 @@ internal extension DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalib
 }
 
 fileprivate final class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
-  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer" }
-}
-
-class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
   override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer" }
 }
 
@@ -81,10 +73,6 @@ fileprivate final class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribe
   override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
 }
 
-class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
-  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
-}
-
 internal protocol DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse?
@@ -101,10 +89,6 @@ fileprivate final class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribe
   override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer" }
 }
 
-class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
-  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer" }
-}
-
 internal protocol DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall: ClientCallUnary {}
 
 fileprivate final class DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Calibration_CancelRequest, DronecodeSdk_Rpc_Calibration_CancelResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
@@ -117,27 +101,61 @@ internal protocol DronecodeSdk_Rpc_Calibration_CalibrationServiceService: Servic
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall
+  func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall
+  func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall
+  func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall
+  func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall
 
   /// Synchronous. Unary.
-  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse
+  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse
   /// Asynchronous. Unary.
-  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall
+  @discardableResult
+  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Calibration_CalibrationServiceService {
+  /// Asynchronous. Server-streaming.
+  func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+    return try self.subscribeCalibrateGyro(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+    return try self.subscribeCalibrateAccelerometer(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+    return try self.subscribeCalibrateMagnetometer(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+    return try self.subscribeCalibrateGimbalAccelerometer(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse {
+    return try self.cancel(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
+    return try self.cancel(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
@@ -145,52 +163,73 @@ internal final class DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceClien
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+  internal func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
     return try DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+  internal func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
     return try DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+  internal func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
     return try DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+  internal func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
     return try DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse {
+  internal func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse {
     return try DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
+  @discardableResult
+  internal func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
     return try DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+}
+
+class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro" }
+}
+
+class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer" }
+}
+
+class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
+}
+
+class DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>, DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer" }
+}
+
+class DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
+  override class var method: String { return "/dronecode_sdk.rpc.calibration.CalibrationService/Cancel" }
 }
 
 class DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Calibration_CalibrationServiceService {
   var subscribeCalibrateGyroRequests: [DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest] = []
   var subscribeCalibrateGyroCalls: [DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall] = []
-  func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+  func subscribeCalibrateGyro(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
     subscribeCalibrateGyroRequests.append(request)
     defer { subscribeCalibrateGyroCalls.removeFirst() }
     return subscribeCalibrateGyroCalls.first!
@@ -198,7 +237,7 @@ class DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceCli
 
   var subscribeCalibrateAccelerometerRequests: [DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest] = []
   var subscribeCalibrateAccelerometerCalls: [DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall] = []
-  func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+  func subscribeCalibrateAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
     subscribeCalibrateAccelerometerRequests.append(request)
     defer { subscribeCalibrateAccelerometerCalls.removeFirst() }
     return subscribeCalibrateAccelerometerCalls.first!
@@ -206,7 +245,7 @@ class DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceCli
 
   var subscribeCalibrateMagnetometerRequests: [DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest] = []
   var subscribeCalibrateMagnetometerCalls: [DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall] = []
-  func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+  func subscribeCalibrateMagnetometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
     subscribeCalibrateMagnetometerRequests.append(request)
     defer { subscribeCalibrateMagnetometerCalls.removeFirst() }
     return subscribeCalibrateMagnetometerCalls.first!
@@ -214,7 +253,7 @@ class DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceCli
 
   var subscribeCalibrateGimbalAccelerometerRequests: [DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest] = []
   var subscribeCalibrateGimbalAccelerometerCalls: [DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall] = []
-  func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+  func subscribeCalibrateGimbalAccelerometer(_ request: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
     subscribeCalibrateGimbalAccelerometerRequests.append(request)
     defer { subscribeCalibrateGimbalAccelerometerCalls.removeFirst() }
     return subscribeCalibrateGimbalAccelerometerCalls.first!
@@ -222,13 +261,17 @@ class DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceCli
 
   var cancelRequests: [DronecodeSdk_Rpc_Calibration_CancelRequest] = []
   var cancelResponses: [DronecodeSdk_Rpc_Calibration_CancelResponse] = []
-  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse {
+  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Calibration_CancelResponse {
     cancelRequests.append(request)
     defer { cancelResponses.removeFirst() }
     return cancelResponses.first!
   }
-  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
-    fatalError("not implemented")
+  @discardableResult
+  func cancel(_ request: DronecodeSdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCall {
+    let response = try self.cancel(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Calibration_CalibrationServiceCancelCallTestStub()
   }
 
 }

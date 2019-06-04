@@ -243,6 +243,7 @@ public class Mission {
             case failedToOpenQgcPlan
             case failedToParseQgcPlan
             case unsupportedMissionCmd
+            case transferCancelled
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: DronecodeSdk_Rpc_Mission_MissionResult.Result {
@@ -271,6 +272,8 @@ public class Mission {
                     return .failedToParseQgcPlan
                 case .unsupportedMissionCmd:
                     return .unsupportedMissionCmd
+                case .transferCancelled:
+                    return .transferCancelled
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -302,6 +305,8 @@ public class Mission {
                     return .failedToParseQgcPlan
                 case .unsupportedMissionCmd:
                     return .unsupportedMissionCmd
+                case .transferCancelled:
+                    return .transferCancelled
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

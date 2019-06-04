@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import Dispatch
+import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -35,36 +35,59 @@ fileprivate final class DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallB
 /// Instantiate DronecodeSdk_Rpc_Gimbal_GimbalServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol DronecodeSdk_Rpc_Gimbal_GimbalServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse
+  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse
   /// Asynchronous. Unary.
-  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall
+  @discardableResult
+  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall
+
+}
+
+internal extension DronecodeSdk_Rpc_Gimbal_GimbalServiceService {
+  /// Synchronous. Unary.
+  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
+    return try self.setPitchAndYaw(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
+    return try self.setPitchAndYaw(request, metadata: self.metadata, completion: completion)
+  }
 
 }
 
 internal final class DronecodeSdk_Rpc_Gimbal_GimbalServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Gimbal_GimbalServiceService {
   /// Synchronous. Unary.
-  internal func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
+  internal func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
     return try DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase(channel)
-      .run(request: request, metadata: metadata)
+      .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
-  internal func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
+  @discardableResult
+  internal func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
     return try DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase(channel)
-      .start(request: request, metadata: metadata, completion: completion)
+      .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+}
+
+class DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
+  override class var method: String { return "/dronecode_sdk.rpc.gimbal.GimbalService/SetPitchAndYaw" }
 }
 
 class DronecodeSdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Gimbal_GimbalServiceService {
   var setPitchAndYawRequests: [DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest] = []
   var setPitchAndYawResponses: [DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse] = []
-  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
+  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
     setPitchAndYawRequests.append(request)
     defer { setPitchAndYawResponses.removeFirst() }
     return setPitchAndYawResponses.first!
   }
-  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-    fatalError("not implemented")
+  @discardableResult
+  func setPitchAndYaw(_ request: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
+    let response = try self.setPitchAndYaw(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return DronecodeSdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub()
   }
 
 }
