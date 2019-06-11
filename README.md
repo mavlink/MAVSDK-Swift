@@ -1,4 +1,4 @@
-# Dronecode-SDK-Swift
+# MAVSDK-Swift
 
 ## Getting started in iOS
 
@@ -13,7 +13,7 @@ gem install --user xcodeproj
 Add the following to your `Cartfile`:
 
 ```shell
-github "Dronecode/DronecodeSDK-Swift" ~> 0.3.0
+github "mavlink/MAVSDK-Swift" ~> 0.5.0
 ```
 
 And then get the framework using:
@@ -99,11 +99,11 @@ Learn more about RxSwift [here](https://github.com/ReactiveX/RxSwift), and have 
 
 ### Examples
 
-Check out the [examples](https://github.com/Dronecode/DronecodeSDK-Swift-Example) for more examples using this framework.
+Check out the [examples](https://github.com/mavlink/MAVSDK-Swift-Example) for more examples using this framework.
 
 ## Contribute
 
-If you want to contribute, please check out: [CONTRIBUTING.md](https://github.com/Dronecode/DronecodeSDK-Swift/blob/master/CONTRIBUTING.md).
+If you want to contribute, please check out: [CONTRIBUTING.md](https://github.com/mavlink/MAVSDK-Swift/blob/master/CONTRIBUTING.md).
 
 ### Build the SDK
 
