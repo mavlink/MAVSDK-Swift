@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-enum DronecodeSdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
+enum Mavsdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case unknown // = 0
   case photo // = 1
@@ -52,9 +52,9 @@ enum DronecodeSdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Camera_CameraMode: CaseIterable {
+extension Mavsdk_Rpc_Camera_CameraMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_CameraMode] = [
+  static var allCases: [Mavsdk_Rpc_Camera_CameraMode] = [
     .unknown,
     .photo,
     .video,
@@ -63,7 +63,7 @@ extension DronecodeSdk_Rpc_Camera_CameraMode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct DronecodeSdk_Rpc_Camera_TakePhotoRequest {
+struct Mavsdk_Rpc_Camera_TakePhotoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -73,13 +73,13 @@ struct DronecodeSdk_Rpc_Camera_TakePhotoRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_TakePhotoResponse {
+struct Mavsdk_Rpc_Camera_TakePhotoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -94,7 +94,7 @@ struct DronecodeSdk_Rpc_Camera_TakePhotoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest {
+struct Mavsdk_Rpc_Camera_StartPhotoIntervalRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -106,13 +106,13 @@ struct DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
+struct Mavsdk_Rpc_Camera_StartPhotoIntervalResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -127,7 +127,7 @@ struct DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest {
+struct Mavsdk_Rpc_Camera_StopPhotoIntervalRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -137,13 +137,13 @@ struct DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
+struct Mavsdk_Rpc_Camera_StopPhotoIntervalResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -158,7 +158,7 @@ struct DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_StartVideoRequest {
+struct Mavsdk_Rpc_Camera_StartVideoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -168,13 +168,13 @@ struct DronecodeSdk_Rpc_Camera_StartVideoRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_StartVideoResponse {
+struct Mavsdk_Rpc_Camera_StartVideoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -189,7 +189,7 @@ struct DronecodeSdk_Rpc_Camera_StartVideoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_StopVideoRequest {
+struct Mavsdk_Rpc_Camera_StopVideoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -199,13 +199,13 @@ struct DronecodeSdk_Rpc_Camera_StopVideoRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_StopVideoResponse {
+struct Mavsdk_Rpc_Camera_StopVideoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -220,7 +220,7 @@ struct DronecodeSdk_Rpc_Camera_StopVideoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest {
+struct Mavsdk_Rpc_Camera_StartVideoStreamingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -230,13 +230,13 @@ struct DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
+struct Mavsdk_Rpc_Camera_StartVideoStreamingResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -251,7 +251,7 @@ struct DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest {
+struct Mavsdk_Rpc_Camera_StopVideoStreamingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -261,13 +261,13 @@ struct DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
+struct Mavsdk_Rpc_Camera_StopVideoStreamingResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -282,25 +282,25 @@ struct DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_SetModeRequest {
+struct Mavsdk_Rpc_Camera_SetModeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraMode: DronecodeSdk_Rpc_Camera_CameraMode = .unknown
+  var cameraMode: Mavsdk_Rpc_Camera_CameraMode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_SetModeResponse {
+struct Mavsdk_Rpc_Camera_SetModeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -315,7 +315,7 @@ struct DronecodeSdk_Rpc_Camera_SetModeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_SubscribeModeRequest {
+struct Mavsdk_Rpc_Camera_SubscribeModeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -325,40 +325,19 @@ struct DronecodeSdk_Rpc_Camera_SubscribeModeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_ModeResponse {
+struct Mavsdk_Rpc_Camera_ModeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraMode: DronecodeSdk_Rpc_Camera_CameraMode = .unknown
+  var cameraMode: Mavsdk_Rpc_Camera_CameraMode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var videoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings {
-    get {return _storage._videoStreamSettings ?? DronecodeSdk_Rpc_Camera_VideoStreamSettings()}
-    set {_uniqueStorage()._videoStreamSettings = newValue}
-  }
-  /// Returns true if `videoStreamSettings` has been explicitly set.
-  var hasVideoStreamSettings: Bool {return _storage._videoStreamSettings != nil}
-  /// Clears the value of `videoStreamSettings`. Subsequent reads from it will return its default value.
-  mutating func clearVideoStreamSettings() {_uniqueStorage()._videoStreamSettings = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-struct DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
+struct Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -368,23 +347,13 @@ struct DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest {
+struct Mavsdk_Rpc_Camera_VideoStreamInfoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var videoStreamInfo: DronecodeSdk_Rpc_Camera_VideoStreamInfo {
-    get {return _storage._videoStreamInfo ?? DronecodeSdk_Rpc_Camera_VideoStreamInfo()}
+  var videoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo {
+    get {return _storage._videoStreamInfo ?? Mavsdk_Rpc_Camera_VideoStreamInfo()}
     set {_uniqueStorage()._videoStreamInfo = newValue}
   }
   /// Returns true if `videoStreamInfo` has been explicitly set.
@@ -399,7 +368,7 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest {
+struct Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -409,13 +378,13 @@ struct DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_CaptureInfoResponse {
+struct Mavsdk_Rpc_Camera_CaptureInfoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var captureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo {
-    get {return _storage._captureInfo ?? DronecodeSdk_Rpc_Camera_CaptureInfo()}
+  var captureInfo: Mavsdk_Rpc_Camera_CaptureInfo {
+    get {return _storage._captureInfo ?? Mavsdk_Rpc_Camera_CaptureInfo()}
     set {_uniqueStorage()._captureInfo = newValue}
   }
   /// Returns true if `captureInfo` has been explicitly set.
@@ -430,7 +399,7 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest {
+struct Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -440,13 +409,13 @@ struct DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_CameraStatusResponse {
+struct Mavsdk_Rpc_Camera_CameraStatusResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraStatus: DronecodeSdk_Rpc_Camera_CameraStatus {
-    get {return _storage._cameraStatus ?? DronecodeSdk_Rpc_Camera_CameraStatus()}
+  var cameraStatus: Mavsdk_Rpc_Camera_CameraStatus {
+    get {return _storage._cameraStatus ?? Mavsdk_Rpc_Camera_CameraStatus()}
     set {_uniqueStorage()._cameraStatus = newValue}
   }
   /// Returns true if `cameraStatus` has been explicitly set.
@@ -461,7 +430,7 @@ struct DronecodeSdk_Rpc_Camera_CameraStatusResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest {
+struct Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -471,19 +440,19 @@ struct DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_CurrentSettingsResponse {
+struct Mavsdk_Rpc_Camera_CurrentSettingsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var currentSettings: [DronecodeSdk_Rpc_Camera_Setting] = []
+  var currentSettings: [Mavsdk_Rpc_Camera_Setting] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest {
+struct Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -493,25 +462,25 @@ struct DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse {
+struct Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var settingOptions: [DronecodeSdk_Rpc_Camera_SettingOptions] = []
+  var settingOptions: [Mavsdk_Rpc_Camera_SettingOptions] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_SetSettingRequest {
+struct Mavsdk_Rpc_Camera_SetSettingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var setting: DronecodeSdk_Rpc_Camera_Setting {
-    get {return _storage._setting ?? DronecodeSdk_Rpc_Camera_Setting()}
+  var setting: Mavsdk_Rpc_Camera_Setting {
+    get {return _storage._setting ?? Mavsdk_Rpc_Camera_Setting()}
     set {_uniqueStorage()._setting = newValue}
   }
   /// Returns true if `setting` has been explicitly set.
@@ -526,13 +495,13 @@ struct DronecodeSdk_Rpc_Camera_SetSettingRequest {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_SetSettingResponse {
+struct Mavsdk_Rpc_Camera_SetSettingResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var cameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-    get {return _storage._cameraResult ?? DronecodeSdk_Rpc_Camera_CameraResult()}
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
     set {_uniqueStorage()._cameraResult = newValue}
   }
   /// Returns true if `cameraResult` has been explicitly set.
@@ -547,12 +516,12 @@ struct DronecodeSdk_Rpc_Camera_SetSettingResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_CameraResult {
+struct Mavsdk_Rpc_Camera_CameraResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: DronecodeSdk_Rpc_Camera_CameraResult.Result = .unknown
+  var result: Mavsdk_Rpc_Camera_CameraResult.Result = .unknown
 
   var resultStr: String = String()
 
@@ -609,9 +578,9 @@ struct DronecodeSdk_Rpc_Camera_CameraResult {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Camera_CameraResult.Result: CaseIterable {
+extension Mavsdk_Rpc_Camera_CameraResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_CameraResult.Result] = [
+  static var allCases: [Mavsdk_Rpc_Camera_CameraResult.Result] = [
     .unknown,
     .success,
     .inProgress,
@@ -625,13 +594,13 @@ extension DronecodeSdk_Rpc_Camera_CameraResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct DronecodeSdk_Rpc_Camera_CaptureInfo {
+struct Mavsdk_Rpc_Camera_CaptureInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var position: DronecodeSdk_Rpc_Camera_Position {
-    get {return _storage._position ?? DronecodeSdk_Rpc_Camera_Position()}
+  var position: Mavsdk_Rpc_Camera_Position {
+    get {return _storage._position ?? Mavsdk_Rpc_Camera_Position()}
     set {_uniqueStorage()._position = newValue}
   }
   /// Returns true if `position` has been explicitly set.
@@ -639,8 +608,8 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   /// Clears the value of `position`. Subsequent reads from it will return its default value.
   mutating func clearPosition() {_uniqueStorage()._position = nil}
 
-  var attitudeQuaternion: DronecodeSdk_Rpc_Camera_Quaternion {
-    get {return _storage._attitudeQuaternion ?? DronecodeSdk_Rpc_Camera_Quaternion()}
+  var attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion {
+    get {return _storage._attitudeQuaternion ?? Mavsdk_Rpc_Camera_Quaternion()}
     set {_uniqueStorage()._attitudeQuaternion = newValue}
   }
   /// Returns true if `attitudeQuaternion` has been explicitly set.
@@ -648,8 +617,8 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   /// Clears the value of `attitudeQuaternion`. Subsequent reads from it will return its default value.
   mutating func clearAttitudeQuaternion() {_uniqueStorage()._attitudeQuaternion = nil}
 
-  var attitudeEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle {
-    get {return _storage._attitudeEulerAngle ?? DronecodeSdk_Rpc_Camera_EulerAngle()}
+  var attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle {
+    get {return _storage._attitudeEulerAngle ?? Mavsdk_Rpc_Camera_EulerAngle()}
     set {_uniqueStorage()._attitudeEulerAngle = newValue}
   }
   /// Returns true if `attitudeEulerAngle` has been explicitly set.
@@ -684,7 +653,7 @@ struct DronecodeSdk_Rpc_Camera_CaptureInfo {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_Position {
+struct Mavsdk_Rpc_Camera_Position {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -702,7 +671,7 @@ struct DronecodeSdk_Rpc_Camera_Position {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_Quaternion {
+struct Mavsdk_Rpc_Camera_Quaternion {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -720,7 +689,7 @@ struct DronecodeSdk_Rpc_Camera_Quaternion {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_EulerAngle {
+struct Mavsdk_Rpc_Camera_EulerAngle {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -736,7 +705,7 @@ struct DronecodeSdk_Rpc_Camera_EulerAngle {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_VideoStreamSettings {
+struct Mavsdk_Rpc_Camera_VideoStreamSettings {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -758,13 +727,13 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamSettings {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_VideoStreamInfo {
+struct Mavsdk_Rpc_Camera_VideoStreamInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var videoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings {
-    get {return _storage._videoStreamSettings ?? DronecodeSdk_Rpc_Camera_VideoStreamSettings()}
+  var videoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings {
+    get {return _storage._videoStreamSettings ?? Mavsdk_Rpc_Camera_VideoStreamSettings()}
     set {_uniqueStorage()._videoStreamSettings = newValue}
   }
   /// Returns true if `videoStreamSettings` has been explicitly set.
@@ -772,7 +741,7 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfo {
   /// Clears the value of `videoStreamSettings`. Subsequent reads from it will return its default value.
   mutating func clearVideoStreamSettings() {_uniqueStorage()._videoStreamSettings = nil}
 
-  var videoStreamStatus: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
+  var videoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
     get {return _storage._videoStreamStatus}
     set {_uniqueStorage()._videoStreamStatus = newValue}
   }
@@ -814,9 +783,9 @@ struct DronecodeSdk_Rpc_Camera_VideoStreamInfo {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
+  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
     .notRunning,
     .inProgress,
   ]
@@ -824,7 +793,7 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterabl
 
 #endif  // swift(>=4.2)
 
-struct DronecodeSdk_Rpc_Camera_CameraStatus {
+struct Mavsdk_Rpc_Camera_CameraStatus {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -843,7 +812,7 @@ struct DronecodeSdk_Rpc_Camera_CameraStatus {
 
   var mediaFolderName: String = String()
 
-  var storageStatus: DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus = .notAvailable
+  var storageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus = .notAvailable
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -883,9 +852,9 @@ struct DronecodeSdk_Rpc_Camera_CameraStatus {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
+extension Mavsdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus] = [
+  static var allCases: [Mavsdk_Rpc_Camera_CameraStatus.StorageStatus] = [
     .notAvailable,
     .unformatted,
     .formatted,
@@ -894,7 +863,7 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct DronecodeSdk_Rpc_Camera_Setting {
+struct Mavsdk_Rpc_Camera_Setting {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -909,8 +878,8 @@ struct DronecodeSdk_Rpc_Camera_Setting {
     set {_uniqueStorage()._settingDescription = newValue}
   }
 
-  var option: DronecodeSdk_Rpc_Camera_Option {
-    get {return _storage._option ?? DronecodeSdk_Rpc_Camera_Option()}
+  var option: Mavsdk_Rpc_Camera_Option {
+    get {return _storage._option ?? Mavsdk_Rpc_Camera_Option()}
     set {_uniqueStorage()._option = newValue}
   }
   /// Returns true if `option` has been explicitly set.
@@ -925,7 +894,7 @@ struct DronecodeSdk_Rpc_Camera_Setting {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Camera_Option {
+struct Mavsdk_Rpc_Camera_Option {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -939,7 +908,7 @@ struct DronecodeSdk_Rpc_Camera_Option {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Camera_SettingOptions {
+struct Mavsdk_Rpc_Camera_SettingOptions {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -948,7 +917,7 @@ struct DronecodeSdk_Rpc_Camera_SettingOptions {
 
   var settingDescription: String = String()
 
-  var options: [DronecodeSdk_Rpc_Camera_Option] = []
+  var options: [Mavsdk_Rpc_Camera_Option] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -957,9 +926,9 @@ struct DronecodeSdk_Rpc_Camera_SettingOptions {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.camera"
+fileprivate let _protobuf_package = "mavsdk.rpc.camera"
 
-extension DronecodeSdk_Rpc_Camera_CameraMode: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CameraMode: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "PHOTO"),
@@ -967,7 +936,7 @@ extension DronecodeSdk_Rpc_Camera_CameraMode: SwiftProtobuf._ProtoNameProviding 
   ]
 }
 
-extension DronecodeSdk_Rpc_Camera_TakePhotoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_TakePhotoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TakePhotoRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -980,20 +949,20 @@ extension DronecodeSdk_Rpc_Camera_TakePhotoRequest: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_TakePhotoRequest, rhs: DronecodeSdk_Rpc_Camera_TakePhotoRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_TakePhotoRequest, rhs: Mavsdk_Rpc_Camera_TakePhotoRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_TakePhotoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_TakePhotoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TakePhotoResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1032,7 +1001,7 @@ extension DronecodeSdk_Rpc_Camera_TakePhotoResponse: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_TakePhotoResponse, rhs: DronecodeSdk_Rpc_Camera_TakePhotoResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_TakePhotoResponse, rhs: Mavsdk_Rpc_Camera_TakePhotoResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1047,7 +1016,7 @@ extension DronecodeSdk_Rpc_Camera_TakePhotoResponse: SwiftProtobuf.Message, Swif
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StartPhotoIntervalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartPhotoIntervalRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "interval_s"),
@@ -1069,21 +1038,21 @@ extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest, rhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StartPhotoIntervalRequest, rhs: Mavsdk_Rpc_Camera_StartPhotoIntervalRequest) -> Bool {
     if lhs.intervalS != rhs.intervalS {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StartPhotoIntervalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartPhotoIntervalResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1122,7 +1091,7 @@ extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse, rhs: DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StartPhotoIntervalResponse, rhs: Mavsdk_Rpc_Camera_StartPhotoIntervalResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1137,7 +1106,7 @@ extension DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse: SwiftProtobuf.Mess
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StopPhotoIntervalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StopPhotoIntervalRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1150,20 +1119,20 @@ extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest, rhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StopPhotoIntervalRequest, rhs: Mavsdk_Rpc_Camera_StopPhotoIntervalRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StopPhotoIntervalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StopPhotoIntervalResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1202,7 +1171,7 @@ extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse, rhs: DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StopPhotoIntervalResponse, rhs: Mavsdk_Rpc_Camera_StopPhotoIntervalResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1217,7 +1186,7 @@ extension DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse: SwiftProtobuf.Messa
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StartVideoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StartVideoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartVideoRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1230,20 +1199,20 @@ extension DronecodeSdk_Rpc_Camera_StartVideoRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoRequest, rhs: DronecodeSdk_Rpc_Camera_StartVideoRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StartVideoRequest, rhs: Mavsdk_Rpc_Camera_StartVideoRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StartVideoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StartVideoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartVideoResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1282,7 +1251,7 @@ extension DronecodeSdk_Rpc_Camera_StartVideoResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoResponse, rhs: DronecodeSdk_Rpc_Camera_StartVideoResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StartVideoResponse, rhs: Mavsdk_Rpc_Camera_StartVideoResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1297,7 +1266,7 @@ extension DronecodeSdk_Rpc_Camera_StartVideoResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StopVideoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StopVideoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StopVideoRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1310,20 +1279,20 @@ extension DronecodeSdk_Rpc_Camera_StopVideoRequest: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoRequest, rhs: DronecodeSdk_Rpc_Camera_StopVideoRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StopVideoRequest, rhs: Mavsdk_Rpc_Camera_StopVideoRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StopVideoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StopVideoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StopVideoResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1362,7 +1331,7 @@ extension DronecodeSdk_Rpc_Camera_StopVideoResponse: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoResponse, rhs: DronecodeSdk_Rpc_Camera_StopVideoResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StopVideoResponse, rhs: Mavsdk_Rpc_Camera_StopVideoResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1377,7 +1346,7 @@ extension DronecodeSdk_Rpc_Camera_StopVideoResponse: SwiftProtobuf.Message, Swif
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StartVideoStreamingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartVideoStreamingRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1390,20 +1359,20 @@ extension DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest, rhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StartVideoStreamingRequest, rhs: Mavsdk_Rpc_Camera_StartVideoStreamingRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StartVideoStreamingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StartVideoStreamingResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1442,7 +1411,7 @@ extension DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse, rhs: DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StartVideoStreamingResponse, rhs: Mavsdk_Rpc_Camera_StartVideoStreamingResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1457,7 +1426,7 @@ extension DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse: SwiftProtobuf.Mes
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StopVideoStreamingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StopVideoStreamingRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1470,20 +1439,20 @@ extension DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest, rhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StopVideoStreamingRequest, rhs: Mavsdk_Rpc_Camera_StopVideoStreamingRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StopVideoStreamingResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1522,7 +1491,7 @@ extension DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse, rhs: DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StopVideoStreamingResponse, rhs: Mavsdk_Rpc_Camera_StopVideoStreamingResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1537,7 +1506,7 @@ extension DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Mess
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SetModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SetModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetModeRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_mode"),
@@ -1559,21 +1528,21 @@ extension DronecodeSdk_Rpc_Camera_SetModeRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetModeRequest, rhs: DronecodeSdk_Rpc_Camera_SetModeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SetModeRequest, rhs: Mavsdk_Rpc_Camera_SetModeRequest) -> Bool {
     if lhs.cameraMode != rhs.cameraMode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetModeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1612,7 +1581,7 @@ extension DronecodeSdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetModeResponse, rhs: DronecodeSdk_Rpc_Camera_SetModeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SetModeResponse, rhs: Mavsdk_Rpc_Camera_SetModeResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1627,7 +1596,7 @@ extension DronecodeSdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SubscribeModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SubscribeModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeModeRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1640,13 +1609,13 @@ extension DronecodeSdk_Rpc_Camera_SubscribeModeRequest: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeModeRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeModeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeModeRequest, rhs: Mavsdk_Rpc_Camera_SubscribeModeRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_ModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_ModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ModeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_mode"),
@@ -1668,94 +1637,14 @@ extension DronecodeSdk_Rpc_Camera_ModeResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_ModeResponse, rhs: DronecodeSdk_Rpc_Camera_ModeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_ModeResponse, rhs: Mavsdk_Rpc_Camera_ModeResponse) -> Bool {
     if lhs.cameraMode != rhs.cameraMode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetVideoStreamSettingsRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "video_stream_settings"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _videoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _videoStreamSettings = source._videoStreamSettings
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._videoStreamSettings)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._videoStreamSettings {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest, rhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._videoStreamSettings != rhs_storage._videoStreamSettings {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetVideoStreamSettingsResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse, rhs: DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsResponse) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeVideoStreamInfoRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1768,20 +1657,20 @@ extension DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, rhs: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_VideoStreamInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".VideoStreamInfoResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "video_stream_info"),
   ]
 
   fileprivate class _StorageClass {
-    var _videoStreamInfo: DronecodeSdk_Rpc_Camera_VideoStreamInfo? = nil
+    var _videoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1820,7 +1709,7 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse, rhs: DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_VideoStreamInfoResponse, rhs: Mavsdk_Rpc_Camera_VideoStreamInfoResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1835,7 +1724,7 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfoResponse: SwiftProtobuf.Message
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCaptureInfoRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1848,20 +1737,20 @@ extension DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest, rhs: Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CaptureInfoResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "capture_info"),
   ]
 
   fileprivate class _StorageClass {
-    var _captureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo? = nil
+    var _captureInfo: Mavsdk_Rpc_Camera_CaptureInfo? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1900,7 +1789,7 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_CaptureInfoResponse, rhs: DronecodeSdk_Rpc_Camera_CaptureInfoResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_CaptureInfoResponse, rhs: Mavsdk_Rpc_Camera_CaptureInfoResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1915,7 +1804,7 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, Sw
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCameraStatusRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1928,20 +1817,20 @@ extension DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, rhs: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CameraStatusResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_status"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraStatus: DronecodeSdk_Rpc_Camera_CameraStatus? = nil
+    var _cameraStatus: Mavsdk_Rpc_Camera_CameraStatus? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1980,7 +1869,7 @@ extension DronecodeSdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_CameraStatusResponse, rhs: DronecodeSdk_Rpc_Camera_CameraStatusResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_CameraStatusResponse, rhs: Mavsdk_Rpc_Camera_CameraStatusResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1995,7 +1884,7 @@ extension DronecodeSdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, S
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCurrentSettingsRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -2008,13 +1897,13 @@ extension DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest, rhs: Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_CurrentSettingsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CurrentSettingsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CurrentSettingsResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "current_settings"),
@@ -2036,14 +1925,14 @@ extension DronecodeSdk_Rpc_Camera_CurrentSettingsResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_CurrentSettingsResponse, rhs: DronecodeSdk_Rpc_Camera_CurrentSettingsResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_CurrentSettingsResponse, rhs: Mavsdk_Rpc_Camera_CurrentSettingsResponse) -> Bool {
     if lhs.currentSettings != rhs.currentSettings {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribePossibleSettingOptionsRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -2056,13 +1945,13 @@ extension DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest: SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, rhs: DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, rhs: Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PossibleSettingOptionsResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "setting_options"),
@@ -2084,21 +1973,21 @@ extension DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse, rhs: DronecodeSdk_Rpc_Camera_PossibleSettingOptionsResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse, rhs: Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse) -> Bool {
     if lhs.settingOptions != rhs.settingOptions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SetSettingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SetSettingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetSettingRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "setting"),
   ]
 
   fileprivate class _StorageClass {
-    var _setting: DronecodeSdk_Rpc_Camera_Setting? = nil
+    var _setting: Mavsdk_Rpc_Camera_Setting? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2137,7 +2026,7 @@ extension DronecodeSdk_Rpc_Camera_SetSettingRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetSettingRequest, rhs: DronecodeSdk_Rpc_Camera_SetSettingRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SetSettingRequest, rhs: Mavsdk_Rpc_Camera_SetSettingRequest) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -2152,14 +2041,14 @@ extension DronecodeSdk_Rpc_Camera_SetSettingRequest: SwiftProtobuf.Message, Swif
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetSettingResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraResult: DronecodeSdk_Rpc_Camera_CameraResult? = nil
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2198,7 +2087,7 @@ extension DronecodeSdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SetSettingResponse, rhs: DronecodeSdk_Rpc_Camera_SetSettingResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SetSettingResponse, rhs: Mavsdk_Rpc_Camera_SetSettingResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -2213,7 +2102,7 @@ extension DronecodeSdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CameraResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "result"),
@@ -2240,7 +2129,7 @@ extension DronecodeSdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_CameraResult, rhs: DronecodeSdk_Rpc_Camera_CameraResult) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_CameraResult, rhs: Mavsdk_Rpc_Camera_CameraResult) -> Bool {
     if lhs.result != rhs.result {return false}
     if lhs.resultStr != rhs.resultStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -2248,7 +2137,7 @@ extension DronecodeSdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_CameraResult.Result: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CameraResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "SUCCESS"),
@@ -2261,7 +2150,7 @@ extension DronecodeSdk_Rpc_Camera_CameraResult.Result: SwiftProtobuf._ProtoNameP
   ]
 }
 
-extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CaptureInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
@@ -2274,9 +2163,9 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
   ]
 
   fileprivate class _StorageClass {
-    var _position: DronecodeSdk_Rpc_Camera_Position? = nil
-    var _attitudeQuaternion: DronecodeSdk_Rpc_Camera_Quaternion? = nil
-    var _attitudeEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle? = nil
+    var _position: Mavsdk_Rpc_Camera_Position? = nil
+    var _attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion? = nil
+    var _attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle? = nil
     var _timeUtcUs: UInt64 = 0
     var _isSuccess: Bool = false
     var _index: Int32 = 0
@@ -2349,7 +2238,7 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_CaptureInfo, rhs: DronecodeSdk_Rpc_Camera_CaptureInfo) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_CaptureInfo, rhs: Mavsdk_Rpc_Camera_CaptureInfo) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -2370,7 +2259,7 @@ extension DronecodeSdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Position"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "latitude_deg"),
@@ -2407,7 +2296,7 @@ extension DronecodeSdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_Position, rhs: DronecodeSdk_Rpc_Camera_Position) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_Position, rhs: Mavsdk_Rpc_Camera_Position) -> Bool {
     if lhs.latitudeDeg != rhs.latitudeDeg {return false}
     if lhs.longitudeDeg != rhs.longitudeDeg {return false}
     if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
@@ -2417,7 +2306,7 @@ extension DronecodeSdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Quaternion"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "w"),
@@ -2454,7 +2343,7 @@ extension DronecodeSdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_Quaternion, rhs: DronecodeSdk_Rpc_Camera_Quaternion) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_Quaternion, rhs: Mavsdk_Rpc_Camera_Quaternion) -> Bool {
     if lhs.w != rhs.w {return false}
     if lhs.x != rhs.x {return false}
     if lhs.y != rhs.y {return false}
@@ -2464,7 +2353,7 @@ extension DronecodeSdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".EulerAngle"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "roll_deg"),
@@ -2496,7 +2385,7 @@ extension DronecodeSdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_EulerAngle, rhs: DronecodeSdk_Rpc_Camera_EulerAngle) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_EulerAngle, rhs: Mavsdk_Rpc_Camera_EulerAngle) -> Bool {
     if lhs.rollDeg != rhs.rollDeg {return false}
     if lhs.pitchDeg != rhs.pitchDeg {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
@@ -2505,7 +2394,7 @@ extension DronecodeSdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".VideoStreamSettings"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "frame_rate_hz"),
@@ -2552,7 +2441,7 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_VideoStreamSettings, rhs: DronecodeSdk_Rpc_Camera_VideoStreamSettings) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_VideoStreamSettings, rhs: Mavsdk_Rpc_Camera_VideoStreamSettings) -> Bool {
     if lhs.frameRateHz != rhs.frameRateHz {return false}
     if lhs.horizontalResolutionPix != rhs.horizontalResolutionPix {return false}
     if lhs.verticalResolutionPix != rhs.verticalResolutionPix {return false}
@@ -2564,7 +2453,7 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, Sw
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".VideoStreamInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "video_stream_settings"),
@@ -2572,8 +2461,8 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftP
   ]
 
   fileprivate class _StorageClass {
-    var _videoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings? = nil
-    var _videoStreamStatus: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus = .notRunning
+    var _videoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings? = nil
+    var _videoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus = .notRunning
 
     static let defaultInstance = _StorageClass()
 
@@ -2617,7 +2506,7 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_VideoStreamInfo, rhs: DronecodeSdk_Rpc_Camera_VideoStreamInfo) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_VideoStreamInfo, rhs: Mavsdk_Rpc_Camera_VideoStreamInfo) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -2633,14 +2522,14 @@ extension DronecodeSdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NOT_RUNNING"),
     1: .same(proto: "IN_PROGRESS"),
   ]
 }
 
-extension DronecodeSdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CameraStatus"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "video_on"),
@@ -2697,7 +2586,7 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_CameraStatus, rhs: DronecodeSdk_Rpc_Camera_CameraStatus) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_CameraStatus, rhs: Mavsdk_Rpc_Camera_CameraStatus) -> Bool {
     if lhs.videoOn != rhs.videoOn {return false}
     if lhs.photoIntervalOn != rhs.photoIntervalOn {return false}
     if lhs.usedStorageMib != rhs.usedStorageMib {return false}
@@ -2711,7 +2600,7 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_CameraStatus.StorageStatus: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NOT_AVAILABLE"),
     1: .same(proto: "UNFORMATTED"),
@@ -2719,7 +2608,7 @@ extension DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus: SwiftProtobuf._Pro
   ]
 }
 
-extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Setting"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "setting_id"),
@@ -2730,7 +2619,7 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
   fileprivate class _StorageClass {
     var _settingID: String = String()
     var _settingDescription: String = String()
-    var _option: DronecodeSdk_Rpc_Camera_Option? = nil
+    var _option: Mavsdk_Rpc_Camera_Option? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2779,7 +2668,7 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_Setting, rhs: DronecodeSdk_Rpc_Camera_Setting) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_Setting, rhs: Mavsdk_Rpc_Camera_Setting) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -2796,7 +2685,7 @@ extension DronecodeSdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf.
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Option"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "option_id"),
@@ -2823,7 +2712,7 @@ extension DronecodeSdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_Option, rhs: DronecodeSdk_Rpc_Camera_Option) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_Option, rhs: Mavsdk_Rpc_Camera_Option) -> Bool {
     if lhs.optionID != rhs.optionID {return false}
     if lhs.optionDescription != rhs.optionDescription {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -2831,7 +2720,7 @@ extension DronecodeSdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension DronecodeSdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SettingOptions"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "setting_id"),
@@ -2863,7 +2752,7 @@ extension DronecodeSdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Camera_SettingOptions, rhs: DronecodeSdk_Rpc_Camera_SettingOptions) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SettingOptions, rhs: Mavsdk_Rpc_Camera_SettingOptions) -> Bool {
     if lhs.settingID != rhs.settingID {return false}
     if lhs.settingDescription != rhs.settingDescription {return false}
     if lhs.options != rhs.options {return false}

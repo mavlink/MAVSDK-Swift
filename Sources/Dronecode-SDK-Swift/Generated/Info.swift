@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Info {
-    private let service: DronecodeSdk_Rpc_Info_InfoServiceService
+    private let service: Mavsdk_Rpc_Info_InfoServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Info_InfoServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Info_InfoServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Info_InfoServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Info_InfoServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -60,8 +60,8 @@ public class Info {
             self.osSwPatch = osSwPatch
         }
 
-        internal var rpcVersion: DronecodeSdk_Rpc_Info_Version {
-            var rpcVersion = DronecodeSdk_Rpc_Info_Version()
+        internal var rpcVersion: Mavsdk_Rpc_Info_Version {
+            var rpcVersion = Mavsdk_Rpc_Info_Version()
             
                 
             rpcVersion.flightSwMajor = flightSwMajor
@@ -111,7 +111,7 @@ public class Info {
             return rpcVersion
         }
 
-        internal static func translateFromRpc(_ rpcVersion: DronecodeSdk_Rpc_Info_Version) -> Version {
+        internal static func translateFromRpc(_ rpcVersion: Mavsdk_Rpc_Info_Version) -> Version {
             return Version(flightSwMajor: rpcVersion.flightSwMajor, flightSwMinor: rpcVersion.flightSwMinor, flightSwPatch: rpcVersion.flightSwPatch, flightSwVendorMajor: rpcVersion.flightSwVendorMajor, flightSwVendorMinor: rpcVersion.flightSwVendorMinor, flightSwVendorPatch: rpcVersion.flightSwVendorPatch, osSwMajor: rpcVersion.osSwMajor, osSwMinor: rpcVersion.osSwMinor, osSwPatch: rpcVersion.osSwPatch)
         }
 
@@ -141,7 +141,7 @@ public class Info {
             case informationNotReceivedYet
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Info_InfoResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Info_InfoResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -154,7 +154,7 @@ public class Info {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Info_InfoResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Info_InfoResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -174,8 +174,8 @@ public class Info {
             self.resultStr = resultStr
         }
 
-        internal var rpcInfoResult: DronecodeSdk_Rpc_Info_InfoResult {
-            var rpcInfoResult = DronecodeSdk_Rpc_Info_InfoResult()
+        internal var rpcInfoResult: Mavsdk_Rpc_Info_InfoResult {
+            var rpcInfoResult = Mavsdk_Rpc_Info_InfoResult()
             
                 
             rpcInfoResult.result = result.rpcResult
@@ -190,7 +190,7 @@ public class Info {
             return rpcInfoResult
         }
 
-        internal static func translateFromRpc(_ rpcInfoResult: DronecodeSdk_Rpc_Info_InfoResult) -> InfoResult {
+        internal static func translateFromRpc(_ rpcInfoResult: Mavsdk_Rpc_Info_InfoResult) -> InfoResult {
             return InfoResult(result: Result.translateFromRpc(rpcInfoResult.result), resultStr: rpcInfoResult.resultStr)
         }
 
@@ -203,7 +203,7 @@ public class Info {
 
     public func getVersion() -> Single<Version> {
         return Single<Version>.create { single in
-            let request = DronecodeSdk_Rpc_Info_GetVersionRequest()
+            let request = Mavsdk_Rpc_Info_GetVersionRequest()
 
             
 
@@ -211,7 +211,7 @@ public class Info {
                 let response = try self.service.getVersion(request)
 
                 
-                if (response.infoResult.result != DronecodeSdk_Rpc_Info_InfoResult.Result.success) {
+                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
                     single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
 
                     return Disposables.create()

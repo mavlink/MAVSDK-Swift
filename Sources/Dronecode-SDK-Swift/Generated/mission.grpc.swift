@@ -25,592 +25,592 @@ import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_UploadMissionRequest, DronecodeSdk_Rpc_Mission_UploadMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/UploadMission" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/UploadMission" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse>, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/CancelMissionUpload" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse>, Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/CancelMissionUpload" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_DownloadMissionRequest, DronecodeSdk_Rpc_Mission_DownloadMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/DownloadMission" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/DownloadMission" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse>, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/CancelMissionDownload" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse>, Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/CancelMissionDownload" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceStartMissionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_StartMissionRequest, DronecodeSdk_Rpc_Mission_StartMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/StartMission" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceStartMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_StartMissionRequest, Mavsdk_Rpc_Mission_StartMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/StartMission" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServicePauseMissionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_PauseMissionRequest, DronecodeSdk_Rpc_Mission_PauseMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/PauseMission" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServicePauseMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse>, Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/PauseMission" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse>, DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/IsMissionFinished" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_IsMissionFinishedRequest, Mavsdk_Rpc_Mission_IsMissionFinishedResponse>, Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/IsMissionFinished" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall: ClientCallServerStreaming {
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Mission_MissionProgressResponse?
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Mission_MissionProgressResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Mission_MissionProgressResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Mission_MissionProgressResponse?>) -> Void) throws
 }
 
-internal extension DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+internal extension Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Mission_MissionProgressResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Mission_MissionProgressResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, DronecodeSdk_Rpc_Mission_MissionProgressResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SubscribeMissionProgress" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, Mavsdk_Rpc_Mission_MissionProgressResponse>, Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission" }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
 }
 
 
-/// Instantiate DronecodeSdk_Rpc_Mission_MissionServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceService: ServiceClient {
+/// Instantiate Mavsdk_Rpc_Mission_MissionServiceServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Mission_MissionServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall
 
   /// Synchronous. Unary.
-  func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall
 
   /// Synchronous. Unary.
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall
 
   /// Synchronous. Unary.
-  func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall
 
   /// Synchronous. Unary.
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_StartMissionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall
 
   /// Synchronous. Unary.
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall
 
   /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
 
   /// Synchronous. Unary.
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
+  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
 
   /// Synchronous. Unary.
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
 
   /// Synchronous. Unary.
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
 
 }
 
-internal extension DronecodeSdk_Rpc_Mission_MissionServiceService {
+internal extension Mavsdk_Rpc_Mission_MissionServiceService {
   /// Synchronous. Unary.
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
     return try self.uploadMission(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
     return try self.uploadMission(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest) throws -> DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse {
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
     return try self.cancelMissionUpload(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
     return try self.cancelMissionUpload(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
     return try self.downloadMission(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
     return try self.downloadMission(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest) throws -> DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse {
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
     return try self.cancelMissionDownload(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
     return try self.cancelMissionDownload(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
     return try self.startMission(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
     return try self.startMission(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
     return try self.pauseMission(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
     return try self.pauseMission(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     return try self.setCurrentMissionItemIndex(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
     return try self.setCurrentMissionItemIndex(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
     return try self.isMissionFinished(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
     return try self.isMissionFinished(request, metadata: self.metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
-  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     return try self.subscribeMissionProgress(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
     return try self.getReturnToLaunchAfterMission(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
     return try self.getReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
     return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
     return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
   }
 
 }
 
-internal final class DronecodeSdk_Rpc_Mission_MissionServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Mission_MissionServiceService {
+internal final class Mavsdk_Rpc_Mission_MissionServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Mission_MissionServiceService {
   /// Synchronous. Unary.
-  internal func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
+  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
+  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase(channel)
+  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase(channel)
+  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
+  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
+  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase(channel)
+  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase(channel)
+  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
+  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
+  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
+  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
+  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
+  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
+  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
+  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
+  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase(channel)
+  internal func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
+  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
+  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
+  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
-    return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
+  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/UploadMission" }
+class Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/UploadMission" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/CancelMissionUpload" }
+class Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/CancelMissionUpload" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/DownloadMission" }
+class Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/DownloadMission" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/CancelMissionDownload" }
+class Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/CancelMissionDownload" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/StartMission" }
+class Mavsdk_Rpc_Mission_MissionServiceStartMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/StartMission" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/PauseMission" }
+class Mavsdk_Rpc_Mission_MissionServicePauseMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/PauseMission" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
+class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/IsMissionFinished" }
+class Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/IsMissionFinished" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Mission_MissionProgressResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SubscribeMissionProgress" }
+class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Mission_MissionProgressResponse>, Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission" }
+class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
+class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
 }
 
-class DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Mission_MissionServiceService {
-  var uploadMissionRequests: [DronecodeSdk_Rpc_Mission_UploadMissionRequest] = []
-  var uploadMissionResponses: [DronecodeSdk_Rpc_Mission_UploadMissionResponse] = []
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse {
+class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Mission_MissionServiceService {
+  var uploadMissionRequests: [Mavsdk_Rpc_Mission_UploadMissionRequest] = []
+  var uploadMissionResponses: [Mavsdk_Rpc_Mission_UploadMissionResponse] = []
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
     uploadMissionRequests.append(request)
     defer { uploadMissionResponses.removeFirst() }
     return uploadMissionResponses.first!
   }
   @discardableResult
-  func uploadMission(_ request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
     let response = try self.uploadMission(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub()
   }
 
-  var cancelMissionUploadRequests: [DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest] = []
-  var cancelMissionUploadResponses: [DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse] = []
-  func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse {
+  var cancelMissionUploadRequests: [Mavsdk_Rpc_Mission_CancelMissionUploadRequest] = []
+  var cancelMissionUploadResponses: [Mavsdk_Rpc_Mission_CancelMissionUploadResponse] = []
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
     cancelMissionUploadRequests.append(request)
     defer { cancelMissionUploadResponses.removeFirst() }
     return cancelMissionUploadResponses.first!
   }
   @discardableResult
-  func cancelMissionUpload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
     let response = try self.cancelMissionUpload(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallTestStub()
   }
 
-  var downloadMissionRequests: [DronecodeSdk_Rpc_Mission_DownloadMissionRequest] = []
-  var downloadMissionResponses: [DronecodeSdk_Rpc_Mission_DownloadMissionResponse] = []
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse {
+  var downloadMissionRequests: [Mavsdk_Rpc_Mission_DownloadMissionRequest] = []
+  var downloadMissionResponses: [Mavsdk_Rpc_Mission_DownloadMissionResponse] = []
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
     downloadMissionRequests.append(request)
     defer { downloadMissionResponses.removeFirst() }
     return downloadMissionResponses.first!
   }
   @discardableResult
-  func downloadMission(_ request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
     let response = try self.downloadMission(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallTestStub()
   }
 
-  var cancelMissionDownloadRequests: [DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest] = []
-  var cancelMissionDownloadResponses: [DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse] = []
-  func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse {
+  var cancelMissionDownloadRequests: [Mavsdk_Rpc_Mission_CancelMissionDownloadRequest] = []
+  var cancelMissionDownloadResponses: [Mavsdk_Rpc_Mission_CancelMissionDownloadResponse] = []
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
     cancelMissionDownloadRequests.append(request)
     defer { cancelMissionDownloadResponses.removeFirst() }
     return cancelMissionDownloadResponses.first!
   }
   @discardableResult
-  func cancelMissionDownload(_ request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
     let response = try self.cancelMissionDownload(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallTestStub()
   }
 
-  var startMissionRequests: [DronecodeSdk_Rpc_Mission_StartMissionRequest] = []
-  var startMissionResponses: [DronecodeSdk_Rpc_Mission_StartMissionResponse] = []
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse {
+  var startMissionRequests: [Mavsdk_Rpc_Mission_StartMissionRequest] = []
+  var startMissionResponses: [Mavsdk_Rpc_Mission_StartMissionResponse] = []
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
     startMissionRequests.append(request)
     defer { startMissionResponses.removeFirst() }
     return startMissionResponses.first!
   }
   @discardableResult
-  func startMission(_ request: DronecodeSdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCall {
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
     let response = try self.startMission(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceStartMissionCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceStartMissionCallTestStub()
   }
 
-  var pauseMissionRequests: [DronecodeSdk_Rpc_Mission_PauseMissionRequest] = []
-  var pauseMissionResponses: [DronecodeSdk_Rpc_Mission_PauseMissionResponse] = []
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse {
+  var pauseMissionRequests: [Mavsdk_Rpc_Mission_PauseMissionRequest] = []
+  var pauseMissionResponses: [Mavsdk_Rpc_Mission_PauseMissionResponse] = []
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
     pauseMissionRequests.append(request)
     defer { pauseMissionResponses.removeFirst() }
     return pauseMissionResponses.first!
   }
   @discardableResult
-  func pauseMission(_ request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCall {
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
     let response = try self.pauseMission(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServicePauseMissionCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServicePauseMissionCallTestStub()
   }
 
-  var setCurrentMissionItemIndexRequests: [DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest] = []
-  var setCurrentMissionItemIndexResponses: [DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse] = []
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+  var setCurrentMissionItemIndexRequests: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest] = []
+  var setCurrentMissionItemIndexResponses: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse] = []
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     setCurrentMissionItemIndexRequests.append(request)
     defer { setCurrentMissionItemIndexResponses.removeFirst() }
     return setCurrentMissionItemIndexResponses.first!
   }
   @discardableResult
-  func setCurrentMissionItemIndex(_ request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
     let response = try self.setCurrentMissionItemIndex(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub()
   }
 
-  var isMissionFinishedRequests: [DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest] = []
-  var isMissionFinishedResponses: [DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse] = []
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse {
+  var isMissionFinishedRequests: [Mavsdk_Rpc_Mission_IsMissionFinishedRequest] = []
+  var isMissionFinishedResponses: [Mavsdk_Rpc_Mission_IsMissionFinishedResponse] = []
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
     isMissionFinishedRequests.append(request)
     defer { isMissionFinishedResponses.removeFirst() }
     return isMissionFinishedResponses.first!
   }
   @discardableResult
-  func isMissionFinished(_ request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
     let response = try self.isMissionFinished(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub()
   }
 
-  var subscribeMissionProgressRequests: [DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest] = []
-  var subscribeMissionProgressCalls: [DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall] = []
-  func subscribeMissionProgress(_ request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  var subscribeMissionProgressRequests: [Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest] = []
+  var subscribeMissionProgressCalls: [Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall] = []
+  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     subscribeMissionProgressRequests.append(request)
     defer { subscribeMissionProgressCalls.removeFirst() }
     return subscribeMissionProgressCalls.first!
   }
 
-  var getReturnToLaunchAfterMissionRequests: [DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest] = []
-  var getReturnToLaunchAfterMissionResponses: [DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse] = []
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+  var getReturnToLaunchAfterMissionRequests: [Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest] = []
+  var getReturnToLaunchAfterMissionResponses: [Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse] = []
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
     getReturnToLaunchAfterMissionRequests.append(request)
     defer { getReturnToLaunchAfterMissionResponses.removeFirst() }
     return getReturnToLaunchAfterMissionResponses.first!
   }
   @discardableResult
-  func getReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
     let response = try self.getReturnToLaunchAfterMission(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub()
   }
 
-  var setReturnToLaunchAfterMissionRequests: [DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest] = []
-  var setReturnToLaunchAfterMissionResponses: [DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse] = []
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+  var setReturnToLaunchAfterMissionRequests: [Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest] = []
+  var setReturnToLaunchAfterMissionResponses: [Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse] = []
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
     setReturnToLaunchAfterMissionRequests.append(request)
     defer { setReturnToLaunchAfterMissionResponses.removeFirst() }
     return setReturnToLaunchAfterMissionResponses.first!
   }
   @discardableResult
-  func setReturnToLaunchAfterMission(_ request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
     let response = try self.setReturnToLaunchAfterMission(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub()
   }
 
 }
@@ -618,81 +618,81 @@ class DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestS
 /// To build a server, implement a class that conforms to this protocol.
 /// If one of the methods returning `ServerStatus?` returns nil,
 /// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceProvider: ServiceProvider {
-  func uploadMission(request: DronecodeSdk_Rpc_Mission_UploadMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSession) throws -> DronecodeSdk_Rpc_Mission_UploadMissionResponse
-  func cancelMissionUpload(request: DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSession) throws -> DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse
-  func downloadMission(request: DronecodeSdk_Rpc_Mission_DownloadMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSession) throws -> DronecodeSdk_Rpc_Mission_DownloadMissionResponse
-  func cancelMissionDownload(request: DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession) throws -> DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse
-  func startMission(request: DronecodeSdk_Rpc_Mission_StartMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSession) throws -> DronecodeSdk_Rpc_Mission_StartMissionResponse
-  func pauseMission(request: DronecodeSdk_Rpc_Mission_PauseMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSession) throws -> DronecodeSdk_Rpc_Mission_PauseMissionResponse
-  func setCurrentMissionItemIndex(request: DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession) throws -> DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
-  func isMissionFinished(request: DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSession) throws -> DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse
-  func subscribeMissionProgress(request: DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession) throws -> ServerStatus?
-  func getReturnToLaunchAfterMission(request: DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession) throws -> DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
-  func setReturnToLaunchAfterMission(request: DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, session: DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession) throws -> DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
+internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: ServiceProvider {
+  func uploadMission(request: Mavsdk_Rpc_Mission_UploadMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceUploadMissionSession) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse
+  func cancelMissionUpload(request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, session: Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSession) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse
+  func downloadMission(request: Mavsdk_Rpc_Mission_DownloadMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSession) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse
+  func cancelMissionDownload(request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, session: Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse
+  func startMission(request: Mavsdk_Rpc_Mission_StartMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceStartMissionSession) throws -> Mavsdk_Rpc_Mission_StartMissionResponse
+  func pauseMission(request: Mavsdk_Rpc_Mission_PauseMissionRequest, session: Mavsdk_Rpc_Mission_MissionServicePauseMissionSession) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse
+  func setCurrentMissionItemIndex(request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, session: Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
+  func isMissionFinished(request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, session: Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
+  func subscribeMissionProgress(request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, session: Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession) throws -> ServerStatus?
+  func getReturnToLaunchAfterMission(request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
+  func setReturnToLaunchAfterMission(request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
 }
 
-extension DronecodeSdk_Rpc_Mission_MissionServiceProvider {
-  internal var serviceName: String { return "dronecode_sdk.rpc.mission.MissionService" }
+extension Mavsdk_Rpc_Mission_MissionServiceProvider {
+  internal var serviceName: String { return "mavsdk.rpc.mission.MissionService" }
 
   /// Determines and calls the appropriate request handler, depending on the request's method.
   /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
   internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
     switch method {
-    case "/dronecode_sdk.rpc.mission.MissionService/UploadMission":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/UploadMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceUploadMissionSessionBase(
         handler: handler,
-        providerBlock: { try self.uploadMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSessionBase) })
+        providerBlock: { try self.uploadMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceUploadMissionSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/CancelMissionUpload":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/CancelMissionUpload":
+      return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionBase(
         handler: handler,
-        providerBlock: { try self.cancelMissionUpload(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionBase) })
+        providerBlock: { try self.cancelMissionUpload(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/DownloadMission":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/DownloadMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSessionBase(
         handler: handler,
-        providerBlock: { try self.downloadMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSessionBase) })
+        providerBlock: { try self.downloadMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/CancelMissionDownload":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/CancelMissionDownload":
+      return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionBase(
         handler: handler,
-        providerBlock: { try self.cancelMissionDownload(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionBase) })
+        providerBlock: { try self.cancelMissionDownload(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/StartMission":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/StartMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceStartMissionSessionBase(
         handler: handler,
-        providerBlock: { try self.startMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSessionBase) })
+        providerBlock: { try self.startMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceStartMissionSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/PauseMission":
-      return try DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/PauseMission":
+      return try Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionBase(
         handler: handler,
-        providerBlock: { try self.pauseMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSessionBase) })
+        providerBlock: { try self.pauseMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/SetCurrentMissionItemIndex":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex":
+      return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase(
         handler: handler,
-        providerBlock: { try self.setCurrentMissionItemIndex(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase) })
+        providerBlock: { try self.setCurrentMissionItemIndex(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/IsMissionFinished":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/IsMissionFinished":
+      return try Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase(
         handler: handler,
-        providerBlock: { try self.isMissionFinished(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase) })
+        providerBlock: { try self.isMissionFinished(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/SubscribeMissionProgress":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress":
+      return try Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeMissionProgress(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase) })
+        providerBlock: { try self.subscribeMissionProgress(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase(
         handler: handler,
-        providerBlock: { try self.getReturnToLaunchAfterMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase) })
+        providerBlock: { try self.getReturnToLaunchAfterMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission":
-      return try DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase(
         handler: handler,
-        providerBlock: { try self.setReturnToLaunchAfterMission(request: $0, session: $1 as! DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase) })
+        providerBlock: { try self.setReturnToLaunchAfterMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -700,59 +700,59 @@ extension DronecodeSdk_Rpc_Mission_MissionServiceProvider {
   }
 }
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceUploadMissionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_UploadMissionRequest, DronecodeSdk_Rpc_Mission_UploadMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceUploadMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceUploadMissionSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceUploadMissionSession {}
+class Mavsdk_Rpc_Mission_MissionServiceUploadMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceUploadMissionSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest, DronecodeSdk_Rpc_Mission_CancelMissionUploadResponse>, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse>, Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionUploadSession {}
+class Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_DownloadMissionRequest, DronecodeSdk_Rpc_Mission_DownloadMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceDownloadMissionSession {}
+class Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceDownloadMissionSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest, DronecodeSdk_Rpc_Mission_CancelMissionDownloadResponse>, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse>, Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession {}
+class Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceStartMissionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_StartMissionRequest, DronecodeSdk_Rpc_Mission_StartMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceStartMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_StartMissionRequest, Mavsdk_Rpc_Mission_StartMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceStartMissionSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceStartMissionSession {}
+class Mavsdk_Rpc_Mission_MissionServiceStartMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceStartMissionSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServicePauseMissionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_PauseMissionRequest, DronecodeSdk_Rpc_Mission_PauseMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse>, Mavsdk_Rpc_Mission_MissionServicePauseMissionSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServicePauseMissionSession {}
+class Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServicePauseMissionSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession {}
+class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest, DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse>, DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_IsMissionFinishedRequest, Mavsdk_Rpc_Mission_IsMissionFinishedResponse>, Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceIsMissionFinishedSession {}
+class Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession: ServerSessionServerStreaming {
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Mission_MissionProgressResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: Mavsdk_Rpc_Mission_MissionProgressResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Mission_MissionProgressResponse, timeout: DispatchTime) throws
+  func _send(_ message: Mavsdk_Rpc_Mission_MissionProgressResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -760,24 +760,24 @@ internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgres
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {
+internal extension Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Mission_MissionProgressResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: Mavsdk_Rpc_Mission_MissionProgressResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest, DronecodeSdk_Rpc_Mission_MissionProgressResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, Mavsdk_Rpc_Mission_MissionProgressResponse>, Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Mission_MissionProgressResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {}
+class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Mission_MissionProgressResponse>, Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession {}
+class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession {}
 
-internal protocol DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
 
-class DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
+class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
 

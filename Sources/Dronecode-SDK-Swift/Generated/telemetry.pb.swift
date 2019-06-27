@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-enum DronecodeSdk_Rpc_Telemetry_FixType: SwiftProtobuf.Enum {
+enum Mavsdk_Rpc_Telemetry_FixType: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case noGps // = 0
   case noFix // = 1
@@ -64,9 +64,9 @@ enum DronecodeSdk_Rpc_Telemetry_FixType: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Telemetry_FixType: CaseIterable {
+extension Mavsdk_Rpc_Telemetry_FixType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Telemetry_FixType] = [
+  static var allCases: [Mavsdk_Rpc_Telemetry_FixType] = [
     .noGps,
     .noFix,
     .fix2D,
@@ -79,7 +79,7 @@ extension DronecodeSdk_Rpc_Telemetry_FixType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-enum DronecodeSdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
+enum Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
   case unknown // = 0
   case ready // = 1
@@ -130,9 +130,9 @@ enum DronecodeSdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Telemetry_FlightMode: CaseIterable {
+extension Mavsdk_Rpc_Telemetry_FlightMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Telemetry_FlightMode] = [
+  static var allCases: [Mavsdk_Rpc_Telemetry_FlightMode] = [
     .unknown,
     .ready,
     .takeoff,
@@ -147,7 +147,7 @@ extension DronecodeSdk_Rpc_Telemetry_FlightMode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribePositionRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -157,13 +157,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_PositionResponse {
+struct Mavsdk_Rpc_Telemetry_PositionResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var position: DronecodeSdk_Rpc_Telemetry_Position {
-    get {return _storage._position ?? DronecodeSdk_Rpc_Telemetry_Position()}
+  var position: Mavsdk_Rpc_Telemetry_Position {
+    get {return _storage._position ?? Mavsdk_Rpc_Telemetry_Position()}
     set {_uniqueStorage()._position = newValue}
   }
   /// Returns true if `position` has been explicitly set.
@@ -178,7 +178,7 @@ struct DronecodeSdk_Rpc_Telemetry_PositionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeHomeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -188,13 +188,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_HomeResponse {
+struct Mavsdk_Rpc_Telemetry_HomeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var home: DronecodeSdk_Rpc_Telemetry_Position {
-    get {return _storage._home ?? DronecodeSdk_Rpc_Telemetry_Position()}
+  var home: Mavsdk_Rpc_Telemetry_Position {
+    get {return _storage._home ?? Mavsdk_Rpc_Telemetry_Position()}
     set {_uniqueStorage()._home = newValue}
   }
   /// Returns true if `home` has been explicitly set.
@@ -209,7 +209,7 @@ struct DronecodeSdk_Rpc_Telemetry_HomeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeInAirRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -219,7 +219,7 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_InAirResponse {
+struct Mavsdk_Rpc_Telemetry_InAirResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -231,7 +231,7 @@ struct DronecodeSdk_Rpc_Telemetry_InAirResponse {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeArmedRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -241,7 +241,7 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_ArmedResponse {
+struct Mavsdk_Rpc_Telemetry_ArmedResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -253,7 +253,7 @@ struct DronecodeSdk_Rpc_Telemetry_ArmedResponse {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -263,13 +263,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse {
+struct Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var attitudeQuaternion: DronecodeSdk_Rpc_Telemetry_Quaternion {
-    get {return _storage._attitudeQuaternion ?? DronecodeSdk_Rpc_Telemetry_Quaternion()}
+  var attitudeQuaternion: Mavsdk_Rpc_Telemetry_Quaternion {
+    get {return _storage._attitudeQuaternion ?? Mavsdk_Rpc_Telemetry_Quaternion()}
     set {_uniqueStorage()._attitudeQuaternion = newValue}
   }
   /// Returns true if `attitudeQuaternion` has been explicitly set.
@@ -284,7 +284,7 @@ struct DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -294,13 +294,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse {
+struct Mavsdk_Rpc_Telemetry_AttitudeEulerResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var attitudeEuler: DronecodeSdk_Rpc_Telemetry_EulerAngle {
-    get {return _storage._attitudeEuler ?? DronecodeSdk_Rpc_Telemetry_EulerAngle()}
+  var attitudeEuler: Mavsdk_Rpc_Telemetry_EulerAngle {
+    get {return _storage._attitudeEuler ?? Mavsdk_Rpc_Telemetry_EulerAngle()}
     set {_uniqueStorage()._attitudeEuler = newValue}
   }
   /// Returns true if `attitudeEuler` has been explicitly set.
@@ -315,7 +315,7 @@ struct DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -325,13 +325,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse {
+struct Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var attitudeQuaternion: DronecodeSdk_Rpc_Telemetry_Quaternion {
-    get {return _storage._attitudeQuaternion ?? DronecodeSdk_Rpc_Telemetry_Quaternion()}
+  var attitudeQuaternion: Mavsdk_Rpc_Telemetry_Quaternion {
+    get {return _storage._attitudeQuaternion ?? Mavsdk_Rpc_Telemetry_Quaternion()}
     set {_uniqueStorage()._attitudeQuaternion = newValue}
   }
   /// Returns true if `attitudeQuaternion` has been explicitly set.
@@ -346,7 +346,7 @@ struct DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -356,13 +356,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse {
+struct Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var attitudeEuler: DronecodeSdk_Rpc_Telemetry_EulerAngle {
-    get {return _storage._attitudeEuler ?? DronecodeSdk_Rpc_Telemetry_EulerAngle()}
+  var attitudeEuler: Mavsdk_Rpc_Telemetry_EulerAngle {
+    get {return _storage._attitudeEuler ?? Mavsdk_Rpc_Telemetry_EulerAngle()}
     set {_uniqueStorage()._attitudeEuler = newValue}
   }
   /// Returns true if `attitudeEuler` has been explicitly set.
@@ -377,7 +377,7 @@ struct DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -387,13 +387,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse {
+struct Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var groundSpeedNed: DronecodeSdk_Rpc_Telemetry_SpeedNed {
-    get {return _storage._groundSpeedNed ?? DronecodeSdk_Rpc_Telemetry_SpeedNed()}
+  var groundSpeedNed: Mavsdk_Rpc_Telemetry_SpeedNed {
+    get {return _storage._groundSpeedNed ?? Mavsdk_Rpc_Telemetry_SpeedNed()}
     set {_uniqueStorage()._groundSpeedNed = newValue}
   }
   /// Returns true if `groundSpeedNed` has been explicitly set.
@@ -408,7 +408,7 @@ struct DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -418,13 +418,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_GpsInfoResponse {
+struct Mavsdk_Rpc_Telemetry_GpsInfoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var gpsInfo: DronecodeSdk_Rpc_Telemetry_GpsInfo {
-    get {return _storage._gpsInfo ?? DronecodeSdk_Rpc_Telemetry_GpsInfo()}
+  var gpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo {
+    get {return _storage._gpsInfo ?? Mavsdk_Rpc_Telemetry_GpsInfo()}
     set {_uniqueStorage()._gpsInfo = newValue}
   }
   /// Returns true if `gpsInfo` has been explicitly set.
@@ -439,7 +439,7 @@ struct DronecodeSdk_Rpc_Telemetry_GpsInfoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -449,13 +449,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_BatteryResponse {
+struct Mavsdk_Rpc_Telemetry_BatteryResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var battery: DronecodeSdk_Rpc_Telemetry_Battery {
-    get {return _storage._battery ?? DronecodeSdk_Rpc_Telemetry_Battery()}
+  var battery: Mavsdk_Rpc_Telemetry_Battery {
+    get {return _storage._battery ?? Mavsdk_Rpc_Telemetry_Battery()}
     set {_uniqueStorage()._battery = newValue}
   }
   /// Returns true if `battery` has been explicitly set.
@@ -470,7 +470,7 @@ struct DronecodeSdk_Rpc_Telemetry_BatteryResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -480,19 +480,19 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_FlightModeResponse {
+struct Mavsdk_Rpc_Telemetry_FlightModeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var flightMode: DronecodeSdk_Rpc_Telemetry_FlightMode = .unknown
+  var flightMode: Mavsdk_Rpc_Telemetry_FlightMode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeHealthRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -502,13 +502,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_HealthResponse {
+struct Mavsdk_Rpc_Telemetry_HealthResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var health: DronecodeSdk_Rpc_Telemetry_Health {
-    get {return _storage._health ?? DronecodeSdk_Rpc_Telemetry_Health()}
+  var health: Mavsdk_Rpc_Telemetry_Health {
+    get {return _storage._health ?? Mavsdk_Rpc_Telemetry_Health()}
     set {_uniqueStorage()._health = newValue}
   }
   /// Returns true if `health` has been explicitly set.
@@ -523,7 +523,7 @@ struct DronecodeSdk_Rpc_Telemetry_HealthResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -533,13 +533,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_RcStatusResponse {
+struct Mavsdk_Rpc_Telemetry_RcStatusResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var rcStatus: DronecodeSdk_Rpc_Telemetry_RcStatus {
-    get {return _storage._rcStatus ?? DronecodeSdk_Rpc_Telemetry_RcStatus()}
+  var rcStatus: Mavsdk_Rpc_Telemetry_RcStatus {
+    get {return _storage._rcStatus ?? Mavsdk_Rpc_Telemetry_RcStatus()}
     set {_uniqueStorage()._rcStatus = newValue}
   }
   /// Returns true if `rcStatus` has been explicitly set.
@@ -554,7 +554,7 @@ struct DronecodeSdk_Rpc_Telemetry_RcStatusResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -564,13 +564,13 @@ struct DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_StatusTextResponse {
+struct Mavsdk_Rpc_Telemetry_StatusTextResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var statusText: DronecodeSdk_Rpc_Telemetry_StatusText {
-    get {return _storage._statusText ?? DronecodeSdk_Rpc_Telemetry_StatusText()}
+  var statusText: Mavsdk_Rpc_Telemetry_StatusText {
+    get {return _storage._statusText ?? Mavsdk_Rpc_Telemetry_StatusText()}
     set {_uniqueStorage()._statusText = newValue}
   }
   /// Returns true if `statusText` has been explicitly set.
@@ -585,7 +585,7 @@ struct DronecodeSdk_Rpc_Telemetry_StatusTextResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Telemetry_Position {
+struct Mavsdk_Rpc_Telemetry_Position {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -603,7 +603,7 @@ struct DronecodeSdk_Rpc_Telemetry_Position {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_Quaternion {
+struct Mavsdk_Rpc_Telemetry_Quaternion {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -621,7 +621,7 @@ struct DronecodeSdk_Rpc_Telemetry_Quaternion {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_EulerAngle {
+struct Mavsdk_Rpc_Telemetry_EulerAngle {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -637,7 +637,7 @@ struct DronecodeSdk_Rpc_Telemetry_EulerAngle {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_SpeedNed {
+struct Mavsdk_Rpc_Telemetry_SpeedNed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -653,21 +653,21 @@ struct DronecodeSdk_Rpc_Telemetry_SpeedNed {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_GpsInfo {
+struct Mavsdk_Rpc_Telemetry_GpsInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   var numSatellites: Int32 = 0
 
-  var fixType: DronecodeSdk_Rpc_Telemetry_FixType = .noGps
+  var fixType: Mavsdk_Rpc_Telemetry_FixType = .noGps
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_Battery {
+struct Mavsdk_Rpc_Telemetry_Battery {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -681,7 +681,7 @@ struct DronecodeSdk_Rpc_Telemetry_Battery {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_Health {
+struct Mavsdk_Rpc_Telemetry_Health {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -705,7 +705,7 @@ struct DronecodeSdk_Rpc_Telemetry_Health {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_RcStatus {
+struct Mavsdk_Rpc_Telemetry_RcStatus {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -721,12 +721,12 @@ struct DronecodeSdk_Rpc_Telemetry_RcStatus {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Telemetry_StatusText {
+struct Mavsdk_Rpc_Telemetry_StatusText {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var type: DronecodeSdk_Rpc_Telemetry_StatusText.StatusType = .info
+  var type: Mavsdk_Rpc_Telemetry_StatusText.StatusType = .info
 
   var text: String = String()
 
@@ -768,9 +768,9 @@ struct DronecodeSdk_Rpc_Telemetry_StatusText {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Telemetry_StatusText.StatusType: CaseIterable {
+extension Mavsdk_Rpc_Telemetry_StatusText.StatusType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Telemetry_StatusText.StatusType] = [
+  static var allCases: [Mavsdk_Rpc_Telemetry_StatusText.StatusType] = [
     .info,
     .warning,
     .critical,
@@ -781,9 +781,9 @@ extension DronecodeSdk_Rpc_Telemetry_StatusText.StatusType: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.telemetry"
+fileprivate let _protobuf_package = "mavsdk.rpc.telemetry"
 
-extension DronecodeSdk_Rpc_Telemetry_FixType: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_FixType: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NO_GPS"),
     1: .same(proto: "NO_FIX"),
@@ -795,7 +795,7 @@ extension DronecodeSdk_Rpc_Telemetry_FixType: SwiftProtobuf._ProtoNameProviding 
   ]
 }
 
-extension DronecodeSdk_Rpc_Telemetry_FlightMode: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "READY"),
@@ -809,7 +809,7 @@ extension DronecodeSdk_Rpc_Telemetry_FlightMode: SwiftProtobuf._ProtoNameProvidi
   ]
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribePositionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribePositionRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -822,20 +822,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribePositionRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_PositionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_PositionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PositionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
   ]
 
   fileprivate class _StorageClass {
-    var _position: DronecodeSdk_Rpc_Telemetry_Position? = nil
+    var _position: Mavsdk_Rpc_Telemetry_Position? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -874,7 +874,7 @@ extension DronecodeSdk_Rpc_Telemetry_PositionResponse: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_PositionResponse, rhs: DronecodeSdk_Rpc_Telemetry_PositionResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_PositionResponse, rhs: Mavsdk_Rpc_Telemetry_PositionResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -889,7 +889,7 @@ extension DronecodeSdk_Rpc_Telemetry_PositionResponse: SwiftProtobuf.Message, Sw
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeHomeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeHomeRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -902,20 +902,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_HomeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_HomeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".HomeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "home"),
   ]
 
   fileprivate class _StorageClass {
-    var _home: DronecodeSdk_Rpc_Telemetry_Position? = nil
+    var _home: Mavsdk_Rpc_Telemetry_Position? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -954,7 +954,7 @@ extension DronecodeSdk_Rpc_Telemetry_HomeResponse: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_HomeResponse, rhs: DronecodeSdk_Rpc_Telemetry_HomeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_HomeResponse, rhs: Mavsdk_Rpc_Telemetry_HomeResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -969,7 +969,7 @@ extension DronecodeSdk_Rpc_Telemetry_HomeResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeInAirRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeInAirRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -982,13 +982,13 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_InAirResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_InAirResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".InAirResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "is_in_air"),
@@ -1010,14 +1010,14 @@ extension DronecodeSdk_Rpc_Telemetry_InAirResponse: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_InAirResponse, rhs: DronecodeSdk_Rpc_Telemetry_InAirResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_InAirResponse, rhs: Mavsdk_Rpc_Telemetry_InAirResponse) -> Bool {
     if lhs.isInAir != rhs.isInAir {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeArmedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeArmedRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1030,13 +1030,13 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_ArmedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_ArmedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ArmedResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "is_armed"),
@@ -1058,14 +1058,14 @@ extension DronecodeSdk_Rpc_Telemetry_ArmedResponse: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_ArmedResponse, rhs: DronecodeSdk_Rpc_Telemetry_ArmedResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_ArmedResponse, rhs: Mavsdk_Rpc_Telemetry_ArmedResponse) -> Bool {
     if lhs.isArmed != rhs.isArmed {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeAttitudeQuaternionRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1078,20 +1078,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest: SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".AttitudeQuaternionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "attitude_quaternion"),
   ]
 
   fileprivate class _StorageClass {
-    var _attitudeQuaternion: DronecodeSdk_Rpc_Telemetry_Quaternion? = nil
+    var _attitudeQuaternion: Mavsdk_Rpc_Telemetry_Quaternion? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1130,7 +1130,7 @@ extension DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse, rhs: DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse, rhs: Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1145,7 +1145,7 @@ extension DronecodeSdk_Rpc_Telemetry_AttitudeQuaternionResponse: SwiftProtobuf.M
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeAttitudeEulerRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1158,20 +1158,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_AttitudeEulerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".AttitudeEulerResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "attitude_euler"),
   ]
 
   fileprivate class _StorageClass {
-    var _attitudeEuler: DronecodeSdk_Rpc_Telemetry_EulerAngle? = nil
+    var _attitudeEuler: Mavsdk_Rpc_Telemetry_EulerAngle? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1210,7 +1210,7 @@ extension DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse, rhs: DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_AttitudeEulerResponse, rhs: Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1225,7 +1225,7 @@ extension DronecodeSdk_Rpc_Telemetry_AttitudeEulerResponse: SwiftProtobuf.Messag
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCameraAttitudeQuaternionRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1238,20 +1238,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest: S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CameraAttitudeQuaternionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "attitude_quaternion"),
   ]
 
   fileprivate class _StorageClass {
-    var _attitudeQuaternion: DronecodeSdk_Rpc_Telemetry_Quaternion? = nil
+    var _attitudeQuaternion: Mavsdk_Rpc_Telemetry_Quaternion? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1290,7 +1290,7 @@ extension DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse: SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse, rhs: DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse, rhs: Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1305,7 +1305,7 @@ extension DronecodeSdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse: SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCameraAttitudeEulerRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1318,20 +1318,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest: SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CameraAttitudeEulerResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "attitude_euler"),
   ]
 
   fileprivate class _StorageClass {
-    var _attitudeEuler: DronecodeSdk_Rpc_Telemetry_EulerAngle? = nil
+    var _attitudeEuler: Mavsdk_Rpc_Telemetry_EulerAngle? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1370,7 +1370,7 @@ extension DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse, rhs: DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse, rhs: Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1385,7 +1385,7 @@ extension DronecodeSdk_Rpc_Telemetry_CameraAttitudeEulerResponse: SwiftProtobuf.
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeGroundSpeedNedRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1398,20 +1398,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GroundSpeedNedResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "ground_speed_ned"),
   ]
 
   fileprivate class _StorageClass {
-    var _groundSpeedNed: DronecodeSdk_Rpc_Telemetry_SpeedNed? = nil
+    var _groundSpeedNed: Mavsdk_Rpc_Telemetry_SpeedNed? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1450,7 +1450,7 @@ extension DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse, rhs: DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse, rhs: Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1465,7 +1465,7 @@ extension DronecodeSdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Messa
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeGpsInfoRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1478,20 +1478,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_GpsInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_GpsInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GpsInfoResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "gps_info"),
   ]
 
   fileprivate class _StorageClass {
-    var _gpsInfo: DronecodeSdk_Rpc_Telemetry_GpsInfo? = nil
+    var _gpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1530,7 +1530,7 @@ extension DronecodeSdk_Rpc_Telemetry_GpsInfoResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_GpsInfoResponse, rhs: DronecodeSdk_Rpc_Telemetry_GpsInfoResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GpsInfoResponse, rhs: Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1545,7 +1545,7 @@ extension DronecodeSdk_Rpc_Telemetry_GpsInfoResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeBatteryRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1558,20 +1558,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_BatteryResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_BatteryResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".BatteryResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "battery"),
   ]
 
   fileprivate class _StorageClass {
-    var _battery: DronecodeSdk_Rpc_Telemetry_Battery? = nil
+    var _battery: Mavsdk_Rpc_Telemetry_Battery? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1610,7 +1610,7 @@ extension DronecodeSdk_Rpc_Telemetry_BatteryResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_BatteryResponse, rhs: DronecodeSdk_Rpc_Telemetry_BatteryResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_BatteryResponse, rhs: Mavsdk_Rpc_Telemetry_BatteryResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1625,7 +1625,7 @@ extension DronecodeSdk_Rpc_Telemetry_BatteryResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeFlightModeRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1638,13 +1638,13 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_FlightModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_FlightModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".FlightModeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "flight_mode"),
@@ -1666,14 +1666,14 @@ extension DronecodeSdk_Rpc_Telemetry_FlightModeResponse: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_FlightModeResponse, rhs: DronecodeSdk_Rpc_Telemetry_FlightModeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_FlightModeResponse, rhs: Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Bool {
     if lhs.flightMode != rhs.flightMode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeHealthRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeHealthRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1686,20 +1686,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_HealthResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_HealthResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".HealthResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "health"),
   ]
 
   fileprivate class _StorageClass {
-    var _health: DronecodeSdk_Rpc_Telemetry_Health? = nil
+    var _health: Mavsdk_Rpc_Telemetry_Health? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1738,7 +1738,7 @@ extension DronecodeSdk_Rpc_Telemetry_HealthResponse: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_HealthResponse, rhs: DronecodeSdk_Rpc_Telemetry_HealthResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_HealthResponse, rhs: Mavsdk_Rpc_Telemetry_HealthResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1753,7 +1753,7 @@ extension DronecodeSdk_Rpc_Telemetry_HealthResponse: SwiftProtobuf.Message, Swif
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeRcStatusRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1766,20 +1766,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_RcStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_RcStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RcStatusResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "rc_status"),
   ]
 
   fileprivate class _StorageClass {
-    var _rcStatus: DronecodeSdk_Rpc_Telemetry_RcStatus? = nil
+    var _rcStatus: Mavsdk_Rpc_Telemetry_RcStatus? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1818,7 +1818,7 @@ extension DronecodeSdk_Rpc_Telemetry_RcStatusResponse: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_RcStatusResponse, rhs: DronecodeSdk_Rpc_Telemetry_RcStatusResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_RcStatusResponse, rhs: Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1833,7 +1833,7 @@ extension DronecodeSdk_Rpc_Telemetry_RcStatusResponse: SwiftProtobuf.Message, Sw
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeStatusTextRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1846,20 +1846,20 @@ extension DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest, rhs: DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_StatusTextResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_StatusTextResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StatusTextResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "status_text"),
   ]
 
   fileprivate class _StorageClass {
-    var _statusText: DronecodeSdk_Rpc_Telemetry_StatusText? = nil
+    var _statusText: Mavsdk_Rpc_Telemetry_StatusText? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1898,7 +1898,7 @@ extension DronecodeSdk_Rpc_Telemetry_StatusTextResponse: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_StatusTextResponse, rhs: DronecodeSdk_Rpc_Telemetry_StatusTextResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_StatusTextResponse, rhs: Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1913,7 +1913,7 @@ extension DronecodeSdk_Rpc_Telemetry_StatusTextResponse: SwiftProtobuf.Message, 
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Position"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "latitude_deg"),
@@ -1950,7 +1950,7 @@ extension DronecodeSdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_Position, rhs: DronecodeSdk_Rpc_Telemetry_Position) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_Position, rhs: Mavsdk_Rpc_Telemetry_Position) -> Bool {
     if lhs.latitudeDeg != rhs.latitudeDeg {return false}
     if lhs.longitudeDeg != rhs.longitudeDeg {return false}
     if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
@@ -1960,7 +1960,7 @@ extension DronecodeSdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Quaternion"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "w"),
@@ -1997,7 +1997,7 @@ extension DronecodeSdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_Quaternion, rhs: DronecodeSdk_Rpc_Telemetry_Quaternion) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_Quaternion, rhs: Mavsdk_Rpc_Telemetry_Quaternion) -> Bool {
     if lhs.w != rhs.w {return false}
     if lhs.x != rhs.x {return false}
     if lhs.y != rhs.y {return false}
@@ -2007,7 +2007,7 @@ extension DronecodeSdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".EulerAngle"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "roll_deg"),
@@ -2039,7 +2039,7 @@ extension DronecodeSdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_EulerAngle, rhs: DronecodeSdk_Rpc_Telemetry_EulerAngle) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_EulerAngle, rhs: Mavsdk_Rpc_Telemetry_EulerAngle) -> Bool {
     if lhs.rollDeg != rhs.rollDeg {return false}
     if lhs.pitchDeg != rhs.pitchDeg {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
@@ -2048,7 +2048,7 @@ extension DronecodeSdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_SpeedNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_SpeedNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SpeedNed"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "velocity_north_m_s"),
@@ -2080,7 +2080,7 @@ extension DronecodeSdk_Rpc_Telemetry_SpeedNed: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_SpeedNed, rhs: DronecodeSdk_Rpc_Telemetry_SpeedNed) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SpeedNed, rhs: Mavsdk_Rpc_Telemetry_SpeedNed) -> Bool {
     if lhs.velocityNorthMS != rhs.velocityNorthMS {return false}
     if lhs.velocityEastMS != rhs.velocityEastMS {return false}
     if lhs.velocityDownMS != rhs.velocityDownMS {return false}
@@ -2089,7 +2089,7 @@ extension DronecodeSdk_Rpc_Telemetry_SpeedNed: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_GpsInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_GpsInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GpsInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "num_satellites"),
@@ -2116,7 +2116,7 @@ extension DronecodeSdk_Rpc_Telemetry_GpsInfo: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_GpsInfo, rhs: DronecodeSdk_Rpc_Telemetry_GpsInfo) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GpsInfo, rhs: Mavsdk_Rpc_Telemetry_GpsInfo) -> Bool {
     if lhs.numSatellites != rhs.numSatellites {return false}
     if lhs.fixType != rhs.fixType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -2124,7 +2124,7 @@ extension DronecodeSdk_Rpc_Telemetry_GpsInfo: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Battery"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "voltage_v"),
@@ -2151,7 +2151,7 @@ extension DronecodeSdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_Battery, rhs: DronecodeSdk_Rpc_Telemetry_Battery) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_Battery, rhs: Mavsdk_Rpc_Telemetry_Battery) -> Bool {
     if lhs.voltageV != rhs.voltageV {return false}
     if lhs.remainingPercent != rhs.remainingPercent {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -2159,7 +2159,7 @@ extension DronecodeSdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Health"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "is_gyrometer_calibration_ok"),
@@ -2211,7 +2211,7 @@ extension DronecodeSdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_Health, rhs: DronecodeSdk_Rpc_Telemetry_Health) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_Health, rhs: Mavsdk_Rpc_Telemetry_Health) -> Bool {
     if lhs.isGyrometerCalibrationOk != rhs.isGyrometerCalibrationOk {return false}
     if lhs.isAccelerometerCalibrationOk != rhs.isAccelerometerCalibrationOk {return false}
     if lhs.isMagnetometerCalibrationOk != rhs.isMagnetometerCalibrationOk {return false}
@@ -2224,7 +2224,7 @@ extension DronecodeSdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_RcStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_RcStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RcStatus"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "was_available_once"),
@@ -2256,7 +2256,7 @@ extension DronecodeSdk_Rpc_Telemetry_RcStatus: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_RcStatus, rhs: DronecodeSdk_Rpc_Telemetry_RcStatus) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_RcStatus, rhs: Mavsdk_Rpc_Telemetry_RcStatus) -> Bool {
     if lhs.wasAvailableOnce != rhs.wasAvailableOnce {return false}
     if lhs.isAvailable != rhs.isAvailable {return false}
     if lhs.signalStrengthPercent != rhs.signalStrengthPercent {return false}
@@ -2265,7 +2265,7 @@ extension DronecodeSdk_Rpc_Telemetry_RcStatus: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".StatusText"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "type"),
@@ -2292,7 +2292,7 @@ extension DronecodeSdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Telemetry_StatusText, rhs: DronecodeSdk_Rpc_Telemetry_StatusText) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_StatusText, rhs: Mavsdk_Rpc_Telemetry_StatusText) -> Bool {
     if lhs.type != rhs.type {return false}
     if lhs.text != rhs.text {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -2300,7 +2300,7 @@ extension DronecodeSdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension DronecodeSdk_Rpc_Telemetry_StatusText.StatusType: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Telemetry_StatusText.StatusType: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "INFO"),
     1: .same(proto: "WARNING"),

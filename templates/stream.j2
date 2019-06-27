@@ -24,11 +24,11 @@ private func create{{ name.upper_camel_case }}Observable({% for param in params 
 
             let disposable = self.scheduler.schedule(0, action: { _ in
                 {% if not return_name %}
-	        while let responseOptional = try? call.receive(), let _ = responseOptional {
+	        while let response = try? call.receive() {
 	            observer.onNext(())
 	        }
                 {% else %}
-                while let responseOptional = try? call.receive(), let response = responseOptional {
+                while let response = try? call.receive() {
                     {% if return_type.is_repeated %}
 		    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
                     {% else %}

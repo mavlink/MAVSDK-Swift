@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 #if os(iOS)
-import backend
+import mavsdk_server
 #endif
 
 public class Drone {

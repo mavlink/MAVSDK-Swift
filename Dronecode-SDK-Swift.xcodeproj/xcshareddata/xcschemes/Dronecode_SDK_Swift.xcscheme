@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NT_05952799B6148FF995E6D238E7A58849"
+               BlueprintIdentifier = "2298C45676E3D8B9DF81AAA9B25CB40F"
                BuildableName = "Dronecode_SDK_Swift.framework"
                BlueprintName = "Dronecode_SDK_Swift"
                ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NT_C2CE6F3BFB726F3F68030AE32C88258F"
+               BlueprintIdentifier = "E4D163CB31838AA41F15F0ACBACC9D32"
                BuildableName = "Dronecode_SDK_SwiftTests.xctest"
                BlueprintName = "Dronecode_SDK_SwiftTests"
                ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NT_4DDE12F2BF90E823AE0D34CFD56CDEAF"
+               BlueprintIdentifier = "591724C6D92882BB83318FBADE3355CB"
                BuildableName = "Dronecode_SDK_SwiftIntegrationTests.xctest"
                BlueprintName = "Dronecode_SDK_SwiftIntegrationTests"
                ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
@@ -52,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_05952799B6148FF995E6D238E7A58849"
+            BlueprintIdentifier = "2298C45676E3D8B9DF81AAA9B25CB40F"
             BuildableName = "Dronecode_SDK_Swift.framework"
             BlueprintName = "Dronecode_SDK_Swift"
             ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
@@ -76,7 +76,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_05952799B6148FF995E6D238E7A58849"
+            BlueprintIdentifier = "2298C45676E3D8B9DF81AAA9B25CB40F"
             BuildableName = "Dronecode_SDK_Swift.framework"
             BlueprintName = "Dronecode_SDK_Swift"
             ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">
@@ -97,7 +97,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NT_05952799B6148FF995E6D238E7A58849"
+            BlueprintIdentifier = "2298C45676E3D8B9DF81AAA9B25CB40F"
             BuildableName = "Dronecode_SDK_Swift.framework"
             BlueprintName = "Dronecode_SDK_Swift"
             ReferencedContainer = "container:Dronecode-SDK-Swift.xcodeproj">

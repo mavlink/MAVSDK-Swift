@@ -6,10 +6,10 @@ import RxTest
 
 class MissionTest: XCTestCase {
 
-    let missionResultsArary: [DronecodeSdk_Rpc_Mission_MissionResult.Result] = [.unknown, .error, .tooManyMissionItems, .busy, .timeout, .invalidArgument, .unsupported, .noMissionAvailable, .failedToOpenQgcPlan, .failedToParseQgcPlan, .unsupportedMissionCmd]
+    let missionResultsArary: [Mavsdk_Rpc_Mission_MissionResult.Result] = [.unknown, .error, .tooManyMissionItems, .busy, .timeout, .invalidArgument, .unsupported, .noMissionAvailable, .failedToOpenQgcPlan, .failedToParseQgcPlan, .unsupportedMissionCmd]
     
     func testUploadsOneItem() {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
         let scheduler = TestScheduler(initialClock: 0)
         let mission = Mission(service: fakeService, scheduler: scheduler)
 
@@ -21,9 +21,9 @@ class MissionTest: XCTestCase {
     func testDownloadMissionSucceedsOnSuccess() {
         let expectedResult = [Mission.MissionItem(latitudeDeg: 46.0, longitudeDeg: 6.0, relativeAltitudeM: Float(50), speedMS: Float(3.4), isFlyThrough: true, gimbalPitchDeg: Float(90), gimbalYawDeg: Float(23), cameraAction: Mission.MissionItem.CameraAction.none, loiterTimeS: Float(2), cameraPhotoIntervalS: 1).rpcMissionItem]
         
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_DownloadMissionResponse()
-        response.missionResult.result = DronecodeSdk_Rpc_Mission_MissionResult.Result.success
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Mission_DownloadMissionResponse()
+        response.missionResult.result = Mavsdk_Rpc_Mission_MissionResult.Result.success
         response.missionItems = expectedResult
         
         fakeService.downloadMissionResponses.append(response)
@@ -37,12 +37,12 @@ class MissionTest: XCTestCase {
     }
 
     func testStartSucceedsOnSuccess() throws {
-        _ = try startWithFakeResult(result: DronecodeSdk_Rpc_Mission_MissionResult.Result.success)
+        _ = try startWithFakeResult(result: Mavsdk_Rpc_Mission_MissionResult.Result.success)
     }
 
-    func startWithFakeResult(result: DronecodeSdk_Rpc_Mission_MissionResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_StartMissionResponse()
+    func startWithFakeResult(result: Mavsdk_Rpc_Mission_MissionResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Mission_StartMissionResponse()
         response.missionResult.result = result
         fakeService.startMissionResponses.append(response)
 
@@ -59,12 +59,12 @@ class MissionTest: XCTestCase {
     }
     
     func testPauseSucceedsOnSuccess() throws {
-        try pauseWithFakeResult(result: DronecodeSdk_Rpc_Mission_MissionResult.Result.success)
+        try pauseWithFakeResult(result: Mavsdk_Rpc_Mission_MissionResult.Result.success)
     }
     
-    func pauseWithFakeResult(result: DronecodeSdk_Rpc_Mission_MissionResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_PauseMissionResponse()
+    func pauseWithFakeResult(result: Mavsdk_Rpc_Mission_MissionResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Mission_PauseMissionResponse()
         response.missionResult.result = result
         fakeService.pauseMissionResponses.append(response)
 
@@ -88,8 +88,8 @@ class MissionTest: XCTestCase {
     }
     
     func setReturnToLaunchAfterMissionWithFakeResults() throws {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        let response = DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse()
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        let response = Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse()
         fakeService.setReturnToLaunchAfterMissionResponses.append(response)
 
         let scheduler = TestScheduler(initialClock: 0)
@@ -101,8 +101,8 @@ class MissionTest: XCTestCase {
     func testGetReturnToLaunchAfterMissionOnSuccess() {
         let expectedValue = true
         
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse()
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse()
         response.enable = expectedValue
         fakeService.getReturnToLaunchAfterMissionResponses.append(response)
 
@@ -125,8 +125,8 @@ class MissionTest: XCTestCase {
     }
     
     func setCurrentMissionItemIndexWithFakeResults() throws {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        let response = DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexResponse()
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        let response = Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse()
         fakeService.setCurrentMissionItemIndexResponses.append(response)
 
         let scheduler = TestScheduler(initialClock: 0)
@@ -137,8 +137,8 @@ class MissionTest: XCTestCase {
     
     func testIsMissionFinishedSucceedsOnSuccess() {
         let expectedResult = true
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Mission_IsMissionFinishedResponse()
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Mission_IsMissionFinishedResponse()
         response.isFinished = expectedResult
         fakeService.isMissionFinishedResponses.append(response)
 
@@ -157,8 +157,8 @@ class MissionTest: XCTestCase {
     }
 
     func testMissionProgressObservableEmitsNothingWhenNoEvent() {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub()
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub()
         fakeService.subscribeMissionProgressCalls.append(fakeCall)
 
         let scheduler = TestScheduler(initialClock: 0)
@@ -179,7 +179,7 @@ class MissionTest: XCTestCase {
     }
 
     func testMissionProgressObservableReceivesMultipleEvents() {
-        var missionProgressArray = [DronecodeSdk_Rpc_Mission_MissionProgressResponse]()
+        var missionProgressArray = [Mavsdk_Rpc_Mission_MissionProgressResponse]()
         missionProgressArray.append(createRPCMissionProgress(currentItemIndex: 1, missionCount: 10))
         missionProgressArray.append(createRPCMissionProgress(currentItemIndex: 2, missionCount: 10))
         missionProgressArray.append(createRPCMissionProgress(currentItemIndex: 3, missionCount: 10))
@@ -191,9 +191,9 @@ class MissionTest: XCTestCase {
         checkMissionProgressObservableReceivesEvents(missionProgressArray: missionProgressArray)
     }
 
-    func checkMissionProgressObservableReceivesEvents(missionProgressArray: [DronecodeSdk_Rpc_Mission_MissionProgressResponse]) {
-        let fakeService = DronecodeSdk_Rpc_Mission_MissionServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub()
+    func checkMissionProgressObservableReceivesEvents(missionProgressArray: [Mavsdk_Rpc_Mission_MissionProgressResponse]) {
+        let fakeService = Mavsdk_Rpc_Mission_MissionServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub()
         
         for missionProgress in missionProgressArray {
             fakeCall.outputs.append(missionProgress)
@@ -218,8 +218,8 @@ class MissionTest: XCTestCase {
         }))
     }
     
-    func createRPCMissionProgress(currentItemIndex: Int32, missionCount: Int32) -> DronecodeSdk_Rpc_Mission_MissionProgressResponse {
-        var response = DronecodeSdk_Rpc_Mission_MissionProgressResponse()
+    func createRPCMissionProgress(currentItemIndex: Int32, missionCount: Int32) -> Mavsdk_Rpc_Mission_MissionProgressResponse {
+        var response = Mavsdk_Rpc_Mission_MissionProgressResponse()
         response.missionProgress.currentItemIndex = currentItemIndex
         response.missionProgress.missionCount = missionCount
         

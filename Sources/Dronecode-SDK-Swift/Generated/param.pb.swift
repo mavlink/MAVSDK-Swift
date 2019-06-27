@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Param_GetIntParamRequest {
+struct Mavsdk_Rpc_Param_GetIntParamRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -31,13 +31,13 @@ struct DronecodeSdk_Rpc_Param_GetIntParamRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Param_GetIntParamResponse {
+struct Mavsdk_Rpc_Param_GetIntParamResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var paramResult: DronecodeSdk_Rpc_Param_ParamResult {
-    get {return _storage._paramResult ?? DronecodeSdk_Rpc_Param_ParamResult()}
+  var paramResult: Mavsdk_Rpc_Param_ParamResult {
+    get {return _storage._paramResult ?? Mavsdk_Rpc_Param_ParamResult()}
     set {_uniqueStorage()._paramResult = newValue}
   }
   /// Returns true if `paramResult` has been explicitly set.
@@ -57,7 +57,7 @@ struct DronecodeSdk_Rpc_Param_GetIntParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Param_SetIntParamRequest {
+struct Mavsdk_Rpc_Param_SetIntParamRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -71,13 +71,13 @@ struct DronecodeSdk_Rpc_Param_SetIntParamRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Param_SetIntParamResponse {
+struct Mavsdk_Rpc_Param_SetIntParamResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var paramResult: DronecodeSdk_Rpc_Param_ParamResult {
-    get {return _storage._paramResult ?? DronecodeSdk_Rpc_Param_ParamResult()}
+  var paramResult: Mavsdk_Rpc_Param_ParamResult {
+    get {return _storage._paramResult ?? Mavsdk_Rpc_Param_ParamResult()}
     set {_uniqueStorage()._paramResult = newValue}
   }
   /// Returns true if `paramResult` has been explicitly set.
@@ -92,7 +92,7 @@ struct DronecodeSdk_Rpc_Param_SetIntParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Param_GetFloatParamRequest {
+struct Mavsdk_Rpc_Param_GetFloatParamRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -104,13 +104,13 @@ struct DronecodeSdk_Rpc_Param_GetFloatParamRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Param_GetFloatParamResponse {
+struct Mavsdk_Rpc_Param_GetFloatParamResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var paramResult: DronecodeSdk_Rpc_Param_ParamResult {
-    get {return _storage._paramResult ?? DronecodeSdk_Rpc_Param_ParamResult()}
+  var paramResult: Mavsdk_Rpc_Param_ParamResult {
+    get {return _storage._paramResult ?? Mavsdk_Rpc_Param_ParamResult()}
     set {_uniqueStorage()._paramResult = newValue}
   }
   /// Returns true if `paramResult` has been explicitly set.
@@ -130,7 +130,7 @@ struct DronecodeSdk_Rpc_Param_GetFloatParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Param_SetFloatParamRequest {
+struct Mavsdk_Rpc_Param_SetFloatParamRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -144,13 +144,13 @@ struct DronecodeSdk_Rpc_Param_SetFloatParamRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Param_SetFloatParamResponse {
+struct Mavsdk_Rpc_Param_SetFloatParamResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var paramResult: DronecodeSdk_Rpc_Param_ParamResult {
-    get {return _storage._paramResult ?? DronecodeSdk_Rpc_Param_ParamResult()}
+  var paramResult: Mavsdk_Rpc_Param_ParamResult {
+    get {return _storage._paramResult ?? Mavsdk_Rpc_Param_ParamResult()}
     set {_uniqueStorage()._paramResult = newValue}
   }
   /// Returns true if `paramResult` has been explicitly set.
@@ -165,12 +165,12 @@ struct DronecodeSdk_Rpc_Param_SetFloatParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Param_ParamResult {
+struct Mavsdk_Rpc_Param_ParamResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: DronecodeSdk_Rpc_Param_ParamResult.Result = .unknown
+  var result: Mavsdk_Rpc_Param_ParamResult.Result = .unknown
 
   var resultStr: String = String()
 
@@ -221,9 +221,9 @@ struct DronecodeSdk_Rpc_Param_ParamResult {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Param_ParamResult.Result: CaseIterable {
+extension Mavsdk_Rpc_Param_ParamResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Param_ParamResult.Result] = [
+  static var allCases: [Mavsdk_Rpc_Param_ParamResult.Result] = [
     .unknown,
     .success,
     .timeout,
@@ -237,9 +237,9 @@ extension DronecodeSdk_Rpc_Param_ParamResult.Result: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.param"
+fileprivate let _protobuf_package = "mavsdk.rpc.param"
 
-extension DronecodeSdk_Rpc_Param_GetIntParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_GetIntParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetIntParamRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
@@ -261,14 +261,14 @@ extension DronecodeSdk_Rpc_Param_GetIntParamRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_GetIntParamRequest, rhs: DronecodeSdk_Rpc_Param_GetIntParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetIntParamRequest, rhs: Mavsdk_Rpc_Param_GetIntParamRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetIntParamResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
@@ -276,7 +276,7 @@ extension DronecodeSdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, Swi
   ]
 
   fileprivate class _StorageClass {
-    var _paramResult: DronecodeSdk_Rpc_Param_ParamResult? = nil
+    var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
     var _value: Int32 = 0
 
     static let defaultInstance = _StorageClass()
@@ -321,7 +321,7 @@ extension DronecodeSdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_GetIntParamResponse, rhs: DronecodeSdk_Rpc_Param_GetIntParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetIntParamResponse, rhs: Mavsdk_Rpc_Param_GetIntParamResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -337,7 +337,7 @@ extension DronecodeSdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetIntParamRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
@@ -364,7 +364,7 @@ extension DronecodeSdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_SetIntParamRequest, rhs: DronecodeSdk_Rpc_Param_SetIntParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetIntParamRequest, rhs: Mavsdk_Rpc_Param_SetIntParamRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -372,14 +372,14 @@ extension DronecodeSdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, Swif
   }
 }
 
-extension DronecodeSdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetIntParamResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _paramResult: DronecodeSdk_Rpc_Param_ParamResult? = nil
+    var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -418,7 +418,7 @@ extension DronecodeSdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_SetIntParamResponse, rhs: DronecodeSdk_Rpc_Param_SetIntParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetIntParamResponse, rhs: Mavsdk_Rpc_Param_SetIntParamResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -433,7 +433,7 @@ extension DronecodeSdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Param_GetFloatParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_GetFloatParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetFloatParamRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
@@ -455,14 +455,14 @@ extension DronecodeSdk_Rpc_Param_GetFloatParamRequest: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_GetFloatParamRequest, rhs: DronecodeSdk_Rpc_Param_GetFloatParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetFloatParamRequest, rhs: Mavsdk_Rpc_Param_GetFloatParamRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetFloatParamResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
@@ -470,7 +470,7 @@ extension DronecodeSdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, S
   ]
 
   fileprivate class _StorageClass {
-    var _paramResult: DronecodeSdk_Rpc_Param_ParamResult? = nil
+    var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
     var _value: Float = 0
 
     static let defaultInstance = _StorageClass()
@@ -515,7 +515,7 @@ extension DronecodeSdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_GetFloatParamResponse, rhs: DronecodeSdk_Rpc_Param_GetFloatParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetFloatParamResponse, rhs: Mavsdk_Rpc_Param_GetFloatParamResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -531,7 +531,7 @@ extension DronecodeSdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, S
   }
 }
 
-extension DronecodeSdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetFloatParamRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
@@ -558,7 +558,7 @@ extension DronecodeSdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_SetFloatParamRequest, rhs: DronecodeSdk_Rpc_Param_SetFloatParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetFloatParamRequest, rhs: Mavsdk_Rpc_Param_SetFloatParamRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -566,14 +566,14 @@ extension DronecodeSdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, Sw
   }
 }
 
-extension DronecodeSdk_Rpc_Param_SetFloatParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_SetFloatParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetFloatParamResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _paramResult: DronecodeSdk_Rpc_Param_ParamResult? = nil
+    var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -612,7 +612,7 @@ extension DronecodeSdk_Rpc_Param_SetFloatParamResponse: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_SetFloatParamResponse, rhs: DronecodeSdk_Rpc_Param_SetFloatParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetFloatParamResponse, rhs: Mavsdk_Rpc_Param_SetFloatParamResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -627,7 +627,7 @@ extension DronecodeSdk_Rpc_Param_SetFloatParamResponse: SwiftProtobuf.Message, S
   }
 }
 
-extension DronecodeSdk_Rpc_Param_ParamResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_ParamResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ParamResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "result"),
@@ -654,7 +654,7 @@ extension DronecodeSdk_Rpc_Param_ParamResult: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Param_ParamResult, rhs: DronecodeSdk_Rpc_Param_ParamResult) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_ParamResult, rhs: Mavsdk_Rpc_Param_ParamResult) -> Bool {
     if lhs.result != rhs.result {return false}
     if lhs.resultStr != rhs.resultStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -662,7 +662,7 @@ extension DronecodeSdk_Rpc_Param_ParamResult: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Param_ParamResult.Result: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Param_ParamResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "SUCCESS"),

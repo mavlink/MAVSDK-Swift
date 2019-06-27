@@ -12,8 +12,8 @@ class CoreTest: XCTestCase {
     let ARBITRARY_PLUGIN_PORT: Int32 = 1291
 
     func testConnectionStateObservableEmitsNothingWhenNoEvent() {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
+        let fakeService = Mavsdk_Rpc_Core_CoreServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
         fakeService.subscribeConnectionStateCalls.append(fakeCall)
 
         let scheduler = TestScheduler(initialClock: 0)
@@ -27,8 +27,8 @@ class CoreTest: XCTestCase {
     }
 
     func testConnectionStateObservableReceivesOneEvent() {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
+        let fakeService = Mavsdk_Rpc_Core_CoreServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
 
         let expectedConnectionState = Core.ConnectionState(uuid: ARBITRARY_UUID, isConnected: true)
         fakeCall.outputs = [createConnectionStateResponse(connectionState: expectedConnectionState)]
@@ -51,8 +51,8 @@ class CoreTest: XCTestCase {
         }))
     }
 
-    func createConnectionStateResponse(connectionState: Core.ConnectionState) -> DronecodeSdk_Rpc_Core_ConnectionStateResponse {
-        var response = DronecodeSdk_Rpc_Core_ConnectionStateResponse()
+    func createConnectionStateResponse(connectionState: Core.ConnectionState) -> Mavsdk_Rpc_Core_ConnectionStateResponse {
+        var response = Mavsdk_Rpc_Core_ConnectionStateResponse()
         response.connectionState.uuid = connectionState.uuid
         response.connectionState.isConnected = connectionState.isConnected
 
@@ -60,8 +60,8 @@ class CoreTest: XCTestCase {
     }
 
     func testDiscoverObservableReceivesMultipleEvents() {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
+        let fakeService = Mavsdk_Rpc_Core_CoreServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub()
 
         fakeCall.outputs = []
         var expectedConnectionStates = [Core.ConnectionState]()
@@ -88,8 +88,8 @@ class CoreTest: XCTestCase {
     }
 
     func testListRunningPluginsEmitsNothingWhenEmpty() {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        fakeService.listRunningPluginsResponses.append(DronecodeSdk_Rpc_Core_ListRunningPluginsResponse())
+        let fakeService = Mavsdk_Rpc_Core_CoreServiceServiceTestStub()
+        fakeService.listRunningPluginsResponses.append(Mavsdk_Rpc_Core_ListRunningPluginsResponse())
         let scheduler = TestScheduler(initialClock: 0)
         let client = Core(service: fakeService, scheduler: scheduler)
         scheduler.start()
@@ -100,8 +100,8 @@ class CoreTest: XCTestCase {
     }
 
     func testListRunningPluginsEmitsOnePluginInfo() throws {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Core_ListRunningPluginsResponse()
+        let fakeService = Mavsdk_Rpc_Core_CoreServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Core_ListRunningPluginsResponse()
         response.pluginInfo.append(createRPCPluginInfo(name: ARBITRARY_PLUGIN_NAME, address: ARBITRARY_PLUGIN_ADDRESS, port: ARBITRARY_PLUGIN_PORT))
         fakeService.listRunningPluginsResponses.append(response)
         let scheduler = TestScheduler(initialClock: 0)
@@ -115,8 +115,8 @@ class CoreTest: XCTestCase {
         XCTAssertEqual(expectedPluginInfo, pluginInfos.first)
     }
 
-    func createRPCPluginInfo(name: String, address: String, port: Int32) -> DronecodeSdk_Rpc_Core_PluginInfo {
-        var pluginInfo = DronecodeSdk_Rpc_Core_PluginInfo()
+    func createRPCPluginInfo(name: String, address: String, port: Int32) -> Mavsdk_Rpc_Core_PluginInfo {
+        var pluginInfo = Mavsdk_Rpc_Core_PluginInfo()
         pluginInfo.name = ARBITRARY_PLUGIN_NAME
         pluginInfo.address = ARBITRARY_PLUGIN_ADDRESS
         pluginInfo.port = ARBITRARY_PLUGIN_PORT
@@ -125,8 +125,8 @@ class CoreTest: XCTestCase {
     }
 
     func testListRunningPluginsEmitsMultiplePluginInfos() throws {
-        let fakeService = DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Core_ListRunningPluginsResponse()
+        let fakeService = Mavsdk_Rpc_Core_CoreServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Core_ListRunningPluginsResponse()
         response.pluginInfo.append(createRPCPluginInfo(name: "name1", address: "add1", port: 1291))
         response.pluginInfo.append(createRPCPluginInfo(name: "name2", address: "add2", port: 1492))
         response.pluginInfo.append(createRPCPluginInfo(name: "name3", address: "add3", port: 1515))

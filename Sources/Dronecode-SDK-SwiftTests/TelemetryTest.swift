@@ -7,8 +7,8 @@ import XCTest
 class TelemetryTest: XCTestCase {
 
     func testPositionObservableEmitsNothingWhenNoEvent() {
-        let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub()
+        let fakeService = Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub()
         fakeService.subscribePositionCalls.append(fakeCall)
         fakeService.subscribePositionCalls.append(fakeCall)
         fakeService.subscribePositionCalls.append(fakeCall)
@@ -30,8 +30,8 @@ class TelemetryTest: XCTestCase {
         checkPositionObservableReceivesEvents(positions: positions)
     }
     
-    func createRPCPosition(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, relativeAltitudeM: Float) -> DronecodeSdk_Rpc_Telemetry_Position {
-        var position = DronecodeSdk_Rpc_Telemetry_Position()
+    func createRPCPosition(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, relativeAltitudeM: Float) -> Mavsdk_Rpc_Telemetry_Position {
+        var position = Mavsdk_Rpc_Telemetry_Position()
         position.latitudeDeg = latitudeDeg
         position.longitudeDeg = longitudeDeg
         position.absoluteAltitudeM = absoluteAltitudeM
@@ -40,9 +40,9 @@ class TelemetryTest: XCTestCase {
         return position
     }
 
-    func checkPositionObservableReceivesEvents(positions: [DronecodeSdk_Rpc_Telemetry_Position]) {
-        let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub()
+    func checkPositionObservableReceivesEvents(positions: [Mavsdk_Rpc_Telemetry_Position]) {
+        let fakeService = Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub()
 
         fakeCall.outputs.append(contentsOf: positions.map{ position in createPositionResponse(position: position) })
         fakeService.subscribePositionCalls.append(fakeCall)
@@ -63,7 +63,7 @@ class TelemetryTest: XCTestCase {
     }
     
     func testPositionObservableReceivesMultipleEvents() {
-        var positions = [DronecodeSdk_Rpc_Telemetry_Position]()
+        var positions = [Mavsdk_Rpc_Telemetry_Position]()
         positions.append(createRPCPosition(latitudeDeg: 41.848695, longitudeDeg: 75.132751, absoluteAltitudeM: 3002.1, relativeAltitudeM: 50.3));
         positions.append(createRPCPosition(latitudeDeg: 46.522626, longitudeDeg: 6.635356, absoluteAltitudeM: 542.2, relativeAltitudeM: 79.8));
         positions.append(createRPCPosition(latitudeDeg: -50.995944711358824, longitudeDeg: -72.99892046835936, absoluteAltitudeM: 1217.12, relativeAltitudeM: 2.52));
@@ -71,16 +71,16 @@ class TelemetryTest: XCTestCase {
         checkPositionObservableReceivesEvents(positions: positions)
     }
 
-    func createPositionResponse(position: DronecodeSdk_Rpc_Telemetry_Position) -> DronecodeSdk_Rpc_Telemetry_PositionResponse {
-        var response = DronecodeSdk_Rpc_Telemetry_PositionResponse()
+    func createPositionResponse(position: Mavsdk_Rpc_Telemetry_Position) -> Mavsdk_Rpc_Telemetry_PositionResponse {
+        var response = Mavsdk_Rpc_Telemetry_PositionResponse()
         response.position = position
 
         return response
     }
 
     func testHealthObservableEmitsNothingWhenNoEvent() {
-        let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
+        let fakeService = Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
         fakeService.subscribeHealthCalls.append(fakeCall)
         
         let scheduler = TestScheduler(initialClock: 0)
@@ -102,10 +102,10 @@ class TelemetryTest: XCTestCase {
     }
     
     func checkHealthObservableReceivesEvents(nbEvents: UInt) {
-        let fakeService = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
+        let fakeService = Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub()
         
-        var healths = [DronecodeSdk_Rpc_Telemetry_Health]()
+        var healths = [Mavsdk_Rpc_Telemetry_Health]()
         for _ in 1...nbEvents {
             healths.append(createRandomRPCHealth())
         }
@@ -133,8 +133,8 @@ class TelemetryTest: XCTestCase {
         }))
     }
     
-    func createHealthResponse(health: DronecodeSdk_Rpc_Telemetry_Health) -> DronecodeSdk_Rpc_Telemetry_HealthResponse {
-        var response = DronecodeSdk_Rpc_Telemetry_HealthResponse()
+    func createHealthResponse(health: Mavsdk_Rpc_Telemetry_Health) -> Mavsdk_Rpc_Telemetry_HealthResponse {
+        var response = Mavsdk_Rpc_Telemetry_HealthResponse()
         response.health = health
         
         return response
@@ -144,8 +144,8 @@ class TelemetryTest: XCTestCase {
         return arc4random_uniform(2) == 0
     }
     
-    func createRandomRPCHealth() -> DronecodeSdk_Rpc_Telemetry_Health {
-        var health = DronecodeSdk_Rpc_Telemetry_Health()
+    func createRandomRPCHealth() -> Mavsdk_Rpc_Telemetry_Health {
+        var health = Mavsdk_Rpc_Telemetry_Health()
         
         health.isGyrometerCalibrationOk = generateRandomBool()
         health.isAccelerometerCalibrationOk = generateRandomBool()

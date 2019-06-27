@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Action {
-    private let service: DronecodeSdk_Rpc_Action_ActionServiceService
+    private let service: Mavsdk_Rpc_Action_ActionServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Action_ActionServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Action_ActionServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -57,7 +57,7 @@ public class Action {
             case parameterError
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Action_ActionResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Action_ActionResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -88,7 +88,7 @@ public class Action {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Action_ActionResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Action_ActionResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -126,8 +126,8 @@ public class Action {
             self.resultStr = resultStr
         }
 
-        internal var rpcActionResult: DronecodeSdk_Rpc_Action_ActionResult {
-            var rpcActionResult = DronecodeSdk_Rpc_Action_ActionResult()
+        internal var rpcActionResult: Mavsdk_Rpc_Action_ActionResult {
+            var rpcActionResult = Mavsdk_Rpc_Action_ActionResult()
             
                 
             rpcActionResult.result = result.rpcResult
@@ -142,7 +142,7 @@ public class Action {
             return rpcActionResult
         }
 
-        internal static func translateFromRpc(_ rpcActionResult: DronecodeSdk_Rpc_Action_ActionResult) -> ActionResult {
+        internal static func translateFromRpc(_ rpcActionResult: Mavsdk_Rpc_Action_ActionResult) -> ActionResult {
             return ActionResult(result: Result.translateFromRpc(rpcActionResult.result), resultStr: rpcActionResult.resultStr)
         }
 
@@ -155,7 +155,7 @@ public class Action {
 
     public func arm() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_ArmRequest()
+            let request = Mavsdk_Rpc_Action_ArmRequest()
 
             
 
@@ -163,7 +163,7 @@ public class Action {
                 
                 let response = try self.service.arm(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -179,7 +179,7 @@ public class Action {
 
     public func disarm() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_DisarmRequest()
+            let request = Mavsdk_Rpc_Action_DisarmRequest()
 
             
 
@@ -187,7 +187,7 @@ public class Action {
                 
                 let response = try self.service.disarm(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -203,7 +203,7 @@ public class Action {
 
     public func takeoff() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_TakeoffRequest()
+            let request = Mavsdk_Rpc_Action_TakeoffRequest()
 
             
 
@@ -211,7 +211,7 @@ public class Action {
                 
                 let response = try self.service.takeoff(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -227,7 +227,7 @@ public class Action {
 
     public func land() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_LandRequest()
+            let request = Mavsdk_Rpc_Action_LandRequest()
 
             
 
@@ -235,7 +235,7 @@ public class Action {
                 
                 let response = try self.service.land(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -251,7 +251,7 @@ public class Action {
 
     public func reboot() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_RebootRequest()
+            let request = Mavsdk_Rpc_Action_RebootRequest()
 
             
 
@@ -259,7 +259,7 @@ public class Action {
                 
                 let response = try self.service.reboot(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -275,7 +275,7 @@ public class Action {
 
     public func kill() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_KillRequest()
+            let request = Mavsdk_Rpc_Action_KillRequest()
 
             
 
@@ -283,7 +283,7 @@ public class Action {
                 
                 let response = try self.service.kill(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -299,7 +299,7 @@ public class Action {
 
     public func returnToLaunch() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_ReturnToLaunchRequest()
+            let request = Mavsdk_Rpc_Action_ReturnToLaunchRequest()
 
             
 
@@ -307,7 +307,7 @@ public class Action {
                 
                 let response = try self.service.returnToLaunch(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -323,7 +323,7 @@ public class Action {
 
     public func transitionToFixedWing() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest()
+            let request = Mavsdk_Rpc_Action_TransitionToFixedWingRequest()
 
             
 
@@ -331,7 +331,7 @@ public class Action {
                 
                 let response = try self.service.transitionToFixedWing(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -347,7 +347,7 @@ public class Action {
 
     public func transitionToMulticopter() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest()
+            let request = Mavsdk_Rpc_Action_TransitionToMulticopterRequest()
 
             
 
@@ -355,7 +355,7 @@ public class Action {
                 
                 let response = try self.service.transitionToMulticopter(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -371,7 +371,7 @@ public class Action {
 
     public func getTakeoffAltitude() -> Single<Float> {
         return Single<Float>.create { single in
-            let request = DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest()
+            let request = Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest()
 
             
 
@@ -379,7 +379,7 @@ public class Action {
                 let response = try self.service.getTakeoffAltitude(request)
 
                 
-                if (response.actionResult.result != DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     single(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
 
                     return Disposables.create()
@@ -400,7 +400,7 @@ public class Action {
 
     public func setTakeoffAltitude(altitude: Float) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest()
+            var request = Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest()
 
             
                 
@@ -412,7 +412,7 @@ public class Action {
                 
                 let response = try self.service.setTakeoffAltitude(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -428,7 +428,7 @@ public class Action {
 
     public func getMaximumSpeed() -> Single<Float> {
         return Single<Float>.create { single in
-            let request = DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest()
+            let request = Mavsdk_Rpc_Action_GetMaximumSpeedRequest()
 
             
 
@@ -436,7 +436,7 @@ public class Action {
                 let response = try self.service.getMaximumSpeed(request)
 
                 
-                if (response.actionResult.result != DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     single(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
 
                     return Disposables.create()
@@ -457,7 +457,7 @@ public class Action {
 
     public func setMaximumSpeed(speed: Float) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest()
+            var request = Mavsdk_Rpc_Action_SetMaximumSpeedRequest()
 
             
                 
@@ -469,7 +469,7 @@ public class Action {
                 
                 let response = try self.service.setMaximumSpeed(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
@@ -485,7 +485,7 @@ public class Action {
 
     public func getReturnToLaunchAltitude() -> Single<Float> {
         return Single<Float>.create { single in
-            let request = DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest()
+            let request = Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest()
 
             
 
@@ -493,7 +493,7 @@ public class Action {
                 let response = try self.service.getReturnToLaunchAltitude(request)
 
                 
-                if (response.actionResult.result != DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     single(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
 
                     return Disposables.create()
@@ -514,7 +514,7 @@ public class Action {
 
     public func setReturnToLaunchAltitude(relativeAltitudeM: Float) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest()
+            var request = Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest()
 
             
                 
@@ -526,7 +526,7 @@ public class Action {
                 
                 let response = try self.service.setReturnToLaunchAltitude(request)
 
-                if (response.actionResult.result == DronecodeSdk_Rpc_Action_ActionResult.Result.success) {
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))

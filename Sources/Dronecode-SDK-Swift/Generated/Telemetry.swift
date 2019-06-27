@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Telemetry {
-    private let service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService
+    private let service: Mavsdk_Rpc_Telemetry_TelemetryServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Telemetry_TelemetryServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Telemetry_TelemetryServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -39,7 +39,7 @@ public class Telemetry {
         case rtkFixed
         case UNRECOGNIZED(Int)
 
-        internal var rpcFixType: DronecodeSdk_Rpc_Telemetry_FixType {
+        internal var rpcFixType: Mavsdk_Rpc_Telemetry_FixType {
             switch self {
             case .noGps:
                 return .noGps
@@ -60,7 +60,7 @@ public class Telemetry {
             }
         }
 
-        internal static func translateFromRpc(_ rpcFixType: DronecodeSdk_Rpc_Telemetry_FixType) -> FixType {
+        internal static func translateFromRpc(_ rpcFixType: Mavsdk_Rpc_Telemetry_FixType) -> FixType {
             switch rpcFixType {
             case .noGps:
                 return .noGps
@@ -94,7 +94,7 @@ public class Telemetry {
         case followMe
         case UNRECOGNIZED(Int)
 
-        internal var rpcFlightMode: DronecodeSdk_Rpc_Telemetry_FlightMode {
+        internal var rpcFlightMode: Mavsdk_Rpc_Telemetry_FlightMode {
             switch self {
             case .unknown:
                 return .unknown
@@ -119,7 +119,7 @@ public class Telemetry {
             }
         }
 
-        internal static func translateFromRpc(_ rpcFlightMode: DronecodeSdk_Rpc_Telemetry_FlightMode) -> FlightMode {
+        internal static func translateFromRpc(_ rpcFlightMode: Mavsdk_Rpc_Telemetry_FlightMode) -> FlightMode {
             switch rpcFlightMode {
             case .unknown:
                 return .unknown
@@ -161,8 +161,8 @@ public class Telemetry {
             self.relativeAltitudeM = relativeAltitudeM
         }
 
-        internal var rpcPosition: DronecodeSdk_Rpc_Telemetry_Position {
-            var rpcPosition = DronecodeSdk_Rpc_Telemetry_Position()
+        internal var rpcPosition: Mavsdk_Rpc_Telemetry_Position {
+            var rpcPosition = Mavsdk_Rpc_Telemetry_Position()
             
                 
             rpcPosition.latitudeDeg = latitudeDeg
@@ -187,7 +187,7 @@ public class Telemetry {
             return rpcPosition
         }
 
-        internal static func translateFromRpc(_ rpcPosition: DronecodeSdk_Rpc_Telemetry_Position) -> Position {
+        internal static func translateFromRpc(_ rpcPosition: Mavsdk_Rpc_Telemetry_Position) -> Position {
             return Position(latitudeDeg: rpcPosition.latitudeDeg, longitudeDeg: rpcPosition.longitudeDeg, absoluteAltitudeM: rpcPosition.absoluteAltitudeM, relativeAltitudeM: rpcPosition.relativeAltitudeM)
         }
 
@@ -214,8 +214,8 @@ public class Telemetry {
             self.z = z
         }
 
-        internal var rpcQuaternion: DronecodeSdk_Rpc_Telemetry_Quaternion {
-            var rpcQuaternion = DronecodeSdk_Rpc_Telemetry_Quaternion()
+        internal var rpcQuaternion: Mavsdk_Rpc_Telemetry_Quaternion {
+            var rpcQuaternion = Mavsdk_Rpc_Telemetry_Quaternion()
             
                 
             rpcQuaternion.w = w
@@ -240,7 +240,7 @@ public class Telemetry {
             return rpcQuaternion
         }
 
-        internal static func translateFromRpc(_ rpcQuaternion: DronecodeSdk_Rpc_Telemetry_Quaternion) -> Quaternion {
+        internal static func translateFromRpc(_ rpcQuaternion: Mavsdk_Rpc_Telemetry_Quaternion) -> Quaternion {
             return Quaternion(w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z)
         }
 
@@ -265,8 +265,8 @@ public class Telemetry {
             self.yawDeg = yawDeg
         }
 
-        internal var rpcEulerAngle: DronecodeSdk_Rpc_Telemetry_EulerAngle {
-            var rpcEulerAngle = DronecodeSdk_Rpc_Telemetry_EulerAngle()
+        internal var rpcEulerAngle: Mavsdk_Rpc_Telemetry_EulerAngle {
+            var rpcEulerAngle = Mavsdk_Rpc_Telemetry_EulerAngle()
             
                 
             rpcEulerAngle.rollDeg = rollDeg
@@ -286,7 +286,7 @@ public class Telemetry {
             return rpcEulerAngle
         }
 
-        internal static func translateFromRpc(_ rpcEulerAngle: DronecodeSdk_Rpc_Telemetry_EulerAngle) -> EulerAngle {
+        internal static func translateFromRpc(_ rpcEulerAngle: Mavsdk_Rpc_Telemetry_EulerAngle) -> EulerAngle {
             return EulerAngle(rollDeg: rpcEulerAngle.rollDeg, pitchDeg: rpcEulerAngle.pitchDeg, yawDeg: rpcEulerAngle.yawDeg)
         }
 
@@ -310,8 +310,8 @@ public class Telemetry {
             self.velocityDownMS = velocityDownMS
         }
 
-        internal var rpcSpeedNed: DronecodeSdk_Rpc_Telemetry_SpeedNed {
-            var rpcSpeedNed = DronecodeSdk_Rpc_Telemetry_SpeedNed()
+        internal var rpcSpeedNed: Mavsdk_Rpc_Telemetry_SpeedNed {
+            var rpcSpeedNed = Mavsdk_Rpc_Telemetry_SpeedNed()
             
                 
             rpcSpeedNed.velocityNorthMS = velocityNorthMS
@@ -331,7 +331,7 @@ public class Telemetry {
             return rpcSpeedNed
         }
 
-        internal static func translateFromRpc(_ rpcSpeedNed: DronecodeSdk_Rpc_Telemetry_SpeedNed) -> SpeedNed {
+        internal static func translateFromRpc(_ rpcSpeedNed: Mavsdk_Rpc_Telemetry_SpeedNed) -> SpeedNed {
             return SpeedNed(velocityNorthMS: rpcSpeedNed.velocityNorthMS, velocityEastMS: rpcSpeedNed.velocityEastMS, velocityDownMS: rpcSpeedNed.velocityDownMS)
         }
 
@@ -353,8 +353,8 @@ public class Telemetry {
             self.fixType = fixType
         }
 
-        internal var rpcGpsInfo: DronecodeSdk_Rpc_Telemetry_GpsInfo {
-            var rpcGpsInfo = DronecodeSdk_Rpc_Telemetry_GpsInfo()
+        internal var rpcGpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo {
+            var rpcGpsInfo = Mavsdk_Rpc_Telemetry_GpsInfo()
             
                 
             rpcGpsInfo.numSatellites = numSatellites
@@ -369,7 +369,7 @@ public class Telemetry {
             return rpcGpsInfo
         }
 
-        internal static func translateFromRpc(_ rpcGpsInfo: DronecodeSdk_Rpc_Telemetry_GpsInfo) -> GpsInfo {
+        internal static func translateFromRpc(_ rpcGpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo) -> GpsInfo {
             return GpsInfo(numSatellites: rpcGpsInfo.numSatellites, fixType: FixType.translateFromRpc(rpcGpsInfo.fixType))
         }
 
@@ -390,8 +390,8 @@ public class Telemetry {
             self.remainingPercent = remainingPercent
         }
 
-        internal var rpcBattery: DronecodeSdk_Rpc_Telemetry_Battery {
-            var rpcBattery = DronecodeSdk_Rpc_Telemetry_Battery()
+        internal var rpcBattery: Mavsdk_Rpc_Telemetry_Battery {
+            var rpcBattery = Mavsdk_Rpc_Telemetry_Battery()
             
                 
             rpcBattery.voltageV = voltageV
@@ -406,7 +406,7 @@ public class Telemetry {
             return rpcBattery
         }
 
-        internal static func translateFromRpc(_ rpcBattery: DronecodeSdk_Rpc_Telemetry_Battery) -> Battery {
+        internal static func translateFromRpc(_ rpcBattery: Mavsdk_Rpc_Telemetry_Battery) -> Battery {
             return Battery(voltageV: rpcBattery.voltageV, remainingPercent: rpcBattery.remainingPercent)
         }
 
@@ -437,8 +437,8 @@ public class Telemetry {
             self.isHomePositionOk = isHomePositionOk
         }
 
-        internal var rpcHealth: DronecodeSdk_Rpc_Telemetry_Health {
-            var rpcHealth = DronecodeSdk_Rpc_Telemetry_Health()
+        internal var rpcHealth: Mavsdk_Rpc_Telemetry_Health {
+            var rpcHealth = Mavsdk_Rpc_Telemetry_Health()
             
                 
             rpcHealth.isGyrometerCalibrationOk = isGyrometerCalibrationOk
@@ -478,7 +478,7 @@ public class Telemetry {
             return rpcHealth
         }
 
-        internal static func translateFromRpc(_ rpcHealth: DronecodeSdk_Rpc_Telemetry_Health) -> Health {
+        internal static func translateFromRpc(_ rpcHealth: Mavsdk_Rpc_Telemetry_Health) -> Health {
             return Health(isGyrometerCalibrationOk: rpcHealth.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: rpcHealth.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: rpcHealth.isMagnetometerCalibrationOk, isLevelCalibrationOk: rpcHealth.isLevelCalibrationOk, isLocalPositionOk: rpcHealth.isLocalPositionOk, isGlobalPositionOk: rpcHealth.isGlobalPositionOk, isHomePositionOk: rpcHealth.isHomePositionOk)
         }
 
@@ -506,8 +506,8 @@ public class Telemetry {
             self.signalStrengthPercent = signalStrengthPercent
         }
 
-        internal var rpcRcStatus: DronecodeSdk_Rpc_Telemetry_RcStatus {
-            var rpcRcStatus = DronecodeSdk_Rpc_Telemetry_RcStatus()
+        internal var rpcRcStatus: Mavsdk_Rpc_Telemetry_RcStatus {
+            var rpcRcStatus = Mavsdk_Rpc_Telemetry_RcStatus()
             
                 
             rpcRcStatus.wasAvailableOnce = wasAvailableOnce
@@ -527,7 +527,7 @@ public class Telemetry {
             return rpcRcStatus
         }
 
-        internal static func translateFromRpc(_ rpcRcStatus: DronecodeSdk_Rpc_Telemetry_RcStatus) -> RcStatus {
+        internal static func translateFromRpc(_ rpcRcStatus: Mavsdk_Rpc_Telemetry_RcStatus) -> RcStatus {
             return RcStatus(wasAvailableOnce: rpcRcStatus.wasAvailableOnce, isAvailable: rpcRcStatus.isAvailable, signalStrengthPercent: rpcRcStatus.signalStrengthPercent)
         }
 
@@ -551,7 +551,7 @@ public class Telemetry {
             case critical
             case UNRECOGNIZED(Int)
 
-            internal var rpcStatusType: DronecodeSdk_Rpc_Telemetry_StatusText.StatusType {
+            internal var rpcStatusType: Mavsdk_Rpc_Telemetry_StatusText.StatusType {
                 switch self {
                 case .info:
                     return .info
@@ -564,7 +564,7 @@ public class Telemetry {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcStatusType: DronecodeSdk_Rpc_Telemetry_StatusText.StatusType) -> StatusType {
+            internal static func translateFromRpc(_ rpcStatusType: Mavsdk_Rpc_Telemetry_StatusText.StatusType) -> StatusType {
                 switch rpcStatusType {
                 case .info:
                     return .info
@@ -584,8 +584,8 @@ public class Telemetry {
             self.text = text
         }
 
-        internal var rpcStatusText: DronecodeSdk_Rpc_Telemetry_StatusText {
-            var rpcStatusText = DronecodeSdk_Rpc_Telemetry_StatusText()
+        internal var rpcStatusText: Mavsdk_Rpc_Telemetry_StatusText {
+            var rpcStatusText = Mavsdk_Rpc_Telemetry_StatusText()
             
                 
             rpcStatusText.type = type.rpcStatusType
@@ -600,7 +600,7 @@ public class Telemetry {
             return rpcStatusText
         }
 
-        internal static func translateFromRpc(_ rpcStatusText: DronecodeSdk_Rpc_Telemetry_StatusText) -> StatusText {
+        internal static func translateFromRpc(_ rpcStatusText: Mavsdk_Rpc_Telemetry_StatusText) -> StatusText {
             return StatusText(type: StatusType.translateFromRpc(rpcStatusText.type), text: rpcStatusText.text)
         }
 
@@ -615,7 +615,7 @@ public class Telemetry {
 
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribePositionRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribePositionRequest()
 
             
 
@@ -630,7 +630,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let position = Position.translateFromRpc(response.position)
@@ -666,7 +666,7 @@ public class Telemetry {
 
     private func createHomeObservable() -> Observable<Position> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeHomeRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeHomeRequest()
 
             
 
@@ -681,7 +681,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let home = Position.translateFromRpc(response.home)
@@ -717,7 +717,7 @@ public class Telemetry {
 
     private func createInAirObservable() -> Observable<Bool> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeInAirRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeInAirRequest()
 
             
 
@@ -732,7 +732,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let inAir = response.isInAir
@@ -769,7 +769,7 @@ public class Telemetry {
 
     private func createArmedObservable() -> Observable<Bool> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeArmedRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeArmedRequest()
 
             
 
@@ -784,7 +784,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let armed = response.isArmed
@@ -821,7 +821,7 @@ public class Telemetry {
 
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
 
             
 
@@ -836,7 +836,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
@@ -872,7 +872,7 @@ public class Telemetry {
 
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
 
             
 
@@ -887,7 +887,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
@@ -923,7 +923,7 @@ public class Telemetry {
 
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
 
             
 
@@ -938,7 +938,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
@@ -974,7 +974,7 @@ public class Telemetry {
 
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
 
             
 
@@ -989,7 +989,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
@@ -1025,7 +1025,7 @@ public class Telemetry {
 
     private func createGroundSpeedNedObservable() -> Observable<SpeedNed> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest()
 
             
 
@@ -1040,7 +1040,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let groundSpeedNed = SpeedNed.translateFromRpc(response.groundSpeedNed)
@@ -1076,7 +1076,7 @@ public class Telemetry {
 
     private func createGpsInfoObservable() -> Observable<GpsInfo> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeGpsInfoRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest()
 
             
 
@@ -1091,7 +1091,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
@@ -1127,7 +1127,7 @@ public class Telemetry {
 
     private func createBatteryObservable() -> Observable<Battery> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeBatteryRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest()
 
             
 
@@ -1142,7 +1142,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let battery = Battery.translateFromRpc(response.battery)
@@ -1178,7 +1178,7 @@ public class Telemetry {
 
     private func createFlightModeObservable() -> Observable<FlightMode> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeFlightModeRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest()
 
             
 
@@ -1193,7 +1193,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let flightMode = FlightMode.translateFromRpc(response.flightMode)
@@ -1229,7 +1229,7 @@ public class Telemetry {
 
     private func createHealthObservable() -> Observable<Health> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeHealthRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeHealthRequest()
 
             
 
@@ -1244,7 +1244,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let health = Health.translateFromRpc(response.health)
@@ -1280,7 +1280,7 @@ public class Telemetry {
 
     private func createRcStatusObservable() -> Observable<RcStatus> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeRcStatusRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest()
 
             
 
@@ -1295,7 +1295,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
@@ -1331,7 +1331,7 @@ public class Telemetry {
 
     private func createStatusTextObservable() -> Observable<StatusText> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Telemetry_SubscribeStatusTextRequest()
+            let request = Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest()
 
             
 
@@ -1346,7 +1346,7 @@ public class Telemetry {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let statusText = StatusText.translateFromRpc(response.statusText)

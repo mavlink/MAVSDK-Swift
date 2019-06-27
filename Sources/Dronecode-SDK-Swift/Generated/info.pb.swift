@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Info_Version {
+struct Mavsdk_Rpc_Info_Version {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -47,7 +47,7 @@ struct DronecodeSdk_Rpc_Info_Version {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Info_GetVersionRequest {
+struct Mavsdk_Rpc_Info_GetVersionRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -57,13 +57,13 @@ struct DronecodeSdk_Rpc_Info_GetVersionRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Info_GetVersionResponse {
+struct Mavsdk_Rpc_Info_GetVersionResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var infoResult: DronecodeSdk_Rpc_Info_InfoResult {
-    get {return _storage._infoResult ?? DronecodeSdk_Rpc_Info_InfoResult()}
+  var infoResult: Mavsdk_Rpc_Info_InfoResult {
+    get {return _storage._infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
     set {_uniqueStorage()._infoResult = newValue}
   }
   /// Returns true if `infoResult` has been explicitly set.
@@ -71,8 +71,8 @@ struct DronecodeSdk_Rpc_Info_GetVersionResponse {
   /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
   mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
 
-  var version: DronecodeSdk_Rpc_Info_Version {
-    get {return _storage._version ?? DronecodeSdk_Rpc_Info_Version()}
+  var version: Mavsdk_Rpc_Info_Version {
+    get {return _storage._version ?? Mavsdk_Rpc_Info_Version()}
     set {_uniqueStorage()._version = newValue}
   }
   /// Returns true if `version` has been explicitly set.
@@ -87,12 +87,12 @@ struct DronecodeSdk_Rpc_Info_GetVersionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Info_InfoResult {
+struct Mavsdk_Rpc_Info_InfoResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: DronecodeSdk_Rpc_Info_InfoResult.Result = .unknown
+  var result: Mavsdk_Rpc_Info_InfoResult.Result = .unknown
 
   var resultStr: String = String()
 
@@ -134,9 +134,9 @@ struct DronecodeSdk_Rpc_Info_InfoResult {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Info_InfoResult.Result: CaseIterable {
+extension Mavsdk_Rpc_Info_InfoResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Info_InfoResult.Result] = [
+  static var allCases: [Mavsdk_Rpc_Info_InfoResult.Result] = [
     .unknown,
     .success,
     .informationNotReceivedYet,
@@ -147,9 +147,9 @@ extension DronecodeSdk_Rpc_Info_InfoResult.Result: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.info"
+fileprivate let _protobuf_package = "mavsdk.rpc.info"
 
-extension DronecodeSdk_Rpc_Info_Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Info_Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Version"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "flight_sw_major"),
@@ -211,7 +211,7 @@ extension DronecodeSdk_Rpc_Info_Version: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Info_Version, rhs: DronecodeSdk_Rpc_Info_Version) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Info_Version, rhs: Mavsdk_Rpc_Info_Version) -> Bool {
     if lhs.flightSwMajor != rhs.flightSwMajor {return false}
     if lhs.flightSwMinor != rhs.flightSwMinor {return false}
     if lhs.flightSwPatch != rhs.flightSwPatch {return false}
@@ -226,7 +226,7 @@ extension DronecodeSdk_Rpc_Info_Version: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 }
 
-extension DronecodeSdk_Rpc_Info_GetVersionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Info_GetVersionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetVersionRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -239,13 +239,13 @@ extension DronecodeSdk_Rpc_Info_GetVersionRequest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Info_GetVersionRequest, rhs: DronecodeSdk_Rpc_Info_GetVersionRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Info_GetVersionRequest, rhs: Mavsdk_Rpc_Info_GetVersionRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetVersionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "info_result"),
@@ -253,8 +253,8 @@ extension DronecodeSdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, Swift
   ]
 
   fileprivate class _StorageClass {
-    var _infoResult: DronecodeSdk_Rpc_Info_InfoResult? = nil
-    var _version: DronecodeSdk_Rpc_Info_Version? = nil
+    var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
+    var _version: Mavsdk_Rpc_Info_Version? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -298,7 +298,7 @@ extension DronecodeSdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Info_GetVersionResponse, rhs: DronecodeSdk_Rpc_Info_GetVersionResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Info_GetVersionResponse, rhs: Mavsdk_Rpc_Info_GetVersionResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -314,7 +314,7 @@ extension DronecodeSdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, Swift
   }
 }
 
-extension DronecodeSdk_Rpc_Info_InfoResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Info_InfoResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".InfoResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "result"),
@@ -341,7 +341,7 @@ extension DronecodeSdk_Rpc_Info_InfoResult: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Info_InfoResult, rhs: DronecodeSdk_Rpc_Info_InfoResult) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Info_InfoResult, rhs: Mavsdk_Rpc_Info_InfoResult) -> Bool {
     if lhs.result != rhs.result {return false}
     if lhs.resultStr != rhs.resultStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -349,7 +349,7 @@ extension DronecodeSdk_Rpc_Info_InfoResult: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
-extension DronecodeSdk_Rpc_Info_InfoResult.Result: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Info_InfoResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "SUCCESS"),

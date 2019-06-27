@@ -8,15 +8,15 @@ import XCTest
 class CameraTest: XCTestCase {
     
     let scheduler = MainScheduler.instance
-    let cameraResultsArray: [DronecodeSdk_Rpc_Camera_CameraResult.Result] = [.unknown, .error, .busy, .timeout, .inProgress, .denied, .wrongArgument]
+    let cameraResultsArray: [Mavsdk_Rpc_Camera_CameraResult.Result] = [.unknown, .error, .busy, .timeout, .inProgress, .denied, .wrongArgument]
     
     func testTakePhoto() throws {
-        _ = try takePhotoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        _ = try takePhotoWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func takePhotoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_TakePhotoResponse()
+    func takePhotoWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_TakePhotoResponse()
         
         response.cameraResult.result = result
         fakeService.takePhotoResponses.append(response)
@@ -33,12 +33,12 @@ class CameraTest: XCTestCase {
     }
     
     func testStartPhotoInteval() throws {
-        _ = try startPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        _ = try startPhotoIntervalWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func startPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_StartPhotoIntervalResponse()
+    func startPhotoIntervalWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_StartPhotoIntervalResponse()
         
         response.cameraResult.result = result
         fakeService.startPhotoIntervalResponses.append(response)
@@ -55,12 +55,12 @@ class CameraTest: XCTestCase {
     }
     
     func testStopPhotoInterval() throws {
-        _ = try stopPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        _ = try stopPhotoIntervalWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func stopPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_StopPhotoIntervalResponse()
+    func stopPhotoIntervalWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_StopPhotoIntervalResponse()
         
         response.cameraResult.result = result
         fakeService.stopPhotoIntervalResponses.append(response)
@@ -77,12 +77,12 @@ class CameraTest: XCTestCase {
     }
     
     func testStartVideo() throws {
-        _ = try startVideoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        _ = try startVideoWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func startVideoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_StartVideoResponse()
+    func startVideoWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_StartVideoResponse()
         
         response.cameraResult.result = result
         fakeService.startVideoResponses.append(response)
@@ -99,12 +99,12 @@ class CameraTest: XCTestCase {
     }
     
     func testStopVideo() throws {
-        _ = try stopPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        _ = try stopPhotoIntervalWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func stopVideoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_StopVideoResponse() // Should fail?
+    func stopVideoWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_StopVideoResponse() // Should fail?
         
         response.cameraResult.result = result
         fakeService.stopVideoResponses.append(response)
@@ -121,12 +121,12 @@ class CameraTest: XCTestCase {
     }
     
     func testStartVideoStreaming() throws {
-        try startVideoWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        try startVideoWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func startVideoStreamingWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_StartVideoStreamingResponse()
+    func startVideoStreamingWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_StartVideoStreamingResponse()
         
         response.cameraResult.result = result
         fakeService.startVideoStreamingResponses.append(response)
@@ -143,12 +143,12 @@ class CameraTest: XCTestCase {
     }
     
     func testStopVideoStreaming() throws {
-        _ = try stopPhotoIntervalWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+        _ = try stopPhotoIntervalWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
     }
     
-    func stopVideoStreamingWithFakeResult(result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_StopVideoStreamingResponse()
+    func stopVideoStreamingWithFakeResult(result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_StopVideoStreamingResponse()
         
         response.cameraResult.result = result
         fakeService.stopVideoStreamingResponses.append(response)
@@ -168,13 +168,13 @@ class CameraTest: XCTestCase {
         let cameraModeArray: [Camera.CameraMode] = [.unknown, .photo, .video]
         
         try cameraModeArray.forEach { mode in
-            try setModeWithFakeResult(mode: mode, result: DronecodeSdk_Rpc_Camera_CameraResult.Result.success)
+            try setModeWithFakeResult(mode: mode, result: Mavsdk_Rpc_Camera_CameraResult.Result.success)
         }
     }
     
-    func setModeWithFakeResult(mode: Camera.CameraMode, result: DronecodeSdk_Rpc_Camera_CameraResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Camera_SetModeResponse()
+    func setModeWithFakeResult(mode: Camera.CameraMode, result: Mavsdk_Rpc_Camera_CameraResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Camera_SetModeResponse()
         
         response.cameraResult.result = result
         fakeService.setModeResponses.append(response)
@@ -195,8 +195,8 @@ class CameraTest: XCTestCase {
     }
     
     func testSubscribeModeEmitsNothingWhenNoEvents() {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub()
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub()
         fakeService.subscribeModeCalls.append(fakeCall)
         
         let camera = Camera(service: fakeService, scheduler: self.scheduler)
@@ -217,7 +217,7 @@ class CameraTest: XCTestCase {
     }
     
     func testCameraModeObservableReceivesMultipleEvents() {
-        var cameraModeStates = [DronecodeSdk_Rpc_Camera_CameraMode]()
+        var cameraModeStates = [Mavsdk_Rpc_Camera_CameraMode]()
         cameraModeStates.append(createRPCCameraMode(status: .photo))
         cameraModeStates.append(createRPCCameraMode(status: .video))
         cameraModeStates.append(createRPCCameraMode(status: .unknown))
@@ -225,9 +225,9 @@ class CameraTest: XCTestCase {
         checkSubscribeModeReceivesEvents(cameraModeStates: cameraModeStates)
     }
     
-    func checkSubscribeModeReceivesEvents(cameraModeStates: [DronecodeSdk_Rpc_Camera_CameraMode]) {
-        let fakeService = DronecodeSdk_Rpc_Camera_CameraServiceServiceTestStub()
-        let fakeCall = DronecodeSdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub()
+    func checkSubscribeModeReceivesEvents(cameraModeStates: [Mavsdk_Rpc_Camera_CameraMode]) {
+        let fakeService = Mavsdk_Rpc_Camera_CameraServiceServiceTestStub()
+        let fakeCall = Mavsdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub()
         
         cameraModeStates.forEach {
             fakeCall.outputs.append(createCameraModeResponse(cameraMode: $0))
@@ -252,15 +252,15 @@ class CameraTest: XCTestCase {
         }))
     }
     
-    func createCameraModeResponse(cameraMode: DronecodeSdk_Rpc_Camera_CameraMode) -> DronecodeSdk_Rpc_Camera_ModeResponse {
-        var response = DronecodeSdk_Rpc_Camera_ModeResponse()
+    func createCameraModeResponse(cameraMode: Mavsdk_Rpc_Camera_CameraMode) -> Mavsdk_Rpc_Camera_ModeResponse {
+        var response = Mavsdk_Rpc_Camera_ModeResponse()
         response.cameraMode = cameraMode
         
         return response
     }
     
-    func createRPCCameraMode(status: DronecodeSdk_Rpc_Camera_CameraMode) -> DronecodeSdk_Rpc_Camera_CameraMode {
-        var cameraMode = DronecodeSdk_Rpc_Camera_CameraMode()
+    func createRPCCameraMode(status: Mavsdk_Rpc_Camera_CameraMode) -> Mavsdk_Rpc_Camera_CameraMode {
+        var cameraMode = Mavsdk_Rpc_Camera_CameraMode()
         cameraMode = status
         
         return cameraMode

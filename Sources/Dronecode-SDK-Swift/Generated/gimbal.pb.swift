@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest {
+struct Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -33,13 +33,13 @@ struct DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
+struct Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var gimbalResult: DronecodeSdk_Rpc_Gimbal_GimbalResult {
-    get {return _storage._gimbalResult ?? DronecodeSdk_Rpc_Gimbal_GimbalResult()}
+  var gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult {
+    get {return _storage._gimbalResult ?? Mavsdk_Rpc_Gimbal_GimbalResult()}
     set {_uniqueStorage()._gimbalResult = newValue}
   }
   /// Returns true if `gimbalResult` has been explicitly set.
@@ -54,12 +54,12 @@ struct DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Gimbal_GimbalResult {
+struct Mavsdk_Rpc_Gimbal_GimbalResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: DronecodeSdk_Rpc_Gimbal_GimbalResult.Result = .success
+  var result: Mavsdk_Rpc_Gimbal_GimbalResult.Result = .success
 
   var resultStr: String = String()
 
@@ -104,9 +104,9 @@ struct DronecodeSdk_Rpc_Gimbal_GimbalResult {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
+extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Gimbal_GimbalResult.Result] = [
+  static var allCases: [Mavsdk_Rpc_Gimbal_GimbalResult.Result] = [
     .success,
     .error,
     .timeout,
@@ -118,9 +118,9 @@ extension DronecodeSdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.gimbal"
+fileprivate let _protobuf_package = "mavsdk.rpc.gimbal"
 
-extension DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetPitchAndYawRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "pitch_deg"),
@@ -147,7 +147,7 @@ extension DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest, rhs: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, rhs: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest) -> Bool {
     if lhs.pitchDeg != rhs.pitchDeg {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -155,14 +155,14 @@ extension DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest: SwiftProtobuf.Message, 
   }
 }
 
-extension DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetPitchAndYawResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "gimbal_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _gimbalResult: DronecodeSdk_Rpc_Gimbal_GimbalResult? = nil
+    var _gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -201,7 +201,7 @@ extension DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse, rhs: DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse, rhs: Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -216,7 +216,7 @@ extension DronecodeSdk_Rpc_Gimbal_SetPitchAndYawResponse: SwiftProtobuf.Message,
   }
 }
 
-extension DronecodeSdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GimbalResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "result"),
@@ -243,7 +243,7 @@ extension DronecodeSdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Gimbal_GimbalResult, rhs: DronecodeSdk_Rpc_Gimbal_GimbalResult) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_GimbalResult, rhs: Mavsdk_Rpc_Gimbal_GimbalResult) -> Bool {
     if lhs.result != rhs.result {return false}
     if lhs.resultStr != rhs.resultStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -251,7 +251,7 @@ extension DronecodeSdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Gimbal_GimbalResult.Result: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "SUCCESS"),
     1: .same(proto: "ERROR"),

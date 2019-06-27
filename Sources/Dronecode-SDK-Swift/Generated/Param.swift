@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Param {
-    private let service: DronecodeSdk_Rpc_Param_ParamServiceService
+    private let service: Mavsdk_Rpc_Param_ParamServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Param_ParamServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Param_ParamServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Param_ParamServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Param_ParamServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -51,7 +51,7 @@ public class Param {
             case paramNameTooLong
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Param_ParamResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Param_ParamResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -70,7 +70,7 @@ public class Param {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Param_ParamResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Param_ParamResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -96,8 +96,8 @@ public class Param {
             self.resultStr = resultStr
         }
 
-        internal var rpcParamResult: DronecodeSdk_Rpc_Param_ParamResult {
-            var rpcParamResult = DronecodeSdk_Rpc_Param_ParamResult()
+        internal var rpcParamResult: Mavsdk_Rpc_Param_ParamResult {
+            var rpcParamResult = Mavsdk_Rpc_Param_ParamResult()
             
                 
             rpcParamResult.result = result.rpcResult
@@ -112,7 +112,7 @@ public class Param {
             return rpcParamResult
         }
 
-        internal static func translateFromRpc(_ rpcParamResult: DronecodeSdk_Rpc_Param_ParamResult) -> ParamResult {
+        internal static func translateFromRpc(_ rpcParamResult: Mavsdk_Rpc_Param_ParamResult) -> ParamResult {
             return ParamResult(result: Result.translateFromRpc(rpcParamResult.result), resultStr: rpcParamResult.resultStr)
         }
 
@@ -125,7 +125,7 @@ public class Param {
 
     public func getIntParam(name: String) -> Single<Int32> {
         return Single<Int32>.create { single in
-            var request = DronecodeSdk_Rpc_Param_GetIntParamRequest()
+            var request = Mavsdk_Rpc_Param_GetIntParamRequest()
 
             
                 
@@ -137,7 +137,7 @@ public class Param {
                 let response = try self.service.getIntParam(request)
 
                 
-                if (response.paramResult.result != DronecodeSdk_Rpc_Param_ParamResult.Result.success) {
+                if (response.paramResult.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     single(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
 
                     return Disposables.create()
@@ -158,7 +158,7 @@ public class Param {
 
     public func setIntParam(name: String, value: Int32) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Param_SetIntParamRequest()
+            var request = Mavsdk_Rpc_Param_SetIntParamRequest()
 
             
                 
@@ -174,7 +174,7 @@ public class Param {
                 
                 let response = try self.service.setIntParam(request)
 
-                if (response.paramResult.result == DronecodeSdk_Rpc_Param_ParamResult.Result.success) {
+                if (response.paramResult.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
@@ -190,7 +190,7 @@ public class Param {
 
     public func getFloatParam(name: String) -> Single<Float> {
         return Single<Float>.create { single in
-            var request = DronecodeSdk_Rpc_Param_GetFloatParamRequest()
+            var request = Mavsdk_Rpc_Param_GetFloatParamRequest()
 
             
                 
@@ -202,7 +202,7 @@ public class Param {
                 let response = try self.service.getFloatParam(request)
 
                 
-                if (response.paramResult.result != DronecodeSdk_Rpc_Param_ParamResult.Result.success) {
+                if (response.paramResult.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     single(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
 
                     return Disposables.create()
@@ -223,7 +223,7 @@ public class Param {
 
     public func setFloatParam(name: String, value: Float) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Param_SetFloatParamRequest()
+            var request = Mavsdk_Rpc_Param_SetFloatParamRequest()
 
             
                 
@@ -239,7 +239,7 @@ public class Param {
                 
                 let response = try self.service.setFloatParam(request)
 
-                if (response.paramResult.result == DronecodeSdk_Rpc_Param_ParamResult.Result.success) {
+                if (response.paramResult.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))

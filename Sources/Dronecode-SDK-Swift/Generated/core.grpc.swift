@@ -25,115 +25,115 @@ import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall: ClientCallServerStreaming {
+internal protocol Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> DronecodeSdk_Rpc_Core_ConnectionStateResponse?
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Core_ConnectionStateResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<DronecodeSdk_Rpc_Core_ConnectionStateResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Core_ConnectionStateResponse?>) -> Void) throws
 }
 
-internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+internal extension Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> DronecodeSdk_Rpc_Core_ConnectionStateResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Core_ConnectionStateResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase: ClientCallServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeConnectionState" }
+fileprivate final class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>, Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  override class var method: String { return "/mavsdk.rpc.core.CoreService/SubscribeConnectionState" }
 }
 
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, DronecodeSdk_Rpc_Core_ListRunningPluginsResponse>, DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/ListRunningPlugins" }
+fileprivate final class Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>, Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  override class var method: String { return "/mavsdk.rpc.core.CoreService/ListRunningPlugins" }
 }
 
 
-/// Instantiate DronecodeSdk_Rpc_Core_CoreServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceService: ServiceClient {
+/// Instantiate Mavsdk_Rpc_Core_CoreServiceServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Core_CoreServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
+  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
 
   /// Synchronous. Unary.
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall
 
 }
 
-internal extension DronecodeSdk_Rpc_Core_CoreServiceService {
+internal extension Mavsdk_Rpc_Core_CoreServiceService {
   /// Asynchronous. Server-streaming.
-  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
     return try self.subscribeConnectionState(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
     return try self.listRunningPlugins(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
     return try self.listRunningPlugins(request, metadata: self.metadata, completion: completion)
   }
 
 }
 
-internal final class DronecodeSdk_Rpc_Core_CoreServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Core_CoreServiceService {
+internal final class Mavsdk_Rpc_Core_CoreServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Core_CoreServiceService {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
-    return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase(channel)
+  internal func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+    return try Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
-    return try DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
+  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
+    return try Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
-    return try DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
+  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+    return try Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
 
-class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub: ClientCallServerStreamingTestStub<DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/SubscribeConnectionState" }
+class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Core_ConnectionStateResponse>, Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  override class var method: String { return "/mavsdk.rpc.core.CoreService/SubscribeConnectionState" }
 }
 
-class DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
-  override class var method: String { return "/dronecode_sdk.rpc.core.CoreService/ListRunningPlugins" }
+class Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  override class var method: String { return "/mavsdk.rpc.core.CoreService/ListRunningPlugins" }
 }
 
-class DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Core_CoreServiceService {
-  var subscribeConnectionStateRequests: [DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest] = []
-  var subscribeConnectionStateCalls: [DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall] = []
-  func subscribeConnectionState(_ request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+class Mavsdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Core_CoreServiceService {
+  var subscribeConnectionStateRequests: [Mavsdk_Rpc_Core_SubscribeConnectionStateRequest] = []
+  var subscribeConnectionStateCalls: [Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall] = []
+  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
     subscribeConnectionStateRequests.append(request)
     defer { subscribeConnectionStateCalls.removeFirst() }
     return subscribeConnectionStateCalls.first!
   }
 
-  var listRunningPluginsRequests: [DronecodeSdk_Rpc_Core_ListRunningPluginsRequest] = []
-  var listRunningPluginsResponses: [DronecodeSdk_Rpc_Core_ListRunningPluginsResponse] = []
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
+  var listRunningPluginsRequests: [Mavsdk_Rpc_Core_ListRunningPluginsRequest] = []
+  var listRunningPluginsResponses: [Mavsdk_Rpc_Core_ListRunningPluginsResponse] = []
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
     listRunningPluginsRequests.append(request)
     defer { listRunningPluginsResponses.removeFirst() }
     return listRunningPluginsResponses.first!
   }
   @discardableResult
-  func listRunningPlugins(_ request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
     let response = try self.listRunningPlugins(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsCallTestStub()
+    return Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallTestStub()
   }
 
 }
@@ -141,27 +141,27 @@ class DronecodeSdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBas
 /// To build a server, implement a class that conforms to this protocol.
 /// If one of the methods returning `ServerStatus?` returns nil,
 /// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceProvider: ServiceProvider {
-  func subscribeConnectionState(request: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, session: DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession) throws -> ServerStatus?
-  func listRunningPlugins(request: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, session: DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSession) throws -> DronecodeSdk_Rpc_Core_ListRunningPluginsResponse
+internal protocol Mavsdk_Rpc_Core_CoreServiceProvider: ServiceProvider {
+  func subscribeConnectionState(request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, session: Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession) throws -> ServerStatus?
+  func listRunningPlugins(request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, session: Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSession) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse
 }
 
-extension DronecodeSdk_Rpc_Core_CoreServiceProvider {
-  internal var serviceName: String { return "dronecode_sdk.rpc.core.CoreService" }
+extension Mavsdk_Rpc_Core_CoreServiceProvider {
+  internal var serviceName: String { return "mavsdk.rpc.core.CoreService" }
 
   /// Determines and calls the appropriate request handler, depending on the request's method.
   /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
   internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
     switch method {
-    case "/dronecode_sdk.rpc.core.CoreService/SubscribeConnectionState":
-      return try DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase(
+    case "/mavsdk.rpc.core.CoreService/SubscribeConnectionState":
+      return try Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeConnectionState(request: $0, session: $1 as! DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase) })
+        providerBlock: { try self.subscribeConnectionState(request: $0, session: $1 as! Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase) })
           .run()
-    case "/dronecode_sdk.rpc.core.CoreService/ListRunningPlugins":
-      return try DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase(
+    case "/mavsdk.rpc.core.CoreService/ListRunningPlugins":
+      return try Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase(
         handler: handler,
-        providerBlock: { try self.listRunningPlugins(request: $0, session: $1 as! DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase) })
+        providerBlock: { try self.listRunningPlugins(request: $0, session: $1 as! Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -169,11 +169,11 @@ extension DronecodeSdk_Rpc_Core_CoreServiceProvider {
   }
 }
 
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession: ServerSessionServerStreaming {
+internal protocol Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: DronecodeSdk_Rpc_Core_ConnectionStateResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: Mavsdk_Rpc_Core_ConnectionStateResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: DronecodeSdk_Rpc_Core_ConnectionStateResponse, timeout: DispatchTime) throws
+  func _send(_ message: Mavsdk_Rpc_Core_ConnectionStateResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -181,18 +181,18 @@ internal protocol DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessi
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {
+internal extension Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: DronecodeSdk_Rpc_Core_ConnectionStateResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: Mavsdk_Rpc_Core_ConnectionStateResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase: ServerSessionServerStreamingBase<DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {}
+fileprivate final class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>, Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {}
 
-class DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionTestStub: ServerSessionServerStreamingTestStub<DronecodeSdk_Rpc_Core_ConnectionStateResponse>, DronecodeSdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {}
+class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Core_ConnectionStateResponse>, Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateSession {}
 
-internal protocol DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, DronecodeSdk_Rpc_Core_ListRunningPluginsResponse>, DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSession {}
+fileprivate final class Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>, Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSession {}
 
-class DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Core_CoreServiceListRunningPluginsSession {}
+class Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Core_CoreServiceListRunningPluginsSession {}
 

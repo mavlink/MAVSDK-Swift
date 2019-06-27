@@ -25,69 +25,69 @@ import Foundation
 import SwiftGRPC
 import SwiftProtobuf
 
-internal protocol DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Info_InfoServiceGetVersionCall: ClientCallUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallBase: ClientCallUnaryBase<DronecodeSdk_Rpc_Info_GetVersionRequest, DronecodeSdk_Rpc_Info_GetVersionResponse>, DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.info.InfoService/GetVersion" }
+fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>, Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
+  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
 }
 
 
-/// Instantiate DronecodeSdk_Rpc_Info_InfoServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol DronecodeSdk_Rpc_Info_InfoServiceService: ServiceClient {
+/// Instantiate Mavsdk_Rpc_Info_InfoServiceServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Info_InfoServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall
 
 }
 
-internal extension DronecodeSdk_Rpc_Info_InfoServiceService {
+internal extension Mavsdk_Rpc_Info_InfoServiceService {
   /// Synchronous. Unary.
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
     return try self.getVersion(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
     return try self.getVersion(request, metadata: self.metadata, completion: completion)
   }
 
 }
 
-internal final class DronecodeSdk_Rpc_Info_InfoServiceServiceClient: ServiceClientBase, DronecodeSdk_Rpc_Info_InfoServiceService {
+internal final class Mavsdk_Rpc_Info_InfoServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Info_InfoServiceService {
   /// Synchronous. Unary.
-  internal func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
-    return try DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
+  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
+    return try Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
-    return try DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
+  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
+    return try Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
 }
 
-class DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallTestStub: ClientCallUnaryTestStub, DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
-  override class var method: String { return "/dronecode_sdk.rpc.info.InfoService/GetVersion" }
+class Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
+  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
 }
 
-class DronecodeSdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, DronecodeSdk_Rpc_Info_InfoServiceService {
-  var getVersionRequests: [DronecodeSdk_Rpc_Info_GetVersionRequest] = []
-  var getVersionResponses: [DronecodeSdk_Rpc_Info_GetVersionResponse] = []
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse {
+class Mavsdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Info_InfoServiceService {
+  var getVersionRequests: [Mavsdk_Rpc_Info_GetVersionRequest] = []
+  var getVersionResponses: [Mavsdk_Rpc_Info_GetVersionResponse] = []
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
     getVersionRequests.append(request)
     defer { getVersionResponses.removeFirst() }
     return getVersionResponses.first!
   }
   @discardableResult
-  func getVersion(_ request: DronecodeSdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (DronecodeSdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> DronecodeSdk_Rpc_Info_InfoServiceGetVersionCall {
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
     let response = try self.getVersion(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return DronecodeSdk_Rpc_Info_InfoServiceGetVersionCallTestStub()
+    return Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub()
   }
 
 }
@@ -95,21 +95,21 @@ class DronecodeSdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBas
 /// To build a server, implement a class that conforms to this protocol.
 /// If one of the methods returning `ServerStatus?` returns nil,
 /// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol DronecodeSdk_Rpc_Info_InfoServiceProvider: ServiceProvider {
-  func getVersion(request: DronecodeSdk_Rpc_Info_GetVersionRequest, session: DronecodeSdk_Rpc_Info_InfoServiceGetVersionSession) throws -> DronecodeSdk_Rpc_Info_GetVersionResponse
+internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: ServiceProvider {
+  func getVersion(request: Mavsdk_Rpc_Info_GetVersionRequest, session: Mavsdk_Rpc_Info_InfoServiceGetVersionSession) throws -> Mavsdk_Rpc_Info_GetVersionResponse
 }
 
-extension DronecodeSdk_Rpc_Info_InfoServiceProvider {
-  internal var serviceName: String { return "dronecode_sdk.rpc.info.InfoService" }
+extension Mavsdk_Rpc_Info_InfoServiceProvider {
+  internal var serviceName: String { return "mavsdk.rpc.info.InfoService" }
 
   /// Determines and calls the appropriate request handler, depending on the request's method.
   /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
   internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
     switch method {
-    case "/dronecode_sdk.rpc.info.InfoService/GetVersion":
-      return try DronecodeSdk_Rpc_Info_InfoServiceGetVersionSessionBase(
+    case "/mavsdk.rpc.info.InfoService/GetVersion":
+      return try Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase(
         handler: handler,
-        providerBlock: { try self.getVersion(request: $0, session: $1 as! DronecodeSdk_Rpc_Info_InfoServiceGetVersionSessionBase) })
+        providerBlock: { try self.getVersion(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -117,9 +117,9 @@ extension DronecodeSdk_Rpc_Info_InfoServiceProvider {
   }
 }
 
-internal protocol DronecodeSdk_Rpc_Info_InfoServiceGetVersionSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Info_InfoServiceGetVersionSession: ServerSessionUnary {}
 
-fileprivate final class DronecodeSdk_Rpc_Info_InfoServiceGetVersionSessionBase: ServerSessionUnaryBase<DronecodeSdk_Rpc_Info_GetVersionRequest, DronecodeSdk_Rpc_Info_GetVersionResponse>, DronecodeSdk_Rpc_Info_InfoServiceGetVersionSession {}
+fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>, Mavsdk_Rpc_Info_InfoServiceGetVersionSession {}
 
-class DronecodeSdk_Rpc_Info_InfoServiceGetVersionSessionTestStub: ServerSessionUnaryTestStub, DronecodeSdk_Rpc_Info_InfoServiceGetVersionSession {}
+class Mavsdk_Rpc_Info_InfoServiceGetVersionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionSession {}
 

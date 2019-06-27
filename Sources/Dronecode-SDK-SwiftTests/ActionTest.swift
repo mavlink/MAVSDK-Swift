@@ -9,10 +9,10 @@ class ActionTest: XCTestCase {
     let ARBITRARY_ALTITUDE: Float = 123.5
     let ARBITRARY_SPEED: Float = 321.5
     
-    let actionResultsArray: [DronecodeSdk_Rpc_Action_ActionResult.Result] = [.busy, .commandDenied, .commandDeniedNotLanded, .commandDeniedLandedStateUnknown, .connectionError, .noSystem, .noVtolTransitionSupport, .timeout, .unknown, .vtolTransitionSupportUnknown]
+    let actionResultsArray: [Mavsdk_Rpc_Action_ActionResult.Result] = [.busy, .commandDenied, .commandDeniedNotLanded, .commandDeniedLandedStateUnknown, .connectionError, .noSystem, .noVtolTransitionSupport, .timeout, .unknown, .vtolTransitionSupportUnknown]
     
     func testArmSucceedsOnSuccess() throws {
-        try armWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success)
+        try armWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result.success)
     }
     
     func testArmFailsOnFailure() throws {
@@ -21,9 +21,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func armWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Action_ArmResponse()
+    func armWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Action_ArmResponse()
         response.actionResult.result = result
         fakeService.armResponses.append(response)
 
@@ -35,7 +35,7 @@ class ActionTest: XCTestCase {
     }
 
     func testDisarmSucceedsOnSuccess() throws {
-        try disarmWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success)
+        try disarmWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result.success)
     }
     
     func testDisarmFailsOnFailure() throws {
@@ -44,9 +44,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func disarmWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Action_DisarmResponse()
+    func disarmWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Action_DisarmResponse()
         response.actionResult.result = result
         fakeService.disarmResponses.append(response)
 
@@ -58,7 +58,7 @@ class ActionTest: XCTestCase {
     }
     
     func testReturnToLaunchSucceedsOnSuccess() throws {
-        try returnToLaunchWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success)
+        try returnToLaunchWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result.success)
     }
     
     func testReturnToLaunchFailsOnFailure() throws {
@@ -67,9 +67,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func returnToLaunchWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Action_ReturnToLaunchResponse()
+    func returnToLaunchWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Action_ReturnToLaunchResponse()
         response.actionResult.result = result
         fakeService.returnToLaunchResponses.append(response)
 
@@ -81,7 +81,7 @@ class ActionTest: XCTestCase {
     }
     
     func testTransitionToFixedWingsSucceedsOnSuccess() throws {
-        try transitionToFixedWingsWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result.success)
+        try transitionToFixedWingsWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result.success)
     }
     
     func testTransitionToFixedWingsFailsOnFailure() throws {
@@ -90,9 +90,9 @@ class ActionTest: XCTestCase {
         }
     }
     
-    func transitionToFixedWingsWithFakeResult(result: DronecodeSdk_Rpc_Action_ActionResult.Result) throws {
-        let fakeService = DronecodeSdk_Rpc_Action_ActionServiceServiceTestStub()
-        var response = DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse()
+    func transitionToFixedWingsWithFakeResult(result: Mavsdk_Rpc_Action_ActionResult.Result) throws {
+        let fakeService = Mavsdk_Rpc_Action_ActionServiceServiceTestStub()
+        var response = Mavsdk_Rpc_Action_TransitionToFixedWingResponse()
         response.actionResult.result = result
         fakeService.transitionToFixedWingResponses.append(response)
 

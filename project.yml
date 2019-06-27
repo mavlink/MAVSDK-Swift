@@ -18,7 +18,7 @@ targets:
         - Dronecode_SDK_SwiftIntegrationTests
     sources: [Sources/Dronecode-SDK-Swift]
     dependencies:
-      - carthage: backend
+      - carthage: mavsdk_server
       - carthage: BoringSSL
       - carthage: CgRPC
       - carthage: RxSwift
@@ -31,7 +31,7 @@ targets:
     sources: [Sources/Dronecode-SDK-SwiftTests]
     dependencies:
       - target: Dronecode_SDK_Swift
-      - carthage: backend
+      - carthage: mavsdk_server
       - carthage: BoringSSL
       - carthage: CgRPC
       - carthage: RxBlocking
@@ -46,7 +46,7 @@ targets:
     sources: [Sources/Dronecode-SDK-SwiftIntegrationTests]
     dependencies:
       - target: Dronecode_SDK_Swift
-      - carthage: backend
+      - carthage: mavsdk_server
       - carthage: BoringSSL
       - carthage: CgRPC
       - carthage: RxBlocking

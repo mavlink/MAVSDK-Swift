@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest {
+struct Mavsdk_Rpc_Core_SubscribeConnectionStateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -29,13 +29,13 @@ struct DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Core_ConnectionStateResponse {
+struct Mavsdk_Rpc_Core_ConnectionStateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var connectionState: DronecodeSdk_Rpc_Core_ConnectionState {
-    get {return _storage._connectionState ?? DronecodeSdk_Rpc_Core_ConnectionState()}
+  var connectionState: Mavsdk_Rpc_Core_ConnectionState {
+    get {return _storage._connectionState ?? Mavsdk_Rpc_Core_ConnectionState()}
     set {_uniqueStorage()._connectionState = newValue}
   }
   /// Returns true if `connectionState` has been explicitly set.
@@ -50,7 +50,7 @@ struct DronecodeSdk_Rpc_Core_ConnectionStateResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Core_ListRunningPluginsRequest {
+struct Mavsdk_Rpc_Core_ListRunningPluginsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -60,19 +60,19 @@ struct DronecodeSdk_Rpc_Core_ListRunningPluginsRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Core_ListRunningPluginsResponse {
+struct Mavsdk_Rpc_Core_ListRunningPluginsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var pluginInfo: [DronecodeSdk_Rpc_Core_PluginInfo] = []
+  var pluginInfo: [Mavsdk_Rpc_Core_PluginInfo] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Core_ConnectionState {
+struct Mavsdk_Rpc_Core_ConnectionState {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -86,7 +86,7 @@ struct DronecodeSdk_Rpc_Core_ConnectionState {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Core_PluginInfo {
+struct Mavsdk_Rpc_Core_PluginInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -104,9 +104,9 @@ struct DronecodeSdk_Rpc_Core_PluginInfo {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.core"
+fileprivate let _protobuf_package = "mavsdk.rpc.core"
 
-extension DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Core_SubscribeConnectionStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeConnectionStateRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -119,20 +119,20 @@ extension DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest, rhs: DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, rhs: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Core_ConnectionStateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Core_ConnectionStateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ConnectionStateResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "connection_state"),
   ]
 
   fileprivate class _StorageClass {
-    var _connectionState: DronecodeSdk_Rpc_Core_ConnectionState? = nil
+    var _connectionState: Mavsdk_Rpc_Core_ConnectionState? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -171,7 +171,7 @@ extension DronecodeSdk_Rpc_Core_ConnectionStateResponse: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_ConnectionStateResponse, rhs: DronecodeSdk_Rpc_Core_ConnectionStateResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Core_ConnectionStateResponse, rhs: Mavsdk_Rpc_Core_ConnectionStateResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -186,7 +186,7 @@ extension DronecodeSdk_Rpc_Core_ConnectionStateResponse: SwiftProtobuf.Message, 
   }
 }
 
-extension DronecodeSdk_Rpc_Core_ListRunningPluginsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Core_ListRunningPluginsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ListRunningPluginsRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -199,13 +199,13 @@ extension DronecodeSdk_Rpc_Core_ListRunningPluginsRequest: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest, rhs: DronecodeSdk_Rpc_Core_ListRunningPluginsRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Core_ListRunningPluginsRequest, rhs: Mavsdk_Rpc_Core_ListRunningPluginsRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ListRunningPluginsResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "plugin_info"),
@@ -227,14 +227,14 @@ extension DronecodeSdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse, rhs: DronecodeSdk_Rpc_Core_ListRunningPluginsResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Core_ListRunningPluginsResponse, rhs: Mavsdk_Rpc_Core_ListRunningPluginsResponse) -> Bool {
     if lhs.pluginInfo != rhs.pluginInfo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ConnectionState"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "uuid"),
@@ -261,7 +261,7 @@ extension DronecodeSdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_ConnectionState, rhs: DronecodeSdk_Rpc_Core_ConnectionState) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Core_ConnectionState, rhs: Mavsdk_Rpc_Core_ConnectionState) -> Bool {
     if lhs.uuid != rhs.uuid {return false}
     if lhs.isConnected != rhs.isConnected {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -269,7 +269,7 @@ extension DronecodeSdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension DronecodeSdk_Rpc_Core_PluginInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Core_PluginInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PluginInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
@@ -301,7 +301,7 @@ extension DronecodeSdk_Rpc_Core_PluginInfo: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Core_PluginInfo, rhs: DronecodeSdk_Rpc_Core_PluginInfo) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Core_PluginInfo, rhs: Mavsdk_Rpc_Core_PluginInfo) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.address != rhs.address {return false}
     if lhs.port != rhs.port {return false}

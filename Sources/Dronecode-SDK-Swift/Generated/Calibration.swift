@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Calibration {
-    private let service: DronecodeSdk_Rpc_Calibration_CalibrationServiceService
+    private let service: Mavsdk_Rpc_Calibration_CalibrationServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Calibration_CalibrationServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Calibration_CalibrationServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Calibration_CalibrationServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Calibration_CalibrationServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -56,7 +56,7 @@ public class Calibration {
             case cancelled
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Calibration_CalibrationResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Calibration_CalibrationResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -85,7 +85,7 @@ public class Calibration {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Calibration_CalibrationResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Calibration_CalibrationResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -121,8 +121,8 @@ public class Calibration {
             self.resultStr = resultStr
         }
 
-        internal var rpcCalibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult {
-            var rpcCalibrationResult = DronecodeSdk_Rpc_Calibration_CalibrationResult()
+        internal var rpcCalibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult {
+            var rpcCalibrationResult = Mavsdk_Rpc_Calibration_CalibrationResult()
             
                 
             rpcCalibrationResult.result = result.rpcResult
@@ -137,7 +137,7 @@ public class Calibration {
             return rpcCalibrationResult
         }
 
-        internal static func translateFromRpc(_ rpcCalibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult) -> CalibrationResult {
+        internal static func translateFromRpc(_ rpcCalibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult) -> CalibrationResult {
             return CalibrationResult(result: Result.translateFromRpc(rpcCalibrationResult.result), resultStr: rpcCalibrationResult.resultStr)
         }
 
@@ -162,8 +162,8 @@ public class Calibration {
             self.statusText = statusText
         }
 
-        internal var rpcProgressData: DronecodeSdk_Rpc_Calibration_ProgressData {
-            var rpcProgressData = DronecodeSdk_Rpc_Calibration_ProgressData()
+        internal var rpcProgressData: Mavsdk_Rpc_Calibration_ProgressData {
+            var rpcProgressData = Mavsdk_Rpc_Calibration_ProgressData()
             
                 
             rpcProgressData.hasProgress_p = hasProgress
@@ -188,7 +188,7 @@ public class Calibration {
             return rpcProgressData
         }
 
-        internal static func translateFromRpc(_ rpcProgressData: DronecodeSdk_Rpc_Calibration_ProgressData) -> ProgressData {
+        internal static func translateFromRpc(_ rpcProgressData: Mavsdk_Rpc_Calibration_ProgressData) -> ProgressData {
             return ProgressData(hasProgress: rpcProgressData.hasProgress_p, progress: rpcProgressData.progress, hasStatusText: rpcProgressData.hasStatusText_p, statusText: rpcProgressData.statusText)
         }
 
@@ -205,7 +205,7 @@ public class Calibration {
 
     private func createCalibrateGyroObservable() -> Observable<ProgressData> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest()
+            let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest()
 
             
 
@@ -220,7 +220,7 @@ public class Calibration {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
@@ -265,7 +265,7 @@ public class Calibration {
 
     private func createCalibrateAccelerometerObservable() -> Observable<ProgressData> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest()
+            let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest()
 
             
 
@@ -280,7 +280,7 @@ public class Calibration {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
@@ -325,7 +325,7 @@ public class Calibration {
 
     private func createCalibrateMagnetometerObservable() -> Observable<ProgressData> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
+            let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
 
             
 
@@ -340,7 +340,7 @@ public class Calibration {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
@@ -385,7 +385,7 @@ public class Calibration {
 
     private func createCalibrateGimbalAccelerometerObservable() -> Observable<ProgressData> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest()
+            let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest()
 
             
 
@@ -400,7 +400,7 @@ public class Calibration {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
@@ -443,7 +443,7 @@ public class Calibration {
 
     public func cancel() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Calibration_CancelRequest()
+            let request = Mavsdk_Rpc_Calibration_CancelRequest()
 
             
 

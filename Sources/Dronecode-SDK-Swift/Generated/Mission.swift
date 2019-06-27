@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Mission {
-    private let service: DronecodeSdk_Rpc_Mission_MissionServiceService
+    private let service: Mavsdk_Rpc_Mission_MissionServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Mission_MissionServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Mission_MissionServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -59,7 +59,7 @@ public class Mission {
             case stopVideo
             case UNRECOGNIZED(Int)
 
-            internal var rpcCameraAction: DronecodeSdk_Rpc_Mission_MissionItem.CameraAction {
+            internal var rpcCameraAction: Mavsdk_Rpc_Mission_MissionItem.CameraAction {
                 switch self {
                 case .none:
                     return .none
@@ -78,7 +78,7 @@ public class Mission {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcCameraAction: DronecodeSdk_Rpc_Mission_MissionItem.CameraAction) -> CameraAction {
+            internal static func translateFromRpc(_ rpcCameraAction: Mavsdk_Rpc_Mission_MissionItem.CameraAction) -> CameraAction {
                 switch rpcCameraAction {
                 case .none:
                     return .none
@@ -112,8 +112,8 @@ public class Mission {
             self.cameraPhotoIntervalS = cameraPhotoIntervalS
         }
 
-        internal var rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem {
-            var rpcMissionItem = DronecodeSdk_Rpc_Mission_MissionItem()
+        internal var rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem {
+            var rpcMissionItem = Mavsdk_Rpc_Mission_MissionItem()
             
                 
             rpcMissionItem.latitudeDeg = latitudeDeg
@@ -168,7 +168,7 @@ public class Mission {
             return rpcMissionItem
         }
 
-        internal static func translateFromRpc(_ rpcMissionItem: DronecodeSdk_Rpc_Mission_MissionItem) -> MissionItem {
+        internal static func translateFromRpc(_ rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem) -> MissionItem {
             return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS)
         }
 
@@ -197,8 +197,8 @@ public class Mission {
             self.missionCount = missionCount
         }
 
-        internal var rpcMissionProgress: DronecodeSdk_Rpc_Mission_MissionProgress {
-            var rpcMissionProgress = DronecodeSdk_Rpc_Mission_MissionProgress()
+        internal var rpcMissionProgress: Mavsdk_Rpc_Mission_MissionProgress {
+            var rpcMissionProgress = Mavsdk_Rpc_Mission_MissionProgress()
             
                 
             rpcMissionProgress.currentItemIndex = currentItemIndex
@@ -213,7 +213,7 @@ public class Mission {
             return rpcMissionProgress
         }
 
-        internal static func translateFromRpc(_ rpcMissionProgress: DronecodeSdk_Rpc_Mission_MissionProgress) -> MissionProgress {
+        internal static func translateFromRpc(_ rpcMissionProgress: Mavsdk_Rpc_Mission_MissionProgress) -> MissionProgress {
             return MissionProgress(currentItemIndex: rpcMissionProgress.currentItemIndex, missionCount: rpcMissionProgress.missionCount)
         }
 
@@ -246,7 +246,7 @@ public class Mission {
             case transferCancelled
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Mission_MissionResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Mission_MissionResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -279,7 +279,7 @@ public class Mission {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Mission_MissionResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Mission_MissionResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -319,8 +319,8 @@ public class Mission {
             self.resultStr = resultStr
         }
 
-        internal var rpcMissionResult: DronecodeSdk_Rpc_Mission_MissionResult {
-            var rpcMissionResult = DronecodeSdk_Rpc_Mission_MissionResult()
+        internal var rpcMissionResult: Mavsdk_Rpc_Mission_MissionResult {
+            var rpcMissionResult = Mavsdk_Rpc_Mission_MissionResult()
             
                 
             rpcMissionResult.result = result.rpcResult
@@ -335,7 +335,7 @@ public class Mission {
             return rpcMissionResult
         }
 
-        internal static func translateFromRpc(_ rpcMissionResult: DronecodeSdk_Rpc_Mission_MissionResult) -> MissionResult {
+        internal static func translateFromRpc(_ rpcMissionResult: Mavsdk_Rpc_Mission_MissionResult) -> MissionResult {
             return MissionResult(result: Result.translateFromRpc(rpcMissionResult.result), resultStr: rpcMissionResult.resultStr)
         }
 
@@ -348,7 +348,7 @@ public class Mission {
 
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Mission_UploadMissionRequest()
+            var request = Mavsdk_Rpc_Mission_UploadMissionRequest()
 
             
                 
@@ -360,7 +360,7 @@ public class Mission {
                 
                 let response = try self.service.uploadMission(request)
 
-                if (response.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
@@ -376,7 +376,7 @@ public class Mission {
 
     public func cancelMissionUpload() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Mission_CancelMissionUploadRequest()
+            let request = Mavsdk_Rpc_Mission_CancelMissionUploadRequest()
 
             
 
@@ -395,7 +395,7 @@ public class Mission {
 
     public func downloadMission() -> Single<[MissionItem]> {
         return Single<[MissionItem]>.create { single in
-            let request = DronecodeSdk_Rpc_Mission_DownloadMissionRequest()
+            let request = Mavsdk_Rpc_Mission_DownloadMissionRequest()
 
             
 
@@ -403,7 +403,7 @@ public class Mission {
                 let response = try self.service.downloadMission(request)
 
                 
-                if (response.missionResult.result != DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
+                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
 
                     return Disposables.create()
@@ -424,7 +424,7 @@ public class Mission {
 
     public func cancelMissionDownload() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Mission_CancelMissionDownloadRequest()
+            let request = Mavsdk_Rpc_Mission_CancelMissionDownloadRequest()
 
             
 
@@ -443,7 +443,7 @@ public class Mission {
 
     public func startMission() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Mission_StartMissionRequest()
+            let request = Mavsdk_Rpc_Mission_StartMissionRequest()
 
             
 
@@ -451,7 +451,7 @@ public class Mission {
                 
                 let response = try self.service.startMission(request)
 
-                if (response.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
@@ -467,7 +467,7 @@ public class Mission {
 
     public func pauseMission() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Mission_PauseMissionRequest()
+            let request = Mavsdk_Rpc_Mission_PauseMissionRequest()
 
             
 
@@ -475,7 +475,7 @@ public class Mission {
                 
                 let response = try self.service.pauseMission(request)
 
-                if (response.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
@@ -491,7 +491,7 @@ public class Mission {
 
     public func setCurrentMissionItemIndex(index: Int32) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Mission_SetCurrentMissionItemIndexRequest()
+            var request = Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest()
 
             
                 
@@ -503,7 +503,7 @@ public class Mission {
                 
                 let response = try self.service.setCurrentMissionItemIndex(request)
 
-                if (response.missionResult.result == DronecodeSdk_Rpc_Mission_MissionResult.Result.success) {
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
@@ -519,7 +519,7 @@ public class Mission {
 
     public func isMissionFinished() -> Single<Bool> {
         return Single<Bool>.create { single in
-            let request = DronecodeSdk_Rpc_Mission_IsMissionFinishedRequest()
+            let request = Mavsdk_Rpc_Mission_IsMissionFinishedRequest()
 
             
 
@@ -544,7 +544,7 @@ public class Mission {
 
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Mission_SubscribeMissionProgressRequest()
+            let request = Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest()
 
             
 
@@ -559,7 +559,7 @@ public class Mission {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
@@ -593,7 +593,7 @@ public class Mission {
 
     public func getReturnToLaunchAfterMission() -> Single<Bool> {
         return Single<Bool>.create { single in
-            let request = DronecodeSdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest()
+            let request = Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest()
 
             
 
@@ -616,7 +616,7 @@ public class Mission {
 
     public func setReturnToLaunchAfterMission(enable: Bool) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest()
+            var request = Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest()
 
             
                 

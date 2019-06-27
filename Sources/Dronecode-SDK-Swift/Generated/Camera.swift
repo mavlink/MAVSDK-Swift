@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Camera {
-    private let service: DronecodeSdk_Rpc_Camera_CameraServiceService
+    private let service: Mavsdk_Rpc_Camera_CameraServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Camera_CameraServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Camera_CameraServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -40,7 +40,7 @@ public class Camera {
         case video
         case UNRECOGNIZED(Int)
 
-        internal var rpcCameraMode: DronecodeSdk_Rpc_Camera_CameraMode {
+        internal var rpcCameraMode: Mavsdk_Rpc_Camera_CameraMode {
             switch self {
             case .unknown:
                 return .unknown
@@ -53,7 +53,7 @@ public class Camera {
             }
         }
 
-        internal static func translateFromRpc(_ rpcCameraMode: DronecodeSdk_Rpc_Camera_CameraMode) -> CameraMode {
+        internal static func translateFromRpc(_ rpcCameraMode: Mavsdk_Rpc_Camera_CameraMode) -> CameraMode {
             switch rpcCameraMode {
             case .unknown:
                 return .unknown
@@ -86,7 +86,7 @@ public class Camera {
             case wrongArgument
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Camera_CameraResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Camera_CameraResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -109,7 +109,7 @@ public class Camera {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Camera_CameraResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Camera_CameraResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -139,8 +139,8 @@ public class Camera {
             self.resultStr = resultStr
         }
 
-        internal var rpcCameraResult: DronecodeSdk_Rpc_Camera_CameraResult {
-            var rpcCameraResult = DronecodeSdk_Rpc_Camera_CameraResult()
+        internal var rpcCameraResult: Mavsdk_Rpc_Camera_CameraResult {
+            var rpcCameraResult = Mavsdk_Rpc_Camera_CameraResult()
             
                 
             rpcCameraResult.result = result.rpcResult
@@ -155,7 +155,7 @@ public class Camera {
             return rpcCameraResult
         }
 
-        internal static func translateFromRpc(_ rpcCameraResult: DronecodeSdk_Rpc_Camera_CameraResult) -> CameraResult {
+        internal static func translateFromRpc(_ rpcCameraResult: Mavsdk_Rpc_Camera_CameraResult) -> CameraResult {
             return CameraResult(result: Result.translateFromRpc(rpcCameraResult.result), resultStr: rpcCameraResult.resultStr)
         }
 
@@ -186,8 +186,8 @@ public class Camera {
             self.fileURL = fileURL
         }
 
-        internal var rpcCaptureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo {
-            var rpcCaptureInfo = DronecodeSdk_Rpc_Camera_CaptureInfo()
+        internal var rpcCaptureInfo: Mavsdk_Rpc_Camera_CaptureInfo {
+            var rpcCaptureInfo = Mavsdk_Rpc_Camera_CaptureInfo()
             
                 
             rpcCaptureInfo.position = position.rpcPosition
@@ -227,7 +227,7 @@ public class Camera {
             return rpcCaptureInfo
         }
 
-        internal static func translateFromRpc(_ rpcCaptureInfo: DronecodeSdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
+        internal static func translateFromRpc(_ rpcCaptureInfo: Mavsdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
             return CaptureInfo(position: Position.translateFromRpc(rpcCaptureInfo.position), attitudeQuaternion: Quaternion.translateFromRpc(rpcCaptureInfo.attitudeQuaternion), attitudeEulerAngle: EulerAngle.translateFromRpc(rpcCaptureInfo.attitudeEulerAngle), timeUtcUs: rpcCaptureInfo.timeUtcUs, isSuccess: rpcCaptureInfo.isSuccess, index: rpcCaptureInfo.index, fileURL: rpcCaptureInfo.fileURL)
         }
 
@@ -257,8 +257,8 @@ public class Camera {
             self.relativeAltitudeM = relativeAltitudeM
         }
 
-        internal var rpcPosition: DronecodeSdk_Rpc_Camera_Position {
-            var rpcPosition = DronecodeSdk_Rpc_Camera_Position()
+        internal var rpcPosition: Mavsdk_Rpc_Camera_Position {
+            var rpcPosition = Mavsdk_Rpc_Camera_Position()
             
                 
             rpcPosition.latitudeDeg = latitudeDeg
@@ -283,7 +283,7 @@ public class Camera {
             return rpcPosition
         }
 
-        internal static func translateFromRpc(_ rpcPosition: DronecodeSdk_Rpc_Camera_Position) -> Position {
+        internal static func translateFromRpc(_ rpcPosition: Mavsdk_Rpc_Camera_Position) -> Position {
             return Position(latitudeDeg: rpcPosition.latitudeDeg, longitudeDeg: rpcPosition.longitudeDeg, absoluteAltitudeM: rpcPosition.absoluteAltitudeM, relativeAltitudeM: rpcPosition.relativeAltitudeM)
         }
 
@@ -310,8 +310,8 @@ public class Camera {
             self.z = z
         }
 
-        internal var rpcQuaternion: DronecodeSdk_Rpc_Camera_Quaternion {
-            var rpcQuaternion = DronecodeSdk_Rpc_Camera_Quaternion()
+        internal var rpcQuaternion: Mavsdk_Rpc_Camera_Quaternion {
+            var rpcQuaternion = Mavsdk_Rpc_Camera_Quaternion()
             
                 
             rpcQuaternion.w = w
@@ -336,7 +336,7 @@ public class Camera {
             return rpcQuaternion
         }
 
-        internal static func translateFromRpc(_ rpcQuaternion: DronecodeSdk_Rpc_Camera_Quaternion) -> Quaternion {
+        internal static func translateFromRpc(_ rpcQuaternion: Mavsdk_Rpc_Camera_Quaternion) -> Quaternion {
             return Quaternion(w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z)
         }
 
@@ -361,8 +361,8 @@ public class Camera {
             self.yawDeg = yawDeg
         }
 
-        internal var rpcEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle {
-            var rpcEulerAngle = DronecodeSdk_Rpc_Camera_EulerAngle()
+        internal var rpcEulerAngle: Mavsdk_Rpc_Camera_EulerAngle {
+            var rpcEulerAngle = Mavsdk_Rpc_Camera_EulerAngle()
             
                 
             rpcEulerAngle.rollDeg = rollDeg
@@ -382,7 +382,7 @@ public class Camera {
             return rpcEulerAngle
         }
 
-        internal static func translateFromRpc(_ rpcEulerAngle: DronecodeSdk_Rpc_Camera_EulerAngle) -> EulerAngle {
+        internal static func translateFromRpc(_ rpcEulerAngle: Mavsdk_Rpc_Camera_EulerAngle) -> EulerAngle {
             return EulerAngle(rollDeg: rpcEulerAngle.rollDeg, pitchDeg: rpcEulerAngle.pitchDeg, yawDeg: rpcEulerAngle.yawDeg)
         }
 
@@ -412,8 +412,8 @@ public class Camera {
             self.uri = uri
         }
 
-        internal var rpcVideoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings {
-            var rpcVideoStreamSettings = DronecodeSdk_Rpc_Camera_VideoStreamSettings()
+        internal var rpcVideoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings {
+            var rpcVideoStreamSettings = Mavsdk_Rpc_Camera_VideoStreamSettings()
             
                 
             rpcVideoStreamSettings.frameRateHz = frameRateHz
@@ -448,7 +448,7 @@ public class Camera {
             return rpcVideoStreamSettings
         }
 
-        internal static func translateFromRpc(_ rpcVideoStreamSettings: DronecodeSdk_Rpc_Camera_VideoStreamSettings) -> VideoStreamSettings {
+        internal static func translateFromRpc(_ rpcVideoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings) -> VideoStreamSettings {
             return VideoStreamSettings(frameRateHz: rpcVideoStreamSettings.frameRateHz, horizontalResolutionPix: rpcVideoStreamSettings.horizontalResolutionPix, verticalResolutionPix: rpcVideoStreamSettings.verticalResolutionPix, bitRateBS: rpcVideoStreamSettings.bitRateBS, rotationDeg: rpcVideoStreamSettings.rotationDeg, uri: rpcVideoStreamSettings.uri)
         }
 
@@ -474,7 +474,7 @@ public class Camera {
             case inProgress
             case UNRECOGNIZED(Int)
 
-            internal var rpcVideoStreamStatus: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
+            internal var rpcVideoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
                 switch self {
                 case .notRunning:
                     return .notRunning
@@ -485,7 +485,7 @@ public class Camera {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcVideoStreamStatus: DronecodeSdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus) -> VideoStreamStatus {
+            internal static func translateFromRpc(_ rpcVideoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus) -> VideoStreamStatus {
                 switch rpcVideoStreamStatus {
                 case .notRunning:
                     return .notRunning
@@ -503,8 +503,8 @@ public class Camera {
             self.videoStreamStatus = videoStreamStatus
         }
 
-        internal var rpcVideoStreamInfo: DronecodeSdk_Rpc_Camera_VideoStreamInfo {
-            var rpcVideoStreamInfo = DronecodeSdk_Rpc_Camera_VideoStreamInfo()
+        internal var rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo {
+            var rpcVideoStreamInfo = Mavsdk_Rpc_Camera_VideoStreamInfo()
             
                 
             rpcVideoStreamInfo.videoStreamSettings = videoStreamSettings.rpcVideoStreamSettings
@@ -519,7 +519,7 @@ public class Camera {
             return rpcVideoStreamInfo
         }
 
-        internal static func translateFromRpc(_ rpcVideoStreamInfo: DronecodeSdk_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
+        internal static func translateFromRpc(_ rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
             return VideoStreamInfo(videoStreamSettings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.videoStreamSettings), videoStreamStatus: VideoStreamStatus.translateFromRpc(rpcVideoStreamInfo.videoStreamStatus))
         }
 
@@ -548,7 +548,7 @@ public class Camera {
             case formatted
             case UNRECOGNIZED(Int)
 
-            internal var rpcStorageStatus: DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus {
+            internal var rpcStorageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus {
                 switch self {
                 case .notAvailable:
                     return .notAvailable
@@ -561,7 +561,7 @@ public class Camera {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcStorageStatus: DronecodeSdk_Rpc_Camera_CameraStatus.StorageStatus) -> StorageStatus {
+            internal static func translateFromRpc(_ rpcStorageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus) -> StorageStatus {
                 switch rpcStorageStatus {
                 case .notAvailable:
                     return .notAvailable
@@ -587,8 +587,8 @@ public class Camera {
             self.storageStatus = storageStatus
         }
 
-        internal var rpcCameraStatus: DronecodeSdk_Rpc_Camera_CameraStatus {
-            var rpcCameraStatus = DronecodeSdk_Rpc_Camera_CameraStatus()
+        internal var rpcCameraStatus: Mavsdk_Rpc_Camera_CameraStatus {
+            var rpcCameraStatus = Mavsdk_Rpc_Camera_CameraStatus()
             
                 
             rpcCameraStatus.videoOn = videoOn
@@ -633,7 +633,7 @@ public class Camera {
             return rpcCameraStatus
         }
 
-        internal static func translateFromRpc(_ rpcCameraStatus: DronecodeSdk_Rpc_Camera_CameraStatus) -> CameraStatus {
+        internal static func translateFromRpc(_ rpcCameraStatus: Mavsdk_Rpc_Camera_CameraStatus) -> CameraStatus {
             return CameraStatus(videoOn: rpcCameraStatus.videoOn, photoIntervalOn: rpcCameraStatus.photoIntervalOn, usedStorageMib: rpcCameraStatus.usedStorageMib, availableStorageMib: rpcCameraStatus.availableStorageMib, totalStorageMib: rpcCameraStatus.totalStorageMib, recordingTimeS: rpcCameraStatus.recordingTimeS, mediaFolderName: rpcCameraStatus.mediaFolderName, storageStatus: StorageStatus.translateFromRpc(rpcCameraStatus.storageStatus))
         }
 
@@ -662,8 +662,8 @@ public class Camera {
             self.option = option
         }
 
-        internal var rpcSetting: DronecodeSdk_Rpc_Camera_Setting {
-            var rpcSetting = DronecodeSdk_Rpc_Camera_Setting()
+        internal var rpcSetting: Mavsdk_Rpc_Camera_Setting {
+            var rpcSetting = Mavsdk_Rpc_Camera_Setting()
             
                 
             rpcSetting.settingID = settingID
@@ -683,7 +683,7 @@ public class Camera {
             return rpcSetting
         }
 
-        internal static func translateFromRpc(_ rpcSetting: DronecodeSdk_Rpc_Camera_Setting) -> Setting {
+        internal static func translateFromRpc(_ rpcSetting: Mavsdk_Rpc_Camera_Setting) -> Setting {
             return Setting(settingID: rpcSetting.settingID, settingDescription: rpcSetting.settingDescription, option: Option.translateFromRpc(rpcSetting.option))
         }
 
@@ -705,8 +705,8 @@ public class Camera {
             self.optionDescription = optionDescription
         }
 
-        internal var rpcOption: DronecodeSdk_Rpc_Camera_Option {
-            var rpcOption = DronecodeSdk_Rpc_Camera_Option()
+        internal var rpcOption: Mavsdk_Rpc_Camera_Option {
+            var rpcOption = Mavsdk_Rpc_Camera_Option()
             
                 
             rpcOption.optionID = optionID
@@ -721,7 +721,7 @@ public class Camera {
             return rpcOption
         }
 
-        internal static func translateFromRpc(_ rpcOption: DronecodeSdk_Rpc_Camera_Option) -> Option {
+        internal static func translateFromRpc(_ rpcOption: Mavsdk_Rpc_Camera_Option) -> Option {
             return Option(optionID: rpcOption.optionID, optionDescription: rpcOption.optionDescription)
         }
 
@@ -744,8 +744,8 @@ public class Camera {
             self.options = options
         }
 
-        internal var rpcSettingOptions: DronecodeSdk_Rpc_Camera_SettingOptions {
-            var rpcSettingOptions = DronecodeSdk_Rpc_Camera_SettingOptions()
+        internal var rpcSettingOptions: Mavsdk_Rpc_Camera_SettingOptions {
+            var rpcSettingOptions = Mavsdk_Rpc_Camera_SettingOptions()
             
                 
             rpcSettingOptions.settingID = settingID
@@ -763,7 +763,7 @@ public class Camera {
             return rpcSettingOptions
         }
 
-        internal static func translateFromRpc(_ rpcSettingOptions: DronecodeSdk_Rpc_Camera_SettingOptions) -> SettingOptions {
+        internal static func translateFromRpc(_ rpcSettingOptions: Mavsdk_Rpc_Camera_SettingOptions) -> SettingOptions {
             return SettingOptions(settingID: rpcSettingOptions.settingID, settingDescription: rpcSettingOptions.settingDescription, options: rpcSettingOptions.options.map{ Option.translateFromRpc($0) })
         }
 
@@ -777,7 +777,7 @@ public class Camera {
 
     public func takePhoto() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Camera_TakePhotoRequest()
+            let request = Mavsdk_Rpc_Camera_TakePhotoRequest()
 
             
 
@@ -785,7 +785,7 @@ public class Camera {
                 
                 let response = try self.service.takePhoto(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -801,7 +801,7 @@ public class Camera {
 
     public func startPhotoInterval(intervalS: Float) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Camera_StartPhotoIntervalRequest()
+            var request = Mavsdk_Rpc_Camera_StartPhotoIntervalRequest()
 
             
                 
@@ -813,7 +813,7 @@ public class Camera {
                 
                 let response = try self.service.startPhotoInterval(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -829,7 +829,7 @@ public class Camera {
 
     public func stopPhotoInterval() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Camera_StopPhotoIntervalRequest()
+            let request = Mavsdk_Rpc_Camera_StopPhotoIntervalRequest()
 
             
 
@@ -837,7 +837,7 @@ public class Camera {
                 
                 let response = try self.service.stopPhotoInterval(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -853,7 +853,7 @@ public class Camera {
 
     public func startVideo() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Camera_StartVideoRequest()
+            let request = Mavsdk_Rpc_Camera_StartVideoRequest()
 
             
 
@@ -861,7 +861,7 @@ public class Camera {
                 
                 let response = try self.service.startVideo(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -877,7 +877,7 @@ public class Camera {
 
     public func stopVideo() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Camera_StopVideoRequest()
+            let request = Mavsdk_Rpc_Camera_StopVideoRequest()
 
             
 
@@ -885,7 +885,7 @@ public class Camera {
                 
                 let response = try self.service.stopVideo(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -901,7 +901,7 @@ public class Camera {
 
     public func startVideoStreaming() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Camera_StartVideoStreamingRequest()
+            let request = Mavsdk_Rpc_Camera_StartVideoStreamingRequest()
 
             
 
@@ -909,7 +909,7 @@ public class Camera {
                 
                 let response = try self.service.startVideoStreaming(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -925,7 +925,7 @@ public class Camera {
 
     public func stopVideoStreaming() -> Completable {
         return Completable.create { completable in
-            let request = DronecodeSdk_Rpc_Camera_StopVideoStreamingRequest()
+            let request = Mavsdk_Rpc_Camera_StopVideoStreamingRequest()
 
             
 
@@ -933,7 +933,7 @@ public class Camera {
                 
                 let response = try self.service.stopVideoStreaming(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -949,7 +949,7 @@ public class Camera {
 
     public func setMode(cameraMode: CameraMode) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Camera_SetModeRequest()
+            var request = Mavsdk_Rpc_Camera_SetModeRequest()
 
             
                 
@@ -961,7 +961,7 @@ public class Camera {
                 
                 let response = try self.service.setMode(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
@@ -979,7 +979,7 @@ public class Camera {
 
     private func createModeObservable() -> Observable<CameraMode> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Camera_SubscribeModeRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribeModeRequest()
 
             
 
@@ -994,7 +994,7 @@ public class Camera {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let mode = CameraMode.translateFromRpc(response.cameraMode)
@@ -1026,34 +1026,11 @@ public class Camera {
         .share(replay: 1)
     }
 
-    public func setVideoStreamSettings(videoStreamSettings: VideoStreamSettings) -> Completable {
-        return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Camera_SetVideoStreamSettingsRequest()
-
-            
-                
-            request.videoStreamSettings = videoStreamSettings.rpcVideoStreamSettings
-                
-            
-
-            do {
-                
-                let _ = try self.service.setVideoStreamSettings(request)
-                completable(.completed)
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
     public lazy var videoStreamInfo: Observable<VideoStreamInfo> = createVideoStreamInfoObservable()
 
     private func createVideoStreamInfoObservable() -> Observable<VideoStreamInfo> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Camera_SubscribeVideoStreamInfoRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest()
 
             
 
@@ -1068,7 +1045,7 @@ public class Camera {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
@@ -1104,7 +1081,7 @@ public class Camera {
 
     private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Camera_SubscribeCaptureInfoRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest()
 
             
 
@@ -1119,7 +1096,7 @@ public class Camera {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
@@ -1155,7 +1132,7 @@ public class Camera {
 
     private func createCameraStatusObservable() -> Observable<CameraStatus> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Camera_SubscribeCameraStatusRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest()
 
             
 
@@ -1170,7 +1147,7 @@ public class Camera {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let cameraStatus = CameraStatus.translateFromRpc(response.cameraStatus)
@@ -1206,7 +1183,7 @@ public class Camera {
 
     private func createCurrentSettingsObservable() -> Observable<[Setting]> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Camera_SubscribeCurrentSettingsRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest()
 
             
 
@@ -1221,7 +1198,7 @@ public class Camera {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
     		    let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
                         
@@ -1256,7 +1233,7 @@ public class Camera {
 
     private func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest()
 
             
 
@@ -1271,7 +1248,7 @@ public class Camera {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
     		    let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
                         
@@ -1304,7 +1281,7 @@ public class Camera {
 
     public func setSetting(setting: Setting) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Camera_SetSettingRequest()
+            var request = Mavsdk_Rpc_Camera_SetSettingRequest()
 
             
                 
@@ -1316,7 +1293,7 @@ public class Camera {
                 
                 let response = try self.service.setSetting(request)
 
-                if (response.cameraResult.result == DronecodeSdk_Rpc_Camera_CameraResult.Result.success) {
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))

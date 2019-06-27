@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Action_ArmRequest {
+struct Mavsdk_Rpc_Action_ArmRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -29,13 +29,13 @@ struct DronecodeSdk_Rpc_Action_ArmRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_ArmResponse {
+struct Mavsdk_Rpc_Action_ArmResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -50,7 +50,7 @@ struct DronecodeSdk_Rpc_Action_ArmResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_DisarmRequest {
+struct Mavsdk_Rpc_Action_DisarmRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -60,13 +60,13 @@ struct DronecodeSdk_Rpc_Action_DisarmRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_DisarmResponse {
+struct Mavsdk_Rpc_Action_DisarmResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -81,7 +81,7 @@ struct DronecodeSdk_Rpc_Action_DisarmResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_TakeoffRequest {
+struct Mavsdk_Rpc_Action_TakeoffRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -91,13 +91,13 @@ struct DronecodeSdk_Rpc_Action_TakeoffRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_TakeoffResponse {
+struct Mavsdk_Rpc_Action_TakeoffResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -112,7 +112,7 @@ struct DronecodeSdk_Rpc_Action_TakeoffResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_LandRequest {
+struct Mavsdk_Rpc_Action_LandRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -122,13 +122,13 @@ struct DronecodeSdk_Rpc_Action_LandRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_LandResponse {
+struct Mavsdk_Rpc_Action_LandResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -143,7 +143,7 @@ struct DronecodeSdk_Rpc_Action_LandResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_RebootRequest {
+struct Mavsdk_Rpc_Action_RebootRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -153,13 +153,13 @@ struct DronecodeSdk_Rpc_Action_RebootRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_RebootResponse {
+struct Mavsdk_Rpc_Action_RebootResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -174,7 +174,7 @@ struct DronecodeSdk_Rpc_Action_RebootResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_KillRequest {
+struct Mavsdk_Rpc_Action_KillRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -184,13 +184,13 @@ struct DronecodeSdk_Rpc_Action_KillRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_KillResponse {
+struct Mavsdk_Rpc_Action_KillResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -205,7 +205,7 @@ struct DronecodeSdk_Rpc_Action_KillResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_ReturnToLaunchRequest {
+struct Mavsdk_Rpc_Action_ReturnToLaunchRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -215,13 +215,13 @@ struct DronecodeSdk_Rpc_Action_ReturnToLaunchRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
+struct Mavsdk_Rpc_Action_ReturnToLaunchResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -236,7 +236,7 @@ struct DronecodeSdk_Rpc_Action_ReturnToLaunchResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest {
+struct Mavsdk_Rpc_Action_TransitionToFixedWingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -246,13 +246,13 @@ struct DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
+struct Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -267,7 +267,7 @@ struct DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest {
+struct Mavsdk_Rpc_Action_TransitionToMulticopterRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -277,13 +277,13 @@ struct DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
+struct Mavsdk_Rpc_Action_TransitionToMulticopterResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -298,7 +298,7 @@ struct DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest {
+struct Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -308,13 +308,13 @@ struct DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
+struct Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -334,7 +334,7 @@ struct DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest {
+struct Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -346,13 +346,13 @@ struct DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
+struct Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -367,7 +367,7 @@ struct DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest {
+struct Mavsdk_Rpc_Action_GetMaximumSpeedRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -377,13 +377,13 @@ struct DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
+struct Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -403,7 +403,7 @@ struct DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest {
+struct Mavsdk_Rpc_Action_SetMaximumSpeedRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -415,13 +415,13 @@ struct DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
+struct Mavsdk_Rpc_Action_SetMaximumSpeedResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -436,7 +436,7 @@ struct DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest {
+struct Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -446,13 +446,13 @@ struct DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+struct Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -472,7 +472,7 @@ struct DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest {
+struct Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -484,13 +484,13 @@ struct DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+struct Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var actionResult: DronecodeSdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? DronecodeSdk_Rpc_Action_ActionResult()}
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
     set {_uniqueStorage()._actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
@@ -505,12 +505,12 @@ struct DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Action_ActionResult {
+struct Mavsdk_Rpc_Action_ActionResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: DronecodeSdk_Rpc_Action_ActionResult.Result = .unknown
+  var result: Mavsdk_Rpc_Action_ActionResult.Result = .unknown
 
   var resultStr: String = String()
 
@@ -579,9 +579,9 @@ struct DronecodeSdk_Rpc_Action_ActionResult {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Action_ActionResult.Result: CaseIterable {
+extension Mavsdk_Rpc_Action_ActionResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Action_ActionResult.Result] = [
+  static var allCases: [Mavsdk_Rpc_Action_ActionResult.Result] = [
     .unknown,
     .success,
     .noSystem,
@@ -601,9 +601,9 @@ extension DronecodeSdk_Rpc_Action_ActionResult.Result: CaseIterable {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.action"
+fileprivate let _protobuf_package = "mavsdk.rpc.action"
 
-extension DronecodeSdk_Rpc_Action_ArmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_ArmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ArmRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -616,20 +616,20 @@ extension DronecodeSdk_Rpc_Action_ArmRequest: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_ArmRequest, rhs: DronecodeSdk_Rpc_Action_ArmRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_ArmRequest, rhs: Mavsdk_Rpc_Action_ArmRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_ArmResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_ArmResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ArmResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -668,7 +668,7 @@ extension DronecodeSdk_Rpc_Action_ArmResponse: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_ArmResponse, rhs: DronecodeSdk_Rpc_Action_ArmResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_ArmResponse, rhs: Mavsdk_Rpc_Action_ArmResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -683,7 +683,7 @@ extension DronecodeSdk_Rpc_Action_ArmResponse: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension DronecodeSdk_Rpc_Action_DisarmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_DisarmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".DisarmRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -696,20 +696,20 @@ extension DronecodeSdk_Rpc_Action_DisarmRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_DisarmRequest, rhs: DronecodeSdk_Rpc_Action_DisarmRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_DisarmRequest, rhs: Mavsdk_Rpc_Action_DisarmRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_DisarmResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_DisarmResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".DisarmResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -748,7 +748,7 @@ extension DronecodeSdk_Rpc_Action_DisarmResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_DisarmResponse, rhs: DronecodeSdk_Rpc_Action_DisarmResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_DisarmResponse, rhs: Mavsdk_Rpc_Action_DisarmResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -763,7 +763,7 @@ extension DronecodeSdk_Rpc_Action_DisarmResponse: SwiftProtobuf.Message, SwiftPr
   }
 }
 
-extension DronecodeSdk_Rpc_Action_TakeoffRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_TakeoffRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TakeoffRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -776,20 +776,20 @@ extension DronecodeSdk_Rpc_Action_TakeoffRequest: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_TakeoffRequest, rhs: DronecodeSdk_Rpc_Action_TakeoffRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_TakeoffRequest, rhs: Mavsdk_Rpc_Action_TakeoffRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_TakeoffResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_TakeoffResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TakeoffResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -828,7 +828,7 @@ extension DronecodeSdk_Rpc_Action_TakeoffResponse: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_TakeoffResponse, rhs: DronecodeSdk_Rpc_Action_TakeoffResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_TakeoffResponse, rhs: Mavsdk_Rpc_Action_TakeoffResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -843,7 +843,7 @@ extension DronecodeSdk_Rpc_Action_TakeoffResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension DronecodeSdk_Rpc_Action_LandRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_LandRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".LandRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -856,20 +856,20 @@ extension DronecodeSdk_Rpc_Action_LandRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_LandRequest, rhs: DronecodeSdk_Rpc_Action_LandRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_LandRequest, rhs: Mavsdk_Rpc_Action_LandRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_LandResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_LandResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".LandResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -908,7 +908,7 @@ extension DronecodeSdk_Rpc_Action_LandResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_LandResponse, rhs: DronecodeSdk_Rpc_Action_LandResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_LandResponse, rhs: Mavsdk_Rpc_Action_LandResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -923,7 +923,7 @@ extension DronecodeSdk_Rpc_Action_LandResponse: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Action_RebootRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_RebootRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RebootRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -936,20 +936,20 @@ extension DronecodeSdk_Rpc_Action_RebootRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_RebootRequest, rhs: DronecodeSdk_Rpc_Action_RebootRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_RebootRequest, rhs: Mavsdk_Rpc_Action_RebootRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_RebootResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_RebootResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RebootResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -988,7 +988,7 @@ extension DronecodeSdk_Rpc_Action_RebootResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_RebootResponse, rhs: DronecodeSdk_Rpc_Action_RebootResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_RebootResponse, rhs: Mavsdk_Rpc_Action_RebootResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1003,7 +1003,7 @@ extension DronecodeSdk_Rpc_Action_RebootResponse: SwiftProtobuf.Message, SwiftPr
   }
 }
 
-extension DronecodeSdk_Rpc_Action_KillRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_KillRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".KillRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1016,20 +1016,20 @@ extension DronecodeSdk_Rpc_Action_KillRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_KillRequest, rhs: DronecodeSdk_Rpc_Action_KillRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_KillRequest, rhs: Mavsdk_Rpc_Action_KillRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_KillResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_KillResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".KillResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1068,7 +1068,7 @@ extension DronecodeSdk_Rpc_Action_KillResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_KillResponse, rhs: DronecodeSdk_Rpc_Action_KillResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_KillResponse, rhs: Mavsdk_Rpc_Action_KillResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1083,7 +1083,7 @@ extension DronecodeSdk_Rpc_Action_KillResponse: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Action_ReturnToLaunchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_ReturnToLaunchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ReturnToLaunchRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1096,20 +1096,20 @@ extension DronecodeSdk_Rpc_Action_ReturnToLaunchRequest: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest, rhs: DronecodeSdk_Rpc_Action_ReturnToLaunchRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_ReturnToLaunchRequest, rhs: Mavsdk_Rpc_Action_ReturnToLaunchRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ReturnToLaunchResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1148,7 +1148,7 @@ extension DronecodeSdk_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_ReturnToLaunchResponse, rhs: DronecodeSdk_Rpc_Action_ReturnToLaunchResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_ReturnToLaunchResponse, rhs: Mavsdk_Rpc_Action_ReturnToLaunchResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1163,7 +1163,7 @@ extension DronecodeSdk_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message,
   }
 }
 
-extension DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_TransitionToFixedWingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1176,20 +1176,20 @@ extension DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest, rhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, rhs: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1228,7 +1228,7 @@ extension DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse, rhs: DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToFixedWingResponse, rhs: Mavsdk_Rpc_Action_TransitionToFixedWingResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1243,7 +1243,7 @@ extension DronecodeSdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.M
   }
 }
 
-extension DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_TransitionToMulticopterRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TransitionToMulticopterRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1256,20 +1256,20 @@ extension DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest, rhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, rhs: Mavsdk_Rpc_Action_TransitionToMulticopterRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_TransitionToMulticopterResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TransitionToMulticopterResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1308,7 +1308,7 @@ extension DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse: SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse, rhs: DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToMulticopterResponse, rhs: Mavsdk_Rpc_Action_TransitionToMulticopterResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1323,7 +1323,7 @@ extension DronecodeSdk_Rpc_Action_TransitionToMulticopterResponse: SwiftProtobuf
   }
 }
 
-extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetTakeoffAltitudeRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1336,13 +1336,13 @@ extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, rhs: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetTakeoffAltitudeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
@@ -1350,7 +1350,7 @@ extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse: SwiftProtobuf.Mess
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
     var _altitude: Float = 0
 
     static let defaultInstance = _StorageClass()
@@ -1395,7 +1395,7 @@ extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse, rhs: Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1411,7 +1411,7 @@ extension DronecodeSdk_Rpc_Action_GetTakeoffAltitudeResponse: SwiftProtobuf.Mess
   }
 }
 
-extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetTakeoffAltitudeRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "altitude"),
@@ -1433,21 +1433,21 @@ extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest: SwiftProtobuf.Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, rhs: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest) -> Bool {
     if lhs.altitude != rhs.altitude {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetTakeoffAltitudeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1486,7 +1486,7 @@ extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse, rhs: Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1501,7 +1501,7 @@ extension DronecodeSdk_Rpc_Action_SetTakeoffAltitudeResponse: SwiftProtobuf.Mess
   }
 }
 
-extension DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_GetMaximumSpeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetMaximumSpeedRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1514,13 +1514,13 @@ extension DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest, rhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, rhs: Mavsdk_Rpc_Action_GetMaximumSpeedRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_GetMaximumSpeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetMaximumSpeedResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
@@ -1528,7 +1528,7 @@ extension DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse: SwiftProtobuf.Message
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
     var _speed: Float = 0
 
     static let defaultInstance = _StorageClass()
@@ -1573,7 +1573,7 @@ extension DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse, rhs: DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GetMaximumSpeedResponse, rhs: Mavsdk_Rpc_Action_GetMaximumSpeedResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1589,7 +1589,7 @@ extension DronecodeSdk_Rpc_Action_GetMaximumSpeedResponse: SwiftProtobuf.Message
   }
 }
 
-extension DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_SetMaximumSpeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetMaximumSpeedRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "speed"),
@@ -1611,21 +1611,21 @@ extension DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest, rhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, rhs: Mavsdk_Rpc_Action_SetMaximumSpeedRequest) -> Bool {
     if lhs.speed != rhs.speed {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_SetMaximumSpeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetMaximumSpeedResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1664,7 +1664,7 @@ extension DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse, rhs: DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_SetMaximumSpeedResponse, rhs: Mavsdk_Rpc_Action_SetMaximumSpeedResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1679,7 +1679,7 @@ extension DronecodeSdk_Rpc_Action_SetMaximumSpeedResponse: SwiftProtobuf.Message
   }
 }
 
-extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetReturnToLaunchAltitudeRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -1692,13 +1692,13 @@ extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, rhs: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetReturnToLaunchAltitudeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
@@ -1706,7 +1706,7 @@ extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: SwiftProtob
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
     var _relativeAltitudeM: Float = 0
 
     static let defaultInstance = _StorageClass()
@@ -1751,7 +1751,7 @@ extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse, rhs: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1767,7 +1767,7 @@ extension DronecodeSdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetReturnToLaunchAltitudeRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "relative_altitude_m"),
@@ -1789,21 +1789,21 @@ extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest: SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, rhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, rhs: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) -> Bool {
     if lhs.relativeAltitudeM != rhs.relativeAltitudeM {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetReturnToLaunchAltitudeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
 
   fileprivate class _StorageClass {
-    var _actionResult: DronecodeSdk_Rpc_Action_ActionResult? = nil
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1842,7 +1842,7 @@ extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse, rhs: DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse, rhs: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1857,7 +1857,7 @@ extension DronecodeSdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: SwiftProtob
   }
 }
 
-extension DronecodeSdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ActionResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "result"),
@@ -1884,7 +1884,7 @@ extension DronecodeSdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Action_ActionResult, rhs: DronecodeSdk_Rpc_Action_ActionResult) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_ActionResult, rhs: Mavsdk_Rpc_Action_ActionResult) -> Bool {
     if lhs.result != rhs.result {return false}
     if lhs.resultStr != rhs.resultStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1892,7 +1892,7 @@ extension DronecodeSdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Action_ActionResult.Result: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Action_ActionResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "SUCCESS"),

@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Gimbal {
-    private let service: DronecodeSdk_Rpc_Gimbal_GimbalServiceService
+    private let service: Mavsdk_Rpc_Gimbal_GimbalServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Gimbal_GimbalServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Gimbal_GimbalServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Gimbal_GimbalServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -49,7 +49,7 @@ public class Gimbal {
             case unknown
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: DronecodeSdk_Rpc_Gimbal_GimbalResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_Gimbal_GimbalResult.Result {
                 switch self {
                 case .success:
                     return .success
@@ -64,7 +64,7 @@ public class Gimbal {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: DronecodeSdk_Rpc_Gimbal_GimbalResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Gimbal_GimbalResult.Result) -> Result {
                 switch rpcResult {
                 case .success:
                     return .success
@@ -86,8 +86,8 @@ public class Gimbal {
             self.resultStr = resultStr
         }
 
-        internal var rpcGimbalResult: DronecodeSdk_Rpc_Gimbal_GimbalResult {
-            var rpcGimbalResult = DronecodeSdk_Rpc_Gimbal_GimbalResult()
+        internal var rpcGimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult {
+            var rpcGimbalResult = Mavsdk_Rpc_Gimbal_GimbalResult()
             
                 
             rpcGimbalResult.result = result.rpcResult
@@ -102,7 +102,7 @@ public class Gimbal {
             return rpcGimbalResult
         }
 
-        internal static func translateFromRpc(_ rpcGimbalResult: DronecodeSdk_Rpc_Gimbal_GimbalResult) -> GimbalResult {
+        internal static func translateFromRpc(_ rpcGimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult) -> GimbalResult {
             return GimbalResult(result: Result.translateFromRpc(rpcGimbalResult.result), resultStr: rpcGimbalResult.resultStr)
         }
 
@@ -115,7 +115,7 @@ public class Gimbal {
 
     public func setPitchAndYaw(pitchDeg: Float, yawDeg: Float) -> Completable {
         return Completable.create { completable in
-            var request = DronecodeSdk_Rpc_Gimbal_SetPitchAndYawRequest()
+            var request = Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest()
 
             
                 
@@ -131,7 +131,7 @@ public class Gimbal {
                 
                 let response = try self.service.setPitchAndYaw(request)
 
-                if (response.gimbalResult.result == DronecodeSdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
                     completable(.completed)
                 } else {
                     completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(response.gimbalResult.result), description: response.gimbalResult.resultStr)))

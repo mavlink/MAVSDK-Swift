@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest {
+struct Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -29,13 +29,13 @@ struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse {
+struct Mavsdk_Rpc_Calibration_CalibrateGyroResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult {
-    get {return _storage._calibrationResult ?? DronecodeSdk_Rpc_Calibration_CalibrationResult()}
+  var calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult {
+    get {return _storage._calibrationResult ?? Mavsdk_Rpc_Calibration_CalibrationResult()}
     set {_uniqueStorage()._calibrationResult = newValue}
   }
   /// Returns true if `calibrationResult` has been explicitly set.
@@ -43,8 +43,8 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
-  var progressData: DronecodeSdk_Rpc_Calibration_ProgressData {
-    get {return _storage._progressData ?? DronecodeSdk_Rpc_Calibration_ProgressData()}
+  var progressData: Mavsdk_Rpc_Calibration_ProgressData {
+    get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
   }
   /// Returns true if `progressData` has been explicitly set.
@@ -59,7 +59,7 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest {
+struct Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -69,13 +69,13 @@ struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse {
+struct Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult {
-    get {return _storage._calibrationResult ?? DronecodeSdk_Rpc_Calibration_CalibrationResult()}
+  var calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult {
+    get {return _storage._calibrationResult ?? Mavsdk_Rpc_Calibration_CalibrationResult()}
     set {_uniqueStorage()._calibrationResult = newValue}
   }
   /// Returns true if `calibrationResult` has been explicitly set.
@@ -83,8 +83,8 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
-  var progressData: DronecodeSdk_Rpc_Calibration_ProgressData {
-    get {return _storage._progressData ?? DronecodeSdk_Rpc_Calibration_ProgressData()}
+  var progressData: Mavsdk_Rpc_Calibration_ProgressData {
+    get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
   }
   /// Returns true if `progressData` has been explicitly set.
@@ -99,7 +99,7 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest {
+struct Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -109,13 +109,13 @@ struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse {
+struct Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult {
-    get {return _storage._calibrationResult ?? DronecodeSdk_Rpc_Calibration_CalibrationResult()}
+  var calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult {
+    get {return _storage._calibrationResult ?? Mavsdk_Rpc_Calibration_CalibrationResult()}
     set {_uniqueStorage()._calibrationResult = newValue}
   }
   /// Returns true if `calibrationResult` has been explicitly set.
@@ -123,8 +123,8 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
-  var progressData: DronecodeSdk_Rpc_Calibration_ProgressData {
-    get {return _storage._progressData ?? DronecodeSdk_Rpc_Calibration_ProgressData()}
+  var progressData: Mavsdk_Rpc_Calibration_ProgressData {
+    get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
   }
   /// Returns true if `progressData` has been explicitly set.
@@ -139,7 +139,7 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest {
+struct Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -149,13 +149,13 @@ struct DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse {
+struct Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult {
-    get {return _storage._calibrationResult ?? DronecodeSdk_Rpc_Calibration_CalibrationResult()}
+  var calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult {
+    get {return _storage._calibrationResult ?? Mavsdk_Rpc_Calibration_CalibrationResult()}
     set {_uniqueStorage()._calibrationResult = newValue}
   }
   /// Returns true if `calibrationResult` has been explicitly set.
@@ -163,8 +163,8 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
-  var progressData: DronecodeSdk_Rpc_Calibration_ProgressData {
-    get {return _storage._progressData ?? DronecodeSdk_Rpc_Calibration_ProgressData()}
+  var progressData: Mavsdk_Rpc_Calibration_ProgressData {
+    get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
   }
   /// Returns true if `progressData` has been explicitly set.
@@ -179,7 +179,7 @@ struct DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct DronecodeSdk_Rpc_Calibration_CancelRequest {
+struct Mavsdk_Rpc_Calibration_CancelRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -189,7 +189,7 @@ struct DronecodeSdk_Rpc_Calibration_CancelRequest {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Calibration_CancelResponse {
+struct Mavsdk_Rpc_Calibration_CancelResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -199,12 +199,12 @@ struct DronecodeSdk_Rpc_Calibration_CancelResponse {
   init() {}
 }
 
-struct DronecodeSdk_Rpc_Calibration_CalibrationResult {
+struct Mavsdk_Rpc_Calibration_CalibrationResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: DronecodeSdk_Rpc_Calibration_CalibrationResult.Result = .unknown
+  var result: Mavsdk_Rpc_Calibration_CalibrationResult.Result = .unknown
 
   var resultStr: String = String()
 
@@ -270,9 +270,9 @@ struct DronecodeSdk_Rpc_Calibration_CalibrationResult {
 
 #if swift(>=4.2)
 
-extension DronecodeSdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
+extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [DronecodeSdk_Rpc_Calibration_CalibrationResult.Result] = [
+  static var allCases: [Mavsdk_Rpc_Calibration_CalibrationResult.Result] = [
     .unknown,
     .success,
     .inProgress,
@@ -289,7 +289,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct DronecodeSdk_Rpc_Calibration_ProgressData {
+struct Mavsdk_Rpc_Calibration_ProgressData {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -309,9 +309,9 @@ struct DronecodeSdk_Rpc_Calibration_ProgressData {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "dronecode_sdk.rpc.calibration"
+fileprivate let _protobuf_package = "mavsdk.rpc.calibration"
 
-extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCalibrateGyroRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -324,13 +324,13 @@ extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest: SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, rhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGyroRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, rhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CalibrateGyroResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "calibration_result"),
@@ -338,8 +338,8 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Mess
   ]
 
   fileprivate class _StorageClass {
-    var _calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult? = nil
-    var _progressData: DronecodeSdk_Rpc_Calibration_ProgressData? = nil
+    var _calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult? = nil
+    var _progressData: Mavsdk_Rpc_Calibration_ProgressData? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -383,7 +383,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse, rhs: DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CalibrateGyroResponse, rhs: Mavsdk_Rpc_Calibration_CalibrateGyroResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -399,7 +399,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Mess
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCalibrateAccelerometerRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -412,13 +412,13 @@ extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest: S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, rhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, rhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CalibrateAccelerometerResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "calibration_result"),
@@ -426,8 +426,8 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProt
   ]
 
   fileprivate class _StorageClass {
-    var _calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult? = nil
-    var _progressData: DronecodeSdk_Rpc_Calibration_ProgressData? = nil
+    var _calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult? = nil
+    var _progressData: Mavsdk_Rpc_Calibration_ProgressData? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -471,7 +471,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse, rhs: DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse, rhs: Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -487,7 +487,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProt
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCalibrateMagnetometerRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -500,13 +500,13 @@ extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest: Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, rhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, rhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CalibrateMagnetometerResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "calibration_result"),
@@ -514,8 +514,8 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProto
   ]
 
   fileprivate class _StorageClass {
-    var _calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult? = nil
-    var _progressData: DronecodeSdk_Rpc_Calibration_ProgressData? = nil
+    var _calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult? = nil
+    var _progressData: Mavsdk_Rpc_Calibration_ProgressData? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -559,7 +559,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse, rhs: DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse, rhs: Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -575,7 +575,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProto
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCalibrateGimbalAccelerometerRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -588,13 +588,13 @@ extension DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequ
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, rhs: DronecodeSdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, rhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CalibrateGimbalAccelerometerResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "calibration_result"),
@@ -602,8 +602,8 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: Swi
   ]
 
   fileprivate class _StorageClass {
-    var _calibrationResult: DronecodeSdk_Rpc_Calibration_CalibrationResult? = nil
-    var _progressData: DronecodeSdk_Rpc_Calibration_ProgressData? = nil
+    var _calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult? = nil
+    var _progressData: Mavsdk_Rpc_Calibration_ProgressData? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -647,7 +647,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse, rhs: DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse, rhs: Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -663,7 +663,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: Swi
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CancelRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CancelRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CancelRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -676,13 +676,13 @@ extension DronecodeSdk_Rpc_Calibration_CancelRequest: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CancelRequest, rhs: DronecodeSdk_Rpc_Calibration_CancelRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CancelRequest, rhs: Mavsdk_Rpc_Calibration_CancelRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CancelResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CancelResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CancelResponse"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
@@ -695,13 +695,13 @@ extension DronecodeSdk_Rpc_Calibration_CancelResponse: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CancelResponse, rhs: DronecodeSdk_Rpc_Calibration_CancelResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CancelResponse, rhs: Mavsdk_Rpc_Calibration_CancelResponse) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CalibrationResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CalibrationResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CalibrationResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "result"),
@@ -728,7 +728,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrationResult: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_CalibrationResult, rhs: DronecodeSdk_Rpc_Calibration_CalibrationResult) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CalibrationResult, rhs: Mavsdk_Rpc_Calibration_CalibrationResult) -> Bool {
     if lhs.result != rhs.result {return false}
     if lhs.resultStr != rhs.resultStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -736,7 +736,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrationResult: SwiftProtobuf.Message,
   }
 }
 
-extension DronecodeSdk_Rpc_Calibration_CalibrationResult.Result: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "UNKNOWN"),
     1: .same(proto: "SUCCESS"),
@@ -752,7 +752,7 @@ extension DronecodeSdk_Rpc_Calibration_CalibrationResult.Result: SwiftProtobuf._
   ]
 }
 
-extension DronecodeSdk_Rpc_Calibration_ProgressData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Calibration_ProgressData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ProgressData"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "has_progress"),
@@ -789,7 +789,7 @@ extension DronecodeSdk_Rpc_Calibration_ProgressData: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: DronecodeSdk_Rpc_Calibration_ProgressData, rhs: DronecodeSdk_Rpc_Calibration_ProgressData) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Calibration_ProgressData, rhs: Mavsdk_Rpc_Calibration_ProgressData) -> Bool {
     if lhs.hasProgress_p != rhs.hasProgress_p {return false}
     if lhs.progress != rhs.progress {return false}
     if lhs.hasStatusText_p != rhs.hasStatusText_p {return false}

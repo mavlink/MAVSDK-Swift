@@ -3,18 +3,18 @@ import RxSwift
 import SwiftGRPC
 
 public class Core {
-    private let service: DronecodeSdk_Rpc_Core_CoreServiceService
+    private let service: Mavsdk_Rpc_Core_CoreServiceService
     private let scheduler: SchedulerType
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = DronecodeSdk_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let service = Mavsdk_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
 
         self.init(service: service, scheduler: scheduler)
     }
 
-    init(service: DronecodeSdk_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
         self.service = service
         self.scheduler = scheduler
     }
@@ -41,8 +41,8 @@ public class Core {
             self.isConnected = isConnected
         }
 
-        internal var rpcConnectionState: DronecodeSdk_Rpc_Core_ConnectionState {
-            var rpcConnectionState = DronecodeSdk_Rpc_Core_ConnectionState()
+        internal var rpcConnectionState: Mavsdk_Rpc_Core_ConnectionState {
+            var rpcConnectionState = Mavsdk_Rpc_Core_ConnectionState()
             
                 
             rpcConnectionState.uuid = uuid
@@ -57,7 +57,7 @@ public class Core {
             return rpcConnectionState
         }
 
-        internal static func translateFromRpc(_ rpcConnectionState: DronecodeSdk_Rpc_Core_ConnectionState) -> ConnectionState {
+        internal static func translateFromRpc(_ rpcConnectionState: Mavsdk_Rpc_Core_ConnectionState) -> ConnectionState {
             return ConnectionState(uuid: rpcConnectionState.uuid, isConnected: rpcConnectionState.isConnected)
         }
 
@@ -80,8 +80,8 @@ public class Core {
             self.port = port
         }
 
-        internal var rpcPluginInfo: DronecodeSdk_Rpc_Core_PluginInfo {
-            var rpcPluginInfo = DronecodeSdk_Rpc_Core_PluginInfo()
+        internal var rpcPluginInfo: Mavsdk_Rpc_Core_PluginInfo {
+            var rpcPluginInfo = Mavsdk_Rpc_Core_PluginInfo()
             
                 
             rpcPluginInfo.name = name
@@ -101,7 +101,7 @@ public class Core {
             return rpcPluginInfo
         }
 
-        internal static func translateFromRpc(_ rpcPluginInfo: DronecodeSdk_Rpc_Core_PluginInfo) -> PluginInfo {
+        internal static func translateFromRpc(_ rpcPluginInfo: Mavsdk_Rpc_Core_PluginInfo) -> PluginInfo {
             return PluginInfo(name: rpcPluginInfo.name, address: rpcPluginInfo.address, port: rpcPluginInfo.port)
         }
 
@@ -117,7 +117,7 @@ public class Core {
 
     private func createConnectionStateObservable() -> Observable<ConnectionState> {
         return Observable.create { observer in
-            let request = DronecodeSdk_Rpc_Core_SubscribeConnectionStateRequest()
+            let request = Mavsdk_Rpc_Core_SubscribeConnectionStateRequest()
 
             
 
@@ -132,7 +132,7 @@ public class Core {
 
                 let disposable = self.scheduler.schedule(0, action: { _ in
                     
-                    while let responseOptional = try? call.receive(), let response = responseOptional {
+                    while let response = try? call.receive() {
                         
                             
                         let connectionState = ConnectionState.translateFromRpc(response.connectionState)
@@ -166,7 +166,7 @@ public class Core {
 
     public func listRunningPlugins() -> Single<[PluginInfo]> {
         return Single<[PluginInfo]>.create { single in
-            let request = DronecodeSdk_Rpc_Core_ListRunningPluginsRequest()
+            let request = Mavsdk_Rpc_Core_ListRunningPluginsRequest()
 
             
 
