@@ -4,7 +4,7 @@ options:
     iOS: "9.0"
   bundleIdPrefix: org.dronecode.sdk
 settings:
-  ENABLE_BITCODE: NO
+  VALID_ARCHS[sdk=iphonesimulator*]: x86_64
 targets:
   Dronecode-SDK-Swift:
     name: Dronecode_SDK_Swift
