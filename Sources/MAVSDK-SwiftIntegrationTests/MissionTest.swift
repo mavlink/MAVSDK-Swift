@@ -1,6 +1,6 @@
-import Dronecode_SDK_Swift
 import RxSwift
 import XCTest
+@testable import MAVSDK_Swift
 
 class MissionTest: XCTestCase {
 

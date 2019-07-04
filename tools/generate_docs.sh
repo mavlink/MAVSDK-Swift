@@ -10,13 +10,13 @@ fi
 
 jazzy \
     --clean \
-    --author Dronecode SDK developers \
-    --author_url https://sdk.dronecode.org \
-    --github_url https://github.com/Dronecode/DronecodeSDK-Swift \
-    --github-file-prefix https://github.com/Dronecode/DronecodeSDK-Swift/tree/master \
+    --author MAVSDK developers \
+    --author_url https://mavsdk.mavlink.io \
+    --github_url https://github.com/mavlink/MAVSDK-Swift \
+    --github-file-prefix https://github.com/mavlink/MAVSDK-Swift/tree/master \
     --module-version master \
-    --xcodebuild-arguments -project,Dronecode-SDK-Swift.xcodeproj,-scheme,Dronecode_SDK_Swift \
-    --module Dronecode-SDK-Swift \
-    --root-url https://sdk.dronecode.org/docs/swift \
+    --xcodebuild-arguments -project,MAVSDK-Swift.xcodeproj,-scheme,MAVSDK_Swift \
+    --module MAVSDK-Swift \
+    --root-url https://mavsdk.mavlink.io/docs/swift \
     --output docs/swift_output \
-    --module Dronecode_SDK_Swift
+    --module MAVSDK_Swift

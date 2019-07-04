@@ -1,6 +1,6 @@
-import Dronecode_SDK_Swift
 import RxBlocking
 import XCTest
+@testable import MAVSDK_Swift
 
 class CoreTest: XCTestCase {
 

@@ -7,7 +7,7 @@ command -v protoc || { echo >&2 "Protobuf needs to be installed (e.g. '$ brew in
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PB_PLUGINS_DIR=${PB_PLUGINS_DIR:-"${SCRIPT_DIR}/../proto/pb_plugins"}
 PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
-OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/Dronecode-SDK-Swift/Generated"}
+OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/MAVSDK-Swift/Generated"}
 
 PLUGIN_LIST="action calibration gimbal camera core info mission param telemetry"
 

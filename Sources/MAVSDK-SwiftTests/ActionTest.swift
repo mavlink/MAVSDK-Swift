@@ -2,7 +2,7 @@ import XCTest
 import RxBlocking
 import RxSwift
 import RxTest
-@testable import Dronecode_SDK_Swift
+@testable import MAVSDK_Swift
 
 class ActionTest: XCTestCase {
     

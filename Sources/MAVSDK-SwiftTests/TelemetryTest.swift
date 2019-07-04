@@ -2,7 +2,7 @@ import RxTest
 import RxSwift
 import RxBlocking
 import XCTest
-@testable import Dronecode_SDK_Swift
+@testable import MAVSDK_Swift
 
 class TelemetryTest: XCTestCase {
 

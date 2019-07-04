@@ -3,7 +3,7 @@ import RxBlocking
 import RxSwift
 import RxTest
 import XCTest
-@testable import Dronecode_SDK_Swift
+@testable import MAVSDK_Swift
 
 class CameraTest: XCTestCase {
     
