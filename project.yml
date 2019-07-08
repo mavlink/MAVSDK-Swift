@@ -1,37 +1,37 @@
-name: Dronecode-SDK-Swift
+name: MAVSDK-Swift
 options:
   deploymentTarget:
     iOS: "9.0"
-  bundleIdPrefix: org.dronecode.sdk
+  bundleIdPrefix: io.mavlink.mavsdk
 settings:
-  ENABLE_BITCODE: NO
+  VALID_ARCHS[sdk=iphonesimulator*]: x86_64
 targets:
-  Dronecode-SDK-Swift:
-    name: Dronecode_SDK_Swift
+  MAVSDK-Swift:
+    name: MAVSDK_Swift
     type: framework
     platform: iOS
     info:
-      path: Sources/Dronecode-SDK-Swift/Info.plist
+      path: Sources/MAVSDK-Swift/Info.plist
     scheme:
       testTargets:
-        - Dronecode_SDK_SwiftTests
-        - Dronecode_SDK_SwiftIntegrationTests
-    sources: [Sources/Dronecode-SDK-Swift]
+        - MAVSDK_SwiftTests
+        - MAVSDK_SwiftIntegrationTests
+    sources: [Sources/MAVSDK-Swift]
     dependencies:
-      - carthage: backend
+      - carthage: mavsdk_server
       - carthage: BoringSSL
       - carthage: CgRPC
       - carthage: RxSwift
       - carthage: SwiftGRPC
       - carthage: SwiftProtobuf
-  Dronecode-SDK-SwiftTests:
-    name: Dronecode_SDK_SwiftTests
+  MAVSDK-SwiftTests:
+    name: MAVSDK_SwiftTests
     type: bundle.unit-test
     platform: iOS
-    sources: [Sources/Dronecode-SDK-SwiftTests]
+    sources: [Sources/MAVSDK-SwiftTests]
     dependencies:
-      - target: Dronecode_SDK_Swift
-      - carthage: backend
+      - target: MAVSDK_Swift
+      - carthage: mavsdk_server
       - carthage: BoringSSL
       - carthage: CgRPC
       - carthage: RxBlocking
@@ -39,14 +39,14 @@ targets:
       - carthage: RxTest
       - carthage: SwiftGRPC
       - carthage: SwiftProtobuf
-  Dronecode-SDK-SwiftIntegrationTests:
-    name: Dronecode_SDK_SwiftIntegrationTests
+  MAVSDK-SwiftIntegrationTests:
+    name: MAVSDK_SwiftIntegrationTests
     type: bundle.unit-test
     platform: iOS
-    sources: [Sources/Dronecode-SDK-SwiftIntegrationTests]
+    sources: [Sources/MAVSDK-SwiftIntegrationTests]
     dependencies:
-      - target: Dronecode_SDK_Swift
-      - carthage: backend
+      - target: MAVSDK_Swift
+      - carthage: mavsdk_server
       - carthage: BoringSSL
       - carthage: CgRPC
       - carthage: RxBlocking

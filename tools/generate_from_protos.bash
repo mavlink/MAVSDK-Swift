@@ -7,7 +7,7 @@ command -v protoc || { echo >&2 "Protobuf needs to be installed (e.g. '$ brew in
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PB_PLUGINS_DIR=${PB_PLUGINS_DIR:-"${SCRIPT_DIR}/../proto/pb_plugins"}
 PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
-OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/Dronecode-SDK-Swift/Generated"}
+OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/MAVSDK-Swift/Generated"}
 
 PLUGIN_LIST="action calibration gimbal camera core info mission param telemetry"
 
@@ -37,7 +37,7 @@ if [ ! -d ${TMP_DIR}/grpc-swift ]; then
     echo "--- Cloning grpc-swift"
     echo ""
 
-    git -C ${TMP_DIR} clone -b 0.8.1 https://github.com/grpc/grpc-swift
+    git -C ${TMP_DIR} clone https://github.com/jonasvautherin/grpc-swift
 fi
 
 cd ${TMP_DIR}/grpc-swift && make
