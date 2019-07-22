@@ -1,0 +1,81 @@
+PODS:
+  - BoringSSL-GRPC (0.0.3):
+    - BoringSSL-GRPC/Implementation (= 0.0.3)
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Implementation (0.0.3):
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Interface (0.0.3)
+  - gRPC-Core (1.19.0):
+    - gRPC-Core/Implementation (= 1.19.0)
+    - gRPC-Core/Interface (= 1.19.0)
+  - gRPC-Core/Implementation (1.19.0):
+    - BoringSSL-GRPC (= 0.0.3)
+    - gRPC-Core/Interface (= 1.19.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.19.0)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - RxBlocking (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
+  - RxTest (5.0.1):
+    - RxSwift (~> 5)
+  - SwiftGRPC (0.9.0):
+    - gRPC-Core (~> 1.19.0)
+    - SwiftProtobuf (~> 1.5.0)
+  - SwiftProtobuf (1.5.0)
+
+DEPENDENCIES:
+  - RxBlocking (from `https://github.com/ReactiveX/RxSwift.git`)
+  - RxSwift (from `https://github.com/ReactiveX/RxSwift.git`)
+  - RxTest (from `https://github.com/ReactiveX/RxSwift.git`)
+  - SwiftGRPC (from `https://github.com/JonasVautherin/grpc-swift.git`, commit `820730e24b9cf035b2889b30d2fe87411e041720`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BoringSSL-GRPC
+    - gRPC-Core
+    - nanopb
+    - SwiftProtobuf
+
+EXTERNAL SOURCES:
+  RxBlocking:
+    :git: https://github.com/ReactiveX/RxSwift.git
+  RxSwift:
+    :git: https://github.com/ReactiveX/RxSwift.git
+  RxTest:
+    :git: https://github.com/ReactiveX/RxSwift.git
+  SwiftGRPC:
+    :commit: 820730e24b9cf035b2889b30d2fe87411e041720
+    :git: https://github.com/JonasVautherin/grpc-swift.git
+
+CHECKOUT OPTIONS:
+  RxBlocking:
+    :commit: 70b8a33c5c3f4c3b15ebf10b638d2b15cfafb814
+    :git: https://github.com/ReactiveX/RxSwift.git
+  RxSwift:
+    :commit: 70b8a33c5c3f4c3b15ebf10b638d2b15cfafb814
+    :git: https://github.com/ReactiveX/RxSwift.git
+  RxTest:
+    :commit: 70b8a33c5c3f4c3b15ebf10b638d2b15cfafb814
+    :git: https://github.com/ReactiveX/RxSwift.git
+  SwiftGRPC:
+    :commit: 820730e24b9cf035b2889b30d2fe87411e041720
+    :git: https://github.com/JonasVautherin/grpc-swift.git
+
+SPEC CHECKSUMS:
+  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
+  gRPC-Core: bd9472c8daa2e414b9f8038ba667bf56ce0e02b8
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  RxBlocking: c5e090f42d046df8b0e7752742510f349963710f
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
+  RxTest: 0132f952a61da82d5233abedaa559df91e5330e5
+  SwiftGRPC: 1e8aff37e12b02bf040fe818c5c5445c6a77c705
+  SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
+
+PODFILE CHECKSUM: ba6a43d8452e88b4f2c4047fc50b9a7f4020da46
+
+COCOAPODS: 1.7.4
