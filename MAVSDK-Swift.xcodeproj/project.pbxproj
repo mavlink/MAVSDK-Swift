@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,9 @@
 		32E397142A181E148F48AC34A3500068 /* camera.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906DA18D2B859D7B73840C47CB0DD52 /* camera.grpc.swift */; };
 		32F4D9DA2D58A50E88E057F7934B3D42 /* mission.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E634158956EA82B216C7A1DE91A474 /* mission.grpc.swift */; };
 		36DE58844B34E74515323E0024CE8EE6 /* action.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B67A725743B8E5A04E73A103F34D13F /* action.pb.swift */; };
+		3A9EE9EB22E55F6C00DE6E4F /* Offboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EE9E822E55F6600DE6E4F /* Offboard.swift */; };
+		3A9EE9EC22E55F6C00DE6E4F /* offboard.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EE9E922E55F6700DE6E4F /* offboard.pb.swift */; };
+		3A9EE9ED22E55F6C00DE6E4F /* offboard.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9EE9EA22E55F6800DE6E4F /* offboard.grpc.swift */; };
 		3C732477E54BE7747EFEFBE8F3A2E48B /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D56D29B1877A178CC9B534A15BA84C /* ActionTest.swift */; };
 		41E5207DB660D06F08FF65EA49C63FAA /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A732733F42B09BD0B286C77EBBCAD2D1 /* RxBlocking.framework */; };
 		429D5A89425AB7C4365032BE9A3424A8 /* SwiftGRPC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1A495069A4D741D8F9ABB6593FD04B30 /* SwiftGRPC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -160,6 +163,9 @@
 		1A495069A4D741D8F9ABB6593FD04B30 /* SwiftGRPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftGRPC.framework; sourceTree = "<group>"; };
 		2DE87184333DBFDAE7CEEC6B3DAFF502 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxSwift.framework; sourceTree = "<group>"; };
 		316A127424335B406C3AAA939CE10A98 /* CameraTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTest.swift; sourceTree = "<group>"; };
+		3A9EE9E822E55F6600DE6E4F /* Offboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Offboard.swift; sourceTree = "<group>"; };
+		3A9EE9E922E55F6700DE6E4F /* offboard.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = offboard.pb.swift; sourceTree = "<group>"; };
+		3A9EE9EA22E55F6800DE6E4F /* offboard.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = offboard.grpc.swift; sourceTree = "<group>"; };
 		3FFD134CA1F8F625A9F8AE46872203BA /* camera.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = camera.pb.swift; sourceTree = "<group>"; };
 		49E02AA74644A7D2BD2798B912287C39 /* gimbal.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gimbal.grpc.swift; sourceTree = "<group>"; };
 		4E6071BE812035058BA297A6ADC1A0A3 /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoringSSL.framework; sourceTree = "<group>"; };
@@ -291,6 +297,9 @@
 		397FE3D051C894CD815C1C6EAF83A7C2 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				3A9EE9EA22E55F6800DE6E4F /* offboard.grpc.swift */,
+				3A9EE9E922E55F6700DE6E4F /* offboard.pb.swift */,
+				3A9EE9E822E55F6600DE6E4F /* Offboard.swift */,
 				F7062A25F0169F2C012361C5951144F3 /* action.grpc.swift */,
 				9B67A725743B8E5A04E73A103F34D13F /* action.pb.swift */,
 				BF38A4924F9DFBFF8A289322CB4A6768 /* Action.swift */,
@@ -466,12 +475,14 @@
 				FB924FC5146AFCC64F612F962CFC6148 /* Calibration.swift in Sources */,
 				2BFFF5ADCB121DD34E83201393FA2BD9 /* Camera.swift in Sources */,
 				8CCD23FE7638B9104E84C4537724C144 /* Core.swift in Sources */,
+				3A9EE9ED22E55F6C00DE6E4F /* offboard.grpc.swift in Sources */,
 				505983DFD55DB3D51F71357FD4CD13DC /* Drone.swift in Sources */,
 				CC12EE52E744A87E695DAC266F150EC5 /* Gimbal.swift in Sources */,
 				19046C25DDD2FD46CDA525764AD5B779 /* Info.swift in Sources */,
 				E9A74A4959DB8477BACEA6C59524C033 /* Mission.swift in Sources */,
 				90E0B90C6AC6C13490E8275D30BE16C8 /* Param.swift in Sources */,
 				C8A26D3A0BE078F58BD3D441AEB80AA6 /* Telemetry.swift in Sources */,
+				3A9EE9EB22E55F6C00DE6E4F /* Offboard.swift in Sources */,
 				765F1A6F5DF56B44A0F98DC83FE16850 /* action.grpc.swift in Sources */,
 				36DE58844B34E74515323E0024CE8EE6 /* action.pb.swift in Sources */,
 				C2C7941E988868A5A1E86F6F9F750FDB /* calibration.grpc.swift in Sources */,
@@ -482,6 +493,7 @@
 				C783A5352AA3F55A59D3C102E1776181 /* core.pb.swift in Sources */,
 				B9D13BDCB5985BA4193B3A6A61535DFE /* gimbal.grpc.swift in Sources */,
 				8C45A9BA7ABF611865FB4E24B2F9E781 /* gimbal.pb.swift in Sources */,
+				3A9EE9EC22E55F6C00DE6E4F /* offboard.pb.swift in Sources */,
 				A638D88F7DFFC0CD714C5D27FF8A4F89 /* info.grpc.swift in Sources */,
 				0D18929276885C26C847FDB874B18EA9 /* info.pb.swift in Sources */,
 				32F4D9DA2D58A50E88E057F7934B3D42 /* mission.grpc.swift in Sources */,
@@ -549,7 +561,10 @@
 				);
 				INFOPLIST_FILE = "Sources/MAVSDK-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mavlink.mavsdk.MAVSDK-Swift";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -566,7 +581,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mavlink.mavsdk.MAVSDK-SwiftTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -634,7 +653,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mavlink.mavsdk.MAVSDK-SwiftIntegrationTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -710,7 +733,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mavlink.mavsdk.MAVSDK-SwiftTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -725,7 +752,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mavlink.mavsdk.MAVSDK-SwiftIntegrationTests";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -747,7 +778,10 @@
 				);
 				INFOPLIST_FILE = "Sources/MAVSDK-Swift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mavlink.mavsdk.MAVSDK-Swift";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
