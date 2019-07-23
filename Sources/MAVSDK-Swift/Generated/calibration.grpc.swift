@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -41,6 +41,10 @@ fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibr
   override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro" }
 }
 
+class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateGyroResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro" }
+}
+
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse?
@@ -54,6 +58,10 @@ internal extension Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAc
 }
 
 fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer" }
+}
+
+class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
   override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer" }
 }
 
@@ -73,6 +81,10 @@ fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibr
   override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
 }
 
+class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
+}
+
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse?
@@ -89,6 +101,10 @@ fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibr
   override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer" }
 }
 
+class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer" }
+}
+
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceCancelCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
@@ -101,61 +117,27 @@ internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceService: ServiceClien
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall
+  func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall
+  func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall
+  func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall
+  func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall
 
   /// Synchronous. Unary.
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Calibration_CancelResponse
+  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest) throws -> Mavsdk_Rpc_Calibration_CancelResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall
-
-}
-
-internal extension Mavsdk_Rpc_Calibration_CalibrationServiceService {
-  /// Asynchronous. Server-streaming.
-  func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
-    return try self.subscribeCalibrateGyro(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
-    return try self.subscribeCalibrateAccelerometer(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
-    return try self.subscribeCalibrateMagnetometer(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
-    return try self.subscribeCalibrateGimbalAccelerometer(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest) throws -> Mavsdk_Rpc_Calibration_CancelResponse {
-    return try self.cancel(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
-    return try self.cancel(request, metadata: self.metadata, completion: completion)
-  }
+  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall
 
 }
 
@@ -163,73 +145,52 @@ internal final class Mavsdk_Rpc_Calibration_CalibrationServiceServiceClient: Ser
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+  internal func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+  internal func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+  internal func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+  internal func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Calibration_CancelResponse {
+  internal func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest) throws -> Mavsdk_Rpc_Calibration_CancelResponse {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceCancelCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
+  internal func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceCancelCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
-
-class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateGyroResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
-  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro" }
-}
-
-class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
-  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer" }
-}
-
-class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
-  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
-}
-
-class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
-  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer" }
-}
-
-class Mavsdk_Rpc_Calibration_CalibrationServiceCancelCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
-  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/Cancel" }
 }
 
 class Mavsdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Calibration_CalibrationServiceService {
   var subscribeCalibrateGyroRequests: [Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest] = []
   var subscribeCalibrateGyroCalls: [Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall] = []
-  func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
+  func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroCall {
     subscribeCalibrateGyroRequests.append(request)
     defer { subscribeCalibrateGyroCalls.removeFirst() }
     return subscribeCalibrateGyroCalls.first!
@@ -237,7 +198,7 @@ class Mavsdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTes
 
   var subscribeCalibrateAccelerometerRequests: [Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest] = []
   var subscribeCalibrateAccelerometerCalls: [Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall] = []
-  func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
+  func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCall {
     subscribeCalibrateAccelerometerRequests.append(request)
     defer { subscribeCalibrateAccelerometerCalls.removeFirst() }
     return subscribeCalibrateAccelerometerCalls.first!
@@ -245,7 +206,7 @@ class Mavsdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTes
 
   var subscribeCalibrateMagnetometerRequests: [Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest] = []
   var subscribeCalibrateMagnetometerCalls: [Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall] = []
-  func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
+  func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
     subscribeCalibrateMagnetometerRequests.append(request)
     defer { subscribeCalibrateMagnetometerCalls.removeFirst() }
     return subscribeCalibrateMagnetometerCalls.first!
@@ -253,7 +214,7 @@ class Mavsdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTes
 
   var subscribeCalibrateGimbalAccelerometerRequests: [Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest] = []
   var subscribeCalibrateGimbalAccelerometerCalls: [Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall] = []
-  func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
+  func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
     subscribeCalibrateGimbalAccelerometerRequests.append(request)
     defer { subscribeCalibrateGimbalAccelerometerCalls.removeFirst() }
     return subscribeCalibrateGimbalAccelerometerCalls.first!
@@ -261,17 +222,13 @@ class Mavsdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTes
 
   var cancelRequests: [Mavsdk_Rpc_Calibration_CancelRequest] = []
   var cancelResponses: [Mavsdk_Rpc_Calibration_CancelResponse] = []
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Calibration_CancelResponse {
+  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest) throws -> Mavsdk_Rpc_Calibration_CancelResponse {
     cancelRequests.append(request)
     defer { cancelResponses.removeFirst() }
     return cancelResponses.first!
   }
-  @discardableResult
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
-    let response = try self.cancel(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Calibration_CalibrationServiceCancelCallTestStub()
+  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, completion: @escaping (Mavsdk_Rpc_Calibration_CancelResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceCancelCall {
+    fatalError("not implemented")
   }
 
 }

@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -89,6 +89,10 @@ fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgres
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress" }
 }
 
+class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Mission_MissionProgressResponse>, Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress" }
+}
+
 internal protocol Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
@@ -105,479 +109,275 @@ fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterM
 /// Instantiate Mavsdk_Rpc_Mission_MissionServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Mission_MissionServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall
 
   /// Synchronous. Unary.
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall
 
   /// Synchronous. Unary.
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall
 
   /// Synchronous. Unary.
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall
 
   /// Synchronous. Unary.
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_StartMissionResponse
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest) throws -> Mavsdk_Rpc_Mission_StartMissionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall
 
   /// Synchronous. Unary.
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall
 
   /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
 
   /// Synchronous. Unary.
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
+  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall
 
   /// Synchronous. Unary.
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall
 
   /// Synchronous. Unary.
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
-
-}
-
-internal extension Mavsdk_Rpc_Mission_MissionServiceService {
-  /// Synchronous. Unary.
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
-    return try self.uploadMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
-    return try self.uploadMission(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
-    return try self.cancelMissionUpload(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
-    return try self.cancelMissionUpload(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
-    return try self.downloadMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
-    return try self.downloadMission(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
-    return try self.cancelMissionDownload(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
-    return try self.cancelMissionDownload(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
-    return try self.startMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
-    return try self.startMission(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
-    return try self.pauseMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
-    return try self.pauseMission(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
-    return try self.setCurrentMissionItemIndex(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-    return try self.setCurrentMissionItemIndex(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
-    return try self.isMissionFinished(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
-    return try self.isMissionFinished(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
-    return try self.subscribeMissionProgress(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
-    return try self.getReturnToLaunchAfterMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
-    return try self.getReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
-    return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
-    return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
-  }
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
 
 }
 
 internal final class Mavsdk_Rpc_Mission_MissionServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Mission_MissionServiceService {
   /// Synchronous. Unary.
-  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
+  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
+  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
     return try Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
+  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
     return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
+  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
     return try Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
+  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
     return try Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
+  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
+  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
     return try Mavsdk_Rpc_Mission_MissionServiceStartMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
+  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
     return try Mavsdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
+  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
     return try Mavsdk_Rpc_Mission_MissionServicePauseMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
     return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
+  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
     return try Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  internal func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     return try Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
     return try Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
     return try Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/UploadMission" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/CancelMissionUpload" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/DownloadMission" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/CancelMissionDownload" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceStartMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/StartMission" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServicePauseMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/PauseMission" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/IsMissionFinished" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Mission_MissionProgressResponse>, Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission" }
-}
-
-class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
 }
 
 class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Mission_MissionServiceService {
   var uploadMissionRequests: [Mavsdk_Rpc_Mission_UploadMissionRequest] = []
   var uploadMissionResponses: [Mavsdk_Rpc_Mission_UploadMissionResponse] = []
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest) throws -> Mavsdk_Rpc_Mission_UploadMissionResponse {
     uploadMissionRequests.append(request)
     defer { uploadMissionResponses.removeFirst() }
     return uploadMissionResponses.first!
   }
-  @discardableResult
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
-    let response = try self.uploadMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub()
+  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
+    fatalError("not implemented")
   }
 
   var cancelMissionUploadRequests: [Mavsdk_Rpc_Mission_CancelMissionUploadRequest] = []
   var cancelMissionUploadResponses: [Mavsdk_Rpc_Mission_CancelMissionUploadResponse] = []
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
     cancelMissionUploadRequests.append(request)
     defer { cancelMissionUploadResponses.removeFirst() }
     return cancelMissionUploadResponses.first!
   }
-  @discardableResult
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
-    let response = try self.cancelMissionUpload(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCallTestStub()
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionUploadCall {
+    fatalError("not implemented")
   }
 
   var downloadMissionRequests: [Mavsdk_Rpc_Mission_DownloadMissionRequest] = []
   var downloadMissionResponses: [Mavsdk_Rpc_Mission_DownloadMissionResponse] = []
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest) throws -> Mavsdk_Rpc_Mission_DownloadMissionResponse {
     downloadMissionRequests.append(request)
     defer { downloadMissionResponses.removeFirst() }
     return downloadMissionResponses.first!
   }
-  @discardableResult
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
-    let response = try self.downloadMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCallTestStub()
+  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceDownloadMissionCall {
+    fatalError("not implemented")
   }
 
   var cancelMissionDownloadRequests: [Mavsdk_Rpc_Mission_CancelMissionDownloadRequest] = []
   var cancelMissionDownloadResponses: [Mavsdk_Rpc_Mission_CancelMissionDownloadResponse] = []
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
     cancelMissionDownloadRequests.append(request)
     defer { cancelMissionDownloadResponses.removeFirst() }
     return cancelMissionDownloadResponses.first!
   }
-  @discardableResult
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
-    let response = try self.cancelMissionDownload(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCallTestStub()
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, completion: @escaping (Mavsdk_Rpc_Mission_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadCall {
+    fatalError("not implemented")
   }
 
   var startMissionRequests: [Mavsdk_Rpc_Mission_StartMissionRequest] = []
   var startMissionResponses: [Mavsdk_Rpc_Mission_StartMissionResponse] = []
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest) throws -> Mavsdk_Rpc_Mission_StartMissionResponse {
     startMissionRequests.append(request)
     defer { startMissionResponses.removeFirst() }
     return startMissionResponses.first!
   }
-  @discardableResult
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
-    let response = try self.startMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceStartMissionCallTestStub()
+  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceStartMissionCall {
+    fatalError("not implemented")
   }
 
   var pauseMissionRequests: [Mavsdk_Rpc_Mission_PauseMissionRequest] = []
   var pauseMissionResponses: [Mavsdk_Rpc_Mission_PauseMissionResponse] = []
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse {
     pauseMissionRequests.append(request)
     defer { pauseMissionResponses.removeFirst() }
     return pauseMissionResponses.first!
   }
-  @discardableResult
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
-    let response = try self.pauseMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServicePauseMissionCallTestStub()
+  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
+    fatalError("not implemented")
   }
 
   var setCurrentMissionItemIndexRequests: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest] = []
   var setCurrentMissionItemIndexResponses: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse] = []
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     setCurrentMissionItemIndexRequests.append(request)
     defer { setCurrentMissionItemIndexResponses.removeFirst() }
     return setCurrentMissionItemIndexResponses.first!
   }
-  @discardableResult
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-    let response = try self.setCurrentMissionItemIndex(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub()
+  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
+    fatalError("not implemented")
   }
 
   var isMissionFinishedRequests: [Mavsdk_Rpc_Mission_IsMissionFinishedRequest] = []
   var isMissionFinishedResponses: [Mavsdk_Rpc_Mission_IsMissionFinishedResponse] = []
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
     isMissionFinishedRequests.append(request)
     defer { isMissionFinishedResponses.removeFirst() }
     return isMissionFinishedResponses.first!
   }
-  @discardableResult
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
-    let response = try self.isMissionFinished(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub()
+  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, completion: @escaping (Mavsdk_Rpc_Mission_IsMissionFinishedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
+    fatalError("not implemented")
   }
 
   var subscribeMissionProgressRequests: [Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest] = []
   var subscribeMissionProgressCalls: [Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall] = []
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
+  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressCall {
     subscribeMissionProgressRequests.append(request)
     defer { subscribeMissionProgressCalls.removeFirst() }
     return subscribeMissionProgressCalls.first!
@@ -585,32 +385,24 @@ class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBas
 
   var getReturnToLaunchAfterMissionRequests: [Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest] = []
   var getReturnToLaunchAfterMissionResponses: [Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse] = []
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
     getReturnToLaunchAfterMissionRequests.append(request)
     defer { getReturnToLaunchAfterMissionResponses.removeFirst() }
     return getReturnToLaunchAfterMissionResponses.first!
   }
-  @discardableResult
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
-    let response = try self.getReturnToLaunchAfterMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub()
+  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCall {
+    fatalError("not implemented")
   }
 
   var setReturnToLaunchAfterMissionRequests: [Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest] = []
   var setReturnToLaunchAfterMissionResponses: [Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse] = []
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
     setReturnToLaunchAfterMissionRequests.append(request)
     defer { setReturnToLaunchAfterMissionResponses.removeFirst() }
     return setReturnToLaunchAfterMissionResponses.first!
   }
-  @discardableResult
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
-    let response = try self.setReturnToLaunchAfterMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub()
+  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
+    fatalError("not implemented")
   }
 
 }

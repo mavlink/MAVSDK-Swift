@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -53,200 +53,117 @@ fileprivate final class Mavsdk_Rpc_Param_ParamServiceSetFloatParamCallBase: Clie
 /// Instantiate Mavsdk_Rpc_Param_ParamServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Param_ParamServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetIntParamResponse
+  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest) throws -> Mavsdk_Rpc_Param_GetIntParamResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall
+  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall
 
   /// Synchronous. Unary.
-  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_SetIntParamResponse
+  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest) throws -> Mavsdk_Rpc_Param_SetIntParamResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall
+  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall
 
   /// Synchronous. Unary.
-  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse
+  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall
+  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall
 
   /// Synchronous. Unary.
-  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse
+  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall
-
-}
-
-internal extension Mavsdk_Rpc_Param_ParamServiceService {
-  /// Synchronous. Unary.
-  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest) throws -> Mavsdk_Rpc_Param_GetIntParamResponse {
-    return try self.getIntParam(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall {
-    return try self.getIntParam(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest) throws -> Mavsdk_Rpc_Param_SetIntParamResponse {
-    return try self.setIntParam(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall {
-    return try self.setIntParam(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse {
-    return try self.getFloatParam(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall {
-    return try self.getFloatParam(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse {
-    return try self.setFloatParam(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall {
-    return try self.setFloatParam(request, metadata: self.metadata, completion: completion)
-  }
+  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall
 
 }
 
 internal final class Mavsdk_Rpc_Param_ParamServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Param_ParamServiceService {
   /// Synchronous. Unary.
-  internal func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetIntParamResponse {
+  internal func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest) throws -> Mavsdk_Rpc_Param_GetIntParamResponse {
     return try Mavsdk_Rpc_Param_ParamServiceGetIntParamCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall {
+  internal func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall {
     return try Mavsdk_Rpc_Param_ParamServiceGetIntParamCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_SetIntParamResponse {
+  internal func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest) throws -> Mavsdk_Rpc_Param_SetIntParamResponse {
     return try Mavsdk_Rpc_Param_ParamServiceSetIntParamCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall {
+  internal func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall {
     return try Mavsdk_Rpc_Param_ParamServiceSetIntParamCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse {
+  internal func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse {
     return try Mavsdk_Rpc_Param_ParamServiceGetFloatParamCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall {
+  internal func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall {
     return try Mavsdk_Rpc_Param_ParamServiceGetFloatParamCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse {
+  internal func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse {
     return try Mavsdk_Rpc_Param_ParamServiceSetFloatParamCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall {
+  internal func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall {
     return try Mavsdk_Rpc_Param_ParamServiceSetFloatParamCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
-
-class Mavsdk_Rpc_Param_ParamServiceGetIntParamCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceGetIntParamCall {
-  override class var method: String { return "/mavsdk.rpc.param.ParamService/GetIntParam" }
-}
-
-class Mavsdk_Rpc_Param_ParamServiceSetIntParamCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceSetIntParamCall {
-  override class var method: String { return "/mavsdk.rpc.param.ParamService/SetIntParam" }
-}
-
-class Mavsdk_Rpc_Param_ParamServiceGetFloatParamCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall {
-  override class var method: String { return "/mavsdk.rpc.param.ParamService/GetFloatParam" }
-}
-
-class Mavsdk_Rpc_Param_ParamServiceSetFloatParamCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall {
-  override class var method: String { return "/mavsdk.rpc.param.ParamService/SetFloatParam" }
 }
 
 class Mavsdk_Rpc_Param_ParamServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Param_ParamServiceService {
   var getIntParamRequests: [Mavsdk_Rpc_Param_GetIntParamRequest] = []
   var getIntParamResponses: [Mavsdk_Rpc_Param_GetIntParamResponse] = []
-  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetIntParamResponse {
+  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest) throws -> Mavsdk_Rpc_Param_GetIntParamResponse {
     getIntParamRequests.append(request)
     defer { getIntParamResponses.removeFirst() }
     return getIntParamResponses.first!
   }
-  @discardableResult
-  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall {
-    let response = try self.getIntParam(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Param_ParamServiceGetIntParamCallTestStub()
+  func getIntParam(_ request: Mavsdk_Rpc_Param_GetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetIntParamCall {
+    fatalError("not implemented")
   }
 
   var setIntParamRequests: [Mavsdk_Rpc_Param_SetIntParamRequest] = []
   var setIntParamResponses: [Mavsdk_Rpc_Param_SetIntParamResponse] = []
-  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_SetIntParamResponse {
+  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest) throws -> Mavsdk_Rpc_Param_SetIntParamResponse {
     setIntParamRequests.append(request)
     defer { setIntParamResponses.removeFirst() }
     return setIntParamResponses.first!
   }
-  @discardableResult
-  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall {
-    let response = try self.setIntParam(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Param_ParamServiceSetIntParamCallTestStub()
+  func setIntParam(_ request: Mavsdk_Rpc_Param_SetIntParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetIntParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetIntParamCall {
+    fatalError("not implemented")
   }
 
   var getFloatParamRequests: [Mavsdk_Rpc_Param_GetFloatParamRequest] = []
   var getFloatParamResponses: [Mavsdk_Rpc_Param_GetFloatParamResponse] = []
-  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse {
+  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest) throws -> Mavsdk_Rpc_Param_GetFloatParamResponse {
     getFloatParamRequests.append(request)
     defer { getFloatParamResponses.removeFirst() }
     return getFloatParamResponses.first!
   }
-  @discardableResult
-  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall {
-    let response = try self.getFloatParam(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Param_ParamServiceGetFloatParamCallTestStub()
+  func getFloatParam(_ request: Mavsdk_Rpc_Param_GetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_GetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetFloatParamCall {
+    fatalError("not implemented")
   }
 
   var setFloatParamRequests: [Mavsdk_Rpc_Param_SetFloatParamRequest] = []
   var setFloatParamResponses: [Mavsdk_Rpc_Param_SetFloatParamResponse] = []
-  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse {
+  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest) throws -> Mavsdk_Rpc_Param_SetFloatParamResponse {
     setFloatParamRequests.append(request)
     defer { setFloatParamResponses.removeFirst() }
     return setFloatParamResponses.first!
   }
-  @discardableResult
-  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall {
-    let response = try self.setFloatParam(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Param_ParamServiceSetFloatParamCallTestStub()
+  func setFloatParam(_ request: Mavsdk_Rpc_Param_SetFloatParamRequest, completion: @escaping (Mavsdk_Rpc_Param_SetFloatParamResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetFloatParamCall {
+    fatalError("not implemented")
   }
 
 }

@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -35,59 +35,36 @@ fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase: ClientCal
 /// Instantiate Mavsdk_Rpc_Info_InfoServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Info_InfoServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest) throws -> Mavsdk_Rpc_Info_GetVersionResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall
-
-}
-
-internal extension Mavsdk_Rpc_Info_InfoServiceService {
-  /// Synchronous. Unary.
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
-    return try self.getVersion(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-    return try self.getVersion(request, metadata: self.metadata, completion: completion)
-  }
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall
 
 }
 
 internal final class Mavsdk_Rpc_Info_InfoServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Info_InfoServiceService {
   /// Synchronous. Unary.
-  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
+  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
     return try Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
+  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
     return try Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
-
-class Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
 }
 
 class Mavsdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Info_InfoServiceService {
   var getVersionRequests: [Mavsdk_Rpc_Info_GetVersionRequest] = []
   var getVersionResponses: [Mavsdk_Rpc_Info_GetVersionResponse] = []
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
     getVersionRequests.append(request)
     defer { getVersionResponses.removeFirst() }
     return getVersionResponses.first!
   }
-  @discardableResult
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-    let response = try self.getVersion(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub()
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
+    fatalError("not implemented")
   }
 
 }

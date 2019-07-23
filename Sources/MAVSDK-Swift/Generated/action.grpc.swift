@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -119,717 +119,414 @@ fileprivate final class Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitude
 /// Instantiate Mavsdk_Rpc_Action_ActionServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Action_ActionServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ArmResponse
+  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest) throws -> Mavsdk_Rpc_Action_ArmResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall
+  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall
 
   /// Synchronous. Unary.
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_DisarmResponse
+  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest) throws -> Mavsdk_Rpc_Action_DisarmResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall
+  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall
 
   /// Synchronous. Unary.
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TakeoffResponse
+  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest) throws -> Mavsdk_Rpc_Action_TakeoffResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall
+  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall
 
   /// Synchronous. Unary.
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_LandResponse
+  func land(_ request: Mavsdk_Rpc_Action_LandRequest) throws -> Mavsdk_Rpc_Action_LandResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall
+  func land(_ request: Mavsdk_Rpc_Action_LandRequest, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall
 
   /// Synchronous. Unary.
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_RebootResponse
+  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest) throws -> Mavsdk_Rpc_Action_RebootResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall
+  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall
 
   /// Synchronous. Unary.
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse
+  func kill(_ request: Mavsdk_Rpc_Action_KillRequest) throws -> Mavsdk_Rpc_Action_KillResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall
+  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall
 
   /// Synchronous. Unary.
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse
+  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall
+  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall
 
   /// Synchronous. Unary.
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse
+  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall
+  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall
 
   /// Synchronous. Unary.
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse
+  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall
+  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall
 
   /// Synchronous. Unary.
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse
+  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall
+  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall
 
   /// Synchronous. Unary.
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse
+  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall
+  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall
 
   /// Synchronous. Unary.
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse
+  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall
+  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall
 
   /// Synchronous. Unary.
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse
+  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall
+  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall
 
   /// Synchronous. Unary.
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse
+  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall
+  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall
 
   /// Synchronous. Unary.
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse
+  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall
-
-}
-
-internal extension Mavsdk_Rpc_Action_ActionServiceService {
-  /// Synchronous. Unary.
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest) throws -> Mavsdk_Rpc_Action_ArmResponse {
-    return try self.arm(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall {
-    return try self.arm(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest) throws -> Mavsdk_Rpc_Action_DisarmResponse {
-    return try self.disarm(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall {
-    return try self.disarm(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest) throws -> Mavsdk_Rpc_Action_TakeoffResponse {
-    return try self.takeoff(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall {
-    return try self.takeoff(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest) throws -> Mavsdk_Rpc_Action_LandResponse {
-    return try self.land(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall {
-    return try self.land(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest) throws -> Mavsdk_Rpc_Action_RebootResponse {
-    return try self.reboot(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall {
-    return try self.reboot(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest) throws -> Mavsdk_Rpc_Action_KillResponse {
-    return try self.kill(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall {
-    return try self.kill(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse {
-    return try self.returnToLaunch(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall {
-    return try self.returnToLaunch(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
-    return try self.transitionToFixedWing(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-    return try self.transitionToFixedWing(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse {
-    return try self.transitionToMulticopter(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
-    return try self.transitionToMulticopter(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
-    return try self.getTakeoffAltitude(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
-    return try self.getTakeoffAltitude(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse {
-    return try self.setTakeoffAltitude(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
-    return try self.setTakeoffAltitude(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
-    return try self.getMaximumSpeed(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
-    return try self.getMaximumSpeed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse {
-    return try self.setMaximumSpeed(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
-    return try self.setMaximumSpeed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
-    return try self.getReturnToLaunchAltitude(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
-    return try self.getReturnToLaunchAltitude(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
-    return try self.setReturnToLaunchAltitude(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
-    return try self.setReturnToLaunchAltitude(request, metadata: self.metadata, completion: completion)
-  }
+  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall
 
 }
 
 internal final class Mavsdk_Rpc_Action_ActionServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Action_ActionServiceService {
   /// Synchronous. Unary.
-  internal func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ArmResponse {
+  internal func arm(_ request: Mavsdk_Rpc_Action_ArmRequest) throws -> Mavsdk_Rpc_Action_ArmResponse {
     return try Mavsdk_Rpc_Action_ActionServiceArmCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall {
+  internal func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall {
     return try Mavsdk_Rpc_Action_ActionServiceArmCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_DisarmResponse {
+  internal func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest) throws -> Mavsdk_Rpc_Action_DisarmResponse {
     return try Mavsdk_Rpc_Action_ActionServiceDisarmCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall {
+  internal func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall {
     return try Mavsdk_Rpc_Action_ActionServiceDisarmCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TakeoffResponse {
+  internal func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest) throws -> Mavsdk_Rpc_Action_TakeoffResponse {
     return try Mavsdk_Rpc_Action_ActionServiceTakeoffCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall {
+  internal func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall {
     return try Mavsdk_Rpc_Action_ActionServiceTakeoffCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func land(_ request: Mavsdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_LandResponse {
+  internal func land(_ request: Mavsdk_Rpc_Action_LandRequest) throws -> Mavsdk_Rpc_Action_LandResponse {
     return try Mavsdk_Rpc_Action_ActionServiceLandCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func land(_ request: Mavsdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall {
+  internal func land(_ request: Mavsdk_Rpc_Action_LandRequest, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall {
     return try Mavsdk_Rpc_Action_ActionServiceLandCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_RebootResponse {
+  internal func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest) throws -> Mavsdk_Rpc_Action_RebootResponse {
     return try Mavsdk_Rpc_Action_ActionServiceRebootCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall {
+  internal func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall {
     return try Mavsdk_Rpc_Action_ActionServiceRebootCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse {
+  internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest) throws -> Mavsdk_Rpc_Action_KillResponse {
     return try Mavsdk_Rpc_Action_ActionServiceKillCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall {
+  internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall {
     return try Mavsdk_Rpc_Action_ActionServiceKillCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse {
+  internal func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse {
     return try Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall {
+  internal func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall {
     return try Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
+  internal func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
     return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+  internal func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
     return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse {
+  internal func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse {
     return try Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
+  internal func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
     return try Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
+  internal func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
     return try Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
+  internal func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
     return try Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse {
+  internal func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse {
     return try Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
+  internal func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
     return try Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
+  internal func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
     return try Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
+  internal func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
     return try Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse {
+  internal func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse {
     return try Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
+  internal func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
     return try Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+  internal func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
     return try Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+  internal func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
     return try Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+  internal func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
     return try Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+  internal func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
     return try Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
-
-class Mavsdk_Rpc_Action_ActionServiceArmCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceArmCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/Arm" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceDisarmCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceDisarmCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/Disarm" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceTakeoffCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTakeoffCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/Takeoff" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceLandCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceLandCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/Land" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceRebootCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceRebootCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/Reboot" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceKillCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceKillCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/Kill" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/ReturnToLaunch" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/TransitionToFixedWing" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/TransitionToMulticopter" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/GetTakeoffAltitude" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/SetTakeoffAltitude" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/GetMaximumSpeed" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/SetMaximumSpeed" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/GetReturnToLaunchAltitude" }
-}
-
-class Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/SetReturnToLaunchAltitude" }
 }
 
 class Mavsdk_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Action_ActionServiceService {
   var armRequests: [Mavsdk_Rpc_Action_ArmRequest] = []
   var armResponses: [Mavsdk_Rpc_Action_ArmResponse] = []
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ArmResponse {
+  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest) throws -> Mavsdk_Rpc_Action_ArmResponse {
     armRequests.append(request)
     defer { armResponses.removeFirst() }
     return armResponses.first!
   }
-  @discardableResult
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall {
-    let response = try self.arm(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceArmCallTestStub()
+  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, completion: @escaping (Mavsdk_Rpc_Action_ArmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceArmCall {
+    fatalError("not implemented")
   }
 
   var disarmRequests: [Mavsdk_Rpc_Action_DisarmRequest] = []
   var disarmResponses: [Mavsdk_Rpc_Action_DisarmResponse] = []
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_DisarmResponse {
+  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest) throws -> Mavsdk_Rpc_Action_DisarmResponse {
     disarmRequests.append(request)
     defer { disarmResponses.removeFirst() }
     return disarmResponses.first!
   }
-  @discardableResult
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall {
-    let response = try self.disarm(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceDisarmCallTestStub()
+  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, completion: @escaping (Mavsdk_Rpc_Action_DisarmResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceDisarmCall {
+    fatalError("not implemented")
   }
 
   var takeoffRequests: [Mavsdk_Rpc_Action_TakeoffRequest] = []
   var takeoffResponses: [Mavsdk_Rpc_Action_TakeoffResponse] = []
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TakeoffResponse {
+  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest) throws -> Mavsdk_Rpc_Action_TakeoffResponse {
     takeoffRequests.append(request)
     defer { takeoffResponses.removeFirst() }
     return takeoffResponses.first!
   }
-  @discardableResult
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall {
-    let response = try self.takeoff(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceTakeoffCallTestStub()
+  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, completion: @escaping (Mavsdk_Rpc_Action_TakeoffResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTakeoffCall {
+    fatalError("not implemented")
   }
 
   var landRequests: [Mavsdk_Rpc_Action_LandRequest] = []
   var landResponses: [Mavsdk_Rpc_Action_LandResponse] = []
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_LandResponse {
+  func land(_ request: Mavsdk_Rpc_Action_LandRequest) throws -> Mavsdk_Rpc_Action_LandResponse {
     landRequests.append(request)
     defer { landResponses.removeFirst() }
     return landResponses.first!
   }
-  @discardableResult
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall {
-    let response = try self.land(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceLandCallTestStub()
+  func land(_ request: Mavsdk_Rpc_Action_LandRequest, completion: @escaping (Mavsdk_Rpc_Action_LandResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceLandCall {
+    fatalError("not implemented")
   }
 
   var rebootRequests: [Mavsdk_Rpc_Action_RebootRequest] = []
   var rebootResponses: [Mavsdk_Rpc_Action_RebootResponse] = []
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_RebootResponse {
+  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest) throws -> Mavsdk_Rpc_Action_RebootResponse {
     rebootRequests.append(request)
     defer { rebootResponses.removeFirst() }
     return rebootResponses.first!
   }
-  @discardableResult
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall {
-    let response = try self.reboot(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceRebootCallTestStub()
+  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall {
+    fatalError("not implemented")
   }
 
   var killRequests: [Mavsdk_Rpc_Action_KillRequest] = []
   var killResponses: [Mavsdk_Rpc_Action_KillResponse] = []
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse {
+  func kill(_ request: Mavsdk_Rpc_Action_KillRequest) throws -> Mavsdk_Rpc_Action_KillResponse {
     killRequests.append(request)
     defer { killResponses.removeFirst() }
     return killResponses.first!
   }
-  @discardableResult
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall {
-    let response = try self.kill(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceKillCallTestStub()
+  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, completion: @escaping (Mavsdk_Rpc_Action_KillResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceKillCall {
+    fatalError("not implemented")
   }
 
   var returnToLaunchRequests: [Mavsdk_Rpc_Action_ReturnToLaunchRequest] = []
   var returnToLaunchResponses: [Mavsdk_Rpc_Action_ReturnToLaunchResponse] = []
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse {
+  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse {
     returnToLaunchRequests.append(request)
     defer { returnToLaunchResponses.removeFirst() }
     return returnToLaunchResponses.first!
   }
-  @discardableResult
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall {
-    let response = try self.returnToLaunch(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallTestStub()
+  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall {
+    fatalError("not implemented")
   }
 
   var transitionToFixedWingRequests: [Mavsdk_Rpc_Action_TransitionToFixedWingRequest] = []
   var transitionToFixedWingResponses: [Mavsdk_Rpc_Action_TransitionToFixedWingResponse] = []
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
+  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
     transitionToFixedWingRequests.append(request)
     defer { transitionToFixedWingResponses.removeFirst() }
     return transitionToFixedWingResponses.first!
   }
-  @discardableResult
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-    let response = try self.transitionToFixedWing(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallTestStub()
+  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
+    fatalError("not implemented")
   }
 
   var transitionToMulticopterRequests: [Mavsdk_Rpc_Action_TransitionToMulticopterRequest] = []
   var transitionToMulticopterResponses: [Mavsdk_Rpc_Action_TransitionToMulticopterResponse] = []
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse {
+  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse {
     transitionToMulticopterRequests.append(request)
     defer { transitionToMulticopterResponses.removeFirst() }
     return transitionToMulticopterResponses.first!
   }
-  @discardableResult
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
-    let response = try self.transitionToMulticopter(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCallTestStub()
+  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToMulticopterResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
+    fatalError("not implemented")
   }
 
   var getTakeoffAltitudeRequests: [Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest] = []
   var getTakeoffAltitudeResponses: [Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse] = []
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
+  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
     getTakeoffAltitudeRequests.append(request)
     defer { getTakeoffAltitudeResponses.removeFirst() }
     return getTakeoffAltitudeResponses.first!
   }
-  @discardableResult
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
-    let response = try self.getTakeoffAltitude(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCallTestStub()
+  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeCall {
+    fatalError("not implemented")
   }
 
   var setTakeoffAltitudeRequests: [Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest] = []
   var setTakeoffAltitudeResponses: [Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse] = []
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse {
+  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse {
     setTakeoffAltitudeRequests.append(request)
     defer { setTakeoffAltitudeResponses.removeFirst() }
     return setTakeoffAltitudeResponses.first!
   }
-  @discardableResult
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
-    let response = try self.setTakeoffAltitude(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCallTestStub()
+  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeCall {
+    fatalError("not implemented")
   }
 
   var getMaximumSpeedRequests: [Mavsdk_Rpc_Action_GetMaximumSpeedRequest] = []
   var getMaximumSpeedResponses: [Mavsdk_Rpc_Action_GetMaximumSpeedResponse] = []
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
+  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
     getMaximumSpeedRequests.append(request)
     defer { getMaximumSpeedResponses.removeFirst() }
     return getMaximumSpeedResponses.first!
   }
-  @discardableResult
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
-    let response = try self.getMaximumSpeed(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCallTestStub()
+  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_GetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetMaximumSpeedCall {
+    fatalError("not implemented")
   }
 
   var setMaximumSpeedRequests: [Mavsdk_Rpc_Action_SetMaximumSpeedRequest] = []
   var setMaximumSpeedResponses: [Mavsdk_Rpc_Action_SetMaximumSpeedResponse] = []
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse {
+  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest) throws -> Mavsdk_Rpc_Action_SetMaximumSpeedResponse {
     setMaximumSpeedRequests.append(request)
     defer { setMaximumSpeedResponses.removeFirst() }
     return setMaximumSpeedResponses.first!
   }
-  @discardableResult
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
-    let response = try self.setMaximumSpeed(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCallTestStub()
+  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, completion: @escaping (Mavsdk_Rpc_Action_SetMaximumSpeedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetMaximumSpeedCall {
+    fatalError("not implemented")
   }
 
   var getReturnToLaunchAltitudeRequests: [Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest] = []
   var getReturnToLaunchAltitudeResponses: [Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse] = []
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
+  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
     getReturnToLaunchAltitudeRequests.append(request)
     defer { getReturnToLaunchAltitudeResponses.removeFirst() }
     return getReturnToLaunchAltitudeResponses.first!
   }
-  @discardableResult
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
-    let response = try self.getReturnToLaunchAltitude(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCallTestStub()
+  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGetReturnToLaunchAltitudeCall {
+    fatalError("not implemented")
   }
 
   var setReturnToLaunchAltitudeRequests: [Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest] = []
   var setReturnToLaunchAltitudeResponses: [Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse] = []
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
+  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest) throws -> Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
     setReturnToLaunchAltitudeRequests.append(request)
     defer { setReturnToLaunchAltitudeResponses.removeFirst() }
     return setReturnToLaunchAltitudeResponses.first!
   }
-  @discardableResult
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
-    let response = try self.setReturnToLaunchAltitude(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCallTestStub()
+  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, completion: @escaping (Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceSetReturnToLaunchAltitudeCall {
+    fatalError("not implemented")
   }
 
 }

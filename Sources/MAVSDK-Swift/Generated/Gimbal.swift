@@ -34,6 +34,34 @@ public class Gimbal {
     }
     
 
+    public enum GimbalMode: Equatable {
+        case follow
+        case lock
+        case UNRECOGNIZED(Int)
+
+        internal var rpcGimbalMode: Mavsdk_Rpc_Gimbal_GimbalMode {
+            switch self {
+            case .follow:
+                return .follow
+            case .lock:
+                return .lock
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcGimbalMode: Mavsdk_Rpc_Gimbal_GimbalMode) -> GimbalMode {
+            switch rpcGimbalMode {
+            case .follow:
+                return .follow
+            case .lock:
+                return .lock
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     public struct GimbalResult: Equatable {
         public let result: Result
@@ -130,6 +158,34 @@ public class Gimbal {
             do {
                 
                 let response = try self.service.setPitchAndYaw(request)
+
+                if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(response.gimbalResult.result), description: response.gimbalResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func setMode(gimbalMode: GimbalMode) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Gimbal_SetModeRequest()
+
+            
+                
+            request.gimbalMode = gimbalMode.rpcGimbalMode
+                
+            
+
+            do {
+                
+                let response = try self.service.setMode(request)
 
                 if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
                     completable(.completed)

@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -41,6 +41,10 @@ fileprivate final class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallB
   override class var method: String { return "/mavsdk.rpc.core.CoreService/SubscribeConnectionState" }
 }
 
+class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Core_ConnectionStateResponse>, Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  override class var method: String { return "/mavsdk.rpc.core.CoreService/SubscribeConnectionState" }
+}
+
 internal protocol Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>, Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
@@ -53,31 +57,12 @@ internal protocol Mavsdk_Rpc_Core_CoreServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
+  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall
 
   /// Synchronous. Unary.
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall
-
-}
-
-internal extension Mavsdk_Rpc_Core_CoreServiceService {
-  /// Asynchronous. Server-streaming.
-  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
-    return try self.subscribeConnectionState(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
-    return try self.listRunningPlugins(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
-    return try self.listRunningPlugins(request, metadata: self.metadata, completion: completion)
-  }
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall
 
 }
 
@@ -85,37 +70,28 @@ internal final class Mavsdk_Rpc_Core_CoreServiceServiceClient: ServiceClientBase
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  internal func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
     return try Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
+  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
     return try Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
     return try Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
-
-class Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Core_ConnectionStateResponse>, Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
-  override class var method: String { return "/mavsdk.rpc.core.CoreService/SubscribeConnectionState" }
-}
-
-class Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
-  override class var method: String { return "/mavsdk.rpc.core.CoreService/ListRunningPlugins" }
 }
 
 class Mavsdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Core_CoreServiceService {
   var subscribeConnectionStateRequests: [Mavsdk_Rpc_Core_SubscribeConnectionStateRequest] = []
   var subscribeConnectionStateCalls: [Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall] = []
-  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
+  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Core_CoreServiceSubscribeConnectionStateCall {
     subscribeConnectionStateRequests.append(request)
     defer { subscribeConnectionStateCalls.removeFirst() }
     return subscribeConnectionStateCalls.first!
@@ -123,17 +99,13 @@ class Mavsdk_Rpc_Core_CoreServiceServiceTestStub: ServiceClientTestStubBase, Mav
 
   var listRunningPluginsRequests: [Mavsdk_Rpc_Core_ListRunningPluginsRequest] = []
   var listRunningPluginsResponses: [Mavsdk_Rpc_Core_ListRunningPluginsResponse] = []
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest) throws -> Mavsdk_Rpc_Core_ListRunningPluginsResponse {
     listRunningPluginsRequests.append(request)
     defer { listRunningPluginsResponses.removeFirst() }
     return listRunningPluginsResponses.first!
   }
-  @discardableResult
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
-    let response = try self.listRunningPlugins(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCallTestStub()
+  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, completion: @escaping (Mavsdk_Rpc_Core_ListRunningPluginsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Core_CoreServiceListRunningPluginsCall {
+    fatalError("not implemented")
   }
 
 }

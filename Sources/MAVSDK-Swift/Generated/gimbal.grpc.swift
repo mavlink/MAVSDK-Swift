@@ -20,8 +20,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
+import Dispatch
 import SwiftGRPC
 import SwiftProtobuf
 
@@ -31,63 +31,73 @@ fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase: C
   override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw" }
 }
 
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
+  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetMode" }
+}
+
 
 /// Instantiate Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceService: ServiceClient {
   /// Synchronous. Unary.
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse
+  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall
+  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall
 
-}
-
-internal extension Mavsdk_Rpc_Gimbal_GimbalServiceService {
   /// Synchronous. Unary.
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
-    return try self.setPitchAndYaw(request, metadata: self.metadata)
-  }
+  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse
   /// Asynchronous. Unary.
-  @discardableResult
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-    return try self.setPitchAndYaw(request, metadata: self.metadata, completion: completion)
-  }
+  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall
 
 }
 
 internal final class Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Gimbal_GimbalServiceService {
   /// Synchronous. Unary.
-  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
+  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
     return try Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase(channel)
-      .run(request: request, metadata: customMetadata)
+      .run(request: request, metadata: metadata)
   }
   /// Asynchronous. Unary.
-  @discardableResult
-  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
+  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
     return try Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+      .start(request: request, metadata: metadata, completion: completion)
   }
 
-}
+  /// Synchronous. Unary.
+  internal func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse {
+    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase(channel)
+      .run(request: request, metadata: metadata)
+  }
+  /// Asynchronous. Unary.
+  internal func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
+    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase(channel)
+      .start(request: request, metadata: metadata, completion: completion)
+  }
 
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw" }
 }
 
 class Mavsdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Gimbal_GimbalServiceService {
   var setPitchAndYawRequests: [Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest] = []
   var setPitchAndYawResponses: [Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse] = []
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
+  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
     setPitchAndYawRequests.append(request)
     defer { setPitchAndYawResponses.removeFirst() }
     return setPitchAndYawResponses.first!
   }
-  @discardableResult
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-    let response = try self.setPitchAndYaw(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub()
+  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
+    fatalError("not implemented")
+  }
+
+  var setModeRequests: [Mavsdk_Rpc_Gimbal_SetModeRequest] = []
+  var setModeResponses: [Mavsdk_Rpc_Gimbal_SetModeResponse] = []
+  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse {
+    setModeRequests.append(request)
+    defer { setModeResponses.removeFirst() }
+    return setModeResponses.first!
+  }
+  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
+    fatalError("not implemented")
   }
 
 }
@@ -97,6 +107,7 @@ class Mavsdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase,
 /// it is expected that you have already returned a status to the client by means of `session.close`.
 internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: ServiceProvider {
   func setPitchAndYaw(request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse
+  func setMode(request: Mavsdk_Rpc_Gimbal_SetModeRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse
 }
 
 extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
@@ -111,6 +122,11 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
         handler: handler,
         providerBlock: { try self.setPitchAndYaw(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionBase) })
           .run()
+    case "/mavsdk.rpc.gimbal.GimbalService/SetMode":
+      return try Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase(
+        handler: handler,
+        providerBlock: { try self.setMode(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase) })
+          .run()
     default:
       throw HandleMethodError.unknownMethod
     }
@@ -122,4 +138,10 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession: ServerSe
 fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession {}
 
 class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession {}
+
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession {}
+
+class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession {}
 
