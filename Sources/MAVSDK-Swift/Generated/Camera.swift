@@ -757,7 +757,9 @@ public class Camera {
                 
             
             
+                
             rpcSettingOptions.options = options.map{ $0.rpcOption }
+                
             
 
             return rpcSettingOptions

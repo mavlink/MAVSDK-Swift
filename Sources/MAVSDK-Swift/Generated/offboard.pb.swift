@@ -134,6 +134,37 @@ struct Mavsdk_Rpc_Offboard_SetAttitudeResponse {
   init() {}
 }
 
+struct Mavsdk_Rpc_Offboard_SetActuatorControlRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actuatorControl: Mavsdk_Rpc_Offboard_ActuatorControl {
+    get {return _storage._actuatorControl ?? Mavsdk_Rpc_Offboard_ActuatorControl()}
+    set {_uniqueStorage()._actuatorControl = newValue}
+  }
+  /// Returns true if `actuatorControl` has been explicitly set.
+  var hasActuatorControl: Bool {return _storage._actuatorControl != nil}
+  /// Clears the value of `actuatorControl`. Subsequent reads from it will return its default value.
+  mutating func clearActuatorControl() {_uniqueStorage()._actuatorControl = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Offboard_SetActuatorControlResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Mavsdk_Rpc_Offboard_SetAttitudeRateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -170,8 +201,8 @@ struct Mavsdk_Rpc_Offboard_SetPositionNedRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var positionNedYaw: Mavsdk_Rpc_Offboard_PositionNEDYaw {
-    get {return _storage._positionNedYaw ?? Mavsdk_Rpc_Offboard_PositionNEDYaw()}
+  var positionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw {
+    get {return _storage._positionNedYaw ?? Mavsdk_Rpc_Offboard_PositionNedYaw()}
     set {_uniqueStorage()._positionNedYaw = newValue}
   }
   /// Returns true if `positionNedYaw` has been explicitly set.
@@ -232,8 +263,8 @@ struct Mavsdk_Rpc_Offboard_SetVelocityNedRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNEDYaw {
-    get {return _storage._velocityNedYaw ?? Mavsdk_Rpc_Offboard_VelocityNEDYaw()}
+  var velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw {
+    get {return _storage._velocityNedYaw ?? Mavsdk_Rpc_Offboard_VelocityNedYaw()}
     set {_uniqueStorage()._velocityNedYaw = newValue}
   }
   /// Returns true if `velocityNedYaw` has been explicitly set.
@@ -276,6 +307,30 @@ struct Mavsdk_Rpc_Offboard_Attitude {
   init() {}
 }
 
+struct Mavsdk_Rpc_Offboard_ActuatorControlGroup {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var controls: [Float] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Offboard_ActuatorControl {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var groups: [Mavsdk_Rpc_Offboard_ActuatorControlGroup] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Mavsdk_Rpc_Offboard_AttitudeRate {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -294,7 +349,7 @@ struct Mavsdk_Rpc_Offboard_AttitudeRate {
   init() {}
 }
 
-struct Mavsdk_Rpc_Offboard_PositionNEDYaw {
+struct Mavsdk_Rpc_Offboard_PositionNedYaw {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -330,7 +385,7 @@ struct Mavsdk_Rpc_Offboard_VelocityBodyYawspeed {
   init() {}
 }
 
-struct Mavsdk_Rpc_Offboard_VelocityNEDYaw {
+struct Mavsdk_Rpc_Offboard_VelocityNedYaw {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -718,6 +773,86 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
+extension Mavsdk_Rpc_Offboard_SetActuatorControlRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetActuatorControlRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "actuator_control"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _actuatorControl: Mavsdk_Rpc_Offboard_ActuatorControl? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _actuatorControl = source._actuatorControl
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._actuatorControl)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._actuatorControl {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, rhs: Mavsdk_Rpc_Offboard_SetActuatorControlRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._actuatorControl != rhs_storage._actuatorControl {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_SetActuatorControlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetActuatorControlResponse"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetActuatorControlResponse, rhs: Mavsdk_Rpc_Offboard_SetActuatorControlResponse) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Offboard_SetAttitudeRateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetAttitudeRateRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -805,7 +940,7 @@ extension Mavsdk_Rpc_Offboard_SetPositionNedRequest: SwiftProtobuf.Message, Swif
   ]
 
   fileprivate class _StorageClass {
-    var _positionNedYaw: Mavsdk_Rpc_Offboard_PositionNEDYaw? = nil
+    var _positionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -965,7 +1100,7 @@ extension Mavsdk_Rpc_Offboard_SetVelocityNedRequest: SwiftProtobuf.Message, Swif
   ]
 
   fileprivate class _StorageClass {
-    var _velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNEDYaw? = nil
+    var _velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1085,6 +1220,64 @@ extension Mavsdk_Rpc_Offboard_Attitude: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
+extension Mavsdk_Rpc_Offboard_ActuatorControlGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ActuatorControlGroup"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "controls"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedFloatField(value: &self.controls)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.controls.isEmpty {
+      try visitor.visitPackedFloatField(value: self.controls, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_ActuatorControlGroup, rhs: Mavsdk_Rpc_Offboard_ActuatorControlGroup) -> Bool {
+    if lhs.controls != rhs.controls {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_ActuatorControl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ActuatorControl"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "groups"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.groups)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.groups.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.groups, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_ActuatorControl, rhs: Mavsdk_Rpc_Offboard_ActuatorControl) -> Bool {
+    if lhs.groups != rhs.groups {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Offboard_AttitudeRate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".AttitudeRate"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1132,8 +1325,8 @@ extension Mavsdk_Rpc_Offboard_AttitudeRate: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
-extension Mavsdk_Rpc_Offboard_PositionNEDYaw: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PositionNEDYaw"
+extension Mavsdk_Rpc_Offboard_PositionNedYaw: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PositionNedYaw"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "north_m"),
     2: .standard(proto: "east_m"),
@@ -1169,7 +1362,7 @@ extension Mavsdk_Rpc_Offboard_PositionNEDYaw: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Offboard_PositionNEDYaw, rhs: Mavsdk_Rpc_Offboard_PositionNEDYaw) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Offboard_PositionNedYaw, rhs: Mavsdk_Rpc_Offboard_PositionNedYaw) -> Bool {
     if lhs.northM != rhs.northM {return false}
     if lhs.eastM != rhs.eastM {return false}
     if lhs.downM != rhs.downM {return false}
@@ -1226,8 +1419,8 @@ extension Mavsdk_Rpc_Offboard_VelocityBodyYawspeed: SwiftProtobuf.Message, Swift
   }
 }
 
-extension Mavsdk_Rpc_Offboard_VelocityNEDYaw: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".VelocityNEDYaw"
+extension Mavsdk_Rpc_Offboard_VelocityNedYaw: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".VelocityNedYaw"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "north_m_s"),
     2: .standard(proto: "east_m_s"),
@@ -1263,7 +1456,7 @@ extension Mavsdk_Rpc_Offboard_VelocityNEDYaw: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Offboard_VelocityNEDYaw, rhs: Mavsdk_Rpc_Offboard_VelocityNEDYaw) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Offboard_VelocityNedYaw, rhs: Mavsdk_Rpc_Offboard_VelocityNedYaw) -> Bool {
     if lhs.northMS != rhs.northMS {return false}
     if lhs.eastMS != rhs.eastMS {return false}
     if lhs.downMS != rhs.downMS {return false}
