@@ -49,6 +49,12 @@ fileprivate final class Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeCallBase: 
   override class var method: String { return "/mavsdk.rpc.offboard.OffboardService/SetAttitude" }
 }
 
+internal protocol Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Offboard_SetActuatorControlRequest, Mavsdk_Rpc_Offboard_SetActuatorControlResponse>, Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall {
+  override class var method: String { return "/mavsdk.rpc.offboard.OffboardService/SetActuatorControl" }
+}
+
 internal protocol Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, Mavsdk_Rpc_Offboard_SetAttitudeRateResponse>, Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateCall {
@@ -99,6 +105,12 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func setAttitude(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Offboard_SetAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeCall
+
+  /// Synchronous. Unary.
+  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Offboard_SetActuatorControlResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Offboard_SetActuatorControlResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall
 
   /// Synchronous. Unary.
   func setAttitudeRate(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Offboard_SetAttitudeRateResponse
@@ -165,6 +177,16 @@ internal extension Mavsdk_Rpc_Offboard_OffboardServiceService {
   @discardableResult
   func setAttitude(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRequest, completion: @escaping (Mavsdk_Rpc_Offboard_SetAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeCall {
     return try self.setAttitude(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest) throws -> Mavsdk_Rpc_Offboard_SetActuatorControlResponse {
+    return try self.setActuatorControl(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, completion: @escaping (Mavsdk_Rpc_Offboard_SetActuatorControlResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall {
+    return try self.setActuatorControl(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
@@ -259,6 +281,18 @@ internal final class Mavsdk_Rpc_Offboard_OffboardServiceServiceClient: ServiceCl
   }
 
   /// Synchronous. Unary.
+  internal func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Offboard_SetActuatorControlResponse {
+    return try Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Offboard_SetActuatorControlResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall {
+    return try Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
   internal func setAttitudeRate(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Offboard_SetAttitudeRateResponse {
     return try Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateCallBase(channel)
       .run(request: request, metadata: customMetadata)
@@ -322,6 +356,10 @@ class Mavsdk_Rpc_Offboard_OffboardServiceIsActiveCallTestStub: ClientCallUnaryTe
 
 class Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeCall {
   override class var method: String { return "/mavsdk.rpc.offboard.OffboardService/SetAttitude" }
+}
+
+class Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall {
+  override class var method: String { return "/mavsdk.rpc.offboard.OffboardService/SetActuatorControl" }
 }
 
 class Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateCall {
@@ -401,6 +439,21 @@ class Mavsdk_Rpc_Offboard_OffboardServiceServiceTestStub: ServiceClientTestStubB
     return Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeCallTestStub()
   }
 
+  var setActuatorControlRequests: [Mavsdk_Rpc_Offboard_SetActuatorControlRequest] = []
+  var setActuatorControlResponses: [Mavsdk_Rpc_Offboard_SetActuatorControlResponse] = []
+  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Offboard_SetActuatorControlResponse {
+    setActuatorControlRequests.append(request)
+    defer { setActuatorControlResponses.removeFirst() }
+    return setActuatorControlResponses.first!
+  }
+  @discardableResult
+  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Offboard_SetActuatorControlResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCall {
+    let response = try self.setActuatorControl(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlCallTestStub()
+  }
+
   var setAttitudeRateRequests: [Mavsdk_Rpc_Offboard_SetAttitudeRateRequest] = []
   var setAttitudeRateResponses: [Mavsdk_Rpc_Offboard_SetAttitudeRateResponse] = []
   func setAttitudeRate(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Offboard_SetAttitudeRateResponse {
@@ -471,6 +524,7 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceProvider: ServiceProvider {
   func stop(request: Mavsdk_Rpc_Offboard_StopRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceStopSession) throws -> Mavsdk_Rpc_Offboard_StopResponse
   func isActive(request: Mavsdk_Rpc_Offboard_IsActiveRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceIsActiveSession) throws -> Mavsdk_Rpc_Offboard_IsActiveResponse
   func setAttitude(request: Mavsdk_Rpc_Offboard_SetAttitudeRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSession) throws -> Mavsdk_Rpc_Offboard_SetAttitudeResponse
+  func setActuatorControl(request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSession) throws -> Mavsdk_Rpc_Offboard_SetActuatorControlResponse
   func setAttitudeRate(request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateSession) throws -> Mavsdk_Rpc_Offboard_SetAttitudeRateResponse
   func setPositionNed(request: Mavsdk_Rpc_Offboard_SetPositionNedRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceSetPositionNedSession) throws -> Mavsdk_Rpc_Offboard_SetPositionNedResponse
   func setVelocityBody(request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, session: Mavsdk_Rpc_Offboard_OffboardServiceSetVelocityBodySession) throws -> Mavsdk_Rpc_Offboard_SetVelocityBodyResponse
@@ -503,6 +557,11 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
       return try Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSessionBase(
         handler: handler,
         providerBlock: { try self.setAttitude(request: $0, session: $1 as! Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSessionBase) })
+          .run()
+    case "/mavsdk.rpc.offboard.OffboardService/SetActuatorControl":
+      return try Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSessionBase(
+        handler: handler,
+        providerBlock: { try self.setActuatorControl(request: $0, session: $1 as! Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSessionBase) })
           .run()
     case "/mavsdk.rpc.offboard.OffboardService/SetAttitudeRate":
       return try Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateSessionBase(
@@ -553,6 +612,12 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSession: ServerS
 fileprivate final class Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Offboard_SetAttitudeRequest, Mavsdk_Rpc_Offboard_SetAttitudeResponse>, Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSession {}
 
 class Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeSession {}
+
+internal protocol Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Offboard_SetActuatorControlRequest, Mavsdk_Rpc_Offboard_SetActuatorControlResponse>, Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSession {}
+
+class Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Offboard_OffboardServiceSetActuatorControlSession {}
 
 internal protocol Mavsdk_Rpc_Offboard_OffboardServiceSetAttitudeRateSession: ServerSessionUnary {}
 

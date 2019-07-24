@@ -88,6 +88,64 @@ public class Offboard {
         }
     }
 
+    public struct ActuatorControlGroup: Equatable {
+        public let controls: [Float]
+
+        
+
+        public init(controls: [Float]) {
+            self.controls = controls
+        }
+
+        internal var rpcActuatorControlGroup: Mavsdk_Rpc_Offboard_ActuatorControlGroup {
+            var rpcActuatorControlGroup = Mavsdk_Rpc_Offboard_ActuatorControlGroup()
+            
+                
+            rpcActuatorControlGroup.controls = controls
+                
+            
+
+            return rpcActuatorControlGroup
+        }
+
+        internal static func translateFromRpc(_ rpcActuatorControlGroup: Mavsdk_Rpc_Offboard_ActuatorControlGroup) -> ActuatorControlGroup {
+            return ActuatorControlGroup(controls: rpcActuatorControlGroup.controls)
+        }
+
+        public static func == (lhs: ActuatorControlGroup, rhs: ActuatorControlGroup) -> Bool {
+            return lhs.controls == rhs.controls
+        }
+    }
+
+    public struct ActuatorControl: Equatable {
+        public let groups: [ActuatorControlGroup]
+
+        
+
+        public init(groups: [ActuatorControlGroup]) {
+            self.groups = groups
+        }
+
+        internal var rpcActuatorControl: Mavsdk_Rpc_Offboard_ActuatorControl {
+            var rpcActuatorControl = Mavsdk_Rpc_Offboard_ActuatorControl()
+            
+                
+            rpcActuatorControl.groups = groups.map{ $0.rpcActuatorControlGroup }
+                
+            
+
+            return rpcActuatorControl
+        }
+
+        internal static func translateFromRpc(_ rpcActuatorControl: Mavsdk_Rpc_Offboard_ActuatorControl) -> ActuatorControl {
+            return ActuatorControl(groups: rpcActuatorControl.groups.map{ ActuatorControlGroup.translateFromRpc($0) })
+        }
+
+        public static func == (lhs: ActuatorControl, rhs: ActuatorControl) -> Bool {
+            return lhs.groups == rhs.groups
+        }
+    }
+
     public struct AttitudeRate: Equatable {
         public let rollDegS: Float
         public let pitchDegS: Float
@@ -141,7 +199,7 @@ public class Offboard {
         }
     }
 
-    public struct PositionNEDYaw: Equatable {
+    public struct PositionNedYaw: Equatable {
         public let northM: Float
         public let eastM: Float
         public let downM: Float
@@ -156,37 +214,37 @@ public class Offboard {
             self.yawDeg = yawDeg
         }
 
-        internal var rpcPositionNEDYaw: Mavsdk_Rpc_Offboard_PositionNEDYaw {
-            var rpcPositionNEDYaw = Mavsdk_Rpc_Offboard_PositionNEDYaw()
+        internal var rpcPositionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw {
+            var rpcPositionNedYaw = Mavsdk_Rpc_Offboard_PositionNedYaw()
             
                 
-            rpcPositionNEDYaw.northM = northM
-                
-            
-            
-                
-            rpcPositionNEDYaw.eastM = eastM
+            rpcPositionNedYaw.northM = northM
                 
             
             
                 
-            rpcPositionNEDYaw.downM = downM
+            rpcPositionNedYaw.eastM = eastM
                 
             
             
                 
-            rpcPositionNEDYaw.yawDeg = yawDeg
+            rpcPositionNedYaw.downM = downM
+                
+            
+            
+                
+            rpcPositionNedYaw.yawDeg = yawDeg
                 
             
 
-            return rpcPositionNEDYaw
+            return rpcPositionNedYaw
         }
 
-        internal static func translateFromRpc(_ rpcPositionNEDYaw: Mavsdk_Rpc_Offboard_PositionNEDYaw) -> PositionNEDYaw {
-            return PositionNEDYaw(northM: rpcPositionNEDYaw.northM, eastM: rpcPositionNEDYaw.eastM, downM: rpcPositionNEDYaw.downM, yawDeg: rpcPositionNEDYaw.yawDeg)
+        internal static func translateFromRpc(_ rpcPositionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw) -> PositionNedYaw {
+            return PositionNedYaw(northM: rpcPositionNedYaw.northM, eastM: rpcPositionNedYaw.eastM, downM: rpcPositionNedYaw.downM, yawDeg: rpcPositionNedYaw.yawDeg)
         }
 
-        public static func == (lhs: PositionNEDYaw, rhs: PositionNEDYaw) -> Bool {
+        public static func == (lhs: PositionNedYaw, rhs: PositionNedYaw) -> Bool {
             return lhs.northM == rhs.northM
                 && lhs.eastM == rhs.eastM
                 && lhs.downM == rhs.downM
@@ -247,7 +305,7 @@ public class Offboard {
         }
     }
 
-    public struct VelocityNEDYaw: Equatable {
+    public struct VelocityNedYaw: Equatable {
         public let northMS: Float
         public let eastMS: Float
         public let downMS: Float
@@ -262,37 +320,37 @@ public class Offboard {
             self.yawDeg = yawDeg
         }
 
-        internal var rpcVelocityNEDYaw: Mavsdk_Rpc_Offboard_VelocityNEDYaw {
-            var rpcVelocityNEDYaw = Mavsdk_Rpc_Offboard_VelocityNEDYaw()
+        internal var rpcVelocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw {
+            var rpcVelocityNedYaw = Mavsdk_Rpc_Offboard_VelocityNedYaw()
             
                 
-            rpcVelocityNEDYaw.northMS = northMS
-                
-            
-            
-                
-            rpcVelocityNEDYaw.eastMS = eastMS
+            rpcVelocityNedYaw.northMS = northMS
                 
             
             
                 
-            rpcVelocityNEDYaw.downMS = downMS
+            rpcVelocityNedYaw.eastMS = eastMS
                 
             
             
                 
-            rpcVelocityNEDYaw.yawDeg = yawDeg
+            rpcVelocityNedYaw.downMS = downMS
+                
+            
+            
+                
+            rpcVelocityNedYaw.yawDeg = yawDeg
                 
             
 
-            return rpcVelocityNEDYaw
+            return rpcVelocityNedYaw
         }
 
-        internal static func translateFromRpc(_ rpcVelocityNEDYaw: Mavsdk_Rpc_Offboard_VelocityNEDYaw) -> VelocityNEDYaw {
-            return VelocityNEDYaw(northMS: rpcVelocityNEDYaw.northMS, eastMS: rpcVelocityNEDYaw.eastMS, downMS: rpcVelocityNEDYaw.downMS, yawDeg: rpcVelocityNEDYaw.yawDeg)
+        internal static func translateFromRpc(_ rpcVelocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw) -> VelocityNedYaw {
+            return VelocityNedYaw(northMS: rpcVelocityNedYaw.northMS, eastMS: rpcVelocityNedYaw.eastMS, downMS: rpcVelocityNedYaw.downMS, yawDeg: rpcVelocityNedYaw.yawDeg)
         }
 
-        public static func == (lhs: VelocityNEDYaw, rhs: VelocityNEDYaw) -> Bool {
+        public static func == (lhs: VelocityNedYaw, rhs: VelocityNedYaw) -> Bool {
             return lhs.northMS == rhs.northMS
                 && lhs.eastMS == rhs.eastMS
                 && lhs.downMS == rhs.downMS
@@ -492,6 +550,29 @@ public class Offboard {
         }
     }
 
+    public func setActuatorControl(actuatorControl: ActuatorControl) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Offboard_SetActuatorControlRequest()
+
+            
+                
+            request.actuatorControl = actuatorControl.rpcActuatorControl
+                
+            
+
+            do {
+                
+                let _ = try self.service.setActuatorControl(request)
+                completable(.completed)
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
     public func setAttitudeRate(attitudeRate: AttitudeRate) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Offboard_SetAttitudeRateRequest()
@@ -515,7 +596,7 @@ public class Offboard {
         }
     }
 
-    public func setPositionNed(positionNedYaw: PositionNEDYaw) -> Completable {
+    public func setPositionNed(positionNedYaw: PositionNedYaw) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Offboard_SetPositionNedRequest()
 
@@ -561,7 +642,7 @@ public class Offboard {
         }
     }
 
-    public func setVelocityNed(velocityNedYaw: VelocityNEDYaw) -> Completable {
+    public func setVelocityNed(velocityNedYaw: VelocityNedYaw) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Offboard_SetVelocityNedRequest()
 

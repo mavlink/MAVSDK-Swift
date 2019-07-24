@@ -18,7 +18,11 @@ public struct {{ name.upper_camel_case }}: Equatable {
 
         {%- for field in fields %}
         {% if field.type_info.is_repeated %}
+            {% if field.type_info.is_primitive %}
+        rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }} = {{ field.name.lower_camel_case }}
+            {% else %}
         rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }} = {{ field.name.lower_camel_case }}.map{ $0.rpc{{ field.type_info.inner_name }} }
+            {% endif %}
         {% else %}
             {% if field.type_info.is_primitive %}
         rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}{% if field.name.lower_camel_case.startswith("has") %}_p{% endif %} = {{ field.name.lower_camel_case }}
@@ -32,7 +36,7 @@ public struct {{ name.upper_camel_case }}: Equatable {
     }
 
     internal static func translateFromRpc(_ rpc{{ name.upper_camel_case }}: {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}) -> {{ name.upper_camel_case }} {
-        return {{ name.upper_camel_case }}({% for field in fields %}{{ field.name.lower_camel_case }}: {% if field.type_info.is_repeated %}rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}.map{ {{ field.type_info.inner_name }}.translateFromRpc($0) }{% else %}{% if field.type_info.is_primitive %}rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}{% if field.name.lower_camel_case.startswith("has") %}_p{% endif %}{% else %}{{ field.type_info.name }}.translateFromRpc(rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}){% endif %}{% endif %}{{ ", " if not loop.last }}{% endfor %})
+        return {{ name.upper_camel_case }}({% for field in fields %}{{ field.name.lower_camel_case }}: {% if field.type_info.is_repeated %}{%- if field.type_info.is_primitive %}rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}{%- else %}rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}.map{ {{ field.type_info.inner_name }}.translateFromRpc($0) }{% endif %}{%- else %}{%- if field.type_info.is_primitive %}rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}{% if field.name.lower_camel_case.startswith("has") %}_p{% endif %}{% else %}{{ field.type_info.name }}.translateFromRpc(rpc{{ name.upper_camel_case }}.{{ field.name.lower_camel_case }}){% endif %}{% endif %}{{ ", " if not loop.last }}{% endfor %})
     }
 
     public static func == (lhs: {{ name.upper_camel_case }}, rhs: {{ name.upper_camel_case }}) -> Bool {
