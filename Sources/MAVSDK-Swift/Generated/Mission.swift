@@ -489,6 +489,30 @@ public class Mission {
         }
     }
 
+    public func clearMission() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Mission_ClearMissionRequest()
+
+            
+
+            do {
+                
+                let response = try self.service.clearMission(request)
+
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
     public func setCurrentMissionItemIndex(index: Int32) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest()

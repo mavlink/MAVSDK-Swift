@@ -61,6 +61,12 @@ fileprivate final class Mavsdk_Rpc_Mission_MissionServicePauseMissionCallBase: C
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/PauseMission" }
 }
 
+internal protocol Mavsdk_Rpc_Mission_MissionServiceClearMissionCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceClearMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_ClearMissionRequest, Mavsdk_Rpc_Mission_ClearMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceClearMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/ClearMission" }
+}
+
 internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
@@ -139,6 +145,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall
+
+  /// Synchronous. Unary.
+  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_ClearMissionResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceClearMissionCall
 
   /// Synchronous. Unary.
   func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
@@ -230,6 +242,16 @@ internal extension Mavsdk_Rpc_Mission_MissionServiceService {
   @discardableResult
   func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
     return try self.pauseMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest) throws -> Mavsdk_Rpc_Mission_ClearMissionResponse {
+    return try self.clearMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceClearMissionCall {
+    return try self.clearMission(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
@@ -353,6 +375,18 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceServiceClient: ServiceClie
   }
 
   /// Synchronous. Unary.
+  internal func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_ClearMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceClearMissionCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceClearMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceClearMissionCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
   internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
     return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
       .run(request: request, metadata: customMetadata)
@@ -432,6 +466,10 @@ class Mavsdk_Rpc_Mission_MissionServiceStartMissionCallTestStub: ClientCallUnary
 
 class Mavsdk_Rpc_Mission_MissionServicePauseMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServicePauseMissionCall {
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/PauseMission" }
+}
+
+class Mavsdk_Rpc_Mission_MissionServiceClearMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceClearMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/ClearMission" }
 }
 
 class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
@@ -545,6 +583,21 @@ class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBas
     return Mavsdk_Rpc_Mission_MissionServicePauseMissionCallTestStub()
   }
 
+  var clearMissionRequests: [Mavsdk_Rpc_Mission_ClearMissionRequest] = []
+  var clearMissionResponses: [Mavsdk_Rpc_Mission_ClearMissionResponse] = []
+  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_ClearMissionResponse {
+    clearMissionRequests.append(request)
+    defer { clearMissionResponses.removeFirst() }
+    return clearMissionResponses.first!
+  }
+  @discardableResult
+  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceClearMissionCall {
+    let response = try self.clearMission(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Mission_MissionServiceClearMissionCallTestStub()
+  }
+
   var setCurrentMissionItemIndexRequests: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest] = []
   var setCurrentMissionItemIndexResponses: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse] = []
   func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
@@ -625,6 +678,7 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: ServiceProvider {
   func cancelMissionDownload(request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, session: Mavsdk_Rpc_Mission_MissionServiceCancelMissionDownloadSession) throws -> Mavsdk_Rpc_Mission_CancelMissionDownloadResponse
   func startMission(request: Mavsdk_Rpc_Mission_StartMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceStartMissionSession) throws -> Mavsdk_Rpc_Mission_StartMissionResponse
   func pauseMission(request: Mavsdk_Rpc_Mission_PauseMissionRequest, session: Mavsdk_Rpc_Mission_MissionServicePauseMissionSession) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse
+  func clearMission(request: Mavsdk_Rpc_Mission_ClearMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceClearMissionSession) throws -> Mavsdk_Rpc_Mission_ClearMissionResponse
   func setCurrentMissionItemIndex(request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, session: Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
   func isMissionFinished(request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, session: Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
   func subscribeMissionProgress(request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, session: Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession) throws -> ServerStatus?
@@ -668,6 +722,11 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
       return try Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionBase(
         handler: handler,
         providerBlock: { try self.pauseMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionBase) })
+          .run()
+    case "/mavsdk.rpc.mission.MissionService/ClearMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionBase(
+        handler: handler,
+        providerBlock: { try self.clearMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionBase) })
           .run()
     case "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex":
       return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase(
@@ -735,6 +794,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServicePauseMissionSession: ServerSe
 fileprivate final class Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse>, Mavsdk_Rpc_Mission_MissionServicePauseMissionSession {}
 
 class Mavsdk_Rpc_Mission_MissionServicePauseMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServicePauseMissionSession {}
+
+internal protocol Mavsdk_Rpc_Mission_MissionServiceClearMissionSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_ClearMissionRequest, Mavsdk_Rpc_Mission_ClearMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceClearMissionSession {}
+
+class Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceClearMissionSession {}
 
 internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession: ServerSessionUnary {}
 
