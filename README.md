@@ -71,7 +71,7 @@ By default, the SDK will connect using MAVLink on UDP port 14540, which is runni
 For now, the backend is limited to UDP even though the core supports UDP, TCP, and serial.
 
 ```swift
-import Dronecode_SDK_Swift
+import MAVSDK_Swift
 
 let drone = Drone()
 drone.startMavlink.subscribe()
@@ -80,6 +80,11 @@ drone.startMavlink.subscribe()
 After that, you can start writing some code [as described below](#start-writing-code).
 
 __For advanced users:__ note that `startMavlink` will run the SDK backend in a background thread on the iOS device. You could connect the SDK to another backend (say, running on a computer with IP `192.168.0.42` by omitting the second line above and running only: `let drone = Drone(address: "192.168.0.42", port: 50051)`.
+
+If you're using a wifi bridge then you can start a UDP connection with the following:
+```swift
+drone.setMavlinkPort(mavlinkPort: "udp://:14550")
+```
 
 ## Start writing code
 After that, you can start using the SDK, for instance:
@@ -130,7 +135,7 @@ Or generate an iOS Xcode project with:
 xcodegen
 ```
 
-This will create the `Dronecode-SDK-Swift.xcodeproj` project file from `project.yml`. If you don't have it already, install Xcodegen with:
+This will create the `MAVSDK-Swift.xcodeproj` project file from `project.yml`. If you don't have it already, install Xcodegen with:
 
 ```shell
 brew install xcodegen
