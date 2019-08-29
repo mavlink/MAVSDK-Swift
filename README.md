@@ -13,7 +13,7 @@ gem install --user xcodeproj
 Add the following to your `Cartfile`:
 
 ```shell
-github "mavlink/MAVSDK-Swift" ~> 0.5.0
+github "mavlink/MAVSDK-Swift" ~> 0.6.0
 ```
 
 And then get the framework using:
