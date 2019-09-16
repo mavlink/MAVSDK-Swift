@@ -13,7 +13,13 @@ gem install --user xcodeproj
 Add the following to your `Cartfile`:
 
 ```shell
-github "mavlink/MAVSDK-Swift" ~> 0.5.0
+github "mavlink/MAVSDK-Swift" ~> 0.6.0
+```
+
+Add the following to your `.gitignore`:
+
+```shell
+/Carthage
 ```
 
 And then get the framework using:
@@ -22,7 +28,7 @@ And then get the framework using:
 carthage bootstrap --platform ios
 ```
 
-Back in your Xcode project you will need to import the libraries. On your application targets’ General settings tab, in the “Linked Frameworks and Libraries” section, drag and drop all files with the file extension `.framework` into here, except for `RxTest.framework` or your app will crash.
+Back in your Xcode project you will need to import some libraries. On your application targets’ General settings tab, in the “Linked Frameworks and Libraries” section, drag and drop all files with the file extension `.framework` under the new `/Carthage/Build/iOS/` folder in your project into here, except for `RxBlocking.framework`, `RxCocoa.framework`, and `RxTest.framework`.
 
 On your application targets’ Build Phases settings tab, click the + icon and choose New Run Script Phase. Create a Run Script in which you specify your shell (ex: /bin/sh), add the following contents to the script area below the shell:
 ```
@@ -30,30 +36,27 @@ On your application targets’ Build Phases settings tab, click the + icon and c
 ```
 Add the paths to the frameworks under “Input Files".
 ```
+$(SRCROOT)/Carthage/Build/iOS/BoringSSL.framework
+$(SRCROOT)/Carthage/Build/iOS/CgRPC.framework
+$(SRCROOT)/Carthage/Build/iOS/mavsdk_server.framework
+$(SRCROOT)/Carthage/Build/iOS/MAVSDK_Swift.framework
+$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/SwiftProtobuf.framework
 $(SRCROOT)/Carthage/Build/iOS/SwiftGRPC.framework
-$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework
-$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework
-$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework
-$(SRCROOT)/Carthage/Build/iOS/RxAtomic.framework
-$(SRCROOT)/Carthage/Build/iOS/Dronecode_SDK_Swift.framework
-$(SRCROOT)/Carthage/Build/iOS/CgRPC.framework
-$(SRCROOT)/Carthage/Build/iOS/BoringSSL.framework
-$(SRCROOT)/Carthage/Build/iOS/backend.framework
 ```
 Add the paths to the copied frameworks to the “Output Files”.
 ```
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftProtobuf.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftGRPC.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxBlocking.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxAtomic.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Dronecode_SDK_Swift.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CgRPC.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BoringSSL.framework
-$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/backend.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BoringSSL.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CgRPC.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/mavsdk_server.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/MAVSDK_Swift.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftProtobuf.framework
+$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftGRPC.framework
 ```
+
+Lastly, you will then need to go into `Build Settings`, click on `All`, then search for bitcode. You need to change `Enable Bitcode` from "Yes" to "No".
+
 #### Troubleshooting
 If you run into any issues with running the carthage command then you can clear the cache and try it again
 ```
@@ -68,7 +71,7 @@ By default, the SDK will connect using MAVLink on UDP port 14540, which is runni
 For now, the backend is limited to UDP even though the core supports UDP, TCP, and serial.
 
 ```swift
-import Dronecode_SDK_Swift
+import MAVSDK_Swift
 
 let drone = Drone()
 drone.startMavlink.subscribe()
@@ -77,6 +80,11 @@ drone.startMavlink.subscribe()
 After that, you can start writing some code [as described below](#start-writing-code).
 
 __For advanced users:__ note that `startMavlink` will run the SDK backend in a background thread on the iOS device. You could connect the SDK to another backend (say, running on a computer with IP `192.168.0.42` by omitting the second line above and running only: `let drone = Drone(address: "192.168.0.42", port: 50051)`.
+
+If you're using a wifi bridge then you can start a UDP connection with the following:
+```swift
+drone.setMavlinkPort(mavlinkPort: "udp://:14550")
+```
 
 ## Start writing code
 After that, you can start using the SDK, for instance:
@@ -127,7 +135,7 @@ Or generate an iOS Xcode project with:
 xcodegen
 ```
 
-This will create the `Dronecode-SDK-Swift.xcodeproj` project file from `project.yml`. If you don't have it already, install Xcodegen with:
+This will create the `MAVSDK-Swift.xcodeproj` project file from `project.yml`. If you don't have it already, install Xcodegen with:
 
 ```shell
 brew install xcodegen
