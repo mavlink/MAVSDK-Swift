@@ -20,6 +20,7 @@ public class Drone {
     public let offboard: Offboard
     public let param: Param
     public let telemetry: Telemetry
+    public let passthrough: Passthrough
 
     public init(address: String = "localhost",
                 port: Int32 = 50051,
@@ -36,6 +37,7 @@ public class Drone {
         self.offboard = Offboard(address: address, port: port, scheduler: scheduler)
         self.param = Param(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
+        self.passthrough = Passthrough(address: address, port: port, scheduler: scheduler)
     }
 
 #if os(iOS)

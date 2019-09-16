@@ -64,6 +64,9 @@
 		9CB54F24A3CEE9192AF9C62B8A125F37 /* RxTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 869A189FE04AA56111283E95C10C5880 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E8D485CED7E5FFD3308C87B31F0E16A /* RxBlocking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A732733F42B09BD0B286C77EBBCAD2D1 /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3EF3D22B7F3AB8A31F2C879E60070EF /* RxTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 869A189FE04AA56111283E95C10C5880 /* RxTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A53D9923233020270067AD9C /* passthrough.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53D9920233020270067AD9C /* passthrough.pb.swift */; };
+		A53D9924233020270067AD9C /* passthrough.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53D9921233020270067AD9C /* passthrough.grpc.swift */; };
+		A53D9925233020270067AD9C /* Passthrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53D9922233020270067AD9C /* Passthrough.swift */; };
 		A638D88F7DFFC0CD714C5D27FF8A4F89 /* info.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AE1074652B2E1E56F55AB90E2EB6BA /* info.grpc.swift */; };
 		AC622715460B96A651D8D096F5A76EF4 /* ActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F4A4F858A7D273DA66298D3DA9C3D0 /* ActionTest.swift */; };
 		AFAF7AC0BAB3A6CB8D4CDCBA1125E507 /* BoringSSL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E6071BE812035058BA297A6ADC1A0A3 /* BoringSSL.framework */; };
@@ -189,6 +192,9 @@
 		A297343613731E9F84CCB3D35D803804 /* SwiftProtobuf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftProtobuf.framework; sourceTree = "<group>"; };
 		A3AF87308901CC0FCBA3042C362A16CC /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		A52CE1BCE04750E402DE084BB16AC4D6 /* calibration.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calibration.pb.swift; sourceTree = "<group>"; };
+		A53D9920233020270067AD9C /* passthrough.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passthrough.pb.swift; sourceTree = "<group>"; };
+		A53D9921233020270067AD9C /* passthrough.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = passthrough.grpc.swift; sourceTree = "<group>"; };
+		A53D9922233020270067AD9C /* Passthrough.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Passthrough.swift; sourceTree = "<group>"; };
 		A732733F42B09BD0B286C77EBBCAD2D1 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxBlocking.framework; sourceTree = "<group>"; };
 		A89718A65B9C9F4AA09748320E1AA07D /* MAVSDK_SwiftIntegrationTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MAVSDK_SwiftIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE0CDA4FF989E90A3C6B9118B3CD0304 /* mavsdk_server.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mavsdk_server.framework; sourceTree = "<group>"; };
@@ -297,6 +303,9 @@
 		397FE3D051C894CD815C1C6EAF83A7C2 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				A53D9921233020270067AD9C /* passthrough.grpc.swift */,
+				A53D9920233020270067AD9C /* passthrough.pb.swift */,
+				A53D9922233020270067AD9C /* Passthrough.swift */,
 				3A9EE9EA22E55F6800DE6E4F /* offboard.grpc.swift */,
 				3A9EE9E922E55F6700DE6E4F /* offboard.pb.swift */,
 				3A9EE9E822E55F6600DE6E4F /* Offboard.swift */,
@@ -478,6 +487,8 @@
 				3A9EE9ED22E55F6C00DE6E4F /* offboard.grpc.swift in Sources */,
 				505983DFD55DB3D51F71357FD4CD13DC /* Drone.swift in Sources */,
 				CC12EE52E744A87E695DAC266F150EC5 /* Gimbal.swift in Sources */,
+				A53D9924233020270067AD9C /* passthrough.grpc.swift in Sources */,
+				A53D9923233020270067AD9C /* passthrough.pb.swift in Sources */,
 				19046C25DDD2FD46CDA525764AD5B779 /* Info.swift in Sources */,
 				E9A74A4959DB8477BACEA6C59524C033 /* Mission.swift in Sources */,
 				90E0B90C6AC6C13490E8275D30BE16C8 /* Param.swift in Sources */,
@@ -491,6 +502,7 @@
 				438F05D005498245934DC169FE41F84B /* camera.pb.swift in Sources */,
 				C5EE734E91984B742C8C4166B914BD42 /* core.grpc.swift in Sources */,
 				C783A5352AA3F55A59D3C102E1776181 /* core.pb.swift in Sources */,
+				A53D9925233020270067AD9C /* Passthrough.swift in Sources */,
 				B9D13BDCB5985BA4193B3A6A61535DFE /* gimbal.grpc.swift in Sources */,
 				8C45A9BA7ABF611865FB4E24B2F9E781 /* gimbal.pb.swift in Sources */,
 				3A9EE9EC22E55F6C00DE6E4F /* offboard.pb.swift in Sources */,

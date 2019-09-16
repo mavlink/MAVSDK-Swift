@@ -9,7 +9,7 @@ PB_PLUGINS_DIR=${PB_PLUGINS_DIR:-"${SCRIPT_DIR}/../proto/pb_plugins"}
 PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
 OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/MAVSDK-Swift/Generated"}
 
-PLUGIN_LIST="action calibration gimbal camera core info mission offboard param telemetry"
+PLUGIN_LIST="action calibration gimbal camera core info mission offboard param telemetry passthrough"
 
 if [ ! -d ${PROTO_DIR} ]; then
     echo "Script is not in the right location! It will look for the proto files in '${PROTO_DIR}', which doesn't exist!"
