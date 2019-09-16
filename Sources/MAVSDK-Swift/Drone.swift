@@ -37,7 +37,7 @@ public class Drone {
         self.offboard = Offboard(address: address, port: port, scheduler: scheduler)
         self.param = Param(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
-        self.passthrough = Passthrough(address: address, port: port, scheduler: scheduler)
+        self.passthrough = Passthrough(address: address, port: port, scheduler: scheduler) 
     }
 
 #if os(iOS)
