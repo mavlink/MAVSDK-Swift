@@ -19,9 +19,14 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// Gimbal mode type.
 enum Mavsdk_Rpc_Gimbal_GimbalMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
+
+  /// Yaw follow will point the gimbal to the vehicle heading
   case yawFollow // = 0
+
+  /// Yaw lock will fix the gimbal poiting to an absolute direction
   case yawLock // = 1
   case UNRECOGNIZED(Int)
 
@@ -64,8 +69,10 @@ struct Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Pitch angle in degrees (negative points down)
   var pitchDeg: Float = 0
 
+  /// Yaw angle in degrees (positive is clock-wise, range: -180 to 180 or 0 to 360)
   var yawDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -99,6 +106,7 @@ struct Mavsdk_Rpc_Gimbal_SetModeRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The mode to be set.
   var gimbalMode: Mavsdk_Rpc_Gimbal_GimbalMode = .yawFollow
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -127,45 +135,57 @@ struct Mavsdk_Rpc_Gimbal_SetModeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Gimbal_GimbalResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var result: Mavsdk_Rpc_Gimbal_GimbalResult.Result = .success
+  /// Result enum value
+  var result: Mavsdk_Rpc_Gimbal_GimbalResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for gimbal commands.
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
-    case success // = 0
-    case error // = 1
-    case timeout // = 2
-    case unknown // = 1000
+
+    /// Unknown error
+    case unknown // = 0
+
+    /// Command was accepted
+    case success // = 1
+
+    /// Error occurred sending the command
+    case error // = 2
+
+    /// Command timed out
+    case timeout // = 3
     case UNRECOGNIZED(Int)
 
     init() {
-      self = .success
+      self = .unknown
     }
 
     init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .success
-      case 1: self = .error
-      case 2: self = .timeout
-      case 1000: self = .unknown
+      case 0: self = .unknown
+      case 1: self = .success
+      case 2: self = .error
+      case 3: self = .timeout
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     var rawValue: Int {
       switch self {
-      case .success: return 0
-      case .error: return 1
-      case .timeout: return 2
-      case .unknown: return 1000
+      case .unknown: return 0
+      case .success: return 1
+      case .error: return 2
+      case .timeout: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -180,10 +200,10 @@ struct Mavsdk_Rpc_Gimbal_GimbalResult {
 extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Mavsdk_Rpc_Gimbal_GimbalResult.Result] = [
+    .unknown,
     .success,
     .error,
     .timeout,
-    .unknown,
   ]
 }
 
@@ -404,7 +424,7 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.result != .success {
+    if self.result != .unknown {
       try visitor.visitSingularEnumField(value: self.result, fieldNumber: 1)
     }
     if !self.resultStr.isEmpty {
@@ -423,9 +443,9 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._
 
 extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "SUCCESS"),
-    1: .same(proto: "ERROR"),
-    2: .same(proto: "TIMEOUT"),
-    1000: .same(proto: "UNKNOWN"),
+    0: .same(proto: "UNKNOWN"),
+    1: .same(proto: "SUCCESS"),
+    2: .same(proto: "ERROR"),
+    3: .same(proto: "TIMEOUT"),
   ]
 }
