@@ -13,7 +13,7 @@ gem install --user xcodeproj
 Add the following to your `Cartfile`:
 
 ```shell
-github "mavlink/MAVSDK-Swift" ~> 0.6.0
+github "mavlink/MAVSDK-Swift" ~> 0.7.0
 ```
 
 Add the following to your `.gitignore`:
