@@ -24,6 +24,7 @@ struct Mavsdk_Rpc_Param_GetIntParamRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the parameter
   var name: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -45,6 +46,7 @@ struct Mavsdk_Rpc_Param_GetIntParamResponse {
   /// Clears the value of `paramResult`. Subsequent reads from it will return its default value.
   mutating func clearParamResult() {_uniqueStorage()._paramResult = nil}
 
+  /// Value of the requested parameter
   var value: Int32 {
     get {return _storage._value}
     set {_uniqueStorage()._value = newValue}
@@ -62,8 +64,10 @@ struct Mavsdk_Rpc_Param_SetIntParamRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the parameter to set
   var name: String = String()
 
+  /// Value the parameter should be set to
   var value: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -97,6 +101,7 @@ struct Mavsdk_Rpc_Param_GetFloatParamRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the parameter
   var name: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -118,6 +123,7 @@ struct Mavsdk_Rpc_Param_GetFloatParamResponse {
   /// Clears the value of `paramResult`. Subsequent reads from it will return its default value.
   mutating func clearParamResult() {_uniqueStorage()._paramResult = nil}
 
+  /// Value of the requested parameter
   var value: Float {
     get {return _storage._value}
     set {_uniqueStorage()._value = newValue}
@@ -135,8 +141,10 @@ struct Mavsdk_Rpc_Param_SetFloatParamRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the parameter to set
   var name: String = String()
 
+  /// Value the parameter should be set to
   var value: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -165,24 +173,40 @@ struct Mavsdk_Rpc_Param_SetFloatParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Param_ParamResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Param_ParamResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for param requests.
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// Request succeeded
     case success // = 1
+
+    /// Request timed out
     case timeout // = 2
+
+    /// Connection error
     case connectionError // = 3
+
+    /// Wrong type
     case wrongType // = 4
+
+    /// Parameter name too long (> 16)
     case paramNameTooLong // = 5
     case UNRECOGNIZED(Int)
 

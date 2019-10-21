@@ -34,6 +34,7 @@ struct Mavsdk_Rpc_Core_ConnectionStateResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Connection state
   var connectionState: Mavsdk_Rpc_Core_ConnectionState {
     get {return _storage._connectionState ?? Mavsdk_Rpc_Core_ConnectionState()}
     set {_uniqueStorage()._connectionState = newValue}
@@ -65,6 +66,7 @@ struct Mavsdk_Rpc_Core_ListRunningPluginsResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Plugin info
   var pluginInfo: [Mavsdk_Rpc_Core_PluginInfo] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -72,13 +74,16 @@ struct Mavsdk_Rpc_Core_ListRunningPluginsResponse {
   init() {}
 }
 
+/// Connection state type.
 struct Mavsdk_Rpc_Core_ConnectionState {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// UUID of the vehicle
   var uuid: UInt64 = 0
 
+  /// Whether the vehicle got connected or disconnected
   var isConnected: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -86,15 +91,19 @@ struct Mavsdk_Rpc_Core_ConnectionState {
   init() {}
 }
 
+/// Plugin info type.
 struct Mavsdk_Rpc_Core_PluginInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the plugin
   var name: String = String()
 
+  /// Address where the plugin is running
   var address: String = String()
 
+  /// Port where the plugin is running
   var port: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()

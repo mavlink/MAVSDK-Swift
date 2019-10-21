@@ -19,10 +19,17 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// Camera mode type.
 enum Mavsdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
+
+  /// Unknown
   case unknown // = 0
+
+  /// Photo mode
   case photo // = 1
+
+  /// Video mode
   case video // = 2
   case UNRECOGNIZED(Int)
 
@@ -99,6 +106,7 @@ struct Mavsdk_Rpc_Camera_StartPhotoIntervalRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Interval between photos (in seconds)
   var intervalS: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -287,6 +295,7 @@ struct Mavsdk_Rpc_Camera_SetModeRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Camera mode to set
   var cameraMode: Mavsdk_Rpc_Camera_CameraMode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -330,6 +339,7 @@ struct Mavsdk_Rpc_Camera_ModeResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Camera mode
   var cameraMode: Mavsdk_Rpc_Camera_CameraMode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -352,6 +362,7 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfoResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Video stream info
   var videoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo {
     get {return _storage._videoStreamInfo ?? Mavsdk_Rpc_Camera_VideoStreamInfo()}
     set {_uniqueStorage()._videoStreamInfo = newValue}
@@ -383,6 +394,7 @@ struct Mavsdk_Rpc_Camera_CaptureInfoResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Capture info
   var captureInfo: Mavsdk_Rpc_Camera_CaptureInfo {
     get {return _storage._captureInfo ?? Mavsdk_Rpc_Camera_CaptureInfo()}
     set {_uniqueStorage()._captureInfo = newValue}
@@ -414,6 +426,7 @@ struct Mavsdk_Rpc_Camera_CameraStatusResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Camera status
   var cameraStatus: Mavsdk_Rpc_Camera_CameraStatus {
     get {return _storage._cameraStatus ?? Mavsdk_Rpc_Camera_CameraStatus()}
     set {_uniqueStorage()._cameraStatus = newValue}
@@ -445,6 +458,7 @@ struct Mavsdk_Rpc_Camera_CurrentSettingsResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// List of current settings
   var currentSettings: [Mavsdk_Rpc_Camera_Setting] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -467,6 +481,7 @@ struct Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// List of settings that can be changed
   var settingOptions: [Mavsdk_Rpc_Camera_SettingOptions] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -479,6 +494,7 @@ struct Mavsdk_Rpc_Camera_SetSettingRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Desired setting
   var setting: Mavsdk_Rpc_Camera_Setting {
     get {return _storage._setting ?? Mavsdk_Rpc_Camera_Setting()}
     set {_uniqueStorage()._setting = newValue}
@@ -516,26 +532,46 @@ struct Mavsdk_Rpc_Camera_SetSettingResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Camera_CameraResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Camera_CameraResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for camera commands
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// Command executed successfully
     case success // = 1
+
+    /// Command in progress
     case inProgress // = 2
+
+    /// Camera is busy and rejected command
     case busy // = 3
+
+    /// Camera denied the command
     case denied // = 4
+
+    /// An error has occured while executing the command
     case error // = 5
+
+    /// Command timed out
     case timeout // = 6
+
+    /// Command has wrong argument(s)
     case wrongArgument // = 7
     case UNRECOGNIZED(Int)
 
@@ -594,11 +630,13 @@ extension Mavsdk_Rpc_Camera_CameraResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Information about a picture just captured.
 struct Mavsdk_Rpc_Camera_CaptureInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Location where the picture was taken
   var position: Mavsdk_Rpc_Camera_Position {
     get {return _storage._position ?? Mavsdk_Rpc_Camera_Position()}
     set {_uniqueStorage()._position = newValue}
@@ -608,6 +646,7 @@ struct Mavsdk_Rpc_Camera_CaptureInfo {
   /// Clears the value of `position`. Subsequent reads from it will return its default value.
   mutating func clearPosition() {_uniqueStorage()._position = nil}
 
+  /// Attitude of the camera when the picture was taken (quaternion)
   var attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion {
     get {return _storage._attitudeQuaternion ?? Mavsdk_Rpc_Camera_Quaternion()}
     set {_uniqueStorage()._attitudeQuaternion = newValue}
@@ -617,6 +656,7 @@ struct Mavsdk_Rpc_Camera_CaptureInfo {
   /// Clears the value of `attitudeQuaternion`. Subsequent reads from it will return its default value.
   mutating func clearAttitudeQuaternion() {_uniqueStorage()._attitudeQuaternion = nil}
 
+  /// Attitude of the camera when the picture was taken (euler angle)
   var attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle {
     get {return _storage._attitudeEulerAngle ?? Mavsdk_Rpc_Camera_EulerAngle()}
     set {_uniqueStorage()._attitudeEulerAngle = newValue}
@@ -626,21 +666,25 @@ struct Mavsdk_Rpc_Camera_CaptureInfo {
   /// Clears the value of `attitudeEulerAngle`. Subsequent reads from it will return its default value.
   mutating func clearAttitudeEulerAngle() {_uniqueStorage()._attitudeEulerAngle = nil}
 
+  /// Timestamp in UTC (since UNIX epoch) in microseconds
   var timeUtcUs: UInt64 {
     get {return _storage._timeUtcUs}
     set {_uniqueStorage()._timeUtcUs = newValue}
   }
 
+  /// True if the capture was successful
   var isSuccess: Bool {
     get {return _storage._isSuccess}
     set {_uniqueStorage()._isSuccess = newValue}
   }
 
+  /// Zero-based index of this image since vehicle was armed
   var index: Int32 {
     get {return _storage._index}
     set {_uniqueStorage()._index = newValue}
   }
 
+  /// Download URL of this image
   var fileURL: String {
     get {return _storage._fileURL}
     set {_uniqueStorage()._fileURL = newValue}
@@ -653,17 +697,22 @@ struct Mavsdk_Rpc_Camera_CaptureInfo {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Position type in global coordinates.
 struct Mavsdk_Rpc_Camera_Position {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Latitude in degrees (range: -90 to +90)
   var latitudeDeg: Double = 0
 
+  /// Longitude in degrees (range: -180 to +180)
   var longitudeDeg: Double = 0
 
+  /// Altitude AMSL (above mean sea level) in metres
   var absoluteAltitudeM: Float = 0
 
+  /// Altitude relative to takeoff altitude in metres
   var relativeAltitudeM: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -671,17 +720,30 @@ struct Mavsdk_Rpc_Camera_Position {
   init() {}
 }
 
+///
+/// Quaternion type.
+///
+/// All rotations and axis systems follow the right-hand rule.
+/// The Hamilton quaternion product definition is used.
+/// A zero-rotation quaternion is represented by (1,0,0,0).
+/// The quaternion could also be written as w + xi + yj + zk.
+///
+/// For more info see: https://en.wikipedia.org/wiki/Quaternion
 struct Mavsdk_Rpc_Camera_Quaternion {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Quaternion entry 0, also denoted as a
   var w: Float = 0
 
+  /// Quaternion entry 1, also denoted as b
   var x: Float = 0
 
+  /// Quaternion entry 2, also denoted as c
   var y: Float = 0
 
+  /// Quaternion entry 3, also denoted as d
   var z: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -689,15 +751,25 @@ struct Mavsdk_Rpc_Camera_Quaternion {
   init() {}
 }
 
+///
+/// Euler angle type.
+///
+/// All rotations and axis systems follow the right-hand rule.
+/// The Euler angles follow the convention of a 3-2-1 intrinsic Tait-Bryan rotation sequence.
+///
+/// For more info see https://en.wikipedia.org/wiki/Euler_angles
 struct Mavsdk_Rpc_Camera_EulerAngle {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Roll angle in degrees, positive is banking to the right
   var rollDeg: Float = 0
 
+  /// Pitch angle in degrees, positive is pitching nose up
   var pitchDeg: Float = 0
 
+  /// Yaw angle in degrees, positive is clock-wise seen from above
   var yawDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -705,21 +777,28 @@ struct Mavsdk_Rpc_Camera_EulerAngle {
   init() {}
 }
 
+/// Type for video stream settings.
 struct Mavsdk_Rpc_Camera_VideoStreamSettings {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Frames per second
   var frameRateHz: Float = 0
 
+  /// Horizontal resolution (in pixels)
   var horizontalResolutionPix: UInt32 = 0
 
+  /// Vertical resolution (in pixels)
   var verticalResolutionPix: UInt32 = 0
 
+  /// Bit rate (in bits per second)
   var bitRateBS: UInt32 = 0
 
+  /// Video image rotation (clockwise, 0-359 degrees)
   var rotationDeg: UInt32 = 0
 
+  /// Video stream URI
   var uri: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -727,11 +806,13 @@ struct Mavsdk_Rpc_Camera_VideoStreamSettings {
   init() {}
 }
 
+/// Information about the video stream.
 struct Mavsdk_Rpc_Camera_VideoStreamInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Video stream settings
   var videoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings {
     get {return _storage._videoStreamSettings ?? Mavsdk_Rpc_Camera_VideoStreamSettings()}
     set {_uniqueStorage()._videoStreamSettings = newValue}
@@ -741,6 +822,7 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
   /// Clears the value of `videoStreamSettings`. Subsequent reads from it will return its default value.
   mutating func clearVideoStreamSettings() {_uniqueStorage()._videoStreamSettings = nil}
 
+  /// Current status of video streaming
   var videoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
     get {return _storage._videoStreamStatus}
     set {_uniqueStorage()._videoStreamStatus = newValue}
@@ -750,7 +832,11 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
 
   enum VideoStreamStatus: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Video stream is not running.
     case notRunning // = 0
+
+    /// Video stream is running.
     case inProgress // = 1
     case UNRECOGNIZED(Int)
 
@@ -793,6 +879,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Information about the camera status.
 struct Mavsdk_Rpc_Camera_CameraStatus {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -802,24 +889,37 @@ struct Mavsdk_Rpc_Camera_CameraStatus {
 
   var photoIntervalOn: Bool = false
 
+  /// Used storage (in MiB)
   var usedStorageMib: Float = 0
 
+  /// Available storage (in MiB)
   var availableStorageMib: Float = 0
 
+  /// Total storage (in MiB)
   var totalStorageMib: Float = 0
 
+  /// Elapsed time since starting the video recording (in seconds)
   var recordingTimeS: Float = 0
 
+  /// Current folder name where media are saved
   var mediaFolderName: String = String()
 
+  /// Storage status
   var storageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus = .notAvailable
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Storage status type.
   enum StorageStatus: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Status not available
     case notAvailable // = 0
+
+    /// Storage is not formatted (i.e. has no recognized file system)
     case unformatted // = 1
+
+    /// Storage is formatted (i.e. has recognized a file system)
     case formatted // = 2
     case UNRECOGNIZED(Int)
 
@@ -863,21 +963,25 @@ extension Mavsdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Type to represent a setting with a selected option.
 struct Mavsdk_Rpc_Camera_Setting {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of a setting (machine readable)
   var settingID: String {
     get {return _storage._settingID}
     set {_uniqueStorage()._settingID = newValue}
   }
 
+  /// Description of the setting (human readable)
   var settingDescription: String {
     get {return _storage._settingDescription}
     set {_uniqueStorage()._settingDescription = newValue}
   }
 
+  /// Selected option
   var option: Mavsdk_Rpc_Camera_Option {
     get {return _storage._option ?? Mavsdk_Rpc_Camera_Option()}
     set {_uniqueStorage()._option = newValue}
@@ -894,13 +998,16 @@ struct Mavsdk_Rpc_Camera_Setting {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Type to represent a setting option.
 struct Mavsdk_Rpc_Camera_Option {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the option (machine readable)
   var optionID: String = String()
 
+  /// Description of the option (human readable)
   var optionDescription: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -908,15 +1015,19 @@ struct Mavsdk_Rpc_Camera_Option {
   init() {}
 }
 
+/// Type to represent a setting with a list of options to choose from.
 struct Mavsdk_Rpc_Camera_SettingOptions {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of the setting (machine readable)
   var settingID: String = String()
 
+  /// Description of the setting (human readable)
   var settingDescription: String = String()
 
+  /// List of options
   var options: [Mavsdk_Rpc_Camera_Option] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()

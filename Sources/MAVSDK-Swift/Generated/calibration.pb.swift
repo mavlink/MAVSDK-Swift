@@ -43,6 +43,7 @@ struct Mavsdk_Rpc_Calibration_CalibrateGyroResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
+  /// Progress data
   var progressData: Mavsdk_Rpc_Calibration_ProgressData {
     get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
@@ -83,6 +84,7 @@ struct Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
+  /// Progress data
   var progressData: Mavsdk_Rpc_Calibration_ProgressData {
     get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
@@ -123,6 +125,7 @@ struct Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
+  /// Progress data
   var progressData: Mavsdk_Rpc_Calibration_ProgressData {
     get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
@@ -163,6 +166,7 @@ struct Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse {
   /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
   mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
 
+  /// Progress data
   var progressData: Mavsdk_Rpc_Calibration_ProgressData {
     get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
     set {_uniqueStorage()._progressData = newValue}
@@ -199,29 +203,55 @@ struct Mavsdk_Rpc_Calibration_CancelResponse {
   init() {}
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Calibration_CalibrationResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Calibration_CalibrationResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for calibration commands
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// The calibration process succeeded
     case success // = 1
+
+    /// Intermediate message showing progress of the calibration process
     case inProgress // = 2
+
+    /// Intermediate message giving instructions on the next steps required by the process
     case instruction // = 3
+
+    /// Calibration failed
     case failed // = 4
+
+    /// No system is connected
     case noSystem // = 5
+
+    /// Connection error
     case connectionError // = 6
+
+    /// Vehicle is busy
     case busy // = 7
+
+    /// Command refused by vehicle
     case commandDenied // = 8
+
+    /// Command timed out
     case timeout // = 9
+
+    /// Calibration process got cancelled
     case cancelled // = 10
     case UNRECOGNIZED(Int)
 
@@ -289,6 +319,10 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+///
+/// Progress data coming from calibration.
+///
+/// Can be a progress percentage, or an instruction text.
 struct Mavsdk_Rpc_Calibration_ProgressData {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -296,10 +330,12 @@ struct Mavsdk_Rpc_Calibration_ProgressData {
 
   var hasProgress_p: Bool = false
 
+  /// Progress (percentage)
   var progress: Float = 0
 
   var hasStatusText_p: Bool = false
 
+  /// Instruction text
   var statusText: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
