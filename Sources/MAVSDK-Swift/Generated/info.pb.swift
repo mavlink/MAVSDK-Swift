@@ -19,27 +19,37 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// System version information.
 struct Mavsdk_Rpc_Info_Version {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Flight software major version
   var flightSwMajor: Int32 = 0
 
+  /// Flight software minor version
   var flightSwMinor: Int32 = 0
 
+  /// Flight software patch version
   var flightSwPatch: Int32 = 0
 
+  /// Flight software vendor major version
   var flightSwVendorMajor: Int32 = 0
 
+  /// Flight software vendor minor version
   var flightSwVendorMinor: Int32 = 0
 
+  /// Flight software vendor patch version
   var flightSwVendorPatch: Int32 = 0
 
+  /// Operating system software major version
   var osSwMajor: Int32 = 0
 
+  /// Operating system software minor version
   var osSwMinor: Int32 = 0
 
+  /// Operating system software patch version
   var osSwPatch: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -71,6 +81,7 @@ struct Mavsdk_Rpc_Info_GetVersionResponse {
   /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
   mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
 
+  /// Version information about the system
   var version: Mavsdk_Rpc_Info_Version {
     get {return _storage._version ?? Mavsdk_Rpc_Info_Version()}
     set {_uniqueStorage()._version = newValue}
@@ -87,21 +98,31 @@ struct Mavsdk_Rpc_Info_GetVersionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Info_InfoResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Info_InfoResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for info requests.
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// Request succeeded
     case success // = 1
+
+    /// Information has not been received yet
     case informationNotReceivedYet // = 2
     case UNRECOGNIZED(Int)
 

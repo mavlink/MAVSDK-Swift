@@ -96,6 +96,7 @@ struct Mavsdk_Rpc_Offboard_IsActiveResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// True if offboard is active
   var isActive: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -108,6 +109,7 @@ struct Mavsdk_Rpc_Offboard_SetAttitudeRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Attitude roll, pitch and yaw along with thrust
   var attitude: Mavsdk_Rpc_Offboard_Attitude {
     get {return _storage._attitude ?? Mavsdk_Rpc_Offboard_Attitude()}
     set {_uniqueStorage()._attitude = newValue}
@@ -139,6 +141,7 @@ struct Mavsdk_Rpc_Offboard_SetActuatorControlRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Actuator control values
   var actuatorControl: Mavsdk_Rpc_Offboard_ActuatorControl {
     get {return _storage._actuatorControl ?? Mavsdk_Rpc_Offboard_ActuatorControl()}
     set {_uniqueStorage()._actuatorControl = newValue}
@@ -170,6 +173,7 @@ struct Mavsdk_Rpc_Offboard_SetAttitudeRateRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Attitude rate roll, pitch and yaw angular rate along with thrust
   var attitudeRate: Mavsdk_Rpc_Offboard_AttitudeRate {
     get {return _storage._attitudeRate ?? Mavsdk_Rpc_Offboard_AttitudeRate()}
     set {_uniqueStorage()._attitudeRate = newValue}
@@ -201,6 +205,7 @@ struct Mavsdk_Rpc_Offboard_SetPositionNedRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Position and yaw
   var positionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw {
     get {return _storage._positionNedYaw ?? Mavsdk_Rpc_Offboard_PositionNedYaw()}
     set {_uniqueStorage()._positionNedYaw = newValue}
@@ -232,6 +237,7 @@ struct Mavsdk_Rpc_Offboard_SetVelocityBodyRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Velocity and yaw angular rate
   var velocityBodyYawspeed: Mavsdk_Rpc_Offboard_VelocityBodyYawspeed {
     get {return _storage._velocityBodyYawspeed ?? Mavsdk_Rpc_Offboard_VelocityBodyYawspeed()}
     set {_uniqueStorage()._velocityBodyYawspeed = newValue}
@@ -263,6 +269,7 @@ struct Mavsdk_Rpc_Offboard_SetVelocityNedRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Velocity and yaw
   var velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw {
     get {return _storage._velocityNedYaw ?? Mavsdk_Rpc_Offboard_VelocityNedYaw()}
     set {_uniqueStorage()._velocityNedYaw = newValue}
@@ -289,17 +296,22 @@ struct Mavsdk_Rpc_Offboard_SetVelocityNedResponse {
   init() {}
 }
 
+/// Type for attitude body angles in NED reference frame (roll, pitch, yaw and thrust)
 struct Mavsdk_Rpc_Offboard_Attitude {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Roll angle (in degrees, positive is right side down)
   var rollDeg: Float = 0
 
+  /// Pitch angle (in degrees, positive is nose up)
   var pitchDeg: Float = 0
 
+  /// Yaw angle (in degrees, positive is move nose to the right)
   var yawDeg: Float = 0
 
+  /// Thrust (range: 0 to 1)
   var thrustValue: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -307,11 +319,15 @@ struct Mavsdk_Rpc_Offboard_Attitude {
   init() {}
 }
 
+///
+/// Eight controls that will be given to the group. Each control is a normalized
+/// (-1..+1) command value, which will be mapped and scaled through the mixer.
 struct Mavsdk_Rpc_Offboard_ActuatorControlGroup {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Controls in the group
   var controls: [Float] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -319,11 +335,28 @@ struct Mavsdk_Rpc_Offboard_ActuatorControlGroup {
   init() {}
 }
 
+///
+/// Type for actuator control.
+///
+/// Control members should be normed to -1..+1 where 0 is neutral position.
+/// Throttle for single rotation direction motors is 0..1, negative range for reverse direction.
+///
+/// One group support eight controls.
+///
+/// Up to 16 actuator controls can be set. To ignore an output group, set all it conrols to NaN.
+/// If one or more controls in group is not NaN, then all NaN controls will sent as zero.
+/// The first 8 actuator controls internally map to control group 0, the latter 8 actuator
+/// controls map to control group 1. Depending on what controls are set (instead of NaN) 1 or 2
+/// MAVLink messages are actually sent.
+///
+/// In PX4 v1.9.0 Only first four Control Groups are supported
+/// (https://github.com/PX4/Firmware/blob/v1.9.0/src/modules/mavlink/mavlink_receiver.cpp#L980).
 struct Mavsdk_Rpc_Offboard_ActuatorControl {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Control groups.
   var groups: [Mavsdk_Rpc_Offboard_ActuatorControlGroup] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -331,17 +364,22 @@ struct Mavsdk_Rpc_Offboard_ActuatorControl {
   init() {}
 }
 
+/// Type for attitude rate commands in body coordinates (roll, pitch, yaw angular rate and thrust)
 struct Mavsdk_Rpc_Offboard_AttitudeRate {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Roll angular rate (in degrees/second, positive for clock-wise looking from front)
   var rollDegS: Float = 0
 
+  /// Pitch angular rate (in degrees/second, positive for head/front moving up)
   var pitchDegS: Float = 0
 
+  /// Yaw angular rate (in degrees/second, positive for clock-wise looking from above)
   var yawDegS: Float = 0
 
+  /// Thrust (range: 0 to 1)
   var thrustValue: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -349,17 +387,22 @@ struct Mavsdk_Rpc_Offboard_AttitudeRate {
   init() {}
 }
 
+/// Type for position commands in NED (North East Down) coordinates and yaw.
 struct Mavsdk_Rpc_Offboard_PositionNedYaw {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Position North (in metres)
   var northM: Float = 0
 
+  /// Position East (in metres)
   var eastM: Float = 0
 
+  /// Position Down (in metres)
   var downM: Float = 0
 
+  /// Yaw in degrees (0 North, positive is clock-wise looking from above)
   var yawDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -367,17 +410,22 @@ struct Mavsdk_Rpc_Offboard_PositionNedYaw {
   init() {}
 }
 
+/// Type for velocity commands in body coordinates.
 struct Mavsdk_Rpc_Offboard_VelocityBodyYawspeed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Velocity forward (in metres/second)
   var forwardMS: Float = 0
 
+  /// Velocity right (in metres/second)
   var rightMS: Float = 0
 
+  /// Velocity down (in metres/second)
   var downMS: Float = 0
 
+  /// Yaw angular rate (in degrees/second, positive for clock-wise looking from above)
   var yawspeedDegS: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -385,17 +433,22 @@ struct Mavsdk_Rpc_Offboard_VelocityBodyYawspeed {
   init() {}
 }
 
+/// Type for velocity commands in NED (North East Down) coordinates and yaw.
 struct Mavsdk_Rpc_Offboard_VelocityNedYaw {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Velocity North (in metres/second)
   var northMS: Float = 0
 
+  /// Velocity East (in metres/second)
   var eastMS: Float = 0
 
+  /// Velocity Down (in metres/second)
   var downMS: Float = 0
 
+  /// Yaw in degrees (0 North, positive is clock-wise looking from above)
   var yawDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -403,26 +456,46 @@ struct Mavsdk_Rpc_Offboard_VelocityNedYaw {
   init() {}
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Offboard_OffboardResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Offboard_OffboardResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for offboard requests
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// Request succeeded
     case success // = 1
+
+    /// No system is connected
     case noSystem // = 2
+
+    /// Connection error
     case connectionError // = 3
+
+    /// Vehicle is busy
     case busy // = 4
+
+    /// Command denied
     case commandDenied // = 5
+
+    /// Request timed out
     case timeout // = 6
+
+    /// Cannot start without setpoint set
     case noSetpointSet // = 7
     case UNRECOGNIZED(Int)
 

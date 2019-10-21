@@ -73,6 +73,22 @@ fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallB
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir" }
 }
 
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_LandedStateResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_LandedStateResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_LandedStateResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState" }
+}
+
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ArmedResponse?
@@ -119,6 +135,22 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCa
 
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler" }
+}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody" }
 }
 
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall: ClientCallServerStreaming {
@@ -265,6 +297,54 @@ fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusText
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText" }
 }
 
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget" }
+}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus" }
+}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_OdometryResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_OdometryResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_OdometryResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry" }
+}
+
 
 /// Instantiate Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
@@ -286,6 +366,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
+  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
   func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall
 
   /// Asynchronous. Server-streaming.
@@ -297,6 +382,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
   func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
@@ -343,6 +433,21 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
   /// Use methods on the returned object to get streamed responses.
   func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall
 
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall
+
 }
 
 internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
@@ -362,6 +467,11 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
   }
 
   /// Asynchronous. Server-streaming.
+  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
+    return try self.subscribeLandedState(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
   func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
     return try self.subscribeArmed(request, metadata: self.metadata, completion: completion)
   }
@@ -374,6 +484,11 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
   /// Asynchronous. Server-streaming.
   func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
     return try self.subscribeAttitudeEuler(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
+    return try self.subscribeAttitudeAngularVelocityBody(request, metadata: self.metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
@@ -421,6 +536,21 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
     return try self.subscribeStatusText(request, metadata: self.metadata, completion: completion)
   }
 
+  /// Asynchronous. Server-streaming.
+  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
+    return try self.subscribeActuatorControlTarget(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
+    return try self.subscribeActuatorOutputStatus(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
+    return try self.subscribeOdometry(request, metadata: self.metadata, completion: completion)
+  }
+
 }
 
 internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Telemetry_TelemetryServiceService {
@@ -451,6 +581,14 @@ internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: Service
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
+  internal func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
   internal func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
     return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
@@ -469,6 +607,14 @@ internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: Service
   /// Use methods on the returned object to get streamed responses.
   internal func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
     return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  internal func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -544,6 +690,30 @@ internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: Service
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  internal func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  internal func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  internal func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
 }
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_PositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
@@ -558,6 +728,10 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallTestStub: ClientCal
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir" }
 }
 
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState" }
+}
+
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ArmedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed" }
 }
@@ -568,6 +742,10 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallTestSt
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler" }
+}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody" }
 }
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
@@ -606,6 +784,18 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCallTestStub: Clie
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText" }
 }
 
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget" }
+}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus" }
+}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry" }
+}
+
 class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Telemetry_TelemetryServiceService {
   var subscribePositionRequests: [Mavsdk_Rpc_Telemetry_SubscribePositionRequest] = []
   var subscribePositionCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall] = []
@@ -631,6 +821,14 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStu
     return subscribeInAirCalls.first!
   }
 
+  var subscribeLandedStateRequests: [Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest] = []
+  var subscribeLandedStateCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall] = []
+  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
+    subscribeLandedStateRequests.append(request)
+    defer { subscribeLandedStateCalls.removeFirst() }
+    return subscribeLandedStateCalls.first!
+  }
+
   var subscribeArmedRequests: [Mavsdk_Rpc_Telemetry_SubscribeArmedRequest] = []
   var subscribeArmedCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall] = []
   func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
@@ -653,6 +851,14 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStu
     subscribeAttitudeEulerRequests.append(request)
     defer { subscribeAttitudeEulerCalls.removeFirst() }
     return subscribeAttitudeEulerCalls.first!
+  }
+
+  var subscribeAttitudeAngularVelocityBodyRequests: [Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest] = []
+  var subscribeAttitudeAngularVelocityBodyCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall] = []
+  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
+    subscribeAttitudeAngularVelocityBodyRequests.append(request)
+    defer { subscribeAttitudeAngularVelocityBodyCalls.removeFirst() }
+    return subscribeAttitudeAngularVelocityBodyCalls.first!
   }
 
   var subscribeCameraAttitudeQuaternionRequests: [Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest] = []
@@ -727,6 +933,30 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStu
     return subscribeStatusTextCalls.first!
   }
 
+  var subscribeActuatorControlTargetRequests: [Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest] = []
+  var subscribeActuatorControlTargetCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall] = []
+  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
+    subscribeActuatorControlTargetRequests.append(request)
+    defer { subscribeActuatorControlTargetCalls.removeFirst() }
+    return subscribeActuatorControlTargetCalls.first!
+  }
+
+  var subscribeActuatorOutputStatusRequests: [Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest] = []
+  var subscribeActuatorOutputStatusCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall] = []
+  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
+    subscribeActuatorOutputStatusRequests.append(request)
+    defer { subscribeActuatorOutputStatusCalls.removeFirst() }
+    return subscribeActuatorOutputStatusCalls.first!
+  }
+
+  var subscribeOdometryRequests: [Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest] = []
+  var subscribeOdometryCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall] = []
+  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
+    subscribeOdometryRequests.append(request)
+    defer { subscribeOdometryCalls.removeFirst() }
+    return subscribeOdometryCalls.first!
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -736,9 +966,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: ServiceProvider
   func subscribePosition(request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSession) throws -> ServerStatus?
   func subscribeHome(request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSession) throws -> ServerStatus?
   func subscribeInAir(request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession) throws -> ServerStatus?
+  func subscribeLandedState(request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession) throws -> ServerStatus?
   func subscribeArmed(request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession) throws -> ServerStatus?
   func subscribeAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSession) throws -> ServerStatus?
   func subscribeAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession) throws -> ServerStatus?
+  func subscribeAttitudeAngularVelocityBody(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession) throws -> ServerStatus?
   func subscribeCameraAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession) throws -> ServerStatus?
   func subscribeCameraAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession) throws -> ServerStatus?
   func subscribeGroundSpeedNed(request: Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundSpeedNedSession) throws -> ServerStatus?
@@ -748,6 +980,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: ServiceProvider
   func subscribeHealth(request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession) throws -> ServerStatus?
   func subscribeRcStatus(request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession) throws -> ServerStatus?
   func subscribeStatusText(request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession) throws -> ServerStatus?
+  func subscribeActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession) throws -> ServerStatus?
+  func subscribeActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession) throws -> ServerStatus?
+  func subscribeOdometry(request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession) throws -> ServerStatus?
 }
 
 extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
@@ -772,6 +1007,11 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         handler: handler,
         providerBlock: { try self.subscribeInAir(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessionBase) })
           .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeLandedState(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionBase) })
+          .run()
     case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed":
       return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSessionBase(
         handler: handler,
@@ -786,6 +1026,11 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
       return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionBase(
         handler: handler,
         providerBlock: { try self.subscribeAttitudeEuler(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionBase) })
+          .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeAttitudeAngularVelocityBody(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionBase) })
           .run()
     case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion":
       return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSessionBase(
@@ -831,6 +1076,21 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
       return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionBase(
         handler: handler,
         providerBlock: { try self.subscribeStatusText(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionBase) })
+          .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeActuatorControlTarget(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionBase) })
+          .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeActuatorOutputStatus(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionBase) })
+          .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeOdometry(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -901,6 +1161,27 @@ fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessi
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_InAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession {}
 
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_LandedStateResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Telemetry_LandedStateResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_LandedStateResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession {}
+
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
   func send(_ message: Mavsdk_Rpc_Telemetry_ArmedResponse, completion: @escaping (Error?) -> Void) throws
@@ -963,6 +1244,27 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSe
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession {}
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession {}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession {}
 
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
@@ -1152,4 +1454,67 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessi
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession {}
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_StatusTextResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession {}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession {}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession {}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_OdometryResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Telemetry_OdometryResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_OdometryResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession {}
 

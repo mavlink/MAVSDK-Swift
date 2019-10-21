@@ -71,22 +71,22 @@ public class Gimbal {
         
 
         public enum Result: Equatable {
+            case unknown
             case success
             case error
             case timeout
-            case unknown
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Gimbal_GimbalResult.Result {
                 switch self {
+                case .unknown:
+                    return .unknown
                 case .success:
                     return .success
                 case .error:
                     return .error
                 case .timeout:
                     return .timeout
-                case .unknown:
-                    return .unknown
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -94,14 +94,14 @@ public class Gimbal {
 
             internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Gimbal_GimbalResult.Result) -> Result {
                 switch rpcResult {
+                case .unknown:
+                    return .unknown
                 case .success:
                     return .success
                 case .error:
                     return .error
                 case .timeout:
                     return .timeout
-                case .unknown:
-                    return .unknown
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

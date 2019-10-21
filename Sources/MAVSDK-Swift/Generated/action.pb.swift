@@ -322,6 +322,7 @@ struct Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse {
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
   mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
+  /// Takeoff altitude relative to ground/takeoff location (in meters)
   var altitude: Float {
     get {return _storage._altitude}
     set {_uniqueStorage()._altitude = newValue}
@@ -339,6 +340,7 @@ struct Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Takeoff altitude relative to ground/takeoff location (in meters)
   var altitude: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -391,6 +393,7 @@ struct Mavsdk_Rpc_Action_GetMaximumSpeedResponse {
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
   mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
+  /// Maximum speed (in metres/second)
   var speed: Float {
     get {return _storage._speed}
     set {_uniqueStorage()._speed = newValue}
@@ -408,6 +411,7 @@ struct Mavsdk_Rpc_Action_SetMaximumSpeedRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Maximum speed (in metres/second)
   var speed: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -460,6 +464,7 @@ struct Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse {
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
   mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
 
+  /// Return altitude relative to takeoff location (in meters)
   var relativeAltitudeM: Float {
     get {return _storage._relativeAltitudeM}
     set {_uniqueStorage()._relativeAltitudeM = newValue}
@@ -477,6 +482,7 @@ struct Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Return altitude relative to takeoff location (in meters)
   var relativeAltitudeM: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -505,30 +511,58 @@ struct Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Action_ActionResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Action_ActionResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for action requests.
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// Success: the action command was accepted by the vehicle
     case success // = 1
+
+    /// No system is connected
     case noSystem // = 2
+
+    /// Connection error
     case connectionError // = 3
+
+    /// Vehicle is busy
     case busy // = 4
+
+    /// Command refused by vehicle
     case commandDenied // = 5
+
+    /// Command refused because landed state is unknown
     case commandDeniedLandedStateUnknown // = 6
+
+    /// Command refused because vehicle not landed
     case commandDeniedNotLanded // = 7
+
+    /// Request timed out
     case timeout // = 8
+
+    /// Hybrid/VTOL transition refused because VTOL support is unknown
     case vtolTransitionSupportUnknown // = 9
+
+    /// Vehicle does not support hybrid/VTOL transitions
     case noVtolTransitionSupport // = 10
+
+    /// Error getting or setting parameter
     case parameterError // = 11
     case UNRECOGNIZED(Int)
 

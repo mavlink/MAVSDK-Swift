@@ -24,6 +24,7 @@ struct Mavsdk_Rpc_Mission_UploadMissionRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// List of mission items
   var missionItems: [Mavsdk_Rpc_Mission_MissionItem] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -96,6 +97,7 @@ struct Mavsdk_Rpc_Mission_DownloadMissionResponse {
   /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
   mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
 
+  /// List of downloaded mission items
   var missionItems: [Mavsdk_Rpc_Mission_MissionItem] {
     get {return _storage._missionItems}
     set {_uniqueStorage()._missionItems = newValue}
@@ -226,6 +228,7 @@ struct Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Index of the mission item to be set as the next one (0-based)
   var index: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -269,6 +272,7 @@ struct Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// True if the mission is finished and the last mission item has been reached
   var isFinished: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -291,6 +295,7 @@ struct Mavsdk_Rpc_Mission_MissionProgressResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Mission progress
   var missionProgress: Mavsdk_Rpc_Mission_MissionProgress {
     get {return _storage._missionProgress ?? Mavsdk_Rpc_Mission_MissionProgress()}
     set {_uniqueStorage()._missionProgress = newValue}
@@ -322,6 +327,7 @@ struct Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// If true, trigger an RTL at the end of the mission
   var enable: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -334,6 +340,7 @@ struct Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// If true, trigger an RTL at the end of the mission
   var enable: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -351,40 +358,70 @@ struct Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
   init() {}
 }
 
+///
+/// Type representing a mission item.
+///
+/// A MissionItem can contain a position and/or actions.
+/// Mission items are building blocks to assemble a mission,
+/// which can be sent to (or received from) a system.
+/// They cannot be used independently.
 struct Mavsdk_Rpc_Mission_MissionItem {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Latitude in degrees (range: -90 to +90)
   var latitudeDeg: Double = 0
 
+  /// Longitude in degrees (range: -180 to +180)
   var longitudeDeg: Double = 0
 
+  /// Altitude relative to takeoff altitude in metres
   var relativeAltitudeM: Float = 0
 
+  /// Speed to use after this mission item (in metres/second)
   var speedMS: Float = 0
 
+  /// True will make the drone fly through without stopping, while false will make the drone stop on the waypoint
   var isFlyThrough: Bool = false
 
+  /// Gimbal pitch (in degrees)
   var gimbalPitchDeg: Float = 0
 
+  /// Gimbal yaw (in degrees)
   var gimbalYawDeg: Float = 0
 
+  /// Camera action to trigger at this mission item
   var cameraAction: Mavsdk_Rpc_Mission_MissionItem.CameraAction = .none
 
+  /// Loiter time (in seconds)
   var loiterTimeS: Float = 0
 
+  /// Camera photo interval to use after this mission item (in seconds)
   var cameraPhotoIntervalS: Double = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible camera actions at a mission item.
   enum CameraAction: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// No action
     case none // = 0
+
+    /// Take a single photo
     case takePhoto // = 1
+
+    /// Start capturing photos at regular intervals
     case startPhotoInterval // = 2
+
+    /// Stop capturing photos at regular intervals
     case stopPhotoInterval // = 3
+
+    /// Start capturing video
     case startVideo // = 4
+
+    /// Stop capturing video
     case stopVideo // = 5
     case UNRECOGNIZED(Int)
 
@@ -437,13 +474,16 @@ extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Mission progress type.
 struct Mavsdk_Rpc_Mission_MissionProgress {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Current mission item index (0-based)
   var currentItemIndex: Int32 = 0
 
+  /// Total number of mission items
   var missionCount: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -451,31 +491,61 @@ struct Mavsdk_Rpc_Mission_MissionProgress {
   init() {}
 }
 
+/// Result type.
 struct Mavsdk_Rpc_Mission_MissionResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Result enum value
   var result: Mavsdk_Rpc_Mission_MissionResult.Result = .unknown
 
+  /// Human-readable English string describing the result
   var resultStr: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
+  /// Possible results returned for action requests.
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Unknown error
     case unknown // = 0
+
+    /// Request succeeded
     case success // = 1
+
+    /// Error
     case error // = 2
+
+    /// Too many mission items in the mission
     case tooManyMissionItems // = 3
+
+    /// Vehicle is busy
     case busy // = 4
+
+    /// Request timed out
     case timeout // = 5
+
+    /// Invalid argument
     case invalidArgument // = 6
+
+    /// Mission downloaded from the system is not supported
     case unsupported // = 7
+
+    /// No mission available on the system
     case noMissionAvailable // = 8
+
+    /// Failed to open the QGroundControl plan
     case failedToOpenQgcPlan // = 9
+
+    /// Failed to parse the QGroundControl plan
     case failedToParseQgcPlan // = 10
+
+    /// Unsupported mission command
     case unsupportedMissionCmd // = 11
+
+    /// Mission transfer (upload or download) has been cancelled
     case transferCancelled // = 12
     case UNRECOGNIZED(Int)
 
