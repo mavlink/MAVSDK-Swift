@@ -12,15 +12,18 @@ public class Drone {
 
     public let action: Action
     public let calibration: Calibration
+    public let geofence: Geofence
+    public let gimbal: Gimbal
     public let camera: Camera
     public let core: Core
-    public let gimbal: Gimbal
     public let info: Info
     public let mission: Mission
+    public let mocap: Mocap
     public let offboard: Offboard
     public let param: Param
-    public let telemetry: Telemetry
     public let passthrough: Passthrough
+    public let shell: Shell
+    public let telemetry: Telemetry
 
     public init(address: String = "localhost",
                 port: Int32 = 50051,
@@ -29,15 +32,18 @@ public class Drone {
 
         self.action = Action(address: address, port: port, scheduler: scheduler)
         self.calibration = Calibration(address: address, port: port, scheduler: scheduler)
+        self.geofence = Geofence(address: address, port: port, scheduler: scheduler)
+        self.gimbal = Gimbal(address: address, port: port, scheduler: scheduler)
         self.camera = Camera(address: address, port: port, scheduler: scheduler)
         self.core = Core(address: address, port: port, scheduler: scheduler)
-        self.gimbal = Gimbal(address: address, port: port, scheduler: scheduler)
         self.info = Info(address: address, port: port, scheduler: scheduler)
         self.mission = Mission(address: address, port: port, scheduler: scheduler)
+        self.mocap = Mocap(address: address, port: port, scheduler: scheduler)
         self.offboard = Offboard(address: address, port: port, scheduler: scheduler)
         self.param = Param(address: address, port: port, scheduler: scheduler)
+        self.passthrough = Passthrough(address: address, port: port, scheduler: scheduler)
+        self.shell = Shell(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
-        self.passthrough = Passthrough(address: address, port: port, scheduler: scheduler) 
     }
 
 #if os(iOS)
