@@ -117,6 +117,12 @@ If you want to contribute, please check out: [CONTRIBUTING.md](https://github.co
 
 Most of the SDK is auto-generated from the proto files (see in _proto/protos_). Note that they come from a submodule (i.e. you may need to `$ git submodule update --init --recursive`).
 
+Prior to building the SDK you will need to install the following packages via `brew` if you don't already have them.
+
+```shell
+brew install xcodegen protobuf
+```
+
 To generate the source code, run:
 
 ```shell
@@ -135,8 +141,4 @@ Or generate an iOS Xcode project with:
 xcodegen
 ```
 
-This will create the `MAVSDK-Swift.xcodeproj` project file from `project.yml`. If you don't have it already, install Xcodegen with:
-
-```shell
-brew install xcodegen
-```
+This will create the `MAVSDK-Swift.xcodeproj` project file from `project.yml`. 
