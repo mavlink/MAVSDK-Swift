@@ -24,12 +24,21 @@ struct Mavsdk_Rpc_Mission_UploadMissionRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// List of mission items
-  var missionItems: [Mavsdk_Rpc_Mission_MissionItem] = []
+  /// The mission plan
+  var missionPlan: Mavsdk_Rpc_Mission_MissionPlan {
+    get {return _storage._missionPlan ?? Mavsdk_Rpc_Mission_MissionPlan()}
+    set {_uniqueStorage()._missionPlan = newValue}
+  }
+  /// Returns true if `missionPlan` has been explicitly set.
+  var hasMissionPlan: Bool {return _storage._missionPlan != nil}
+  /// Clears the value of `missionPlan`. Subsequent reads from it will return its default value.
+  mutating func clearMissionPlan() {_uniqueStorage()._missionPlan = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Mission_UploadMissionResponse {
@@ -68,9 +77,20 @@ struct Mavsdk_Rpc_Mission_CancelMissionUploadResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Mission_DownloadMissionRequest {
@@ -97,11 +117,15 @@ struct Mavsdk_Rpc_Mission_DownloadMissionResponse {
   /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
   mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
 
-  /// List of downloaded mission items
-  var missionItems: [Mavsdk_Rpc_Mission_MissionItem] {
-    get {return _storage._missionItems}
-    set {_uniqueStorage()._missionItems = newValue}
+  /// The mission plan
+  var missionPlan: Mavsdk_Rpc_Mission_MissionPlan {
+    get {return _storage._missionPlan ?? Mavsdk_Rpc_Mission_MissionPlan()}
+    set {_uniqueStorage()._missionPlan = newValue}
   }
+  /// Returns true if `missionPlan` has been explicitly set.
+  var hasMissionPlan: Bool {return _storage._missionPlan != nil}
+  /// Clears the value of `missionPlan`. Subsequent reads from it will return its default value.
+  mutating func clearMissionPlan() {_uniqueStorage()._missionPlan = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -125,9 +149,20 @@ struct Mavsdk_Rpc_Mission_CancelMissionDownloadResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Mission_StartMissionRequest {
@@ -223,7 +258,7 @@ struct Mavsdk_Rpc_Mission_ClearMissionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest {
+struct Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -236,7 +271,7 @@ struct Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
+struct Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -272,12 +307,26 @@ struct Mavsdk_Rpc_Mission_IsMissionFinishedResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
+
   /// True if the mission is finished and the last mission item has been reached
-  var isFinished: Bool = false
+  var isFinished: Bool {
+    get {return _storage._isFinished}
+    set {_uniqueStorage()._isFinished = newValue}
+  }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest {
@@ -327,12 +376,26 @@ struct Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
+
   /// If true, trigger an RTL at the end of the mission
-  var enable: Bool = false
+  var enable: Bool {
+    get {return _storage._enable}
+    set {_uniqueStorage()._enable = newValue}
+  }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest {
@@ -353,9 +416,64 @@ struct Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// File path of the QGC plan
+  var qgcPlanPath: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _storage._missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_uniqueStorage()._missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return _storage._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {_uniqueStorage()._missionResult = nil}
+
+  /// The mission plan
+  var missionPlan: Mavsdk_Rpc_Mission_MissionPlan {
+    get {return _storage._missionPlan ?? Mavsdk_Rpc_Mission_MissionPlan()}
+    set {_uniqueStorage()._missionPlan = newValue}
+  }
+  /// Returns true if `missionPlan` has been explicitly set.
+  var hasMissionPlan: Bool {return _storage._missionPlan != nil}
+  /// Clears the value of `missionPlan`. Subsequent reads from it will return its default value.
+  mutating func clearMissionPlan() {_uniqueStorage()._missionPlan = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 ///
@@ -474,6 +592,20 @@ extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Mission plan type
+struct Mavsdk_Rpc_Mission_MissionPlan {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The mission items
+  var missionItems: [Mavsdk_Rpc_Mission_MissionItem] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// Mission progress type.
 struct Mavsdk_Rpc_Mission_MissionProgress {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -481,10 +613,10 @@ struct Mavsdk_Rpc_Mission_MissionProgress {
   // methods supported on all messages.
 
   /// Current mission item index (0-based)
-  var currentItemIndex: Int32 = 0
+  var current: Int32 = 0
 
   /// Total number of mission items
-  var missionCount: Int32 = 0
+  var total: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -509,7 +641,7 @@ struct Mavsdk_Rpc_Mission_MissionResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
     /// Request succeeded
@@ -626,27 +758,59 @@ fileprivate let _protobuf_package = "mavsdk.rpc.mission"
 extension Mavsdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".UploadMissionRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "mission_items"),
+    1: .standard(proto: "mission_plan"),
   ]
 
+  fileprivate class _StorageClass {
+    var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionPlan = source._missionPlan
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.missionItems)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionPlan)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.missionItems.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.missionItems, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionPlan {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_UploadMissionRequest, rhs: Mavsdk_Rpc_Mission_UploadMissionRequest) -> Bool {
-    if lhs.missionItems != rhs.missionItems {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionPlan != rhs_storage._missionPlan {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -734,18 +898,60 @@ extension Mavsdk_Rpc_Mission_CancelMissionUploadRequest: SwiftProtobuf.Message, 
 
 extension Mavsdk_Rpc_Mission_CancelMissionUploadResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CancelMissionUploadResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_CancelMissionUploadResponse, rhs: Mavsdk_Rpc_Mission_CancelMissionUploadResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionResult != rhs_storage._missionResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -774,12 +980,12 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
   static let protoMessageName: String = _protobuf_package + ".DownloadMissionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "mission_result"),
-    2: .standard(proto: "mission_items"),
+    2: .standard(proto: "mission_plan"),
   ]
 
   fileprivate class _StorageClass {
     var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
-    var _missionItems: [Mavsdk_Rpc_Mission_MissionItem] = []
+    var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -787,7 +993,7 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
 
     init(copying source: _StorageClass) {
       _missionResult = source._missionResult
-      _missionItems = source._missionItems
+      _missionPlan = source._missionPlan
     }
   }
 
@@ -804,7 +1010,7 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._missionItems)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._missionPlan)
         default: break
         }
       }
@@ -816,8 +1022,8 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
       if let v = _storage._missionResult {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if !_storage._missionItems.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._missionItems, fieldNumber: 2)
+      if let v = _storage._missionPlan {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -829,7 +1035,7 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._missionResult != rhs_storage._missionResult {return false}
-        if _storage._missionItems != rhs_storage._missionItems {return false}
+        if _storage._missionPlan != rhs_storage._missionPlan {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -860,18 +1066,60 @@ extension Mavsdk_Rpc_Mission_CancelMissionDownloadRequest: SwiftProtobuf.Message
 
 extension Mavsdk_Rpc_Mission_CancelMissionDownloadResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CancelMissionDownloadResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_CancelMissionDownloadResponse, rhs: Mavsdk_Rpc_Mission_CancelMissionDownloadResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionResult != rhs_storage._missionResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1117,8 +1365,8 @@ extension Mavsdk_Rpc_Mission_ClearMissionResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetCurrentMissionItemIndexRequest"
+extension Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetCurrentMissionItemRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "index"),
   ]
@@ -1139,15 +1387,15 @@ extension Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest: SwiftProtobuf.Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, rhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, rhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest) -> Bool {
     if lhs.index != rhs.index {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetCurrentMissionItemIndexResponse"
+extension Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetCurrentMissionItemResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "mission_result"),
   ]
@@ -1192,7 +1440,7 @@ extension Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse: SwiftProtobuf.M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse, rhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse, rhs: Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1229,27 +1477,67 @@ extension Mavsdk_Rpc_Mission_IsMissionFinishedRequest: SwiftProtobuf.Message, Sw
 extension Mavsdk_Rpc_Mission_IsMissionFinishedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".IsMissionFinishedResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_finished"),
+    1: .standard(proto: "mission_result"),
+    2: .standard(proto: "is_finished"),
   ]
 
+  fileprivate class _StorageClass {
+    var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+    var _isFinished: Bool = false
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
+      _isFinished = source._isFinished
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.isFinished)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        case 2: try decoder.decodeSingularBoolField(value: &_storage._isFinished)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isFinished != false {
-      try visitor.visitSingularBoolField(value: self.isFinished, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._isFinished != false {
+        try visitor.visitSingularBoolField(value: _storage._isFinished, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_IsMissionFinishedResponse, rhs: Mavsdk_Rpc_Mission_IsMissionFinishedResponse) -> Bool {
-    if lhs.isFinished != rhs.isFinished {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionResult != rhs_storage._missionResult {return false}
+        if _storage._isFinished != rhs_storage._isFinished {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1357,27 +1645,67 @@ extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest: SwiftProtobuf
 extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetReturnToLaunchAfterMissionResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "enable"),
+    1: .standard(proto: "mission_result"),
+    2: .same(proto: "enable"),
   ]
 
+  fileprivate class _StorageClass {
+    var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+    var _enable: Bool = false
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
+      _enable = source._enable
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.enable)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        case 2: try decoder.decodeSingularBoolField(value: &_storage._enable)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.enable != false {
-      try visitor.visitSingularBoolField(value: self.enable, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._enable != false {
+        try visitor.visitSingularBoolField(value: _storage._enable, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse, rhs: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse) -> Bool {
-    if lhs.enable != rhs.enable {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionResult != rhs_storage._missionResult {return false}
+        if _storage._enable != rhs_storage._enable {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1414,18 +1742,158 @@ extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest: SwiftProtobuf
 
 extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetReturnToLaunchAfterMissionResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse, rhs: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionResult != rhs_storage._missionResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ImportQgroundcontrolMissionRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "qgc_plan_path"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.qgcPlanPath)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.qgcPlanPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.qgcPlanPath, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, rhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest) -> Bool {
+    if lhs.qgcPlanPath != rhs.qgcPlanPath {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ImportQgroundcontrolMissionResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_result"),
+    2: .standard(proto: "mission_plan"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+    var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _missionResult = source._missionResult
+      _missionPlan = source._missionPlan
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._missionResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._missionPlan)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._missionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._missionPlan {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse, rhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._missionResult != rhs_storage._missionResult {return false}
+        if _storage._missionPlan != rhs_storage._missionPlan {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1516,45 +1984,74 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
 
 extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NONE"),
-    1: .same(proto: "TAKE_PHOTO"),
-    2: .same(proto: "START_PHOTO_INTERVAL"),
-    3: .same(proto: "STOP_PHOTO_INTERVAL"),
-    4: .same(proto: "START_VIDEO"),
-    5: .same(proto: "STOP_VIDEO"),
+    0: .same(proto: "CAMERA_ACTION_NONE"),
+    1: .same(proto: "CAMERA_ACTION_TAKE_PHOTO"),
+    2: .same(proto: "CAMERA_ACTION_START_PHOTO_INTERVAL"),
+    3: .same(proto: "CAMERA_ACTION_STOP_PHOTO_INTERVAL"),
+    4: .same(proto: "CAMERA_ACTION_START_VIDEO"),
+    5: .same(proto: "CAMERA_ACTION_STOP_VIDEO"),
   ]
 }
 
-extension Mavsdk_Rpc_Mission_MissionProgress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".MissionProgress"
+extension Mavsdk_Rpc_Mission_MissionPlan: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MissionPlan"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "current_item_index"),
-    2: .standard(proto: "mission_count"),
+    1: .standard(proto: "mission_items"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self.currentItemIndex)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.missionCount)
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.missionItems)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.currentItemIndex != 0 {
-      try visitor.visitSingularInt32Field(value: self.currentItemIndex, fieldNumber: 1)
+    if !self.missionItems.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.missionItems, fieldNumber: 1)
     }
-    if self.missionCount != 0 {
-      try visitor.visitSingularInt32Field(value: self.missionCount, fieldNumber: 2)
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_MissionPlan, rhs: Mavsdk_Rpc_Mission_MissionPlan) -> Bool {
+    if lhs.missionItems != rhs.missionItems {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_MissionProgress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MissionProgress"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "current"),
+    2: .same(proto: "total"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.current)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.total)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.current != 0 {
+      try visitor.visitSingularInt32Field(value: self.current, fieldNumber: 1)
+    }
+    if self.total != 0 {
+      try visitor.visitSingularInt32Field(value: self.total, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mission_MissionProgress, rhs: Mavsdk_Rpc_Mission_MissionProgress) -> Bool {
-    if lhs.currentItemIndex != rhs.currentItemIndex {return false}
-    if lhs.missionCount != rhs.missionCount {return false}
+    if lhs.current != rhs.current {return false}
+    if lhs.total != rhs.total {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1597,18 +2094,18 @@ extension Mavsdk_Rpc_Mission_MissionResult: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Mavsdk_Rpc_Mission_MissionResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "ERROR"),
-    3: .same(proto: "TOO_MANY_MISSION_ITEMS"),
-    4: .same(proto: "BUSY"),
-    5: .same(proto: "TIMEOUT"),
-    6: .same(proto: "INVALID_ARGUMENT"),
-    7: .same(proto: "UNSUPPORTED"),
-    8: .same(proto: "NO_MISSION_AVAILABLE"),
-    9: .same(proto: "FAILED_TO_OPEN_QGC_PLAN"),
-    10: .same(proto: "FAILED_TO_PARSE_QGC_PLAN"),
-    11: .same(proto: "UNSUPPORTED_MISSION_CMD"),
-    12: .same(proto: "TRANSFER_CANCELLED"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_ERROR"),
+    3: .same(proto: "RESULT_TOO_MANY_MISSION_ITEMS"),
+    4: .same(proto: "RESULT_BUSY"),
+    5: .same(proto: "RESULT_TIMEOUT"),
+    6: .same(proto: "RESULT_INVALID_ARGUMENT"),
+    7: .same(proto: "RESULT_UNSUPPORTED"),
+    8: .same(proto: "RESULT_NO_MISSION_AVAILABLE"),
+    9: .same(proto: "RESULT_FAILED_TO_OPEN_QGC_PLAN"),
+    10: .same(proto: "RESULT_FAILED_TO_PARSE_QGC_PLAN"),
+    11: .same(proto: "RESULT_UNSUPPORTED_MISSION_CMD"),
+    12: .same(proto: "RESULT_TRANSFER_CANCELLED"),
   ]
 }

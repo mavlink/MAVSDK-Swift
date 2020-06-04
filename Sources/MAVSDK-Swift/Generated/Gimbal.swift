@@ -200,4 +200,40 @@ public class Gimbal {
             return Disposables.create()
         }
     }
+
+    public func setRoiLocation(latitudeDeg: Double, longitudeDeg: Double, altitudeM: Float) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Gimbal_SetRoiLocationRequest()
+
+            
+                
+            request.latitudeDeg = latitudeDeg
+                
+            
+                
+            request.longitudeDeg = longitudeDeg
+                
+            
+                
+            request.altitudeM = altitudeM
+                
+            
+
+            do {
+                
+                let response = try self.service.setRoiLocation(request)
+
+                if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(response.gimbalResult.result), description: response.gimbalResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }

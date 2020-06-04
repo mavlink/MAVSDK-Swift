@@ -20,7 +20,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// Camera mode type.
-enum Mavsdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
+enum Mavsdk_Rpc_Camera_Mode: SwiftProtobuf.Enum {
   typealias RawValue = Int
 
   /// Unknown
@@ -59,9 +59,9 @@ enum Mavsdk_Rpc_Camera_CameraMode: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension Mavsdk_Rpc_Camera_CameraMode: CaseIterable {
+extension Mavsdk_Rpc_Camera_Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_CameraMode] = [
+  static var allCases: [Mavsdk_Rpc_Camera_Mode] = [
     .unknown,
     .photo,
     .video,
@@ -296,7 +296,7 @@ struct Mavsdk_Rpc_Camera_SetModeRequest {
   // methods supported on all messages.
 
   /// Camera mode to set
-  var cameraMode: Mavsdk_Rpc_Camera_CameraMode = .unknown
+  var mode: Mavsdk_Rpc_Camera_Mode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -324,6 +324,38 @@ struct Mavsdk_Rpc_Camera_SetModeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Camera_SubscribeInformationRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Camera_InformationResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Camera information
+  var information: Mavsdk_Rpc_Camera_Information {
+    get {return _storage._information ?? Mavsdk_Rpc_Camera_Information()}
+    set {_uniqueStorage()._information = newValue}
+  }
+  /// Returns true if `information` has been explicitly set.
+  var hasInformation: Bool {return _storage._information != nil}
+  /// Clears the value of `information`. Subsequent reads from it will return its default value.
+  mutating func clearInformation() {_uniqueStorage()._information = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 struct Mavsdk_Rpc_Camera_SubscribeModeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -340,7 +372,7 @@ struct Mavsdk_Rpc_Camera_ModeResponse {
   // methods supported on all messages.
 
   /// Camera mode
-  var cameraMode: Mavsdk_Rpc_Camera_CameraMode = .unknown
+  var mode: Mavsdk_Rpc_Camera_Mode = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -411,7 +443,7 @@ struct Mavsdk_Rpc_Camera_CaptureInfoResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest {
+struct Mavsdk_Rpc_Camera_SubscribeStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -421,14 +453,14 @@ struct Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Camera_CameraStatusResponse {
+struct Mavsdk_Rpc_Camera_StatusResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Camera status
-  var cameraStatus: Mavsdk_Rpc_Camera_CameraStatus {
-    get {return _storage._cameraStatus ?? Mavsdk_Rpc_Camera_CameraStatus()}
+  var cameraStatus: Mavsdk_Rpc_Camera_Status {
+    get {return _storage._cameraStatus ?? Mavsdk_Rpc_Camera_Status()}
     set {_uniqueStorage()._cameraStatus = newValue}
   }
   /// Returns true if `cameraStatus` has been explicitly set.
@@ -532,6 +564,90 @@ struct Mavsdk_Rpc_Camera_SetSettingResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Camera_GetSettingRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Requested setting
+  var setting: Mavsdk_Rpc_Camera_Setting {
+    get {return _storage._setting ?? Mavsdk_Rpc_Camera_Setting()}
+    set {_uniqueStorage()._setting = newValue}
+  }
+  /// Returns true if `setting` has been explicitly set.
+  var hasSetting: Bool {return _storage._setting != nil}
+  /// Clears the value of `setting`. Subsequent reads from it will return its default value.
+  mutating func clearSetting() {_uniqueStorage()._setting = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Camera_GetSettingResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
+    set {_uniqueStorage()._cameraResult = newValue}
+  }
+  /// Returns true if `cameraResult` has been explicitly set.
+  var hasCameraResult: Bool {return _storage._cameraResult != nil}
+  /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
+
+  /// Setting
+  var setting: Mavsdk_Rpc_Camera_Setting {
+    get {return _storage._setting ?? Mavsdk_Rpc_Camera_Setting()}
+    set {_uniqueStorage()._setting = newValue}
+  }
+  /// Returns true if `setting` has been explicitly set.
+  var hasSetting: Bool {return _storage._setting != nil}
+  /// Clears the value of `setting`. Subsequent reads from it will return its default value.
+  mutating func clearSetting() {_uniqueStorage()._setting = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Camera_FormatStorageRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Camera_FormatStorageResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _storage._cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
+    set {_uniqueStorage()._cameraResult = newValue}
+  }
+  /// Returns true if `cameraResult` has been explicitly set.
+  var hasCameraResult: Bool {return _storage._cameraResult != nil}
+  /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
+  mutating func clearCameraResult() {_uniqueStorage()._cameraResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Camera_CameraResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -550,7 +666,7 @@ struct Mavsdk_Rpc_Camera_CameraResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
     /// Command executed successfully
@@ -629,73 +745,6 @@ extension Mavsdk_Rpc_Camera_CameraResult.Result: CaseIterable {
 }
 
 #endif  // swift(>=4.2)
-
-/// Information about a picture just captured.
-struct Mavsdk_Rpc_Camera_CaptureInfo {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// Location where the picture was taken
-  var position: Mavsdk_Rpc_Camera_Position {
-    get {return _storage._position ?? Mavsdk_Rpc_Camera_Position()}
-    set {_uniqueStorage()._position = newValue}
-  }
-  /// Returns true if `position` has been explicitly set.
-  var hasPosition: Bool {return _storage._position != nil}
-  /// Clears the value of `position`. Subsequent reads from it will return its default value.
-  mutating func clearPosition() {_uniqueStorage()._position = nil}
-
-  /// Attitude of the camera when the picture was taken (quaternion)
-  var attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion {
-    get {return _storage._attitudeQuaternion ?? Mavsdk_Rpc_Camera_Quaternion()}
-    set {_uniqueStorage()._attitudeQuaternion = newValue}
-  }
-  /// Returns true if `attitudeQuaternion` has been explicitly set.
-  var hasAttitudeQuaternion: Bool {return _storage._attitudeQuaternion != nil}
-  /// Clears the value of `attitudeQuaternion`. Subsequent reads from it will return its default value.
-  mutating func clearAttitudeQuaternion() {_uniqueStorage()._attitudeQuaternion = nil}
-
-  /// Attitude of the camera when the picture was taken (euler angle)
-  var attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle {
-    get {return _storage._attitudeEulerAngle ?? Mavsdk_Rpc_Camera_EulerAngle()}
-    set {_uniqueStorage()._attitudeEulerAngle = newValue}
-  }
-  /// Returns true if `attitudeEulerAngle` has been explicitly set.
-  var hasAttitudeEulerAngle: Bool {return _storage._attitudeEulerAngle != nil}
-  /// Clears the value of `attitudeEulerAngle`. Subsequent reads from it will return its default value.
-  mutating func clearAttitudeEulerAngle() {_uniqueStorage()._attitudeEulerAngle = nil}
-
-  /// Timestamp in UTC (since UNIX epoch) in microseconds
-  var timeUtcUs: UInt64 {
-    get {return _storage._timeUtcUs}
-    set {_uniqueStorage()._timeUtcUs = newValue}
-  }
-
-  /// True if the capture was successful
-  var isSuccess: Bool {
-    get {return _storage._isSuccess}
-    set {_uniqueStorage()._isSuccess = newValue}
-  }
-
-  /// Zero-based index of this image since vehicle was armed
-  var index: Int32 {
-    get {return _storage._index}
-    set {_uniqueStorage()._index = newValue}
-  }
-
-  /// Download URL of this image
-  var fileURL: String {
-    get {return _storage._fileURL}
-    set {_uniqueStorage()._fileURL = newValue}
-  }
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
 
 /// Position type in global coordinates.
 struct Mavsdk_Rpc_Camera_Position {
@@ -777,6 +826,73 @@ struct Mavsdk_Rpc_Camera_EulerAngle {
   init() {}
 }
 
+/// Information about a picture just captured.
+struct Mavsdk_Rpc_Camera_CaptureInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Location where the picture was taken
+  var position: Mavsdk_Rpc_Camera_Position {
+    get {return _storage._position ?? Mavsdk_Rpc_Camera_Position()}
+    set {_uniqueStorage()._position = newValue}
+  }
+  /// Returns true if `position` has been explicitly set.
+  var hasPosition: Bool {return _storage._position != nil}
+  /// Clears the value of `position`. Subsequent reads from it will return its default value.
+  mutating func clearPosition() {_uniqueStorage()._position = nil}
+
+  /// Attitude of the camera when the picture was taken (quaternion)
+  var attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion {
+    get {return _storage._attitudeQuaternion ?? Mavsdk_Rpc_Camera_Quaternion()}
+    set {_uniqueStorage()._attitudeQuaternion = newValue}
+  }
+  /// Returns true if `attitudeQuaternion` has been explicitly set.
+  var hasAttitudeQuaternion: Bool {return _storage._attitudeQuaternion != nil}
+  /// Clears the value of `attitudeQuaternion`. Subsequent reads from it will return its default value.
+  mutating func clearAttitudeQuaternion() {_uniqueStorage()._attitudeQuaternion = nil}
+
+  /// Attitude of the camera when the picture was taken (euler angle)
+  var attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle {
+    get {return _storage._attitudeEulerAngle ?? Mavsdk_Rpc_Camera_EulerAngle()}
+    set {_uniqueStorage()._attitudeEulerAngle = newValue}
+  }
+  /// Returns true if `attitudeEulerAngle` has been explicitly set.
+  var hasAttitudeEulerAngle: Bool {return _storage._attitudeEulerAngle != nil}
+  /// Clears the value of `attitudeEulerAngle`. Subsequent reads from it will return its default value.
+  mutating func clearAttitudeEulerAngle() {_uniqueStorage()._attitudeEulerAngle = nil}
+
+  /// Timestamp in UTC (since UNIX epoch) in microseconds
+  var timeUtcUs: UInt64 {
+    get {return _storage._timeUtcUs}
+    set {_uniqueStorage()._timeUtcUs = newValue}
+  }
+
+  /// True if the capture was successful
+  var isSuccess: Bool {
+    get {return _storage._isSuccess}
+    set {_uniqueStorage()._isSuccess = newValue}
+  }
+
+  /// Zero-based index of this image since vehicle was armed
+  var index: Int32 {
+    get {return _storage._index}
+    set {_uniqueStorage()._index = newValue}
+  }
+
+  /// Download URL of this image
+  var fileURL: String {
+    get {return _storage._fileURL}
+    set {_uniqueStorage()._fileURL = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// Type for video stream settings.
 struct Mavsdk_Rpc_Camera_VideoStreamSettings {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -813,30 +929,31 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
   // methods supported on all messages.
 
   /// Video stream settings
-  var videoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings {
-    get {return _storage._videoStreamSettings ?? Mavsdk_Rpc_Camera_VideoStreamSettings()}
-    set {_uniqueStorage()._videoStreamSettings = newValue}
+  var settings: Mavsdk_Rpc_Camera_VideoStreamSettings {
+    get {return _storage._settings ?? Mavsdk_Rpc_Camera_VideoStreamSettings()}
+    set {_uniqueStorage()._settings = newValue}
   }
-  /// Returns true if `videoStreamSettings` has been explicitly set.
-  var hasVideoStreamSettings: Bool {return _storage._videoStreamSettings != nil}
-  /// Clears the value of `videoStreamSettings`. Subsequent reads from it will return its default value.
-  mutating func clearVideoStreamSettings() {_uniqueStorage()._videoStreamSettings = nil}
+  /// Returns true if `settings` has been explicitly set.
+  var hasSettings: Bool {return _storage._settings != nil}
+  /// Clears the value of `settings`. Subsequent reads from it will return its default value.
+  mutating func clearSettings() {_uniqueStorage()._settings = nil}
 
   /// Current status of video streaming
-  var videoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
-    get {return _storage._videoStreamStatus}
-    set {_uniqueStorage()._videoStreamStatus = newValue}
+  var status: Mavsdk_Rpc_Camera_VideoStreamInfo.Status {
+    get {return _storage._status}
+    set {_uniqueStorage()._status = newValue}
   }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  enum VideoStreamStatus: SwiftProtobuf.Enum {
+  /// Video stream status type.
+  enum Status: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Video stream is not running.
+    /// Video stream is not running
     case notRunning // = 0
 
-    /// Video stream is running.
+    /// Video stream is running
     case inProgress // = 1
     case UNRECOGNIZED(Int)
 
@@ -869,9 +986,9 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
 
 #if swift(>=4.2)
 
-extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
+  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.Status] = [
     .notRunning,
     .inProgress,
   ]
@@ -880,13 +997,15 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
 #endif  // swift(>=4.2)
 
 /// Information about the camera status.
-struct Mavsdk_Rpc_Camera_CameraStatus {
+struct Mavsdk_Rpc_Camera_Status {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Whether video recording is currently in process
   var videoOn: Bool = false
 
+  /// Whether a photo interval is currently in process
   var photoIntervalOn: Bool = false
 
   /// Used storage (in MiB)
@@ -905,7 +1024,7 @@ struct Mavsdk_Rpc_Camera_CameraStatus {
   var mediaFolderName: String = String()
 
   /// Storage status
-  var storageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus = .notAvailable
+  var storageStatus: Mavsdk_Rpc_Camera_Status.StorageStatus = .notAvailable
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -952,9 +1071,9 @@ struct Mavsdk_Rpc_Camera_CameraStatus {
 
 #if swift(>=4.2)
 
-extension Mavsdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
+extension Mavsdk_Rpc_Camera_Status.StorageStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_CameraStatus.StorageStatus] = [
+  static var allCases: [Mavsdk_Rpc_Camera_Status.StorageStatus] = [
     .notAvailable,
     .unformatted,
     .formatted,
@@ -962,41 +1081,6 @@ extension Mavsdk_Rpc_Camera_CameraStatus.StorageStatus: CaseIterable {
 }
 
 #endif  // swift(>=4.2)
-
-/// Type to represent a setting with a selected option.
-struct Mavsdk_Rpc_Camera_Setting {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// Name of a setting (machine readable)
-  var settingID: String {
-    get {return _storage._settingID}
-    set {_uniqueStorage()._settingID = newValue}
-  }
-
-  /// Description of the setting (human readable)
-  var settingDescription: String {
-    get {return _storage._settingDescription}
-    set {_uniqueStorage()._settingDescription = newValue}
-  }
-
-  /// Selected option
-  var option: Mavsdk_Rpc_Camera_Option {
-    get {return _storage._option ?? Mavsdk_Rpc_Camera_Option()}
-    set {_uniqueStorage()._option = newValue}
-  }
-  /// Returns true if `option` has been explicitly set.
-  var hasOption: Bool {return _storage._option != nil}
-  /// Clears the value of `option`. Subsequent reads from it will return its default value.
-  mutating func clearOption() {_uniqueStorage()._option = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
 
 /// Type to represent a setting option.
 struct Mavsdk_Rpc_Camera_Option {
@@ -1015,6 +1099,47 @@ struct Mavsdk_Rpc_Camera_Option {
   init() {}
 }
 
+/// Type to represent a setting with a selected option.
+struct Mavsdk_Rpc_Camera_Setting {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Name of a setting (machine readable)
+  var settingID: String {
+    get {return _storage._settingID}
+    set {_uniqueStorage()._settingID = newValue}
+  }
+
+  /// Description of the setting (human readable). This field is meant to be read from the drone, ignore it when setting.
+  var settingDescription: String {
+    get {return _storage._settingDescription}
+    set {_uniqueStorage()._settingDescription = newValue}
+  }
+
+  /// Selected option
+  var option: Mavsdk_Rpc_Camera_Option {
+    get {return _storage._option ?? Mavsdk_Rpc_Camera_Option()}
+    set {_uniqueStorage()._option = newValue}
+  }
+  /// Returns true if `option` has been explicitly set.
+  var hasOption: Bool {return _storage._option != nil}
+  /// Clears the value of `option`. Subsequent reads from it will return its default value.
+  mutating func clearOption() {_uniqueStorage()._option = nil}
+
+  /// If option is given as a range. This field is meant to be read from the drone, ignore it when setting.
+  var isRange: Bool {
+    get {return _storage._isRange}
+    set {_uniqueStorage()._isRange = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// Type to represent a setting with a list of options to choose from.
 struct Mavsdk_Rpc_Camera_SettingOptions {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1027,8 +1152,28 @@ struct Mavsdk_Rpc_Camera_SettingOptions {
   /// Description of the setting (human readable)
   var settingDescription: String = String()
 
-  /// List of options
+  /// List of options or if range [min, max] or [min, max, interval]
   var options: [Mavsdk_Rpc_Camera_Option] = []
+
+  /// If option is given as a range
+  var isRange: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Type to represent a camera information.
+struct Mavsdk_Rpc_Camera_Information {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Name of the camera vendor
+  var vendorName: String = String()
+
+  /// Name of the camera model
+  var modelName: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1039,11 +1184,11 @@ struct Mavsdk_Rpc_Camera_SettingOptions {
 
 fileprivate let _protobuf_package = "mavsdk.rpc.camera"
 
-extension Mavsdk_Rpc_Camera_CameraMode: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_Mode: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "PHOTO"),
-    2: .same(proto: "VIDEO"),
+    0: .same(proto: "MODE_UNKNOWN"),
+    1: .same(proto: "MODE_PHOTO"),
+    2: .same(proto: "MODE_VIDEO"),
   ]
 }
 
@@ -1620,27 +1765,27 @@ extension Mavsdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Message, S
 extension Mavsdk_Rpc_Camera_SetModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetModeRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "camera_mode"),
+    1: .same(proto: "mode"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.cameraMode)
+      case 1: try decoder.decodeSingularEnumField(value: &self.mode)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.cameraMode != .unknown {
-      try visitor.visitSingularEnumField(value: self.cameraMode, fieldNumber: 1)
+    if self.mode != .unknown {
+      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Camera_SetModeRequest, rhs: Mavsdk_Rpc_Camera_SetModeRequest) -> Bool {
-    if lhs.cameraMode != rhs.cameraMode {return false}
+    if lhs.mode != rhs.mode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1707,6 +1852,86 @@ extension Mavsdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
+extension Mavsdk_Rpc_Camera_SubscribeInformationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeInformationRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeInformationRequest, rhs: Mavsdk_Rpc_Camera_SubscribeInformationRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_InformationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".InformationResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "information"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _information: Mavsdk_Rpc_Camera_Information? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _information = source._information
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._information)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._information {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_InformationResponse, rhs: Mavsdk_Rpc_Camera_InformationResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._information != rhs_storage._information {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Camera_SubscribeModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeModeRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -1729,27 +1954,27 @@ extension Mavsdk_Rpc_Camera_SubscribeModeRequest: SwiftProtobuf.Message, SwiftPr
 extension Mavsdk_Rpc_Camera_ModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ModeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "camera_mode"),
+    1: .same(proto: "mode"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.cameraMode)
+      case 1: try decoder.decodeSingularEnumField(value: &self.mode)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.cameraMode != .unknown {
-      try visitor.visitSingularEnumField(value: self.cameraMode, fieldNumber: 1)
+    if self.mode != .unknown {
+      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Camera_ModeResponse, rhs: Mavsdk_Rpc_Camera_ModeResponse) -> Bool {
-    if lhs.cameraMode != rhs.cameraMode {return false}
+    if lhs.mode != rhs.mode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1915,8 +2140,8 @@ extension Mavsdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SubscribeCameraStatusRequest"
+extension Mavsdk_Rpc_Camera_SubscribeStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeStatusRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1928,20 +2153,20 @@ extension Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, rhs: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_SubscribeStatusRequest, rhs: Mavsdk_Rpc_Camera_SubscribeStatusRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".CameraStatusResponse"
+extension Mavsdk_Rpc_Camera_StatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".StatusResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "camera_status"),
   ]
 
   fileprivate class _StorageClass {
-    var _cameraStatus: Mavsdk_Rpc_Camera_CameraStatus? = nil
+    var _cameraStatus: Mavsdk_Rpc_Camera_Status? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1980,7 +2205,7 @@ extension Mavsdk_Rpc_Camera_CameraStatusResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Camera_CameraStatusResponse, rhs: Mavsdk_Rpc_Camera_CameraStatusResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_StatusResponse, rhs: Mavsdk_Rpc_Camera_StatusResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -2213,6 +2438,216 @@ extension Mavsdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Mavsdk_Rpc_Camera_GetSettingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSettingRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "setting"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _setting: Mavsdk_Rpc_Camera_Setting? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _setting = source._setting
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._setting)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._setting {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_GetSettingRequest, rhs: Mavsdk_Rpc_Camera_GetSettingRequest) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._setting != rhs_storage._setting {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_GetSettingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSettingResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "camera_result"),
+    2: .same(proto: "setting"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
+    var _setting: Mavsdk_Rpc_Camera_Setting? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _cameraResult = source._cameraResult
+      _setting = source._setting
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._cameraResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._setting)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._cameraResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._setting {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_GetSettingResponse, rhs: Mavsdk_Rpc_Camera_GetSettingResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
+        if _storage._setting != rhs_storage._setting {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_FormatStorageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".FormatStorageRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_FormatStorageRequest, rhs: Mavsdk_Rpc_Camera_FormatStorageRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_FormatStorageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".FormatStorageResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "camera_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _cameraResult = source._cameraResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._cameraResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._cameraResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_FormatStorageResponse, rhs: Mavsdk_Rpc_Camera_FormatStorageResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._cameraResult != rhs_storage._cameraResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".CameraResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2250,124 +2685,15 @@ extension Mavsdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProtobuf._
 
 extension Mavsdk_Rpc_Camera_CameraResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "IN_PROGRESS"),
-    3: .same(proto: "BUSY"),
-    4: .same(proto: "DENIED"),
-    5: .same(proto: "ERROR"),
-    6: .same(proto: "TIMEOUT"),
-    7: .same(proto: "WRONG_ARGUMENT"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_IN_PROGRESS"),
+    3: .same(proto: "RESULT_BUSY"),
+    4: .same(proto: "RESULT_DENIED"),
+    5: .same(proto: "RESULT_ERROR"),
+    6: .same(proto: "RESULT_TIMEOUT"),
+    7: .same(proto: "RESULT_WRONG_ARGUMENT"),
   ]
-}
-
-extension Mavsdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".CaptureInfo"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "position"),
-    2: .standard(proto: "attitude_quaternion"),
-    3: .standard(proto: "attitude_euler_angle"),
-    4: .standard(proto: "time_utc_us"),
-    5: .standard(proto: "is_success"),
-    6: .same(proto: "index"),
-    7: .standard(proto: "file_url"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _position: Mavsdk_Rpc_Camera_Position? = nil
-    var _attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion? = nil
-    var _attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle? = nil
-    var _timeUtcUs: UInt64 = 0
-    var _isSuccess: Bool = false
-    var _index: Int32 = 0
-    var _fileURL: String = String()
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _position = source._position
-      _attitudeQuaternion = source._attitudeQuaternion
-      _attitudeEulerAngle = source._attitudeEulerAngle
-      _timeUtcUs = source._timeUtcUs
-      _isSuccess = source._isSuccess
-      _index = source._index
-      _fileURL = source._fileURL
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._position)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._attitudeQuaternion)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._attitudeEulerAngle)
-        case 4: try decoder.decodeSingularUInt64Field(value: &_storage._timeUtcUs)
-        case 5: try decoder.decodeSingularBoolField(value: &_storage._isSuccess)
-        case 6: try decoder.decodeSingularInt32Field(value: &_storage._index)
-        case 7: try decoder.decodeSingularStringField(value: &_storage._fileURL)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._position {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if let v = _storage._attitudeQuaternion {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if let v = _storage._attitudeEulerAngle {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-      if _storage._timeUtcUs != 0 {
-        try visitor.visitSingularUInt64Field(value: _storage._timeUtcUs, fieldNumber: 4)
-      }
-      if _storage._isSuccess != false {
-        try visitor.visitSingularBoolField(value: _storage._isSuccess, fieldNumber: 5)
-      }
-      if _storage._index != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._index, fieldNumber: 6)
-      }
-      if !_storage._fileURL.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._fileURL, fieldNumber: 7)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Camera_CaptureInfo, rhs: Mavsdk_Rpc_Camera_CaptureInfo) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._position != rhs_storage._position {return false}
-        if _storage._attitudeQuaternion != rhs_storage._attitudeQuaternion {return false}
-        if _storage._attitudeEulerAngle != rhs_storage._attitudeEulerAngle {return false}
-        if _storage._timeUtcUs != rhs_storage._timeUtcUs {return false}
-        if _storage._isSuccess != rhs_storage._isSuccess {return false}
-        if _storage._index != rhs_storage._index {return false}
-        if _storage._fileURL != rhs_storage._fileURL {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
 
 extension Mavsdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -2505,6 +2831,115 @@ extension Mavsdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
+extension Mavsdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CaptureInfo"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "position"),
+    2: .standard(proto: "attitude_quaternion"),
+    3: .standard(proto: "attitude_euler_angle"),
+    4: .standard(proto: "time_utc_us"),
+    5: .standard(proto: "is_success"),
+    6: .same(proto: "index"),
+    7: .standard(proto: "file_url"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _position: Mavsdk_Rpc_Camera_Position? = nil
+    var _attitudeQuaternion: Mavsdk_Rpc_Camera_Quaternion? = nil
+    var _attitudeEulerAngle: Mavsdk_Rpc_Camera_EulerAngle? = nil
+    var _timeUtcUs: UInt64 = 0
+    var _isSuccess: Bool = false
+    var _index: Int32 = 0
+    var _fileURL: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _position = source._position
+      _attitudeQuaternion = source._attitudeQuaternion
+      _attitudeEulerAngle = source._attitudeEulerAngle
+      _timeUtcUs = source._timeUtcUs
+      _isSuccess = source._isSuccess
+      _index = source._index
+      _fileURL = source._fileURL
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._position)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._attitudeQuaternion)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._attitudeEulerAngle)
+        case 4: try decoder.decodeSingularUInt64Field(value: &_storage._timeUtcUs)
+        case 5: try decoder.decodeSingularBoolField(value: &_storage._isSuccess)
+        case 6: try decoder.decodeSingularInt32Field(value: &_storage._index)
+        case 7: try decoder.decodeSingularStringField(value: &_storage._fileURL)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._position {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._attitudeQuaternion {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._attitudeEulerAngle {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if _storage._timeUtcUs != 0 {
+        try visitor.visitSingularUInt64Field(value: _storage._timeUtcUs, fieldNumber: 4)
+      }
+      if _storage._isSuccess != false {
+        try visitor.visitSingularBoolField(value: _storage._isSuccess, fieldNumber: 5)
+      }
+      if _storage._index != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._index, fieldNumber: 6)
+      }
+      if !_storage._fileURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._fileURL, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_CaptureInfo, rhs: Mavsdk_Rpc_Camera_CaptureInfo) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._position != rhs_storage._position {return false}
+        if _storage._attitudeQuaternion != rhs_storage._attitudeQuaternion {return false}
+        if _storage._attitudeEulerAngle != rhs_storage._attitudeEulerAngle {return false}
+        if _storage._timeUtcUs != rhs_storage._timeUtcUs {return false}
+        if _storage._isSuccess != rhs_storage._isSuccess {return false}
+        if _storage._index != rhs_storage._index {return false}
+        if _storage._fileURL != rhs_storage._fileURL {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".VideoStreamSettings"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2567,21 +3002,21 @@ extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftPro
 extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".VideoStreamInfo"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "video_stream_settings"),
-    2: .standard(proto: "video_stream_status"),
+    1: .same(proto: "settings"),
+    2: .same(proto: "status"),
   ]
 
   fileprivate class _StorageClass {
-    var _videoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings? = nil
-    var _videoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus = .notRunning
+    var _settings: Mavsdk_Rpc_Camera_VideoStreamSettings? = nil
+    var _status: Mavsdk_Rpc_Camera_VideoStreamInfo.Status = .notRunning
 
     static let defaultInstance = _StorageClass()
 
     private init() {}
 
     init(copying source: _StorageClass) {
-      _videoStreamSettings = source._videoStreamSettings
-      _videoStreamStatus = source._videoStreamStatus
+      _settings = source._settings
+      _status = source._status
     }
   }
 
@@ -2597,8 +3032,8 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._videoStreamSettings)
-        case 2: try decoder.decodeSingularEnumField(value: &_storage._videoStreamStatus)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._settings)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._status)
         default: break
         }
       }
@@ -2607,11 +3042,11 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._videoStreamSettings {
+      if let v = _storage._settings {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if _storage._videoStreamStatus != .notRunning {
-        try visitor.visitSingularEnumField(value: _storage._videoStreamStatus, fieldNumber: 2)
+      if _storage._status != .notRunning {
+        try visitor.visitSingularEnumField(value: _storage._status, fieldNumber: 2)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2622,8 +3057,8 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._videoStreamSettings != rhs_storage._videoStreamSettings {return false}
-        if _storage._videoStreamStatus != rhs_storage._videoStreamStatus {return false}
+        if _storage._settings != rhs_storage._settings {return false}
+        if _storage._status != rhs_storage._status {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2633,15 +3068,15 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
-extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.Status: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NOT_RUNNING"),
-    1: .same(proto: "IN_PROGRESS"),
+    0: .same(proto: "STATUS_NOT_RUNNING"),
+    1: .same(proto: "STATUS_IN_PROGRESS"),
   ]
 }
 
-extension Mavsdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".CameraStatus"
+extension Mavsdk_Rpc_Camera_Status: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Status"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "video_on"),
     2: .standard(proto: "photo_interval_on"),
@@ -2697,7 +3132,7 @@ extension Mavsdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProtobuf._
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Camera_CameraStatus, rhs: Mavsdk_Rpc_Camera_CameraStatus) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Camera_Status, rhs: Mavsdk_Rpc_Camera_Status) -> Bool {
     if lhs.videoOn != rhs.videoOn {return false}
     if lhs.photoIntervalOn != rhs.photoIntervalOn {return false}
     if lhs.usedStorageMib != rhs.usedStorageMib {return false}
@@ -2711,89 +3146,12 @@ extension Mavsdk_Rpc_Camera_CameraStatus: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension Mavsdk_Rpc_Camera_CameraStatus.StorageStatus: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_Status.StorageStatus: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NOT_AVAILABLE"),
-    1: .same(proto: "UNFORMATTED"),
-    2: .same(proto: "FORMATTED"),
+    0: .same(proto: "STORAGE_STATUS_NOT_AVAILABLE"),
+    1: .same(proto: "STORAGE_STATUS_UNFORMATTED"),
+    2: .same(proto: "STORAGE_STATUS_FORMATTED"),
   ]
-}
-
-extension Mavsdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Setting"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "setting_id"),
-    2: .standard(proto: "setting_description"),
-    3: .same(proto: "option"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _settingID: String = String()
-    var _settingDescription: String = String()
-    var _option: Mavsdk_Rpc_Camera_Option? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _settingID = source._settingID
-      _settingDescription = source._settingDescription
-      _option = source._option
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._settingID)
-        case 2: try decoder.decodeSingularStringField(value: &_storage._settingDescription)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._option)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._settingID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._settingID, fieldNumber: 1)
-      }
-      if !_storage._settingDescription.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._settingDescription, fieldNumber: 2)
-      }
-      if let v = _storage._option {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Camera_Setting, rhs: Mavsdk_Rpc_Camera_Setting) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._settingID != rhs_storage._settingID {return false}
-        if _storage._settingDescription != rhs_storage._settingDescription {return false}
-        if _storage._option != rhs_storage._option {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
 
 extension Mavsdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -2831,12 +3189,98 @@ extension Mavsdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 }
 
+extension Mavsdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Setting"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "setting_id"),
+    2: .standard(proto: "setting_description"),
+    3: .same(proto: "option"),
+    4: .standard(proto: "is_range"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _settingID: String = String()
+    var _settingDescription: String = String()
+    var _option: Mavsdk_Rpc_Camera_Option? = nil
+    var _isRange: Bool = false
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _settingID = source._settingID
+      _settingDescription = source._settingDescription
+      _option = source._option
+      _isRange = source._isRange
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._settingID)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._settingDescription)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._option)
+        case 4: try decoder.decodeSingularBoolField(value: &_storage._isRange)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._settingID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._settingID, fieldNumber: 1)
+      }
+      if !_storage._settingDescription.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._settingDescription, fieldNumber: 2)
+      }
+      if let v = _storage._option {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if _storage._isRange != false {
+        try visitor.visitSingularBoolField(value: _storage._isRange, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_Setting, rhs: Mavsdk_Rpc_Camera_Setting) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._settingID != rhs_storage._settingID {return false}
+        if _storage._settingDescription != rhs_storage._settingDescription {return false}
+        if _storage._option != rhs_storage._option {return false}
+        if _storage._isRange != rhs_storage._isRange {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SettingOptions"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "setting_id"),
     2: .standard(proto: "setting_description"),
     3: .same(proto: "options"),
+    4: .standard(proto: "is_range"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2845,6 +3289,7 @@ extension Mavsdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf
       case 1: try decoder.decodeSingularStringField(value: &self.settingID)
       case 2: try decoder.decodeSingularStringField(value: &self.settingDescription)
       case 3: try decoder.decodeRepeatedMessageField(value: &self.options)
+      case 4: try decoder.decodeSingularBoolField(value: &self.isRange)
       default: break
       }
     }
@@ -2860,6 +3305,9 @@ extension Mavsdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf
     if !self.options.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.options, fieldNumber: 3)
     }
+    if self.isRange != false {
+      try visitor.visitSingularBoolField(value: self.isRange, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2867,6 +3315,42 @@ extension Mavsdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.settingID != rhs.settingID {return false}
     if lhs.settingDescription != rhs.settingDescription {return false}
     if lhs.options != rhs.options {return false}
+    if lhs.isRange != rhs.isRange {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_Information: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Information"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "vendor_name"),
+    2: .standard(proto: "model_name"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.vendorName)
+      case 2: try decoder.decodeSingularStringField(value: &self.modelName)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.vendorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.vendorName, fieldNumber: 1)
+    }
+    if !self.modelName.isEmpty {
+      try visitor.visitSingularStringField(value: self.modelName, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_Information, rhs: Mavsdk_Rpc_Camera_Information) -> Bool {
+    if lhs.vendorName != rhs.vendorName {return false}
+    if lhs.modelName != rhs.modelName {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

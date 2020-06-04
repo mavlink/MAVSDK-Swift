@@ -89,6 +89,22 @@ fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeModeCallBase: Cl
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeMode" }
 }
 
+internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Camera_InformationResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Camera_InformationResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Camera_InformationResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Camera_SubscribeInformationRequest, Mavsdk_Rpc_Camera_InformationResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeInformation" }
+}
+
 internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Camera_VideoStreamInfoResponse?
@@ -121,20 +137,20 @@ fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCallB
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeCaptureInfo" }
 }
 
-internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall: ClientCallServerStreaming {
+internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Camera_CameraStatusResponse?
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Camera_StatusResponse?
   /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Camera_CameraStatusResponse?>) -> Void) throws
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Camera_StatusResponse?>) -> Void) throws
 }
 
-internal extension Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
+internal extension Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall {
   /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Camera_CameraStatusResponse? { return try self._receive(timeout: timeout) }
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Camera_StatusResponse? { return try self._receive(timeout: timeout) }
 }
 
-fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, Mavsdk_Rpc_Camera_CameraStatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
-  override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeCameraStatus" }
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Camera_SubscribeStatusRequest, Mavsdk_Rpc_Camera_StatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeStatus" }
 }
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall: ClientCallServerStreaming {
@@ -173,6 +189,18 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceSetSettingCall: ClientCallUnary
 
 fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSetSettingCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Camera_SetSettingRequest, Mavsdk_Rpc_Camera_SetSettingResponse>, Mavsdk_Rpc_Camera_CameraServiceSetSettingCall {
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SetSetting" }
+}
+
+internal protocol Mavsdk_Rpc_Camera_CameraServiceGetSettingCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceGetSettingCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Camera_GetSettingRequest, Mavsdk_Rpc_Camera_GetSettingResponse>, Mavsdk_Rpc_Camera_CameraServiceGetSettingCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/GetSetting" }
+}
+
+internal protocol Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceFormatStorageCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>, Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/FormatStorage" }
 }
 
 
@@ -234,6 +262,11 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
+  func subscribeInformation(_ request: Mavsdk_Rpc_Camera_SubscribeInformationRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
   func subscribeVideoStreamInfo(_ request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall
 
   /// Asynchronous. Server-streaming.
@@ -244,7 +277,7 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceService: ServiceClient {
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  func subscribeCameraStatus(_ request: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall
+  func subscribeStatus(_ request: Mavsdk_Rpc_Camera_SubscribeStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall
 
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
@@ -261,6 +294,18 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func setSetting(_ request: Mavsdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceSetSettingCall
+
+  /// Synchronous. Unary.
+  func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Camera_GetSettingResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_GetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceGetSettingCall
+
+  /// Synchronous. Unary.
+  func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Camera_FormatStorageResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_FormatStorageResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall
 
 }
 
@@ -351,6 +396,11 @@ internal extension Mavsdk_Rpc_Camera_CameraServiceService {
   }
 
   /// Asynchronous. Server-streaming.
+  func subscribeInformation(_ request: Mavsdk_Rpc_Camera_SubscribeInformationRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall {
+    return try self.subscribeInformation(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
   func subscribeVideoStreamInfo(_ request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
     return try self.subscribeVideoStreamInfo(request, metadata: self.metadata, completion: completion)
   }
@@ -361,8 +411,8 @@ internal extension Mavsdk_Rpc_Camera_CameraServiceService {
   }
 
   /// Asynchronous. Server-streaming.
-  func subscribeCameraStatus(_ request: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
-    return try self.subscribeCameraStatus(request, metadata: self.metadata, completion: completion)
+  func subscribeStatus(_ request: Mavsdk_Rpc_Camera_SubscribeStatusRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall {
+    return try self.subscribeStatus(request, metadata: self.metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
@@ -383,6 +433,26 @@ internal extension Mavsdk_Rpc_Camera_CameraServiceService {
   @discardableResult
   func setSetting(_ request: Mavsdk_Rpc_Camera_SetSettingRequest, completion: @escaping (Mavsdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceSetSettingCall {
     return try self.setSetting(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest) throws -> Mavsdk_Rpc_Camera_GetSettingResponse {
+    return try self.getSetting(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, completion: @escaping (Mavsdk_Rpc_Camera_GetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceGetSettingCall {
+    return try self.getSetting(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest) throws -> Mavsdk_Rpc_Camera_FormatStorageResponse {
+    return try self.formatStorage(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, completion: @escaping (Mavsdk_Rpc_Camera_FormatStorageResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall {
+    return try self.formatStorage(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -495,6 +565,14 @@ internal final class Mavsdk_Rpc_Camera_CameraServiceServiceClient: ServiceClient
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
+  internal func subscribeInformation(_ request: Mavsdk_Rpc_Camera_SubscribeInformationRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall {
+    return try Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
   internal func subscribeVideoStreamInfo(_ request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
     return try Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
@@ -511,8 +589,8 @@ internal final class Mavsdk_Rpc_Camera_CameraServiceServiceClient: ServiceClient
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCameraStatus(_ request: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
-    return try Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallBase(channel)
+  internal func subscribeStatus(_ request: Mavsdk_Rpc_Camera_SubscribeStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall {
+    return try Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -541,6 +619,30 @@ internal final class Mavsdk_Rpc_Camera_CameraServiceServiceClient: ServiceClient
   @discardableResult
   internal func setSetting(_ request: Mavsdk_Rpc_Camera_SetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_SetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceSetSettingCall {
     return try Mavsdk_Rpc_Camera_CameraServiceSetSettingCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Camera_GetSettingResponse {
+    return try Mavsdk_Rpc_Camera_CameraServiceGetSettingCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_GetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceGetSettingCall {
+    return try Mavsdk_Rpc_Camera_CameraServiceGetSettingCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Camera_FormatStorageResponse {
+    return try Mavsdk_Rpc_Camera_CameraServiceFormatStorageCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_FormatStorageResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall {
+    return try Mavsdk_Rpc_Camera_CameraServiceFormatStorageCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -582,6 +684,10 @@ class Mavsdk_Rpc_Camera_CameraServiceSubscribeModeCallTestStub: ClientCallServer
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeMode" }
 }
 
+class Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Camera_InformationResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeInformation" }
+}
+
 class Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Camera_VideoStreamInfoResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeVideoStreamInfo" }
 }
@@ -590,8 +696,8 @@ class Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoCallTestStub: ClientCal
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeCaptureInfo" }
 }
 
-class Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Camera_CameraStatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
-  override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeCameraStatus" }
+class Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Camera_StatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/SubscribeStatus" }
 }
 
 class Mavsdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Camera_CurrentSettingsResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsCall {
@@ -604,6 +710,14 @@ class Mavsdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsCallTestStub
 
 class Mavsdk_Rpc_Camera_CameraServiceSetSettingCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Camera_CameraServiceSetSettingCall {
   override class var method: String { return "/mavsdk.rpc.camera.CameraService/SetSetting" }
+}
+
+class Mavsdk_Rpc_Camera_CameraServiceGetSettingCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Camera_CameraServiceGetSettingCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/GetSetting" }
+}
+
+class Mavsdk_Rpc_Camera_CameraServiceFormatStorageCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall {
+  override class var method: String { return "/mavsdk.rpc.camera.CameraService/FormatStorage" }
 }
 
 class Mavsdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Camera_CameraServiceService {
@@ -735,6 +849,14 @@ class Mavsdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStubBase,
     return subscribeModeCalls.first!
   }
 
+  var subscribeInformationRequests: [Mavsdk_Rpc_Camera_SubscribeInformationRequest] = []
+  var subscribeInformationCalls: [Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall] = []
+  func subscribeInformation(_ request: Mavsdk_Rpc_Camera_SubscribeInformationRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationCall {
+    subscribeInformationRequests.append(request)
+    defer { subscribeInformationCalls.removeFirst() }
+    return subscribeInformationCalls.first!
+  }
+
   var subscribeVideoStreamInfoRequests: [Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest] = []
   var subscribeVideoStreamInfoCalls: [Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall] = []
   func subscribeVideoStreamInfo(_ request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoCall {
@@ -751,12 +873,12 @@ class Mavsdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStubBase,
     return subscribeCaptureInfoCalls.first!
   }
 
-  var subscribeCameraStatusRequests: [Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest] = []
-  var subscribeCameraStatusCalls: [Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall] = []
-  func subscribeCameraStatus(_ request: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusCall {
-    subscribeCameraStatusRequests.append(request)
-    defer { subscribeCameraStatusCalls.removeFirst() }
-    return subscribeCameraStatusCalls.first!
+  var subscribeStatusRequests: [Mavsdk_Rpc_Camera_SubscribeStatusRequest] = []
+  var subscribeStatusCalls: [Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall] = []
+  func subscribeStatus(_ request: Mavsdk_Rpc_Camera_SubscribeStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusCall {
+    subscribeStatusRequests.append(request)
+    defer { subscribeStatusCalls.removeFirst() }
+    return subscribeStatusCalls.first!
   }
 
   var subscribeCurrentSettingsRequests: [Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest] = []
@@ -790,6 +912,36 @@ class Mavsdk_Rpc_Camera_CameraServiceServiceTestStub: ServiceClientTestStubBase,
     return Mavsdk_Rpc_Camera_CameraServiceSetSettingCallTestStub()
   }
 
+  var getSettingRequests: [Mavsdk_Rpc_Camera_GetSettingRequest] = []
+  var getSettingResponses: [Mavsdk_Rpc_Camera_GetSettingResponse] = []
+  func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Camera_GetSettingResponse {
+    getSettingRequests.append(request)
+    defer { getSettingResponses.removeFirst() }
+    return getSettingResponses.first!
+  }
+  @discardableResult
+  func getSetting(_ request: Mavsdk_Rpc_Camera_GetSettingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_GetSettingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceGetSettingCall {
+    let response = try self.getSetting(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Camera_CameraServiceGetSettingCallTestStub()
+  }
+
+  var formatStorageRequests: [Mavsdk_Rpc_Camera_FormatStorageRequest] = []
+  var formatStorageResponses: [Mavsdk_Rpc_Camera_FormatStorageResponse] = []
+  func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Camera_FormatStorageResponse {
+    formatStorageRequests.append(request)
+    defer { formatStorageResponses.removeFirst() }
+    return formatStorageResponses.first!
+  }
+  @discardableResult
+  func formatStorage(_ request: Mavsdk_Rpc_Camera_FormatStorageRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Camera_FormatStorageResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Camera_CameraServiceFormatStorageCall {
+    let response = try self.formatStorage(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Camera_CameraServiceFormatStorageCallTestStub()
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -805,12 +957,15 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: ServiceProvider {
   func stopVideoStreaming(request: Mavsdk_Rpc_Camera_StopVideoStreamingRequest, session: Mavsdk_Rpc_Camera_CameraServiceStopVideoStreamingSession) throws -> Mavsdk_Rpc_Camera_StopVideoStreamingResponse
   func setMode(request: Mavsdk_Rpc_Camera_SetModeRequest, session: Mavsdk_Rpc_Camera_CameraServiceSetModeSession) throws -> Mavsdk_Rpc_Camera_SetModeResponse
   func subscribeMode(request: Mavsdk_Rpc_Camera_SubscribeModeRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeModeSession) throws -> ServerStatus?
+  func subscribeInformation(request: Mavsdk_Rpc_Camera_SubscribeInformationRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSession) throws -> ServerStatus?
   func subscribeVideoStreamInfo(request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoSession) throws -> ServerStatus?
   func subscribeCaptureInfo(request: Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoSession) throws -> ServerStatus?
-  func subscribeCameraStatus(request: Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSession) throws -> ServerStatus?
+  func subscribeStatus(request: Mavsdk_Rpc_Camera_SubscribeStatusRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSession) throws -> ServerStatus?
   func subscribeCurrentSettings(request: Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsSession) throws -> ServerStatus?
   func subscribePossibleSettingOptions(request: Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, session: Mavsdk_Rpc_Camera_CameraServiceSubscribePossibleSettingOptionsSession) throws -> ServerStatus?
   func setSetting(request: Mavsdk_Rpc_Camera_SetSettingRequest, session: Mavsdk_Rpc_Camera_CameraServiceSetSettingSession) throws -> Mavsdk_Rpc_Camera_SetSettingResponse
+  func getSetting(request: Mavsdk_Rpc_Camera_GetSettingRequest, session: Mavsdk_Rpc_Camera_CameraServiceGetSettingSession) throws -> Mavsdk_Rpc_Camera_GetSettingResponse
+  func formatStorage(request: Mavsdk_Rpc_Camera_FormatStorageRequest, session: Mavsdk_Rpc_Camera_CameraServiceFormatStorageSession) throws -> Mavsdk_Rpc_Camera_FormatStorageResponse
 }
 
 extension Mavsdk_Rpc_Camera_CameraServiceProvider {
@@ -865,6 +1020,11 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         handler: handler,
         providerBlock: { try self.subscribeMode(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceSubscribeModeSessionBase) })
           .run()
+    case "/mavsdk.rpc.camera.CameraService/SubscribeInformation":
+      return try Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeInformation(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSessionBase) })
+          .run()
     case "/mavsdk.rpc.camera.CameraService/SubscribeVideoStreamInfo":
       return try Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoSessionBase(
         handler: handler,
@@ -875,10 +1035,10 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         handler: handler,
         providerBlock: { try self.subscribeCaptureInfo(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoSessionBase) })
           .run()
-    case "/mavsdk.rpc.camera.CameraService/SubscribeCameraStatus":
-      return try Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSessionBase(
+    case "/mavsdk.rpc.camera.CameraService/SubscribeStatus":
+      return try Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSessionBase(
         handler: handler,
-        providerBlock: { try self.subscribeCameraStatus(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSessionBase) })
+        providerBlock: { try self.subscribeStatus(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSessionBase) })
           .run()
     case "/mavsdk.rpc.camera.CameraService/SubscribeCurrentSettings":
       return try Mavsdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsSessionBase(
@@ -894,6 +1054,16 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
       return try Mavsdk_Rpc_Camera_CameraServiceSetSettingSessionBase(
         handler: handler,
         providerBlock: { try self.setSetting(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceSetSettingSessionBase) })
+          .run()
+    case "/mavsdk.rpc.camera.CameraService/GetSetting":
+      return try Mavsdk_Rpc_Camera_CameraServiceGetSettingSessionBase(
+        handler: handler,
+        providerBlock: { try self.getSetting(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceGetSettingSessionBase) })
+          .run()
+    case "/mavsdk.rpc.camera.CameraService/FormatStorage":
+      return try Mavsdk_Rpc_Camera_CameraServiceFormatStorageSessionBase(
+        handler: handler,
+        providerBlock: { try self.formatStorage(request: $0, session: $1 as! Mavsdk_Rpc_Camera_CameraServiceFormatStorageSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -970,6 +1140,27 @@ fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeModeSessionBase:
 
 class Mavsdk_Rpc_Camera_CameraServiceSubscribeModeSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Camera_ModeResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeModeSession {}
 
+internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Camera_InformationResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Camera_InformationResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Camera_InformationResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Camera_SubscribeInformationRequest, Mavsdk_Rpc_Camera_InformationResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSession {}
+
+class Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Camera_InformationResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeInformationSession {}
+
 internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeVideoStreamInfoSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
   func send(_ message: Mavsdk_Rpc_Camera_VideoStreamInfoResponse, completion: @escaping (Error?) -> Void) throws
@@ -1012,11 +1203,11 @@ fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoSessi
 
 class Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Camera_CaptureInfoResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeCaptureInfoSession {}
 
-internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSession: ServerSessionServerStreaming {
+internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Camera_CameraStatusResponse, completion: @escaping (Error?) -> Void) throws
+  func send(_ message: Mavsdk_Rpc_Camera_StatusResponse, completion: @escaping (Error?) -> Void) throws
   /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Camera_CameraStatusResponse, timeout: DispatchTime) throws
+  func _send(_ message: Mavsdk_Rpc_Camera_StatusResponse, timeout: DispatchTime) throws
 
   /// Close the connection and send the status. Non-blocking.
   /// This method should be called if and only if your request handler returns a nil value instead of a server status;
@@ -1024,14 +1215,14 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSession: S
   func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
 }
 
-internal extension Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSession {
+internal extension Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSession {
   /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Camera_CameraStatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+  func send(_ message: Mavsdk_Rpc_Camera_StatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
 }
 
-fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest, Mavsdk_Rpc_Camera_CameraStatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSession {}
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Camera_SubscribeStatusRequest, Mavsdk_Rpc_Camera_StatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSession {}
 
-class Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Camera_CameraStatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeCameraStatusSession {}
+class Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Camera_StatusResponse>, Mavsdk_Rpc_Camera_CameraServiceSubscribeStatusSession {}
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceSubscribeCurrentSettingsSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.
@@ -1080,4 +1271,16 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceSetSettingSession: ServerSessio
 fileprivate final class Mavsdk_Rpc_Camera_CameraServiceSetSettingSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Camera_SetSettingRequest, Mavsdk_Rpc_Camera_SetSettingResponse>, Mavsdk_Rpc_Camera_CameraServiceSetSettingSession {}
 
 class Mavsdk_Rpc_Camera_CameraServiceSetSettingSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Camera_CameraServiceSetSettingSession {}
+
+internal protocol Mavsdk_Rpc_Camera_CameraServiceGetSettingSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceGetSettingSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Camera_GetSettingRequest, Mavsdk_Rpc_Camera_GetSettingResponse>, Mavsdk_Rpc_Camera_CameraServiceGetSettingSession {}
+
+class Mavsdk_Rpc_Camera_CameraServiceGetSettingSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Camera_CameraServiceGetSettingSession {}
+
+internal protocol Mavsdk_Rpc_Camera_CameraServiceFormatStorageSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Camera_CameraServiceFormatStorageSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>, Mavsdk_Rpc_Camera_CameraServiceFormatStorageSession {}
+
+class Mavsdk_Rpc_Camera_CameraServiceFormatStorageSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Camera_CameraServiceFormatStorageSession {}
 

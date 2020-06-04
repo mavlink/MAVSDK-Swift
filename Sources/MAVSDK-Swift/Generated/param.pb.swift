@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Mavsdk_Rpc_Param_GetIntParamRequest {
+struct Mavsdk_Rpc_Param_GetParamIntRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -32,7 +32,7 @@ struct Mavsdk_Rpc_Param_GetIntParamRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Param_GetIntParamResponse {
+struct Mavsdk_Rpc_Param_GetParamIntResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -59,7 +59,7 @@ struct Mavsdk_Rpc_Param_GetIntParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Param_SetIntParamRequest {
+struct Mavsdk_Rpc_Param_SetParamIntRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -75,7 +75,7 @@ struct Mavsdk_Rpc_Param_SetIntParamRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Param_SetIntParamResponse {
+struct Mavsdk_Rpc_Param_SetParamIntResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -96,7 +96,7 @@ struct Mavsdk_Rpc_Param_SetIntParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Param_GetFloatParamRequest {
+struct Mavsdk_Rpc_Param_GetParamFloatRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -109,7 +109,7 @@ struct Mavsdk_Rpc_Param_GetFloatParamRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Param_GetFloatParamResponse {
+struct Mavsdk_Rpc_Param_GetParamFloatResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -136,7 +136,7 @@ struct Mavsdk_Rpc_Param_GetFloatParamResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Param_SetFloatParamRequest {
+struct Mavsdk_Rpc_Param_SetParamFloatRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -152,7 +152,7 @@ struct Mavsdk_Rpc_Param_SetFloatParamRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Param_SetFloatParamResponse {
+struct Mavsdk_Rpc_Param_SetParamFloatResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -191,7 +191,7 @@ struct Mavsdk_Rpc_Param_ParamResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
     /// Request succeeded
@@ -263,8 +263,8 @@ extension Mavsdk_Rpc_Param_ParamResult.Result: CaseIterable {
 
 fileprivate let _protobuf_package = "mavsdk.rpc.param"
 
-extension Mavsdk_Rpc_Param_GetIntParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetIntParamRequest"
+extension Mavsdk_Rpc_Param_GetParamIntRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetParamIntRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
   ]
@@ -285,15 +285,15 @@ extension Mavsdk_Rpc_Param_GetIntParamRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_GetIntParamRequest, rhs: Mavsdk_Rpc_Param_GetIntParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetParamIntRequest, rhs: Mavsdk_Rpc_Param_GetParamIntRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetIntParamResponse"
+extension Mavsdk_Rpc_Param_GetParamIntResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetParamIntResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
     2: .same(proto: "value"),
@@ -345,7 +345,7 @@ extension Mavsdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_GetIntParamResponse, rhs: Mavsdk_Rpc_Param_GetIntParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetParamIntResponse, rhs: Mavsdk_Rpc_Param_GetParamIntResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -361,8 +361,8 @@ extension Mavsdk_Rpc_Param_GetIntParamResponse: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension Mavsdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetIntParamRequest"
+extension Mavsdk_Rpc_Param_SetParamIntRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetParamIntRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "value"),
@@ -388,7 +388,7 @@ extension Mavsdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_SetIntParamRequest, rhs: Mavsdk_Rpc_Param_SetIntParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetParamIntRequest, rhs: Mavsdk_Rpc_Param_SetParamIntRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -396,8 +396,8 @@ extension Mavsdk_Rpc_Param_SetIntParamRequest: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension Mavsdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetIntParamResponse"
+extension Mavsdk_Rpc_Param_SetParamIntResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetParamIntResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
   ]
@@ -442,7 +442,7 @@ extension Mavsdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_SetIntParamResponse, rhs: Mavsdk_Rpc_Param_SetIntParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetParamIntResponse, rhs: Mavsdk_Rpc_Param_SetParamIntResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -457,8 +457,8 @@ extension Mavsdk_Rpc_Param_SetIntParamResponse: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension Mavsdk_Rpc_Param_GetFloatParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetFloatParamRequest"
+extension Mavsdk_Rpc_Param_GetParamFloatRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetParamFloatRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
   ]
@@ -479,15 +479,15 @@ extension Mavsdk_Rpc_Param_GetFloatParamRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_GetFloatParamRequest, rhs: Mavsdk_Rpc_Param_GetFloatParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetParamFloatRequest, rhs: Mavsdk_Rpc_Param_GetParamFloatRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetFloatParamResponse"
+extension Mavsdk_Rpc_Param_GetParamFloatResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetParamFloatResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
     2: .same(proto: "value"),
@@ -539,7 +539,7 @@ extension Mavsdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_GetFloatParamResponse, rhs: Mavsdk_Rpc_Param_GetFloatParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_GetParamFloatResponse, rhs: Mavsdk_Rpc_Param_GetParamFloatResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -555,8 +555,8 @@ extension Mavsdk_Rpc_Param_GetFloatParamResponse: SwiftProtobuf.Message, SwiftPr
   }
 }
 
-extension Mavsdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetFloatParamRequest"
+extension Mavsdk_Rpc_Param_SetParamFloatRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetParamFloatRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "value"),
@@ -582,7 +582,7 @@ extension Mavsdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, SwiftPro
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_SetFloatParamRequest, rhs: Mavsdk_Rpc_Param_SetFloatParamRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetParamFloatRequest, rhs: Mavsdk_Rpc_Param_SetParamFloatRequest) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -590,8 +590,8 @@ extension Mavsdk_Rpc_Param_SetFloatParamRequest: SwiftProtobuf.Message, SwiftPro
   }
 }
 
-extension Mavsdk_Rpc_Param_SetFloatParamResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetFloatParamResponse"
+extension Mavsdk_Rpc_Param_SetParamFloatResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetParamFloatResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "param_result"),
   ]
@@ -636,7 +636,7 @@ extension Mavsdk_Rpc_Param_SetFloatParamResponse: SwiftProtobuf.Message, SwiftPr
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Param_SetFloatParamResponse, rhs: Mavsdk_Rpc_Param_SetFloatParamResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Param_SetParamFloatResponse, rhs: Mavsdk_Rpc_Param_SetParamFloatResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -688,11 +688,11 @@ extension Mavsdk_Rpc_Param_ParamResult: SwiftProtobuf.Message, SwiftProtobuf._Me
 
 extension Mavsdk_Rpc_Param_ParamResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "TIMEOUT"),
-    3: .same(proto: "CONNECTION_ERROR"),
-    4: .same(proto: "WRONG_TYPE"),
-    5: .same(proto: "PARAM_NAME_TOO_LONG"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_TIMEOUT"),
+    3: .same(proto: "RESULT_CONNECTION_ERROR"),
+    4: .same(proto: "RESULT_WRONG_TYPE"),
+    5: .same(proto: "RESULT_PARAM_NAME_TOO_LONG"),
   ]
 }

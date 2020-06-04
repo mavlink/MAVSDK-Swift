@@ -19,7 +19,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-/// Fix type.
+/// GPS fix type.
 enum Mavsdk_Rpc_Telemetry_FixType: SwiftProtobuf.Enum {
   typealias RawValue = Int
 
@@ -98,7 +98,7 @@ extension Mavsdk_Rpc_Telemetry_FixType: CaseIterable {
 /// Flight modes.
 ///
 /// For more information about flight modes, check out
-/// https://docs.px4.io/en/config/flight_mode.html.
+/// https://docs.px4.io/master/en/config/flight_mode.html.
 enum Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
   typealias RawValue = Int
 
@@ -128,6 +128,24 @@ enum Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
 
   /// In 'follow-me' mode
   case followMe // = 8
+
+  /// In 'Manual' mode
+  case manual // = 9
+
+  /// In 'Altitude Control' mode
+  case altctl // = 10
+
+  /// In 'Position Control' mode
+  case posctl // = 11
+
+  /// In 'Acro' mode
+  case acro // = 12
+
+  /// In 'Stabilize' mode
+  case stabilized // = 13
+
+  /// In 'Rattitude' mode
+  case rattitude // = 14
   case UNRECOGNIZED(Int)
 
   init() {
@@ -145,6 +163,12 @@ enum Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
     case 6: self = .land
     case 7: self = .offboard
     case 8: self = .followMe
+    case 9: self = .manual
+    case 10: self = .altctl
+    case 11: self = .posctl
+    case 12: self = .acro
+    case 13: self = .stabilized
+    case 14: self = .rattitude
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -160,6 +184,12 @@ enum Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
     case .land: return 6
     case .offboard: return 7
     case .followMe: return 8
+    case .manual: return 9
+    case .altctl: return 10
+    case .posctl: return 11
+    case .acro: return 12
+    case .stabilized: return 13
+    case .rattitude: return 14
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -180,18 +210,85 @@ extension Mavsdk_Rpc_Telemetry_FlightMode: CaseIterable {
     .land,
     .offboard,
     .followMe,
+    .manual,
+    .altctl,
+    .posctl,
+    .acro,
+    .stabilized,
+    .rattitude,
   ]
 }
 
 #endif  // swift(>=4.2)
 
-/// Landed State enumeration
+/// Status types.
+enum Mavsdk_Rpc_Telemetry_StatusTextType: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+
+  /// Information or other
+  case info // = 0
+
+  /// Warning
+  case warning // = 1
+
+  /// Critical
+  case critical // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .info
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .info
+    case 1: self = .warning
+    case 2: self = .critical
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .info: return 0
+    case .warning: return 1
+    case .critical: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Mavsdk_Rpc_Telemetry_StatusTextType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Telemetry_StatusTextType] = [
+    .info,
+    .warning,
+    .critical,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+/// Landed State enumeration.
 enum Mavsdk_Rpc_Telemetry_LandedState: SwiftProtobuf.Enum {
   typealias RawValue = Int
+
+  /// Landed state is unknown
   case unknown // = 0
+
+  /// The vehicle is on the ground
   case onGround // = 1
+
+  /// The vehicle is in the air
   case inAir // = 2
+
+  /// The vehicle is taking off
   case takingOff // = 3
+
+  /// The vehicle is landing
   case landing // = 4
   case UNRECOGNIZED(Int)
 
@@ -340,6 +437,7 @@ struct Mavsdk_Rpc_Telemetry_LandedStateResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The next 'landed' state
   var landedState: Mavsdk_Rpc_Telemetry_LandedState = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -417,7 +515,7 @@ struct Mavsdk_Rpc_Telemetry_AttitudeEulerResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The next attitude (euler)
+  /// The next attitude (Euler)
   var attitudeEuler: Mavsdk_Rpc_Telemetry_EulerAngle {
     get {return _storage._attitudeEuler ?? Mavsdk_Rpc_Telemetry_EulerAngle()}
     set {_uniqueStorage()._attitudeEuler = newValue}
@@ -513,7 +611,7 @@ struct Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The next camera attitude (euler)
+  /// The next camera attitude (Euler)
   var attitudeEuler: Mavsdk_Rpc_Telemetry_EulerAngle {
     get {return _storage._attitudeEuler ?? Mavsdk_Rpc_Telemetry_EulerAngle()}
     set {_uniqueStorage()._attitudeEuler = newValue}
@@ -530,7 +628,7 @@ struct Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest {
+struct Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -540,20 +638,20 @@ struct Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse {
+struct Mavsdk_Rpc_Telemetry_VelocityNedResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The next ground speed (NED)
-  var groundSpeedNed: Mavsdk_Rpc_Telemetry_SpeedNed {
-    get {return _storage._groundSpeedNed ?? Mavsdk_Rpc_Telemetry_SpeedNed()}
-    set {_uniqueStorage()._groundSpeedNed = newValue}
+  /// The next velocity (NED)
+  var velocityNed: Mavsdk_Rpc_Telemetry_VelocityNed {
+    get {return _storage._velocityNed ?? Mavsdk_Rpc_Telemetry_VelocityNed()}
+    set {_uniqueStorage()._velocityNed = newValue}
   }
-  /// Returns true if `groundSpeedNed` has been explicitly set.
-  var hasGroundSpeedNed: Bool {return _storage._groundSpeedNed != nil}
-  /// Clears the value of `groundSpeedNed`. Subsequent reads from it will return its default value.
-  mutating func clearGroundSpeedNed() {_uniqueStorage()._groundSpeedNed = nil}
+  /// Returns true if `velocityNed` has been explicitly set.
+  var hasVelocityNed: Bool {return _storage._velocityNed != nil}
+  /// Clears the value of `velocityNed`. Subsequent reads from it will return its default value.
+  mutating func clearVelocityNed() {_uniqueStorage()._velocityNed = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -760,7 +858,7 @@ struct Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Actuator control target
+  /// The next actuator control target
   var actuatorControlTarget: Mavsdk_Rpc_Telemetry_ActuatorControlTarget {
     get {return _storage._actuatorControlTarget ?? Mavsdk_Rpc_Telemetry_ActuatorControlTarget()}
     set {_uniqueStorage()._actuatorControlTarget = newValue}
@@ -792,7 +890,7 @@ struct Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Actuator output status
+  /// The next actuator output status
   var actuatorOutputStatus: Mavsdk_Rpc_Telemetry_ActuatorOutputStatus {
     get {return _storage._actuatorOutputStatus ?? Mavsdk_Rpc_Telemetry_ActuatorOutputStatus()}
     set {_uniqueStorage()._actuatorOutputStatus = newValue}
@@ -824,7 +922,7 @@ struct Mavsdk_Rpc_Telemetry_OdometryResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Odometry
+  /// The next odometry status
   var odometry: Mavsdk_Rpc_Telemetry_Odometry {
     get {return _storage._odometry ?? Mavsdk_Rpc_Telemetry_Odometry()}
     set {_uniqueStorage()._odometry = newValue}
@@ -833,6 +931,860 @@ struct Mavsdk_Rpc_Telemetry_OdometryResponse {
   var hasOdometry: Bool {return _storage._odometry != nil}
   /// Clears the value of `odometry`. Subsequent reads from it will return its default value.
   mutating func clearOdometry() {_uniqueStorage()._odometry = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next position and velocity status
+  var positionVelocityNed: Mavsdk_Rpc_Telemetry_PositionVelocityNed {
+    get {return _storage._positionVelocityNed ?? Mavsdk_Rpc_Telemetry_PositionVelocityNed()}
+    set {_uniqueStorage()._positionVelocityNed = newValue}
+  }
+  /// Returns true if `positionVelocityNed` has been explicitly set.
+  var hasPositionVelocityNed: Bool {return _storage._positionVelocityNed != nil}
+  /// Clears the value of `positionVelocityNed`. Subsequent reads from it will return its default value.
+  mutating func clearPositionVelocityNed() {_uniqueStorage()._positionVelocityNed = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_GroundTruthResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Ground truth position information available in simulation
+  var groundTruth: Mavsdk_Rpc_Telemetry_GroundTruth {
+    get {return _storage._groundTruth ?? Mavsdk_Rpc_Telemetry_GroundTruth()}
+    set {_uniqueStorage()._groundTruth = newValue}
+  }
+  /// Returns true if `groundTruth` has been explicitly set.
+  var hasGroundTruth: Bool {return _storage._groundTruth != nil}
+  /// Clears the value of `groundTruth`. Subsequent reads from it will return its default value.
+  mutating func clearGroundTruth() {_uniqueStorage()._groundTruth = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next fixedwing metrics
+  var fixedwingMetrics: Mavsdk_Rpc_Telemetry_FixedwingMetrics {
+    get {return _storage._fixedwingMetrics ?? Mavsdk_Rpc_Telemetry_FixedwingMetrics()}
+    set {_uniqueStorage()._fixedwingMetrics = newValue}
+  }
+  /// Returns true if `fixedwingMetrics` has been explicitly set.
+  var hasFixedwingMetrics: Bool {return _storage._fixedwingMetrics != nil}
+  /// Clears the value of `fixedwingMetrics`. Subsequent reads from it will return its default value.
+  mutating func clearFixedwingMetrics() {_uniqueStorage()._fixedwingMetrics = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeImuRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_ImuResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next IMU status
+  var imu: Mavsdk_Rpc_Telemetry_Imu {
+    get {return _storage._imu ?? Mavsdk_Rpc_Telemetry_Imu()}
+    set {_uniqueStorage()._imu = newValue}
+  }
+  /// Returns true if `imu` has been explicitly set.
+  var hasImu: Bool {return _storage._imu != nil}
+  /// Clears the value of `imu`. Subsequent reads from it will return its default value.
+  mutating func clearImu() {_uniqueStorage()._imu = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_HealthAllOkResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next 'health all ok' status
+  var isHealthAllOk: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next 'unix epoch time' status
+  var timeUs: UInt64 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRatePositionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRatePositionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateHomeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateHomeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateInAirRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateInAirResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateBatteryRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateBatteryResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateOdometryRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateOdometryResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateImuRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateImuResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -921,7 +1873,7 @@ struct Mavsdk_Rpc_Telemetry_EulerAngle {
   init() {}
 }
 
-/// Angular velocity type
+/// Angular velocity type.
 struct Mavsdk_Rpc_Telemetry_AngularVelocityBody {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -935,26 +1887,6 @@ struct Mavsdk_Rpc_Telemetry_AngularVelocityBody {
 
   /// Yaw angular velocity
   var yawRadS: Float = 0
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-/// Speed type, represented in the NED (North East Down) frame and in metres/second.
-struct Mavsdk_Rpc_Telemetry_SpeedNed {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// Velocity in North direction in metres/second
-  var velocityNorthMS: Float = 0
-
-  /// Velocity in East direction in metres/second
-  var velocityEastMS: Float = 0
-
-  /// Velocity in Down direction in metres/second
-  var velocityDownMS: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1054,74 +1986,26 @@ struct Mavsdk_Rpc_Telemetry_StatusText {
   // methods supported on all messages.
 
   /// Message type
-  var type: Mavsdk_Rpc_Telemetry_StatusText.StatusType = .info
+  var type: Mavsdk_Rpc_Telemetry_StatusTextType = .info
 
   /// MAVLink status message
   var text: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  /// Status types.
-  enum StatusType: SwiftProtobuf.Enum {
-    typealias RawValue = Int
-
-    /// Information or other
-    case info // = 0
-
-    /// Warning
-    case warning // = 1
-
-    /// Critical
-    case critical // = 2
-    case UNRECOGNIZED(Int)
-
-    init() {
-      self = .info
-    }
-
-    init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .info
-      case 1: self = .warning
-      case 2: self = .critical
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    var rawValue: Int {
-      switch self {
-      case .info: return 0
-      case .warning: return 1
-      case .critical: return 2
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
   init() {}
 }
 
-#if swift(>=4.2)
-
-extension Mavsdk_Rpc_Telemetry_StatusText.StatusType: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_StatusText.StatusType] = [
-    .info,
-    .warning,
-    .critical,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
+/// Actuator control target type.
 struct Mavsdk_Rpc_Telemetry_ActuatorControlTarget {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// An actuator control group is e.g. 'attitude' for the core flight controls, or 'gimbal' for a payload.
   var group: Int32 = 0
 
+  /// Controls normed from -1 to 1, where 0 is neutral position.
   var controls: [Float] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -1129,14 +2013,76 @@ struct Mavsdk_Rpc_Telemetry_ActuatorControlTarget {
   init() {}
 }
 
+/// Actuator output status type.
 struct Mavsdk_Rpc_Telemetry_ActuatorOutputStatus {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Active outputs
   var active: UInt32 = 0
 
+  /// Servo/motor output values
   var actuator: [Float] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+///
+/// Covariance type.
+///
+/// Row-major representation of a 6x6 cross-covariance matrix
+/// upper right triangle.
+/// Set first to NaN if unknown.
+struct Mavsdk_Rpc_Telemetry_Covariance {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Representation of a covariance matrix.
+  var covarianceMatrix: [Float] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Velocity type, represented in the Body (X Y Z) frame and in metres/second.
+struct Mavsdk_Rpc_Telemetry_VelocityBody {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Velocity in X in metres/second
+  var xMS: Float = 0
+
+  /// Velocity in Y in metres/second
+  var yMS: Float = 0
+
+  /// Velocity in Z in metres/second
+  var zMS: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Position type, represented in the Body (X Y Z) frame
+struct Mavsdk_Rpc_Telemetry_PositionBody {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// X Position in metres.
+  var xM: Float = 0
+
+  /// Y Position in metres.
+  var yM: Float = 0
+
+  /// Z Position in metres.
+  var zM: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1187,17 +2133,17 @@ struct Mavsdk_Rpc_Telemetry_Odometry {
   /// Clears the value of `q`. Subsequent reads from it will return its default value.
   mutating func clearQ() {_uniqueStorage()._q = nil}
 
-  /// Linear speed (m/s).
-  var speedBody: Mavsdk_Rpc_Telemetry_SpeedBody {
-    get {return _storage._speedBody ?? Mavsdk_Rpc_Telemetry_SpeedBody()}
-    set {_uniqueStorage()._speedBody = newValue}
+  /// Linear velocity (m/s).
+  var velocityBody: Mavsdk_Rpc_Telemetry_VelocityBody {
+    get {return _storage._velocityBody ?? Mavsdk_Rpc_Telemetry_VelocityBody()}
+    set {_uniqueStorage()._velocityBody = newValue}
   }
-  /// Returns true if `speedBody` has been explicitly set.
-  var hasSpeedBody: Bool {return _storage._speedBody != nil}
-  /// Clears the value of `speedBody`. Subsequent reads from it will return its default value.
-  mutating func clearSpeedBody() {_uniqueStorage()._speedBody = nil}
+  /// Returns true if `velocityBody` has been explicitly set.
+  var hasVelocityBody: Bool {return _storage._velocityBody != nil}
+  /// Clears the value of `velocityBody`. Subsequent reads from it will return its default value.
+  mutating func clearVelocityBody() {_uniqueStorage()._velocityBody = nil}
 
-  /// Angular speed (rad/s).
+  /// Angular velocity (rad/s).
   var angularVelocityBody: Mavsdk_Rpc_Telemetry_AngularVelocityBody {
     get {return _storage._angularVelocityBody ?? Mavsdk_Rpc_Telemetry_AngularVelocityBody()}
     set {_uniqueStorage()._angularVelocityBody = newValue}
@@ -1232,6 +2178,8 @@ struct Mavsdk_Rpc_Telemetry_Odometry {
   /// Mavlink frame id
   enum MavFrame: SwiftProtobuf.Enum {
     typealias RawValue = Int
+
+    /// Frame is undefined.
     case undef // = 0
 
     /// Setpoint in body NED frame. This makes sense if all position control is externalized - e.g. useful to command 2 m/s^2 acceleration to the right.
@@ -1289,61 +2237,319 @@ extension Mavsdk_Rpc_Telemetry_Odometry.MavFrame: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-/// Covariance type.
-/// Row-major representation of a 6x6 cross-covariance matrix
-/// upper right triangle.
-/// Set first to NaN if unknown.
-struct Mavsdk_Rpc_Telemetry_Covariance {
+/// PositionNed message type.
+struct Mavsdk_Rpc_Telemetry_PositionNed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var covarianceMatrix: [Float] = []
+  /// Position along north direction in metres
+  var northM: Float = 0
+
+  /// Position along east direction in metres
+  var eastM: Float = 0
+
+  /// Position along down direction in metres
+  var downM: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-/// Speed type, represented in the Body (X Y Z) frame and in metres/second.
-struct Mavsdk_Rpc_Telemetry_SpeedBody {
+/// VelocityNed message type.
+struct Mavsdk_Rpc_Telemetry_VelocityNed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Velocity in X in metres/second
-  var velocityXMS: Float = 0
+  /// Velocity along north direction in metres per second
+  var northMS: Float = 0
 
-  /// Velocity in Y in metres/second
-  var velocityYMS: Float = 0
+  /// Velocity along east direction in metres per second
+  var eastMS: Float = 0
 
-  /// Velocity in Z in metres/second
-  var velocityZMS: Float = 0
+  /// Velocity along down direction in metres per second
+  var downMS: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-/// Position type, represented in the Body (X Y Z) frame
-struct Mavsdk_Rpc_Telemetry_PositionBody {
+/// PositionVelocityNed message type.
+struct Mavsdk_Rpc_Telemetry_PositionVelocityNed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// X Position in metres.
-  var xM: Float = 0
+  /// Position (NED)
+  var position: Mavsdk_Rpc_Telemetry_PositionNed {
+    get {return _storage._position ?? Mavsdk_Rpc_Telemetry_PositionNed()}
+    set {_uniqueStorage()._position = newValue}
+  }
+  /// Returns true if `position` has been explicitly set.
+  var hasPosition: Bool {return _storage._position != nil}
+  /// Clears the value of `position`. Subsequent reads from it will return its default value.
+  mutating func clearPosition() {_uniqueStorage()._position = nil}
 
-  /// Y Position in metres.
-  var yM: Float = 0
+  /// Velocity (NED)
+  var velocity: Mavsdk_Rpc_Telemetry_VelocityNed {
+    get {return _storage._velocity ?? Mavsdk_Rpc_Telemetry_VelocityNed()}
+    set {_uniqueStorage()._velocity = newValue}
+  }
+  /// Returns true if `velocity` has been explicitly set.
+  var hasVelocity: Bool {return _storage._velocity != nil}
+  /// Clears the value of `velocity`. Subsequent reads from it will return its default value.
+  mutating func clearVelocity() {_uniqueStorage()._velocity = nil}
 
-  /// Z Position in metres.
-  var zM: Float = 0
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// GroundTruth message type.
+struct Mavsdk_Rpc_Telemetry_GroundTruth {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Latitude in degrees (range: -90 to +90)
+  var latitudeDeg: Double = 0
+
+  /// Longitude in degrees (range: -180 to 180)
+  var longitudeDeg: Double = 0
+
+  /// Altitude AMSL (above mean sea level) in metres
+  var absoluteAltitudeM: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
+
+/// FixedwingMetrics message type.
+struct Mavsdk_Rpc_Telemetry_FixedwingMetrics {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Current indicated airspeed (IAS) in metres per second
+  var airspeedMS: Float = 0
+
+  /// Current throttle setting (0 to 100)
+  var throttlePercentage: Float = 0
+
+  /// Current climb rate in metres per second
+  var climbRateMS: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// AccelerationFrd message type.
+struct Mavsdk_Rpc_Telemetry_AccelerationFrd {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Acceleration in forward direction in metres per second^2
+  var forwardMS2: Float = 0
+
+  /// Acceleration in right direction in metres per second^2
+  var rightMS2: Float = 0
+
+  /// Acceleration in down direction in metres per second^2
+  var downMS2: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// AngularVelocityFrd message type.
+struct Mavsdk_Rpc_Telemetry_AngularVelocityFrd {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Angular velocity in forward direction in radians per second
+  var forwardRadS: Float = 0
+
+  /// Angular velocity in right direction in radians per second
+  var rightRadS: Float = 0
+
+  /// Angular velocity in Down direction in radians per second
+  var downRadS: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// MagneticFieldFrd message type.
+struct Mavsdk_Rpc_Telemetry_MagneticFieldFrd {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Magnetic field in forward direction measured in Gauss
+  var forwardGauss: Float = 0
+
+  /// Magnetic field in East direction measured in Gauss
+  var rightGauss: Float = 0
+
+  /// Magnetic field in Down direction measured in Gauss
+  var downGauss: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Imu message type.
+struct Mavsdk_Rpc_Telemetry_Imu {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Acceleration
+  var accelerationFrd: Mavsdk_Rpc_Telemetry_AccelerationFrd {
+    get {return _storage._accelerationFrd ?? Mavsdk_Rpc_Telemetry_AccelerationFrd()}
+    set {_uniqueStorage()._accelerationFrd = newValue}
+  }
+  /// Returns true if `accelerationFrd` has been explicitly set.
+  var hasAccelerationFrd: Bool {return _storage._accelerationFrd != nil}
+  /// Clears the value of `accelerationFrd`. Subsequent reads from it will return its default value.
+  mutating func clearAccelerationFrd() {_uniqueStorage()._accelerationFrd = nil}
+
+  /// Angular velocity
+  var angularVelocityFrd: Mavsdk_Rpc_Telemetry_AngularVelocityFrd {
+    get {return _storage._angularVelocityFrd ?? Mavsdk_Rpc_Telemetry_AngularVelocityFrd()}
+    set {_uniqueStorage()._angularVelocityFrd = newValue}
+  }
+  /// Returns true if `angularVelocityFrd` has been explicitly set.
+  var hasAngularVelocityFrd: Bool {return _storage._angularVelocityFrd != nil}
+  /// Clears the value of `angularVelocityFrd`. Subsequent reads from it will return its default value.
+  mutating func clearAngularVelocityFrd() {_uniqueStorage()._angularVelocityFrd = nil}
+
+  /// Magnetic field
+  var magneticFieldFrd: Mavsdk_Rpc_Telemetry_MagneticFieldFrd {
+    get {return _storage._magneticFieldFrd ?? Mavsdk_Rpc_Telemetry_MagneticFieldFrd()}
+    set {_uniqueStorage()._magneticFieldFrd = newValue}
+  }
+  /// Returns true if `magneticFieldFrd` has been explicitly set.
+  var hasMagneticFieldFrd: Bool {return _storage._magneticFieldFrd != nil}
+  /// Clears the value of `magneticFieldFrd`. Subsequent reads from it will return its default value.
+  mutating func clearMagneticFieldFrd() {_uniqueStorage()._magneticFieldFrd = nil}
+
+  /// Temperature
+  var temperatureDegc: Float {
+    get {return _storage._temperatureDegc}
+    set {_uniqueStorage()._temperatureDegc = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+/// Result type.
+struct Mavsdk_Rpc_Telemetry_TelemetryResult {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Result enum value
+  var result: Mavsdk_Rpc_Telemetry_TelemetryResult.Result = .unknown
+
+  /// Human-readable English string describing the result
+  var resultStr: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Possible results returned for telemetry requests.
+  enum Result: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+
+    /// Unknown result
+    case unknown // = 0
+
+    /// Success: the telemetry command was accepted by the vehicle
+    case success // = 1
+
+    /// No system connected
+    case noSystem // = 2
+
+    /// Connection error
+    case connectionError // = 3
+
+    /// Vehicle is busy
+    case busy // = 4
+
+    /// Command refused by vehicle
+    case commandDenied // = 5
+
+    /// Request timed out
+    case timeout // = 6
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .unknown
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 1: self = .success
+      case 2: self = .noSystem
+      case 3: self = .connectionError
+      case 4: self = .busy
+      case 5: self = .commandDenied
+      case 6: self = .timeout
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .success: return 1
+      case .noSystem: return 2
+      case .connectionError: return 3
+      case .busy: return 4
+      case .commandDenied: return 5
+      case .timeout: return 6
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension Mavsdk_Rpc_Telemetry_TelemetryResult.Result: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Telemetry_TelemetryResult.Result] = [
+    .unknown,
+    .success,
+    .noSystem,
+    .connectionError,
+    .busy,
+    .commandDenied,
+    .timeout,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -1351,27 +2557,41 @@ fileprivate let _protobuf_package = "mavsdk.rpc.telemetry"
 
 extension Mavsdk_Rpc_Telemetry_FixType: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "NO_GPS"),
-    1: .same(proto: "NO_FIX"),
-    2: .same(proto: "FIX_2D"),
-    3: .same(proto: "FIX_3D"),
-    4: .same(proto: "FIX_DGPS"),
-    5: .same(proto: "RTK_FLOAT"),
-    6: .same(proto: "RTK_FIXED"),
+    0: .same(proto: "FIX_TYPE_NO_GPS"),
+    1: .same(proto: "FIX_TYPE_NO_FIX"),
+    2: .same(proto: "FIX_TYPE_FIX_2D"),
+    3: .same(proto: "FIX_TYPE_FIX_3D"),
+    4: .same(proto: "FIX_TYPE_FIX_DGPS"),
+    5: .same(proto: "FIX_TYPE_RTK_FLOAT"),
+    6: .same(proto: "FIX_TYPE_RTK_FIXED"),
   ]
 }
 
 extension Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "READY"),
-    2: .same(proto: "TAKEOFF"),
-    3: .same(proto: "HOLD"),
-    4: .same(proto: "MISSION"),
-    5: .same(proto: "RETURN_TO_LAUNCH"),
-    6: .same(proto: "LAND"),
-    7: .same(proto: "OFFBOARD"),
-    8: .same(proto: "FOLLOW_ME"),
+    0: .same(proto: "FLIGHT_MODE_UNKNOWN"),
+    1: .same(proto: "FLIGHT_MODE_READY"),
+    2: .same(proto: "FLIGHT_MODE_TAKEOFF"),
+    3: .same(proto: "FLIGHT_MODE_HOLD"),
+    4: .same(proto: "FLIGHT_MODE_MISSION"),
+    5: .same(proto: "FLIGHT_MODE_RETURN_TO_LAUNCH"),
+    6: .same(proto: "FLIGHT_MODE_LAND"),
+    7: .same(proto: "FLIGHT_MODE_OFFBOARD"),
+    8: .same(proto: "FLIGHT_MODE_FOLLOW_ME"),
+    9: .same(proto: "FLIGHT_MODE_MANUAL"),
+    10: .same(proto: "FLIGHT_MODE_ALTCTL"),
+    11: .same(proto: "FLIGHT_MODE_POSCTL"),
+    12: .same(proto: "FLIGHT_MODE_ACRO"),
+    13: .same(proto: "FLIGHT_MODE_STABILIZED"),
+    14: .same(proto: "FLIGHT_MODE_RATTITUDE"),
+  ]
+}
+
+extension Mavsdk_Rpc_Telemetry_StatusTextType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "STATUS_TEXT_TYPE_INFO"),
+    1: .same(proto: "STATUS_TEXT_TYPE_WARNING"),
+    2: .same(proto: "STATUS_TEXT_TYPE_CRITICAL"),
   ]
 }
 
@@ -2089,8 +3309,8 @@ extension Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse: SwiftProtobuf.Messag
   }
 }
 
-extension Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SubscribeGroundSpeedNedRequest"
+extension Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeVelocityNedRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2102,27 +3322,27 @@ extension Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeGroundSpeedNedRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GroundSpeedNedResponse"
+extension Mavsdk_Rpc_Telemetry_VelocityNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".VelocityNedResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "ground_speed_ned"),
+    1: .standard(proto: "velocity_ned"),
   ]
 
   fileprivate class _StorageClass {
-    var _groundSpeedNed: Mavsdk_Rpc_Telemetry_SpeedNed? = nil
+    var _velocityNed: Mavsdk_Rpc_Telemetry_VelocityNed? = nil
 
     static let defaultInstance = _StorageClass()
 
     private init() {}
 
     init(copying source: _StorageClass) {
-      _groundSpeedNed = source._groundSpeedNed
+      _velocityNed = source._velocityNed
     }
   }
 
@@ -2138,7 +3358,7 @@ extension Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Message, Sw
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._groundSpeedNed)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._velocityNed)
         default: break
         }
       }
@@ -2147,19 +3367,19 @@ extension Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse: SwiftProtobuf.Message, Sw
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._groundSpeedNed {
+      if let v = _storage._velocityNed {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse, rhs: Mavsdk_Rpc_Telemetry_GroundSpeedNedResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_VelocityNedResponse, rhs: Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._groundSpeedNed != rhs_storage._groundSpeedNed {return false}
+        if _storage._velocityNed != rhs_storage._velocityNed {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2857,6 +4077,2222 @@ extension Mavsdk_Rpc_Telemetry_OdometryResponse: SwiftProtobuf.Message, SwiftPro
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribePositionVelocityNedRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PositionVelocityNedResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "position_velocity_ned"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _positionVelocityNed: Mavsdk_Rpc_Telemetry_PositionVelocityNed? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _positionVelocityNed = source._positionVelocityNed
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._positionVelocityNed)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._positionVelocityNed {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse, rhs: Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._positionVelocityNed != rhs_storage._positionVelocityNed {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeGroundTruthRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_GroundTruthResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GroundTruthResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "ground_truth"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _groundTruth: Mavsdk_Rpc_Telemetry_GroundTruth? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _groundTruth = source._groundTruth
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._groundTruth)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._groundTruth {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GroundTruthResponse, rhs: Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._groundTruth != rhs_storage._groundTruth {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeFixedwingMetricsRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".FixedwingMetricsResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "fixedwing_metrics"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _fixedwingMetrics: Mavsdk_Rpc_Telemetry_FixedwingMetrics? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _fixedwingMetrics = source._fixedwingMetrics
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._fixedwingMetrics)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._fixedwingMetrics {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse, rhs: Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._fixedwingMetrics != rhs_storage._fixedwingMetrics {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeImuRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeImuRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeImuRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_ImuResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ImuResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "imu"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _imu: Mavsdk_Rpc_Telemetry_Imu? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _imu = source._imu
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._imu)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._imu {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_ImuResponse, rhs: Mavsdk_Rpc_Telemetry_ImuResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._imu != rhs_storage._imu {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeHealthAllOkRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_HealthAllOkResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".HealthAllOkResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "is_health_all_ok"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularBoolField(value: &self.isHealthAllOk)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.isHealthAllOk != false {
+      try visitor.visitSingularBoolField(value: self.isHealthAllOk, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_HealthAllOkResponse, rhs: Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Bool {
+    if lhs.isHealthAllOk != rhs.isHealthAllOk {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeUnixEpochTimeRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".UnixEpochTimeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "time_us"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt64Field(value: &self.timeUs)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeUs != 0 {
+      try visitor.visitSingularUInt64Field(value: self.timeUs, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse, rhs: Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Bool {
+    if lhs.timeUs != rhs.timeUs {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRatePositionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRatePositionRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, rhs: Mavsdk_Rpc_Telemetry_SetRatePositionRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRatePositionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRatePositionResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRatePositionResponse, rhs: Mavsdk_Rpc_Telemetry_SetRatePositionResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateHomeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateHomeRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateHomeRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateHomeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateHomeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateHomeResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateHomeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateInAirRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateInAirRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateInAirRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateInAirResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateInAirResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateInAirResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateInAirResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateLandedStateRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateLandedStateResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateAttitudeRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateAttitudeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateAttitudeAngularVelocityBodyRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateAttitudeAngularVelocityBodyResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateAttitudeAngularVelocityBodyResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateCameraAttitudeQuaternionRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateCameraAttitudeQuaternionResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeQuaternionResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateCameraAttitudeRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateCameraAttitudeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateVelocityNedRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateVelocityNedResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateGpsInfoRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateGpsInfoResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateBatteryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateBatteryRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateBatteryResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateBatteryResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateBatteryResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateBatteryResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateRcStatusRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateRcStatusResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateActuatorControlTargetRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateActuatorControlTargetResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateActuatorOutputStatusRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateActuatorOutputStatusResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateOdometryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateOdometryRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateOdometryResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateOdometryResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateOdometryResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateOdometryResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRatePositionVelocityNedRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, rhs: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRatePositionVelocityNedResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse, rhs: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateGroundTruthRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateGroundTruthResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateFixedwingMetricsRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateFixedwingMetricsResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateImuRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateImuRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateImuRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateImuRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateImuResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateImuResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateImuResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateImuResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateUnixEpochTimeRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateUnixEpochTimeResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Position"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3028,47 +6464,6 @@ extension Mavsdk_Rpc_Telemetry_AngularVelocityBody: SwiftProtobuf.Message, Swift
     if lhs.rollRadS != rhs.rollRadS {return false}
     if lhs.pitchRadS != rhs.pitchRadS {return false}
     if lhs.yawRadS != rhs.yawRadS {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_Telemetry_SpeedNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SpeedNed"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "velocity_north_m_s"),
-    2: .standard(proto: "velocity_east_m_s"),
-    3: .standard(proto: "velocity_down_m_s"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.velocityNorthMS)
-      case 2: try decoder.decodeSingularFloatField(value: &self.velocityEastMS)
-      case 3: try decoder.decodeSingularFloatField(value: &self.velocityDownMS)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.velocityNorthMS != 0 {
-      try visitor.visitSingularFloatField(value: self.velocityNorthMS, fieldNumber: 1)
-    }
-    if self.velocityEastMS != 0 {
-      try visitor.visitSingularFloatField(value: self.velocityEastMS, fieldNumber: 2)
-    }
-    if self.velocityDownMS != 0 {
-      try visitor.visitSingularFloatField(value: self.velocityDownMS, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Telemetry_SpeedNed, rhs: Mavsdk_Rpc_Telemetry_SpeedNed) -> Bool {
-    if lhs.velocityNorthMS != rhs.velocityNorthMS {return false}
-    if lhs.velocityEastMS != rhs.velocityEastMS {return false}
-    if lhs.velocityDownMS != rhs.velocityDownMS {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3285,14 +6680,6 @@ extension Mavsdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftProtobuf.
   }
 }
 
-extension Mavsdk_Rpc_Telemetry_StatusText.StatusType: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "INFO"),
-    1: .same(proto: "WARNING"),
-    2: .same(proto: "CRITICAL"),
-  ]
-}
-
 extension Mavsdk_Rpc_Telemetry_ActuatorControlTarget: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ActuatorControlTarget"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3363,140 +6750,6 @@ extension Mavsdk_Rpc_Telemetry_ActuatorOutputStatus: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Mavsdk_Rpc_Telemetry_Odometry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Odometry"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "time_usec"),
-    2: .standard(proto: "frame_id"),
-    3: .standard(proto: "child_frame_id"),
-    4: .standard(proto: "position_body"),
-    5: .same(proto: "q"),
-    6: .standard(proto: "speed_body"),
-    7: .standard(proto: "angular_velocity_body"),
-    8: .standard(proto: "pose_covariance"),
-    9: .standard(proto: "velocity_covariance"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _timeUsec: UInt64 = 0
-    var _frameID: Mavsdk_Rpc_Telemetry_Odometry.MavFrame = .undef
-    var _childFrameID: Mavsdk_Rpc_Telemetry_Odometry.MavFrame = .undef
-    var _positionBody: Mavsdk_Rpc_Telemetry_PositionBody? = nil
-    var _q: Mavsdk_Rpc_Telemetry_Quaternion? = nil
-    var _speedBody: Mavsdk_Rpc_Telemetry_SpeedBody? = nil
-    var _angularVelocityBody: Mavsdk_Rpc_Telemetry_AngularVelocityBody? = nil
-    var _poseCovariance: Mavsdk_Rpc_Telemetry_Covariance? = nil
-    var _velocityCovariance: Mavsdk_Rpc_Telemetry_Covariance? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _timeUsec = source._timeUsec
-      _frameID = source._frameID
-      _childFrameID = source._childFrameID
-      _positionBody = source._positionBody
-      _q = source._q
-      _speedBody = source._speedBody
-      _angularVelocityBody = source._angularVelocityBody
-      _poseCovariance = source._poseCovariance
-      _velocityCovariance = source._velocityCovariance
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularUInt64Field(value: &_storage._timeUsec)
-        case 2: try decoder.decodeSingularEnumField(value: &_storage._frameID)
-        case 3: try decoder.decodeSingularEnumField(value: &_storage._childFrameID)
-        case 4: try decoder.decodeSingularMessageField(value: &_storage._positionBody)
-        case 5: try decoder.decodeSingularMessageField(value: &_storage._q)
-        case 6: try decoder.decodeSingularMessageField(value: &_storage._speedBody)
-        case 7: try decoder.decodeSingularMessageField(value: &_storage._angularVelocityBody)
-        case 8: try decoder.decodeSingularMessageField(value: &_storage._poseCovariance)
-        case 9: try decoder.decodeSingularMessageField(value: &_storage._velocityCovariance)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._timeUsec != 0 {
-        try visitor.visitSingularUInt64Field(value: _storage._timeUsec, fieldNumber: 1)
-      }
-      if _storage._frameID != .undef {
-        try visitor.visitSingularEnumField(value: _storage._frameID, fieldNumber: 2)
-      }
-      if _storage._childFrameID != .undef {
-        try visitor.visitSingularEnumField(value: _storage._childFrameID, fieldNumber: 3)
-      }
-      if let v = _storage._positionBody {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if let v = _storage._q {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if let v = _storage._speedBody {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-      if let v = _storage._angularVelocityBody {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
-      if let v = _storage._poseCovariance {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-      }
-      if let v = _storage._velocityCovariance {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Telemetry_Odometry, rhs: Mavsdk_Rpc_Telemetry_Odometry) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._timeUsec != rhs_storage._timeUsec {return false}
-        if _storage._frameID != rhs_storage._frameID {return false}
-        if _storage._childFrameID != rhs_storage._childFrameID {return false}
-        if _storage._positionBody != rhs_storage._positionBody {return false}
-        if _storage._q != rhs_storage._q {return false}
-        if _storage._speedBody != rhs_storage._speedBody {return false}
-        if _storage._angularVelocityBody != rhs_storage._angularVelocityBody {return false}
-        if _storage._poseCovariance != rhs_storage._poseCovariance {return false}
-        if _storage._velocityCovariance != rhs_storage._velocityCovariance {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_Telemetry_Odometry.MavFrame: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNDEF"),
-    8: .same(proto: "BODY_NED"),
-    16: .same(proto: "VISION_NED"),
-    18: .same(proto: "ESTIM_NED"),
-  ]
-}
-
 extension Mavsdk_Rpc_Telemetry_Covariance: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Covariance"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3526,42 +6779,42 @@ extension Mavsdk_Rpc_Telemetry_Covariance: SwiftProtobuf.Message, SwiftProtobuf.
   }
 }
 
-extension Mavsdk_Rpc_Telemetry_SpeedBody: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SpeedBody"
+extension Mavsdk_Rpc_Telemetry_VelocityBody: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".VelocityBody"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "velocity_x_m_s"),
-    2: .standard(proto: "velocity_y_m_s"),
-    3: .standard(proto: "velocity_z_m_s"),
+    1: .standard(proto: "x_m_s"),
+    2: .standard(proto: "y_m_s"),
+    3: .standard(proto: "z_m_s"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.velocityXMS)
-      case 2: try decoder.decodeSingularFloatField(value: &self.velocityYMS)
-      case 3: try decoder.decodeSingularFloatField(value: &self.velocityZMS)
+      case 1: try decoder.decodeSingularFloatField(value: &self.xMS)
+      case 2: try decoder.decodeSingularFloatField(value: &self.yMS)
+      case 3: try decoder.decodeSingularFloatField(value: &self.zMS)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.velocityXMS != 0 {
-      try visitor.visitSingularFloatField(value: self.velocityXMS, fieldNumber: 1)
+    if self.xMS != 0 {
+      try visitor.visitSingularFloatField(value: self.xMS, fieldNumber: 1)
     }
-    if self.velocityYMS != 0 {
-      try visitor.visitSingularFloatField(value: self.velocityYMS, fieldNumber: 2)
+    if self.yMS != 0 {
+      try visitor.visitSingularFloatField(value: self.yMS, fieldNumber: 2)
     }
-    if self.velocityZMS != 0 {
-      try visitor.visitSingularFloatField(value: self.velocityZMS, fieldNumber: 3)
+    if self.zMS != 0 {
+      try visitor.visitSingularFloatField(value: self.zMS, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Telemetry_SpeedBody, rhs: Mavsdk_Rpc_Telemetry_SpeedBody) -> Bool {
-    if lhs.velocityXMS != rhs.velocityXMS {return false}
-    if lhs.velocityYMS != rhs.velocityYMS {return false}
-    if lhs.velocityZMS != rhs.velocityZMS {return false}
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_VelocityBody, rhs: Mavsdk_Rpc_Telemetry_VelocityBody) -> Bool {
+    if lhs.xMS != rhs.xMS {return false}
+    if lhs.yMS != rhs.yMS {return false}
+    if lhs.zMS != rhs.zMS {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3606,4 +6859,626 @@ extension Mavsdk_Rpc_Telemetry_PositionBody: SwiftProtobuf.Message, SwiftProtobu
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Mavsdk_Rpc_Telemetry_Odometry: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Odometry"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "time_usec"),
+    2: .standard(proto: "frame_id"),
+    3: .standard(proto: "child_frame_id"),
+    4: .standard(proto: "position_body"),
+    5: .same(proto: "q"),
+    6: .standard(proto: "velocity_body"),
+    7: .standard(proto: "angular_velocity_body"),
+    8: .standard(proto: "pose_covariance"),
+    9: .standard(proto: "velocity_covariance"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _timeUsec: UInt64 = 0
+    var _frameID: Mavsdk_Rpc_Telemetry_Odometry.MavFrame = .undef
+    var _childFrameID: Mavsdk_Rpc_Telemetry_Odometry.MavFrame = .undef
+    var _positionBody: Mavsdk_Rpc_Telemetry_PositionBody? = nil
+    var _q: Mavsdk_Rpc_Telemetry_Quaternion? = nil
+    var _velocityBody: Mavsdk_Rpc_Telemetry_VelocityBody? = nil
+    var _angularVelocityBody: Mavsdk_Rpc_Telemetry_AngularVelocityBody? = nil
+    var _poseCovariance: Mavsdk_Rpc_Telemetry_Covariance? = nil
+    var _velocityCovariance: Mavsdk_Rpc_Telemetry_Covariance? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _timeUsec = source._timeUsec
+      _frameID = source._frameID
+      _childFrameID = source._childFrameID
+      _positionBody = source._positionBody
+      _q = source._q
+      _velocityBody = source._velocityBody
+      _angularVelocityBody = source._angularVelocityBody
+      _poseCovariance = source._poseCovariance
+      _velocityCovariance = source._velocityCovariance
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularUInt64Field(value: &_storage._timeUsec)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._frameID)
+        case 3: try decoder.decodeSingularEnumField(value: &_storage._childFrameID)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._positionBody)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._q)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._velocityBody)
+        case 7: try decoder.decodeSingularMessageField(value: &_storage._angularVelocityBody)
+        case 8: try decoder.decodeSingularMessageField(value: &_storage._poseCovariance)
+        case 9: try decoder.decodeSingularMessageField(value: &_storage._velocityCovariance)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._timeUsec != 0 {
+        try visitor.visitSingularUInt64Field(value: _storage._timeUsec, fieldNumber: 1)
+      }
+      if _storage._frameID != .undef {
+        try visitor.visitSingularEnumField(value: _storage._frameID, fieldNumber: 2)
+      }
+      if _storage._childFrameID != .undef {
+        try visitor.visitSingularEnumField(value: _storage._childFrameID, fieldNumber: 3)
+      }
+      if let v = _storage._positionBody {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._q {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._velocityBody {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if let v = _storage._angularVelocityBody {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }
+      if let v = _storage._poseCovariance {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
+      if let v = _storage._velocityCovariance {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_Odometry, rhs: Mavsdk_Rpc_Telemetry_Odometry) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._timeUsec != rhs_storage._timeUsec {return false}
+        if _storage._frameID != rhs_storage._frameID {return false}
+        if _storage._childFrameID != rhs_storage._childFrameID {return false}
+        if _storage._positionBody != rhs_storage._positionBody {return false}
+        if _storage._q != rhs_storage._q {return false}
+        if _storage._velocityBody != rhs_storage._velocityBody {return false}
+        if _storage._angularVelocityBody != rhs_storage._angularVelocityBody {return false}
+        if _storage._poseCovariance != rhs_storage._poseCovariance {return false}
+        if _storage._velocityCovariance != rhs_storage._velocityCovariance {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_Odometry.MavFrame: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "MAV_FRAME_UNDEF"),
+    8: .same(proto: "MAV_FRAME_BODY_NED"),
+    16: .same(proto: "MAV_FRAME_VISION_NED"),
+    18: .same(proto: "MAV_FRAME_ESTIM_NED"),
+  ]
+}
+
+extension Mavsdk_Rpc_Telemetry_PositionNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PositionNed"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "north_m"),
+    2: .standard(proto: "east_m"),
+    3: .standard(proto: "down_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.northM)
+      case 2: try decoder.decodeSingularFloatField(value: &self.eastM)
+      case 3: try decoder.decodeSingularFloatField(value: &self.downM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.northM != 0 {
+      try visitor.visitSingularFloatField(value: self.northM, fieldNumber: 1)
+    }
+    if self.eastM != 0 {
+      try visitor.visitSingularFloatField(value: self.eastM, fieldNumber: 2)
+    }
+    if self.downM != 0 {
+      try visitor.visitSingularFloatField(value: self.downM, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_PositionNed, rhs: Mavsdk_Rpc_Telemetry_PositionNed) -> Bool {
+    if lhs.northM != rhs.northM {return false}
+    if lhs.eastM != rhs.eastM {return false}
+    if lhs.downM != rhs.downM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_VelocityNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".VelocityNed"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "north_m_s"),
+    2: .standard(proto: "east_m_s"),
+    3: .standard(proto: "down_m_s"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.northMS)
+      case 2: try decoder.decodeSingularFloatField(value: &self.eastMS)
+      case 3: try decoder.decodeSingularFloatField(value: &self.downMS)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.northMS != 0 {
+      try visitor.visitSingularFloatField(value: self.northMS, fieldNumber: 1)
+    }
+    if self.eastMS != 0 {
+      try visitor.visitSingularFloatField(value: self.eastMS, fieldNumber: 2)
+    }
+    if self.downMS != 0 {
+      try visitor.visitSingularFloatField(value: self.downMS, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_VelocityNed, rhs: Mavsdk_Rpc_Telemetry_VelocityNed) -> Bool {
+    if lhs.northMS != rhs.northMS {return false}
+    if lhs.eastMS != rhs.eastMS {return false}
+    if lhs.downMS != rhs.downMS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_PositionVelocityNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PositionVelocityNed"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "position"),
+    2: .same(proto: "velocity"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _position: Mavsdk_Rpc_Telemetry_PositionNed? = nil
+    var _velocity: Mavsdk_Rpc_Telemetry_VelocityNed? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _position = source._position
+      _velocity = source._velocity
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._position)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._velocity)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._position {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._velocity {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_PositionVelocityNed, rhs: Mavsdk_Rpc_Telemetry_PositionVelocityNed) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._position != rhs_storage._position {return false}
+        if _storage._velocity != rhs_storage._velocity {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_GroundTruth: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GroundTruth"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "latitude_deg"),
+    2: .standard(proto: "longitude_deg"),
+    3: .standard(proto: "absolute_altitude_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
+      case 3: try decoder.decodeSingularFloatField(value: &self.absoluteAltitudeM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.latitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latitudeDeg, fieldNumber: 1)
+    }
+    if self.longitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 2)
+    }
+    if self.absoluteAltitudeM != 0 {
+      try visitor.visitSingularFloatField(value: self.absoluteAltitudeM, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GroundTruth, rhs: Mavsdk_Rpc_Telemetry_GroundTruth) -> Bool {
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_FixedwingMetrics: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".FixedwingMetrics"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "airspeed_m_s"),
+    2: .standard(proto: "throttle_percentage"),
+    3: .standard(proto: "climb_rate_m_s"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.airspeedMS)
+      case 2: try decoder.decodeSingularFloatField(value: &self.throttlePercentage)
+      case 3: try decoder.decodeSingularFloatField(value: &self.climbRateMS)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.airspeedMS != 0 {
+      try visitor.visitSingularFloatField(value: self.airspeedMS, fieldNumber: 1)
+    }
+    if self.throttlePercentage != 0 {
+      try visitor.visitSingularFloatField(value: self.throttlePercentage, fieldNumber: 2)
+    }
+    if self.climbRateMS != 0 {
+      try visitor.visitSingularFloatField(value: self.climbRateMS, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_FixedwingMetrics, rhs: Mavsdk_Rpc_Telemetry_FixedwingMetrics) -> Bool {
+    if lhs.airspeedMS != rhs.airspeedMS {return false}
+    if lhs.throttlePercentage != rhs.throttlePercentage {return false}
+    if lhs.climbRateMS != rhs.climbRateMS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_AccelerationFrd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AccelerationFrd"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "forward_m_s2"),
+    2: .standard(proto: "right_m_s2"),
+    3: .standard(proto: "down_m_s2"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.forwardMS2)
+      case 2: try decoder.decodeSingularFloatField(value: &self.rightMS2)
+      case 3: try decoder.decodeSingularFloatField(value: &self.downMS2)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.forwardMS2 != 0 {
+      try visitor.visitSingularFloatField(value: self.forwardMS2, fieldNumber: 1)
+    }
+    if self.rightMS2 != 0 {
+      try visitor.visitSingularFloatField(value: self.rightMS2, fieldNumber: 2)
+    }
+    if self.downMS2 != 0 {
+      try visitor.visitSingularFloatField(value: self.downMS2, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_AccelerationFrd, rhs: Mavsdk_Rpc_Telemetry_AccelerationFrd) -> Bool {
+    if lhs.forwardMS2 != rhs.forwardMS2 {return false}
+    if lhs.rightMS2 != rhs.rightMS2 {return false}
+    if lhs.downMS2 != rhs.downMS2 {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_AngularVelocityFrd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AngularVelocityFrd"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "forward_rad_s"),
+    2: .standard(proto: "right_rad_s"),
+    3: .standard(proto: "down_rad_s"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.forwardRadS)
+      case 2: try decoder.decodeSingularFloatField(value: &self.rightRadS)
+      case 3: try decoder.decodeSingularFloatField(value: &self.downRadS)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.forwardRadS != 0 {
+      try visitor.visitSingularFloatField(value: self.forwardRadS, fieldNumber: 1)
+    }
+    if self.rightRadS != 0 {
+      try visitor.visitSingularFloatField(value: self.rightRadS, fieldNumber: 2)
+    }
+    if self.downRadS != 0 {
+      try visitor.visitSingularFloatField(value: self.downRadS, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_AngularVelocityFrd, rhs: Mavsdk_Rpc_Telemetry_AngularVelocityFrd) -> Bool {
+    if lhs.forwardRadS != rhs.forwardRadS {return false}
+    if lhs.rightRadS != rhs.rightRadS {return false}
+    if lhs.downRadS != rhs.downRadS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_MagneticFieldFrd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MagneticFieldFrd"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "forward_gauss"),
+    2: .standard(proto: "right_gauss"),
+    3: .standard(proto: "down_gauss"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.forwardGauss)
+      case 2: try decoder.decodeSingularFloatField(value: &self.rightGauss)
+      case 3: try decoder.decodeSingularFloatField(value: &self.downGauss)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.forwardGauss != 0 {
+      try visitor.visitSingularFloatField(value: self.forwardGauss, fieldNumber: 1)
+    }
+    if self.rightGauss != 0 {
+      try visitor.visitSingularFloatField(value: self.rightGauss, fieldNumber: 2)
+    }
+    if self.downGauss != 0 {
+      try visitor.visitSingularFloatField(value: self.downGauss, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_MagneticFieldFrd, rhs: Mavsdk_Rpc_Telemetry_MagneticFieldFrd) -> Bool {
+    if lhs.forwardGauss != rhs.forwardGauss {return false}
+    if lhs.rightGauss != rhs.rightGauss {return false}
+    if lhs.downGauss != rhs.downGauss {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_Imu: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Imu"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "acceleration_frd"),
+    2: .standard(proto: "angular_velocity_frd"),
+    3: .standard(proto: "magnetic_field_frd"),
+    4: .standard(proto: "temperature_degc"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _accelerationFrd: Mavsdk_Rpc_Telemetry_AccelerationFrd? = nil
+    var _angularVelocityFrd: Mavsdk_Rpc_Telemetry_AngularVelocityFrd? = nil
+    var _magneticFieldFrd: Mavsdk_Rpc_Telemetry_MagneticFieldFrd? = nil
+    var _temperatureDegc: Float = 0
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _accelerationFrd = source._accelerationFrd
+      _angularVelocityFrd = source._angularVelocityFrd
+      _magneticFieldFrd = source._magneticFieldFrd
+      _temperatureDegc = source._temperatureDegc
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._accelerationFrd)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._angularVelocityFrd)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._magneticFieldFrd)
+        case 4: try decoder.decodeSingularFloatField(value: &_storage._temperatureDegc)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._accelerationFrd {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._angularVelocityFrd {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._magneticFieldFrd {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if _storage._temperatureDegc != 0 {
+        try visitor.visitSingularFloatField(value: _storage._temperatureDegc, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_Imu, rhs: Mavsdk_Rpc_Telemetry_Imu) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._accelerationFrd != rhs_storage._accelerationFrd {return false}
+        if _storage._angularVelocityFrd != rhs_storage._angularVelocityFrd {return false}
+        if _storage._magneticFieldFrd != rhs_storage._magneticFieldFrd {return false}
+        if _storage._temperatureDegc != rhs_storage._temperatureDegc {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_TelemetryResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TelemetryResult"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "result"),
+    2: .standard(proto: "result_str"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.result)
+      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.result != .unknown {
+      try visitor.visitSingularEnumField(value: self.result, fieldNumber: 1)
+    }
+    if !self.resultStr.isEmpty {
+      try visitor.visitSingularStringField(value: self.resultStr, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_TelemetryResult, rhs: Mavsdk_Rpc_Telemetry_TelemetryResult) -> Bool {
+    if lhs.result != rhs.result {return false}
+    if lhs.resultStr != rhs.resultStr {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_TelemetryResult.Result: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_NO_SYSTEM"),
+    3: .same(proto: "RESULT_CONNECTION_ERROR"),
+    4: .same(proto: "RESULT_BUSY"),
+    5: .same(proto: "RESULT_COMMAND_DENIED"),
+    6: .same(proto: "RESULT_TIMEOUT"),
+  ]
 }

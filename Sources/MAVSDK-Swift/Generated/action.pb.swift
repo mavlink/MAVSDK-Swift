@@ -174,6 +174,37 @@ struct Mavsdk_Rpc_Action_RebootResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Action_ShutdownRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Action_ShutdownResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_uniqueStorage()._actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return _storage._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 struct Mavsdk_Rpc_Action_KillRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -236,7 +267,50 @@ struct Mavsdk_Rpc_Action_ReturnToLaunchResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Action_TransitionToFixedWingRequest {
+struct Mavsdk_Rpc_Action_GotoLocationRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Latitude (in degrees)
+  var latitudeDeg: Double = 0
+
+  /// Longitude (in degrees)
+  var longitudeDeg: Double = 0
+
+  /// Altitude AMSL (in meters)
+  var absoluteAltitudeM: Float = 0
+
+  /// Yaw angle (in degrees, frame is NED, 0 is North, positive is clockwise)
+  var yawDeg: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Action_GotoLocationResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_uniqueStorage()._actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return _storage._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Action_TransitionToFixedwingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -246,7 +320,7 @@ struct Mavsdk_Rpc_Action_TransitionToFixedWingRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
+struct Mavsdk_Rpc_Action_TransitionToFixedwingResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -529,10 +603,10 @@ struct Mavsdk_Rpc_Action_ActionResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
-    /// Success: the action command was accepted by the vehicle
+    /// Request was successful
     case success // = 1
 
     /// No system is connected
@@ -556,7 +630,7 @@ struct Mavsdk_Rpc_Action_ActionResult {
     /// Request timed out
     case timeout // = 8
 
-    /// Hybrid/VTOL transition refused because VTOL support is unknown
+    /// Hybrid/VTOL transition support is unknown
     case vtolTransitionSupportUnknown // = 9
 
     /// Vehicle does not support hybrid/VTOL transitions
@@ -1037,6 +1111,86 @@ extension Mavsdk_Rpc_Action_RebootResponse: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
+extension Mavsdk_Rpc_Action_ShutdownRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ShutdownRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_ShutdownRequest, rhs: Mavsdk_Rpc_Action_ShutdownRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_ShutdownResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ShutdownResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _actionResult = source._actionResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._actionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_ShutdownResponse, rhs: Mavsdk_Rpc_Action_ShutdownResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Action_KillRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".KillRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -1197,27 +1351,55 @@ extension Mavsdk_Rpc_Action_ReturnToLaunchResponse: SwiftProtobuf.Message, Swift
   }
 }
 
-extension Mavsdk_Rpc_Action_TransitionToFixedWingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingRequest"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+extension Mavsdk_Rpc_Action_GotoLocationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GotoLocationRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "latitude_deg"),
+    2: .standard(proto: "longitude_deg"),
+    3: .standard(proto: "absolute_altitude_m"),
+    4: .standard(proto: "yaw_deg"),
+  ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
+      case 3: try decoder.decodeSingularFloatField(value: &self.absoluteAltitudeM)
+      case 4: try decoder.decodeSingularFloatField(value: &self.yawDeg)
+      default: break
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.latitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latitudeDeg, fieldNumber: 1)
+    }
+    if self.longitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 2)
+    }
+    if self.absoluteAltitudeM != 0 {
+      try visitor.visitSingularFloatField(value: self.absoluteAltitudeM, fieldNumber: 3)
+    }
+    if self.yawDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, rhs: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GotoLocationRequest, rhs: Mavsdk_Rpc_Action_GotoLocationRequest) -> Bool {
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
+    if lhs.yawDeg != rhs.yawDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedWingResponse"
+extension Mavsdk_Rpc_Action_GotoLocationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GotoLocationResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "action_result"),
   ]
@@ -1262,7 +1444,87 @@ extension Mavsdk_Rpc_Action_TransitionToFixedWingResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToFixedWingResponse, rhs: Mavsdk_Rpc_Action_TransitionToFixedWingResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Action_GotoLocationResponse, rhs: Mavsdk_Rpc_Action_GotoLocationResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._actionResult != rhs_storage._actionResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_TransitionToFixedwingRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedwingRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, rhs: Mavsdk_Rpc_Action_TransitionToFixedwingRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_TransitionToFixedwingResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TransitionToFixedwingResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _actionResult = source._actionResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._actionResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_TransitionToFixedwingResponse, rhs: Mavsdk_Rpc_Action_TransitionToFixedwingResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1928,17 +2190,17 @@ extension Mavsdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProtobuf._
 
 extension Mavsdk_Rpc_Action_ActionResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "NO_SYSTEM"),
-    3: .same(proto: "CONNECTION_ERROR"),
-    4: .same(proto: "BUSY"),
-    5: .same(proto: "COMMAND_DENIED"),
-    6: .same(proto: "COMMAND_DENIED_LANDED_STATE_UNKNOWN"),
-    7: .same(proto: "COMMAND_DENIED_NOT_LANDED"),
-    8: .same(proto: "TIMEOUT"),
-    9: .same(proto: "VTOL_TRANSITION_SUPPORT_UNKNOWN"),
-    10: .same(proto: "NO_VTOL_TRANSITION_SUPPORT"),
-    11: .same(proto: "PARAMETER_ERROR"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_NO_SYSTEM"),
+    3: .same(proto: "RESULT_CONNECTION_ERROR"),
+    4: .same(proto: "RESULT_BUSY"),
+    5: .same(proto: "RESULT_COMMAND_DENIED"),
+    6: .same(proto: "RESULT_COMMAND_DENIED_LANDED_STATE_UNKNOWN"),
+    7: .same(proto: "RESULT_COMMAND_DENIED_NOT_LANDED"),
+    8: .same(proto: "RESULT_TIMEOUT"),
+    9: .same(proto: "RESULT_VTOL_TRANSITION_SUPPORT_UNKNOWN"),
+    10: .same(proto: "RESULT_NO_VTOL_TRANSITION_SUPPORT"),
+    11: .same(proto: "RESULT_PARAMETER_ERROR"),
   ]
 }

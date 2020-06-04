@@ -55,6 +55,12 @@ fileprivate final class Mavsdk_Rpc_Action_ActionServiceRebootCallBase: ClientCal
   override class var method: String { return "/mavsdk.rpc.action.ActionService/Reboot" }
 }
 
+internal protocol Mavsdk_Rpc_Action_ActionServiceShutdownCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceShutdownCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>, Mavsdk_Rpc_Action_ActionServiceShutdownCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/Shutdown" }
+}
+
 internal protocol Mavsdk_Rpc_Action_ActionServiceKillCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Action_ActionServiceKillCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>, Mavsdk_Rpc_Action_ActionServiceKillCall {
@@ -67,10 +73,16 @@ fileprivate final class Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallBase: C
   override class var method: String { return "/mavsdk.rpc.action.ActionService/ReturnToLaunch" }
 }
 
-internal protocol Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Action_ActionServiceGotoLocationCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_TransitionToFixedWingRequest, Mavsdk_Rpc_Action_TransitionToFixedWingResponse>, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/TransitionToFixedWing" }
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceGotoLocationCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse>, Mavsdk_Rpc_Action_ActionServiceGotoLocationCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/GotoLocation" }
+}
+
+internal protocol Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/TransitionToFixedwing" }
 }
 
 internal protocol Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall: ClientCallUnary {}
@@ -149,6 +161,12 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceService: ServiceClient {
   func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_RebootResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceRebootCall
 
   /// Synchronous. Unary.
+  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ShutdownResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ShutdownResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceShutdownCall
+
+  /// Synchronous. Unary.
   func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse
   /// Asynchronous. Unary.
   @discardableResult
@@ -161,10 +179,16 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceService: ServiceClient {
   func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ReturnToLaunchResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCall
 
   /// Synchronous. Unary.
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse
+  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GotoLocationResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall
+  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GotoLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGotoLocationCall
+
+  /// Synchronous. Unary.
+  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedwingResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedwingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall
 
   /// Synchronous. Unary.
   func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse
@@ -262,6 +286,16 @@ internal extension Mavsdk_Rpc_Action_ActionServiceService {
   }
 
   /// Synchronous. Unary.
+  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest) throws -> Mavsdk_Rpc_Action_ShutdownResponse {
+    return try self.shutdown(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, completion: @escaping (Mavsdk_Rpc_Action_ShutdownResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceShutdownCall {
+    return try self.shutdown(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
   func kill(_ request: Mavsdk_Rpc_Action_KillRequest) throws -> Mavsdk_Rpc_Action_KillResponse {
     return try self.kill(request, metadata: self.metadata)
   }
@@ -282,13 +316,23 @@ internal extension Mavsdk_Rpc_Action_ActionServiceService {
   }
 
   /// Synchronous. Unary.
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
-    return try self.transitionToFixedWing(request, metadata: self.metadata)
+  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest) throws -> Mavsdk_Rpc_Action_GotoLocationResponse {
+    return try self.gotoLocation(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-    return try self.transitionToFixedWing(request, metadata: self.metadata, completion: completion)
+  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, completion: @escaping (Mavsdk_Rpc_Action_GotoLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGotoLocationCall {
+    return try self.gotoLocation(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest) throws -> Mavsdk_Rpc_Action_TransitionToFixedwingResponse {
+    return try self.transitionToFixedwing(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedwingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall {
+    return try self.transitionToFixedwing(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
@@ -425,6 +469,18 @@ internal final class Mavsdk_Rpc_Action_ActionServiceServiceClient: ServiceClient
   }
 
   /// Synchronous. Unary.
+  internal func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ShutdownResponse {
+    return try Mavsdk_Rpc_Action_ActionServiceShutdownCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ShutdownResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceShutdownCall {
+    return try Mavsdk_Rpc_Action_ActionServiceShutdownCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
   internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse {
     return try Mavsdk_Rpc_Action_ActionServiceKillCallBase(channel)
       .run(request: request, metadata: customMetadata)
@@ -449,14 +505,26 @@ internal final class Mavsdk_Rpc_Action_ActionServiceServiceClient: ServiceClient
   }
 
   /// Synchronous. Unary.
-  internal func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
-    return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
+  internal func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GotoLocationResponse {
+    return try Mavsdk_Rpc_Action_ActionServiceGotoLocationCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-    return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallBase(channel)
+  internal func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GotoLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGotoLocationCall {
+    return try Mavsdk_Rpc_Action_ActionServiceGotoLocationCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedwingResponse {
+    return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedwingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall {
+    return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -566,6 +634,10 @@ class Mavsdk_Rpc_Action_ActionServiceRebootCallTestStub: ClientCallUnaryTestStub
   override class var method: String { return "/mavsdk.rpc.action.ActionService/Reboot" }
 }
 
+class Mavsdk_Rpc_Action_ActionServiceShutdownCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceShutdownCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/Shutdown" }
+}
+
 class Mavsdk_Rpc_Action_ActionServiceKillCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceKillCall {
   override class var method: String { return "/mavsdk.rpc.action.ActionService/Kill" }
 }
@@ -574,8 +646,12 @@ class Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallTestStub: ClientCallUnary
   override class var method: String { return "/mavsdk.rpc.action.ActionService/ReturnToLaunch" }
 }
 
-class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-  override class var method: String { return "/mavsdk.rpc.action.ActionService/TransitionToFixedWing" }
+class Mavsdk_Rpc_Action_ActionServiceGotoLocationCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceGotoLocationCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/GotoLocation" }
+}
+
+class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/TransitionToFixedwing" }
 }
 
 class Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterCall {
@@ -682,6 +758,21 @@ class Mavsdk_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBase,
     return Mavsdk_Rpc_Action_ActionServiceRebootCallTestStub()
   }
 
+  var shutdownRequests: [Mavsdk_Rpc_Action_ShutdownRequest] = []
+  var shutdownResponses: [Mavsdk_Rpc_Action_ShutdownResponse] = []
+  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_ShutdownResponse {
+    shutdownRequests.append(request)
+    defer { shutdownResponses.removeFirst() }
+    return shutdownResponses.first!
+  }
+  @discardableResult
+  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ShutdownResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceShutdownCall {
+    let response = try self.shutdown(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Action_ActionServiceShutdownCallTestStub()
+  }
+
   var killRequests: [Mavsdk_Rpc_Action_KillRequest] = []
   var killResponses: [Mavsdk_Rpc_Action_KillResponse] = []
   func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse {
@@ -712,19 +803,34 @@ class Mavsdk_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBase,
     return Mavsdk_Rpc_Action_ActionServiceReturnToLaunchCallTestStub()
   }
 
-  var transitionToFixedWingRequests: [Mavsdk_Rpc_Action_TransitionToFixedWingRequest] = []
-  var transitionToFixedWingResponses: [Mavsdk_Rpc_Action_TransitionToFixedWingResponse] = []
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse {
-    transitionToFixedWingRequests.append(request)
-    defer { transitionToFixedWingResponses.removeFirst() }
-    return transitionToFixedWingResponses.first!
+  var gotoLocationRequests: [Mavsdk_Rpc_Action_GotoLocationRequest] = []
+  var gotoLocationResponses: [Mavsdk_Rpc_Action_GotoLocationResponse] = []
+  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_GotoLocationResponse {
+    gotoLocationRequests.append(request)
+    defer { gotoLocationResponses.removeFirst() }
+    return gotoLocationResponses.first!
   }
   @discardableResult
-  func transitionToFixedWing(_ request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedWingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCall {
-    let response = try self.transitionToFixedWing(request)
+  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_GotoLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceGotoLocationCall {
+    let response = try self.gotoLocation(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingCallTestStub()
+    return Mavsdk_Rpc_Action_ActionServiceGotoLocationCallTestStub()
+  }
+
+  var transitionToFixedwingRequests: [Mavsdk_Rpc_Action_TransitionToFixedwingRequest] = []
+  var transitionToFixedwingResponses: [Mavsdk_Rpc_Action_TransitionToFixedwingResponse] = []
+  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TransitionToFixedwingResponse {
+    transitionToFixedwingRequests.append(request)
+    defer { transitionToFixedwingResponses.removeFirst() }
+    return transitionToFixedwingResponses.first!
+  }
+  @discardableResult
+  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TransitionToFixedwingResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCall {
+    let response = try self.transitionToFixedwing(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingCallTestStub()
   }
 
   var transitionToMulticopterRequests: [Mavsdk_Rpc_Action_TransitionToMulticopterRequest] = []
@@ -843,9 +949,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: ServiceProvider {
   func takeoff(request: Mavsdk_Rpc_Action_TakeoffRequest, session: Mavsdk_Rpc_Action_ActionServiceTakeoffSession) throws -> Mavsdk_Rpc_Action_TakeoffResponse
   func land(request: Mavsdk_Rpc_Action_LandRequest, session: Mavsdk_Rpc_Action_ActionServiceLandSession) throws -> Mavsdk_Rpc_Action_LandResponse
   func reboot(request: Mavsdk_Rpc_Action_RebootRequest, session: Mavsdk_Rpc_Action_ActionServiceRebootSession) throws -> Mavsdk_Rpc_Action_RebootResponse
+  func shutdown(request: Mavsdk_Rpc_Action_ShutdownRequest, session: Mavsdk_Rpc_Action_ActionServiceShutdownSession) throws -> Mavsdk_Rpc_Action_ShutdownResponse
   func kill(request: Mavsdk_Rpc_Action_KillRequest, session: Mavsdk_Rpc_Action_ActionServiceKillSession) throws -> Mavsdk_Rpc_Action_KillResponse
   func returnToLaunch(request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, session: Mavsdk_Rpc_Action_ActionServiceReturnToLaunchSession) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse
-  func transitionToFixedWing(request: Mavsdk_Rpc_Action_TransitionToFixedWingRequest, session: Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSession) throws -> Mavsdk_Rpc_Action_TransitionToFixedWingResponse
+  func gotoLocation(request: Mavsdk_Rpc_Action_GotoLocationRequest, session: Mavsdk_Rpc_Action_ActionServiceGotoLocationSession) throws -> Mavsdk_Rpc_Action_GotoLocationResponse
+  func transitionToFixedwing(request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, session: Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSession) throws -> Mavsdk_Rpc_Action_TransitionToFixedwingResponse
   func transitionToMulticopter(request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, session: Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterSession) throws -> Mavsdk_Rpc_Action_TransitionToMulticopterResponse
   func getTakeoffAltitude(request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, session: Mavsdk_Rpc_Action_ActionServiceGetTakeoffAltitudeSession) throws -> Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse
   func setTakeoffAltitude(request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, session: Mavsdk_Rpc_Action_ActionServiceSetTakeoffAltitudeSession) throws -> Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse
@@ -887,6 +995,11 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         handler: handler,
         providerBlock: { try self.reboot(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceRebootSessionBase) })
           .run()
+    case "/mavsdk.rpc.action.ActionService/Shutdown":
+      return try Mavsdk_Rpc_Action_ActionServiceShutdownSessionBase(
+        handler: handler,
+        providerBlock: { try self.shutdown(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceShutdownSessionBase) })
+          .run()
     case "/mavsdk.rpc.action.ActionService/Kill":
       return try Mavsdk_Rpc_Action_ActionServiceKillSessionBase(
         handler: handler,
@@ -897,10 +1010,15 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         handler: handler,
         providerBlock: { try self.returnToLaunch(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceReturnToLaunchSessionBase) })
           .run()
-    case "/mavsdk.rpc.action.ActionService/TransitionToFixedWing":
-      return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSessionBase(
+    case "/mavsdk.rpc.action.ActionService/GotoLocation":
+      return try Mavsdk_Rpc_Action_ActionServiceGotoLocationSessionBase(
         handler: handler,
-        providerBlock: { try self.transitionToFixedWing(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSessionBase) })
+        providerBlock: { try self.gotoLocation(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceGotoLocationSessionBase) })
+          .run()
+    case "/mavsdk.rpc.action.ActionService/TransitionToFixedwing":
+      return try Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSessionBase(
+        handler: handler,
+        providerBlock: { try self.transitionToFixedwing(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSessionBase) })
           .run()
     case "/mavsdk.rpc.action.ActionService/TransitionToMulticopter":
       return try Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterSessionBase(
@@ -973,6 +1091,12 @@ fileprivate final class Mavsdk_Rpc_Action_ActionServiceRebootSessionBase: Server
 
 class Mavsdk_Rpc_Action_ActionServiceRebootSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceRebootSession {}
 
+internal protocol Mavsdk_Rpc_Action_ActionServiceShutdownSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceShutdownSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>, Mavsdk_Rpc_Action_ActionServiceShutdownSession {}
+
+class Mavsdk_Rpc_Action_ActionServiceShutdownSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceShutdownSession {}
+
 internal protocol Mavsdk_Rpc_Action_ActionServiceKillSession: ServerSessionUnary {}
 
 fileprivate final class Mavsdk_Rpc_Action_ActionServiceKillSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>, Mavsdk_Rpc_Action_ActionServiceKillSession {}
@@ -985,11 +1109,17 @@ fileprivate final class Mavsdk_Rpc_Action_ActionServiceReturnToLaunchSessionBase
 
 class Mavsdk_Rpc_Action_ActionServiceReturnToLaunchSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceReturnToLaunchSession {}
 
-internal protocol Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Action_ActionServiceGotoLocationSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_TransitionToFixedWingRequest, Mavsdk_Rpc_Action_TransitionToFixedWingResponse>, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSession {}
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceGotoLocationSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse>, Mavsdk_Rpc_Action_ActionServiceGotoLocationSession {}
 
-class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedWingSession {}
+class Mavsdk_Rpc_Action_ActionServiceGotoLocationSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceGotoLocationSession {}
+
+internal protocol Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSession {}
+
+class Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTransitionToFixedwingSession {}
 
 internal protocol Mavsdk_Rpc_Action_ActionServiceTransitionToMulticopterSession: ServerSessionUnary {}
 

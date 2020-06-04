@@ -45,8 +45,7 @@ public class Calibration {
         public enum Result: Equatable {
             case unknown
             case success
-            case inProgress
-            case instruction
+            case next
             case failed
             case noSystem
             case connectionError
@@ -54,6 +53,7 @@ public class Calibration {
             case commandDenied
             case timeout
             case cancelled
+            case failedArmed
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Calibration_CalibrationResult.Result {
@@ -62,10 +62,8 @@ public class Calibration {
                     return .unknown
                 case .success:
                     return .success
-                case .inProgress:
-                    return .inProgress
-                case .instruction:
-                    return .instruction
+                case .next:
+                    return .next
                 case .failed:
                     return .failed
                 case .noSystem:
@@ -80,6 +78,8 @@ public class Calibration {
                     return .timeout
                 case .cancelled:
                     return .cancelled
+                case .failedArmed:
+                    return .failedArmed
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -91,10 +91,8 @@ public class Calibration {
                     return .unknown
                 case .success:
                     return .success
-                case .inProgress:
-                    return .inProgress
-                case .instruction:
-                    return .instruction
+                case .next:
+                    return .next
                 case .failed:
                     return .failed
                 case .noSystem:
@@ -109,6 +107,8 @@ public class Calibration {
                     return .timeout
                 case .cancelled:
                     return .cancelled
+                case .failedArmed:
+                    return .failedArmed
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -354,6 +354,66 @@ public class Calibration {
                             observer.onCompleted()
                         case .instruction, .inProgress:
                             observer.onNext(calibrateMagnetometer)
+                        default:
+                            observer.onError(CalibrationError(code: result.result, description: result.resultStr))
+                        }
+                        
+                    }
+                    
+
+                    return Disposables.create()
+                })
+
+                return Disposables.create {
+                    call.cancel()
+                    disposable.dispose()
+                }
+            } catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeCalibrationError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+    public lazy var calibrateLevelHorizon: Observable<ProgressData> = createCalibrateLevelHorizonObservable()
+
+    private func createCalibrateLevelHorizonObservable() -> Observable<ProgressData> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest()
+
+            
+
+            do {
+                let call = try self.service.subscribeCalibrateLevelHorizon(request, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(RuntimeCalibrationError(callResult.statusMessage!))
+                    }
+                })
+
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    
+                    while let response = try? call.receive() {
+                        
+                            
+                        let calibrateLevelHorizon = ProgressData.translateFromRpc(response.progressData)
+                        
+
+                        
+                        let result = CalibrationResult.translateFromRpc(response.calibrationResult)
+
+                        switch (result.result) {
+                        case .success:
+                            observer.onCompleted()
+                        case .instruction, .inProgress:
+                            observer.onNext(calibrateLevelHorizon)
                         default:
                             observer.onError(CalibrationError(code: result.result, description: result.resultStr))
                         }

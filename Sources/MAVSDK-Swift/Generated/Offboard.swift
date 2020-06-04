@@ -539,8 +539,13 @@ public class Offboard {
 
             do {
                 
-                let _ = try self.service.setAttitude(request)
-                completable(.completed)
+                let response = try self.service.setAttitude(request)
+
+                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -562,8 +567,13 @@ public class Offboard {
 
             do {
                 
-                let _ = try self.service.setActuatorControl(request)
-                completable(.completed)
+                let response = try self.service.setActuatorControl(request)
+
+                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -585,8 +595,13 @@ public class Offboard {
 
             do {
                 
-                let _ = try self.service.setAttitudeRate(request)
-                completable(.completed)
+                let response = try self.service.setAttitudeRate(request)
+
+                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -608,8 +623,13 @@ public class Offboard {
 
             do {
                 
-                let _ = try self.service.setPositionNed(request)
-                completable(.completed)
+                let response = try self.service.setPositionNed(request)
+
+                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -631,8 +651,13 @@ public class Offboard {
 
             do {
                 
-                let _ = try self.service.setVelocityBody(request)
-                completable(.completed)
+                let response = try self.service.setVelocityBody(request)
+
+                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -654,8 +679,13 @@ public class Offboard {
 
             do {
                 
-                let _ = try self.service.setVelocityNed(request)
-                completable(.completed)
+                let response = try self.service.setVelocityNed(request)
+
+                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))

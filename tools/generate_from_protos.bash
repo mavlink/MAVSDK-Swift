@@ -9,7 +9,7 @@ PB_PLUGINS_DIR=${PB_PLUGINS_DIR:-"${SCRIPT_DIR}/../proto/pb_plugins"}
 PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
 OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/MAVSDK-Swift/Generated"}
 
-PLUGIN_LIST="action calibration camera core gimbal info mission offboard param telemetry"
+PLUGIN_LIST=$(cd ${PROTO_DIR} && ls -d */ | sed 's:/*$::')
 
 if [ ! -d ${PROTO_DIR} ]; then
     echo "Script is not in the right location! It will look for the proto files in '${PROTO_DIR}', which doesn't exist!"
@@ -37,13 +37,13 @@ if [ ! -d ${TMP_DIR}/grpc-swift ]; then
     echo "--- Cloning grpc-swift"
     echo ""
 
-    git -C ${TMP_DIR} clone https://github.com/jonasvautherin/grpc-swift
+    git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift -b 0.11.0
 fi
 
 cd ${TMP_DIR}/grpc-swift && make
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --swiftgrpc_opt=TestStubs=true --plugin=protoc-gen-swift=${TMP_DIR}/grpc-swift/protoc-gen-swift --plugin=protoc-gen-swiftgrpc=${TMP_DIR}/grpc-swift/protoc-gen-swiftgrpc
+    protoc ${plugin}.proto -I${PROTO_DIR} -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --swiftgrpc_opt=TestStubs=true --plugin=protoc-gen-swift=${TMP_DIR}/grpc-swift/protoc-gen-swift --plugin=protoc-gen-swiftgrpc=${TMP_DIR}/grpc-swift/protoc-gen-swiftgrpc
 done
 
 echo ""
@@ -64,5 +64,5 @@ source ${PB_PLUGINS_DIR}/venv/bin/activate
 export TEMPLATE_PATH=${TEMPLATE_PATH:-"${SCRIPT_DIR}/../templates"}
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-dcsdk) -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
+    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-dcsdk) -I${PROTO_DIR}  -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
 done

@@ -34,13 +34,13 @@ public class Camera {
     }
     
 
-    public enum CameraMode: Equatable {
+    public enum Mode: Equatable {
         case unknown
         case photo
         case video
         case UNRECOGNIZED(Int)
 
-        internal var rpcCameraMode: Mavsdk_Rpc_Camera_CameraMode {
+        internal var rpcMode: Mavsdk_Rpc_Camera_Mode {
             switch self {
             case .unknown:
                 return .unknown
@@ -53,8 +53,8 @@ public class Camera {
             }
         }
 
-        internal static func translateFromRpc(_ rpcCameraMode: Mavsdk_Rpc_Camera_CameraMode) -> CameraMode {
-            switch rpcCameraMode {
+        internal static func translateFromRpc(_ rpcMode: Mavsdk_Rpc_Camera_Mode) -> Mode {
+            switch rpcMode {
             case .unknown:
                 return .unknown
             case .photo:
@@ -162,83 +162,6 @@ public class Camera {
         public static func == (lhs: CameraResult, rhs: CameraResult) -> Bool {
             return lhs.result == rhs.result
                 && lhs.resultStr == rhs.resultStr
-        }
-    }
-
-    public struct CaptureInfo: Equatable {
-        public let position: Position
-        public let attitudeQuaternion: Quaternion
-        public let attitudeEulerAngle: EulerAngle
-        public let timeUtcUs: UInt64
-        public let isSuccess: Bool
-        public let index: Int32
-        public let fileURL: String
-
-        
-
-        public init(position: Position, attitudeQuaternion: Quaternion, attitudeEulerAngle: EulerAngle, timeUtcUs: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
-            self.position = position
-            self.attitudeQuaternion = attitudeQuaternion
-            self.attitudeEulerAngle = attitudeEulerAngle
-            self.timeUtcUs = timeUtcUs
-            self.isSuccess = isSuccess
-            self.index = index
-            self.fileURL = fileURL
-        }
-
-        internal var rpcCaptureInfo: Mavsdk_Rpc_Camera_CaptureInfo {
-            var rpcCaptureInfo = Mavsdk_Rpc_Camera_CaptureInfo()
-            
-                
-            rpcCaptureInfo.position = position.rpcPosition
-                
-            
-            
-                
-            rpcCaptureInfo.attitudeQuaternion = attitudeQuaternion.rpcQuaternion
-                
-            
-            
-                
-            rpcCaptureInfo.attitudeEulerAngle = attitudeEulerAngle.rpcEulerAngle
-                
-            
-            
-                
-            rpcCaptureInfo.timeUtcUs = timeUtcUs
-                
-            
-            
-                
-            rpcCaptureInfo.isSuccess = isSuccess
-                
-            
-            
-                
-            rpcCaptureInfo.index = index
-                
-            
-            
-                
-            rpcCaptureInfo.fileURL = fileURL
-                
-            
-
-            return rpcCaptureInfo
-        }
-
-        internal static func translateFromRpc(_ rpcCaptureInfo: Mavsdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
-            return CaptureInfo(position: Position.translateFromRpc(rpcCaptureInfo.position), attitudeQuaternion: Quaternion.translateFromRpc(rpcCaptureInfo.attitudeQuaternion), attitudeEulerAngle: EulerAngle.translateFromRpc(rpcCaptureInfo.attitudeEulerAngle), timeUtcUs: rpcCaptureInfo.timeUtcUs, isSuccess: rpcCaptureInfo.isSuccess, index: rpcCaptureInfo.index, fileURL: rpcCaptureInfo.fileURL)
-        }
-
-        public static func == (lhs: CaptureInfo, rhs: CaptureInfo) -> Bool {
-            return lhs.position == rhs.position
-                && lhs.attitudeQuaternion == rhs.attitudeQuaternion
-                && lhs.attitudeEulerAngle == rhs.attitudeEulerAngle
-                && lhs.timeUtcUs == rhs.timeUtcUs
-                && lhs.isSuccess == rhs.isSuccess
-                && lhs.index == rhs.index
-                && lhs.fileURL == rhs.fileURL
         }
     }
 
@@ -393,6 +316,83 @@ public class Camera {
         }
     }
 
+    public struct CaptureInfo: Equatable {
+        public let position: Position
+        public let attitudeQuaternion: Quaternion
+        public let attitudeEulerAngle: EulerAngle
+        public let timeUtcUs: UInt64
+        public let isSuccess: Bool
+        public let index: Int32
+        public let fileURL: String
+
+        
+
+        public init(position: Position, attitudeQuaternion: Quaternion, attitudeEulerAngle: EulerAngle, timeUtcUs: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
+            self.position = position
+            self.attitudeQuaternion = attitudeQuaternion
+            self.attitudeEulerAngle = attitudeEulerAngle
+            self.timeUtcUs = timeUtcUs
+            self.isSuccess = isSuccess
+            self.index = index
+            self.fileURL = fileURL
+        }
+
+        internal var rpcCaptureInfo: Mavsdk_Rpc_Camera_CaptureInfo {
+            var rpcCaptureInfo = Mavsdk_Rpc_Camera_CaptureInfo()
+            
+                
+            rpcCaptureInfo.position = position.rpcPosition
+                
+            
+            
+                
+            rpcCaptureInfo.attitudeQuaternion = attitudeQuaternion.rpcQuaternion
+                
+            
+            
+                
+            rpcCaptureInfo.attitudeEulerAngle = attitudeEulerAngle.rpcEulerAngle
+                
+            
+            
+                
+            rpcCaptureInfo.timeUtcUs = timeUtcUs
+                
+            
+            
+                
+            rpcCaptureInfo.isSuccess = isSuccess
+                
+            
+            
+                
+            rpcCaptureInfo.index = index
+                
+            
+            
+                
+            rpcCaptureInfo.fileURL = fileURL
+                
+            
+
+            return rpcCaptureInfo
+        }
+
+        internal static func translateFromRpc(_ rpcCaptureInfo: Mavsdk_Rpc_Camera_CaptureInfo) -> CaptureInfo {
+            return CaptureInfo(position: Position.translateFromRpc(rpcCaptureInfo.position), attitudeQuaternion: Quaternion.translateFromRpc(rpcCaptureInfo.attitudeQuaternion), attitudeEulerAngle: EulerAngle.translateFromRpc(rpcCaptureInfo.attitudeEulerAngle), timeUtcUs: rpcCaptureInfo.timeUtcUs, isSuccess: rpcCaptureInfo.isSuccess, index: rpcCaptureInfo.index, fileURL: rpcCaptureInfo.fileURL)
+        }
+
+        public static func == (lhs: CaptureInfo, rhs: CaptureInfo) -> Bool {
+            return lhs.position == rhs.position
+                && lhs.attitudeQuaternion == rhs.attitudeQuaternion
+                && lhs.attitudeEulerAngle == rhs.attitudeEulerAngle
+                && lhs.timeUtcUs == rhs.timeUtcUs
+                && lhs.isSuccess == rhs.isSuccess
+                && lhs.index == rhs.index
+                && lhs.fileURL == rhs.fileURL
+        }
+    }
+
     public struct VideoStreamSettings: Equatable {
         public let frameRateHz: Float
         public let horizontalResolutionPix: UInt32
@@ -463,18 +463,18 @@ public class Camera {
     }
 
     public struct VideoStreamInfo: Equatable {
-        public let videoStreamSettings: VideoStreamSettings
-        public let videoStreamStatus: VideoStreamStatus
+        public let settings: VideoStreamSettings
+        public let status: Status
 
         
         
 
-        public enum VideoStreamStatus: Equatable {
+        public enum Status: Equatable {
             case notRunning
             case inProgress
             case UNRECOGNIZED(Int)
 
-            internal var rpcVideoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
+            internal var rpcStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.Status {
                 switch self {
                 case .notRunning:
                     return .notRunning
@@ -485,8 +485,8 @@ public class Camera {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcVideoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus) -> VideoStreamStatus {
-                switch rpcVideoStreamStatus {
+            internal static func translateFromRpc(_ rpcStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.Status) -> Status {
+                switch rpcStatus {
                 case .notRunning:
                     return .notRunning
                 case .inProgress:
@@ -498,21 +498,21 @@ public class Camera {
         }
         
 
-        public init(videoStreamSettings: VideoStreamSettings, videoStreamStatus: VideoStreamStatus) {
-            self.videoStreamSettings = videoStreamSettings
-            self.videoStreamStatus = videoStreamStatus
+        public init(settings: VideoStreamSettings, status: Status) {
+            self.settings = settings
+            self.status = status
         }
 
         internal var rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo {
             var rpcVideoStreamInfo = Mavsdk_Rpc_Camera_VideoStreamInfo()
             
                 
-            rpcVideoStreamInfo.videoStreamSettings = videoStreamSettings.rpcVideoStreamSettings
+            rpcVideoStreamInfo.settings = settings.rpcVideoStreamSettings
                 
             
             
                 
-            rpcVideoStreamInfo.videoStreamStatus = videoStreamStatus.rpcVideoStreamStatus
+            rpcVideoStreamInfo.status = status.rpcStatus
                 
             
 
@@ -520,16 +520,16 @@ public class Camera {
         }
 
         internal static func translateFromRpc(_ rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
-            return VideoStreamInfo(videoStreamSettings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.videoStreamSettings), videoStreamStatus: VideoStreamStatus.translateFromRpc(rpcVideoStreamInfo.videoStreamStatus))
+            return VideoStreamInfo(settings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.settings), status: Status.translateFromRpc(rpcVideoStreamInfo.status))
         }
 
         public static func == (lhs: VideoStreamInfo, rhs: VideoStreamInfo) -> Bool {
-            return lhs.videoStreamSettings == rhs.videoStreamSettings
-                && lhs.videoStreamStatus == rhs.videoStreamStatus
+            return lhs.settings == rhs.settings
+                && lhs.status == rhs.status
         }
     }
 
-    public struct CameraStatus: Equatable {
+    public struct Status: Equatable {
         public let videoOn: Bool
         public let photoIntervalOn: Bool
         public let usedStorageMib: Float
@@ -548,7 +548,7 @@ public class Camera {
             case formatted
             case UNRECOGNIZED(Int)
 
-            internal var rpcStorageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus {
+            internal var rpcStorageStatus: Mavsdk_Rpc_Camera_Status.StorageStatus {
                 switch self {
                 case .notAvailable:
                     return .notAvailable
@@ -561,7 +561,7 @@ public class Camera {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcStorageStatus: Mavsdk_Rpc_Camera_CameraStatus.StorageStatus) -> StorageStatus {
+            internal static func translateFromRpc(_ rpcStorageStatus: Mavsdk_Rpc_Camera_Status.StorageStatus) -> StorageStatus {
                 switch rpcStorageStatus {
                 case .notAvailable:
                     return .notAvailable
@@ -587,57 +587,57 @@ public class Camera {
             self.storageStatus = storageStatus
         }
 
-        internal var rpcCameraStatus: Mavsdk_Rpc_Camera_CameraStatus {
-            var rpcCameraStatus = Mavsdk_Rpc_Camera_CameraStatus()
+        internal var rpcStatus: Mavsdk_Rpc_Camera_Status {
+            var rpcStatus = Mavsdk_Rpc_Camera_Status()
             
                 
-            rpcCameraStatus.videoOn = videoOn
-                
-            
-            
-                
-            rpcCameraStatus.photoIntervalOn = photoIntervalOn
+            rpcStatus.videoOn = videoOn
                 
             
             
                 
-            rpcCameraStatus.usedStorageMib = usedStorageMib
+            rpcStatus.photoIntervalOn = photoIntervalOn
                 
             
             
                 
-            rpcCameraStatus.availableStorageMib = availableStorageMib
+            rpcStatus.usedStorageMib = usedStorageMib
                 
             
             
                 
-            rpcCameraStatus.totalStorageMib = totalStorageMib
+            rpcStatus.availableStorageMib = availableStorageMib
                 
             
             
                 
-            rpcCameraStatus.recordingTimeS = recordingTimeS
+            rpcStatus.totalStorageMib = totalStorageMib
                 
             
             
                 
-            rpcCameraStatus.mediaFolderName = mediaFolderName
+            rpcStatus.recordingTimeS = recordingTimeS
                 
             
             
                 
-            rpcCameraStatus.storageStatus = storageStatus.rpcStorageStatus
+            rpcStatus.mediaFolderName = mediaFolderName
+                
+            
+            
+                
+            rpcStatus.storageStatus = storageStatus.rpcStorageStatus
                 
             
 
-            return rpcCameraStatus
+            return rpcStatus
         }
 
-        internal static func translateFromRpc(_ rpcCameraStatus: Mavsdk_Rpc_Camera_CameraStatus) -> CameraStatus {
-            return CameraStatus(videoOn: rpcCameraStatus.videoOn, photoIntervalOn: rpcCameraStatus.photoIntervalOn, usedStorageMib: rpcCameraStatus.usedStorageMib, availableStorageMib: rpcCameraStatus.availableStorageMib, totalStorageMib: rpcCameraStatus.totalStorageMib, recordingTimeS: rpcCameraStatus.recordingTimeS, mediaFolderName: rpcCameraStatus.mediaFolderName, storageStatus: StorageStatus.translateFromRpc(rpcCameraStatus.storageStatus))
+        internal static func translateFromRpc(_ rpcStatus: Mavsdk_Rpc_Camera_Status) -> Status {
+            return Status(videoOn: rpcStatus.videoOn, photoIntervalOn: rpcStatus.photoIntervalOn, usedStorageMib: rpcStatus.usedStorageMib, availableStorageMib: rpcStatus.availableStorageMib, totalStorageMib: rpcStatus.totalStorageMib, recordingTimeS: rpcStatus.recordingTimeS, mediaFolderName: rpcStatus.mediaFolderName, storageStatus: StorageStatus.translateFromRpc(rpcStatus.storageStatus))
         }
 
-        public static func == (lhs: CameraStatus, rhs: CameraStatus) -> Bool {
+        public static func == (lhs: Status, rhs: Status) -> Bool {
             return lhs.videoOn == rhs.videoOn
                 && lhs.photoIntervalOn == rhs.photoIntervalOn
                 && lhs.usedStorageMib == rhs.usedStorageMib
@@ -646,51 +646,6 @@ public class Camera {
                 && lhs.recordingTimeS == rhs.recordingTimeS
                 && lhs.mediaFolderName == rhs.mediaFolderName
                 && lhs.storageStatus == rhs.storageStatus
-        }
-    }
-
-    public struct Setting: Equatable {
-        public let settingID: String
-        public let settingDescription: String
-        public let option: Option
-
-        
-
-        public init(settingID: String, settingDescription: String, option: Option) {
-            self.settingID = settingID
-            self.settingDescription = settingDescription
-            self.option = option
-        }
-
-        internal var rpcSetting: Mavsdk_Rpc_Camera_Setting {
-            var rpcSetting = Mavsdk_Rpc_Camera_Setting()
-            
-                
-            rpcSetting.settingID = settingID
-                
-            
-            
-                
-            rpcSetting.settingDescription = settingDescription
-                
-            
-            
-                
-            rpcSetting.option = option.rpcOption
-                
-            
-
-            return rpcSetting
-        }
-
-        internal static func translateFromRpc(_ rpcSetting: Mavsdk_Rpc_Camera_Setting) -> Setting {
-            return Setting(settingID: rpcSetting.settingID, settingDescription: rpcSetting.settingDescription, option: Option.translateFromRpc(rpcSetting.option))
-        }
-
-        public static func == (lhs: Setting, rhs: Setting) -> Bool {
-            return lhs.settingID == rhs.settingID
-                && lhs.settingDescription == rhs.settingDescription
-                && lhs.option == rhs.option
         }
     }
 
@@ -731,17 +686,72 @@ public class Camera {
         }
     }
 
+    public struct Setting: Equatable {
+        public let settingID: String
+        public let settingDescription: String
+        public let option: Option
+        public let isRange: Bool
+
+        
+
+        public init(settingID: String, settingDescription: String, option: Option, isRange: Bool) {
+            self.settingID = settingID
+            self.settingDescription = settingDescription
+            self.option = option
+            self.isRange = isRange
+        }
+
+        internal var rpcSetting: Mavsdk_Rpc_Camera_Setting {
+            var rpcSetting = Mavsdk_Rpc_Camera_Setting()
+            
+                
+            rpcSetting.settingID = settingID
+                
+            
+            
+                
+            rpcSetting.settingDescription = settingDescription
+                
+            
+            
+                
+            rpcSetting.option = option.rpcOption
+                
+            
+            
+                
+            rpcSetting.isRange = isRange
+                
+            
+
+            return rpcSetting
+        }
+
+        internal static func translateFromRpc(_ rpcSetting: Mavsdk_Rpc_Camera_Setting) -> Setting {
+            return Setting(settingID: rpcSetting.settingID, settingDescription: rpcSetting.settingDescription, option: Option.translateFromRpc(rpcSetting.option), isRange: rpcSetting.isRange)
+        }
+
+        public static func == (lhs: Setting, rhs: Setting) -> Bool {
+            return lhs.settingID == rhs.settingID
+                && lhs.settingDescription == rhs.settingDescription
+                && lhs.option == rhs.option
+                && lhs.isRange == rhs.isRange
+        }
+    }
+
     public struct SettingOptions: Equatable {
         public let settingID: String
         public let settingDescription: String
         public let options: [Option]
+        public let isRange: Bool
 
         
 
-        public init(settingID: String, settingDescription: String, options: [Option]) {
+        public init(settingID: String, settingDescription: String, options: [Option], isRange: Bool) {
             self.settingID = settingID
             self.settingDescription = settingDescription
             self.options = options
+            self.isRange = isRange
         }
 
         internal var rpcSettingOptions: Mavsdk_Rpc_Camera_SettingOptions {
@@ -761,18 +771,61 @@ public class Camera {
             rpcSettingOptions.options = options.map{ $0.rpcOption }
                 
             
+            
+                
+            rpcSettingOptions.isRange = isRange
+                
+            
 
             return rpcSettingOptions
         }
 
         internal static func translateFromRpc(_ rpcSettingOptions: Mavsdk_Rpc_Camera_SettingOptions) -> SettingOptions {
-            return SettingOptions(settingID: rpcSettingOptions.settingID, settingDescription: rpcSettingOptions.settingDescription, options: rpcSettingOptions.options.map{ Option.translateFromRpc($0) })
+            return SettingOptions(settingID: rpcSettingOptions.settingID, settingDescription: rpcSettingOptions.settingDescription, options: rpcSettingOptions.options.map{ Option.translateFromRpc($0) }, isRange: rpcSettingOptions.isRange)
         }
 
         public static func == (lhs: SettingOptions, rhs: SettingOptions) -> Bool {
             return lhs.settingID == rhs.settingID
                 && lhs.settingDescription == rhs.settingDescription
                 && lhs.options == rhs.options
+                && lhs.isRange == rhs.isRange
+        }
+    }
+
+    public struct Information: Equatable {
+        public let vendorName: String
+        public let modelName: String
+
+        
+
+        public init(vendorName: String, modelName: String) {
+            self.vendorName = vendorName
+            self.modelName = modelName
+        }
+
+        internal var rpcInformation: Mavsdk_Rpc_Camera_Information {
+            var rpcInformation = Mavsdk_Rpc_Camera_Information()
+            
+                
+            rpcInformation.vendorName = vendorName
+                
+            
+            
+                
+            rpcInformation.modelName = modelName
+                
+            
+
+            return rpcInformation
+        }
+
+        internal static func translateFromRpc(_ rpcInformation: Mavsdk_Rpc_Camera_Information) -> Information {
+            return Information(vendorName: rpcInformation.vendorName, modelName: rpcInformation.modelName)
+        }
+
+        public static func == (lhs: Information, rhs: Information) -> Bool {
+            return lhs.vendorName == rhs.vendorName
+                && lhs.modelName == rhs.modelName
         }
     }
 
@@ -949,13 +1002,13 @@ public class Camera {
         }
     }
 
-    public func setMode(cameraMode: CameraMode) -> Completable {
+    public func setMode(mode: Mode) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Camera_SetModeRequest()
 
             
                 
-            request.cameraMode = cameraMode.rpcCameraMode
+            request.mode = mode.rpcMode
                 
             
 
@@ -977,9 +1030,9 @@ public class Camera {
         }
     }
 
-    public lazy var mode: Observable<CameraMode> = createModeObservable()
+    public lazy var mode: Observable<Mode> = createModeObservable()
 
-    private func createModeObservable() -> Observable<CameraMode> {
+    private func createModeObservable() -> Observable<Mode> {
         return Observable.create { observer in
             let request = Mavsdk_Rpc_Camera_SubscribeModeRequest()
 
@@ -999,11 +1052,62 @@ public class Camera {
                     while let response = try? call.receive() {
                         
                             
-                        let mode = CameraMode.translateFromRpc(response.cameraMode)
+                        let mode = Mode.translateFromRpc(response.mode)
                         
 
                         
                         observer.onNext(mode)
+                        
+                    }
+                    
+
+                    return Disposables.create()
+                })
+
+                return Disposables.create {
+                    call.cancel()
+                    disposable.dispose()
+                }
+            } catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeCameraError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+    public lazy var information: Observable<Information> = createInformationObservable()
+
+    private func createInformationObservable() -> Observable<Information> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Camera_SubscribeInformationRequest()
+
+            
+
+            do {
+                let call = try self.service.subscribeInformation(request, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
+                    }
+                })
+
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    
+                    while let response = try? call.receive() {
+                        
+                            
+                        let information = Information.translateFromRpc(response.information)
+                        
+
+                        
+                        observer.onNext(information)
                         
                     }
                     
@@ -1130,16 +1234,16 @@ public class Camera {
         .share(replay: 1)
     }
 
-    public lazy var cameraStatus: Observable<CameraStatus> = createCameraStatusObservable()
+    public lazy var status: Observable<Status> = createStatusObservable()
 
-    private func createCameraStatusObservable() -> Observable<CameraStatus> {
+    private func createStatusObservable() -> Observable<Status> {
         return Observable.create { observer in
-            let request = Mavsdk_Rpc_Camera_SubscribeCameraStatusRequest()
+            let request = Mavsdk_Rpc_Camera_SubscribeStatusRequest()
 
             
 
             do {
-                let call = try self.service.subscribeCameraStatus(request, completion: { (callResult) in
+                let call = try self.service.subscribeStatus(request, completion: { (callResult) in
                     if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
                         observer.onCompleted()
                     } else {
@@ -1152,11 +1256,11 @@ public class Camera {
                     while let response = try? call.receive() {
                         
                             
-                        let cameraStatus = CameraStatus.translateFromRpc(response.cameraStatus)
+                        let status = Status.translateFromRpc(response.cameraStatus)
                         
 
                         
-                        observer.onNext(cameraStatus)
+                        observer.onNext(status)
                         
                     }
                     
@@ -1294,6 +1398,63 @@ public class Camera {
             do {
                 
                 let response = try self.service.setSetting(request)
+
+                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getSetting(setting: Setting) -> Single<Setting> {
+        return Single<Setting>.create { single in
+            var request = Mavsdk_Rpc_Camera_GetSettingRequest()
+
+            
+                
+            request.setting = setting.rpcSetting
+                
+            
+
+            do {
+                let response = try self.service.getSetting(request)
+
+                
+                if (response.cameraResult.result != Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                    single(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+                
+                    let setting = Setting.translateFromRpc(response.setting)
+                
+                single(.success(setting))
+            } catch {
+                single(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func formatStorage() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Camera_FormatStorageRequest()
+
+            
+
+            do {
+                
+                let response = try self.service.formatStorage(request)
 
                 if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
