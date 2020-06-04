@@ -12,23 +12,24 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.l
         {% endfor %}
 
         do {
-            let response = try self.service.{{ name.lower_camel_case }}(request)
+            let response = self.service.{{ name.lower_camel_case }}(request)
 
             {% if has_result %}
-            if (response.{{ plugin_name.lower_camel_case }}Result.result != {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
-                single(.error({{ plugin_name.upper_camel_case }}Error(code: {{ plugin_name.upper_camel_case }}Result.Result.translateFromRpc(response.{{ plugin_name.lower_camel_case }}Result.result), description: response.{{ plugin_name.lower_camel_case }}Result.resultStr)))
+            let result = try response.response.wait().{{ plugin_name.lower_camel_case }}Result
+            if (result.result != {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
+                single(.error({{ plugin_name.upper_camel_case }}Error(code: {{ plugin_name.upper_camel_case }}Result.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                 return Disposables.create()
             }
             {% endif %}
 
-            {% if return_type.is_primitive -%}
-            let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}
+	    {% if return_type.is_primitive -%}
+            let {{ return_name.lower_camel_case }} = try response.response.wait().{{ return_name.lower_camel_case }}
             {% else %}
                 {% if return_type.is_repeated -%}
-            let {{ return_name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
+            let {{ return_name.lower_camel_case }} = try response.response.wait().{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
                 {%- else -%}
-            let {{ return_name.lower_camel_case }} = {{ return_type.inner_name }}.translateFromRpc(response.{{ return_name.lower_camel_case }})
+            let {{ return_name.lower_camel_case }} = try {{ return_type.inner_name }}.translateFromRpc(response.response.wait().{{ return_name.lower_camel_case }})
                 {%- endif %}
             {% endif %}
             single(.success({{ return_name.lower_camel_case }}))
