@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5311EACC4"
+               BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5"
                BuildableName = "MAVSDK_Swift.framework"
                BlueprintName = "MAVSDK_Swift"
                ReferencedContainer = "container:MAVSDK-Swift.xcodeproj">
@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      onlyGenerateCoverageForSpecifiedTargets = "NO"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A6CC9E0A4C721DF419F07CFA0512A83F"
+               BlueprintIdentifier = "A6CC9E0A4C721DF419F07CFA"
                BuildableName = "MAVSDK_SwiftTests.xctest"
                BlueprintName = "MAVSDK_SwiftTests"
                ReferencedContainer = "container:MAVSDK-Swift.xcodeproj">
@@ -42,7 +43,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AF3574F7396A6755292B1054FDEAE251"
+               BlueprintIdentifier = "AF3574F7396A6755292B1054"
                BuildableName = "MAVSDK_SwiftIntegrationTests.xctest"
                BlueprintName = "MAVSDK_SwiftIntegrationTests"
                ReferencedContainer = "container:MAVSDK-Swift.xcodeproj">
@@ -52,7 +53,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5311EACC4"
+            BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5"
             BuildableName = "MAVSDK_Swift.framework"
             BlueprintName = "MAVSDK_Swift"
             ReferencedContainer = "container:MAVSDK-Swift.xcodeproj">
@@ -62,6 +63,8 @@
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
+      <CodeCoverageTargets>
+      </CodeCoverageTargets>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -76,7 +79,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5311EACC4"
+            BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5"
             BuildableName = "MAVSDK_Swift.framework"
             BlueprintName = "MAVSDK_Swift"
             ReferencedContainer = "container:MAVSDK-Swift.xcodeproj">
@@ -97,7 +100,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5311EACC4"
+            BlueprintIdentifier = "8E54E2B48EFB7AEC1ECC06E5"
             BuildableName = "MAVSDK_Swift.framework"
             BlueprintName = "MAVSDK_Swift"
             ReferencedContainer = "container:MAVSDK-Swift.xcodeproj">
