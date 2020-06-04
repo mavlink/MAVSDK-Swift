@@ -15,60 +15,35 @@ public lazy var {{ name.lower_camel_case }}: Observable<{% if return_type %}{{ r
             {% endif %}
         {% endfor %}
 
-        do {
-            let call = try self.service.subscribe{{ name.upper_camel_case }}(request, completion: { (callResult) in
-                if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                    observer.onCompleted()
-                } else {
-                    observer.onError(Runtime{{ plugin_name.upper_camel_case }}Error(callResult.statusMessage!))
-                }
-            })
+        _ = self.service.subscribe{{ name.upper_camel_case }}(request, handler: { (response) in
 
-            let disposable = self.scheduler.schedule(0, action: { _ in
-                {% if not return_name %}
-	        while let response = try? call.receive() {
-	            observer.onNext(())
-	        }
+            {% if return_type.is_repeated %}
+	    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
+            {% else %}
+                 {% if return_type.is_primitive %}
+            let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}
                 {% else %}
-                while let response = try? call.receive() {
-                    {% if return_type.is_repeated %}
-		    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
-                    {% else %}
-                        {% if return_type.is_primitive %}
-                    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}
-                        {% else %}
-                    let {{ name.lower_camel_case }} = {{ return_type.name }}.translateFromRpc(response.{{ return_name.lower_camel_case }})
-                        {%- endif %}
-                    {% endif %}
+            let {{ name.lower_camel_case }} = {{ return_type.name }}.translateFromRpc(response.{{ return_name.lower_camel_case }})
+                {%- endif %}
+            {% endif %}
 
-                    {% if has_result %}
-                    let result = {{ plugin_name.upper_camel_case }}Result.translateFromRpc(response.{{ plugin_name.lower_camel_case }}Result)
+            {% if has_result %}
+            let result = {{ plugin_name.upper_camel_case }}Result.translateFromRpc(response.{{ plugin_name.lower_camel_case }}Result)
 
-                    switch (result.result) {
-                    case .success:
-                        observer.onCompleted()
-                    case .next:
-                        observer.onNext({{ name.lower_camel_case }})
-                    default:
-                        observer.onError({{ plugin_name.upper_camel_case }}Error(code: result.result, description: result.resultStr))
-                    }
-                    {% else %}
-                    observer.onNext({{ name.lower_camel_case }})
-                    {% endif %}
-                }
-                {% endif %}
-
-                return Disposables.create()
-            })
-
-            return Disposables.create {
-                call.cancel()
-                disposable.dispose()
+            switch (result.result) {
+            case .success:
+                observer.onCompleted()
+            case .next:
+                observer.onNext({{ name.lower_camel_case }})
+            default:
+                observer.onError({{ plugin_name.upper_camel_case }}Error(code: result.result, description: result.resultStr))
             }
-        } catch {
-            observer.onError(error)
-            return Disposables.create()
-        }
+            {% else %}
+            observer.onNext({{ name.lower_camel_case }})
+            {% endif %}
+        })
+
+        return Disposables.create()
     }
     .retryWhen { error in
         error.map {

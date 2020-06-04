@@ -49,13 +49,15 @@ if [ ! -d ${TMP_DIR}/grpc-swift ]; then
     echo "--- Cloning grpc-swift"
     echo ""
 
-    git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift -b 0.11.0
+    git -C ${TMP_DIR} clone https://github.com/grpc/grpc-swift -b "1.0.0-alpha.12"
 fi
 
-cd ${TMP_DIR}/grpc-swift && make
+make -C ${TMP_DIR}/grpc-swift plugins
+PROTOC_GEN_SWIFT=${TMP_DIR}/grpc-swift/.build/release/protoc-gen-swift
+PROTOC_GEN_GRPC_SWIFT=${TMP_DIR}/grpc-swift/.build/release/protoc-gen-grpc-swift
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto -I${PROTO_DIR} -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --swiftgrpc_opt=TestStubs=true --plugin=protoc-gen-swift=${TMP_DIR}/grpc-swift/protoc-gen-swift --plugin=protoc-gen-swiftgrpc=${TMP_DIR}/grpc-swift/protoc-gen-swiftgrpc
+    protoc ${plugin}.proto -I${PROTO_DIR} -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --plugin=protoc-gen-swift=${PROTOC_GEN_SWIFT} --plugin=protoc-gen-swiftgrpc=${PROTOC_GEN_GRPC_SWIFT}
 done
 
 echo ""
@@ -67,5 +69,5 @@ echo ""
 export TEMPLATE_PATH=${TEMPLATE_PATH:-"${SCRIPT_DIR}/../templates"}
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-mavsdk) -I${PROTO_DIR}  -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
+    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-mavsdk) -I${PROTO_DIR} -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
 done
