@@ -135,6 +135,46 @@ struct Mavsdk_Rpc_Gimbal_SetModeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Gimbal_SetRoiLocationRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Latitude in degrees
+  var latitudeDeg: Double = 0
+
+  /// Longitude in degrees
+  var longitudeDeg: Double = 0
+
+  /// Altitude in metres (AMSL)
+  var altitudeM: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult {
+    get {return _storage._gimbalResult ?? Mavsdk_Rpc_Gimbal_GimbalResult()}
+    set {_uniqueStorage()._gimbalResult = newValue}
+  }
+  /// Returns true if `gimbalResult` has been explicitly set.
+  var hasGimbalResult: Bool {return _storage._gimbalResult != nil}
+  /// Clears the value of `gimbalResult`. Subsequent reads from it will return its default value.
+  mutating func clearGimbalResult() {_uniqueStorage()._gimbalResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Gimbal_GimbalResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -153,7 +193,7 @@ struct Mavsdk_Rpc_Gimbal_GimbalResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
     /// Command was accepted
@@ -215,8 +255,8 @@ fileprivate let _protobuf_package = "mavsdk.rpc.gimbal"
 
 extension Mavsdk_Rpc_Gimbal_GimbalMode: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "YAW_FOLLOW"),
-    1: .same(proto: "YAW_LOCK"),
+    0: .same(proto: "GIMBAL_MODE_YAW_FOLLOW"),
+    1: .same(proto: "GIMBAL_MODE_YAW_LOCK"),
   ]
 }
 
@@ -406,6 +446,108 @@ extension Mavsdk_Rpc_Gimbal_SetModeResponse: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
+extension Mavsdk_Rpc_Gimbal_SetRoiLocationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRoiLocationRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "latitude_deg"),
+    2: .standard(proto: "longitude_deg"),
+    3: .standard(proto: "altitude_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
+      case 3: try decoder.decodeSingularFloatField(value: &self.altitudeM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.latitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latitudeDeg, fieldNumber: 1)
+    }
+    if self.longitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 2)
+    }
+    if self.altitudeM != 0 {
+      try visitor.visitSingularFloatField(value: self.altitudeM, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, rhs: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest) -> Bool {
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.altitudeM != rhs.altitudeM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_SetRoiLocationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRoiLocationResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "gimbal_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _gimbalResult = source._gimbalResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._gimbalResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._gimbalResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SetRoiLocationResponse, rhs: Mavsdk_Rpc_Gimbal_SetRoiLocationResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._gimbalResult != rhs_storage._gimbalResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GimbalResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -443,9 +585,9 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._
 
 extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "ERROR"),
-    3: .same(proto: "TIMEOUT"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_ERROR"),
+    3: .same(proto: "RESULT_TIMEOUT"),
   ]
 }

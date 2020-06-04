@@ -67,10 +67,10 @@ fileprivate final class Mavsdk_Rpc_Mission_MissionServiceClearMissionCallBase: C
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/ClearMission" }
 }
 
-internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItem" }
 }
 
 internal protocol Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall: ClientCallUnary {}
@@ -105,6 +105,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMission
 
 fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
+}
+
+internal protocol Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/ImportQgroundcontrolMission" }
 }
 
 
@@ -153,10 +159,10 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceService: ServiceClient {
   func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceClearMissionCall
 
   /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall
 
   /// Synchronous. Unary.
   func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
@@ -180,6 +186,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall
+
+  /// Synchronous. Unary.
+  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall
 
 }
 
@@ -255,13 +267,13 @@ internal extension Mavsdk_Rpc_Mission_MissionServiceService {
   }
 
   /// Synchronous. Unary.
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
-    return try self.setCurrentMissionItemIndex(request, metadata: self.metadata)
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse {
+    return try self.setCurrentMissionItem(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-    return try self.setCurrentMissionItemIndex(request, metadata: self.metadata, completion: completion)
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall {
+    return try self.setCurrentMissionItem(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
@@ -297,6 +309,16 @@ internal extension Mavsdk_Rpc_Mission_MissionServiceService {
   @discardableResult
   func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
     return try self.setReturnToLaunchAfterMission(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest) throws -> Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse {
+    return try self.importQgroundcontrolMission(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, completion: @escaping (Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall {
+    return try self.importQgroundcontrolMission(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -387,14 +409,14 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceServiceClient: ServiceClie
   }
 
   /// Synchronous. Unary.
-  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
-    return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
+  internal func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-    return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallBase(channel)
+  internal func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -442,6 +464,18 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceServiceClient: ServiceClie
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+  /// Synchronous. Unary.
+  internal func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse {
+    return try Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall {
+    return try Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
 }
 
 class Mavsdk_Rpc_Mission_MissionServiceUploadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceUploadMissionCall {
@@ -472,8 +506,8 @@ class Mavsdk_Rpc_Mission_MissionServiceClearMissionCallTestStub: ClientCallUnary
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/ClearMission" }
 }
 
-class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex" }
+class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItem" }
 }
 
 class Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedCall {
@@ -490,6 +524,10 @@ class Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionCallTestStub
 
 class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCall {
   override class var method: String { return "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission" }
+}
+
+class Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall {
+  override class var method: String { return "/mavsdk.rpc.mission.MissionService/ImportQgroundcontrolMission" }
 }
 
 class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Mission_MissionServiceService {
@@ -598,19 +636,19 @@ class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBas
     return Mavsdk_Rpc_Mission_MissionServiceClearMissionCallTestStub()
   }
 
-  var setCurrentMissionItemIndexRequests: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest] = []
-  var setCurrentMissionItemIndexResponses: [Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse] = []
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse {
-    setCurrentMissionItemIndexRequests.append(request)
-    defer { setCurrentMissionItemIndexResponses.removeFirst() }
-    return setCurrentMissionItemIndexResponses.first!
+  var setCurrentMissionItemRequests: [Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest] = []
+  var setCurrentMissionItemResponses: [Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse] = []
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse {
+    setCurrentMissionItemRequests.append(request)
+    defer { setCurrentMissionItemResponses.removeFirst() }
+    return setCurrentMissionItemResponses.first!
   }
   @discardableResult
-  func setCurrentMissionItemIndex(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCall {
-    let response = try self.setCurrentMissionItemIndex(request)
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCall {
+    let response = try self.setCurrentMissionItem(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexCallTestStub()
+    return Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemCallTestStub()
   }
 
   var isMissionFinishedRequests: [Mavsdk_Rpc_Mission_IsMissionFinishedRequest] = []
@@ -666,6 +704,21 @@ class Mavsdk_Rpc_Mission_MissionServiceServiceTestStub: ServiceClientTestStubBas
     return Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionCallTestStub()
   }
 
+  var importQgroundcontrolMissionRequests: [Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest] = []
+  var importQgroundcontrolMissionResponses: [Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse] = []
+  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse {
+    importQgroundcontrolMissionRequests.append(request)
+    defer { importQgroundcontrolMissionResponses.removeFirst() }
+    return importQgroundcontrolMissionResponses.first!
+  }
+  @discardableResult
+  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCall {
+    let response = try self.importQgroundcontrolMission(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionCallTestStub()
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -679,11 +732,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: ServiceProvider {
   func startMission(request: Mavsdk_Rpc_Mission_StartMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceStartMissionSession) throws -> Mavsdk_Rpc_Mission_StartMissionResponse
   func pauseMission(request: Mavsdk_Rpc_Mission_PauseMissionRequest, session: Mavsdk_Rpc_Mission_MissionServicePauseMissionSession) throws -> Mavsdk_Rpc_Mission_PauseMissionResponse
   func clearMission(request: Mavsdk_Rpc_Mission_ClearMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceClearMissionSession) throws -> Mavsdk_Rpc_Mission_ClearMissionResponse
-  func setCurrentMissionItemIndex(request: Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, session: Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse
+  func setCurrentMissionItem(request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, session: Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSession) throws -> Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse
   func isMissionFinished(request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, session: Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession) throws -> Mavsdk_Rpc_Mission_IsMissionFinishedResponse
   func subscribeMissionProgress(request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, session: Mavsdk_Rpc_Mission_MissionServiceSubscribeMissionProgressSession) throws -> ServerStatus?
   func getReturnToLaunchAfterMission(request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceGetReturnToLaunchAfterMissionSession) throws -> Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse
   func setReturnToLaunchAfterMission(request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession) throws -> Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse
+  func importQgroundcontrolMission(request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, session: Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSession) throws -> Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse
 }
 
 extension Mavsdk_Rpc_Mission_MissionServiceProvider {
@@ -728,10 +782,10 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
         handler: handler,
         providerBlock: { try self.clearMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionBase) })
           .run()
-    case "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItemIndex":
-      return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase(
+    case "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItem":
+      return try Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSessionBase(
         handler: handler,
-        providerBlock: { try self.setCurrentMissionItemIndex(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase) })
+        providerBlock: { try self.setCurrentMissionItem(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSessionBase) })
           .run()
     case "/mavsdk.rpc.mission.MissionService/IsMissionFinished":
       return try Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSessionBase(
@@ -752,6 +806,11 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
       return try Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase(
         handler: handler,
         providerBlock: { try self.setReturnToLaunchAfterMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase) })
+          .run()
+    case "/mavsdk.rpc.mission.MissionService/ImportQgroundcontrolMission":
+      return try Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSessionBase(
+        handler: handler,
+        providerBlock: { try self.importQgroundcontrolMission(request: $0, session: $1 as! Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -801,11 +860,11 @@ fileprivate final class Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionBase
 
 class Mavsdk_Rpc_Mission_MissionServiceClearMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceClearMissionSession {}
 
-internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession {}
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse>, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSession {}
 
-class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemIndexSession {}
+class Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetCurrentMissionItemSession {}
 
 internal protocol Mavsdk_Rpc_Mission_MissionServiceIsMissionFinishedSession: ServerSessionUnary {}
 
@@ -845,4 +904,10 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMission
 fileprivate final class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
 
 class Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceSetReturnToLaunchAfterMissionSession {}
+
+internal protocol Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>, Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSession {}
+
+class Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Mission_MissionServiceImportQgroundcontrolMissionSession {}
 

@@ -73,6 +73,22 @@ fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibr
   override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
 }
 
+internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall {
+  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateLevelHorizon" }
+}
+
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall: ClientCallServerStreaming {
   /// Do not call this directly, call `receive()` in the protocol extension below instead.
   func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse?
@@ -116,6 +132,11 @@ internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceService: ServiceClien
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
+  func subscribeCalibrateLevelHorizon(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
   func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall
 
   /// Synchronous. Unary.
@@ -140,6 +161,11 @@ internal extension Mavsdk_Rpc_Calibration_CalibrationServiceService {
   /// Asynchronous. Server-streaming.
   func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
     return try self.subscribeCalibrateMagnetometer(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeCalibrateLevelHorizon(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall {
+    return try self.subscribeCalibrateLevelHorizon(request, metadata: self.metadata, completion: completion)
   }
 
   /// Asynchronous. Server-streaming.
@@ -187,6 +213,14 @@ internal final class Mavsdk_Rpc_Calibration_CalibrationServiceServiceClient: Ser
   /// Asynchronous. Server-streaming.
   /// Send the initial message.
   /// Use methods on the returned object to get streamed responses.
+  internal func subscribeCalibrateLevelHorizon(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall {
+    return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
   internal func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
     return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
@@ -216,6 +250,10 @@ class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerCa
 
 class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerCall {
   override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer" }
+}
+
+class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall {
+  override class var method: String { return "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateLevelHorizon" }
 }
 
 class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
@@ -251,6 +289,14 @@ class Mavsdk_Rpc_Calibration_CalibrationServiceServiceTestStub: ServiceClientTes
     return subscribeCalibrateMagnetometerCalls.first!
   }
 
+  var subscribeCalibrateLevelHorizonRequests: [Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest] = []
+  var subscribeCalibrateLevelHorizonCalls: [Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall] = []
+  func subscribeCalibrateLevelHorizon(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonCall {
+    subscribeCalibrateLevelHorizonRequests.append(request)
+    defer { subscribeCalibrateLevelHorizonCalls.removeFirst() }
+    return subscribeCalibrateLevelHorizonCalls.first!
+  }
+
   var subscribeCalibrateGimbalAccelerometerRequests: [Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest] = []
   var subscribeCalibrateGimbalAccelerometerCalls: [Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall] = []
   func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerCall {
@@ -283,6 +329,7 @@ internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceProvider: ServiceProv
   func subscribeCalibrateGyro(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, session: Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGyroSession) throws -> ServerStatus?
   func subscribeCalibrateAccelerometer(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, session: Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateAccelerometerSession) throws -> ServerStatus?
   func subscribeCalibrateMagnetometer(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, session: Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSession) throws -> ServerStatus?
+  func subscribeCalibrateLevelHorizon(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, session: Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSession) throws -> ServerStatus?
   func subscribeCalibrateGimbalAccelerometer(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, session: Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerSession) throws -> ServerStatus?
   func cancel(request: Mavsdk_Rpc_Calibration_CancelRequest, session: Mavsdk_Rpc_Calibration_CalibrationServiceCancelSession) throws -> Mavsdk_Rpc_Calibration_CancelResponse
 }
@@ -308,6 +355,11 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceProvider {
       return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSessionBase(
         handler: handler,
         providerBlock: { try self.subscribeCalibrateMagnetometer(request: $0, session: $1 as! Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSessionBase) })
+          .run()
+    case "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateLevelHorizon":
+      return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeCalibrateLevelHorizon(request: $0, session: $1 as! Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSessionBase) })
           .run()
     case "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer":
       return try Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerSessionBase(
@@ -387,6 +439,27 @@ internal extension Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMa
 fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSession {}
 
 class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateMagnetometerSession {}
+
+internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSession {}
+
+class Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>, Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateLevelHorizonSession {}
 
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceSubscribeCalibrateGimbalAccelerometerSession: ServerSessionServerStreaming {
   /// Send a message to the stream. Nonblocking.

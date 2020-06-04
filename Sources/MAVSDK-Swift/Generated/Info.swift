@@ -35,6 +35,125 @@ public class Info {
     
 
 
+    public struct FlightInfo: Equatable {
+        public let timeBootMs: UInt32
+        public let flightUid: UInt64
+
+        
+
+        public init(timeBootMs: UInt32, flightUid: UInt64) {
+            self.timeBootMs = timeBootMs
+            self.flightUid = flightUid
+        }
+
+        internal var rpcFlightInfo: Mavsdk_Rpc_Info_FlightInfo {
+            var rpcFlightInfo = Mavsdk_Rpc_Info_FlightInfo()
+            
+                
+            rpcFlightInfo.timeBootMs = timeBootMs
+                
+            
+            
+                
+            rpcFlightInfo.flightUid = flightUid
+                
+            
+
+            return rpcFlightInfo
+        }
+
+        internal static func translateFromRpc(_ rpcFlightInfo: Mavsdk_Rpc_Info_FlightInfo) -> FlightInfo {
+            return FlightInfo(timeBootMs: rpcFlightInfo.timeBootMs, flightUid: rpcFlightInfo.flightUid)
+        }
+
+        public static func == (lhs: FlightInfo, rhs: FlightInfo) -> Bool {
+            return lhs.timeBootMs == rhs.timeBootMs
+                && lhs.flightUid == rhs.flightUid
+        }
+    }
+
+    public struct Identification: Equatable {
+        public let hardwareUid: String
+
+        
+
+        public init(hardwareUid: String) {
+            self.hardwareUid = hardwareUid
+        }
+
+        internal var rpcIdentification: Mavsdk_Rpc_Info_Identification {
+            var rpcIdentification = Mavsdk_Rpc_Info_Identification()
+            
+                
+            rpcIdentification.hardwareUid = hardwareUid
+                
+            
+
+            return rpcIdentification
+        }
+
+        internal static func translateFromRpc(_ rpcIdentification: Mavsdk_Rpc_Info_Identification) -> Identification {
+            return Identification(hardwareUid: rpcIdentification.hardwareUid)
+        }
+
+        public static func == (lhs: Identification, rhs: Identification) -> Bool {
+            return lhs.hardwareUid == rhs.hardwareUid
+        }
+    }
+
+    public struct Product: Equatable {
+        public let vendorID: Int32
+        public let vendorName: String
+        public let productID: Int32
+        public let productName: String
+
+        
+
+        public init(vendorID: Int32, vendorName: String, productID: Int32, productName: String) {
+            self.vendorID = vendorID
+            self.vendorName = vendorName
+            self.productID = productID
+            self.productName = productName
+        }
+
+        internal var rpcProduct: Mavsdk_Rpc_Info_Product {
+            var rpcProduct = Mavsdk_Rpc_Info_Product()
+            
+                
+            rpcProduct.vendorID = vendorID
+                
+            
+            
+                
+            rpcProduct.vendorName = vendorName
+                
+            
+            
+                
+            rpcProduct.productID = productID
+                
+            
+            
+                
+            rpcProduct.productName = productName
+                
+            
+
+            return rpcProduct
+        }
+
+        internal static func translateFromRpc(_ rpcProduct: Mavsdk_Rpc_Info_Product) -> Product {
+            return Product(vendorID: rpcProduct.vendorID, vendorName: rpcProduct.vendorName, productID: rpcProduct.productID, productName: rpcProduct.productName)
+        }
+
+        public static func == (lhs: Product, rhs: Product) -> Bool {
+            return lhs.vendorID == rhs.vendorID
+                && lhs.vendorName == rhs.vendorName
+                && lhs.productID == rhs.productID
+                && lhs.productName == rhs.productName
+        }
+    }
+
     public struct Version: Equatable {
         public let flightSwMajor: Int32
         public let flightSwMinor: Int32
@@ -45,10 +164,12 @@ public class Info {
         public let osSwMajor: Int32
         public let osSwMinor: Int32
         public let osSwPatch: Int32
+        public let flightSwGitHash: String
+        public let osSwGitHash: String
 
         
 
-        public init(flightSwMajor: Int32, flightSwMinor: Int32, flightSwPatch: Int32, flightSwVendorMajor: Int32, flightSwVendorMinor: Int32, flightSwVendorPatch: Int32, osSwMajor: Int32, osSwMinor: Int32, osSwPatch: Int32) {
+        public init(flightSwMajor: Int32, flightSwMinor: Int32, flightSwPatch: Int32, flightSwVendorMajor: Int32, flightSwVendorMinor: Int32, flightSwVendorPatch: Int32, osSwMajor: Int32, osSwMinor: Int32, osSwPatch: Int32, flightSwGitHash: String, osSwGitHash: String) {
             self.flightSwMajor = flightSwMajor
             self.flightSwMinor = flightSwMinor
             self.flightSwPatch = flightSwPatch
@@ -58,6 +179,8 @@ public class Info {
             self.osSwMajor = osSwMajor
             self.osSwMinor = osSwMinor
             self.osSwPatch = osSwPatch
+            self.flightSwGitHash = flightSwGitHash
+            self.osSwGitHash = osSwGitHash
         }
 
         internal var rpcVersion: Mavsdk_Rpc_Info_Version {
@@ -107,12 +230,22 @@ public class Info {
             rpcVersion.osSwPatch = osSwPatch
                 
             
+            
+                
+            rpcVersion.flightSwGitHash = flightSwGitHash
+                
+            
+            
+                
+            rpcVersion.osSwGitHash = osSwGitHash
+                
+            
 
             return rpcVersion
         }
 
         internal static func translateFromRpc(_ rpcVersion: Mavsdk_Rpc_Info_Version) -> Version {
-            return Version(flightSwMajor: rpcVersion.flightSwMajor, flightSwMinor: rpcVersion.flightSwMinor, flightSwPatch: rpcVersion.flightSwPatch, flightSwVendorMajor: rpcVersion.flightSwVendorMajor, flightSwVendorMinor: rpcVersion.flightSwVendorMinor, flightSwVendorPatch: rpcVersion.flightSwVendorPatch, osSwMajor: rpcVersion.osSwMajor, osSwMinor: rpcVersion.osSwMinor, osSwPatch: rpcVersion.osSwPatch)
+            return Version(flightSwMajor: rpcVersion.flightSwMajor, flightSwMinor: rpcVersion.flightSwMinor, flightSwPatch: rpcVersion.flightSwPatch, flightSwVendorMajor: rpcVersion.flightSwVendorMajor, flightSwVendorMinor: rpcVersion.flightSwVendorMinor, flightSwVendorPatch: rpcVersion.flightSwVendorPatch, osSwMajor: rpcVersion.osSwMajor, osSwMinor: rpcVersion.osSwMinor, osSwPatch: rpcVersion.osSwPatch, flightSwGitHash: rpcVersion.flightSwGitHash, osSwGitHash: rpcVersion.osSwGitHash)
         }
 
         public static func == (lhs: Version, rhs: Version) -> Bool {
@@ -125,6 +258,8 @@ public class Info {
                 && lhs.osSwMajor == rhs.osSwMajor
                 && lhs.osSwMinor == rhs.osSwMinor
                 && lhs.osSwPatch == rhs.osSwPatch
+                && lhs.flightSwGitHash == rhs.flightSwGitHash
+                && lhs.osSwGitHash == rhs.osSwGitHash
         }
     }
 
@@ -200,6 +335,93 @@ public class Info {
         }
     }
 
+
+    public func getFlightInformation() -> Single<FlightInfo> {
+        return Single<FlightInfo>.create { single in
+            let request = Mavsdk_Rpc_Info_GetFlightInformationRequest()
+
+            
+
+            do {
+                let response = try self.service.getFlightInformation(request)
+
+                
+                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+                
+                    let flightInfo = FlightInfo.translateFromRpc(response.flightInfo)
+                
+                single(.success(flightInfo))
+            } catch {
+                single(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getIdentification() -> Single<Identification> {
+        return Single<Identification>.create { single in
+            let request = Mavsdk_Rpc_Info_GetIdentificationRequest()
+
+            
+
+            do {
+                let response = try self.service.getIdentification(request)
+
+                
+                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+                
+                    let identification = Identification.translateFromRpc(response.identification)
+                
+                single(.success(identification))
+            } catch {
+                single(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getProduct() -> Single<Product> {
+        return Single<Product>.create { single in
+            let request = Mavsdk_Rpc_Info_GetProductRequest()
+
+            
+
+            do {
+                let response = try self.service.getProduct(request)
+
+                
+                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+                
+                    let product = Product.translateFromRpc(response.product)
+                
+                single(.success(product))
+            } catch {
+                single(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 
     public func getVersion() -> Single<Version> {
         return Single<Version>.create { single in

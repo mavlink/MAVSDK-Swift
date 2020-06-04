@@ -123,9 +123,9 @@ public class Param {
     }
 
 
-    public func getIntParam(name: String) -> Single<Int32> {
+    public func getParamInt(name: String) -> Single<Int32> {
         return Single<Int32>.create { single in
-            var request = Mavsdk_Rpc_Param_GetIntParamRequest()
+            var request = Mavsdk_Rpc_Param_GetParamIntRequest()
 
             
                 
@@ -134,7 +134,7 @@ public class Param {
             
 
             do {
-                let response = try self.service.getIntParam(request)
+                let response = try self.service.getParamInt(request)
 
                 
                 if (response.paramResult.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
@@ -156,9 +156,9 @@ public class Param {
         }
     }
 
-    public func setIntParam(name: String, value: Int32) -> Completable {
+    public func setParamInt(name: String, value: Int32) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Param_SetIntParamRequest()
+            var request = Mavsdk_Rpc_Param_SetParamIntRequest()
 
             
                 
@@ -172,7 +172,7 @@ public class Param {
 
             do {
                 
-                let response = try self.service.setIntParam(request)
+                let response = try self.service.setParamInt(request)
 
                 if (response.paramResult.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     completable(.completed)
@@ -188,9 +188,9 @@ public class Param {
         }
     }
 
-    public func getFloatParam(name: String) -> Single<Float> {
+    public func getParamFloat(name: String) -> Single<Float> {
         return Single<Float>.create { single in
-            var request = Mavsdk_Rpc_Param_GetFloatParamRequest()
+            var request = Mavsdk_Rpc_Param_GetParamFloatRequest()
 
             
                 
@@ -199,7 +199,7 @@ public class Param {
             
 
             do {
-                let response = try self.service.getFloatParam(request)
+                let response = try self.service.getParamFloat(request)
 
                 
                 if (response.paramResult.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
@@ -221,9 +221,9 @@ public class Param {
         }
     }
 
-    public func setFloatParam(name: String, value: Float) -> Completable {
+    public func setParamFloat(name: String, value: Float) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Param_SetFloatParamRequest()
+            var request = Mavsdk_Rpc_Param_SetParamFloatRequest()
 
             
                 
@@ -237,7 +237,7 @@ public class Param {
 
             do {
                 
-                let response = try self.service.setFloatParam(request)
+                let response = try self.service.setParamFloat(request)
 
                 if (response.paramResult.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     completable(.completed)

@@ -19,42 +19,127 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-/// System version information.
-struct Mavsdk_Rpc_Info_Version {
+struct Mavsdk_Rpc_Info_GetFlightInformationRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Flight software major version
-  var flightSwMajor: Int32 = 0
+  var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  /// Flight software minor version
-  var flightSwMinor: Int32 = 0
+  init() {}
+}
 
-  /// Flight software patch version
-  var flightSwPatch: Int32 = 0
+struct Mavsdk_Rpc_Info_GetFlightInformationResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
 
-  /// Flight software vendor major version
-  var flightSwVendorMajor: Int32 = 0
+  var infoResult: Mavsdk_Rpc_Info_InfoResult {
+    get {return _storage._infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
+    set {_uniqueStorage()._infoResult = newValue}
+  }
+  /// Returns true if `infoResult` has been explicitly set.
+  var hasInfoResult: Bool {return _storage._infoResult != nil}
+  /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
+  mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
 
-  /// Flight software vendor minor version
-  var flightSwVendorMinor: Int32 = 0
-
-  /// Flight software vendor patch version
-  var flightSwVendorPatch: Int32 = 0
-
-  /// Operating system software major version
-  var osSwMajor: Int32 = 0
-
-  /// Operating system software minor version
-  var osSwMinor: Int32 = 0
-
-  /// Operating system software patch version
-  var osSwPatch: Int32 = 0
+  /// Flight information of the system
+  var flightInfo: Mavsdk_Rpc_Info_FlightInfo {
+    get {return _storage._flightInfo ?? Mavsdk_Rpc_Info_FlightInfo()}
+    set {_uniqueStorage()._flightInfo = newValue}
+  }
+  /// Returns true if `flightInfo` has been explicitly set.
+  var hasFlightInfo: Bool {return _storage._flightInfo != nil}
+  /// Clears the value of `flightInfo`. Subsequent reads from it will return its default value.
+  mutating func clearFlightInfo() {_uniqueStorage()._flightInfo = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Info_GetIdentificationRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Info_GetIdentificationResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var infoResult: Mavsdk_Rpc_Info_InfoResult {
+    get {return _storage._infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
+    set {_uniqueStorage()._infoResult = newValue}
+  }
+  /// Returns true if `infoResult` has been explicitly set.
+  var hasInfoResult: Bool {return _storage._infoResult != nil}
+  /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
+  mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
+
+  /// Identification of the system
+  var identification: Mavsdk_Rpc_Info_Identification {
+    get {return _storage._identification ?? Mavsdk_Rpc_Info_Identification()}
+    set {_uniqueStorage()._identification = newValue}
+  }
+  /// Returns true if `identification` has been explicitly set.
+  var hasIdentification: Bool {return _storage._identification != nil}
+  /// Clears the value of `identification`. Subsequent reads from it will return its default value.
+  mutating func clearIdentification() {_uniqueStorage()._identification = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Mavsdk_Rpc_Info_GetProductRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Info_GetProductResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var infoResult: Mavsdk_Rpc_Info_InfoResult {
+    get {return _storage._infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
+    set {_uniqueStorage()._infoResult = newValue}
+  }
+  /// Returns true if `infoResult` has been explicitly set.
+  var hasInfoResult: Bool {return _storage._infoResult != nil}
+  /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
+  mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
+
+  /// Product information of the system
+  var product: Mavsdk_Rpc_Info_Product {
+    get {return _storage._product ?? Mavsdk_Rpc_Info_Product()}
+    set {_uniqueStorage()._product = newValue}
+  }
+  /// Returns true if `product` has been explicitly set.
+  var hasProduct: Bool {return _storage._product != nil}
+  /// Clears the value of `product`. Subsequent reads from it will return its default value.
+  mutating func clearProduct() {_uniqueStorage()._product = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Info_GetVersionRequest {
@@ -98,6 +183,104 @@ struct Mavsdk_Rpc_Info_GetVersionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+/// System flight information.
+struct Mavsdk_Rpc_Info_FlightInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Time since system boot
+  var timeBootMs: UInt32 = 0
+
+  /// Flight counter. Starts from zero, is incremented at every disarm and is never reset (even after reboot)
+  var flightUid: UInt64 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// System identification.
+struct Mavsdk_Rpc_Info_Identification {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// UID of the hardware. This refers to uid2 of MAVLink. If the system does not support uid2 yet, this is all zeros.
+  var hardwareUid: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// System product information.
+struct Mavsdk_Rpc_Info_Product {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// ID of the board vendor
+  var vendorID: Int32 = 0
+
+  /// Name of the vendor
+  var vendorName: String = String()
+
+  /// ID of the product
+  var productID: Int32 = 0
+
+  /// Name of the product
+  var productName: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// System version information.
+struct Mavsdk_Rpc_Info_Version {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Flight software major version
+  var flightSwMajor: Int32 = 0
+
+  /// Flight software minor version
+  var flightSwMinor: Int32 = 0
+
+  /// Flight software patch version
+  var flightSwPatch: Int32 = 0
+
+  /// Flight software vendor major version
+  var flightSwVendorMajor: Int32 = 0
+
+  /// Flight software vendor minor version
+  var flightSwVendorMinor: Int32 = 0
+
+  /// Flight software vendor patch version
+  var flightSwVendorPatch: Int32 = 0
+
+  /// Operating system software major version
+  var osSwMajor: Int32 = 0
+
+  /// Operating system software minor version
+  var osSwMinor: Int32 = 0
+
+  /// Operating system software patch version
+  var osSwPatch: Int32 = 0
+
+  /// Flight software git hash
+  var flightSwGitHash: String = String()
+
+  /// Operating system software git hash
+  var osSwGitHash: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Info_InfoResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -116,7 +299,7 @@ struct Mavsdk_Rpc_Info_InfoResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
     /// Request succeeded
@@ -170,78 +353,265 @@ extension Mavsdk_Rpc_Info_InfoResult.Result: CaseIterable {
 
 fileprivate let _protobuf_package = "mavsdk.rpc.info"
 
-extension Mavsdk_Rpc_Info_Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Version"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "flight_sw_major"),
-    2: .standard(proto: "flight_sw_minor"),
-    3: .standard(proto: "flight_sw_patch"),
-    4: .standard(proto: "flight_sw_vendor_major"),
-    5: .standard(proto: "flight_sw_vendor_minor"),
-    6: .standard(proto: "flight_sw_vendor_patch"),
-    7: .standard(proto: "os_sw_major"),
-    8: .standard(proto: "os_sw_minor"),
-    9: .standard(proto: "os_sw_patch"),
-  ]
+extension Mavsdk_Rpc_Info_GetFlightInformationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetFlightInformationRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self.flightSwMajor)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.flightSwMinor)
-      case 3: try decoder.decodeSingularInt32Field(value: &self.flightSwPatch)
-      case 4: try decoder.decodeSingularInt32Field(value: &self.flightSwVendorMajor)
-      case 5: try decoder.decodeSingularInt32Field(value: &self.flightSwVendorMinor)
-      case 6: try decoder.decodeSingularInt32Field(value: &self.flightSwVendorPatch)
-      case 7: try decoder.decodeSingularInt32Field(value: &self.osSwMajor)
-      case 8: try decoder.decodeSingularInt32Field(value: &self.osSwMinor)
-      case 9: try decoder.decodeSingularInt32Field(value: &self.osSwPatch)
-      default: break
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetFlightInformationRequest, rhs: Mavsdk_Rpc_Info_GetFlightInformationRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetFlightInformationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetFlightInformationResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "info_result"),
+    2: .standard(proto: "flight_info"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
+    var _flightInfo: Mavsdk_Rpc_Info_FlightInfo? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _infoResult = source._infoResult
+      _flightInfo = source._flightInfo
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._infoResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._flightInfo)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.flightSwMajor != 0 {
-      try visitor.visitSingularInt32Field(value: self.flightSwMajor, fieldNumber: 1)
-    }
-    if self.flightSwMinor != 0 {
-      try visitor.visitSingularInt32Field(value: self.flightSwMinor, fieldNumber: 2)
-    }
-    if self.flightSwPatch != 0 {
-      try visitor.visitSingularInt32Field(value: self.flightSwPatch, fieldNumber: 3)
-    }
-    if self.flightSwVendorMajor != 0 {
-      try visitor.visitSingularInt32Field(value: self.flightSwVendorMajor, fieldNumber: 4)
-    }
-    if self.flightSwVendorMinor != 0 {
-      try visitor.visitSingularInt32Field(value: self.flightSwVendorMinor, fieldNumber: 5)
-    }
-    if self.flightSwVendorPatch != 0 {
-      try visitor.visitSingularInt32Field(value: self.flightSwVendorPatch, fieldNumber: 6)
-    }
-    if self.osSwMajor != 0 {
-      try visitor.visitSingularInt32Field(value: self.osSwMajor, fieldNumber: 7)
-    }
-    if self.osSwMinor != 0 {
-      try visitor.visitSingularInt32Field(value: self.osSwMinor, fieldNumber: 8)
-    }
-    if self.osSwPatch != 0 {
-      try visitor.visitSingularInt32Field(value: self.osSwPatch, fieldNumber: 9)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._infoResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._flightInfo {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Info_Version, rhs: Mavsdk_Rpc_Info_Version) -> Bool {
-    if lhs.flightSwMajor != rhs.flightSwMajor {return false}
-    if lhs.flightSwMinor != rhs.flightSwMinor {return false}
-    if lhs.flightSwPatch != rhs.flightSwPatch {return false}
-    if lhs.flightSwVendorMajor != rhs.flightSwVendorMajor {return false}
-    if lhs.flightSwVendorMinor != rhs.flightSwVendorMinor {return false}
-    if lhs.flightSwVendorPatch != rhs.flightSwVendorPatch {return false}
-    if lhs.osSwMajor != rhs.osSwMajor {return false}
-    if lhs.osSwMinor != rhs.osSwMinor {return false}
-    if lhs.osSwPatch != rhs.osSwPatch {return false}
+  static func ==(lhs: Mavsdk_Rpc_Info_GetFlightInformationResponse, rhs: Mavsdk_Rpc_Info_GetFlightInformationResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._infoResult != rhs_storage._infoResult {return false}
+        if _storage._flightInfo != rhs_storage._flightInfo {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetIdentificationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetIdentificationRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetIdentificationRequest, rhs: Mavsdk_Rpc_Info_GetIdentificationRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetIdentificationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetIdentificationResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "info_result"),
+    2: .same(proto: "identification"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
+    var _identification: Mavsdk_Rpc_Info_Identification? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _infoResult = source._infoResult
+      _identification = source._identification
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._infoResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._identification)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._infoResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._identification {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetIdentificationResponse, rhs: Mavsdk_Rpc_Info_GetIdentificationResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._infoResult != rhs_storage._infoResult {return false}
+        if _storage._identification != rhs_storage._identification {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetProductRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetProductRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetProductRequest, rhs: Mavsdk_Rpc_Info_GetProductRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetProductResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetProductResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "info_result"),
+    2: .same(proto: "product"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
+    var _product: Mavsdk_Rpc_Info_Product? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _infoResult = source._infoResult
+      _product = source._product
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._infoResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._product)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._infoResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._product {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetProductResponse, rhs: Mavsdk_Rpc_Info_GetProductResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._infoResult != rhs_storage._infoResult {return false}
+        if _storage._product != rhs_storage._product {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -335,6 +705,206 @@ extension Mavsdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, SwiftProtob
   }
 }
 
+extension Mavsdk_Rpc_Info_FlightInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".FlightInfo"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "time_boot_ms"),
+    2: .standard(proto: "flight_uid"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.timeBootMs)
+      case 2: try decoder.decodeSingularUInt64Field(value: &self.flightUid)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeBootMs != 0 {
+      try visitor.visitSingularUInt32Field(value: self.timeBootMs, fieldNumber: 1)
+    }
+    if self.flightUid != 0 {
+      try visitor.visitSingularUInt64Field(value: self.flightUid, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_FlightInfo, rhs: Mavsdk_Rpc_Info_FlightInfo) -> Bool {
+    if lhs.timeBootMs != rhs.timeBootMs {return false}
+    if lhs.flightUid != rhs.flightUid {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_Identification: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Identification"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "hardware_uid"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.hardwareUid)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.hardwareUid.isEmpty {
+      try visitor.visitSingularStringField(value: self.hardwareUid, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_Identification, rhs: Mavsdk_Rpc_Info_Identification) -> Bool {
+    if lhs.hardwareUid != rhs.hardwareUid {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_Product: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Product"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "vendor_id"),
+    2: .standard(proto: "vendor_name"),
+    3: .standard(proto: "product_id"),
+    4: .standard(proto: "product_name"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.vendorID)
+      case 2: try decoder.decodeSingularStringField(value: &self.vendorName)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.productID)
+      case 4: try decoder.decodeSingularStringField(value: &self.productName)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.vendorID != 0 {
+      try visitor.visitSingularInt32Field(value: self.vendorID, fieldNumber: 1)
+    }
+    if !self.vendorName.isEmpty {
+      try visitor.visitSingularStringField(value: self.vendorName, fieldNumber: 2)
+    }
+    if self.productID != 0 {
+      try visitor.visitSingularInt32Field(value: self.productID, fieldNumber: 3)
+    }
+    if !self.productName.isEmpty {
+      try visitor.visitSingularStringField(value: self.productName, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_Product, rhs: Mavsdk_Rpc_Info_Product) -> Bool {
+    if lhs.vendorID != rhs.vendorID {return false}
+    if lhs.vendorName != rhs.vendorName {return false}
+    if lhs.productID != rhs.productID {return false}
+    if lhs.productName != rhs.productName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_Version: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Version"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "flight_sw_major"),
+    2: .standard(proto: "flight_sw_minor"),
+    3: .standard(proto: "flight_sw_patch"),
+    4: .standard(proto: "flight_sw_vendor_major"),
+    5: .standard(proto: "flight_sw_vendor_minor"),
+    6: .standard(proto: "flight_sw_vendor_patch"),
+    7: .standard(proto: "os_sw_major"),
+    8: .standard(proto: "os_sw_minor"),
+    9: .standard(proto: "os_sw_patch"),
+    10: .standard(proto: "flight_sw_git_hash"),
+    11: .standard(proto: "os_sw_git_hash"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.flightSwMajor)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.flightSwMinor)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.flightSwPatch)
+      case 4: try decoder.decodeSingularInt32Field(value: &self.flightSwVendorMajor)
+      case 5: try decoder.decodeSingularInt32Field(value: &self.flightSwVendorMinor)
+      case 6: try decoder.decodeSingularInt32Field(value: &self.flightSwVendorPatch)
+      case 7: try decoder.decodeSingularInt32Field(value: &self.osSwMajor)
+      case 8: try decoder.decodeSingularInt32Field(value: &self.osSwMinor)
+      case 9: try decoder.decodeSingularInt32Field(value: &self.osSwPatch)
+      case 10: try decoder.decodeSingularStringField(value: &self.flightSwGitHash)
+      case 11: try decoder.decodeSingularStringField(value: &self.osSwGitHash)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.flightSwMajor != 0 {
+      try visitor.visitSingularInt32Field(value: self.flightSwMajor, fieldNumber: 1)
+    }
+    if self.flightSwMinor != 0 {
+      try visitor.visitSingularInt32Field(value: self.flightSwMinor, fieldNumber: 2)
+    }
+    if self.flightSwPatch != 0 {
+      try visitor.visitSingularInt32Field(value: self.flightSwPatch, fieldNumber: 3)
+    }
+    if self.flightSwVendorMajor != 0 {
+      try visitor.visitSingularInt32Field(value: self.flightSwVendorMajor, fieldNumber: 4)
+    }
+    if self.flightSwVendorMinor != 0 {
+      try visitor.visitSingularInt32Field(value: self.flightSwVendorMinor, fieldNumber: 5)
+    }
+    if self.flightSwVendorPatch != 0 {
+      try visitor.visitSingularInt32Field(value: self.flightSwVendorPatch, fieldNumber: 6)
+    }
+    if self.osSwMajor != 0 {
+      try visitor.visitSingularInt32Field(value: self.osSwMajor, fieldNumber: 7)
+    }
+    if self.osSwMinor != 0 {
+      try visitor.visitSingularInt32Field(value: self.osSwMinor, fieldNumber: 8)
+    }
+    if self.osSwPatch != 0 {
+      try visitor.visitSingularInt32Field(value: self.osSwPatch, fieldNumber: 9)
+    }
+    if !self.flightSwGitHash.isEmpty {
+      try visitor.visitSingularStringField(value: self.flightSwGitHash, fieldNumber: 10)
+    }
+    if !self.osSwGitHash.isEmpty {
+      try visitor.visitSingularStringField(value: self.osSwGitHash, fieldNumber: 11)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_Version, rhs: Mavsdk_Rpc_Info_Version) -> Bool {
+    if lhs.flightSwMajor != rhs.flightSwMajor {return false}
+    if lhs.flightSwMinor != rhs.flightSwMinor {return false}
+    if lhs.flightSwPatch != rhs.flightSwPatch {return false}
+    if lhs.flightSwVendorMajor != rhs.flightSwVendorMajor {return false}
+    if lhs.flightSwVendorMinor != rhs.flightSwVendorMinor {return false}
+    if lhs.flightSwVendorPatch != rhs.flightSwVendorPatch {return false}
+    if lhs.osSwMajor != rhs.osSwMajor {return false}
+    if lhs.osSwMinor != rhs.osSwMinor {return false}
+    if lhs.osSwPatch != rhs.osSwPatch {return false}
+    if lhs.flightSwGitHash != rhs.flightSwGitHash {return false}
+    if lhs.osSwGitHash != rhs.osSwGitHash {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Info_InfoResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".InfoResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -372,8 +942,8 @@ extension Mavsdk_Rpc_Info_InfoResult: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Mavsdk_Rpc_Info_InfoResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "INFORMATION_NOT_RECEIVED_YET"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_INFORMATION_NOT_RECEIVED_YET"),
   ]
 }

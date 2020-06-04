@@ -186,27 +186,56 @@ public class Mission {
         }
     }
 
-    public struct MissionProgress: Equatable {
-        public let currentItemIndex: Int32
-        public let missionCount: Int32
+    public struct MissionPlan: Equatable {
+        public let missionItems: [MissionItem]
 
         
 
-        public init(currentItemIndex: Int32, missionCount: Int32) {
-            self.currentItemIndex = currentItemIndex
-            self.missionCount = missionCount
+        public init(missionItems: [MissionItem]) {
+            self.missionItems = missionItems
+        }
+
+        internal var rpcMissionPlan: Mavsdk_Rpc_Mission_MissionPlan {
+            var rpcMissionPlan = Mavsdk_Rpc_Mission_MissionPlan()
+            
+                
+            rpcMissionPlan.missionItems = missionItems.map{ $0.rpcMissionItem }
+                
+            
+
+            return rpcMissionPlan
+        }
+
+        internal static func translateFromRpc(_ rpcMissionPlan: Mavsdk_Rpc_Mission_MissionPlan) -> MissionPlan {
+            return MissionPlan(missionItems: rpcMissionPlan.missionItems.map{ MissionItem.translateFromRpc($0) })
+        }
+
+        public static func == (lhs: MissionPlan, rhs: MissionPlan) -> Bool {
+            return lhs.missionItems == rhs.missionItems
+        }
+    }
+
+    public struct MissionProgress: Equatable {
+        public let current: Int32
+        public let total: Int32
+
+        
+
+        public init(current: Int32, total: Int32) {
+            self.current = current
+            self.total = total
         }
 
         internal var rpcMissionProgress: Mavsdk_Rpc_Mission_MissionProgress {
             var rpcMissionProgress = Mavsdk_Rpc_Mission_MissionProgress()
             
                 
-            rpcMissionProgress.currentItemIndex = currentItemIndex
+            rpcMissionProgress.current = current
                 
             
             
                 
-            rpcMissionProgress.missionCount = missionCount
+            rpcMissionProgress.total = total
                 
             
 
@@ -214,12 +243,12 @@ public class Mission {
         }
 
         internal static func translateFromRpc(_ rpcMissionProgress: Mavsdk_Rpc_Mission_MissionProgress) -> MissionProgress {
-            return MissionProgress(currentItemIndex: rpcMissionProgress.currentItemIndex, missionCount: rpcMissionProgress.missionCount)
+            return MissionProgress(current: rpcMissionProgress.current, total: rpcMissionProgress.total)
         }
 
         public static func == (lhs: MissionProgress, rhs: MissionProgress) -> Bool {
-            return lhs.currentItemIndex == rhs.currentItemIndex
-                && lhs.missionCount == rhs.missionCount
+            return lhs.current == rhs.current
+                && lhs.total == rhs.total
         }
     }
 
@@ -346,13 +375,13 @@ public class Mission {
     }
 
 
-    public func uploadMission(missionItems: [MissionItem]) -> Completable {
+    public func uploadMission(missionPlan: MissionPlan) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Mission_UploadMissionRequest()
 
             
                 
-            missionItems.forEach({ elem in request.missionItems.append(elem.rpcMissionItem) })
+            request.missionPlan = missionPlan.rpcMissionPlan
                 
             
 
@@ -382,8 +411,13 @@ public class Mission {
 
             do {
                 
-                let _ = try self.service.cancelMissionUpload(request)
-                completable(.completed)
+                let response = try self.service.cancelMissionUpload(request)
+
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -393,8 +427,8 @@ public class Mission {
         }
     }
 
-    public func downloadMission() -> Single<[MissionItem]> {
-        return Single<[MissionItem]>.create { single in
+    public func downloadMission() -> Single<MissionPlan> {
+        return Single<MissionPlan>.create { single in
             let request = Mavsdk_Rpc_Mission_DownloadMissionRequest()
 
             
@@ -411,9 +445,9 @@ public class Mission {
                 
 
                 
-                let missionItems = response.missionItems.map{ MissionItem.translateFromRpc($0) }
+                    let missionPlan = MissionPlan.translateFromRpc(response.missionPlan)
                 
-                single(.success(missionItems))
+                single(.success(missionPlan))
             } catch {
                 single(.error(error))
             }
@@ -430,8 +464,13 @@ public class Mission {
 
             do {
                 
-                let _ = try self.service.cancelMissionDownload(request)
-                completable(.completed)
+                let response = try self.service.cancelMissionDownload(request)
+
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
@@ -513,9 +552,9 @@ public class Mission {
         }
     }
 
-    public func setCurrentMissionItemIndex(index: Int32) -> Completable {
+    public func setCurrentMissionItem(index: Int32) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Mission_SetCurrentMissionItemIndexRequest()
+            var request = Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest()
 
             
                 
@@ -525,7 +564,7 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.setCurrentMissionItemIndex(request)
+                let response = try self.service.setCurrentMissionItem(request)
 
                 if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
@@ -550,6 +589,12 @@ public class Mission {
             do {
                 let response = try self.service.isMissionFinished(request)
 
+                
+                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+
+                    return Disposables.create()
+                }
                 
 
                 
@@ -625,6 +670,12 @@ public class Mission {
                 let response = try self.service.getReturnToLaunchAfterMission(request)
 
                 
+                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
 
                 
                     let enable = response.enable
@@ -650,11 +701,49 @@ public class Mission {
 
             do {
                 
-                let _ = try self.service.setReturnToLaunchAfterMission(request)
-                completable(.completed)
+                let response = try self.service.setReturnToLaunchAfterMission(request)
+
+                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func importQgroundcontrolMission(qgcPlanPath: String) -> Single<MissionPlan> {
+        return Single<MissionPlan>.create { single in
+            var request = Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest()
+
+            
+                
+            request.qgcPlanPath = qgcPlanPath
+                
+            
+
+            do {
+                let response = try self.service.importQgroundcontrolMission(request)
+
+                
+                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+                
+                    let missionPlan = MissionPlan.translateFromRpc(response.missionPlan)
+                
+                single(.success(missionPlan))
+            } catch {
+                single(.error(error))
             }
 
             return Disposables.create()

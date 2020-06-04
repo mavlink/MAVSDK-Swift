@@ -131,9 +131,20 @@ struct Mavsdk_Rpc_Offboard_SetAttitudeResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _storage._offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_uniqueStorage()._offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return _storage._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {_uniqueStorage()._offboardResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Offboard_SetActuatorControlRequest {
@@ -163,9 +174,20 @@ struct Mavsdk_Rpc_Offboard_SetActuatorControlResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _storage._offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_uniqueStorage()._offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return _storage._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {_uniqueStorage()._offboardResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Offboard_SetAttitudeRateRequest {
@@ -195,9 +217,20 @@ struct Mavsdk_Rpc_Offboard_SetAttitudeRateResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _storage._offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_uniqueStorage()._offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return _storage._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {_uniqueStorage()._offboardResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Offboard_SetPositionNedRequest {
@@ -227,9 +260,20 @@ struct Mavsdk_Rpc_Offboard_SetPositionNedResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _storage._offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_uniqueStorage()._offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return _storage._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {_uniqueStorage()._offboardResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Offboard_SetVelocityBodyRequest {
@@ -259,9 +303,20 @@ struct Mavsdk_Rpc_Offboard_SetVelocityBodyResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _storage._offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_uniqueStorage()._offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return _storage._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {_uniqueStorage()._offboardResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct Mavsdk_Rpc_Offboard_SetVelocityNedRequest {
@@ -291,9 +346,20 @@ struct Mavsdk_Rpc_Offboard_SetVelocityNedResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _storage._offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_uniqueStorage()._offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return _storage._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {_uniqueStorage()._offboardResult = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 /// Type for attitude body angles in NED reference frame (roll, pitch, yaw and thrust)
@@ -474,7 +540,7 @@ struct Mavsdk_Rpc_Offboard_OffboardResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
     /// Request succeeded
@@ -829,18 +895,60 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeRequest: SwiftProtobuf.Message, SwiftPr
 
 extension Mavsdk_Rpc_Offboard_SetAttitudeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetAttitudeResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _offboardResult = source._offboardResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._offboardResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._offboardResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetAttitudeResponse, rhs: Mavsdk_Rpc_Offboard_SetAttitudeResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._offboardResult != rhs_storage._offboardResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -909,18 +1017,60 @@ extension Mavsdk_Rpc_Offboard_SetActuatorControlRequest: SwiftProtobuf.Message, 
 
 extension Mavsdk_Rpc_Offboard_SetActuatorControlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetActuatorControlResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _offboardResult = source._offboardResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._offboardResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._offboardResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetActuatorControlResponse, rhs: Mavsdk_Rpc_Offboard_SetActuatorControlResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._offboardResult != rhs_storage._offboardResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -989,18 +1139,60 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeRateRequest: SwiftProtobuf.Message, Swi
 
 extension Mavsdk_Rpc_Offboard_SetAttitudeRateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetAttitudeRateResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _offboardResult = source._offboardResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._offboardResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._offboardResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetAttitudeRateResponse, rhs: Mavsdk_Rpc_Offboard_SetAttitudeRateResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._offboardResult != rhs_storage._offboardResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1069,18 +1261,60 @@ extension Mavsdk_Rpc_Offboard_SetPositionNedRequest: SwiftProtobuf.Message, Swif
 
 extension Mavsdk_Rpc_Offboard_SetPositionNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetPositionNedResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _offboardResult = source._offboardResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._offboardResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._offboardResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetPositionNedResponse, rhs: Mavsdk_Rpc_Offboard_SetPositionNedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._offboardResult != rhs_storage._offboardResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1149,18 +1383,60 @@ extension Mavsdk_Rpc_Offboard_SetVelocityBodyRequest: SwiftProtobuf.Message, Swi
 
 extension Mavsdk_Rpc_Offboard_SetVelocityBodyResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetVelocityBodyResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _offboardResult = source._offboardResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._offboardResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._offboardResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetVelocityBodyResponse, rhs: Mavsdk_Rpc_Offboard_SetVelocityBodyResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._offboardResult != rhs_storage._offboardResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1229,18 +1505,60 @@ extension Mavsdk_Rpc_Offboard_SetVelocityNedRequest: SwiftProtobuf.Message, Swif
 
 extension Mavsdk_Rpc_Offboard_SetVelocityNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetVelocityNedResponse"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _offboardResult = source._offboardResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._offboardResult)
+        default: break
+        }
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._offboardResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetVelocityNedResponse, rhs: Mavsdk_Rpc_Offboard_SetVelocityNedResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._offboardResult != rhs_storage._offboardResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1576,13 +1894,13 @@ extension Mavsdk_Rpc_Offboard_OffboardResult: SwiftProtobuf.Message, SwiftProtob
 
 extension Mavsdk_Rpc_Offboard_OffboardResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "NO_SYSTEM"),
-    3: .same(proto: "CONNECTION_ERROR"),
-    4: .same(proto: "BUSY"),
-    5: .same(proto: "COMMAND_DENIED"),
-    6: .same(proto: "TIMEOUT"),
-    7: .same(proto: "NO_SETPOINT_SET"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_NO_SYSTEM"),
+    3: .same(proto: "RESULT_CONNECTION_ERROR"),
+    4: .same(proto: "RESULT_BUSY"),
+    5: .same(proto: "RESULT_COMMAND_DENIED"),
+    6: .same(proto: "RESULT_TIMEOUT"),
+    7: .same(proto: "RESULT_NO_SETPOINT_SET"),
   ]
 }

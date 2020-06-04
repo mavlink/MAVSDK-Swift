@@ -37,6 +37,12 @@ fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase: ClientCa
   override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetMode" }
 }
 
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
+  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation" }
+}
+
 
 /// Instantiate Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceService: ServiceClient {
@@ -51,6 +57,12 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall
+
+  /// Synchronous. Unary.
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall
 
 }
 
@@ -73,6 +85,16 @@ internal extension Mavsdk_Rpc_Gimbal_GimbalServiceService {
   @discardableResult
   func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
     return try self.setMode(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
+    return try self.setRoiLocation(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
+    return try self.setRoiLocation(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -102,6 +124,18 @@ internal final class Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient: ServiceClient
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+  /// Synchronous. Unary.
+  internal func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
+    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
+    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
 }
 
 class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
@@ -110,6 +144,10 @@ class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub: ClientCallUnary
 
 class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
   override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetMode" }
+}
+
+class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
+  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation" }
 }
 
 class Mavsdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Gimbal_GimbalServiceService {
@@ -143,6 +181,21 @@ class Mavsdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase,
     return Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallTestStub()
   }
 
+  var setRoiLocationRequests: [Mavsdk_Rpc_Gimbal_SetRoiLocationRequest] = []
+  var setRoiLocationResponses: [Mavsdk_Rpc_Gimbal_SetRoiLocationResponse] = []
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
+    setRoiLocationRequests.append(request)
+    defer { setRoiLocationResponses.removeFirst() }
+    return setRoiLocationResponses.first!
+  }
+  @discardableResult
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
+    let response = try self.setRoiLocation(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallTestStub()
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -151,6 +204,7 @@ class Mavsdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase,
 internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: ServiceProvider {
   func setPitchAndYaw(request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse
   func setMode(request: Mavsdk_Rpc_Gimbal_SetModeRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse
+  func setRoiLocation(request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse
 }
 
 extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
@@ -170,6 +224,11 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
         handler: handler,
         providerBlock: { try self.setMode(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase) })
           .run()
+    case "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation":
+      return try Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionBase(
+        handler: handler,
+        providerBlock: { try self.setRoiLocation(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionBase) })
+          .run()
     default:
       throw HandleMethodError.unknownMethod
     }
@@ -187,4 +246,10 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession: ServerSessionUn
 fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession {}
 
 class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession {}
+
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession {}
+
+class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession {}
 

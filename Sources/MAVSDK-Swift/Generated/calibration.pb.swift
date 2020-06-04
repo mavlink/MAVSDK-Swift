@@ -142,6 +142,47 @@ struct Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult {
+    get {return _storage._calibrationResult ?? Mavsdk_Rpc_Calibration_CalibrationResult()}
+    set {_uniqueStorage()._calibrationResult = newValue}
+  }
+  /// Returns true if `calibrationResult` has been explicitly set.
+  var hasCalibrationResult: Bool {return _storage._calibrationResult != nil}
+  /// Clears the value of `calibrationResult`. Subsequent reads from it will return its default value.
+  mutating func clearCalibrationResult() {_uniqueStorage()._calibrationResult = nil}
+
+  /// Progress data
+  var progressData: Mavsdk_Rpc_Calibration_ProgressData {
+    get {return _storage._progressData ?? Mavsdk_Rpc_Calibration_ProgressData()}
+    set {_uniqueStorage()._progressData = newValue}
+  }
+  /// Returns true if `progressData` has been explicitly set.
+  var hasProgressData: Bool {return _storage._progressData != nil}
+  /// Clears the value of `progressData`. Subsequent reads from it will return its default value.
+  mutating func clearProgressData() {_uniqueStorage()._progressData = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 struct Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -221,38 +262,38 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unknown error
+    /// Unknown result
     case unknown // = 0
 
-    /// The calibration process succeeded
+    /// The calibration succeeded
     case success // = 1
 
-    /// Intermediate message showing progress of the calibration process
-    case inProgress // = 2
-
-    /// Intermediate message giving instructions on the next steps required by the process
-    case instruction // = 3
+    /// Intermediate message showing progress or instructions on the next steps
+    case next // = 2
 
     /// Calibration failed
-    case failed // = 4
+    case failed // = 3
 
     /// No system is connected
-    case noSystem // = 5
+    case noSystem // = 4
 
     /// Connection error
-    case connectionError // = 6
+    case connectionError // = 5
 
     /// Vehicle is busy
-    case busy // = 7
+    case busy // = 6
 
     /// Command refused by vehicle
-    case commandDenied // = 8
+    case commandDenied // = 7
 
     /// Command timed out
-    case timeout // = 9
+    case timeout // = 8
 
-    /// Calibration process got cancelled
-    case cancelled // = 10
+    /// Calibration process was cancelled
+    case cancelled // = 9
+
+    /// Calibration process failed since the vehicle is armed
+    case failedArmed // = 10
     case UNRECOGNIZED(Int)
 
     init() {
@@ -263,15 +304,15 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
       switch rawValue {
       case 0: self = .unknown
       case 1: self = .success
-      case 2: self = .inProgress
-      case 3: self = .instruction
-      case 4: self = .failed
-      case 5: self = .noSystem
-      case 6: self = .connectionError
-      case 7: self = .busy
-      case 8: self = .commandDenied
-      case 9: self = .timeout
-      case 10: self = .cancelled
+      case 2: self = .next
+      case 3: self = .failed
+      case 4: self = .noSystem
+      case 5: self = .connectionError
+      case 6: self = .busy
+      case 7: self = .commandDenied
+      case 8: self = .timeout
+      case 9: self = .cancelled
+      case 10: self = .failedArmed
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -280,15 +321,15 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
       switch self {
       case .unknown: return 0
       case .success: return 1
-      case .inProgress: return 2
-      case .instruction: return 3
-      case .failed: return 4
-      case .noSystem: return 5
-      case .connectionError: return 6
-      case .busy: return 7
-      case .commandDenied: return 8
-      case .timeout: return 9
-      case .cancelled: return 10
+      case .next: return 2
+      case .failed: return 3
+      case .noSystem: return 4
+      case .connectionError: return 5
+      case .busy: return 6
+      case .commandDenied: return 7
+      case .timeout: return 8
+      case .cancelled: return 9
+      case .failedArmed: return 10
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -305,8 +346,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
   static var allCases: [Mavsdk_Rpc_Calibration_CalibrationResult.Result] = [
     .unknown,
     .success,
-    .inProgress,
-    .instruction,
+    .next,
     .failed,
     .noSystem,
     .connectionError,
@@ -314,6 +354,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
     .commandDenied,
     .timeout,
     .cancelled,
+    .failedArmed,
   ]
 }
 
@@ -328,11 +369,13 @@ struct Mavsdk_Rpc_Calibration_ProgressData {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Whether this ProgressData contains a 'progress' status or not
   var hasProgress_p: Bool = false
 
   /// Progress (percentage)
   var progress: Float = 0
 
+  /// Whether this ProgressData contains a 'status_text' or not
   var hasStatusText_p: Bool = false
 
   /// Instruction text
@@ -611,6 +654,94 @@ extension Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProtobuf.Me
   }
 }
 
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeCalibrateLevelHorizonRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, rhs: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CalibrateLevelHorizonResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "calibration_result"),
+    2: .standard(proto: "progress_data"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _calibrationResult: Mavsdk_Rpc_Calibration_CalibrationResult? = nil
+    var _progressData: Mavsdk_Rpc_Calibration_ProgressData? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _calibrationResult = source._calibrationResult
+      _progressData = source._progressData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._calibrationResult)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._progressData)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._calibrationResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._progressData {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse, rhs: Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._calibrationResult != rhs_storage._calibrationResult {return false}
+        if _storage._progressData != rhs_storage._progressData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeCalibrateGimbalAccelerometerRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -774,17 +905,17 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult: SwiftProtobuf.Message, Swift
 
 extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UNKNOWN"),
-    1: .same(proto: "SUCCESS"),
-    2: .same(proto: "IN_PROGRESS"),
-    3: .same(proto: "INSTRUCTION"),
-    4: .same(proto: "FAILED"),
-    5: .same(proto: "NO_SYSTEM"),
-    6: .same(proto: "CONNECTION_ERROR"),
-    7: .same(proto: "BUSY"),
-    8: .same(proto: "COMMAND_DENIED"),
-    9: .same(proto: "TIMEOUT"),
-    10: .same(proto: "CANCELLED"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_NEXT"),
+    3: .same(proto: "RESULT_FAILED"),
+    4: .same(proto: "RESULT_NO_SYSTEM"),
+    5: .same(proto: "RESULT_CONNECTION_ERROR"),
+    6: .same(proto: "RESULT_BUSY"),
+    7: .same(proto: "RESULT_COMMAND_DENIED"),
+    8: .same(proto: "RESULT_TIMEOUT"),
+    9: .same(proto: "RESULT_CANCELLED"),
+    10: .same(proto: "RESULT_FAILED_ARMED"),
   ]
 }
 

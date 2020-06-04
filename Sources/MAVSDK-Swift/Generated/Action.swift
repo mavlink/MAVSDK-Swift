@@ -273,6 +273,30 @@ public class Action {
         }
     }
 
+    public func shutdown() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Action_ShutdownRequest()
+
+            
+
+            do {
+                
+                let response = try self.service.shutdown(request)
+
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
     public func kill() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_KillRequest()
@@ -321,15 +345,55 @@ public class Action {
         }
     }
 
-    public func transitionToFixedWing() -> Completable {
+    public func gotoLocation(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, yawDeg: Float) -> Completable {
         return Completable.create { completable in
-            let request = Mavsdk_Rpc_Action_TransitionToFixedWingRequest()
+            var request = Mavsdk_Rpc_Action_GotoLocationRequest()
+
+            
+                
+            request.latitudeDeg = latitudeDeg
+                
+            
+                
+            request.longitudeDeg = longitudeDeg
+                
+            
+                
+            request.absoluteAltitudeM = absoluteAltitudeM
+                
+            
+                
+            request.yawDeg = yawDeg
+                
+            
+
+            do {
+                
+                let response = try self.service.gotoLocation(request)
+
+                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func transitionToFixedwing() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Action_TransitionToFixedwingRequest()
 
             
 
             do {
                 
-                let response = try self.service.transitionToFixedWing(request)
+                let response = try self.service.transitionToFixedwing(request)
 
                 if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
