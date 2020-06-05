@@ -515,8 +515,7 @@ public class Offboard {
 
                 
 
-                
-                    let isActive = response.isActive
+                let isActive = response.isActive
                 
                 single(.success(isActive))
             } catch {

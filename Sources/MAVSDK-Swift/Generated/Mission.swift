@@ -597,8 +597,7 @@ public class Mission {
                 }
                 
 
-                
-                    let isFinished = response.isFinished
+                let isFinished = response.isFinished
                 
                 single(.success(isFinished))
             } catch {
@@ -609,7 +608,9 @@ public class Mission {
         }
     }
 
+
     public lazy var missionProgress: Observable<MissionProgress> = createMissionProgressObservable()
+
 
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
         return Observable.create { observer in
@@ -677,8 +678,7 @@ public class Mission {
                 }
                 
 
-                
-                    let enable = response.enable
+                let enable = response.enable
                 
                 single(.success(enable))
             } catch {

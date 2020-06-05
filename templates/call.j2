@@ -9,7 +9,7 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.l
             {% elif param.type_info.is_repeated %}
         {{ param.name.lower_camel_case }}.forEach({ elem in request.{{ param.name.lower_camel_case }}.append(elem.rpc{{ param.type_info.inner_name }}) })
             {% else %}
-        request.{{ param.name.lower_camel_case }} = {{ param.name.lower_camel_case }}.rpc{{ param.name.upper_camel_case }}
+        request.{{ param.name.lower_camel_case }} = {{ param.name.lower_camel_case }}.rpc{{ param.type_info.name }}
             {% endif %}
         {% endfor %}
 

@@ -1030,7 +1030,9 @@ public class Camera {
         }
     }
 
+
     public lazy var mode: Observable<Mode> = createModeObservable()
+
 
     private func createModeObservable() -> Observable<Mode> {
         return Observable.create { observer in
@@ -1081,7 +1083,9 @@ public class Camera {
         .share(replay: 1)
     }
 
+
     public lazy var information: Observable<Information> = createInformationObservable()
+
 
     private func createInformationObservable() -> Observable<Information> {
         return Observable.create { observer in
@@ -1132,7 +1136,9 @@ public class Camera {
         .share(replay: 1)
     }
 
+
     public lazy var videoStreamInfo: Observable<VideoStreamInfo> = createVideoStreamInfoObservable()
+
 
     private func createVideoStreamInfoObservable() -> Observable<VideoStreamInfo> {
         return Observable.create { observer in
@@ -1183,7 +1189,9 @@ public class Camera {
         .share(replay: 1)
     }
 
+
     public lazy var captureInfo: Observable<CaptureInfo> = createCaptureInfoObservable()
+
 
     private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
         return Observable.create { observer in
@@ -1234,7 +1242,9 @@ public class Camera {
         .share(replay: 1)
     }
 
+
     public lazy var status: Observable<Status> = createStatusObservable()
+
 
     private func createStatusObservable() -> Observable<Status> {
         return Observable.create { observer in
@@ -1285,7 +1295,9 @@ public class Camera {
         .share(replay: 1)
     }
 
+
     public lazy var currentSettings: Observable<[Setting]> = createCurrentSettingsObservable()
+
 
     private func createCurrentSettingsObservable() -> Observable<[Setting]> {
         return Observable.create { observer in
@@ -1335,7 +1347,9 @@ public class Camera {
         .share(replay: 1)
     }
 
+
     public lazy var possibleSettingOptions: Observable<[SettingOptions]> = createPossibleSettingOptionsObservable()
+
 
     private func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
         return Observable.create { observer in

@@ -279,7 +279,7 @@ public class Tune {
 
             
                 
-            request.description = description.rpcDescription
+            request.description_p = description.rpcTuneDescription
                 
             
 

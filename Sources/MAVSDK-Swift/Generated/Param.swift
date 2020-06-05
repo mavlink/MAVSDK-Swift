@@ -144,8 +144,7 @@ public class Param {
                 }
                 
 
-                
-                    let value = response.value
+                let value = response.value
                 
                 single(.success(value))
             } catch {
@@ -209,8 +208,7 @@ public class Param {
                 }
                 
 
-                
-                    let value = response.value
+                let value = response.value
                 
                 single(.success(value))
             } catch {

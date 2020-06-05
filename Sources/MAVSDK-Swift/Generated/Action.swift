@@ -450,8 +450,7 @@ public class Action {
                 }
                 
 
-                
-                    let altitude = response.altitude
+                let altitude = response.altitude
                 
                 single(.success(altitude))
             } catch {
@@ -507,8 +506,7 @@ public class Action {
                 }
                 
 
-                
-                    let speed = response.speed
+                let speed = response.speed
                 
                 single(.success(speed))
             } catch {
@@ -564,8 +562,7 @@ public class Action {
                 }
                 
 
-                
-                    let relativeAltitudeM = response.relativeAltitudeM
+                let relativeAltitudeM = response.relativeAltitudeM
                 
                 single(.success(relativeAltitudeM))
             } catch {

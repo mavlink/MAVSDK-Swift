@@ -113,7 +113,9 @@ public class Core {
     }
 
 
+
     public lazy var connectionState: Observable<ConnectionState> = createConnectionStateObservable()
+
 
     private func createConnectionStateObservable() -> Observable<ConnectionState> {
         return Observable.create { observer in
@@ -176,7 +178,7 @@ public class Core {
                 
 
                 
-                let pluginInfo = response.pluginInfo.map{ PluginInfo.translateFromRpc($0) }
+                    let pluginInfo = response.pluginInfo.map{ PluginInfo.translateFromRpc($0) }
                 
                 single(.success(pluginInfo))
             } catch {

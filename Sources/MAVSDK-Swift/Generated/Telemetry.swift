@@ -1510,7 +1510,9 @@ public class Telemetry {
     }
 
 
+
     public lazy var position: Observable<Position> = createPositionObservable()
+
 
     private func createPositionObservable() -> Observable<Position> {
         return Observable.create { observer in
@@ -1561,7 +1563,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var home: Observable<Position> = createHomeObservable()
+
 
     private func createHomeObservable() -> Observable<Position> {
         return Observable.create { observer in
@@ -1612,7 +1616,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var inAir: Observable<Bool> = createInAirObservable()
+
 
     private func createInAirObservable() -> Observable<Bool> {
         return Observable.create { observer in
@@ -1664,7 +1670,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var landedState: Observable<LandedState> = createLandedStateObservable()
+
 
     private func createLandedStateObservable() -> Observable<LandedState> {
         return Observable.create { observer in
@@ -1715,7 +1723,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var armed: Observable<Bool> = createArmedObservable()
+
 
     private func createArmedObservable() -> Observable<Bool> {
         return Observable.create { observer in
@@ -1767,7 +1777,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
+
 
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
@@ -1818,7 +1830,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var attitudeEuler: Observable<EulerAngle> = createAttitudeEulerObservable()
+
 
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
@@ -1869,7 +1883,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var attitudeAngularVelocityBody: Observable<AngularVelocityBody> = createAttitudeAngularVelocityBodyObservable()
+
 
     private func createAttitudeAngularVelocityBodyObservable() -> Observable<AngularVelocityBody> {
         return Observable.create { observer in
@@ -1920,7 +1936,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var cameraAttitudeQuaternion: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
+
 
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
         return Observable.create { observer in
@@ -1971,7 +1989,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var cameraAttitudeEuler: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
+
 
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
         return Observable.create { observer in
@@ -2022,7 +2042,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var velocityNed: Observable<VelocityNed> = createVelocityNedObservable()
+
 
     private func createVelocityNedObservable() -> Observable<VelocityNed> {
         return Observable.create { observer in
@@ -2073,7 +2095,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var gpsInfo: Observable<GpsInfo> = createGpsInfoObservable()
+
 
     private func createGpsInfoObservable() -> Observable<GpsInfo> {
         return Observable.create { observer in
@@ -2124,7 +2148,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var battery: Observable<Battery> = createBatteryObservable()
+
 
     private func createBatteryObservable() -> Observable<Battery> {
         return Observable.create { observer in
@@ -2175,7 +2201,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var flightMode: Observable<FlightMode> = createFlightModeObservable()
+
 
     private func createFlightModeObservable() -> Observable<FlightMode> {
         return Observable.create { observer in
@@ -2226,7 +2254,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var health: Observable<Health> = createHealthObservable()
+
 
     private func createHealthObservable() -> Observable<Health> {
         return Observable.create { observer in
@@ -2277,7 +2307,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var rcStatus: Observable<RcStatus> = createRcStatusObservable()
+
 
     private func createRcStatusObservable() -> Observable<RcStatus> {
         return Observable.create { observer in
@@ -2328,7 +2360,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var statusText: Observable<StatusText> = createStatusTextObservable()
+
 
     private func createStatusTextObservable() -> Observable<StatusText> {
         return Observable.create { observer in
@@ -2379,7 +2413,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var actuatorControlTarget: Observable<ActuatorControlTarget> = createActuatorControlTargetObservable()
+
 
     private func createActuatorControlTargetObservable() -> Observable<ActuatorControlTarget> {
         return Observable.create { observer in
@@ -2430,7 +2466,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var actuatorOutputStatus: Observable<ActuatorOutputStatus> = createActuatorOutputStatusObservable()
+
 
     private func createActuatorOutputStatusObservable() -> Observable<ActuatorOutputStatus> {
         return Observable.create { observer in
@@ -2481,7 +2519,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var odometry: Observable<Odometry> = createOdometryObservable()
+
 
     private func createOdometryObservable() -> Observable<Odometry> {
         return Observable.create { observer in
@@ -2532,7 +2572,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var positionVelocityNed: Observable<PositionVelocityNed> = createPositionVelocityNedObservable()
+
 
     private func createPositionVelocityNedObservable() -> Observable<PositionVelocityNed> {
         return Observable.create { observer in
@@ -2583,7 +2625,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var groundTruth: Observable<GroundTruth> = createGroundTruthObservable()
+
 
     private func createGroundTruthObservable() -> Observable<GroundTruth> {
         return Observable.create { observer in
@@ -2634,7 +2678,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var fixedwingMetrics: Observable<FixedwingMetrics> = createFixedwingMetricsObservable()
+
 
     private func createFixedwingMetricsObservable() -> Observable<FixedwingMetrics> {
         return Observable.create { observer in
@@ -2685,7 +2731,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var imu: Observable<Imu> = createImuObservable()
+
 
     private func createImuObservable() -> Observable<Imu> {
         return Observable.create { observer in
@@ -2736,7 +2784,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var healthAllOk: Observable<Bool> = createHealthAllOkObservable()
+
 
     private func createHealthAllOkObservable() -> Observable<Bool> {
         return Observable.create { observer in
@@ -2788,7 +2838,9 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
     public lazy var unixEpochTime: Observable<UInt64> = createUnixEpochTimeObservable()
+
 
     private func createUnixEpochTimeObservable() -> Observable<UInt64> {
         return Observable.create { observer in
