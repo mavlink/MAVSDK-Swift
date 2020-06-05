@@ -220,7 +220,7 @@ public class LogFiles {
                 
 
                 
-                let entries = response.entries.map{ Entry.translateFromRpc($0) }
+                    let entries = response.entries.map{ Entry.translateFromRpc($0) }
                 
                 single(.success(entries))
             } catch {
@@ -231,9 +231,9 @@ public class LogFiles {
         }
     }
 
-    public lazy var downloadLogFile: Observable<ProgressData> = createDownloadLogFileObservable(id: , path: )
 
-    private func createDownloadLogFileObservable(<protoc_gen_dcsdk.name_parser.NameParser object at 0x110193bd0>: , <protoc_gen_dcsdk.name_parser.NameParser object at 0x1101938d0>: ) -> Observable<ProgressData> {
+
+    public func downloadLogFile(id: UInt32, path: String) -> Observable<ProgressData> {
         return Observable.create { observer in
             var request = Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest()
 
@@ -270,7 +270,7 @@ public class LogFiles {
                         switch (result.result) {
                         case .success:
                             observer.onCompleted()
-                        case .instruction, .inProgress:
+                        case .next:
                             observer.onNext(downloadLogFile)
                         default:
                             observer.onError(LogFilesError(code: result.result, description: result.resultStr))

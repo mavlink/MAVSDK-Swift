@@ -375,7 +375,7 @@ public class MissionRaw {
                 
 
                 
-                let missionItems = response.missionItems.map{ MissionItem.translateFromRpc($0) }
+                    let missionItems = response.missionItems.map{ MissionItem.translateFromRpc($0) }
                 
                 single(.success(missionItems))
             } catch {
@@ -510,7 +510,9 @@ public class MissionRaw {
         }
     }
 
+
     public lazy var missionProgress: Observable<MissionProgress> = createMissionProgressObservable()
+
 
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
         return Observable.create { observer in
@@ -561,7 +563,9 @@ public class MissionRaw {
         .share(replay: 1)
     }
 
+
     public lazy var missionChanged: Observable<Bool> = createMissionChangedObservable()
+
 
     private func createMissionChangedObservable() -> Observable<Bool> {
         return Observable.create { observer in

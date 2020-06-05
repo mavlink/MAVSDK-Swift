@@ -151,7 +151,9 @@ public class Shell {
         }
     }
 
+
     public lazy var receive: Observable<String> = createReceiveObservable()
+
 
     private func createReceiveObservable() -> Observable<String> {
         return Observable.create { observer in

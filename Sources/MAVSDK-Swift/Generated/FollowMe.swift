@@ -367,8 +367,7 @@ public class FollowMe {
 
                 
 
-                
-                    let isActive = response.isActive
+                let isActive = response.isActive
                 
                 single(.success(isActive))
             } catch {
@@ -385,7 +384,7 @@ public class FollowMe {
 
             
                 
-            request.location = location.rpcLocation
+            request.location = location.rpcTargetLocation
                 
             
 
@@ -419,7 +418,7 @@ public class FollowMe {
                 
 
                 
-                    let location = Location.translateFromRpc(response.location)
+                    let location = TargetLocation.translateFromRpc(response.location)
                 
                 single(.success(location))
             } catch {

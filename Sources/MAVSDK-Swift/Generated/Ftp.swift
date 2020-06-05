@@ -214,9 +214,9 @@ public class Ftp {
         }
     }
 
-    public lazy var download: Observable<ProgressData> = createDownloadObservable(remoteFilePath: , localDir: )
 
-    private func createDownloadObservable(<protoc_gen_dcsdk.name_parser.NameParser object at 0x10319b110>: , <protoc_gen_dcsdk.name_parser.NameParser object at 0x103080d10>: ) -> Observable<ProgressData> {
+
+    public func download(remoteFilePath: String, localDir: String) -> Observable<ProgressData> {
         return Observable.create { observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeDownloadRequest()
 
@@ -253,7 +253,7 @@ public class Ftp {
                         switch (result.result) {
                         case .success:
                             observer.onCompleted()
-                        case .instruction, .inProgress:
+                        case .next:
                             observer.onNext(download)
                         default:
                             observer.onError(FtpError(code: result.result, description: result.resultStr))
@@ -282,9 +282,9 @@ public class Ftp {
         .share(replay: 1)
     }
 
-    public lazy var upload: Observable<ProgressData> = createUploadObservable(localFilePath: , remoteDir: )
 
-    private func createUploadObservable(<protoc_gen_dcsdk.name_parser.NameParser object at 0x1031b3990>: , <protoc_gen_dcsdk.name_parser.NameParser object at 0x1031b3410>: ) -> Observable<ProgressData> {
+
+    public func upload(localFilePath: String, remoteDir: String) -> Observable<ProgressData> {
         return Observable.create { observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeUploadRequest()
 
@@ -321,7 +321,7 @@ public class Ftp {
                         switch (result.result) {
                         case .success:
                             observer.onCompleted()
-                        case .instruction, .inProgress:
+                        case .next:
                             observer.onNext(upload)
                         default:
                             observer.onError(FtpError(code: result.result, description: result.resultStr))
@@ -371,8 +371,7 @@ public class Ftp {
                 }
                 
 
-                
-                let paths = response.paths.map{ String.translateFromRpc($0) }
+                let paths = response.paths
                 
                 single(.success(paths))
             } catch {
@@ -524,8 +523,7 @@ public class Ftp {
                 }
                 
 
-                
-                    let areIdentical = response.areIdentical
+                let areIdentical = response.areIdentical
                 
                 single(.success(areIdentical))
             } catch {
@@ -566,7 +564,7 @@ public class Ftp {
 
     public func setTargetComponentID(componentID: UInt32) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Ftp_SetTargetComponentIDRequest()
+            var request = Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest()
 
             
                 
@@ -576,7 +574,7 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.setTargetComponentID(request)
+                let response = try self.service.setTargetComponentId(request)
 
                 if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
@@ -594,17 +592,16 @@ public class Ftp {
 
     public func getOurComponentID() -> Single<UInt32> {
         return Single<UInt32>.create { single in
-            let request = Mavsdk_Rpc_Ftp_GetOurComponentIDRequest()
+            let request = Mavsdk_Rpc_Ftp_GetOurComponentIdRequest()
 
             
 
             do {
-                let response = try self.service.getOurComponentID(request)
+                let response = try self.service.getOurComponentId(request)
 
                 
 
-                
-                    let componentID = response.componentID
+                let componentID = response.componentID
                 
                 single(.success(componentID))
             } catch {
