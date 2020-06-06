@@ -82,6 +82,7 @@
 		B47C8D9068A3ECEF1161F231 /* Tune.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E40ECE75E399AD6D617D52 /* Tune.swift */; };
 		B6898052B21FB35365F137E3 /* ftp.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF812EB2BFCFC3979B813E9 /* ftp.grpc.swift */; };
 		B7C7289A168D69FEA9E0BBEF /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD8CDD2C5DCE7B82BB255A0 /* Core.swift */; };
+		B86C484E069C6FF321F6A65F /* MavsdkServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D3B4690C8E85C4E3371BE /* MavsdkServer.swift */; };
 		B9207968CA91DDB8461A8E50 /* tune.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE738DDE37061BCBC7E17A3 /* tune.grpc.swift */; };
 		BCF8EF7013861B8E118261B6 /* camera.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFD134CA1F8F625A9F8AE46 /* camera.pb.swift */; };
 		C299E80DC7E9C2E8E101C4FA /* MAVSDK_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06106F98C8D5780ED8BC6E56 /* MAVSDK_Swift.framework */; };
@@ -196,6 +197,7 @@
 		3A77C7FF2B798CAA8451201A /* MissionRaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionRaw.swift; sourceTree = "<group>"; };
 		3DF812EB2BFCFC3979B813E9 /* ftp.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ftp.grpc.swift; sourceTree = "<group>"; };
 		3FFD134CA1F8F625A9F8AE46 /* camera.pb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = camera.pb.swift; sourceTree = "<group>"; };
+		472D3B4690C8E85C4E3371BE /* MavsdkServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MavsdkServer.swift; sourceTree = "<group>"; };
 		49E02AA74644A7D2BD2798B9 /* gimbal.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gimbal.grpc.swift; sourceTree = "<group>"; };
 		49F34C55C0EAC989EB9EB939 /* mocap.grpc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mocap.grpc.swift; sourceTree = "<group>"; };
 		4E6071BE812035058BA297A6 /* BoringSSL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BoringSSL.framework; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 			children = (
 				58A78688A263999042639537 /* Drone.swift */,
 				861D635D76DCF9871608A241 /* Info.plist */,
+				472D3B4690C8E85C4E3371BE /* MavsdkServer.swift */,
 				397FE3D051C894CD815C1C6E /* Generated */,
 			);
 			name = "MAVSDK-Swift";
@@ -557,6 +560,7 @@
 				20CF8810B0E7C60F8DEC984C /* Gimbal.swift in Sources */,
 				37E1AE630E1B6B8ACFAB7F13 /* Info.swift in Sources */,
 				10DFCC1E28D6E8F43ADBB917 /* LogFiles.swift in Sources */,
+				B86C484E069C6FF321F6A65F /* MavsdkServer.swift in Sources */,
 				FC5F7CD7641F6FCCC8AD79CC /* Mission.swift in Sources */,
 				9FE02B46CE378A02AEB9CB02 /* MissionRaw.swift in Sources */,
 				16425732260BD1D5A92C04DB /* Mocap.swift in Sources */,
