@@ -1,14 +1,8 @@
 import Foundation
 import RxSwift
 
-#if os(iOS)
-import mavsdk_server
-#endif
-
 public class Drone {
     private let scheduler: SchedulerType
-    private let backendQueue = DispatchQueue(label: "DronecodeSDKBackendQueue")
-    private let connectionQueue = DispatchQueue(label: "DronecodeSDKConnectionQueue")
 
     public let action: Action
     public let calibration: Calibration
@@ -55,52 +49,17 @@ public class Drone {
     }
 
 #if os(iOS)
-    private var mavlinkPort: String = "udp://:14540"
-
-    /**
-     Sets the port on which the mavlink server will be listening for
-     a drone. Defaults to 14540.
-
-     Must be set before subscribing to `startMavlink()`.
-
-     - Parameter mavlinkPort: The port on which to listen for the drone.
-     */
+    @available(*, unavailable, message: "Please start mavsdk_server with the MavsdkServer class")
     public func setMavlinkPort(mavlinkPort: String) {
-        self.mavlinkPort = mavlinkPort
+        fatalError("This method does not exist anymore. Please use MavsdkServer(systemAddress) instead.")
     }
 
-    /**
-     Initializes the backend and start connecting to the drone.
-
-     - Returns: startMavlink `Completable`.
-     */
+    @available(*, unavailable)
     public lazy var startMavlink = createStartMavlinkCompletable()
 
+    @available(iOS, deprecated)
     private func createStartMavlinkCompletable() -> Completable {
-        return Completable.create { completable in
-            let semaphore = DispatchSemaphore(value: 0)
-
-            self.backendQueue.async {
-                print("Running backend in background (MAVLink port: \(self.mavlinkPort)")
-
-                runBackend(self.mavlinkPort,
-                           { unmanagedSemaphore in
-                            let semaphore = Unmanaged<DispatchSemaphore>.fromOpaque(unmanagedSemaphore!).takeRetainedValue();
-                            semaphore.signal()
-                },
-                           Unmanaged.passRetained(semaphore).toOpaque()
-                )
-                semaphore.signal()
-            }
-            
-            self.connectionQueue.async {
-                semaphore.wait()
-                completable(.completed)
-            }
-
-             return Disposables.create()
-
-        }.asObservable().share(replay: 0, scope: .forever).ignoreElements()
+        fatalError("This method does not exist anymore. Please use MavsdkServer.run() instead.")
     }
 #endif
 }
