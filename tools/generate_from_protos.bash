@@ -4,6 +4,18 @@ set -e
 
 command -v protoc || { echo >&2 "Protobuf needs to be installed (e.g. '$ brew install protobuf') for this script to run!"; exit 1; }
 
+command -v protoc-gen-mavsdk > /dev/null || {
+    echo "------------------------"
+    echo "Error"
+    echo "------------------------"
+    echo >&2 "'protoc-gen-mavsdk' not found in PATH"
+    echo >&2 ""
+    echo >&2 "You can install it using pip:"
+    echo >&2 ""
+    echo >&2 "pip3 install protoc-gen-mavsdk"
+    exit 1
+}
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PB_PLUGINS_DIR=${PB_PLUGINS_DIR:-"${SCRIPT_DIR}/../proto/pb_plugins"}
 PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
@@ -52,17 +64,8 @@ echo "Generating the SDK wrappers"
 echo "-------------------------------"
 echo ""
 
-if [ ! -d ${PB_PLUGINS_DIR}/venv ]; then
-    python3 -m venv ${PB_PLUGINS_DIR}/venv
-
-    source ${PB_PLUGINS_DIR}/venv/bin/activate
-    pip install -r ${PB_PLUGINS_DIR}/requirements.txt
-    pip install -e ${PB_PLUGINS_DIR}
-fi
-
-source ${PB_PLUGINS_DIR}/venv/bin/activate
 export TEMPLATE_PATH=${TEMPLATE_PATH:-"${SCRIPT_DIR}/../templates"}
 
 for plugin in ${PLUGIN_LIST}; do
-    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-dcsdk) -I${PROTO_DIR}  -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
+    protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-mavsdk) -I${PROTO_DIR}  -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
 done

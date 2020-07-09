@@ -204,6 +204,9 @@ struct Mavsdk_Rpc_Gimbal_GimbalResult {
 
     /// Command timed out
     case timeout // = 3
+
+    /// Functionality not supported
+    case unsupported // = 4
     case UNRECOGNIZED(Int)
 
     init() {
@@ -216,6 +219,7 @@ struct Mavsdk_Rpc_Gimbal_GimbalResult {
       case 1: self = .success
       case 2: self = .error
       case 3: self = .timeout
+      case 4: self = .unsupported
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -226,6 +230,7 @@ struct Mavsdk_Rpc_Gimbal_GimbalResult {
       case .success: return 1
       case .error: return 2
       case .timeout: return 3
+      case .unsupported: return 4
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -244,6 +249,7 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
     .success,
     .error,
     .timeout,
+    .unsupported,
   ]
 }
 
@@ -589,5 +595,6 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: SwiftProtobuf._ProtoNameProvidi
     1: .same(proto: "RESULT_SUCCESS"),
     2: .same(proto: "RESULT_ERROR"),
     3: .same(proto: "RESULT_TIMEOUT"),
+    4: .same(proto: "RESULT_UNSUPPORTED"),
   ]
 }

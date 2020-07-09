@@ -562,19 +562,19 @@ public class Ftp {
         }
     }
 
-    public func setTargetComponentID(componentID: UInt32) -> Completable {
+    public func setTargetCompid(compid: UInt32) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest()
+            var request = Mavsdk_Rpc_Ftp_SetTargetCompidRequest()
 
             
                 
-            request.componentID = componentID
+            request.compid = compid
                 
             
 
             do {
                 
-                let response = try self.service.setTargetComponentId(request)
+                let response = try self.service.setTargetCompid(request)
 
                 if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
@@ -590,20 +590,20 @@ public class Ftp {
         }
     }
 
-    public func getOurComponentID() -> Single<UInt32> {
+    public func getOurCompid() -> Single<UInt32> {
         return Single<UInt32>.create { single in
-            let request = Mavsdk_Rpc_Ftp_GetOurComponentIdRequest()
+            let request = Mavsdk_Rpc_Ftp_GetOurCompidRequest()
 
             
 
             do {
-                let response = try self.service.getOurComponentId(request)
+                let response = try self.service.getOurCompid(request)
 
                 
 
-                let componentID = response.componentID
+                let compid = response.compid
                 
-                single(.success(componentID))
+                single(.success(compid))
             } catch {
                 single(.error(error))
             }

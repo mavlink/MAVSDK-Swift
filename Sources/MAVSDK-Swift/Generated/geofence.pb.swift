@@ -46,7 +46,7 @@ struct Mavsdk_Rpc_Geofence_Polygon {
   var points: [Mavsdk_Rpc_Geofence_Point] = []
 
   /// Fence type
-  var fenceType: Mavsdk_Rpc_Geofence_Polygon.FenceType = .typeInclusion
+  var fenceType: Mavsdk_Rpc_Geofence_Polygon.FenceType = .inclusion
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -55,28 +55,28 @@ struct Mavsdk_Rpc_Geofence_Polygon {
     typealias RawValue = Int
 
     /// Type representing an inclusion fence
-    case typeInclusion // = 0
+    case inclusion // = 0
 
     /// Type representing an exclusion fence
-    case typeExclusion // = 1
+    case exclusion // = 1
     case UNRECOGNIZED(Int)
 
     init() {
-      self = .typeInclusion
+      self = .inclusion
     }
 
     init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .typeInclusion
-      case 1: self = .typeExclusion
+      case 0: self = .inclusion
+      case 1: self = .exclusion
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     var rawValue: Int {
       switch self {
-      case .typeInclusion: return 0
-      case .typeExclusion: return 1
+      case .inclusion: return 0
+      case .exclusion: return 1
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -91,8 +91,8 @@ struct Mavsdk_Rpc_Geofence_Polygon {
 extension Mavsdk_Rpc_Geofence_Polygon.FenceType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Mavsdk_Rpc_Geofence_Polygon.FenceType] = [
-    .typeInclusion,
-    .typeExclusion,
+    .inclusion,
+    .exclusion,
   ]
 }
 
@@ -284,7 +284,7 @@ extension Mavsdk_Rpc_Geofence_Polygon: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.points.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.points, fieldNumber: 1)
     }
-    if self.fenceType != .typeInclusion {
+    if self.fenceType != .inclusion {
       try visitor.visitSingularEnumField(value: self.fenceType, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -300,8 +300,8 @@ extension Mavsdk_Rpc_Geofence_Polygon: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
 extension Mavsdk_Rpc_Geofence_Polygon.FenceType: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "TYPE_INCLUSION"),
-    1: .same(proto: "TYPE_EXCLUSION"),
+    0: .same(proto: "FENCE_TYPE_INCLUSION"),
+    1: .same(proto: "FENCE_TYPE_EXCLUSION"),
   ]
 }
 

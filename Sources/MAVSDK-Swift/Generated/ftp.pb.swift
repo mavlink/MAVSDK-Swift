@@ -400,20 +400,20 @@ struct Mavsdk_Rpc_Ftp_SetRootDirectoryResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest {
+struct Mavsdk_Rpc_Ftp_SetTargetCompidRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// The component ID to set.
-  var componentID: UInt32 = 0
+  var compid: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse {
+struct Mavsdk_Rpc_Ftp_SetTargetCompidResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -434,7 +434,7 @@ struct Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct Mavsdk_Rpc_Ftp_GetOurComponentIdRequest {
+struct Mavsdk_Rpc_Ftp_GetOurCompidRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -444,13 +444,13 @@ struct Mavsdk_Rpc_Ftp_GetOurComponentIdRequest {
   init() {}
 }
 
-struct Mavsdk_Rpc_Ftp_GetOurComponentIdResponse {
+struct Mavsdk_Rpc_Ftp_GetOurCompidResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// Our component ID.
-  var componentID: UInt32 = 0
+  var compid: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1546,37 +1546,37 @@ extension Mavsdk_Rpc_Ftp_SetRootDirectoryResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetTargetComponentIdRequest"
+extension Mavsdk_Rpc_Ftp_SetTargetCompidRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetTargetCompidRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "component_id"),
+    1: .same(proto: "compid"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.componentID)
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.compid)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.componentID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.componentID, fieldNumber: 1)
+    if self.compid != 0 {
+      try visitor.visitSingularUInt32Field(value: self.compid, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, rhs: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest) -> Bool {
-    if lhs.componentID != rhs.componentID {return false}
+  static func ==(lhs: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, rhs: Mavsdk_Rpc_Ftp_SetTargetCompidRequest) -> Bool {
+    if lhs.compid != rhs.compid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SetTargetComponentIdResponse"
+extension Mavsdk_Rpc_Ftp_SetTargetCompidResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetTargetCompidResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "ftp_result"),
   ]
@@ -1621,7 +1621,7 @@ extension Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse: SwiftProtobuf.Message, Sw
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse, rhs: Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Ftp_SetTargetCompidResponse, rhs: Mavsdk_Rpc_Ftp_SetTargetCompidResponse) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -1636,8 +1636,8 @@ extension Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse: SwiftProtobuf.Message, Sw
   }
 }
 
-extension Mavsdk_Rpc_Ftp_GetOurComponentIdRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetOurComponentIdRequest"
+extension Mavsdk_Rpc_Ftp_GetOurCompidRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetOurCompidRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1649,36 +1649,36 @@ extension Mavsdk_Rpc_Ftp_GetOurComponentIdRequest: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, rhs: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_Ftp_GetOurCompidRequest, rhs: Mavsdk_Rpc_Ftp_GetOurCompidRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Mavsdk_Rpc_Ftp_GetOurComponentIdResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetOurComponentIdResponse"
+extension Mavsdk_Rpc_Ftp_GetOurCompidResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetOurCompidResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "component_id"),
+    1: .same(proto: "compid"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.componentID)
+      case 1: try decoder.decodeSingularUInt32Field(value: &self.compid)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.componentID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.componentID, fieldNumber: 1)
+    if self.compid != 0 {
+      try visitor.visitSingularUInt32Field(value: self.compid, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Ftp_GetOurComponentIdResponse, rhs: Mavsdk_Rpc_Ftp_GetOurComponentIdResponse) -> Bool {
-    if lhs.componentID != rhs.componentID {return false}
+  static func ==(lhs: Mavsdk_Rpc_Ftp_GetOurCompidResponse, rhs: Mavsdk_Rpc_Ftp_GetOurCompidResponse) -> Bool {
+    if lhs.compid != rhs.compid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

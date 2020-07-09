@@ -75,6 +75,7 @@ public class Gimbal {
             case success
             case error
             case timeout
+            case unsupported
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Gimbal_GimbalResult.Result {
@@ -87,6 +88,8 @@ public class Gimbal {
                     return .error
                 case .timeout:
                     return .timeout
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -102,6 +105,8 @@ public class Gimbal {
                     return .error
                 case .timeout:
                     return .timeout
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
