@@ -184,14 +184,14 @@ struct Mavsdk_Rpc_Tune_PlayTuneRequest {
   // methods supported on all messages.
 
   /// The tune to be played
-  var description_p: Mavsdk_Rpc_Tune_TuneDescription {
-    get {return _storage._description_p ?? Mavsdk_Rpc_Tune_TuneDescription()}
-    set {_uniqueStorage()._description_p = newValue}
+  var tuneDescription: Mavsdk_Rpc_Tune_TuneDescription {
+    get {return _storage._tuneDescription ?? Mavsdk_Rpc_Tune_TuneDescription()}
+    set {_uniqueStorage()._tuneDescription = newValue}
   }
-  /// Returns true if `description_p` has been explicitly set.
-  var hasDescription_p: Bool {return _storage._description_p != nil}
-  /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-  mutating func clearDescription_p() {_uniqueStorage()._description_p = nil}
+  /// Returns true if `tuneDescription` has been explicitly set.
+  var hasTuneDescription: Bool {return _storage._tuneDescription != nil}
+  /// Clears the value of `tuneDescription`. Subsequent reads from it will return its default value.
+  mutating func clearTuneDescription() {_uniqueStorage()._tuneDescription = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -244,7 +244,7 @@ struct Mavsdk_Rpc_Tune_TuneResult {
   // methods supported on all messages.
 
   /// Result enum value
-  var result: Mavsdk_Rpc_Tune_TuneResult.Result = .success
+  var result: Mavsdk_Rpc_Tune_TuneResult.Result = .unknown
 
   /// Human-readable English string describing the result
   var resultStr: String = String()
@@ -255,39 +255,44 @@ struct Mavsdk_Rpc_Tune_TuneResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
+    /// Unknown result
+    case unknown // = 0
+
     /// Request succeeded
-    case success // = 0
+    case success // = 1
 
     /// Invalid tempo (range: 32 - 255)
-    case invalidTempo // = 1
+    case invalidTempo // = 2
 
     /// Invalid tune: encoded string must be at most 247 chars
-    case tuneTooLong // = 2
+    case tuneTooLong // = 3
 
     /// Failed to send the request
-    case error // = 3
+    case error // = 4
     case UNRECOGNIZED(Int)
 
     init() {
-      self = .success
+      self = .unknown
     }
 
     init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .success
-      case 1: self = .invalidTempo
-      case 2: self = .tuneTooLong
-      case 3: self = .error
+      case 0: self = .unknown
+      case 1: self = .success
+      case 2: self = .invalidTempo
+      case 3: self = .tuneTooLong
+      case 4: self = .error
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     var rawValue: Int {
       switch self {
-      case .success: return 0
-      case .invalidTempo: return 1
-      case .tuneTooLong: return 2
-      case .error: return 3
+      case .unknown: return 0
+      case .success: return 1
+      case .invalidTempo: return 2
+      case .tuneTooLong: return 3
+      case .error: return 4
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -302,6 +307,7 @@ struct Mavsdk_Rpc_Tune_TuneResult {
 extension Mavsdk_Rpc_Tune_TuneResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Mavsdk_Rpc_Tune_TuneResult.Result] = [
+    .unknown,
     .success,
     .invalidTempo,
     .tuneTooLong,
@@ -344,18 +350,18 @@ extension Mavsdk_Rpc_Tune_SongElement: SwiftProtobuf._ProtoNameProviding {
 extension Mavsdk_Rpc_Tune_PlayTuneRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PlayTuneRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "description"),
+    1: .standard(proto: "tune_description"),
   ]
 
   fileprivate class _StorageClass {
-    var _description_p: Mavsdk_Rpc_Tune_TuneDescription? = nil
+    var _tuneDescription: Mavsdk_Rpc_Tune_TuneDescription? = nil
 
     static let defaultInstance = _StorageClass()
 
     private init() {}
 
     init(copying source: _StorageClass) {
-      _description_p = source._description_p
+      _tuneDescription = source._tuneDescription
     }
   }
 
@@ -371,7 +377,7 @@ extension Mavsdk_Rpc_Tune_PlayTuneRequest: SwiftProtobuf.Message, SwiftProtobuf.
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._description_p)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._tuneDescription)
         default: break
         }
       }
@@ -380,7 +386,7 @@ extension Mavsdk_Rpc_Tune_PlayTuneRequest: SwiftProtobuf.Message, SwiftProtobuf.
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._description_p {
+      if let v = _storage._tuneDescription {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
     }
@@ -392,7 +398,7 @@ extension Mavsdk_Rpc_Tune_PlayTuneRequest: SwiftProtobuf.Message, SwiftProtobuf.
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._description_p != rhs_storage._description_p {return false}
+        if _storage._tuneDescription != rhs_storage._tuneDescription {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -516,7 +522,7 @@ extension Mavsdk_Rpc_Tune_TuneResult: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.result != .success {
+    if self.result != .unknown {
       try visitor.visitSingularEnumField(value: self.result, fieldNumber: 1)
     }
     if !self.resultStr.isEmpty {
@@ -535,9 +541,10 @@ extension Mavsdk_Rpc_Tune_TuneResult: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Mavsdk_Rpc_Tune_TuneResult.Result: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "RESULT_SUCCESS"),
-    1: .same(proto: "RESULT_INVALID_TEMPO"),
-    2: .same(proto: "RESULT_TUNE_TOO_LONG"),
-    3: .same(proto: "RESULT_ERROR"),
+    0: .same(proto: "RESULT_UNKNOWN"),
+    1: .same(proto: "RESULT_SUCCESS"),
+    2: .same(proto: "RESULT_INVALID_TEMPO"),
+    3: .same(proto: "RESULT_TUNE_TOO_LONG"),
+    4: .same(proto: "RESULT_ERROR"),
   ]
 }

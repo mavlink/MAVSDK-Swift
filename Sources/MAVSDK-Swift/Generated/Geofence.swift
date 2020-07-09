@@ -80,16 +80,16 @@ public class Geofence {
         
 
         public enum FenceType: Equatable {
-            case typeInclusion
-            case typeExclusion
+            case inclusion
+            case exclusion
             case UNRECOGNIZED(Int)
 
             internal var rpcFenceType: Mavsdk_Rpc_Geofence_Polygon.FenceType {
                 switch self {
-                case .typeInclusion:
-                    return .typeInclusion
-                case .typeExclusion:
-                    return .typeExclusion
+                case .inclusion:
+                    return .inclusion
+                case .exclusion:
+                    return .exclusion
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -97,10 +97,10 @@ public class Geofence {
 
             internal static func translateFromRpc(_ rpcFenceType: Mavsdk_Rpc_Geofence_Polygon.FenceType) -> FenceType {
                 switch rpcFenceType {
-                case .typeInclusion:
-                    return .typeInclusion
-                case .typeExclusion:
-                    return .typeExclusion
+                case .inclusion:
+                    return .inclusion
+                case .exclusion:
+                    return .exclusion
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

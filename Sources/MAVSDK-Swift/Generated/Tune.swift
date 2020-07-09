@@ -203,6 +203,7 @@ public class Tune {
         
 
         public enum Result: Equatable {
+            case unknown
             case success
             case invalidTempo
             case tuneTooLong
@@ -211,6 +212,8 @@ public class Tune {
 
             internal var rpcResult: Mavsdk_Rpc_Tune_TuneResult.Result {
                 switch self {
+                case .unknown:
+                    return .unknown
                 case .success:
                     return .success
                 case .invalidTempo:
@@ -226,6 +229,8 @@ public class Tune {
 
             internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Tune_TuneResult.Result) -> Result {
                 switch rpcResult {
+                case .unknown:
+                    return .unknown
                 case .success:
                     return .success
                 case .invalidTempo:
@@ -273,13 +278,13 @@ public class Tune {
     }
 
 
-    public func playTune(description: TuneDescription) -> Completable {
+    public func playTune(tuneDescription: TuneDescription) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Tune_PlayTuneRequest()
 
             
                 
-            request.description_p = description.rpcTuneDescription
+            request.tuneDescription = tuneDescription.rpcTuneDescription
                 
             
 

@@ -105,16 +105,16 @@ fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectoryCallBase: Clien
   override class var method: String { return "/mavsdk.rpc.ftp.FtpService/SetRootDirectory" }
 }
 
-internal protocol Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse>, Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall {
-  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/SetTargetComponentId" }
+fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>, Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall {
+  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/SetTargetCompid" }
 }
 
-internal protocol Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall: ClientCallUnary {}
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, Mavsdk_Rpc_Ftp_GetOurComponentIdResponse>, Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall {
-  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/GetOurComponentId" }
+fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>, Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall {
+  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/GetOurCompid" }
 }
 
 
@@ -179,16 +179,16 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceService: ServiceClient {
   func setRootDirectory(_ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetRootDirectoryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectoryCall
 
   /// Synchronous. Unary.
-  func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse
+  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_SetTargetCompidResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall
+  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall
 
   /// Synchronous. Unary.
-  func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_GetOurComponentIdResponse
+  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_GetOurCompidResponse
   /// Asynchronous. Unary.
   @discardableResult
-  func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall
+  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall
 
 }
 
@@ -284,23 +284,23 @@ internal extension Mavsdk_Rpc_Ftp_FtpServiceService {
   }
 
   /// Synchronous. Unary.
-  func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest) throws -> Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse {
-    return try self.setTargetComponentId(request, metadata: self.metadata)
+  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest) throws -> Mavsdk_Rpc_Ftp_SetTargetCompidResponse {
+    return try self.setTargetCompid(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall {
-    return try self.setTargetComponentId(request, metadata: self.metadata, completion: completion)
+  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall {
+    return try self.setTargetCompid(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest) throws -> Mavsdk_Rpc_Ftp_GetOurComponentIdResponse {
-    return try self.getOurComponentId(request, metadata: self.metadata)
+  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest) throws -> Mavsdk_Rpc_Ftp_GetOurCompidResponse {
+    return try self.getOurCompid(request, metadata: self.metadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall {
-    return try self.getOurComponentId(request, metadata: self.metadata, completion: completion)
+  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall {
+    return try self.getOurCompid(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -419,26 +419,26 @@ internal final class Mavsdk_Rpc_Ftp_FtpServiceServiceClient: ServiceClientBase, 
   }
 
   /// Synchronous. Unary.
-  internal func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse {
-    return try Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCallBase(channel)
+  internal func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_SetTargetCompidResponse {
+    return try Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall {
-    return try Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCallBase(channel)
+  internal func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall {
+    return try Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
   /// Synchronous. Unary.
-  internal func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_GetOurComponentIdResponse {
-    return try Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCallBase(channel)
+  internal func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_GetOurCompidResponse {
+    return try Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCallBase(channel)
       .run(request: request, metadata: customMetadata)
   }
   /// Asynchronous. Unary.
   @discardableResult
-  internal func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall {
-    return try Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCallBase(channel)
+  internal func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall {
+    return try Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -484,12 +484,12 @@ class Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectoryCallTestStub: ClientCallUnaryTest
   override class var method: String { return "/mavsdk.rpc.ftp.FtpService/SetRootDirectory" }
 }
 
-class Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall {
-  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/SetTargetComponentId" }
+class Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall {
+  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/SetTargetCompid" }
 }
 
-class Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall {
-  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/GetOurComponentId" }
+class Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall {
+  override class var method: String { return "/mavsdk.rpc.ftp.FtpService/GetOurCompid" }
 }
 
 class Mavsdk_Rpc_Ftp_FtpServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Ftp_FtpServiceService {
@@ -629,34 +629,34 @@ class Mavsdk_Rpc_Ftp_FtpServiceServiceTestStub: ServiceClientTestStubBase, Mavsd
     return Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectoryCallTestStub()
   }
 
-  var setTargetComponentIdRequests: [Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest] = []
-  var setTargetComponentIdResponses: [Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse] = []
-  func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse {
-    setTargetComponentIdRequests.append(request)
-    defer { setTargetComponentIdResponses.removeFirst() }
-    return setTargetComponentIdResponses.first!
+  var setTargetCompidRequests: [Mavsdk_Rpc_Ftp_SetTargetCompidRequest] = []
+  var setTargetCompidResponses: [Mavsdk_Rpc_Ftp_SetTargetCompidResponse] = []
+  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_SetTargetCompidResponse {
+    setTargetCompidRequests.append(request)
+    defer { setTargetCompidResponses.removeFirst() }
+    return setTargetCompidResponses.first!
   }
   @discardableResult
-  func setTargetComponentId(_ request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCall {
-    let response = try self.setTargetComponentId(request)
+  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_SetTargetCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCall {
+    let response = try self.setTargetCompid(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdCallTestStub()
+    return Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidCallTestStub()
   }
 
-  var getOurComponentIdRequests: [Mavsdk_Rpc_Ftp_GetOurComponentIdRequest] = []
-  var getOurComponentIdResponses: [Mavsdk_Rpc_Ftp_GetOurComponentIdResponse] = []
-  func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_GetOurComponentIdResponse {
-    getOurComponentIdRequests.append(request)
-    defer { getOurComponentIdResponses.removeFirst() }
-    return getOurComponentIdResponses.first!
+  var getOurCompidRequests: [Mavsdk_Rpc_Ftp_GetOurCompidRequest] = []
+  var getOurCompidResponses: [Mavsdk_Rpc_Ftp_GetOurCompidResponse] = []
+  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Ftp_GetOurCompidResponse {
+    getOurCompidRequests.append(request)
+    defer { getOurCompidResponses.removeFirst() }
+    return getOurCompidResponses.first!
   }
   @discardableResult
-  func getOurComponentId(_ request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurComponentIdResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCall {
-    let response = try self.getOurComponentId(request)
+  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Ftp_GetOurCompidResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCall {
+    let response = try self.getOurCompid(request)
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
-    return Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdCallTestStub()
+    return Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidCallTestStub()
   }
 
 }
@@ -675,8 +675,8 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceProvider: ServiceProvider {
   func rename(request: Mavsdk_Rpc_Ftp_RenameRequest, session: Mavsdk_Rpc_Ftp_FtpServiceRenameSession) throws -> Mavsdk_Rpc_Ftp_RenameResponse
   func areFilesIdentical(request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, session: Mavsdk_Rpc_Ftp_FtpServiceAreFilesIdenticalSession) throws -> Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse
   func setRootDirectory(request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, session: Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectorySession) throws -> Mavsdk_Rpc_Ftp_SetRootDirectoryResponse
-  func setTargetComponentId(request: Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, session: Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSession) throws -> Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse
-  func getOurComponentId(request: Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, session: Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSession) throws -> Mavsdk_Rpc_Ftp_GetOurComponentIdResponse
+  func setTargetCompid(request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, session: Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSession) throws -> Mavsdk_Rpc_Ftp_SetTargetCompidResponse
+  func getOurCompid(request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, session: Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSession) throws -> Mavsdk_Rpc_Ftp_GetOurCompidResponse
 }
 
 extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
@@ -736,15 +736,15 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
         handler: handler,
         providerBlock: { try self.setRootDirectory(request: $0, session: $1 as! Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectorySessionBase) })
           .run()
-    case "/mavsdk.rpc.ftp.FtpService/SetTargetComponentId":
-      return try Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSessionBase(
+    case "/mavsdk.rpc.ftp.FtpService/SetTargetCompid":
+      return try Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSessionBase(
         handler: handler,
-        providerBlock: { try self.setTargetComponentId(request: $0, session: $1 as! Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSessionBase) })
+        providerBlock: { try self.setTargetCompid(request: $0, session: $1 as! Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSessionBase) })
           .run()
-    case "/mavsdk.rpc.ftp.FtpService/GetOurComponentId":
-      return try Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSessionBase(
+    case "/mavsdk.rpc.ftp.FtpService/GetOurCompid":
+      return try Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSessionBase(
         handler: handler,
-        providerBlock: { try self.getOurComponentId(request: $0, session: $1 as! Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSessionBase) })
+        providerBlock: { try self.getOurCompid(request: $0, session: $1 as! Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -842,15 +842,15 @@ fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectorySessionBase: Se
 
 class Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectorySessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceSetRootDirectorySession {}
 
-internal protocol Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Ftp_SetTargetComponentIdRequest, Mavsdk_Rpc_Ftp_SetTargetComponentIdResponse>, Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSession {}
+fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>, Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSession {}
 
-class Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceSetTargetComponentIdSession {}
+class Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceSetTargetCompidSession {}
 
-internal protocol Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSession: ServerSessionUnary {}
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Ftp_GetOurComponentIdRequest, Mavsdk_Rpc_Ftp_GetOurComponentIdResponse>, Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSession {}
+fileprivate final class Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>, Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSession {}
 
-class Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceGetOurComponentIdSession {}
+class Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Ftp_FtpServiceGetOurCompidSession {}
 
