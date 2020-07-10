@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Calibration {
-    private let service: Mavsdk_Rpc_Calibration_CalibrationServiceService
+    private let service: Mavsdk_Rpc_Calibration_CalibrationServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Calibration_CalibrationServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Calibration_CalibrationServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Calibration_CalibrationServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Calibration_CalibrationServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeCalibrationError: Error {
@@ -209,49 +214,28 @@ public class Calibration {
 
             
 
-            do {
-                let call = try self.service.subscribeCalibrateGyro(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCalibrationError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCalibrateGyro(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let calibrateGyro = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = CalibrationResult.translateFromRpc(response.calibrationResult)
+                
+                let result = CalibrationResult.translateFromRpc(response.calibrationResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(calibrateGyro)
-                        default:
-                            observer.onError(CalibrationError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(calibrateGyro)
+                default:
+                    observer.onError(CalibrationError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -269,49 +253,28 @@ public class Calibration {
 
             
 
-            do {
-                let call = try self.service.subscribeCalibrateAccelerometer(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCalibrationError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCalibrateAccelerometer(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let calibrateAccelerometer = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = CalibrationResult.translateFromRpc(response.calibrationResult)
+                
+                let result = CalibrationResult.translateFromRpc(response.calibrationResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(calibrateAccelerometer)
-                        default:
-                            observer.onError(CalibrationError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(calibrateAccelerometer)
+                default:
+                    observer.onError(CalibrationError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -329,49 +292,28 @@ public class Calibration {
 
             
 
-            do {
-                let call = try self.service.subscribeCalibrateMagnetometer(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCalibrationError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCalibrateMagnetometer(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let calibrateMagnetometer = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = CalibrationResult.translateFromRpc(response.calibrationResult)
+                
+                let result = CalibrationResult.translateFromRpc(response.calibrationResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(calibrateMagnetometer)
-                        default:
-                            observer.onError(CalibrationError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(calibrateMagnetometer)
+                default:
+                    observer.onError(CalibrationError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -389,49 +331,28 @@ public class Calibration {
 
             
 
-            do {
-                let call = try self.service.subscribeCalibrateLevelHorizon(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCalibrationError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCalibrateLevelHorizon(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let calibrateLevelHorizon = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let calibrateLevelHorizon = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = CalibrationResult.translateFromRpc(response.calibrationResult)
+                
+                let result = CalibrationResult.translateFromRpc(response.calibrationResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(calibrateLevelHorizon)
-                        default:
-                            observer.onError(CalibrationError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(calibrateLevelHorizon)
+                default:
+                    observer.onError(CalibrationError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -449,49 +370,28 @@ public class Calibration {
 
             
 
-            do {
-                let call = try self.service.subscribeCalibrateGimbalAccelerometer(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCalibrationError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCalibrateGimbalAccelerometer(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let calibrateGimbalAccelerometer = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = CalibrationResult.translateFromRpc(response.calibrationResult)
+                
+                let result = CalibrationResult.translateFromRpc(response.calibrationResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(calibrateGimbalAccelerometer)
-                        default:
-                            observer.onError(CalibrationError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(calibrateGimbalAccelerometer)
+                default:
+                    observer.onError(CalibrationError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {

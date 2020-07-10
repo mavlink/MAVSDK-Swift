@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Param {
-    private let service: Mavsdk_Rpc_Param_ParamServiceService
+    private let service: Mavsdk_Rpc_Param_ParamServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Param_ParamServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Param_ParamServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Param_ParamServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Param_ParamServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeParamError: Error {
@@ -245,17 +250,18 @@ public class Param {
             
 
             do {
-                let response = try self.service.getParamInt(request)
+                let response = self.service.getParamInt(request)
 
                 
-                if (response.paramResult.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
-                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
+                let result = try response.response.wait().paramResult
+                if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let value = response.value
+    	    let value = try response.response.wait().value
                 
                 single(.success(value))
             } catch {
@@ -282,12 +288,13 @@ public class Param {
 
             do {
                 
-                let response = try self.service.setParamInt(request)
+                let response = self.service.setParamInt(request)
 
-                if (response.paramResult.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                let result = try response.response.wait().paramResult
+                if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
+                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -309,17 +316,18 @@ public class Param {
             
 
             do {
-                let response = try self.service.getParamFloat(request)
+                let response = self.service.getParamFloat(request)
 
                 
-                if (response.paramResult.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
-                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
+                let result = try response.response.wait().paramResult
+                if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let value = response.value
+    	    let value = try response.response.wait().value
                 
                 single(.success(value))
             } catch {
@@ -346,12 +354,13 @@ public class Param {
 
             do {
                 
-                let response = try self.service.setParamFloat(request)
+                let response = self.service.setParamFloat(request)
 
-                if (response.paramResult.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                let result = try response.response.wait().paramResult
+                if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(response.paramResult.result), description: response.paramResult.resultStr)))
+                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

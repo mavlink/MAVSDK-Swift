@@ -20,707 +20,349 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/UploadMission" }
+/// Usage: instantiate Mavsdk_Rpc_MissionRaw_MissionRawServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
+  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>
+  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>
+  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>
+  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>
+  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_StartMissionRequest, Mavsdk_Rpc_MissionRaw_StartMissionResponse>
+  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_PauseMissionRequest, Mavsdk_Rpc_MissionRaw_PauseMissionResponse>
+  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ClearMissionRequest, Mavsdk_Rpc_MissionRaw_ClearMissionResponse>
+  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>
+  func subscribeMissionProgress(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_MissionRaw_MissionProgressResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, Mavsdk_Rpc_MissionRaw_MissionProgressResponse>
+  func subscribeMissionChanged(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_MissionRaw_MissionChangedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>
 }
 
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall: ClientCallUnary {}
+internal final class Mavsdk_Rpc_MissionRaw_MissionRawServiceClient: GRPCClient, Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
 
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionUpload" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/DownloadMission" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionDownload" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_StartMissionRequest, Mavsdk_Rpc_MissionRaw_StartMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/StartMission" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_PauseMissionRequest, Mavsdk_Rpc_MissionRaw_PauseMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/PauseMission" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_ClearMissionRequest, Mavsdk_Rpc_MissionRaw_ClearMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/ClearMission" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCallBase: ClientCallUnaryBase<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/SetCurrentMissionItem" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_MissionRaw_MissionProgressResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_MissionRaw_MissionProgressResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_MissionRaw_MissionProgressResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, Mavsdk_Rpc_MissionRaw_MissionProgressResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionProgress" }
-}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_MissionRaw_MissionChangedResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_MissionRaw_MissionChangedResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_MissionRaw_MissionChangedResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionChanged" }
-}
-
-
-/// Instantiate Mavsdk_Rpc_MissionRaw_MissionRawServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceService: ServiceClient {
-  /// Synchronous. Unary.
-  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_UploadMissionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall
-
-  /// Synchronous. Unary.
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall
-
-  /// Synchronous. Unary.
-  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_DownloadMissionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall
-
-  /// Synchronous. Unary.
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall
-
-  /// Synchronous. Unary.
-  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_StartMissionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall
-
-  /// Synchronous. Unary.
-  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_PauseMissionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall
-
-  /// Synchronous. Unary.
-  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_ClearMissionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall
-
-  /// Synchronous. Unary.
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeMissionChanged(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall
-
-}
-
-internal extension Mavsdk_Rpc_MissionRaw_MissionRawServiceService {
-  /// Synchronous. Unary.
-  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest) throws -> Mavsdk_Rpc_MissionRaw_UploadMissionResponse {
-    return try self.uploadMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall {
-    return try self.uploadMission(request, metadata: self.metadata, completion: completion)
+  /// Creates a client for the mavsdk.rpc.mission_raw.MissionRawService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
   }
 
-  /// Synchronous. Unary.
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse {
-    return try self.cancelMissionUpload(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall {
-    return try self.cancelMissionUpload(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest) throws -> Mavsdk_Rpc_MissionRaw_DownloadMissionResponse {
-    return try self.downloadMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall {
-    return try self.downloadMission(request, metadata: self.metadata, completion: completion)
+  ///
+  /// Upload a list of raw mission items to the system.
+  ///
+  /// The raw mission items are uploaded to a drone. Once uploaded the mission
+  /// can be started and executed even if the connection is lost.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UploadMission.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/UploadMission",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse {
-    return try self.cancelMissionDownload(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall {
-    return try self.cancelMissionDownload(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest) throws -> Mavsdk_Rpc_MissionRaw_StartMissionResponse {
-    return try self.startMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall {
-    return try self.startMission(request, metadata: self.metadata, completion: completion)
+  ///
+  /// Cancel an ongoing mission upload.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to CancelMissionUpload.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionUpload",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest) throws -> Mavsdk_Rpc_MissionRaw_PauseMissionResponse {
-    return try self.pauseMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall {
-    return try self.pauseMission(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest) throws -> Mavsdk_Rpc_MissionRaw_ClearMissionResponse {
-    return try self.clearMission(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall {
-    return try self.clearMission(request, metadata: self.metadata, completion: completion)
+  ///
+  /// Download a list of raw mission items from the system (asynchronous).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DownloadMission.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/DownloadMission",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest) throws -> Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse {
-    return try self.setCurrentMissionItem(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, completion: @escaping (Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall {
-    return try self.setCurrentMissionItem(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall {
-    return try self.subscribeMissionProgress(request, metadata: self.metadata, completion: completion)
+  ///
+  /// Cancel an ongoing mission download.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to CancelMissionDownload.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionDownload",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Asynchronous. Server-streaming.
-  func subscribeMissionChanged(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall {
-    return try self.subscribeMissionChanged(request, metadata: self.metadata, completion: completion)
+  ///
+  /// Start the mission.
+  ///
+  /// A mission must be uploaded to the vehicle before this can be called.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to StartMission.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_StartMissionRequest, Mavsdk_Rpc_MissionRaw_StartMissionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/StartMission",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-}
-
-internal final class Mavsdk_Rpc_MissionRaw_MissionRawServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_MissionRaw_MissionRawServiceService {
-  /// Synchronous. Unary.
-  internal func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_UploadMissionResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  ///
+  /// Pause the mission.
+  ///
+  /// Pausing the mission puts the vehicle into
+  /// [HOLD mode](https://docs.px4.io/en/flight_modes/hold.html).
+  /// A multicopter should just hover at the spot while a fixedwing vehicle should loiter
+  /// around the location where it paused.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to PauseMission.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_PauseMissionRequest, Mavsdk_Rpc_MissionRaw_PauseMissionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/PauseMission",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  internal func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_DownloadMissionResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  ///
+  /// Clear the mission saved on the vehicle.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ClearMission.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ClearMissionRequest, Mavsdk_Rpc_MissionRaw_ClearMissionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/ClearMission",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  internal func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_StartMissionResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_PauseMissionResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  ///
+  /// Sets the raw mission item index to go to.
+  ///
+  /// By setting the current index to 0, the mission is restarted from the beginning. If it is set
+  /// to a specific index of a raw mission item, the mission will be set to this item.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetCurrentMissionItem.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/SetCurrentMissionItem",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  internal func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_ClearMissionResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  ///
+  /// Subscribe to mission progress updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeMissionProgress.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeMissionProgress(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_MissionRaw_MissionProgressResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, Mavsdk_Rpc_MissionRaw_MissionProgressResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionProgress",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
   }
 
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeMissionProgress(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeMissionChanged(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall {
-    return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/UploadMission" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionUpload" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/DownloadMission" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionDownload" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/StartMission" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/PauseMission" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/ClearMission" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/SetCurrentMissionItem" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_MissionRaw_MissionProgressResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionProgress" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_MissionRaw_MissionChangedResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall {
-  override class var method: String { return "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionChanged" }
-}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_MissionRaw_MissionRawServiceService {
-  var uploadMissionRequests: [Mavsdk_Rpc_MissionRaw_UploadMissionRequest] = []
-  var uploadMissionResponses: [Mavsdk_Rpc_MissionRaw_UploadMissionResponse] = []
-  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_UploadMissionResponse {
-    uploadMissionRequests.append(request)
-    defer { uploadMissionResponses.removeFirst() }
-    return uploadMissionResponses.first!
-  }
-  @discardableResult
-  func uploadMission(_ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_UploadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCall {
-    let response = try self.uploadMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionCallTestStub()
-  }
-
-  var cancelMissionUploadRequests: [Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest] = []
-  var cancelMissionUploadResponses: [Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse] = []
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse {
-    cancelMissionUploadRequests.append(request)
-    defer { cancelMissionUploadResponses.removeFirst() }
-    return cancelMissionUploadResponses.first!
-  }
-  @discardableResult
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCall {
-    let response = try self.cancelMissionUpload(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadCallTestStub()
-  }
-
-  var downloadMissionRequests: [Mavsdk_Rpc_MissionRaw_DownloadMissionRequest] = []
-  var downloadMissionResponses: [Mavsdk_Rpc_MissionRaw_DownloadMissionResponse] = []
-  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_DownloadMissionResponse {
-    downloadMissionRequests.append(request)
-    defer { downloadMissionResponses.removeFirst() }
-    return downloadMissionResponses.first!
-  }
-  @discardableResult
-  func downloadMission(_ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_DownloadMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCall {
-    let response = try self.downloadMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionCallTestStub()
-  }
-
-  var cancelMissionDownloadRequests: [Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest] = []
-  var cancelMissionDownloadResponses: [Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse] = []
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse {
-    cancelMissionDownloadRequests.append(request)
-    defer { cancelMissionDownloadResponses.removeFirst() }
-    return cancelMissionDownloadResponses.first!
-  }
-  @discardableResult
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCall {
-    let response = try self.cancelMissionDownload(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadCallTestStub()
-  }
-
-  var startMissionRequests: [Mavsdk_Rpc_MissionRaw_StartMissionRequest] = []
-  var startMissionResponses: [Mavsdk_Rpc_MissionRaw_StartMissionResponse] = []
-  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_StartMissionResponse {
-    startMissionRequests.append(request)
-    defer { startMissionResponses.removeFirst() }
-    return startMissionResponses.first!
-  }
-  @discardableResult
-  func startMission(_ request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_StartMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCall {
-    let response = try self.startMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionCallTestStub()
-  }
-
-  var pauseMissionRequests: [Mavsdk_Rpc_MissionRaw_PauseMissionRequest] = []
-  var pauseMissionResponses: [Mavsdk_Rpc_MissionRaw_PauseMissionResponse] = []
-  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_PauseMissionResponse {
-    pauseMissionRequests.append(request)
-    defer { pauseMissionResponses.removeFirst() }
-    return pauseMissionResponses.first!
-  }
-  @discardableResult
-  func pauseMission(_ request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_PauseMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCall {
-    let response = try self.pauseMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionCallTestStub()
-  }
-
-  var clearMissionRequests: [Mavsdk_Rpc_MissionRaw_ClearMissionRequest] = []
-  var clearMissionResponses: [Mavsdk_Rpc_MissionRaw_ClearMissionResponse] = []
-  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_ClearMissionResponse {
-    clearMissionRequests.append(request)
-    defer { clearMissionResponses.removeFirst() }
-    return clearMissionResponses.first!
-  }
-  @discardableResult
-  func clearMission(_ request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_ClearMissionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCall {
-    let response = try self.clearMission(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionCallTestStub()
-  }
-
-  var setCurrentMissionItemRequests: [Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest] = []
-  var setCurrentMissionItemResponses: [Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse] = []
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse {
-    setCurrentMissionItemRequests.append(request)
-    defer { setCurrentMissionItemResponses.removeFirst() }
-    return setCurrentMissionItemResponses.first!
-  }
-  @discardableResult
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCall {
-    let response = try self.setCurrentMissionItem(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemCallTestStub()
-  }
-
-  var subscribeMissionProgressRequests: [Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest] = []
-  var subscribeMissionProgressCalls: [Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall] = []
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressCall {
-    subscribeMissionProgressRequests.append(request)
-    defer { subscribeMissionProgressCalls.removeFirst() }
-    return subscribeMissionProgressCalls.first!
-  }
-
-  var subscribeMissionChangedRequests: [Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest] = []
-  var subscribeMissionChangedCalls: [Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall] = []
-  func subscribeMissionChanged(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedCall {
-    subscribeMissionChangedRequests.append(request)
-    defer { subscribeMissionChangedCalls.removeFirst() }
-    return subscribeMissionChangedCalls.first!
+  ///*
+  /// Subscribes to mission changed.
+  ///
+  /// This notification can be used to be informed if a ground station has
+  /// been uploaded or changed by a ground station or companion computer.
+  ///
+  /// @param callback Callback to notify about change.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeMissionChanged.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeMissionChanged(_ request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_MissionRaw_MissionChangedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionChanged",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: ServiceProvider {
-  func uploadMission(request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSession) throws -> Mavsdk_Rpc_MissionRaw_UploadMissionResponse
-  func cancelMissionUpload(request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSession) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse
-  func downloadMission(request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSession) throws -> Mavsdk_Rpc_MissionRaw_DownloadMissionResponse
-  func cancelMissionDownload(request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSession) throws -> Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse
-  func startMission(request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSession) throws -> Mavsdk_Rpc_MissionRaw_StartMissionResponse
-  func pauseMission(request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSession) throws -> Mavsdk_Rpc_MissionRaw_PauseMissionResponse
-  func clearMission(request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSession) throws -> Mavsdk_Rpc_MissionRaw_ClearMissionResponse
-  func setCurrentMissionItem(request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSession) throws -> Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse
-  func subscribeMissionProgress(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSession) throws -> ServerStatus?
-  func subscribeMissionChanged(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, session: Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSession) throws -> ServerStatus?
+internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerProvider {
+  ///
+  /// Upload a list of raw mission items to the system.
+  ///
+  /// The raw mission items are uploaded to a drone. Once uploaded the mission
+  /// can be started and executed even if the connection is lost.
+  func uploadMission(request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_UploadMissionResponse>
+  ///
+  /// Cancel an ongoing mission upload.
+  func cancelMissionUpload(request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>
+  ///
+  /// Download a list of raw mission items from the system (asynchronous).
+  func downloadMission(request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>
+  ///
+  /// Cancel an ongoing mission download.
+  func cancelMissionDownload(request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>
+  ///
+  /// Start the mission.
+  ///
+  /// A mission must be uploaded to the vehicle before this can be called.
+  func startMission(request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_StartMissionResponse>
+  ///
+  /// Pause the mission.
+  ///
+  /// Pausing the mission puts the vehicle into
+  /// [HOLD mode](https://docs.px4.io/en/flight_modes/hold.html).
+  /// A multicopter should just hover at the spot while a fixedwing vehicle should loiter
+  /// around the location where it paused.
+  func pauseMission(request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_PauseMissionResponse>
+  ///
+  /// Clear the mission saved on the vehicle.
+  func clearMission(request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_ClearMissionResponse>
+  ///
+  /// Sets the raw mission item index to go to.
+  ///
+  /// By setting the current index to 0, the mission is restarted from the beginning. If it is set
+  /// to a specific index of a raw mission item, the mission will be set to this item.
+  func setCurrentMissionItem(request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>
+  ///
+  /// Subscribe to mission progress updates.
+  func subscribeMissionProgress(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_MissionRaw_MissionProgressResponse>) -> EventLoopFuture<GRPCStatus>
+  ///*
+  /// Subscribes to mission changed.
+  ///
+  /// This notification can be used to be informed if a ground station has
+  /// been uploaded or changed by a ground station or companion computer.
+  ///
+  /// @param callback Callback to notify about change.
+  func subscribeMissionChanged(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_MissionRaw_MissionChangedResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.mission_raw.MissionRawService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.mission_raw.MissionRawService/UploadMission":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSessionBase(
-        handler: handler,
-        providerBlock: { try self.uploadMission(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionUpload":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSessionBase(
-        handler: handler,
-        providerBlock: { try self.cancelMissionUpload(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/DownloadMission":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSessionBase(
-        handler: handler,
-        providerBlock: { try self.downloadMission(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionDownload":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSessionBase(
-        handler: handler,
-        providerBlock: { try self.cancelMissionDownload(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/StartMission":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSessionBase(
-        handler: handler,
-        providerBlock: { try self.startMission(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/PauseMission":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSessionBase(
-        handler: handler,
-        providerBlock: { try self.pauseMission(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/ClearMission":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSessionBase(
-        handler: handler,
-        providerBlock: { try self.clearMission(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/SetCurrentMissionItem":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSessionBase(
-        handler: handler,
-        providerBlock: { try self.setCurrentMissionItem(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionProgress":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeMissionProgress(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSessionBase) })
-          .run()
-    case "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionChanged":
-      return try Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeMissionChanged(request: $0, session: $1 as! Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "UploadMission":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.uploadMission(request: request, context: context)
+        }
+      }
+
+    case "CancelMissionUpload":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.cancelMissionUpload(request: request, context: context)
+        }
+      }
+
+    case "DownloadMission":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.downloadMission(request: request, context: context)
+        }
+      }
+
+    case "CancelMissionDownload":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.cancelMissionDownload(request: request, context: context)
+        }
+      }
+
+    case "StartMission":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.startMission(request: request, context: context)
+        }
+      }
+
+    case "PauseMission":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.pauseMission(request: request, context: context)
+        }
+      }
+
+    case "ClearMission":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.clearMission(request: request, context: context)
+        }
+      }
+
+    case "SetCurrentMissionItem":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setCurrentMissionItem(request: request, context: context)
+        }
+      }
+
+    case "SubscribeMissionProgress":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeMissionProgress(request: request, context: context)
+        }
+      }
+
+    case "SubscribeMissionChanged":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeMissionChanged(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceUploadMissionSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionUploadSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceDownloadMissionSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceCancelMissionDownloadSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_StartMissionRequest, Mavsdk_Rpc_MissionRaw_StartMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceStartMissionSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_PauseMissionRequest, Mavsdk_Rpc_MissionRaw_PauseMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServicePauseMissionSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_ClearMissionRequest, Mavsdk_Rpc_MissionRaw_ClearMissionResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceClearMissionSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_MissionRaw_MissionRawServiceSetCurrentMissionItemSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_MissionRaw_MissionProgressResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_MissionRaw_MissionProgressResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_MissionRaw_MissionProgressResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, Mavsdk_Rpc_MissionRaw_MissionProgressResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_MissionRaw_MissionProgressResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionProgressSession {}
-
-internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_MissionRaw_MissionChangedResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_MissionRaw_MissionChangedResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_MissionRaw_MissionChangedResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSession {}
-
-class Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_MissionRaw_MissionChangedResponse>, Mavsdk_Rpc_MissionRaw_MissionRawServiceSubscribeMissionChangedSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_MissionRaw_UploadMissionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_UploadMissionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_DownloadMissionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_DownloadMissionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_StartMissionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_StartMissionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_PauseMissionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_PauseMissionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_ClearMissionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_ClearMissionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_MissionProgressResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_MissionRaw_MissionChangedResponse: GRPCProtobufPayload {}
 

@@ -20,236 +20,157 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw" }
+/// Usage: instantiate Mavsdk_Rpc_Gimbal_GimbalServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
+  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>
+  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>
+  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>
 }
 
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall: ClientCallUnary {}
+internal final class Mavsdk_Rpc_Gimbal_GimbalServiceClient: GRPCClient, Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
 
-fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetMode" }
-}
-
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation" }
-}
-
-
-/// Instantiate Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceService: ServiceClient {
-  /// Synchronous. Unary.
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall
-
-  /// Synchronous. Unary.
-  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall
-
-  /// Synchronous. Unary.
-  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall
-
-}
-
-internal extension Mavsdk_Rpc_Gimbal_GimbalServiceService {
-  /// Synchronous. Unary.
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
-    return try self.setPitchAndYaw(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-    return try self.setPitchAndYaw(request, metadata: self.metadata, completion: completion)
+  /// Creates a client for the mavsdk.rpc.gimbal.GimbalService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
   }
 
-  /// Synchronous. Unary.
-  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse {
-    return try self.setMode(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
-    return try self.setMode(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
-    return try self.setRoiLocation(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
-    return try self.setRoiLocation(request, metadata: self.metadata, completion: completion)
+  ///
+  ///
+  /// Set gimbal pitch and yaw angles.
+  ///
+  /// This sets the desired pitch and yaw angles of a gimbal.
+  /// Will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually be set to the new angles.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetPitchAndYaw.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-}
-
-internal final class Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Gimbal_GimbalServiceService {
-  /// Synchronous. Unary.
-  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
-    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse {
-    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
-    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  ///
+  /// Set gimbal mode.
+  ///
+  /// This sets the desired yaw mode of a gimbal.
+  /// Will return when the command is accepted. However, it might
+  /// take the gimbal longer to actually be set to the new angles.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetMode.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.gimbal.GimbalService/SetMode",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  internal func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
-    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
-    return try Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw" }
-}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetMode" }
-}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
-  override class var method: String { return "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation" }
-}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Gimbal_GimbalServiceService {
-  var setPitchAndYawRequests: [Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest] = []
-  var setPitchAndYawResponses: [Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse] = []
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
-    setPitchAndYawRequests.append(request)
-    defer { setPitchAndYawResponses.removeFirst() }
-    return setPitchAndYawResponses.first!
-  }
-  @discardableResult
-  func setPitchAndYaw(_ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCall {
-    let response = try self.setPitchAndYaw(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawCallTestStub()
-  }
-
-  var setModeRequests: [Mavsdk_Rpc_Gimbal_SetModeRequest] = []
-  var setModeResponses: [Mavsdk_Rpc_Gimbal_SetModeResponse] = []
-  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse {
-    setModeRequests.append(request)
-    defer { setModeResponses.removeFirst() }
-    return setModeResponses.first!
-  }
-  @discardableResult
-  func setMode(_ request: Mavsdk_Rpc_Gimbal_SetModeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetModeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCall {
-    let response = try self.setMode(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Gimbal_GimbalServiceSetModeCallTestStub()
-  }
-
-  var setRoiLocationRequests: [Mavsdk_Rpc_Gimbal_SetRoiLocationRequest] = []
-  var setRoiLocationResponses: [Mavsdk_Rpc_Gimbal_SetRoiLocationResponse] = []
-  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
-    setRoiLocationRequests.append(request)
-    defer { setRoiLocationResponses.removeFirst() }
-    return setRoiLocationResponses.first!
-  }
-  @discardableResult
-  func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Gimbal_SetRoiLocationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCall {
-    let response = try self.setRoiLocation(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationCallTestStub()
+  ///
+  /// Set gimbal region of interest (ROI).
+  ///
+  /// This sets a region of interest that the gimbal will point to.
+  /// The gimbal will continue to point to the specified region until it
+  /// receives a new command.
+  /// The function will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually rotate to the ROI.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRoiLocation.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRoiLocation(_ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: ServiceProvider {
-  func setPitchAndYaw(request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession) throws -> Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse
-  func setMode(request: Mavsdk_Rpc_Gimbal_SetModeRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession) throws -> Mavsdk_Rpc_Gimbal_SetModeResponse
-  func setRoiLocation(request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, session: Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession) throws -> Mavsdk_Rpc_Gimbal_SetRoiLocationResponse
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
+  ///
+  ///
+  /// Set gimbal pitch and yaw angles.
+  ///
+  /// This sets the desired pitch and yaw angles of a gimbal.
+  /// Will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually be set to the new angles.
+  func setPitchAndYaw(request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>
+  ///
+  /// Set gimbal mode.
+  ///
+  /// This sets the desired yaw mode of a gimbal.
+  /// Will return when the command is accepted. However, it might
+  /// take the gimbal longer to actually be set to the new angles.
+  func setMode(request: Mavsdk_Rpc_Gimbal_SetModeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetModeResponse>
+  ///
+  /// Set gimbal region of interest (ROI).
+  ///
+  /// This sets a region of interest that the gimbal will point to.
+  /// The gimbal will continue to point to the specified region until it
+  /// receives a new command.
+  /// The function will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually rotate to the ROI.
+  func setRoiLocation(request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>
 }
 
 extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.gimbal.GimbalService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw":
-      return try Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionBase(
-        handler: handler,
-        providerBlock: { try self.setPitchAndYaw(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionBase) })
-          .run()
-    case "/mavsdk.rpc.gimbal.GimbalService/SetMode":
-      return try Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase(
-        handler: handler,
-        providerBlock: { try self.setMode(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation":
-      return try Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRoiLocation(request: $0, session: $1 as! Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "SetPitchAndYaw":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setPitchAndYaw(request: request, context: context)
+        }
+      }
+
+    case "SetMode":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setMode(request: request, context: context)
+        }
+      }
+
+    case "SetRoiLocation":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRoiLocation(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession {}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetPitchAndYawSession {}
-
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession {}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetModeSession {}
-
-internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession {}
-
-class Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Gimbal_GimbalServiceSetRoiLocationSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Gimbal_SetModeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Gimbal_SetModeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Gimbal_SetRoiLocationRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Gimbal_SetRoiLocationResponse: GRPCProtobufPayload {}
 

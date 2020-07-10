@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Gimbal {
-    private let service: Mavsdk_Rpc_Gimbal_GimbalServiceService
+    private let service: Mavsdk_Rpc_Gimbal_GimbalServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Gimbal_GimbalServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Gimbal_GimbalServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Gimbal_GimbalServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Gimbal_GimbalServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeGimbalError: Error {
@@ -162,12 +167,13 @@ public class Gimbal {
 
             do {
                 
-                let response = try self.service.setPitchAndYaw(request)
+                let response = self.service.setPitchAndYaw(request)
 
-                if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                let result = try response.response.wait().gimbalResult
+                if (result.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(response.gimbalResult.result), description: response.gimbalResult.resultStr)))
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -190,12 +196,13 @@ public class Gimbal {
 
             do {
                 
-                let response = try self.service.setMode(request)
+                let response = self.service.setMode(request)
 
-                if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                let result = try response.response.wait().gimbalResult
+                if (result.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(response.gimbalResult.result), description: response.gimbalResult.resultStr)))
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -226,12 +233,13 @@ public class Gimbal {
 
             do {
                 
-                let response = try self.service.setRoiLocation(request)
+                let response = self.service.setRoiLocation(request)
 
-                if (response.gimbalResult.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                let result = try response.response.wait().gimbalResult
+                if (result.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(response.gimbalResult.result), description: response.gimbalResult.resultStr)))
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

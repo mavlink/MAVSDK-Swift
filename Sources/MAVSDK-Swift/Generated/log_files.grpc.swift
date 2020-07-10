@@ -20,179 +20,99 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCallBase: ClientCallUnaryBase<Mavsdk_Rpc_LogFiles_GetEntriesRequest, Mavsdk_Rpc_LogFiles_GetEntriesResponse>, Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall {
-  override class var method: String { return "/mavsdk.rpc.log_files.LogFilesService/GetEntries" }
+/// Usage: instantiate Mavsdk_Rpc_LogFiles_LogFilesServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
+  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_LogFiles_GetEntriesRequest, Mavsdk_Rpc_LogFiles_GetEntriesResponse>
+  func subscribeDownloadLogFile(_ request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_LogFiles_DownloadLogFileResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>
 }
 
-internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_LogFiles_DownloadLogFileResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse?>) -> Void) throws
-}
+internal final class Mavsdk_Rpc_LogFiles_LogFilesServiceClient: GRPCClient, Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
 
-internal extension Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_LogFiles_DownloadLogFileResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>, Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall {
-  override class var method: String { return "/mavsdk.rpc.log_files.LogFilesService/SubscribeDownloadLogFile" }
-}
-
-
-/// Instantiate Mavsdk_Rpc_LogFiles_LogFilesServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceService: ServiceClient {
-  /// Synchronous. Unary.
-  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_LogFiles_GetEntriesResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_LogFiles_GetEntriesResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeDownloadLogFile(_ request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall
-
-}
-
-internal extension Mavsdk_Rpc_LogFiles_LogFilesServiceService {
-  /// Synchronous. Unary.
-  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest) throws -> Mavsdk_Rpc_LogFiles_GetEntriesResponse {
-    return try self.getEntries(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, completion: @escaping (Mavsdk_Rpc_LogFiles_GetEntriesResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall {
-    return try self.getEntries(request, metadata: self.metadata, completion: completion)
+  /// Creates a client for the mavsdk.rpc.log_files.LogFilesService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
   }
 
-  /// Asynchronous. Server-streaming.
-  func subscribeDownloadLogFile(_ request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall {
-    return try self.subscribeDownloadLogFile(request, metadata: self.metadata, completion: completion)
+  /// Get List of log files.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetEntries.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_LogFiles_GetEntriesRequest, Mavsdk_Rpc_LogFiles_GetEntriesResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.log_files.LogFilesService/GetEntries",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-}
-
-internal final class Mavsdk_Rpc_LogFiles_LogFilesServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_LogFiles_LogFilesServiceService {
-  /// Synchronous. Unary.
-  internal func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_LogFiles_GetEntriesResponse {
-    return try Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_LogFiles_GetEntriesResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall {
-    return try Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeDownloadLogFile(_ request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall {
-    return try Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall {
-  override class var method: String { return "/mavsdk.rpc.log_files.LogFilesService/GetEntries" }
-}
-
-class Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>, Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall {
-  override class var method: String { return "/mavsdk.rpc.log_files.LogFilesService/SubscribeDownloadLogFile" }
-}
-
-class Mavsdk_Rpc_LogFiles_LogFilesServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_LogFiles_LogFilesServiceService {
-  var getEntriesRequests: [Mavsdk_Rpc_LogFiles_GetEntriesRequest] = []
-  var getEntriesResponses: [Mavsdk_Rpc_LogFiles_GetEntriesResponse] = []
-  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_LogFiles_GetEntriesResponse {
-    getEntriesRequests.append(request)
-    defer { getEntriesResponses.removeFirst() }
-    return getEntriesResponses.first!
-  }
-  @discardableResult
-  func getEntries(_ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_LogFiles_GetEntriesResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCall {
-    let response = try self.getEntries(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesCallTestStub()
-  }
-
-  var subscribeDownloadLogFileRequests: [Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest] = []
-  var subscribeDownloadLogFileCalls: [Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall] = []
-  func subscribeDownloadLogFile(_ request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileCall {
-    subscribeDownloadLogFileRequests.append(request)
-    defer { subscribeDownloadLogFileCalls.removeFirst() }
-    return subscribeDownloadLogFileCalls.first!
+  /// Download log file.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeDownloadLogFile.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeDownloadLogFile(_ request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_LogFiles_DownloadLogFileResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.log_files.LogFilesService/SubscribeDownloadLogFile",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceProvider: ServiceProvider {
-  func getEntries(request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, session: Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSession) throws -> Mavsdk_Rpc_LogFiles_GetEntriesResponse
-  func subscribeDownloadLogFile(request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, session: Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSession) throws -> ServerStatus?
+internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceProvider: CallHandlerProvider {
+  /// Get List of log files.
+  func getEntries(request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_LogFiles_GetEntriesResponse>
+  /// Download log file.
+  func subscribeDownloadLogFile(request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
 extension Mavsdk_Rpc_LogFiles_LogFilesServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.log_files.LogFilesService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.log_files.LogFilesService/GetEntries":
-      return try Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSessionBase(
-        handler: handler,
-        providerBlock: { try self.getEntries(request: $0, session: $1 as! Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSessionBase) })
-          .run()
-    case "/mavsdk.rpc.log_files.LogFilesService/SubscribeDownloadLogFile":
-      return try Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeDownloadLogFile(request: $0, session: $1 as! Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "GetEntries":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getEntries(request: request, context: context)
+        }
+      }
+
+    case "SubscribeDownloadLogFile":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeDownloadLogFile(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_LogFiles_GetEntriesRequest, Mavsdk_Rpc_LogFiles_GetEntriesResponse>, Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSession {}
-
-class Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_LogFiles_LogFilesServiceGetEntriesSession {}
-
-internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_LogFiles_DownloadLogFileResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_LogFiles_DownloadLogFileResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_LogFiles_DownloadLogFileResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>, Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSession {}
-
-class Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>, Mavsdk_Rpc_LogFiles_LogFilesServiceSubscribeDownloadLogFileSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_LogFiles_GetEntriesRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_LogFiles_GetEntriesResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_LogFiles_DownloadLogFileResponse: GRPCProtobufPayload {}
 

@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Shell {
-    private let service: Mavsdk_Rpc_Shell_ShellServiceService
+    private let service: Mavsdk_Rpc_Shell_ShellServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Shell_ShellServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Shell_ShellServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Shell_ShellServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Shell_ShellServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeShellError: Error {
@@ -135,12 +140,13 @@ public class Shell {
 
             do {
                 
-                let response = try self.service.send(request)
+                let response = self.service.send(request)
 
-                if (response.shellResult.result == Mavsdk_Rpc_Shell_ShellResult.Result.success) {
+                let result = try response.response.wait().shellResult
+                if (result.result == Mavsdk_Rpc_Shell_ShellResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ShellError(code: ShellResult.Result.translateFromRpc(response.shellResult.result), description: response.shellResult.resultStr)))
+                    completable(.error(ShellError(code: ShellResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -161,41 +167,20 @@ public class Shell {
 
             
 
-            do {
-                let call = try self.service.subscribeReceive(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeShellError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeReceive(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
+                
+                     
+                let receive = response.data
                     
-                    while let response = try? call.receive() {
-                        
-                            
-                        let receive = response.data
-                            
-                        
+                
 
-                        
-                        observer.onNext(receive)
-                        
-                    }
-                    
+                
+                observer.onNext(receive)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
