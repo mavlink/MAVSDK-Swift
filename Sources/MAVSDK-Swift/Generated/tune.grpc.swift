@@ -20,106 +20,73 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_Tune_TuneServicePlayTuneCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Tune_TuneServicePlayTuneCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>, Mavsdk_Rpc_Tune_TuneServicePlayTuneCall {
-  override class var method: String { return "/mavsdk.rpc.tune.TuneService/PlayTune" }
+/// Usage: instantiate Mavsdk_Rpc_Tune_TuneServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
+  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>
 }
 
+internal final class Mavsdk_Rpc_Tune_TuneServiceClient: GRPCClient, Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
 
-/// Instantiate Mavsdk_Rpc_Tune_TuneServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Tune_TuneServiceService: ServiceClient {
-  /// Synchronous. Unary.
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Tune_PlayTuneResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Tune_PlayTuneResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Tune_TuneServicePlayTuneCall
-
-}
-
-internal extension Mavsdk_Rpc_Tune_TuneServiceService {
-  /// Synchronous. Unary.
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest) throws -> Mavsdk_Rpc_Tune_PlayTuneResponse {
-    return try self.playTune(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, completion: @escaping (Mavsdk_Rpc_Tune_PlayTuneResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Tune_TuneServicePlayTuneCall {
-    return try self.playTune(request, metadata: self.metadata, completion: completion)
+  /// Creates a client for the mavsdk.rpc.tune.TuneService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
   }
 
-}
-
-internal final class Mavsdk_Rpc_Tune_TuneServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Tune_TuneServiceService {
-  /// Synchronous. Unary.
-  internal func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Tune_PlayTuneResponse {
-    return try Mavsdk_Rpc_Tune_TuneServicePlayTuneCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Tune_PlayTuneResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Tune_TuneServicePlayTuneCall {
-    return try Mavsdk_Rpc_Tune_TuneServicePlayTuneCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_Tune_TuneServicePlayTuneCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Tune_TuneServicePlayTuneCall {
-  override class var method: String { return "/mavsdk.rpc.tune.TuneService/PlayTune" }
-}
-
-class Mavsdk_Rpc_Tune_TuneServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Tune_TuneServiceService {
-  var playTuneRequests: [Mavsdk_Rpc_Tune_PlayTuneRequest] = []
-  var playTuneResponses: [Mavsdk_Rpc_Tune_PlayTuneResponse] = []
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Tune_PlayTuneResponse {
-    playTuneRequests.append(request)
-    defer { playTuneResponses.removeFirst() }
-    return playTuneResponses.first!
-  }
-  @discardableResult
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Tune_PlayTuneResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Tune_TuneServicePlayTuneCall {
-    let response = try self.playTune(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Tune_TuneServicePlayTuneCallTestStub()
+  /// Send a tune to be played by the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to PlayTune.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.tune.TuneService/PlayTune",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_Tune_TuneServiceProvider: ServiceProvider {
-  func playTune(request: Mavsdk_Rpc_Tune_PlayTuneRequest, session: Mavsdk_Rpc_Tune_TuneServicePlayTuneSession) throws -> Mavsdk_Rpc_Tune_PlayTuneResponse
+internal protocol Mavsdk_Rpc_Tune_TuneServiceProvider: CallHandlerProvider {
+  /// Send a tune to be played by the system.
+  func playTune(request: Mavsdk_Rpc_Tune_PlayTuneRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Tune_PlayTuneResponse>
 }
 
 extension Mavsdk_Rpc_Tune_TuneServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.tune.TuneService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.tune.TuneService/PlayTune":
-      return try Mavsdk_Rpc_Tune_TuneServicePlayTuneSessionBase(
-        handler: handler,
-        providerBlock: { try self.playTune(request: $0, session: $1 as! Mavsdk_Rpc_Tune_TuneServicePlayTuneSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "PlayTune":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.playTune(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_Tune_TuneServicePlayTuneSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Tune_TuneServicePlayTuneSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>, Mavsdk_Rpc_Tune_TuneServicePlayTuneSession {}
-
-class Mavsdk_Rpc_Tune_TuneServicePlayTuneSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Tune_TuneServicePlayTuneSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_Tune_PlayTuneRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Tune_PlayTuneResponse: GRPCProtobufPayload {}
 

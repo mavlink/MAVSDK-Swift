@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Mission {
-    private let service: Mavsdk_Rpc_Mission_MissionServiceService
+    private let service: Mavsdk_Rpc_Mission_MissionServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Mission_MissionServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Mission_MissionServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Mission_MissionServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Mission_MissionServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeMissionError: Error {
@@ -387,12 +392,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.uploadMission(request)
+                let response = self.service.uploadMission(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -411,12 +417,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.cancelMissionUpload(request)
+                let response = self.service.cancelMissionUpload(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -434,18 +441,19 @@ public class Mission {
             
 
             do {
-                let response = try self.service.downloadMission(request)
+                let response = self.service.downloadMission(request)
 
                 
-                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                let result = try response.response.wait().missionResult
+                if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let missionPlan = MissionPlan.translateFromRpc(response.missionPlan)
+    	    
+                    let missionPlan = try MissionPlan.translateFromRpc(response.response.wait().missionPlan)
                 
                 single(.success(missionPlan))
             } catch {
@@ -464,12 +472,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.cancelMissionDownload(request)
+                let response = self.service.cancelMissionDownload(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -488,12 +497,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.startMission(request)
+                let response = self.service.startMission(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -512,12 +522,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.pauseMission(request)
+                let response = self.service.pauseMission(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -536,12 +547,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.clearMission(request)
+                let response = self.service.clearMission(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -564,12 +576,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.setCurrentMissionItem(request)
+                let response = self.service.setCurrentMissionItem(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -587,17 +600,18 @@ public class Mission {
             
 
             do {
-                let response = try self.service.isMissionFinished(request)
+                let response = self.service.isMissionFinished(request)
 
                 
-                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                let result = try response.response.wait().missionResult
+                if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let isFinished = response.isFinished
+    	    let isFinished = try response.response.wait().isFinished
                 
                 single(.success(isFinished))
             } catch {
@@ -618,40 +632,19 @@ public class Mission {
 
             
 
-            do {
-                let call = try self.service.subscribeMissionProgress(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeMissionError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeMissionProgress(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
-                        
+                
+                     
+                let missionProgress = MissionProgress.translateFromRpc(response.missionProgress)
+                
 
-                        
-                        observer.onNext(missionProgress)
-                        
-                    }
-                    
+                
+                observer.onNext(missionProgress)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -668,17 +661,18 @@ public class Mission {
             
 
             do {
-                let response = try self.service.getReturnToLaunchAfterMission(request)
+                let response = self.service.getReturnToLaunchAfterMission(request)
 
                 
-                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                let result = try response.response.wait().missionResult
+                if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let enable = response.enable
+    	    let enable = try response.response.wait().enable
                 
                 single(.success(enable))
             } catch {
@@ -701,12 +695,13 @@ public class Mission {
 
             do {
                 
-                let response = try self.service.setReturnToLaunchAfterMission(request)
+                let response = self.service.setReturnToLaunchAfterMission(request)
 
-                if (response.missionResult.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                let result = try response.response.wait().missionResult
+                if (result.result == Mavsdk_Rpc_Mission_MissionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                    completable(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -728,18 +723,19 @@ public class Mission {
             
 
             do {
-                let response = try self.service.importQgroundcontrolMission(request)
+                let response = self.service.importQgroundcontrolMission(request)
 
                 
-                if (response.missionResult.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(response.missionResult.result), description: response.missionResult.resultStr)))
+                let result = try response.response.wait().missionResult
+                if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
+                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let missionPlan = MissionPlan.translateFromRpc(response.missionPlan)
+    	    
+                    let missionPlan = try MissionPlan.translateFromRpc(response.response.wait().missionPlan)
                 
                 single(.success(missionPlan))
             } catch {

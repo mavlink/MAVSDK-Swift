@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Camera {
-    private let service: Mavsdk_Rpc_Camera_CameraServiceService
+    private let service: Mavsdk_Rpc_Camera_CameraServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Camera_CameraServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Camera_CameraServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Camera_CameraServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Camera_CameraServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeCameraError: Error {
@@ -838,12 +843,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.takePhoto(request)
+                let response = self.service.takePhoto(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -866,12 +872,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.startPhotoInterval(request)
+                let response = self.service.startPhotoInterval(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -890,12 +897,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.stopPhotoInterval(request)
+                let response = self.service.stopPhotoInterval(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -914,12 +922,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.startVideo(request)
+                let response = self.service.startVideo(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -938,12 +947,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.stopVideo(request)
+                let response = self.service.stopVideo(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -962,12 +972,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.startVideoStreaming(request)
+                let response = self.service.startVideoStreaming(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -986,12 +997,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.stopVideoStreaming(request)
+                let response = self.service.stopVideoStreaming(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -1014,12 +1026,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.setMode(request)
+                let response = self.service.setMode(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -1040,40 +1053,19 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribeMode(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeMode(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let mode = Mode.translateFromRpc(response.mode)
-                        
+                
+                     
+                let mode = Mode.translateFromRpc(response.mode)
+                
 
-                        
-                        observer.onNext(mode)
-                        
-                    }
-                    
+                
+                observer.onNext(mode)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1093,40 +1085,19 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribeInformation(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeInformation(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let information = Information.translateFromRpc(response.information)
-                        
+                
+                     
+                let information = Information.translateFromRpc(response.information)
+                
 
-                        
-                        observer.onNext(information)
-                        
-                    }
-                    
+                
+                observer.onNext(information)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1146,40 +1117,19 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribeVideoStreamInfo(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeVideoStreamInfo(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
-                        
+                
+                     
+                let videoStreamInfo = VideoStreamInfo.translateFromRpc(response.videoStreamInfo)
+                
 
-                        
-                        observer.onNext(videoStreamInfo)
-                        
-                    }
-                    
+                
+                observer.onNext(videoStreamInfo)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1199,40 +1149,19 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribeCaptureInfo(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCaptureInfo(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
-                        
+                
+                     
+                let captureInfo = CaptureInfo.translateFromRpc(response.captureInfo)
+                
 
-                        
-                        observer.onNext(captureInfo)
-                        
-                    }
-                    
+                
+                observer.onNext(captureInfo)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1252,40 +1181,19 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribeStatus(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeStatus(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let status = Status.translateFromRpc(response.cameraStatus)
-                        
+                
+                     
+                let status = Status.translateFromRpc(response.cameraStatus)
+                
 
-                        
-                        observer.onNext(status)
-                        
-                    }
-                    
+                
+                observer.onNext(status)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1305,39 +1213,18 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribeCurrentSettings(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCurrentSettings(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-    		    let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
-                        
+                
+    	    let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
+                
 
-                        
-                        observer.onNext(currentSettings)
-                        
-                    }
-                    
+                
+                observer.onNext(currentSettings)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1357,39 +1244,18 @@ public class Camera {
 
             
 
-            do {
-                let call = try self.service.subscribePossibleSettingOptions(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCameraError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribePossibleSettingOptions(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-    		    let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
-                        
+                
+    	    let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
+                
 
-                        
-                        observer.onNext(possibleSettingOptions)
-                        
-                    }
-                    
+                
+                observer.onNext(possibleSettingOptions)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1411,12 +1277,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.setSetting(request)
+                let response = self.service.setSetting(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -1438,18 +1305,19 @@ public class Camera {
             
 
             do {
-                let response = try self.service.getSetting(request)
+                let response = self.service.getSetting(request)
 
                 
-                if (response.cameraResult.result != Mavsdk_Rpc_Camera_CameraResult.Result.success) {
-                    single(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                let result = try response.response.wait().cameraResult
+                if (result.result != Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                    single(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let setting = Setting.translateFromRpc(response.setting)
+    	    
+                    let setting = try Setting.translateFromRpc(response.response.wait().setting)
                 
                 single(.success(setting))
             } catch {
@@ -1468,12 +1336,13 @@ public class Camera {
 
             do {
                 
-                let response = try self.service.formatStorage(request)
+                let response = self.service.formatStorage(request)
 
-                if (response.cameraResult.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(response.cameraResult.result), description: response.cameraResult.resultStr)))
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

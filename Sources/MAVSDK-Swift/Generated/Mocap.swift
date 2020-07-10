@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Mocap {
-    private let service: Mavsdk_Rpc_Mocap_MocapServiceService
+    private let service: Mavsdk_Rpc_Mocap_MocapServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Mocap_MocapServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Mocap_MocapServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Mocap_MocapServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Mocap_MocapServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeMocapError: Error {
@@ -613,12 +618,13 @@ public class Mocap {
 
             do {
                 
-                let response = try self.service.setVisionPositionEstimate(request)
+                let response = self.service.setVisionPositionEstimate(request)
 
-                if (response.mocapResult.result == Mavsdk_Rpc_Mocap_MocapResult.Result.success) {
+                let result = try response.response.wait().mocapResult
+                if (result.result == Mavsdk_Rpc_Mocap_MocapResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MocapError(code: MocapResult.Result.translateFromRpc(response.mocapResult.result), description: response.mocapResult.resultStr)))
+                    completable(.error(MocapError(code: MocapResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -641,12 +647,13 @@ public class Mocap {
 
             do {
                 
-                let response = try self.service.setAttitudePositionMocap(request)
+                let response = self.service.setAttitudePositionMocap(request)
 
-                if (response.mocapResult.result == Mavsdk_Rpc_Mocap_MocapResult.Result.success) {
+                let result = try response.response.wait().mocapResult
+                if (result.result == Mavsdk_Rpc_Mocap_MocapResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MocapError(code: MocapResult.Result.translateFromRpc(response.mocapResult.result), description: response.mocapResult.resultStr)))
+                    completable(.error(MocapError(code: MocapResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -669,12 +676,13 @@ public class Mocap {
 
             do {
                 
-                let response = try self.service.setOdometry(request)
+                let response = self.service.setOdometry(request)
 
-                if (response.mocapResult.result == Mavsdk_Rpc_Mocap_MocapResult.Result.success) {
+                let result = try response.response.wait().mocapResult
+                if (result.result == Mavsdk_Rpc_Mocap_MocapResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(MocapError(code: MocapResult.Result.translateFromRpc(response.mocapResult.result), description: response.mocapResult.resultStr)))
+                    completable(.error(MocapError(code: MocapResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

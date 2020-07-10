@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Geofence {
-    private let service: Mavsdk_Rpc_Geofence_GeofenceServiceService
+    private let service: Mavsdk_Rpc_Geofence_GeofenceServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Geofence_GeofenceServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Geofence_GeofenceServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Geofence_GeofenceServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Geofence_GeofenceServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeGeofenceError: Error {
@@ -244,12 +249,13 @@ public class Geofence {
 
             do {
                 
-                let response = try self.service.uploadGeofence(request)
+                let response = self.service.uploadGeofence(request)
 
-                if (response.geofenceResult.result == Mavsdk_Rpc_Geofence_GeofenceResult.Result.success) {
+                let result = try response.response.wait().geofenceResult
+                if (result.result == Mavsdk_Rpc_Geofence_GeofenceResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(GeofenceError(code: GeofenceResult.Result.translateFromRpc(response.geofenceResult.result), description: response.geofenceResult.resultStr)))
+                    completable(.error(GeofenceError(code: GeofenceResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

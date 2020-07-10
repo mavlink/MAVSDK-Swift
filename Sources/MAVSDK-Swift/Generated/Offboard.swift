@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Offboard {
-    private let service: Mavsdk_Rpc_Offboard_OffboardServiceService
+    private let service: Mavsdk_Rpc_Offboard_OffboardServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Offboard_OffboardServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Offboard_OffboardServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Offboard_OffboardServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Offboard_OffboardServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeOffboardError: Error {
@@ -464,12 +469,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.start(request)
+                let response = self.service.start(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -488,12 +494,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.stop(request)
+                let response = self.service.stop(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -511,11 +518,11 @@ public class Offboard {
             
 
             do {
-                let response = try self.service.isActive(request)
+                let response = self.service.isActive(request)
 
                 
 
-                let isActive = response.isActive
+    	    let isActive = try response.response.wait().isActive
                 
                 single(.success(isActive))
             } catch {
@@ -538,12 +545,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.setAttitude(request)
+                let response = self.service.setAttitude(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -566,12 +574,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.setActuatorControl(request)
+                let response = self.service.setActuatorControl(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -594,12 +603,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.setAttitudeRate(request)
+                let response = self.service.setAttitudeRate(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -622,12 +632,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.setPositionNed(request)
+                let response = self.service.setPositionNed(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -650,12 +661,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.setVelocityBody(request)
+                let response = self.service.setVelocityBody(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -678,12 +690,13 @@ public class Offboard {
 
             do {
                 
-                let response = try self.service.setVelocityNed(request)
+                let response = self.service.setVelocityNed(request)
 
-                if (response.offboardResult.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(response.offboardResult.result), description: response.offboardResult.resultStr)))
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

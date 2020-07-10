@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Telemetry {
-    private let service: Mavsdk_Rpc_Telemetry_TelemetryServiceService
+    private let service: Mavsdk_Rpc_Telemetry_TelemetryServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Telemetry_TelemetryServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Telemetry_TelemetryServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Telemetry_TelemetryServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeTelemetryError: Error {
@@ -1590,40 +1595,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribePosition(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribePosition(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let position = Position.translateFromRpc(response.position)
-                        
+                
+                     
+                let position = Position.translateFromRpc(response.position)
+                
 
-                        
-                        observer.onNext(position)
-                        
-                    }
-                    
+                
+                observer.onNext(position)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1643,40 +1627,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeHome(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeHome(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let home = Position.translateFromRpc(response.home)
-                        
+                
+                     
+                let home = Position.translateFromRpc(response.home)
+                
 
-                        
-                        observer.onNext(home)
-                        
-                    }
-                    
+                
+                observer.onNext(home)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1696,41 +1659,20 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeInAir(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeInAir(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
+                
+                     
+                let inAir = response.isInAir
                     
-                    while let response = try? call.receive() {
-                        
-                            
-                        let inAir = response.isInAir
-                            
-                        
+                
 
-                        
-                        observer.onNext(inAir)
-                        
-                    }
-                    
+                
+                observer.onNext(inAir)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1750,40 +1692,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeLandedState(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeLandedState(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let landedState = LandedState.translateFromRpc(response.landedState)
-                        
+                
+                     
+                let landedState = LandedState.translateFromRpc(response.landedState)
+                
 
-                        
-                        observer.onNext(landedState)
-                        
-                    }
-                    
+                
+                observer.onNext(landedState)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1803,41 +1724,20 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeArmed(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeArmed(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
+                
+                     
+                let armed = response.isArmed
                     
-                    while let response = try? call.receive() {
-                        
-                            
-                        let armed = response.isArmed
-                            
-                        
+                
 
-                        
-                        observer.onNext(armed)
-                        
-                    }
-                    
+                
+                observer.onNext(armed)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1857,40 +1757,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeAttitudeQuaternion(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeAttitudeQuaternion(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
-                        
+                
+                     
+                let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
+                
 
-                        
-                        observer.onNext(attitudeQuaternion)
-                        
-                    }
-                    
+                
+                observer.onNext(attitudeQuaternion)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1910,40 +1789,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeAttitudeEuler(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeAttitudeEuler(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
-                        
+                
+                     
+                let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
+                
 
-                        
-                        observer.onNext(attitudeEuler)
-                        
-                    }
-                    
+                
+                observer.onNext(attitudeEuler)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -1963,40 +1821,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeAttitudeAngularVelocityBody(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeAttitudeAngularVelocityBody(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let attitudeAngularVelocityBody = AngularVelocityBody.translateFromRpc(response.attitudeAngularVelocityBody)
-                        
+                
+                     
+                let attitudeAngularVelocityBody = AngularVelocityBody.translateFromRpc(response.attitudeAngularVelocityBody)
+                
 
-                        
-                        observer.onNext(attitudeAngularVelocityBody)
-                        
-                    }
-                    
+                
+                observer.onNext(attitudeAngularVelocityBody)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2016,40 +1853,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeCameraAttitudeQuaternion(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCameraAttitudeQuaternion(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
-                        
+                
+                     
+                let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
+                
 
-                        
-                        observer.onNext(cameraAttitudeQuaternion)
-                        
-                    }
-                    
+                
+                observer.onNext(cameraAttitudeQuaternion)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2069,40 +1885,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeCameraAttitudeEuler(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeCameraAttitudeEuler(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
-                        
+                
+                     
+                let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
+                
 
-                        
-                        observer.onNext(cameraAttitudeEuler)
-                        
-                    }
-                    
+                
+                observer.onNext(cameraAttitudeEuler)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2122,40 +1917,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeVelocityNed(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeVelocityNed(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let velocityNed = VelocityNed.translateFromRpc(response.velocityNed)
-                        
+                
+                     
+                let velocityNed = VelocityNed.translateFromRpc(response.velocityNed)
+                
 
-                        
-                        observer.onNext(velocityNed)
-                        
-                    }
-                    
+                
+                observer.onNext(velocityNed)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2175,40 +1949,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeGpsInfo(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeGpsInfo(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
-                        
+                
+                     
+                let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
+                
 
-                        
-                        observer.onNext(gpsInfo)
-                        
-                    }
-                    
+                
+                observer.onNext(gpsInfo)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2228,40 +1981,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeBattery(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeBattery(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let battery = Battery.translateFromRpc(response.battery)
-                        
+                
+                     
+                let battery = Battery.translateFromRpc(response.battery)
+                
 
-                        
-                        observer.onNext(battery)
-                        
-                    }
-                    
+                
+                observer.onNext(battery)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2281,40 +2013,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeFlightMode(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeFlightMode(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let flightMode = FlightMode.translateFromRpc(response.flightMode)
-                        
+                
+                     
+                let flightMode = FlightMode.translateFromRpc(response.flightMode)
+                
 
-                        
-                        observer.onNext(flightMode)
-                        
-                    }
-                    
+                
+                observer.onNext(flightMode)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2334,40 +2045,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeHealth(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeHealth(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let health = Health.translateFromRpc(response.health)
-                        
+                
+                     
+                let health = Health.translateFromRpc(response.health)
+                
 
-                        
-                        observer.onNext(health)
-                        
-                    }
-                    
+                
+                observer.onNext(health)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2387,40 +2077,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeRcStatus(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeRcStatus(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
-                        
+                
+                     
+                let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
+                
 
-                        
-                        observer.onNext(rcStatus)
-                        
-                    }
-                    
+                
+                observer.onNext(rcStatus)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2440,40 +2109,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeStatusText(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeStatusText(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let statusText = StatusText.translateFromRpc(response.statusText)
-                        
+                
+                     
+                let statusText = StatusText.translateFromRpc(response.statusText)
+                
 
-                        
-                        observer.onNext(statusText)
-                        
-                    }
-                    
+                
+                observer.onNext(statusText)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2493,40 +2141,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeActuatorControlTarget(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeActuatorControlTarget(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let actuatorControlTarget = ActuatorControlTarget.translateFromRpc(response.actuatorControlTarget)
-                        
+                
+                     
+                let actuatorControlTarget = ActuatorControlTarget.translateFromRpc(response.actuatorControlTarget)
+                
 
-                        
-                        observer.onNext(actuatorControlTarget)
-                        
-                    }
-                    
+                
+                observer.onNext(actuatorControlTarget)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2546,40 +2173,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeActuatorOutputStatus(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeActuatorOutputStatus(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let actuatorOutputStatus = ActuatorOutputStatus.translateFromRpc(response.actuatorOutputStatus)
-                        
+                
+                     
+                let actuatorOutputStatus = ActuatorOutputStatus.translateFromRpc(response.actuatorOutputStatus)
+                
 
-                        
-                        observer.onNext(actuatorOutputStatus)
-                        
-                    }
-                    
+                
+                observer.onNext(actuatorOutputStatus)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2599,40 +2205,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeOdometry(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeOdometry(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let odometry = Odometry.translateFromRpc(response.odometry)
-                        
+                
+                     
+                let odometry = Odometry.translateFromRpc(response.odometry)
+                
 
-                        
-                        observer.onNext(odometry)
-                        
-                    }
-                    
+                
+                observer.onNext(odometry)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2652,40 +2237,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribePositionVelocityNed(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribePositionVelocityNed(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let positionVelocityNed = PositionVelocityNed.translateFromRpc(response.positionVelocityNed)
-                        
+                
+                     
+                let positionVelocityNed = PositionVelocityNed.translateFromRpc(response.positionVelocityNed)
+                
 
-                        
-                        observer.onNext(positionVelocityNed)
-                        
-                    }
-                    
+                
+                observer.onNext(positionVelocityNed)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2705,40 +2269,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeGroundTruth(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeGroundTruth(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let groundTruth = GroundTruth.translateFromRpc(response.groundTruth)
-                        
+                
+                     
+                let groundTruth = GroundTruth.translateFromRpc(response.groundTruth)
+                
 
-                        
-                        observer.onNext(groundTruth)
-                        
-                    }
-                    
+                
+                observer.onNext(groundTruth)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2758,40 +2301,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeFixedwingMetrics(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeFixedwingMetrics(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let fixedwingMetrics = FixedwingMetrics.translateFromRpc(response.fixedwingMetrics)
-                        
+                
+                     
+                let fixedwingMetrics = FixedwingMetrics.translateFromRpc(response.fixedwingMetrics)
+                
 
-                        
-                        observer.onNext(fixedwingMetrics)
-                        
-                    }
-                    
+                
+                observer.onNext(fixedwingMetrics)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2811,40 +2333,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeImu(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeImu(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let imu = Imu.translateFromRpc(response.imu)
-                        
+                
+                     
+                let imu = Imu.translateFromRpc(response.imu)
+                
 
-                        
-                        observer.onNext(imu)
-                        
-                    }
-                    
+                
+                observer.onNext(imu)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2864,41 +2365,20 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeHealthAllOk(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeHealthAllOk(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
+                
+                     
+                let healthAllOk = response.isHealthAllOk
                     
-                    while let response = try? call.receive() {
-                        
-                            
-                        let healthAllOk = response.isHealthAllOk
-                            
-                        
+                
 
-                        
-                        observer.onNext(healthAllOk)
-                        
-                    }
-                    
+                
+                observer.onNext(healthAllOk)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -2918,41 +2398,20 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeUnixEpochTime(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeUnixEpochTime(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
+                
+                     
+                let unixEpochTime = response.timeUs
                     
-                    while let response = try? call.receive() {
-                        
-                            
-                        let unixEpochTime = response.timeUs
-                            
-                        
+                
 
-                        
-                        observer.onNext(unixEpochTime)
-                        
-                    }
-                    
+                
+                observer.onNext(unixEpochTime)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -3027,12 +2486,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRatePosition(request)
+                let response = self.service.setRatePosition(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3055,12 +2515,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateHome(request)
+                let response = self.service.setRateHome(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3083,12 +2544,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateInAir(request)
+                let response = self.service.setRateInAir(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3111,12 +2573,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateLandedState(request)
+                let response = self.service.setRateLandedState(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3139,12 +2602,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateAttitude(request)
+                let response = self.service.setRateAttitude(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3167,12 +2631,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateCameraAttitude(request)
+                let response = self.service.setRateCameraAttitude(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3195,12 +2660,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateVelocityNed(request)
+                let response = self.service.setRateVelocityNed(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3223,12 +2689,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateGpsInfo(request)
+                let response = self.service.setRateGpsInfo(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3251,12 +2718,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateBattery(request)
+                let response = self.service.setRateBattery(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3279,12 +2747,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateRcStatus(request)
+                let response = self.service.setRateRcStatus(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3307,12 +2776,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateActuatorControlTarget(request)
+                let response = self.service.setRateActuatorControlTarget(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3335,12 +2805,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateActuatorOutputStatus(request)
+                let response = self.service.setRateActuatorOutputStatus(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3363,12 +2834,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateOdometry(request)
+                let response = self.service.setRateOdometry(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3391,12 +2863,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRatePositionVelocityNed(request)
+                let response = self.service.setRatePositionVelocityNed(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3419,12 +2892,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateGroundTruth(request)
+                let response = self.service.setRateGroundTruth(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3447,12 +2921,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateFixedwingMetrics(request)
+                let response = self.service.setRateFixedwingMetrics(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3475,12 +2950,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateImu(request)
+                let response = self.service.setRateImu(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3503,12 +2979,13 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateUnixEpochTime(request)
+                let response = self.service.setRateUnixEpochTime(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

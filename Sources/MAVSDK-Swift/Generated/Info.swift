@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Info {
-    private let service: Mavsdk_Rpc_Info_InfoServiceService
+    private let service: Mavsdk_Rpc_Info_InfoServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Info_InfoServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Info_InfoServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Info_InfoServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Info_InfoServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeInfoError: Error {
@@ -343,18 +348,19 @@ public class Info {
             
 
             do {
-                let response = try self.service.getFlightInformation(request)
+                let response = self.service.getFlightInformation(request)
 
                 
-                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+                let result = try response.response.wait().infoResult
+                if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let flightInfo = FlightInfo.translateFromRpc(response.flightInfo)
+    	    
+                    let flightInfo = try FlightInfo.translateFromRpc(response.response.wait().flightInfo)
                 
                 single(.success(flightInfo))
             } catch {
@@ -372,18 +378,19 @@ public class Info {
             
 
             do {
-                let response = try self.service.getIdentification(request)
+                let response = self.service.getIdentification(request)
 
                 
-                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+                let result = try response.response.wait().infoResult
+                if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let identification = Identification.translateFromRpc(response.identification)
+    	    
+                    let identification = try Identification.translateFromRpc(response.response.wait().identification)
                 
                 single(.success(identification))
             } catch {
@@ -401,18 +408,19 @@ public class Info {
             
 
             do {
-                let response = try self.service.getProduct(request)
+                let response = self.service.getProduct(request)
 
                 
-                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+                let result = try response.response.wait().infoResult
+                if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let product = Product.translateFromRpc(response.product)
+    	    
+                    let product = try Product.translateFromRpc(response.response.wait().product)
                 
                 single(.success(product))
             } catch {
@@ -430,18 +438,19 @@ public class Info {
             
 
             do {
-                let response = try self.service.getVersion(request)
+                let response = self.service.getVersion(request)
 
                 
-                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+                let result = try response.response.wait().infoResult
+                if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let version = Version.translateFromRpc(response.version)
+    	    
+                    let version = try Version.translateFromRpc(response.response.wait().version)
                 
                 single(.success(version))
             } catch {

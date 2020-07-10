@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Action {
-    private let service: Mavsdk_Rpc_Action_ActionServiceService
+    private let service: Mavsdk_Rpc_Action_ActionServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Action_ActionServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Action_ActionServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Action_ActionServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Action_ActionServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeActionError: Error {
@@ -161,12 +166,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.arm(request)
+                let response = self.service.arm(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -185,12 +191,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.disarm(request)
+                let response = self.service.disarm(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -209,12 +216,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.takeoff(request)
+                let response = self.service.takeoff(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -233,12 +241,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.land(request)
+                let response = self.service.land(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -257,12 +266,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.reboot(request)
+                let response = self.service.reboot(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -281,12 +291,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.shutdown(request)
+                let response = self.service.shutdown(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -329,12 +340,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.kill(request)
+                let response = self.service.kill(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -353,12 +365,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.returnToLaunch(request)
+                let response = self.service.returnToLaunch(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -393,12 +406,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.gotoLocation(request)
+                let response = self.service.gotoLocation(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -417,12 +431,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.transitionToFixedwing(request)
+                let response = self.service.transitionToFixedwing(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -441,12 +456,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.transitionToMulticopter(request)
+                let response = self.service.transitionToMulticopter(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -464,17 +480,18 @@ public class Action {
             
 
             do {
-                let response = try self.service.getTakeoffAltitude(request)
+                let response = self.service.getTakeoffAltitude(request)
 
                 
-                if (response.actionResult.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                let result = try response.response.wait().actionResult
+                if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let altitude = response.altitude
+    	    let altitude = try response.response.wait().altitude
                 
                 single(.success(altitude))
             } catch {
@@ -497,12 +514,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.setTakeoffAltitude(request)
+                let response = self.service.setTakeoffAltitude(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -520,17 +538,18 @@ public class Action {
             
 
             do {
-                let response = try self.service.getMaximumSpeed(request)
+                let response = self.service.getMaximumSpeed(request)
 
                 
-                if (response.actionResult.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                let result = try response.response.wait().actionResult
+                if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let speed = response.speed
+    	    let speed = try response.response.wait().speed
                 
                 single(.success(speed))
             } catch {
@@ -553,12 +572,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.setMaximumSpeed(request)
+                let response = self.service.setMaximumSpeed(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -576,17 +596,18 @@ public class Action {
             
 
             do {
-                let response = try self.service.getReturnToLaunchAltitude(request)
+                let response = self.service.getReturnToLaunchAltitude(request)
 
                 
-                if (response.actionResult.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                let result = try response.response.wait().actionResult
+                if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let relativeAltitudeM = response.relativeAltitudeM
+    	    let relativeAltitudeM = try response.response.wait().relativeAltitudeM
                 
                 single(.success(relativeAltitudeM))
             } catch {
@@ -609,12 +630,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.setReturnToLaunchAltitude(request)
+                let response = self.service.setReturnToLaunchAltitude(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
