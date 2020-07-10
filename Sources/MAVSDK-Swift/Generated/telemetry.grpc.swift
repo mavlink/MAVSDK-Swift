@@ -20,3109 +20,1157 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_PositionResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_PositionResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_PositionResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_HomeResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_HomeResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_HomeResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_InAirResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_InAirResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_InAirResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_LandedStateResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_LandedStateResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_LandedStateResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ArmedResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_ArmedResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_ArmedResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_AttitudeEulerResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_AttitudeEulerResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_VelocityNedResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_VelocityNedResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_VelocityNedResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_GpsInfoResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_GpsInfoResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_GpsInfoResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_BatteryResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_BatteryResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_BatteryResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_FlightModeResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_FlightModeResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_FlightModeResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_HealthResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_HealthResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_HealthResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_RcStatusResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_RcStatusResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_RcStatusResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_StatusTextResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_StatusTextResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_StatusTextResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_OdometryResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_OdometryResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_OdometryResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_GroundTruthResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_GroundTruthResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_GroundTruthResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_ImuResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_ImuResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_ImuResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_HealthAllOkResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_HealthAllOkResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_HealthAllOkResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall: ClientCallServerStreaming {
-  /// Do not call this directly, call `receive()` in the protocol extension below instead.
-  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse?
-  /// Call this to wait for a result. Nonblocking.
-  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse?>) -> Void) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
-  /// Call this to wait for a result. Blocking.
-  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse? { return try self._receive(timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu" }
-}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime" }
-}
-
-
-/// Instantiate Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall
-
-  /// Synchronous. Unary.
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall
-
-  /// Synchronous. Unary.
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateHomeResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateHomeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall
-
-  /// Synchronous. Unary.
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateInAirResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateInAirResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall
-
-  /// Synchronous. Unary.
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall
-
-  /// Synchronous. Unary.
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall
-
-  /// Synchronous. Unary.
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall
-
-  /// Synchronous. Unary.
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall
-
-  /// Synchronous. Unary.
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall
-
-  /// Synchronous. Unary.
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateBatteryResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateBatteryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall
-
-  /// Synchronous. Unary.
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall
-
-  /// Synchronous. Unary.
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall
-
-  /// Synchronous. Unary.
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall
-
-  /// Synchronous. Unary.
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateOdometryResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateOdometryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall
-
-  /// Synchronous. Unary.
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall
-
-  /// Synchronous. Unary.
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall
-
-  /// Synchronous. Unary.
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall
-
-  /// Synchronous. Unary.
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateImuResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateImuResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall
-
-  /// Synchronous. Unary.
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall
-
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
-  /// Asynchronous. Server-streaming.
-  func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
-    return try self.subscribePosition(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
-    return try self.subscribeHome(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
-    return try self.subscribeInAir(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
-    return try self.subscribeLandedState(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
-    return try self.subscribeArmed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
-    return try self.subscribeAttitudeQuaternion(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
-    return try self.subscribeAttitudeEuler(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
-    return try self.subscribeAttitudeAngularVelocityBody(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
-    return try self.subscribeCameraAttitudeQuaternion(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
-    return try self.subscribeCameraAttitudeEuler(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall {
-    return try self.subscribeVelocityNed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
-    return try self.subscribeGpsInfo(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
-    return try self.subscribeBattery(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
-    return try self.subscribeFlightMode(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
-    return try self.subscribeHealth(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
-    return try self.subscribeRcStatus(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall {
-    return try self.subscribeStatusText(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
-    return try self.subscribeActuatorControlTarget(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
-    return try self.subscribeActuatorOutputStatus(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
-    return try self.subscribeOdometry(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall {
-    return try self.subscribePositionVelocityNed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall {
-    return try self.subscribeGroundTruth(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall {
-    return try self.subscribeFixedwingMetrics(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall {
-    return try self.subscribeImu(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall {
-    return try self.subscribeHealthAllOk(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
-    return try self.subscribeUnixEpochTime(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse {
-    return try self.setRatePosition(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
-    return try self.setRatePosition(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateHomeResponse {
-    return try self.setRateHome(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateHomeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall {
-    return try self.setRateHome(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateInAirResponse {
-    return try self.setRateInAir(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateInAirResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall {
-    return try self.setRateInAir(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse {
-    return try self.setRateLandedState(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall {
-    return try self.setRateLandedState(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse {
-    return try self.setRateAttitude(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall {
-    return try self.setRateAttitude(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse {
-    return try self.setRateCameraAttitude(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall {
-    return try self.setRateCameraAttitude(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse {
-    return try self.setRateVelocityNed(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall {
-    return try self.setRateVelocityNed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse {
-    return try self.setRateGpsInfo(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall {
-    return try self.setRateGpsInfo(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateBatteryResponse {
-    return try self.setRateBattery(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateBatteryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall {
-    return try self.setRateBattery(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse {
-    return try self.setRateRcStatus(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall {
-    return try self.setRateRcStatus(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse {
-    return try self.setRateActuatorControlTarget(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall {
-    return try self.setRateActuatorControlTarget(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse {
-    return try self.setRateActuatorOutputStatus(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall {
-    return try self.setRateActuatorOutputStatus(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateOdometryResponse {
-    return try self.setRateOdometry(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateOdometryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall {
-    return try self.setRateOdometry(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse {
-    return try self.setRatePositionVelocityNed(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall {
-    return try self.setRatePositionVelocityNed(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse {
-    return try self.setRateGroundTruth(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall {
-    return try self.setRateGroundTruth(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse {
-    return try self.setRateFixedwingMetrics(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall {
-    return try self.setRateFixedwingMetrics(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateImuResponse {
-    return try self.setRateImu(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateImuResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall {
-    return try self.setRateImu(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse {
-    return try self.setRateUnixEpochTime(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
-    return try self.setRateUnixEpochTime(request, metadata: self.metadata, completion: completion)
-  }
-
-}
-
-internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Telemetry_TelemetryServiceService {
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Asynchronous. Server-streaming.
-  /// Send the initial message.
-  /// Use methods on the returned object to get streamed responses.
-  internal func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateHomeResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateHomeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateInAirResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateInAirResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateBatteryResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateBatteryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateOdometryResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateOdometryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateImuResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateImuResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
-    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_PositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_HomeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_InAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ArmedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_VelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_GpsInfoResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_BatteryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_FlightModeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_HealthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_RcStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_StatusTextResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_GroundTruthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ImuResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
-  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime" }
-}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Telemetry_TelemetryServiceService {
-  var subscribePositionRequests: [Mavsdk_Rpc_Telemetry_SubscribePositionRequest] = []
-  var subscribePositionCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall] = []
-  func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
-    subscribePositionRequests.append(request)
-    defer { subscribePositionCalls.removeFirst() }
-    return subscribePositionCalls.first!
-  }
-
-  var subscribeHomeRequests: [Mavsdk_Rpc_Telemetry_SubscribeHomeRequest] = []
-  var subscribeHomeCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall] = []
-  func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeCall {
-    subscribeHomeRequests.append(request)
-    defer { subscribeHomeCalls.removeFirst() }
-    return subscribeHomeCalls.first!
-  }
-
-  var subscribeInAirRequests: [Mavsdk_Rpc_Telemetry_SubscribeInAirRequest] = []
-  var subscribeInAirCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall] = []
-  func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirCall {
-    subscribeInAirRequests.append(request)
-    defer { subscribeInAirCalls.removeFirst() }
-    return subscribeInAirCalls.first!
-  }
-
-  var subscribeLandedStateRequests: [Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest] = []
-  var subscribeLandedStateCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall] = []
-  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateCall {
-    subscribeLandedStateRequests.append(request)
-    defer { subscribeLandedStateCalls.removeFirst() }
-    return subscribeLandedStateCalls.first!
-  }
-
-  var subscribeArmedRequests: [Mavsdk_Rpc_Telemetry_SubscribeArmedRequest] = []
-  var subscribeArmedCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall] = []
-  func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedCall {
-    subscribeArmedRequests.append(request)
-    defer { subscribeArmedCalls.removeFirst() }
-    return subscribeArmedCalls.first!
-  }
-
-  var subscribeAttitudeQuaternionRequests: [Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest] = []
-  var subscribeAttitudeQuaternionCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall] = []
-  func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionCall {
-    subscribeAttitudeQuaternionRequests.append(request)
-    defer { subscribeAttitudeQuaternionCalls.removeFirst() }
-    return subscribeAttitudeQuaternionCalls.first!
-  }
-
-  var subscribeAttitudeEulerRequests: [Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest] = []
-  var subscribeAttitudeEulerCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall] = []
-  func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerCall {
-    subscribeAttitudeEulerRequests.append(request)
-    defer { subscribeAttitudeEulerCalls.removeFirst() }
-    return subscribeAttitudeEulerCalls.first!
-  }
-
-  var subscribeAttitudeAngularVelocityBodyRequests: [Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest] = []
-  var subscribeAttitudeAngularVelocityBodyCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall] = []
-  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodyCall {
-    subscribeAttitudeAngularVelocityBodyRequests.append(request)
-    defer { subscribeAttitudeAngularVelocityBodyCalls.removeFirst() }
-    return subscribeAttitudeAngularVelocityBodyCalls.first!
-  }
-
-  var subscribeCameraAttitudeQuaternionRequests: [Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest] = []
-  var subscribeCameraAttitudeQuaternionCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall] = []
-  func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionCall {
-    subscribeCameraAttitudeQuaternionRequests.append(request)
-    defer { subscribeCameraAttitudeQuaternionCalls.removeFirst() }
-    return subscribeCameraAttitudeQuaternionCalls.first!
-  }
-
-  var subscribeCameraAttitudeEulerRequests: [Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest] = []
-  var subscribeCameraAttitudeEulerCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall] = []
-  func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerCall {
-    subscribeCameraAttitudeEulerRequests.append(request)
-    defer { subscribeCameraAttitudeEulerCalls.removeFirst() }
-    return subscribeCameraAttitudeEulerCalls.first!
-  }
-
-  var subscribeVelocityNedRequests: [Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest] = []
-  var subscribeVelocityNedCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall] = []
-  func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedCall {
-    subscribeVelocityNedRequests.append(request)
-    defer { subscribeVelocityNedCalls.removeFirst() }
-    return subscribeVelocityNedCalls.first!
-  }
-
-  var subscribeGpsInfoRequests: [Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest] = []
-  var subscribeGpsInfoCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall] = []
-  func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoCall {
-    subscribeGpsInfoRequests.append(request)
-    defer { subscribeGpsInfoCalls.removeFirst() }
-    return subscribeGpsInfoCalls.first!
-  }
-
-  var subscribeBatteryRequests: [Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest] = []
-  var subscribeBatteryCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall] = []
-  func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatteryCall {
-    subscribeBatteryRequests.append(request)
-    defer { subscribeBatteryCalls.removeFirst() }
-    return subscribeBatteryCalls.first!
-  }
-
-  var subscribeFlightModeRequests: [Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest] = []
-  var subscribeFlightModeCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall] = []
-  func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeCall {
-    subscribeFlightModeRequests.append(request)
-    defer { subscribeFlightModeCalls.removeFirst() }
-    return subscribeFlightModeCalls.first!
-  }
-
-  var subscribeHealthRequests: [Mavsdk_Rpc_Telemetry_SubscribeHealthRequest] = []
-  var subscribeHealthCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall] = []
-  func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthCall {
-    subscribeHealthRequests.append(request)
-    defer { subscribeHealthCalls.removeFirst() }
-    return subscribeHealthCalls.first!
-  }
-
-  var subscribeRcStatusRequests: [Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest] = []
-  var subscribeRcStatusCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall] = []
-  func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusCall {
-    subscribeRcStatusRequests.append(request)
-    defer { subscribeRcStatusCalls.removeFirst() }
-    return subscribeRcStatusCalls.first!
-  }
-
-  var subscribeStatusTextRequests: [Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest] = []
-  var subscribeStatusTextCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall] = []
-  func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextCall {
-    subscribeStatusTextRequests.append(request)
-    defer { subscribeStatusTextCalls.removeFirst() }
-    return subscribeStatusTextCalls.first!
-  }
-
-  var subscribeActuatorControlTargetRequests: [Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest] = []
-  var subscribeActuatorControlTargetCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall] = []
-  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetCall {
-    subscribeActuatorControlTargetRequests.append(request)
-    defer { subscribeActuatorControlTargetCalls.removeFirst() }
-    return subscribeActuatorControlTargetCalls.first!
-  }
-
-  var subscribeActuatorOutputStatusRequests: [Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest] = []
-  var subscribeActuatorOutputStatusCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall] = []
-  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusCall {
-    subscribeActuatorOutputStatusRequests.append(request)
-    defer { subscribeActuatorOutputStatusCalls.removeFirst() }
-    return subscribeActuatorOutputStatusCalls.first!
-  }
-
-  var subscribeOdometryRequests: [Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest] = []
-  var subscribeOdometryCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall] = []
-  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometryCall {
-    subscribeOdometryRequests.append(request)
-    defer { subscribeOdometryCalls.removeFirst() }
-    return subscribeOdometryCalls.first!
-  }
-
-  var subscribePositionVelocityNedRequests: [Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest] = []
-  var subscribePositionVelocityNedCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall] = []
-  func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedCall {
-    subscribePositionVelocityNedRequests.append(request)
-    defer { subscribePositionVelocityNedCalls.removeFirst() }
-    return subscribePositionVelocityNedCalls.first!
-  }
-
-  var subscribeGroundTruthRequests: [Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest] = []
-  var subscribeGroundTruthCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall] = []
-  func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthCall {
-    subscribeGroundTruthRequests.append(request)
-    defer { subscribeGroundTruthCalls.removeFirst() }
-    return subscribeGroundTruthCalls.first!
-  }
-
-  var subscribeFixedwingMetricsRequests: [Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest] = []
-  var subscribeFixedwingMetricsCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall] = []
-  func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsCall {
-    subscribeFixedwingMetricsRequests.append(request)
-    defer { subscribeFixedwingMetricsCalls.removeFirst() }
-    return subscribeFixedwingMetricsCalls.first!
-  }
-
-  var subscribeImuRequests: [Mavsdk_Rpc_Telemetry_SubscribeImuRequest] = []
-  var subscribeImuCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall] = []
-  func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuCall {
-    subscribeImuRequests.append(request)
-    defer { subscribeImuCalls.removeFirst() }
-    return subscribeImuCalls.first!
-  }
-
-  var subscribeHealthAllOkRequests: [Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest] = []
-  var subscribeHealthAllOkCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall] = []
-  func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkCall {
-    subscribeHealthAllOkRequests.append(request)
-    defer { subscribeHealthAllOkCalls.removeFirst() }
-    return subscribeHealthAllOkCalls.first!
-  }
-
-  var subscribeUnixEpochTimeRequests: [Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest] = []
-  var subscribeUnixEpochTimeCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall] = []
-  func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
-    subscribeUnixEpochTimeRequests.append(request)
-    defer { subscribeUnixEpochTimeCalls.removeFirst() }
-    return subscribeUnixEpochTimeCalls.first!
-  }
-
-  var setRatePositionRequests: [Mavsdk_Rpc_Telemetry_SetRatePositionRequest] = []
-  var setRatePositionResponses: [Mavsdk_Rpc_Telemetry_SetRatePositionResponse] = []
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse {
-    setRatePositionRequests.append(request)
-    defer { setRatePositionResponses.removeFirst() }
-    return setRatePositionResponses.first!
-  }
-  @discardableResult
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
-    let response = try self.setRatePosition(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallTestStub()
-  }
-
-  var setRateHomeRequests: [Mavsdk_Rpc_Telemetry_SetRateHomeRequest] = []
-  var setRateHomeResponses: [Mavsdk_Rpc_Telemetry_SetRateHomeResponse] = []
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateHomeResponse {
-    setRateHomeRequests.append(request)
-    defer { setRateHomeResponses.removeFirst() }
-    return setRateHomeResponses.first!
-  }
-  @discardableResult
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateHomeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCall {
-    let response = try self.setRateHome(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeCallTestStub()
-  }
-
-  var setRateInAirRequests: [Mavsdk_Rpc_Telemetry_SetRateInAirRequest] = []
-  var setRateInAirResponses: [Mavsdk_Rpc_Telemetry_SetRateInAirResponse] = []
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateInAirResponse {
-    setRateInAirRequests.append(request)
-    defer { setRateInAirResponses.removeFirst() }
-    return setRateInAirResponses.first!
-  }
-  @discardableResult
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateInAirResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCall {
-    let response = try self.setRateInAir(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirCallTestStub()
-  }
-
-  var setRateLandedStateRequests: [Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest] = []
-  var setRateLandedStateResponses: [Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse] = []
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse {
-    setRateLandedStateRequests.append(request)
-    defer { setRateLandedStateResponses.removeFirst() }
-    return setRateLandedStateResponses.first!
-  }
-  @discardableResult
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCall {
-    let response = try self.setRateLandedState(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateCallTestStub()
-  }
-
-  var setRateAttitudeRequests: [Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest] = []
-  var setRateAttitudeResponses: [Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse] = []
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse {
-    setRateAttitudeRequests.append(request)
-    defer { setRateAttitudeResponses.removeFirst() }
-    return setRateAttitudeResponses.first!
-  }
-  @discardableResult
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCall {
-    let response = try self.setRateAttitude(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeCallTestStub()
-  }
-
-  var setRateCameraAttitudeRequests: [Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest] = []
-  var setRateCameraAttitudeResponses: [Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse] = []
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse {
-    setRateCameraAttitudeRequests.append(request)
-    defer { setRateCameraAttitudeResponses.removeFirst() }
-    return setRateCameraAttitudeResponses.first!
-  }
-  @discardableResult
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCall {
-    let response = try self.setRateCameraAttitude(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeCallTestStub()
-  }
-
-  var setRateVelocityNedRequests: [Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest] = []
-  var setRateVelocityNedResponses: [Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse] = []
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse {
-    setRateVelocityNedRequests.append(request)
-    defer { setRateVelocityNedResponses.removeFirst() }
-    return setRateVelocityNedResponses.first!
-  }
-  @discardableResult
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCall {
-    let response = try self.setRateVelocityNed(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedCallTestStub()
-  }
-
-  var setRateGpsInfoRequests: [Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest] = []
-  var setRateGpsInfoResponses: [Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse] = []
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse {
-    setRateGpsInfoRequests.append(request)
-    defer { setRateGpsInfoResponses.removeFirst() }
-    return setRateGpsInfoResponses.first!
-  }
-  @discardableResult
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCall {
-    let response = try self.setRateGpsInfo(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoCallTestStub()
-  }
-
-  var setRateBatteryRequests: [Mavsdk_Rpc_Telemetry_SetRateBatteryRequest] = []
-  var setRateBatteryResponses: [Mavsdk_Rpc_Telemetry_SetRateBatteryResponse] = []
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateBatteryResponse {
-    setRateBatteryRequests.append(request)
-    defer { setRateBatteryResponses.removeFirst() }
-    return setRateBatteryResponses.first!
-  }
-  @discardableResult
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateBatteryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCall {
-    let response = try self.setRateBattery(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatteryCallTestStub()
-  }
-
-  var setRateRcStatusRequests: [Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest] = []
-  var setRateRcStatusResponses: [Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse] = []
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse {
-    setRateRcStatusRequests.append(request)
-    defer { setRateRcStatusResponses.removeFirst() }
-    return setRateRcStatusResponses.first!
-  }
-  @discardableResult
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCall {
-    let response = try self.setRateRcStatus(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusCallTestStub()
-  }
-
-  var setRateActuatorControlTargetRequests: [Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest] = []
-  var setRateActuatorControlTargetResponses: [Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse] = []
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse {
-    setRateActuatorControlTargetRequests.append(request)
-    defer { setRateActuatorControlTargetResponses.removeFirst() }
-    return setRateActuatorControlTargetResponses.first!
-  }
-  @discardableResult
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCall {
-    let response = try self.setRateActuatorControlTarget(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetCallTestStub()
-  }
-
-  var setRateActuatorOutputStatusRequests: [Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest] = []
-  var setRateActuatorOutputStatusResponses: [Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse] = []
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse {
-    setRateActuatorOutputStatusRequests.append(request)
-    defer { setRateActuatorOutputStatusResponses.removeFirst() }
-    return setRateActuatorOutputStatusResponses.first!
-  }
-  @discardableResult
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCall {
-    let response = try self.setRateActuatorOutputStatus(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusCallTestStub()
-  }
-
-  var setRateOdometryRequests: [Mavsdk_Rpc_Telemetry_SetRateOdometryRequest] = []
-  var setRateOdometryResponses: [Mavsdk_Rpc_Telemetry_SetRateOdometryResponse] = []
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateOdometryResponse {
-    setRateOdometryRequests.append(request)
-    defer { setRateOdometryResponses.removeFirst() }
-    return setRateOdometryResponses.first!
-  }
-  @discardableResult
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateOdometryResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCall {
-    let response = try self.setRateOdometry(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometryCallTestStub()
-  }
-
-  var setRatePositionVelocityNedRequests: [Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest] = []
-  var setRatePositionVelocityNedResponses: [Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse] = []
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse {
-    setRatePositionVelocityNedRequests.append(request)
-    defer { setRatePositionVelocityNedResponses.removeFirst() }
-    return setRatePositionVelocityNedResponses.first!
-  }
-  @discardableResult
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCall {
-    let response = try self.setRatePositionVelocityNed(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedCallTestStub()
-  }
-
-  var setRateGroundTruthRequests: [Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest] = []
-  var setRateGroundTruthResponses: [Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse] = []
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse {
-    setRateGroundTruthRequests.append(request)
-    defer { setRateGroundTruthResponses.removeFirst() }
-    return setRateGroundTruthResponses.first!
-  }
-  @discardableResult
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCall {
-    let response = try self.setRateGroundTruth(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthCallTestStub()
-  }
-
-  var setRateFixedwingMetricsRequests: [Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest] = []
-  var setRateFixedwingMetricsResponses: [Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse] = []
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse {
-    setRateFixedwingMetricsRequests.append(request)
-    defer { setRateFixedwingMetricsResponses.removeFirst() }
-    return setRateFixedwingMetricsResponses.first!
-  }
-  @discardableResult
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCall {
-    let response = try self.setRateFixedwingMetrics(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsCallTestStub()
-  }
-
-  var setRateImuRequests: [Mavsdk_Rpc_Telemetry_SetRateImuRequest] = []
-  var setRateImuResponses: [Mavsdk_Rpc_Telemetry_SetRateImuResponse] = []
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateImuResponse {
-    setRateImuRequests.append(request)
-    defer { setRateImuResponses.removeFirst() }
-    return setRateImuResponses.first!
-  }
-  @discardableResult
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateImuResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCall {
-    let response = try self.setRateImu(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCallTestStub()
-  }
 
-  var setRateUnixEpochTimeRequests: [Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest] = []
-  var setRateUnixEpochTimeResponses: [Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse] = []
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse {
-    setRateUnixEpochTimeRequests.append(request)
-    defer { setRateUnixEpochTimeResponses.removeFirst() }
-    return setRateUnixEpochTimeResponses.first!
-  }
-  @discardableResult
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
-    let response = try self.setRateUnixEpochTime(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallTestStub()
+/// Usage: instantiate Mavsdk_Rpc_Telemetry_TelemetryServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
+  func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>
+  func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_HomeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>
+  func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_InAirResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>
+  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_LandedStateResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>
+  func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>
+  func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>
+  func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>
+  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>
+  func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>
+  func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>
+  func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>
+  func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>
+  func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_BatteryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>
+  func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>
+  func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>
+  func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>
+  func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>
+  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>
+  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>
+  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_OdometryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>
+  func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>
+  func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>
+  func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>
+  func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>
+  func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>
+  func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>
+  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
+  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>
+  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>
+  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
+  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
+  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
+  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>
+  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>
+  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>
+  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>
+  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>
+  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>
+  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>
+  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>
+  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>
+  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>
+  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>
+  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
+}
+
+internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceClient: GRPCClient, Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
+
+  /// Creates a client for the mavsdk.rpc.telemetry.TelemetryService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+  }
+
+  /// Subscribe to 'position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribePosition.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'home position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHome.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_HomeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to in-air updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeInAir.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_InAirResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to landed state updates
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeLandedState.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_LandedStateResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to armed updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeArmed.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'attitude' updates (quaternion).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAttitudeQuaternion.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'attitude' updates (Euler).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAttitudeEuler.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'attitude' updates (angular velocity)
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAttitudeAngularVelocityBody.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'camera attitude' updates (quaternion).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCameraAttitudeQuaternion.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'camera attitude' updates (Euler).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCameraAttitudeEuler.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'ground speed' updates (NED).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeVelocityNed.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'GPS info' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeGpsInfo.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'battery' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeBattery.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_BatteryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'flight mode' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeFlightMode.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'health' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHealth.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'RC status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeRcStatus.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'status text' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeStatusText.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'actuator control target' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeActuatorControlTarget.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'actuator output status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeActuatorOutputStatus.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'odometry' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeOdometry.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_OdometryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'position velocity' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribePositionVelocityNed.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'ground truth' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeGroundTruth.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'fixedwing metrics' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeFixedwingMetrics.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeImu.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'HealthAllOk' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHealthAllOk.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Subscribe to 'unix epoch time' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeUnixEpochTime.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse> {
+    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime",
+                                        request: request,
+                                        callOptions: callOptions ?? self.defaultCallOptions,
+                                        handler: handler)
+  }
+
+  /// Set rate to 'position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRatePosition.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'home position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateHome.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to in-air updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateInAir.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to landed state updates
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateLandedState.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'attitude' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateAttitude.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate of camera attitude updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateCameraAttitude.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'ground speed' updates (NED).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateVelocityNed.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'GPS info' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateGpsInfo.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'battery' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateBattery.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'RC status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateRcStatus.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'actuator control target' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateActuatorControlTarget.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'actuator output status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateActuatorOutputStatus.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'odometry' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateOdometry.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'position velocity' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRatePositionVelocityNed.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'ground truth' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateGroundTruth.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'fixedwing metrics' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateFixedwingMetrics.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateImu.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
+  }
+
+  /// Set rate to 'unix epoch time' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateUnixEpochTime.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: ServiceProvider {
-  func subscribePosition(request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSession) throws -> ServerStatus?
-  func subscribeHome(request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSession) throws -> ServerStatus?
-  func subscribeInAir(request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession) throws -> ServerStatus?
-  func subscribeLandedState(request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession) throws -> ServerStatus?
-  func subscribeArmed(request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession) throws -> ServerStatus?
-  func subscribeAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSession) throws -> ServerStatus?
-  func subscribeAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession) throws -> ServerStatus?
-  func subscribeAttitudeAngularVelocityBody(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession) throws -> ServerStatus?
-  func subscribeCameraAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession) throws -> ServerStatus?
-  func subscribeCameraAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession) throws -> ServerStatus?
-  func subscribeVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSession) throws -> ServerStatus?
-  func subscribeGpsInfo(request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession) throws -> ServerStatus?
-  func subscribeBattery(request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession) throws -> ServerStatus?
-  func subscribeFlightMode(request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSession) throws -> ServerStatus?
-  func subscribeHealth(request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession) throws -> ServerStatus?
-  func subscribeRcStatus(request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession) throws -> ServerStatus?
-  func subscribeStatusText(request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession) throws -> ServerStatus?
-  func subscribeActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession) throws -> ServerStatus?
-  func subscribeActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession) throws -> ServerStatus?
-  func subscribeOdometry(request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession) throws -> ServerStatus?
-  func subscribePositionVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSession) throws -> ServerStatus?
-  func subscribeGroundTruth(request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSession) throws -> ServerStatus?
-  func subscribeFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSession) throws -> ServerStatus?
-  func subscribeImu(request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSession) throws -> ServerStatus?
-  func subscribeHealthAllOk(request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSession) throws -> ServerStatus?
-  func subscribeUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession) throws -> ServerStatus?
-  func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse
-  func setRateHome(request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSession) throws -> Mavsdk_Rpc_Telemetry_SetRateHomeResponse
-  func setRateInAir(request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSession) throws -> Mavsdk_Rpc_Telemetry_SetRateInAirResponse
-  func setRateLandedState(request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSession) throws -> Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse
-  func setRateAttitude(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSession) throws -> Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse
-  func setRateCameraAttitude(request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSession) throws -> Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse
-  func setRateVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSession) throws -> Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse
-  func setRateGpsInfo(request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSession) throws -> Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse
-  func setRateBattery(request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySession) throws -> Mavsdk_Rpc_Telemetry_SetRateBatteryResponse
-  func setRateRcStatus(request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSession) throws -> Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse
-  func setRateActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSession) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse
-  func setRateActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSession) throws -> Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse
-  func setRateOdometry(request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySession) throws -> Mavsdk_Rpc_Telemetry_SetRateOdometryResponse
-  func setRatePositionVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSession) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse
-  func setRateGroundTruth(request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSession) throws -> Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse
-  func setRateFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSession) throws -> Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse
-  func setRateImu(request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSession) throws -> Mavsdk_Rpc_Telemetry_SetRateImuResponse
-  func setRateUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession) throws -> Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProvider {
+  /// Subscribe to 'position' updates.
+  func subscribePosition(request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_PositionResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'home position' updates.
+  func subscribeHome(request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HomeResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to in-air updates.
+  func subscribeInAir(request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_InAirResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to landed state updates
+  func subscribeLandedState(request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_LandedStateResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to armed updates.
+  func subscribeArmed(request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ArmedResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'attitude' updates (quaternion).
+  func subscribeAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'attitude' updates (Euler).
+  func subscribeAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'attitude' updates (angular velocity)
+  func subscribeAttitudeAngularVelocityBody(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'camera attitude' updates (quaternion).
+  func subscribeCameraAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'camera attitude' updates (Euler).
+  func subscribeCameraAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'ground speed' updates (NED).
+  func subscribeVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_VelocityNedResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'GPS info' updates.
+  func subscribeGpsInfo(request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_GpsInfoResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'battery' updates.
+  func subscribeBattery(request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_BatteryResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'flight mode' updates.
+  func subscribeFlightMode(request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_FlightModeResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'health' updates.
+  func subscribeHealth(request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HealthResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'RC status' updates.
+  func subscribeRcStatus(request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_RcStatusResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'status text' updates.
+  func subscribeStatusText(request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_StatusTextResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'actuator control target' updates.
+  func subscribeActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'actuator output status' updates.
+  func subscribeActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'odometry' updates.
+  func subscribeOdometry(request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_OdometryResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'position velocity' updates.
+  func subscribePositionVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'ground truth' updates.
+  func subscribeGroundTruth(request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_GroundTruthResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'fixedwing metrics' updates.
+  func subscribeFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'IMU' updates.
+  func subscribeImu(request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ImuResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'HealthAllOk' updates.
+  func subscribeHealthAllOk(request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'unix epoch time' updates.
+  func subscribeUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Set rate to 'position' updates.
+  func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
+  /// Set rate to 'home position' updates.
+  func setRateHome(request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateHomeResponse>
+  /// Set rate to in-air updates.
+  func setRateInAir(request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateInAirResponse>
+  /// Set rate to landed state updates
+  func setRateLandedState(request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
+  /// Set rate to 'attitude' updates.
+  func setRateAttitude(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
+  /// Set rate of camera attitude updates.
+  func setRateCameraAttitude(request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
+  /// Set rate to 'ground speed' updates (NED).
+  func setRateVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>
+  /// Set rate to 'GPS info' updates.
+  func setRateGpsInfo(request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>
+  /// Set rate to 'battery' updates.
+  func setRateBattery(request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>
+  /// Set rate to 'RC status' updates.
+  func setRateRcStatus(request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>
+  /// Set rate to 'actuator control target' updates.
+  func setRateActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>
+  /// Set rate to 'actuator output status' updates.
+  func setRateActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>
+  /// Set rate to 'odometry' updates.
+  func setRateOdometry(request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>
+  /// Set rate to 'position velocity' updates.
+  func setRatePositionVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>
+  /// Set rate to 'ground truth' updates.
+  func setRateGroundTruth(request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>
+  /// Set rate to 'fixedwing metrics' updates.
+  func setRateFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>
+  /// Set rate to 'IMU' updates.
+  func setRateImu(request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateImuResponse>
+  /// Set rate to 'unix epoch time' updates.
+  func setRateUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
 }
 
 extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.telemetry.TelemetryService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribePosition(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeHome(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeInAir(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeLandedState(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeArmed(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeAttitudeQuaternion(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeAttitudeEuler(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeAttitudeAngularVelocityBody(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeCameraAttitudeQuaternion(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeCameraAttitudeEuler(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeVelocityNed(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeGpsInfo(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeBattery(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeFlightMode(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeHealth(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeRcStatus(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeStatusText(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeActuatorControlTarget(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeActuatorOutputStatus(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeOdometry(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribePositionVelocityNed(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeGroundTruth(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeFixedwingMetrics(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeImu(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeHealthAllOk(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSessionBase(
-        handler: handler,
-        providerBlock: { try self.subscribeUnixEpochTime(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRatePosition(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateHome(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateInAir(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateLandedState(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateAttitude(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateCameraAttitude(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateVelocityNed(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateGpsInfo(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateBattery(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateRcStatus(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateActuatorControlTarget(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateActuatorOutputStatus(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateOdometry(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRatePositionVelocityNed(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateGroundTruth(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateFixedwingMetrics(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateImu(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSessionBase) })
-          .run()
-    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime":
-      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionBase(
-        handler: handler,
-        providerBlock: { try self.setRateUnixEpochTime(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "SubscribePosition":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribePosition(request: request, context: context)
+        }
+      }
+
+    case "SubscribeHome":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeHome(request: request, context: context)
+        }
+      }
+
+    case "SubscribeInAir":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeInAir(request: request, context: context)
+        }
+      }
+
+    case "SubscribeLandedState":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeLandedState(request: request, context: context)
+        }
+      }
+
+    case "SubscribeArmed":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeArmed(request: request, context: context)
+        }
+      }
+
+    case "SubscribeAttitudeQuaternion":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeAttitudeQuaternion(request: request, context: context)
+        }
+      }
+
+    case "SubscribeAttitudeEuler":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeAttitudeEuler(request: request, context: context)
+        }
+      }
+
+    case "SubscribeAttitudeAngularVelocityBody":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeAttitudeAngularVelocityBody(request: request, context: context)
+        }
+      }
+
+    case "SubscribeCameraAttitudeQuaternion":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeCameraAttitudeQuaternion(request: request, context: context)
+        }
+      }
+
+    case "SubscribeCameraAttitudeEuler":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeCameraAttitudeEuler(request: request, context: context)
+        }
+      }
+
+    case "SubscribeVelocityNed":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeVelocityNed(request: request, context: context)
+        }
+      }
+
+    case "SubscribeGpsInfo":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeGpsInfo(request: request, context: context)
+        }
+      }
+
+    case "SubscribeBattery":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeBattery(request: request, context: context)
+        }
+      }
+
+    case "SubscribeFlightMode":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeFlightMode(request: request, context: context)
+        }
+      }
+
+    case "SubscribeHealth":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeHealth(request: request, context: context)
+        }
+      }
+
+    case "SubscribeRcStatus":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeRcStatus(request: request, context: context)
+        }
+      }
+
+    case "SubscribeStatusText":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeStatusText(request: request, context: context)
+        }
+      }
+
+    case "SubscribeActuatorControlTarget":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeActuatorControlTarget(request: request, context: context)
+        }
+      }
+
+    case "SubscribeActuatorOutputStatus":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeActuatorOutputStatus(request: request, context: context)
+        }
+      }
+
+    case "SubscribeOdometry":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeOdometry(request: request, context: context)
+        }
+      }
+
+    case "SubscribePositionVelocityNed":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribePositionVelocityNed(request: request, context: context)
+        }
+      }
+
+    case "SubscribeGroundTruth":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeGroundTruth(request: request, context: context)
+        }
+      }
+
+    case "SubscribeFixedwingMetrics":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeFixedwingMetrics(request: request, context: context)
+        }
+      }
+
+    case "SubscribeImu":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeImu(request: request, context: context)
+        }
+      }
+
+    case "SubscribeHealthAllOk":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeHealthAllOk(request: request, context: context)
+        }
+      }
+
+    case "SubscribeUnixEpochTime":
+      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeUnixEpochTime(request: request, context: context)
+        }
+      }
+
+    case "SetRatePosition":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRatePosition(request: request, context: context)
+        }
+      }
+
+    case "SetRateHome":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateHome(request: request, context: context)
+        }
+      }
+
+    case "SetRateInAir":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateInAir(request: request, context: context)
+        }
+      }
+
+    case "SetRateLandedState":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateLandedState(request: request, context: context)
+        }
+      }
+
+    case "SetRateAttitude":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateAttitude(request: request, context: context)
+        }
+      }
+
+    case "SetRateCameraAttitude":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateCameraAttitude(request: request, context: context)
+        }
+      }
+
+    case "SetRateVelocityNed":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateVelocityNed(request: request, context: context)
+        }
+      }
+
+    case "SetRateGpsInfo":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateGpsInfo(request: request, context: context)
+        }
+      }
+
+    case "SetRateBattery":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateBattery(request: request, context: context)
+        }
+      }
+
+    case "SetRateRcStatus":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateRcStatus(request: request, context: context)
+        }
+      }
+
+    case "SetRateActuatorControlTarget":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateActuatorControlTarget(request: request, context: context)
+        }
+      }
+
+    case "SetRateActuatorOutputStatus":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateActuatorOutputStatus(request: request, context: context)
+        }
+      }
+
+    case "SetRateOdometry":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateOdometry(request: request, context: context)
+        }
+      }
+
+    case "SetRatePositionVelocityNed":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRatePositionVelocityNed(request: request, context: context)
+        }
+      }
+
+    case "SetRateGroundTruth":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateGroundTruth(request: request, context: context)
+        }
+      }
+
+    case "SetRateFixedwingMetrics":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateFixedwingMetrics(request: request, context: context)
+        }
+      }
+
+    case "SetRateImu":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateImu(request: request, context: context)
+        }
+      }
+
+    case "SetRateUnixEpochTime":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateUnixEpochTime(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_PositionResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_PositionResponse, timeout: DispatchTime) throws
 
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_PositionResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_PositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_HomeResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_HomeResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_HomeResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_HomeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHomeSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_InAirResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_InAirResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_InAirResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_InAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeInAirSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_LandedStateResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_LandedStateResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_LandedStateResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_LandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeLandedStateSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ArmedResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_ArmedResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ArmedResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ArmedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeArmedSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeQuaternionSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeEulerResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_AttitudeEulerResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeEulerResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeEulerSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeAttitudeAngularVelocityBodySession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeQuaternionSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeCameraAttitudeEulerSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_VelocityNedResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_VelocityNedResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_VelocityNedResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_VelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeVelocityNedSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_GpsInfoResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_GpsInfoResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_GpsInfoResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_GpsInfoResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGpsInfoSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_BatteryResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_BatteryResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_BatteryResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_BatteryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeBatterySession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_FlightModeResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_FlightModeResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_FlightModeResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_FlightModeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFlightModeSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_HealthResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_HealthResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_HealthResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_HealthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_RcStatusResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_RcStatusResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_RcStatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_RcStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeRcStatusSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_StatusTextResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_StatusTextResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_StatusTextResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_StatusTextResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeStatusTextSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorControlTargetSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeActuatorOutputStatusSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_OdometryResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_OdometryResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_OdometryResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_OdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeOdometrySession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionVelocityNedSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_GroundTruthResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_GroundTruthResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_GroundTruthResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_GroundTruthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeGroundTruthSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeFixedwingMetricsSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ImuResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_ImuResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_ImuResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_ImuResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_HealthAllOkResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_HealthAllOkResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_HealthAllOkResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession: ServerSessionServerStreaming {
-  /// Send a message to the stream. Nonblocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse, completion: @escaping (Error?) -> Void) throws
-  /// Do not call this directly, call `send()` in the protocol extension below instead.
-  func _send(_ message: Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse, timeout: DispatchTime) throws
-
-  /// Close the connection and send the status. Non-blocking.
-  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
-  /// otherwise SwiftGRPC will take care of sending the status for you.
-  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
-}
-
-internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession {
-  /// Send a message to the stream and wait for the send operation to finish. Blocking.
-  func send(_ message: Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
-}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateLandedStateSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateAttitudeSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateCameraAttitudeSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateVelocityNedSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGpsInfoSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateBatterySession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateRcStatusSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorControlTargetSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateActuatorOutputStatusSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateOdometrySession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionVelocityNedSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateGroundTruthSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSession {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_Telemetry_SubscribePositionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_PositionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeHomeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_HomeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeInAirRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_InAirResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_LandedStateResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeArmedRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_ArmedResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_AttitudeEulerResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_VelocityNedResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_GpsInfoResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_BatteryResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_FlightModeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeHealthRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_HealthResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_RcStatusResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_StatusTextResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_OdometryResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_GroundTruthResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeImuRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_ImuResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_HealthAllOkResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRatePositionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRatePositionResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateHomeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateHomeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateInAirRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateInAirResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateBatteryRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateBatteryResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateOdometryRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateOdometryResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateImuRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateImuResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse: GRPCProtobufPayload {}
 

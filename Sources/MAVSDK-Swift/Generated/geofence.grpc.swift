@@ -20,106 +20,81 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>, Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall {
-  override class var method: String { return "/mavsdk.rpc.geofence.GeofenceService/UploadGeofence" }
+/// Usage: instantiate Mavsdk_Rpc_Geofence_GeofenceServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
+  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>
 }
 
+internal final class Mavsdk_Rpc_Geofence_GeofenceServiceClient: GRPCClient, Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
 
-/// Instantiate Mavsdk_Rpc_Geofence_GeofenceServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceService: ServiceClient {
-  /// Synchronous. Unary.
-  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Geofence_UploadGeofenceResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Geofence_UploadGeofenceResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall
-
-}
-
-internal extension Mavsdk_Rpc_Geofence_GeofenceServiceService {
-  /// Synchronous. Unary.
-  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest) throws -> Mavsdk_Rpc_Geofence_UploadGeofenceResponse {
-    return try self.uploadGeofence(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, completion: @escaping (Mavsdk_Rpc_Geofence_UploadGeofenceResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall {
-    return try self.uploadGeofence(request, metadata: self.metadata, completion: completion)
+  /// Creates a client for the mavsdk.rpc.geofence.GeofenceService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
   }
 
-}
-
-internal final class Mavsdk_Rpc_Geofence_GeofenceServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Geofence_GeofenceServiceService {
-  /// Synchronous. Unary.
-  internal func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Geofence_UploadGeofenceResponse {
-    return try Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Geofence_UploadGeofenceResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall {
-    return try Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall {
-  override class var method: String { return "/mavsdk.rpc.geofence.GeofenceService/UploadGeofence" }
-}
-
-class Mavsdk_Rpc_Geofence_GeofenceServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Geofence_GeofenceServiceService {
-  var uploadGeofenceRequests: [Mavsdk_Rpc_Geofence_UploadGeofenceRequest] = []
-  var uploadGeofenceResponses: [Mavsdk_Rpc_Geofence_UploadGeofenceResponse] = []
-  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Geofence_UploadGeofenceResponse {
-    uploadGeofenceRequests.append(request)
-    defer { uploadGeofenceResponses.removeFirst() }
-    return uploadGeofenceResponses.first!
-  }
-  @discardableResult
-  func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Geofence_UploadGeofenceResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCall {
-    let response = try self.uploadGeofence(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceCallTestStub()
+  ///
+  /// Upload a geofence.
+  ///
+  /// Polygons are uploaded to a drone. Once uploaded, the geofence will remain
+  /// on the drone even if a connection is lost.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UploadGeofence.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func uploadGeofence(_ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.geofence.GeofenceService/UploadGeofence",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceProvider: ServiceProvider {
-  func uploadGeofence(request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, session: Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSession) throws -> Mavsdk_Rpc_Geofence_UploadGeofenceResponse
+internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceProvider: CallHandlerProvider {
+  ///
+  /// Upload a geofence.
+  ///
+  /// Polygons are uploaded to a drone. Once uploaded, the geofence will remain
+  /// on the drone even if a connection is lost.
+  func uploadGeofence(request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Geofence_UploadGeofenceResponse>
 }
 
 extension Mavsdk_Rpc_Geofence_GeofenceServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.geofence.GeofenceService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.geofence.GeofenceService/UploadGeofence":
-      return try Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSessionBase(
-        handler: handler,
-        providerBlock: { try self.uploadGeofence(request: $0, session: $1 as! Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "UploadGeofence":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.uploadGeofence(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>, Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSession {}
-
-class Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Geofence_GeofenceServiceUploadGeofenceSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_Geofence_UploadGeofenceRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Geofence_UploadGeofenceResponse: GRPCProtobufPayload {}
 

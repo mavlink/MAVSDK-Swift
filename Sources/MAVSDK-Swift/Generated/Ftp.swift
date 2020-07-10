@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Ftp {
-    private let service: Mavsdk_Rpc_Ftp_FtpServiceService
+    private let service: Mavsdk_Rpc_Ftp_FtpServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Ftp_FtpServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Ftp_FtpServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Ftp_FtpServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Ftp_FtpServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeFtpError: Error {
@@ -198,12 +203,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.reset(request)
+                let response = self.service.reset(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -230,49 +236,28 @@ public class Ftp {
                 
             
 
-            do {
-                let call = try self.service.subscribeDownload(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeFtpError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeDownload(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let download = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let download = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = FtpResult.translateFromRpc(response.ftpResult)
+                
+                let result = FtpResult.translateFromRpc(response.ftpResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(download)
-                        default:
-                            observer.onError(FtpError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(download)
+                default:
+                    observer.onError(FtpError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -298,49 +283,28 @@ public class Ftp {
                 
             
 
-            do {
-                let call = try self.service.subscribeUpload(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeFtpError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeUpload(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let upload = ProgressData.translateFromRpc(response.progressData)
-                        
+                
+                     
+                let upload = ProgressData.translateFromRpc(response.progressData)
+                
 
-                        
-                        let result = FtpResult.translateFromRpc(response.ftpResult)
+                
+                let result = FtpResult.translateFromRpc(response.ftpResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(upload)
-                        default:
-                            observer.onError(FtpError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(upload)
+                default:
+                    observer.onError(FtpError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -361,17 +325,18 @@ public class Ftp {
             
 
             do {
-                let response = try self.service.listDirectory(request)
+                let response = self.service.listDirectory(request)
 
                 
-                if (response.ftpResult.result != Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
-                    single(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                let result = try response.response.wait().ftpResult
+                if (result.result != Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                    single(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let paths = response.paths
+    	    let paths = try response.response.wait().paths
                 
                 single(.success(paths))
             } catch {
@@ -394,12 +359,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.createDirectory(request)
+                let response = self.service.createDirectory(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -422,12 +388,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.removeDirectory(request)
+                let response = self.service.removeDirectory(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -450,12 +417,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.removeFile(request)
+                let response = self.service.removeFile(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -482,12 +450,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.rename(request)
+                let response = self.service.rename(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -513,17 +482,18 @@ public class Ftp {
             
 
             do {
-                let response = try self.service.areFilesIdentical(request)
+                let response = self.service.areFilesIdentical(request)
 
                 
-                if (response.ftpResult.result != Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
-                    single(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                let result = try response.response.wait().ftpResult
+                if (result.result != Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                    single(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let areIdentical = response.areIdentical
+    	    let areIdentical = try response.response.wait().areIdentical
                 
                 single(.success(areIdentical))
             } catch {
@@ -546,12 +516,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.setRootDirectory(request)
+                let response = self.service.setRootDirectory(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -574,12 +545,13 @@ public class Ftp {
 
             do {
                 
-                let response = try self.service.setTargetCompid(request)
+                let response = self.service.setTargetCompid(request)
 
-                if (response.ftpResult.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
+                let result = try response.response.wait().ftpResult
+                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(response.ftpResult.result), description: response.ftpResult.resultStr)))
+                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -597,11 +569,11 @@ public class Ftp {
             
 
             do {
-                let response = try self.service.getOurCompid(request)
+                let response = self.service.getOurCompid(request)
 
                 
 
-                let compid = response.compid
+    	    let compid = try response.response.wait().compid
                 
                 single(.success(compid))
             } catch {

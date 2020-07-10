@@ -20,301 +20,145 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Dispatch
 import Foundation
-import SwiftGRPC
+import GRPC
+import NIO
+import NIOHTTP1
 import SwiftProtobuf
 
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall: ClientCallUnary {}
 
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Info_GetFlightInformationRequest, Mavsdk_Rpc_Info_GetFlightInformationResponse>, Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetFlightInformation" }
+/// Usage: instantiate Mavsdk_Rpc_Info_InfoServiceClient, then call methods of this protocol to make API calls.
+internal protocol Mavsdk_Rpc_Info_InfoServiceClientProtocol {
+  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Info_GetFlightInformationRequest, Mavsdk_Rpc_Info_GetFlightInformationResponse>
+  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Info_GetIdentificationRequest, Mavsdk_Rpc_Info_GetIdentificationResponse>
+  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Info_GetProductRequest, Mavsdk_Rpc_Info_GetProductResponse>
+  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>
 }
 
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall: ClientCallUnary {}
+internal final class Mavsdk_Rpc_Info_InfoServiceClient: GRPCClient, Mavsdk_Rpc_Info_InfoServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
 
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetIdentificationCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Info_GetIdentificationRequest, Mavsdk_Rpc_Info_GetIdentificationResponse>, Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetIdentification" }
-}
-
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetProductCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetProductCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Info_GetProductRequest, Mavsdk_Rpc_Info_GetProductResponse>, Mavsdk_Rpc_Info_InfoServiceGetProductCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetProduct" }
-}
-
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetVersionCall: ClientCallUnary {}
-
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>, Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
-}
-
-
-/// Instantiate Mavsdk_Rpc_Info_InfoServiceServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Info_InfoServiceService: ServiceClient {
-  /// Synchronous. Unary.
-  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetFlightInformationResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetFlightInformationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall
-
-  /// Synchronous. Unary.
-  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetIdentificationResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetIdentificationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall
-
-  /// Synchronous. Unary.
-  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetProductResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetProductResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetProductCall
-
-  /// Synchronous. Unary.
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall
-
-}
-
-internal extension Mavsdk_Rpc_Info_InfoServiceService {
-  /// Synchronous. Unary.
-  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest) throws -> Mavsdk_Rpc_Info_GetFlightInformationResponse {
-    return try self.getFlightInformation(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, completion: @escaping (Mavsdk_Rpc_Info_GetFlightInformationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall {
-    return try self.getFlightInformation(request, metadata: self.metadata, completion: completion)
+  /// Creates a client for the mavsdk.rpc.info.InfoService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
   }
 
-  /// Synchronous. Unary.
-  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest) throws -> Mavsdk_Rpc_Info_GetIdentificationResponse {
-    return try self.getIdentification(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, completion: @escaping (Mavsdk_Rpc_Info_GetIdentificationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall {
-    return try self.getIdentification(request, metadata: self.metadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest) throws -> Mavsdk_Rpc_Info_GetProductResponse {
-    return try self.getProduct(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, completion: @escaping (Mavsdk_Rpc_Info_GetProductResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetProductCall {
-    return try self.getProduct(request, metadata: self.metadata, completion: completion)
+  /// Get flight information of the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetFlightInformation.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Info_GetFlightInformationRequest, Mavsdk_Rpc_Info_GetFlightInformationResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.info.InfoService/GetFlightInformation",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
-    return try self.getVersion(request, metadata: self.metadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-    return try self.getVersion(request, metadata: self.metadata, completion: completion)
-  }
-
-}
-
-internal final class Mavsdk_Rpc_Info_InfoServiceServiceClient: ServiceClientBase, Mavsdk_Rpc_Info_InfoServiceService {
-  /// Synchronous. Unary.
-  internal func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetFlightInformationResponse {
-    return try Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetFlightInformationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall {
-    return try Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  /// Get the identification of the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetIdentification.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Info_GetIdentificationRequest, Mavsdk_Rpc_Info_GetIdentificationResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.info.InfoService/GetIdentification",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  internal func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetIdentificationResponse {
-    return try Mavsdk_Rpc_Info_InfoServiceGetIdentificationCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetIdentificationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall {
-    return try Mavsdk_Rpc_Info_InfoServiceGetIdentificationCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-  /// Synchronous. Unary.
-  internal func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetProductResponse {
-    return try Mavsdk_Rpc_Info_InfoServiceGetProductCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetProductResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetProductCall {
-    return try Mavsdk_Rpc_Info_InfoServiceGetProductCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
+  /// Get product information of the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetProduct.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Info_GetProductRequest, Mavsdk_Rpc_Info_GetProductResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.info.InfoService/GetProduct",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
-  /// Synchronous. Unary.
-  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
-    return try Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
-      .run(request: request, metadata: customMetadata)
-  }
-  /// Asynchronous. Unary.
-  @discardableResult
-  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-    return try Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase(channel)
-      .start(request: request, metadata: customMetadata, completion: completion)
-  }
-
-}
-
-class Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetFlightInformation" }
-}
-
-class Mavsdk_Rpc_Info_InfoServiceGetIdentificationCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetIdentification" }
-}
-
-class Mavsdk_Rpc_Info_InfoServiceGetProductCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetProductCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetProduct" }
-}
-
-class Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
-}
-
-class Mavsdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Info_InfoServiceService {
-  var getFlightInformationRequests: [Mavsdk_Rpc_Info_GetFlightInformationRequest] = []
-  var getFlightInformationResponses: [Mavsdk_Rpc_Info_GetFlightInformationResponse] = []
-  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetFlightInformationResponse {
-    getFlightInformationRequests.append(request)
-    defer { getFlightInformationResponses.removeFirst() }
-    return getFlightInformationResponses.first!
-  }
-  @discardableResult
-  func getFlightInformation(_ request: Mavsdk_Rpc_Info_GetFlightInformationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetFlightInformationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall {
-    let response = try self.getFlightInformation(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCallTestStub()
-  }
-
-  var getIdentificationRequests: [Mavsdk_Rpc_Info_GetIdentificationRequest] = []
-  var getIdentificationResponses: [Mavsdk_Rpc_Info_GetIdentificationResponse] = []
-  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetIdentificationResponse {
-    getIdentificationRequests.append(request)
-    defer { getIdentificationResponses.removeFirst() }
-    return getIdentificationResponses.first!
-  }
-  @discardableResult
-  func getIdentification(_ request: Mavsdk_Rpc_Info_GetIdentificationRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetIdentificationResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetIdentificationCall {
-    let response = try self.getIdentification(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Info_InfoServiceGetIdentificationCallTestStub()
-  }
-
-  var getProductRequests: [Mavsdk_Rpc_Info_GetProductRequest] = []
-  var getProductResponses: [Mavsdk_Rpc_Info_GetProductResponse] = []
-  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetProductResponse {
-    getProductRequests.append(request)
-    defer { getProductResponses.removeFirst() }
-    return getProductResponses.first!
-  }
-  @discardableResult
-  func getProduct(_ request: Mavsdk_Rpc_Info_GetProductRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetProductResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetProductCall {
-    let response = try self.getProduct(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Info_InfoServiceGetProductCallTestStub()
-  }
-
-  var getVersionRequests: [Mavsdk_Rpc_Info_GetVersionRequest] = []
-  var getVersionResponses: [Mavsdk_Rpc_Info_GetVersionResponse] = []
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetVersionResponse {
-    getVersionRequests.append(request)
-    defer { getVersionResponses.removeFirst() }
-    return getVersionResponses.first!
-  }
-  @discardableResult
-  func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
-    let response = try self.getVersion(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub()
+  /// Get the version information of the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetVersion.
+  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse> {
+    return self.makeUnaryCall(path: "/mavsdk.rpc.info.InfoService/GetVersion",
+                              request: request,
+                              callOptions: callOptions ?? self.defaultCallOptions)
   }
 
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-/// If one of the methods returning `ServerStatus?` returns nil,
-/// it is expected that you have already returned a status to the client by means of `session.close`.
-internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: ServiceProvider {
-  func getFlightInformation(request: Mavsdk_Rpc_Info_GetFlightInformationRequest, session: Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSession) throws -> Mavsdk_Rpc_Info_GetFlightInformationResponse
-  func getIdentification(request: Mavsdk_Rpc_Info_GetIdentificationRequest, session: Mavsdk_Rpc_Info_InfoServiceGetIdentificationSession) throws -> Mavsdk_Rpc_Info_GetIdentificationResponse
-  func getProduct(request: Mavsdk_Rpc_Info_GetProductRequest, session: Mavsdk_Rpc_Info_InfoServiceGetProductSession) throws -> Mavsdk_Rpc_Info_GetProductResponse
-  func getVersion(request: Mavsdk_Rpc_Info_GetVersionRequest, session: Mavsdk_Rpc_Info_InfoServiceGetVersionSession) throws -> Mavsdk_Rpc_Info_GetVersionResponse
+internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: CallHandlerProvider {
+  /// Get flight information of the system.
+  func getFlightInformation(request: Mavsdk_Rpc_Info_GetFlightInformationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetFlightInformationResponse>
+  /// Get the identification of the system.
+  func getIdentification(request: Mavsdk_Rpc_Info_GetIdentificationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetIdentificationResponse>
+  /// Get product information of the system.
+  func getProduct(request: Mavsdk_Rpc_Info_GetProductRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetProductResponse>
+  /// Get the version information of the system.
+  func getVersion(request: Mavsdk_Rpc_Info_GetVersionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetVersionResponse>
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceProvider {
   internal var serviceName: String { return "mavsdk.rpc.info.InfoService" }
 
-  /// Determines and calls the appropriate request handler, depending on the request's method.
-  /// Throws `HandleMethodError.unknownMethod` for methods not handled by this service.
-  internal func handleMethod(_ method: String, handler: Handler) throws -> ServerStatus? {
-    switch method {
-    case "/mavsdk.rpc.info.InfoService/GetFlightInformation":
-      return try Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSessionBase(
-        handler: handler,
-        providerBlock: { try self.getFlightInformation(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSessionBase) })
-          .run()
-    case "/mavsdk.rpc.info.InfoService/GetIdentification":
-      return try Mavsdk_Rpc_Info_InfoServiceGetIdentificationSessionBase(
-        handler: handler,
-        providerBlock: { try self.getIdentification(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetIdentificationSessionBase) })
-          .run()
-    case "/mavsdk.rpc.info.InfoService/GetProduct":
-      return try Mavsdk_Rpc_Info_InfoServiceGetProductSessionBase(
-        handler: handler,
-        providerBlock: { try self.getProduct(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetProductSessionBase) })
-          .run()
-    case "/mavsdk.rpc.info.InfoService/GetVersion":
-      return try Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase(
-        handler: handler,
-        providerBlock: { try self.getVersion(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase) })
-          .run()
-    default:
-      throw HandleMethodError.unknownMethod
+  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+  /// Returns nil for methods not handled by this service.
+  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+    switch methodName {
+    case "GetFlightInformation":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getFlightInformation(request: request, context: context)
+        }
+      }
+
+    case "GetIdentification":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getIdentification(request: request, context: context)
+        }
+      }
+
+    case "GetProduct":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getProduct(request: request, context: context)
+        }
+      }
+
+    case "GetVersion":
+      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getVersion(request: request, context: context)
+        }
+      }
+
+    default: return nil
     }
   }
 }
 
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSession: ServerSessionUnary {}
 
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetFlightInformationRequest, Mavsdk_Rpc_Info_GetFlightInformationResponse>, Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSession {}
-
-class Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetFlightInformationSession {}
-
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetIdentificationSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetIdentificationSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetIdentificationRequest, Mavsdk_Rpc_Info_GetIdentificationResponse>, Mavsdk_Rpc_Info_InfoServiceGetIdentificationSession {}
-
-class Mavsdk_Rpc_Info_InfoServiceGetIdentificationSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetIdentificationSession {}
-
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetProductSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetProductSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetProductRequest, Mavsdk_Rpc_Info_GetProductResponse>, Mavsdk_Rpc_Info_InfoServiceGetProductSession {}
-
-class Mavsdk_Rpc_Info_InfoServiceGetProductSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetProductSession {}
-
-internal protocol Mavsdk_Rpc_Info_InfoServiceGetVersionSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>, Mavsdk_Rpc_Info_InfoServiceGetVersionSession {}
-
-class Mavsdk_Rpc_Info_InfoServiceGetVersionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionSession {}
+// Provides conformance to `GRPCPayload` for request and response messages
+extension Mavsdk_Rpc_Info_GetFlightInformationRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetFlightInformationResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetIdentificationRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetIdentificationResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetProductRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetProductResponse: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetVersionRequest: GRPCProtobufPayload {}
+extension Mavsdk_Rpc_Info_GetVersionResponse: GRPCProtobufPayload {}
 

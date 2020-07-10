@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Core {
-    private let service: Mavsdk_Rpc_Core_CoreServiceService
+    private let service: Mavsdk_Rpc_Core_CoreServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Core_CoreServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Core_CoreServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Core_CoreServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Core_CoreServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeCoreError: Error {
@@ -123,40 +128,19 @@ public class Core {
 
             
 
-            do {
-                let call = try self.service.subscribeConnectionState(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeCoreError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeConnectionState(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let connectionState = ConnectionState.translateFromRpc(response.connectionState)
-                        
+                
+                     
+                let connectionState = ConnectionState.translateFromRpc(response.connectionState)
+                
 
-                        
-                        observer.onNext(connectionState)
-                        
-                    }
-                    
+                
+                observer.onNext(connectionState)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -173,12 +157,12 @@ public class Core {
             
 
             do {
-                let response = try self.service.listRunningPlugins(request)
+                let response = self.service.listRunningPlugins(request)
 
                 
 
-                
-                    let pluginInfo = response.pluginInfo.map{ PluginInfo.translateFromRpc($0) }
+    	    
+                    let pluginInfo = try response.response.wait().pluginInfo.map{ PluginInfo.translateFromRpc($0) }
                 
                 single(.success(pluginInfo))
             } catch {

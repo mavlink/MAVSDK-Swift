@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class LogFiles {
-    private let service: Mavsdk_Rpc_LogFiles_LogFilesServiceService
+    private let service: Mavsdk_Rpc_LogFiles_LogFilesServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_LogFiles_LogFilesServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_LogFiles_LogFilesServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_LogFiles_LogFilesServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_LogFiles_LogFilesServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeLogFilesError: Error {
@@ -209,18 +214,19 @@ public class LogFiles {
             
 
             do {
-                let response = try self.service.getEntries(request)
+                let response = self.service.getEntries(request)
 
                 
-                if (response.logFilesResult.result != Mavsdk_Rpc_LogFiles_LogFilesResult.Result.success) {
-                    single(.error(LogFilesError(code: LogFilesResult.Result.translateFromRpc(response.logFilesResult.result), description: response.logFilesResult.resultStr)))
+                let result = try response.response.wait().logFilesResult
+                if (result.result != Mavsdk_Rpc_LogFiles_LogFilesResult.Result.success) {
+                    single(.error(LogFilesError(code: LogFilesResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                
-                    let entries = response.entries.map{ Entry.translateFromRpc($0) }
+    	    
+                    let entries = try response.response.wait().entries.map{ Entry.translateFromRpc($0) }
                 
                 single(.success(entries))
             } catch {
@@ -247,49 +253,28 @@ public class LogFiles {
                 
             
 
-            do {
-                let call = try self.service.subscribeDownloadLogFile(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeLogFilesError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeDownloadLogFile(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let downloadLogFile = ProgressData.translateFromRpc(response.progress)
-                        
+                
+                     
+                let downloadLogFile = ProgressData.translateFromRpc(response.progress)
+                
 
-                        
-                        let result = LogFilesResult.translateFromRpc(response.logFilesResult)
+                
+                let result = LogFilesResult.translateFromRpc(response.logFilesResult)
 
-                        switch (result.result) {
-                        case .success:
-                            observer.onCompleted()
-                        case .next:
-                            observer.onNext(downloadLogFile)
-                        default:
-                            observer.onError(LogFilesError(code: result.result, description: result.resultStr))
-                        }
-                        
-                    }
-                    
-
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(downloadLogFile)
+                default:
+                    observer.onError(LogFilesError(code: result.result, description: result.resultStr))
                 }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+                
+            })
+
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {

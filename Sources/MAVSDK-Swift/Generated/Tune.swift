@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class Tune {
-    private let service: Mavsdk_Rpc_Tune_TuneServiceService
+    private let service: Mavsdk_Rpc_Tune_TuneServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_Tune_TuneServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_Tune_TuneServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Tune_TuneServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_Tune_TuneServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeTuneError: Error {
@@ -290,12 +295,13 @@ public class Tune {
 
             do {
                 
-                let response = try self.service.playTune(request)
+                let response = self.service.playTune(request)
 
-                if (response.tuneResult.result == Mavsdk_Rpc_Tune_TuneResult.Result.success) {
+                let result = try response.response.wait().tuneResult
+                if (result.result == Mavsdk_Rpc_Tune_TuneResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TuneError(code: TuneResult.Result.translateFromRpc(response.tuneResult.result), description: response.tuneResult.resultStr)))
+                    completable(.error(TuneError(code: TuneResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

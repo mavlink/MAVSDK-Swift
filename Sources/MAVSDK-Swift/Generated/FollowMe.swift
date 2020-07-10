@@ -1,22 +1,27 @@
 import Foundation
 import RxSwift
-import SwiftGRPC
+import GRPC
+import NIO
 
 public class FollowMe {
-    private let service: Mavsdk_Rpc_FollowMe_FollowMeServiceService
+    private let service: Mavsdk_Rpc_FollowMe_FollowMeServiceClient
     private let scheduler: SchedulerType
+    private let clientEventLoopGroup: EventLoopGroup
 
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
-        let service = Mavsdk_Rpc_FollowMe_FollowMeServiceServiceClient(address: "\(address):\(port)", secure: false)
+        let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
+        let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
+        let service = Mavsdk_Rpc_FollowMe_FollowMeServiceClient(channel: channel)
 
-        self.init(service: service, scheduler: scheduler)
+        self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_FollowMe_FollowMeServiceService, scheduler: SchedulerType) {
+    init(service: Mavsdk_Rpc_FollowMe_FollowMeServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
+        self.clientEventLoopGroup = eventLoopGroup
     }
 
     public struct RuntimeFollowMeError: Error {
@@ -312,12 +317,12 @@ public class FollowMe {
             
 
             do {
-                let response = try self.service.getConfig(request)
+                let response = self.service.getConfig(request)
 
                 
 
-                
-                    let config = Config.translateFromRpc(response.config)
+    	    
+                    let config = try Config.translateFromRpc(response.response.wait().config)
                 
                 single(.success(config))
             } catch {
@@ -340,12 +345,13 @@ public class FollowMe {
 
             do {
                 
-                let response = try self.service.setConfig(request)
+                let response = self.service.setConfig(request)
 
-                if (response.followMeResult.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
+                let result = try response.response.wait().followMeResult
+                if (result.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(response.followMeResult.result), description: response.followMeResult.resultStr)))
+                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -363,11 +369,11 @@ public class FollowMe {
             
 
             do {
-                let response = try self.service.isActive(request)
+                let response = self.service.isActive(request)
 
                 
 
-                let isActive = response.isActive
+    	    let isActive = try response.response.wait().isActive
                 
                 single(.success(isActive))
             } catch {
@@ -390,12 +396,13 @@ public class FollowMe {
 
             do {
                 
-                let response = try self.service.setTargetLocation(request)
+                let response = self.service.setTargetLocation(request)
 
-                if (response.followMeResult.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
+                let result = try response.response.wait().followMeResult
+                if (result.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(response.followMeResult.result), description: response.followMeResult.resultStr)))
+                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -413,12 +420,12 @@ public class FollowMe {
             
 
             do {
-                let response = try self.service.getLastLocation(request)
+                let response = self.service.getLastLocation(request)
 
                 
 
-                
-                    let location = TargetLocation.translateFromRpc(response.location)
+    	    
+                    let location = try TargetLocation.translateFromRpc(response.response.wait().location)
                 
                 single(.success(location))
             } catch {
@@ -437,12 +444,13 @@ public class FollowMe {
 
             do {
                 
-                let response = try self.service.start(request)
+                let response = self.service.start(request)
 
-                if (response.followMeResult.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
+                let result = try response.response.wait().followMeResult
+                if (result.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(response.followMeResult.result), description: response.followMeResult.resultStr)))
+                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -461,12 +469,13 @@ public class FollowMe {
 
             do {
                 
-                let response = try self.service.stop(request)
+                let response = self.service.stop(request)
 
-                if (response.followMeResult.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
+                let result = try response.response.wait().followMeResult
+                if (result.result == Mavsdk_Rpc_FollowMe_FollowMeResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(response.followMeResult.result), description: response.followMeResult.resultStr)))
+                    completable(.error(FollowMeError(code: FollowMeResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
