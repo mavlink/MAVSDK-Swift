@@ -2,6 +2,7 @@
 import Foundation
 import RxSwift
 
+/*
 import mavsdk_server
 
 public class MavsdkServer {
@@ -41,4 +42,5 @@ public class MavsdkServer {
         mavsdk_server_stop(self.mavsdkServerHandle!)
     }
 }
+*/
 #endif
