@@ -20,20 +20,67 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Core_CoreServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Core_CoreServiceClientProtocol {
-  func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Core_ConnectionStateResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>
-  func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>
+internal protocol Mavsdk_Rpc_Core_CoreServiceClientProtocol: GRPCClient {
+  func subscribeConnectionState(
+    _ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Core_ConnectionStateResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>
+
+  func listRunningPlugins(
+    _ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Core_CoreServiceClient: GRPCClient, Mavsdk_Rpc_Core_CoreServiceClientProtocol {
+extension Mavsdk_Rpc_Core_CoreServiceClientProtocol {
+
+  /// Subscribe to 'connection state' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeConnectionState.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeConnectionState(
+    _ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Core_ConnectionStateResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.core.CoreService/SubscribeConnectionState",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Get a list of currently running plugins.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ListRunningPlugins.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func listRunningPlugins(
+    _ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.core.CoreService/ListRunningPlugins",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Core_CoreServiceClient: Mavsdk_Rpc_Core_CoreServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -46,33 +93,6 @@ internal final class Mavsdk_Rpc_Core_CoreServiceClient: GRPCClient, Mavsdk_Rpc_C
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  /// Subscribe to 'connection state' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeConnectionState.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeConnectionState(_ request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Core_ConnectionStateResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.core.CoreService/SubscribeConnectionState",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Get a list of currently running plugins.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to ListRunningPlugins.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func listRunningPlugins(_ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.core.CoreService/ListRunningPlugins",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -84,21 +104,21 @@ internal protocol Mavsdk_Rpc_Core_CoreServiceProvider: CallHandlerProvider {
 }
 
 extension Mavsdk_Rpc_Core_CoreServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.core.CoreService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.core.CoreService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "SubscribeConnectionState":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeConnectionState(request: request, context: context)
         }
       }
 
     case "ListRunningPlugins":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.listRunningPlugins(request: request, context: context)
         }
@@ -108,11 +128,4 @@ extension Mavsdk_Rpc_Core_CoreServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Core_SubscribeConnectionStateRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Core_ConnectionStateResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Core_ListRunningPluginsRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Core_ListRunningPluginsResponse: GRPCProtobufPayload {}
 

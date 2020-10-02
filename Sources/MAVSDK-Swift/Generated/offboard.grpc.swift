@@ -20,27 +20,234 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Offboard_OffboardServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
-  func start(_ request: Mavsdk_Rpc_Offboard_StartRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_StartRequest, Mavsdk_Rpc_Offboard_StartResponse>
-  func stop(_ request: Mavsdk_Rpc_Offboard_StopRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_StopRequest, Mavsdk_Rpc_Offboard_StopResponse>
-  func isActive(_ request: Mavsdk_Rpc_Offboard_IsActiveRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_IsActiveRequest, Mavsdk_Rpc_Offboard_IsActiveResponse>
-  func setAttitude(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRequest, Mavsdk_Rpc_Offboard_SetAttitudeResponse>
-  func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_SetActuatorControlRequest, Mavsdk_Rpc_Offboard_SetActuatorControlResponse>
-  func setAttitudeRate(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, Mavsdk_Rpc_Offboard_SetAttitudeRateResponse>
-  func setPositionNed(_ request: Mavsdk_Rpc_Offboard_SetPositionNedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse>
-  func setVelocityBody(_ request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, Mavsdk_Rpc_Offboard_SetVelocityBodyResponse>
-  func setVelocityNed(_ request: Mavsdk_Rpc_Offboard_SetVelocityNedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityNedRequest, Mavsdk_Rpc_Offboard_SetVelocityNedResponse>
+internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol: GRPCClient {
+  func start(
+    _ request: Mavsdk_Rpc_Offboard_StartRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_StartRequest, Mavsdk_Rpc_Offboard_StartResponse>
+
+  func stop(
+    _ request: Mavsdk_Rpc_Offboard_StopRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_StopRequest, Mavsdk_Rpc_Offboard_StopResponse>
+
+  func isActive(
+    _ request: Mavsdk_Rpc_Offboard_IsActiveRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_IsActiveRequest, Mavsdk_Rpc_Offboard_IsActiveResponse>
+
+  func setAttitude(
+    _ request: Mavsdk_Rpc_Offboard_SetAttitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRequest, Mavsdk_Rpc_Offboard_SetAttitudeResponse>
+
+  func setActuatorControl(
+    _ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetActuatorControlRequest, Mavsdk_Rpc_Offboard_SetActuatorControlResponse>
+
+  func setAttitudeRate(
+    _ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, Mavsdk_Rpc_Offboard_SetAttitudeRateResponse>
+
+  func setPositionNed(
+    _ request: Mavsdk_Rpc_Offboard_SetPositionNedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse>
+
+  func setVelocityBody(
+    _ request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, Mavsdk_Rpc_Offboard_SetVelocityBodyResponse>
+
+  func setVelocityNed(
+    _ request: Mavsdk_Rpc_Offboard_SetVelocityNedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityNedRequest, Mavsdk_Rpc_Offboard_SetVelocityNedResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Offboard_OffboardServiceClient: GRPCClient, Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
+extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
+
+  ///
+  /// Start offboard control.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Start.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func start(
+    _ request: Mavsdk_Rpc_Offboard_StartRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_StartRequest, Mavsdk_Rpc_Offboard_StartResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/Start",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Stop offboard control.
+  ///
+  /// The vehicle will be put into Hold mode: https://docs.px4.io/en/flight_modes/hold.html
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Stop.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func stop(
+    _ request: Mavsdk_Rpc_Offboard_StopRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_StopRequest, Mavsdk_Rpc_Offboard_StopResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/Stop",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Check if offboard control is active.
+  ///
+  /// True means that the vehicle is in offboard mode and we are actively sending
+  /// setpoints.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to IsActive.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func isActive(
+    _ request: Mavsdk_Rpc_Offboard_IsActiveRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_IsActiveRequest, Mavsdk_Rpc_Offboard_IsActiveResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/IsActive",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set the attitude in terms of roll, pitch and yaw in degrees with thrust.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetAttitude.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setAttitude(
+    _ request: Mavsdk_Rpc_Offboard_SetAttitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRequest, Mavsdk_Rpc_Offboard_SetAttitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetAttitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set direct actuator control values to groups #0 and #1.
+  ///
+  /// First 8 controls will go to control group 0, the following 8 controls to control group 1 (if
+  /// actuator_control.num_controls more than 8).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetActuatorControl.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setActuatorControl(
+    _ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetActuatorControlRequest, Mavsdk_Rpc_Offboard_SetActuatorControlResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetActuatorControl",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set the attitude rate in terms of pitch, roll and yaw angular rate along with thrust.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetAttitudeRate.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setAttitudeRate(
+    _ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, Mavsdk_Rpc_Offboard_SetAttitudeRateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetAttitudeRate",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set the position in NED coordinates and yaw.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetPositionNed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setPositionNed(
+    _ request: Mavsdk_Rpc_Offboard_SetPositionNedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetPositionNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set the velocity in body coordinates and yaw angular rate.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetVelocityBody.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setVelocityBody(
+    _ request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, Mavsdk_Rpc_Offboard_SetVelocityBodyResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetVelocityBody",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set the velocity in NED coordinates and yaw.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetVelocityNed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setVelocityNed(
+    _ request: Mavsdk_Rpc_Offboard_SetVelocityNedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityNedRequest, Mavsdk_Rpc_Offboard_SetVelocityNedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetVelocityNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Offboard_OffboardServiceClient: Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -53,132 +260,6 @@ internal final class Mavsdk_Rpc_Offboard_OffboardServiceClient: GRPCClient, Mavs
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  ///
-  /// Start offboard control.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Start.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func start(_ request: Mavsdk_Rpc_Offboard_StartRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_StartRequest, Mavsdk_Rpc_Offboard_StartResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/Start",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Stop offboard control.
-  ///
-  /// The vehicle will be put into Hold mode: https://docs.px4.io/en/flight_modes/hold.html
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Stop.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func stop(_ request: Mavsdk_Rpc_Offboard_StopRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_StopRequest, Mavsdk_Rpc_Offboard_StopResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/Stop",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Check if offboard control is active.
-  ///
-  /// True means that the vehicle is in offboard mode and we are actively sending
-  /// setpoints.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to IsActive.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func isActive(_ request: Mavsdk_Rpc_Offboard_IsActiveRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_IsActiveRequest, Mavsdk_Rpc_Offboard_IsActiveResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/IsActive",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set the attitude in terms of roll, pitch and yaw in degrees with thrust.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetAttitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setAttitude(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRequest, Mavsdk_Rpc_Offboard_SetAttitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/SetAttitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set direct actuator control values to groups #0 and #1.
-  ///
-  /// First 8 controls will go to control group 0, the following 8 controls to control group 1 (if
-  /// actuator_control.num_controls more than 8).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetActuatorControl.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setActuatorControl(_ request: Mavsdk_Rpc_Offboard_SetActuatorControlRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_SetActuatorControlRequest, Mavsdk_Rpc_Offboard_SetActuatorControlResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/SetActuatorControl",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set the attitude rate in terms of pitch, roll and yaw angular rate along with thrust.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetAttitudeRate.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setAttitudeRate(_ request: Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAttitudeRateRequest, Mavsdk_Rpc_Offboard_SetAttitudeRateResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/SetAttitudeRate",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set the position in NED coordinates and yaw.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetPositionNed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setPositionNed(_ request: Mavsdk_Rpc_Offboard_SetPositionNedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/SetPositionNed",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set the velocity in body coordinates and yaw angular rate.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetVelocityBody.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setVelocityBody(_ request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, Mavsdk_Rpc_Offboard_SetVelocityBodyResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/SetVelocityBody",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set the velocity in NED coordinates and yaw.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetVelocityNed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setVelocityNed(_ request: Mavsdk_Rpc_Offboard_SetVelocityNedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityNedRequest, Mavsdk_Rpc_Offboard_SetVelocityNedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.offboard.OffboardService/SetVelocityNed",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -221,70 +302,70 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceProvider: CallHandlerProvid
 }
 
 extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.offboard.OffboardService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.offboard.OffboardService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "Start":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.start(request: request, context: context)
         }
       }
 
     case "Stop":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.stop(request: request, context: context)
         }
       }
 
     case "IsActive":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.isActive(request: request, context: context)
         }
       }
 
     case "SetAttitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setAttitude(request: request, context: context)
         }
       }
 
     case "SetActuatorControl":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setActuatorControl(request: request, context: context)
         }
       }
 
     case "SetAttitudeRate":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setAttitudeRate(request: request, context: context)
         }
       }
 
     case "SetPositionNed":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setPositionNed(request: request, context: context)
         }
       }
 
     case "SetVelocityBody":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setVelocityBody(request: request, context: context)
         }
       }
 
     case "SetVelocityNed":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setVelocityNed(request: request, context: context)
         }
@@ -294,25 +375,4 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Offboard_StartRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_StartResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_StopRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_StopResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_IsActiveRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_IsActiveResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetAttitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetAttitudeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetActuatorControlRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetActuatorControlResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetAttitudeRateRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetAttitudeRateResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetPositionNedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetPositionNedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetVelocityBodyRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetVelocityBodyResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetVelocityNedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Offboard_SetVelocityNedResponse: GRPCProtobufPayload {}
 

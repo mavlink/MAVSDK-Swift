@@ -20,21 +20,85 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Mocap_MocapServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
-  func setVisionPositionEstimate(_ request: Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse>
-  func setAttitudePositionMocap(_ request: Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse>
-  func setOdometry(_ request: Mavsdk_Rpc_Mocap_SetOdometryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse>
+internal protocol Mavsdk_Rpc_Mocap_MocapServiceClientProtocol: GRPCClient {
+  func setVisionPositionEstimate(
+    _ request: Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse>
+
+  func setAttitudePositionMocap(
+    _ request: Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse>
+
+  func setOdometry(
+    _ request: Mavsdk_Rpc_Mocap_SetOdometryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Mocap_MocapServiceClient: GRPCClient, Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
+extension Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
+
+  /// Send Global position/attitude estimate from a vision source.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetVisionPositionEstimate.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setVisionPositionEstimate(
+    _ request: Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mocap.MocapService/SetVisionPositionEstimate",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Send motion capture attitude and position.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetAttitudePositionMocap.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setAttitudePositionMocap(
+    _ request: Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mocap.MocapService/SetAttitudePositionMocap",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Send odometry information with an external interface.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetOdometry.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setOdometry(
+    _ request: Mavsdk_Rpc_Mocap_SetOdometryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mocap.MocapService/SetOdometry",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Mocap_MocapServiceClient: Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -47,43 +111,6 @@ internal final class Mavsdk_Rpc_Mocap_MocapServiceClient: GRPCClient, Mavsdk_Rpc
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  /// Send Global position/attitude estimate from a vision source.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetVisionPositionEstimate.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setVisionPositionEstimate(_ request: Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mocap.MocapService/SetVisionPositionEstimate",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Send motion capture attitude and position.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetAttitudePositionMocap.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setAttitudePositionMocap(_ request: Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mocap.MocapService/SetAttitudePositionMocap",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Send odometry information with an external interface.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetOdometry.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setOdometry(_ request: Mavsdk_Rpc_Mocap_SetOdometryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mocap.MocapService/SetOdometry",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -97,28 +124,28 @@ internal protocol Mavsdk_Rpc_Mocap_MocapServiceProvider: CallHandlerProvider {
 }
 
 extension Mavsdk_Rpc_Mocap_MocapServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.mocap.MocapService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.mocap.MocapService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "SetVisionPositionEstimate":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setVisionPositionEstimate(request: request, context: context)
         }
       }
 
     case "SetAttitudePositionMocap":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setAttitudePositionMocap(request: request, context: context)
         }
       }
 
     case "SetOdometry":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setOdometry(request: request, context: context)
         }
@@ -128,13 +155,4 @@ extension Mavsdk_Rpc_Mocap_MocapServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mocap_SetOdometryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mocap_SetOdometryResponse: GRPCProtobufPayload {}
 

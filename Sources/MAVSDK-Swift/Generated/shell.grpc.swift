@@ -20,20 +20,71 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Shell_ShellServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
-  func send(_ request: Mavsdk_Rpc_Shell_SendRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Shell_SendRequest, Mavsdk_Rpc_Shell_SendResponse>
-  func subscribeReceive(_ request: Mavsdk_Rpc_Shell_SubscribeReceiveRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Shell_ReceiveResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse>
+internal protocol Mavsdk_Rpc_Shell_ShellServiceClientProtocol: GRPCClient {
+  func send(
+    _ request: Mavsdk_Rpc_Shell_SendRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Shell_SendRequest, Mavsdk_Rpc_Shell_SendResponse>
+
+  func subscribeReceive(
+    _ request: Mavsdk_Rpc_Shell_SubscribeReceiveRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Shell_ReceiveResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Shell_ShellServiceClient: GRPCClient, Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
+extension Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
+
+  ///
+  /// Send a command line.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Send.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func send(
+    _ request: Mavsdk_Rpc_Shell_SendRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Shell_SendRequest, Mavsdk_Rpc_Shell_SendResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.shell.ShellService/Send",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Receive feedback from a sent command line.
+  ///
+  /// This subscription needs to be made before a command line is sent, otherwise, no response will be sent.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeReceive.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeReceive(
+    _ request: Mavsdk_Rpc_Shell_SubscribeReceiveRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Shell_ReceiveResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.shell.ShellService/SubscribeReceive",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Shell_ShellServiceClient: Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -46,37 +97,6 @@ internal final class Mavsdk_Rpc_Shell_ShellServiceClient: GRPCClient, Mavsdk_Rpc
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  ///
-  /// Send a command line.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Send.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func send(_ request: Mavsdk_Rpc_Shell_SendRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Shell_SendRequest, Mavsdk_Rpc_Shell_SendResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.shell.ShellService/Send",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Receive feedback from a sent command line.
-  ///
-  /// This subscription needs to be made before a command line is sent, otherwise, no response will be sent.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeReceive.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeReceive(_ request: Mavsdk_Rpc_Shell_SubscribeReceiveRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Shell_ReceiveResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.shell.ShellService/SubscribeReceive",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -92,21 +112,21 @@ internal protocol Mavsdk_Rpc_Shell_ShellServiceProvider: CallHandlerProvider {
 }
 
 extension Mavsdk_Rpc_Shell_ShellServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.shell.ShellService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.shell.ShellService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "Send":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.send(request: request, context: context)
         }
       }
 
     case "SubscribeReceive":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeReceive(request: request, context: context)
         }
@@ -116,11 +136,4 @@ extension Mavsdk_Rpc_Shell_ShellServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Shell_SendRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Shell_SendResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Shell_SubscribeReceiveRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Shell_ReceiveResponse: GRPCProtobufPayload {}
 

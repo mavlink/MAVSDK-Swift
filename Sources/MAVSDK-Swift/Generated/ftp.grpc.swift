@@ -20,30 +20,303 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Ftp_FtpServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
-  func reset(_ request: Mavsdk_Rpc_Ftp_ResetRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>
-  func subscribeDownload(_ request: Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Ftp_DownloadResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse>
-  func subscribeUpload(_ request: Mavsdk_Rpc_Ftp_SubscribeUploadRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Ftp_UploadResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeUploadRequest, Mavsdk_Rpc_Ftp_UploadResponse>
-  func listDirectory(_ request: Mavsdk_Rpc_Ftp_ListDirectoryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_ListDirectoryRequest, Mavsdk_Rpc_Ftp_ListDirectoryResponse>
-  func createDirectory(_ request: Mavsdk_Rpc_Ftp_CreateDirectoryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_CreateDirectoryRequest, Mavsdk_Rpc_Ftp_CreateDirectoryResponse>
-  func removeDirectory(_ request: Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, Mavsdk_Rpc_Ftp_RemoveDirectoryResponse>
-  func removeFile(_ request: Mavsdk_Rpc_Ftp_RemoveFileRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveFileRequest, Mavsdk_Rpc_Ftp_RemoveFileResponse>
-  func rename(_ request: Mavsdk_Rpc_Ftp_RenameRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_RenameRequest, Mavsdk_Rpc_Ftp_RenameResponse>
-  func areFilesIdentical(_ request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>
-  func setRootDirectory(_ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>
-  func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>
-  func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientProtocol: GRPCClient {
+  func reset(
+    _ request: Mavsdk_Rpc_Ftp_ResetRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>
+
+  func subscribeDownload(
+    _ request: Mavsdk_Rpc_Ftp_SubscribeDownloadRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Ftp_DownloadResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse>
+
+  func subscribeUpload(
+    _ request: Mavsdk_Rpc_Ftp_SubscribeUploadRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Ftp_UploadResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeUploadRequest, Mavsdk_Rpc_Ftp_UploadResponse>
+
+  func listDirectory(
+    _ request: Mavsdk_Rpc_Ftp_ListDirectoryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_ListDirectoryRequest, Mavsdk_Rpc_Ftp_ListDirectoryResponse>
+
+  func createDirectory(
+    _ request: Mavsdk_Rpc_Ftp_CreateDirectoryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_CreateDirectoryRequest, Mavsdk_Rpc_Ftp_CreateDirectoryResponse>
+
+  func removeDirectory(
+    _ request: Mavsdk_Rpc_Ftp_RemoveDirectoryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, Mavsdk_Rpc_Ftp_RemoveDirectoryResponse>
+
+  func removeFile(
+    _ request: Mavsdk_Rpc_Ftp_RemoveFileRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveFileRequest, Mavsdk_Rpc_Ftp_RemoveFileResponse>
+
+  func rename(
+    _ request: Mavsdk_Rpc_Ftp_RenameRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_RenameRequest, Mavsdk_Rpc_Ftp_RenameResponse>
+
+  func areFilesIdentical(
+    _ request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>
+
+  func setRootDirectory(
+    _ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>
+
+  func setTargetCompid(
+    _ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>
+
+  func getOurCompid(
+    _ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Ftp_FtpServiceClient: GRPCClient, Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
+extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
+
+  ///
+  /// Resets FTP server in case there are stale open sessions.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Reset.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func reset(
+    _ request: Mavsdk_Rpc_Ftp_ResetRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/Reset",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Downloads a file to local directory.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeDownload.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeDownload(
+    _ request: Mavsdk_Rpc_Ftp_SubscribeDownloadRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Ftp_DownloadResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.ftp.FtpService/SubscribeDownload",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  ///
+  /// Uploads local file to remote directory.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeUpload.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeUpload(
+    _ request: Mavsdk_Rpc_Ftp_SubscribeUploadRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Ftp_UploadResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeUploadRequest, Mavsdk_Rpc_Ftp_UploadResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.ftp.FtpService/SubscribeUpload",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  ///
+  /// Lists items from a remote directory.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ListDirectory.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func listDirectory(
+    _ request: Mavsdk_Rpc_Ftp_ListDirectoryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_ListDirectoryRequest, Mavsdk_Rpc_Ftp_ListDirectoryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/ListDirectory",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Creates a remote directory.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to CreateDirectory.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func createDirectory(
+    _ request: Mavsdk_Rpc_Ftp_CreateDirectoryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_CreateDirectoryRequest, Mavsdk_Rpc_Ftp_CreateDirectoryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/CreateDirectory",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Removes a remote directory.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to RemoveDirectory.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func removeDirectory(
+    _ request: Mavsdk_Rpc_Ftp_RemoveDirectoryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, Mavsdk_Rpc_Ftp_RemoveDirectoryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/RemoveDirectory",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Removes a remote file.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to RemoveFile.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func removeFile(
+    _ request: Mavsdk_Rpc_Ftp_RemoveFileRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveFileRequest, Mavsdk_Rpc_Ftp_RemoveFileResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/RemoveFile",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Renames a remote file or remote directory.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Rename.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func rename(
+    _ request: Mavsdk_Rpc_Ftp_RenameRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_RenameRequest, Mavsdk_Rpc_Ftp_RenameResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/Rename",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Compares a local file to a remote file using a CRC32 checksum.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to AreFilesIdentical.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func areFilesIdentical(
+    _ request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/AreFilesIdentical",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set root directory for MAVLink FTP server.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRootDirectory.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRootDirectory(
+    _ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/SetRootDirectory",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set target component ID. By default it is the autopilot.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetTargetCompid.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setTargetCompid(
+    _ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/SetTargetCompid",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Get our own component ID.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetOurCompid.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getOurCompid(
+    _ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.ftp.FtpService/GetOurCompid",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Ftp_FtpServiceClient: Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -56,167 +329,6 @@ internal final class Mavsdk_Rpc_Ftp_FtpServiceClient: GRPCClient, Mavsdk_Rpc_Ftp
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  ///
-  /// Resets FTP server in case there are stale open sessions.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Reset.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func reset(_ request: Mavsdk_Rpc_Ftp_ResetRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/Reset",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Downloads a file to local directory.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeDownload.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeDownload(_ request: Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Ftp_DownloadResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.ftp.FtpService/SubscribeDownload",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  ///
-  /// Uploads local file to remote directory.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeUpload.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeUpload(_ request: Mavsdk_Rpc_Ftp_SubscribeUploadRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Ftp_UploadResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Ftp_SubscribeUploadRequest, Mavsdk_Rpc_Ftp_UploadResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.ftp.FtpService/SubscribeUpload",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  ///
-  /// Lists items from a remote directory.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to ListDirectory.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func listDirectory(_ request: Mavsdk_Rpc_Ftp_ListDirectoryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_ListDirectoryRequest, Mavsdk_Rpc_Ftp_ListDirectoryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/ListDirectory",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Creates a remote directory.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to CreateDirectory.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func createDirectory(_ request: Mavsdk_Rpc_Ftp_CreateDirectoryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_CreateDirectoryRequest, Mavsdk_Rpc_Ftp_CreateDirectoryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/CreateDirectory",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Removes a remote directory.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to RemoveDirectory.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func removeDirectory(_ request: Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, Mavsdk_Rpc_Ftp_RemoveDirectoryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/RemoveDirectory",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Removes a remote file.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to RemoveFile.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func removeFile(_ request: Mavsdk_Rpc_Ftp_RemoveFileRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_RemoveFileRequest, Mavsdk_Rpc_Ftp_RemoveFileResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/RemoveFile",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Renames a remote file or remote directory.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Rename.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func rename(_ request: Mavsdk_Rpc_Ftp_RenameRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_RenameRequest, Mavsdk_Rpc_Ftp_RenameResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/Rename",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Compares a local file to a remote file using a CRC32 checksum.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to AreFilesIdentical.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func areFilesIdentical(_ request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/AreFilesIdentical",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set root directory for MAVLink FTP server.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRootDirectory.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRootDirectory(_ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/SetRootDirectory",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Set target component ID. By default it is the autopilot.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetTargetCompid.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setTargetCompid(_ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/SetTargetCompid",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  ///
-  /// Get our own component ID.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetOurCompid.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getOurCompid(_ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.ftp.FtpService/GetOurCompid",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -260,91 +372,91 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceProvider: CallHandlerProvider {
 }
 
 extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.ftp.FtpService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.ftp.FtpService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "Reset":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.reset(request: request, context: context)
         }
       }
 
     case "SubscribeDownload":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeDownload(request: request, context: context)
         }
       }
 
     case "SubscribeUpload":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeUpload(request: request, context: context)
         }
       }
 
     case "ListDirectory":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.listDirectory(request: request, context: context)
         }
       }
 
     case "CreateDirectory":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.createDirectory(request: request, context: context)
         }
       }
 
     case "RemoveDirectory":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.removeDirectory(request: request, context: context)
         }
       }
 
     case "RemoveFile":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.removeFile(request: request, context: context)
         }
       }
 
     case "Rename":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.rename(request: request, context: context)
         }
       }
 
     case "AreFilesIdentical":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.areFilesIdentical(request: request, context: context)
         }
       }
 
     case "SetRootDirectory":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRootDirectory(request: request, context: context)
         }
       }
 
     case "SetTargetCompid":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setTargetCompid(request: request, context: context)
         }
       }
 
     case "GetOurCompid":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getOurCompid(request: request, context: context)
         }
@@ -354,31 +466,4 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Ftp_ResetRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_ResetResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_SubscribeDownloadRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_DownloadResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_SubscribeUploadRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_UploadResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_ListDirectoryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_ListDirectoryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_CreateDirectoryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_CreateDirectoryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_RemoveDirectoryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_RemoveDirectoryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_RemoveFileRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_RemoveFileResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_RenameRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_RenameResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_SetRootDirectoryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_SetRootDirectoryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_SetTargetCompidRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_SetTargetCompidResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_GetOurCompidRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Ftp_GetOurCompidResponse: GRPCProtobufPayload {}
 

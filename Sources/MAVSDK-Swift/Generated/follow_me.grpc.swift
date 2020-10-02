@@ -20,25 +20,173 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_FollowMe_FollowMeServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
-  func getConfig(_ request: Mavsdk_Rpc_FollowMe_GetConfigRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetConfigRequest, Mavsdk_Rpc_FollowMe_GetConfigResponse>
-  func setConfig(_ request: Mavsdk_Rpc_FollowMe_SetConfigRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetConfigRequest, Mavsdk_Rpc_FollowMe_SetConfigResponse>
-  func isActive(_ request: Mavsdk_Rpc_FollowMe_IsActiveRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_IsActiveRequest, Mavsdk_Rpc_FollowMe_IsActiveResponse>
-  func setTargetLocation(_ request: Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, Mavsdk_Rpc_FollowMe_SetTargetLocationResponse>
-  func getLastLocation(_ request: Mavsdk_Rpc_FollowMe_GetLastLocationRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetLastLocationRequest, Mavsdk_Rpc_FollowMe_GetLastLocationResponse>
-  func start(_ request: Mavsdk_Rpc_FollowMe_StartRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_StartRequest, Mavsdk_Rpc_FollowMe_StartResponse>
-  func stop(_ request: Mavsdk_Rpc_FollowMe_StopRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse>
+internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol: GRPCClient {
+  func getConfig(
+    _ request: Mavsdk_Rpc_FollowMe_GetConfigRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetConfigRequest, Mavsdk_Rpc_FollowMe_GetConfigResponse>
+
+  func setConfig(
+    _ request: Mavsdk_Rpc_FollowMe_SetConfigRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetConfigRequest, Mavsdk_Rpc_FollowMe_SetConfigResponse>
+
+  func isActive(
+    _ request: Mavsdk_Rpc_FollowMe_IsActiveRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_IsActiveRequest, Mavsdk_Rpc_FollowMe_IsActiveResponse>
+
+  func setTargetLocation(
+    _ request: Mavsdk_Rpc_FollowMe_SetTargetLocationRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, Mavsdk_Rpc_FollowMe_SetTargetLocationResponse>
+
+  func getLastLocation(
+    _ request: Mavsdk_Rpc_FollowMe_GetLastLocationRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetLastLocationRequest, Mavsdk_Rpc_FollowMe_GetLastLocationResponse>
+
+  func start(
+    _ request: Mavsdk_Rpc_FollowMe_StartRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_StartRequest, Mavsdk_Rpc_FollowMe_StartResponse>
+
+  func stop(
+    _ request: Mavsdk_Rpc_FollowMe_StopRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse>
+
 }
 
-internal final class Mavsdk_Rpc_FollowMe_FollowMeServiceClient: GRPCClient, Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
+extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
+
+  /// Get current configuration.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetConfig.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getConfig(
+    _ request: Mavsdk_Rpc_FollowMe_GetConfigRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetConfigRequest, Mavsdk_Rpc_FollowMe_GetConfigResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/GetConfig",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Apply configuration by sending it to the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetConfig.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setConfig(
+    _ request: Mavsdk_Rpc_FollowMe_SetConfigRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetConfigRequest, Mavsdk_Rpc_FollowMe_SetConfigResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/SetConfig",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Check if FollowMe is active.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to IsActive.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func isActive(
+    _ request: Mavsdk_Rpc_FollowMe_IsActiveRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_IsActiveRequest, Mavsdk_Rpc_FollowMe_IsActiveResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/IsActive",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set location of the moving target.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetTargetLocation.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setTargetLocation(
+    _ request: Mavsdk_Rpc_FollowMe_SetTargetLocationRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, Mavsdk_Rpc_FollowMe_SetTargetLocationResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/SetTargetLocation",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Get the last location of the target.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetLastLocation.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getLastLocation(
+    _ request: Mavsdk_Rpc_FollowMe_GetLastLocationRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetLastLocationRequest, Mavsdk_Rpc_FollowMe_GetLastLocationResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/GetLastLocation",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Start FollowMe mode.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Start.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func start(
+    _ request: Mavsdk_Rpc_FollowMe_StartRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_StartRequest, Mavsdk_Rpc_FollowMe_StartResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/Start",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Stop FollowMe mode.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Stop.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func stop(
+    _ request: Mavsdk_Rpc_FollowMe_StopRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.follow_me.FollowMeService/Stop",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_FollowMe_FollowMeServiceClient: Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -51,91 +199,6 @@ internal final class Mavsdk_Rpc_FollowMe_FollowMeServiceClient: GRPCClient, Mavs
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  /// Get current configuration.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetConfig.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getConfig(_ request: Mavsdk_Rpc_FollowMe_GetConfigRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetConfigRequest, Mavsdk_Rpc_FollowMe_GetConfigResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/GetConfig",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Apply configuration by sending it to the system.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetConfig.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setConfig(_ request: Mavsdk_Rpc_FollowMe_SetConfigRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetConfigRequest, Mavsdk_Rpc_FollowMe_SetConfigResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/SetConfig",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Check if FollowMe is active.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to IsActive.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func isActive(_ request: Mavsdk_Rpc_FollowMe_IsActiveRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_IsActiveRequest, Mavsdk_Rpc_FollowMe_IsActiveResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/IsActive",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set location of the moving target.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetTargetLocation.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setTargetLocation(_ request: Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, Mavsdk_Rpc_FollowMe_SetTargetLocationResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/SetTargetLocation",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Get the last location of the target.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetLastLocation.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getLastLocation(_ request: Mavsdk_Rpc_FollowMe_GetLastLocationRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_GetLastLocationRequest, Mavsdk_Rpc_FollowMe_GetLastLocationResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/GetLastLocation",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Start FollowMe mode.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Start.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func start(_ request: Mavsdk_Rpc_FollowMe_StartRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_StartRequest, Mavsdk_Rpc_FollowMe_StartResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/Start",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Stop FollowMe mode.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Stop.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func stop(_ request: Mavsdk_Rpc_FollowMe_StopRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.follow_me.FollowMeService/Stop",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -157,56 +220,56 @@ internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceProvider: CallHandlerProvid
 }
 
 extension Mavsdk_Rpc_FollowMe_FollowMeServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.follow_me.FollowMeService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.follow_me.FollowMeService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "GetConfig":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getConfig(request: request, context: context)
         }
       }
 
     case "SetConfig":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setConfig(request: request, context: context)
         }
       }
 
     case "IsActive":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.isActive(request: request, context: context)
         }
       }
 
     case "SetTargetLocation":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setTargetLocation(request: request, context: context)
         }
       }
 
     case "GetLastLocation":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getLastLocation(request: request, context: context)
         }
       }
 
     case "Start":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.start(request: request, context: context)
         }
       }
 
     case "Stop":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.stop(request: request, context: context)
         }
@@ -216,21 +279,4 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_FollowMe_GetConfigRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_GetConfigResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_SetConfigRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_SetConfigResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_IsActiveRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_IsActiveResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_SetTargetLocationRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_SetTargetLocationResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_GetLastLocationRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_GetLastLocationResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_StartRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_StartResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_StopRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_FollowMe_StopResponse: GRPCProtobufPayload {}
 

@@ -20,43 +20,82 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Mission_MissionServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
-  func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>
-  func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse>
-  func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>
-  func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse>
-  func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_StartMissionRequest, Mavsdk_Rpc_Mission_StartMissionResponse>
-  func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse>
-  func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_ClearMissionRequest, Mavsdk_Rpc_Mission_ClearMissionResponse>
-  func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse>
-  func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_IsMissionFinishedRequest, Mavsdk_Rpc_Mission_IsMissionFinishedResponse>
-  func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Mission_MissionProgressResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, Mavsdk_Rpc_Mission_MissionProgressResponse>
-  func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>
-  func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>
-  func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>
+internal protocol Mavsdk_Rpc_Mission_MissionServiceClientProtocol: GRPCClient {
+  func uploadMission(
+    _ request: Mavsdk_Rpc_Mission_UploadMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>
+
+  func cancelMissionUpload(
+    _ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse>
+
+  func downloadMission(
+    _ request: Mavsdk_Rpc_Mission_DownloadMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>
+
+  func cancelMissionDownload(
+    _ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse>
+
+  func startMission(
+    _ request: Mavsdk_Rpc_Mission_StartMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_StartMissionRequest, Mavsdk_Rpc_Mission_StartMissionResponse>
+
+  func pauseMission(
+    _ request: Mavsdk_Rpc_Mission_PauseMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse>
+
+  func clearMission(
+    _ request: Mavsdk_Rpc_Mission_ClearMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_ClearMissionRequest, Mavsdk_Rpc_Mission_ClearMissionResponse>
+
+  func setCurrentMissionItem(
+    _ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse>
+
+  func isMissionFinished(
+    _ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_IsMissionFinishedRequest, Mavsdk_Rpc_Mission_IsMissionFinishedResponse>
+
+  func subscribeMissionProgress(
+    _ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Mission_MissionProgressResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, Mavsdk_Rpc_Mission_MissionProgressResponse>
+
+  func getReturnToLaunchAfterMission(
+    _ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse>
+
+  func setReturnToLaunchAfterMission(
+    _ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>
+
+  func importQgroundcontrolMission(
+    _ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
-  internal let channel: GRPCChannel
-  internal var defaultCallOptions: CallOptions
-
-  /// Creates a client for the mavsdk.rpc.mission.MissionService service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-  }
+extension Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
 
   ///
   /// Upload a list of mission items to the system.
@@ -66,12 +105,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to UploadMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func uploadMission(_ request: Mavsdk_Rpc_Mission_UploadMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/UploadMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func uploadMission(
+    _ request: Mavsdk_Rpc_Mission_UploadMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/UploadMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -79,12 +123,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to CancelMissionUpload.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func cancelMissionUpload(_ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/CancelMissionUpload",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func cancelMissionUpload(
+    _ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/CancelMissionUpload",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -95,12 +144,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to DownloadMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func downloadMission(_ request: Mavsdk_Rpc_Mission_DownloadMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/DownloadMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func downloadMission(
+    _ request: Mavsdk_Rpc_Mission_DownloadMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/DownloadMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -108,12 +162,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to CancelMissionDownload.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func cancelMissionDownload(_ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/CancelMissionDownload",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func cancelMissionDownload(
+    _ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/CancelMissionDownload",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -123,12 +182,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to StartMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func startMission(_ request: Mavsdk_Rpc_Mission_StartMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_StartMissionRequest, Mavsdk_Rpc_Mission_StartMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/StartMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func startMission(
+    _ request: Mavsdk_Rpc_Mission_StartMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_StartMissionRequest, Mavsdk_Rpc_Mission_StartMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/StartMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -141,12 +205,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to PauseMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func pauseMission(_ request: Mavsdk_Rpc_Mission_PauseMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/PauseMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func pauseMission(
+    _ request: Mavsdk_Rpc_Mission_PauseMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_PauseMissionRequest, Mavsdk_Rpc_Mission_PauseMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/PauseMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -154,12 +223,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to ClearMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func clearMission(_ request: Mavsdk_Rpc_Mission_ClearMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_ClearMissionRequest, Mavsdk_Rpc_Mission_ClearMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/ClearMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func clearMission(
+    _ request: Mavsdk_Rpc_Mission_ClearMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_ClearMissionRequest, Mavsdk_Rpc_Mission_ClearMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/ClearMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -173,12 +247,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to SetCurrentMissionItem.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setCurrentMissionItem(_ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItem",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func setCurrentMissionItem(
+    _ request: Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest, Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/SetCurrentMissionItem",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -186,12 +265,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to IsMissionFinished.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func isMissionFinished(_ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_IsMissionFinishedRequest, Mavsdk_Rpc_Mission_IsMissionFinishedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/IsMissionFinished",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func isMissionFinished(
+    _ request: Mavsdk_Rpc_Mission_IsMissionFinishedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_IsMissionFinishedRequest, Mavsdk_Rpc_Mission_IsMissionFinishedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/IsMissionFinished",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -199,14 +283,20 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to SubscribeMissionProgress.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   ///   - handler: A closure called when each response is received from the server.
   /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeMissionProgress(_ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Mission_MissionProgressResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, Mavsdk_Rpc_Mission_MissionProgressResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
+  internal func subscribeMissionProgress(
+    _ request: Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Mission_MissionProgressResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest, Mavsdk_Rpc_Mission_MissionProgressResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.mission.MissionService/SubscribeMissionProgress",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
   }
 
   ///
@@ -217,12 +307,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to GetReturnToLaunchAfterMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func getReturnToLaunchAfterMission(
+    _ request: Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/GetReturnToLaunchAfterMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -233,12 +328,17 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to SetReturnToLaunchAfterMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setReturnToLaunchAfterMission(_ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func setReturnToLaunchAfterMission(
+    _ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/SetReturnToLaunchAfterMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -249,14 +349,33 @@ internal final class Mavsdk_Rpc_Mission_MissionServiceClient: GRPCClient, Mavsdk
   ///
   /// - Parameters:
   ///   - request: Request to send to ImportQgroundcontrolMission.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func importQgroundcontrolMission(_ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.mission.MissionService/ImportQgroundcontrolMission",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func importQgroundcontrolMission(
+    _ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission.MissionService/ImportQgroundcontrolMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
+}
 
+internal final class Mavsdk_Rpc_Mission_MissionServiceClient: Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
+
+  /// Creates a client for the mavsdk.rpc.mission.MissionService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+  }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -331,98 +450,98 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: CallHandlerProvider
 }
 
 extension Mavsdk_Rpc_Mission_MissionServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.mission.MissionService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.mission.MissionService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "UploadMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.uploadMission(request: request, context: context)
         }
       }
 
     case "CancelMissionUpload":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.cancelMissionUpload(request: request, context: context)
         }
       }
 
     case "DownloadMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.downloadMission(request: request, context: context)
         }
       }
 
     case "CancelMissionDownload":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.cancelMissionDownload(request: request, context: context)
         }
       }
 
     case "StartMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.startMission(request: request, context: context)
         }
       }
 
     case "PauseMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.pauseMission(request: request, context: context)
         }
       }
 
     case "ClearMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.clearMission(request: request, context: context)
         }
       }
 
     case "SetCurrentMissionItem":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setCurrentMissionItem(request: request, context: context)
         }
       }
 
     case "IsMissionFinished":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.isMissionFinished(request: request, context: context)
         }
       }
 
     case "SubscribeMissionProgress":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeMissionProgress(request: request, context: context)
         }
       }
 
     case "GetReturnToLaunchAfterMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getReturnToLaunchAfterMission(request: request, context: context)
         }
       }
 
     case "SetReturnToLaunchAfterMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setReturnToLaunchAfterMission(request: request, context: context)
         }
       }
 
     case "ImportQgroundcontrolMission":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.importQgroundcontrolMission(request: request, context: context)
         }
@@ -432,33 +551,4 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Mission_UploadMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_UploadMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_CancelMissionUploadRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_CancelMissionUploadResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_DownloadMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_DownloadMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_CancelMissionDownloadRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_CancelMissionDownloadResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_StartMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_StartMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_PauseMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_PauseMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_ClearMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_ClearMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_IsMissionFinishedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_IsMissionFinishedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_MissionProgressResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse: GRPCProtobufPayload {}
 
