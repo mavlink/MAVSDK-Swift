@@ -20,62 +20,1091 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Telemetry_TelemetryServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
-  func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>
-  func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_HomeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>
-  func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_InAirResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>
-  func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_LandedStateResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>
-  func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>
-  func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>
-  func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>
-  func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>
-  func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>
-  func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>
-  func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>
-  func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>
-  func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_BatteryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>
-  func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>
-  func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>
-  func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>
-  func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>
-  func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>
-  func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>
-  func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_OdometryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>
-  func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>
-  func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>
-  func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>
-  func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>
-  func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>
-  func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>
-  func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
-  func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>
-  func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>
-  func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
-  func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
-  func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
-  func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>
-  func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>
-  func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>
-  func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>
-  func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>
-  func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>
-  func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>
-  func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>
-  func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>
-  func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>
-  func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>
-  func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClient {
+  func subscribePosition(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_PositionResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>
+
+  func subscribeHome(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HomeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>
+
+  func subscribeInAir(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_InAirResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>
+
+  func subscribeLandedState(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_LandedStateResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>
+
+  func subscribeArmed(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>
+
+  func subscribeAttitudeQuaternion(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>
+
+  func subscribeAttitudeEuler(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>
+
+  func subscribeAttitudeAngularVelocityBody(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>
+
+  func subscribeCameraAttitudeQuaternion(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>
+
+  func subscribeCameraAttitudeEuler(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>
+
+  func subscribeVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>
+
+  func subscribeGpsInfo(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>
+
+  func subscribeBattery(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_BatteryResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>
+
+  func subscribeFlightMode(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>
+
+  func subscribeHealth(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HealthResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>
+
+  func subscribeRcStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>
+
+  func subscribeStatusText(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>
+
+  func subscribeActuatorControlTarget(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>
+
+  func subscribeActuatorOutputStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>
+
+  func subscribeOdometry(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_OdometryResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>
+
+  func subscribePositionVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>
+
+  func subscribeGroundTruth(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>
+
+  func subscribeFixedwingMetrics(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>
+
+  func subscribeImu(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>
+
+  func subscribeHealthAllOk(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>
+
+  func subscribeUnixEpochTime(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>
+
+  func setRatePosition(
+    _ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
+
+  func setRateHome(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>
+
+  func setRateInAir(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>
+
+  func setRateLandedState(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
+
+  func setRateAttitude(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
+
+  func setRateCameraAttitude(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
+
+  func setRateVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>
+
+  func setRateGpsInfo(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>
+
+  func setRateBattery(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>
+
+  func setRateRcStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>
+
+  func setRateActuatorControlTarget(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>
+
+  func setRateActuatorOutputStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>
+
+  func setRateOdometry(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>
+
+  func setRatePositionVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>
+
+  func setRateGroundTruth(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>
+
+  func setRateFixedwingMetrics(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>
+
+  func setRateImu(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>
+
+  func setRateUnixEpochTime(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceClient: GRPCClient, Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
+extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
+
+  /// Subscribe to 'position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribePosition.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribePosition(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_PositionResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'home position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHome.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHome(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HomeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to in-air updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeInAir.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeInAir(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_InAirResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to landed state updates
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeLandedState.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeLandedState(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_LandedStateResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to armed updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeArmed.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeArmed(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'attitude' updates (quaternion).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAttitudeQuaternion.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAttitudeQuaternion(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'attitude' updates (Euler).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAttitudeEuler.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAttitudeEuler(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'attitude' updates (angular velocity)
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAttitudeAngularVelocityBody.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAttitudeAngularVelocityBody(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'camera attitude' updates (quaternion).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCameraAttitudeQuaternion.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCameraAttitudeQuaternion(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'camera attitude' updates (Euler).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCameraAttitudeEuler.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCameraAttitudeEuler(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'ground speed' updates (NED).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeVelocityNed.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'GPS info' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeGpsInfo.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeGpsInfo(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'battery' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeBattery.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeBattery(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_BatteryResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'flight mode' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeFlightMode.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeFlightMode(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'health' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHealth.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHealth(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HealthResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'RC status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeRcStatus.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeRcStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'status text' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeStatusText.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeStatusText(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'actuator control target' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeActuatorControlTarget.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeActuatorControlTarget(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'actuator output status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeActuatorOutputStatus.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeActuatorOutputStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'odometry' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeOdometry.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeOdometry(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_OdometryResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'position velocity' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribePositionVelocityNed.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribePositionVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'ground truth' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeGroundTruth.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeGroundTruth(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'fixedwing metrics' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeFixedwingMetrics.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeFixedwingMetrics(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeImu.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeImu(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'HealthAllOk' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHealthAllOk.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHealthAllOk(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'unix epoch time' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeUnixEpochTime.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeUnixEpochTime(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Set rate to 'position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRatePosition.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRatePosition(
+    _ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'home position' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateHome.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateHome(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to in-air updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateInAir.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateInAir(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to landed state updates
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateLandedState.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateLandedState(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'attitude' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateAttitude.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateAttitude(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate of camera attitude updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateCameraAttitude.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateCameraAttitude(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'ground speed' updates (NED).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateVelocityNed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'GPS info' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateGpsInfo.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateGpsInfo(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'battery' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateBattery.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateBattery(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'RC status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateRcStatus.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateRcStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'actuator control target' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateActuatorControlTarget.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateActuatorControlTarget(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'actuator output status' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateActuatorOutputStatus.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateActuatorOutputStatus(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'odometry' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateOdometry.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateOdometry(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'position velocity' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRatePositionVelocityNed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRatePositionVelocityNed(
+    _ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'ground truth' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateGroundTruth.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateGroundTruth(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'fixedwing metrics' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateFixedwingMetrics.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateFixedwingMetrics(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateImu.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateImu(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Set rate to 'unix epoch time' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateUnixEpochTime.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateUnixEpochTime(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceClient: Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -88,602 +1117,6 @@ internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceClient: GRPCClient, Ma
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  /// Subscribe to 'position' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribePosition.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribePosition(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'home position' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeHome.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeHome(_ request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_HomeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to in-air updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeInAir.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeInAir(_ request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_InAirResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to landed state updates
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeLandedState.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeLandedState(_ request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_LandedStateResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to armed updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeArmed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeArmed(_ request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'attitude' updates (quaternion).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeAttitudeQuaternion.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'attitude' updates (Euler).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeAttitudeEuler.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'attitude' updates (angular velocity)
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeAttitudeAngularVelocityBody.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeAttitudeAngularVelocityBody(_ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'camera attitude' updates (quaternion).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCameraAttitudeQuaternion.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCameraAttitudeQuaternion(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'camera attitude' updates (Euler).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCameraAttitudeEuler.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCameraAttitudeEuler(_ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'ground speed' updates (NED).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeVelocityNed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_VelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'GPS info' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeGpsInfo.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'battery' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeBattery.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeBattery(_ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_BatteryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'flight mode' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeFlightMode.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeFlightMode(_ request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_FlightModeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'health' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeHealth.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeHealth(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'RC status' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeRcStatus.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeRcStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_RcStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'status text' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeStatusText.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeStatusText(_ request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_StatusTextResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'actuator control target' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeActuatorControlTarget.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'actuator output status' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeActuatorOutputStatus.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'odometry' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeOdometry.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeOdometry(_ request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_OdometryResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'position velocity' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribePositionVelocityNed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'ground truth' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeGroundTruth.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_GroundTruthResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'fixedwing metrics' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeFixedwingMetrics.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'IMU' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeImu.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeImu(_ request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'HealthAllOk' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeHealthAllOk.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeHealthAllOk(_ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_HealthAllOkResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Subscribe to 'unix epoch time' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeUnixEpochTime.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Set rate to 'position' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRatePosition.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'home position' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateHome.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateHome(_ request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to in-air updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateInAir.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateInAir(_ request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to landed state updates
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateLandedState.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateLandedState(_ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'attitude' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateAttitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate of camera attitude updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateCameraAttitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateCameraAttitude(_ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'ground speed' updates (NED).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateVelocityNed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'GPS info' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateGpsInfo.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateGpsInfo(_ request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'battery' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateBattery.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateBattery(_ request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'RC status' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateRcStatus.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateRcStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'actuator control target' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateActuatorControlTarget.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateActuatorControlTarget(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'actuator output status' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateActuatorOutputStatus.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateActuatorOutputStatus(_ request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'odometry' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateOdometry.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateOdometry(_ request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'position velocity' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRatePositionVelocityNed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRatePositionVelocityNed(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'ground truth' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateGroundTruth.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateGroundTruth(_ request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'fixedwing metrics' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateFixedwingMetrics.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateFixedwingMetrics(_ request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'IMU' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateImu.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateImu(_ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  /// Set rate to 'unix epoch time' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateUnixEpochTime.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
-  var setRateDistanceSensorRequests: [Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest] = []
-  var setRateDistanceSensorResponses: [Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse] = []
-  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse {
-    setRateDistanceSensorRequests.append(request)
-    defer { setRateDistanceSensorResponses.removeFirst() }
-    return setRateDistanceSensorResponses.first!
-  }
-  @discardableResult
-  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall {
-    let response = try self.setRateDistanceSensor(request)
-    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
-    completion(response, callResult)
-    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCallTestStub()
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -779,315 +1212,315 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
 }
 
 extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.telemetry.TelemetryService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.telemetry.TelemetryService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "SubscribePosition":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribePosition(request: request, context: context)
         }
       }
 
     case "SubscribeHome":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeHome(request: request, context: context)
         }
       }
 
     case "SubscribeInAir":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeInAir(request: request, context: context)
         }
       }
 
     case "SubscribeLandedState":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeLandedState(request: request, context: context)
         }
       }
 
     case "SubscribeArmed":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeArmed(request: request, context: context)
         }
       }
 
     case "SubscribeAttitudeQuaternion":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeAttitudeQuaternion(request: request, context: context)
         }
       }
 
     case "SubscribeAttitudeEuler":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeAttitudeEuler(request: request, context: context)
         }
       }
 
     case "SubscribeAttitudeAngularVelocityBody":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeAttitudeAngularVelocityBody(request: request, context: context)
         }
       }
 
     case "SubscribeCameraAttitudeQuaternion":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCameraAttitudeQuaternion(request: request, context: context)
         }
       }
 
     case "SubscribeCameraAttitudeEuler":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCameraAttitudeEuler(request: request, context: context)
         }
       }
 
     case "SubscribeVelocityNed":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeVelocityNed(request: request, context: context)
         }
       }
 
     case "SubscribeGpsInfo":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeGpsInfo(request: request, context: context)
         }
       }
 
     case "SubscribeBattery":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeBattery(request: request, context: context)
         }
       }
 
     case "SubscribeFlightMode":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeFlightMode(request: request, context: context)
         }
       }
 
     case "SubscribeHealth":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeHealth(request: request, context: context)
         }
       }
 
     case "SubscribeRcStatus":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeRcStatus(request: request, context: context)
         }
       }
 
     case "SubscribeStatusText":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeStatusText(request: request, context: context)
         }
       }
 
     case "SubscribeActuatorControlTarget":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeActuatorControlTarget(request: request, context: context)
         }
       }
 
     case "SubscribeActuatorOutputStatus":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeActuatorOutputStatus(request: request, context: context)
         }
       }
 
     case "SubscribeOdometry":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeOdometry(request: request, context: context)
         }
       }
 
     case "SubscribePositionVelocityNed":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribePositionVelocityNed(request: request, context: context)
         }
       }
 
     case "SubscribeGroundTruth":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeGroundTruth(request: request, context: context)
         }
       }
 
     case "SubscribeFixedwingMetrics":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeFixedwingMetrics(request: request, context: context)
         }
       }
 
     case "SubscribeImu":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeImu(request: request, context: context)
         }
       }
 
     case "SubscribeHealthAllOk":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeHealthAllOk(request: request, context: context)
         }
       }
 
     case "SubscribeUnixEpochTime":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeUnixEpochTime(request: request, context: context)
         }
       }
 
     case "SetRatePosition":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRatePosition(request: request, context: context)
         }
       }
 
     case "SetRateHome":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateHome(request: request, context: context)
         }
       }
 
     case "SetRateInAir":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateInAir(request: request, context: context)
         }
       }
 
     case "SetRateLandedState":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateLandedState(request: request, context: context)
         }
       }
 
     case "SetRateAttitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateAttitude(request: request, context: context)
         }
       }
 
     case "SetRateCameraAttitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateCameraAttitude(request: request, context: context)
         }
       }
 
     case "SetRateVelocityNed":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateVelocityNed(request: request, context: context)
         }
       }
 
     case "SetRateGpsInfo":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateGpsInfo(request: request, context: context)
         }
       }
 
     case "SetRateBattery":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateBattery(request: request, context: context)
         }
       }
 
     case "SetRateRcStatus":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateRcStatus(request: request, context: context)
         }
       }
 
     case "SetRateActuatorControlTarget":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateActuatorControlTarget(request: request, context: context)
         }
       }
 
     case "SetRateActuatorOutputStatus":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateActuatorOutputStatus(request: request, context: context)
         }
       }
 
     case "SetRateOdometry":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateOdometry(request: request, context: context)
         }
       }
 
     case "SetRatePositionVelocityNed":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRatePositionVelocityNed(request: request, context: context)
         }
       }
 
     case "SetRateGroundTruth":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateGroundTruth(request: request, context: context)
         }
       }
 
     case "SetRateFixedwingMetrics":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateFixedwingMetrics(request: request, context: context)
         }
       }
 
     case "SetRateImu":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateImu(request: request, context: context)
         }
       }
 
     case "SetRateUnixEpochTime":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateUnixEpochTime(request: request, context: context)
         }
@@ -1097,101 +1530,4 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Telemetry_SubscribePositionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_PositionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeHomeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_HomeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeInAirRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_InAirResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_LandedStateResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeArmedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_ArmedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_AttitudeEulerResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_VelocityNedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_GpsInfoResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_BatteryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_FlightModeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeHealthRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_HealthResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_RcStatusResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_StatusTextResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_OdometryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_GroundTruthResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeImuRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_ImuResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_HealthAllOkResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRatePositionRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRatePositionResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateHomeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateHomeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateInAirRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateInAirResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateBatteryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateBatteryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateOdometryRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateOdometryResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateImuRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateImuResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse: GRPCProtobufPayload {}
-
-internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession: ServerSessionUnary {}
-
-fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession {}
-
-class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession {}
 

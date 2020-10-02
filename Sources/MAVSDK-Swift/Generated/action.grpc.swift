@@ -20,47 +20,101 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Action_ActionServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol {
-  func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>
-  func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse>
-  func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_TakeoffRequest, Mavsdk_Rpc_Action_TakeoffResponse>
-  func land(_ request: Mavsdk_Rpc_Action_LandRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_LandRequest, Mavsdk_Rpc_Action_LandResponse>
-  func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_RebootRequest, Mavsdk_Rpc_Action_RebootResponse>
-  func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>
-  func kill(_ request: Mavsdk_Rpc_Action_KillRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>
-  func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_ReturnToLaunchRequest, Mavsdk_Rpc_Action_ReturnToLaunchResponse>
-  func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse>
-  func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>
-  func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToMulticopterRequest, Mavsdk_Rpc_Action_TransitionToMulticopterResponse>
-  func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse>
-  func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>
-  func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>
-  func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>
-  func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>
-  func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>
+internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
+  func arm(
+    _ request: Mavsdk_Rpc_Action_ArmRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>
+
+  func disarm(
+    _ request: Mavsdk_Rpc_Action_DisarmRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse>
+
+  func takeoff(
+    _ request: Mavsdk_Rpc_Action_TakeoffRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TakeoffRequest, Mavsdk_Rpc_Action_TakeoffResponse>
+
+  func land(
+    _ request: Mavsdk_Rpc_Action_LandRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_LandRequest, Mavsdk_Rpc_Action_LandResponse>
+
+  func reboot(
+    _ request: Mavsdk_Rpc_Action_RebootRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_RebootRequest, Mavsdk_Rpc_Action_RebootResponse>
+
+  func shutdown(
+    _ request: Mavsdk_Rpc_Action_ShutdownRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>
+
+  func kill(
+    _ request: Mavsdk_Rpc_Action_KillRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>
+
+  func returnToLaunch(
+    _ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ReturnToLaunchRequest, Mavsdk_Rpc_Action_ReturnToLaunchResponse>
+
+  func gotoLocation(
+    _ request: Mavsdk_Rpc_Action_GotoLocationRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse>
+
+  func transitionToFixedwing(
+    _ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>
+
+  func transitionToMulticopter(
+    _ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToMulticopterRequest, Mavsdk_Rpc_Action_TransitionToMulticopterResponse>
+
+  func getTakeoffAltitude(
+    _ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse>
+
+  func setTakeoffAltitude(
+    _ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>
+
+  func getMaximumSpeed(
+    _ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>
+
+  func setMaximumSpeed(
+    _ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>
+
+  func getReturnToLaunchAltitude(
+    _ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>
+
+  func setReturnToLaunchAltitude(
+    _ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_Rpc_Action_ActionServiceClientProtocol {
-  internal let channel: GRPCChannel
-  internal var defaultCallOptions: CallOptions
-
-  /// Creates a client for the mavsdk.rpc.action.ActionService service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-  }
+extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
 
   ///
   /// Send command to arm the drone.
@@ -70,12 +124,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Arm.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func arm(_ request: Mavsdk_Rpc_Action_ArmRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Arm",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func arm(
+    _ request: Mavsdk_Rpc_Action_ArmRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Arm",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -86,12 +145,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Disarm.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func disarm(_ request: Mavsdk_Rpc_Action_DisarmRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Disarm",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func disarm(
+    _ request: Mavsdk_Rpc_Action_DisarmRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Disarm",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -104,12 +168,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Takeoff.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func takeoff(_ request: Mavsdk_Rpc_Action_TakeoffRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_TakeoffRequest, Mavsdk_Rpc_Action_TakeoffResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Takeoff",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func takeoff(
+    _ request: Mavsdk_Rpc_Action_TakeoffRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TakeoffRequest, Mavsdk_Rpc_Action_TakeoffResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Takeoff",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -119,12 +188,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Land.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func land(_ request: Mavsdk_Rpc_Action_LandRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_LandRequest, Mavsdk_Rpc_Action_LandResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Land",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func land(
+    _ request: Mavsdk_Rpc_Action_LandRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_LandRequest, Mavsdk_Rpc_Action_LandResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Land",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -134,12 +208,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Reboot.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func reboot(_ request: Mavsdk_Rpc_Action_RebootRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_RebootRequest, Mavsdk_Rpc_Action_RebootResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Reboot",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func reboot(
+    _ request: Mavsdk_Rpc_Action_RebootRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_RebootRequest, Mavsdk_Rpc_Action_RebootResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Reboot",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -151,12 +230,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Shutdown.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Shutdown",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func shutdown(
+    _ request: Mavsdk_Rpc_Action_ShutdownRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Shutdown",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -167,12 +251,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to Kill.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/Kill",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func kill(
+    _ request: Mavsdk_Rpc_Action_KillRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Kill",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -184,12 +273,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to ReturnToLaunch.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func returnToLaunch(_ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_ReturnToLaunchRequest, Mavsdk_Rpc_Action_ReturnToLaunchResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/ReturnToLaunch",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func returnToLaunch(
+    _ request: Mavsdk_Rpc_Action_ReturnToLaunchRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ReturnToLaunchRequest, Mavsdk_Rpc_Action_ReturnToLaunchResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/ReturnToLaunch",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -202,12 +296,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to GotoLocation.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func gotoLocation(_ request: Mavsdk_Rpc_Action_GotoLocationRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/GotoLocation",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func gotoLocation(
+    _ request: Mavsdk_Rpc_Action_GotoLocationRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/GotoLocation",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -219,12 +318,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to TransitionToFixedwing.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func transitionToFixedwing(_ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/TransitionToFixedwing",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func transitionToFixedwing(
+    _ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/TransitionToFixedwing",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -236,12 +340,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to TransitionToMulticopter.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func transitionToMulticopter(_ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToMulticopterRequest, Mavsdk_Rpc_Action_TransitionToMulticopterResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/TransitionToMulticopter",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func transitionToMulticopter(
+    _ request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TransitionToMulticopterRequest, Mavsdk_Rpc_Action_TransitionToMulticopterResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/TransitionToMulticopter",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -249,12 +358,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to GetTakeoffAltitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getTakeoffAltitude(_ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/GetTakeoffAltitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func getTakeoffAltitude(
+    _ request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/GetTakeoffAltitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -262,12 +376,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to SetTakeoffAltitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setTakeoffAltitude(_ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/SetTakeoffAltitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func setTakeoffAltitude(
+    _ request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/SetTakeoffAltitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -275,12 +394,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to GetMaximumSpeed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getMaximumSpeed(_ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/GetMaximumSpeed",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func getMaximumSpeed(
+    _ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/GetMaximumSpeed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -288,12 +412,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to SetMaximumSpeed.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setMaximumSpeed(_ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/SetMaximumSpeed",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func setMaximumSpeed(
+    _ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/SetMaximumSpeed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -301,12 +430,17 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to GetReturnToLaunchAltitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/GetReturnToLaunchAltitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func getReturnToLaunchAltitude(
+    _ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/GetReturnToLaunchAltitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
 
   ///
@@ -314,14 +448,33 @@ internal final class Mavsdk_Rpc_Action_ActionServiceClient: GRPCClient, Mavsdk_R
   ///
   /// - Parameters:
   ///   - request: Request to send to SetReturnToLaunchAltitude.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
+  ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setReturnToLaunchAltitude(_ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.action.ActionService/SetReturnToLaunchAltitude",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
+  internal func setReturnToLaunchAltitude(
+    _ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/SetReturnToLaunchAltitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
   }
+}
 
+internal final class Mavsdk_Rpc_Action_ActionServiceClient: Mavsdk_Rpc_Action_ActionServiceClientProtocol {
+  internal let channel: GRPCChannel
+  internal var defaultCallOptions: CallOptions
+
+  /// Creates a client for the mavsdk.rpc.action.ActionService service.
+  ///
+  /// - Parameters:
+  ///   - channel: `GRPCChannel` to the service host.
+  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+    self.channel = channel
+    self.defaultCallOptions = defaultCallOptions
+  }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -419,126 +572,126 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
 }
 
 extension Mavsdk_Rpc_Action_ActionServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.action.ActionService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.action.ActionService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "Arm":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.arm(request: request, context: context)
         }
       }
 
     case "Disarm":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.disarm(request: request, context: context)
         }
       }
 
     case "Takeoff":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.takeoff(request: request, context: context)
         }
       }
 
     case "Land":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.land(request: request, context: context)
         }
       }
 
     case "Reboot":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.reboot(request: request, context: context)
         }
       }
 
     case "Shutdown":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.shutdown(request: request, context: context)
         }
       }
 
     case "Kill":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.kill(request: request, context: context)
         }
       }
 
     case "ReturnToLaunch":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.returnToLaunch(request: request, context: context)
         }
       }
 
     case "GotoLocation":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.gotoLocation(request: request, context: context)
         }
       }
 
     case "TransitionToFixedwing":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.transitionToFixedwing(request: request, context: context)
         }
       }
 
     case "TransitionToMulticopter":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.transitionToMulticopter(request: request, context: context)
         }
       }
 
     case "GetTakeoffAltitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getTakeoffAltitude(request: request, context: context)
         }
       }
 
     case "SetTakeoffAltitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setTakeoffAltitude(request: request, context: context)
         }
       }
 
     case "GetMaximumSpeed":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getMaximumSpeed(request: request, context: context)
         }
       }
 
     case "SetMaximumSpeed":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setMaximumSpeed(request: request, context: context)
         }
       }
 
     case "GetReturnToLaunchAltitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getReturnToLaunchAltitude(request: request, context: context)
         }
       }
 
     case "SetReturnToLaunchAltitude":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setReturnToLaunchAltitude(request: request, context: context)
         }
@@ -548,41 +701,4 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Action_ArmRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_ArmResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_DisarmRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_DisarmResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_TakeoffRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_TakeoffResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_LandRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_LandResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_RebootRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_RebootResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_ShutdownRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_ShutdownResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_KillRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_KillResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_ReturnToLaunchRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_ReturnToLaunchResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GotoLocationRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GotoLocationResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_TransitionToFixedwingRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_TransitionToFixedwingResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_TransitionToMulticopterRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_TransitionToMulticopterResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GetMaximumSpeedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GetMaximumSpeedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_SetMaximumSpeedRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_SetMaximumSpeedResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: GRPCProtobufPayload {}
 
