@@ -20,24 +20,171 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Calibration_CalibrationServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
-  func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGyroResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, Mavsdk_Rpc_Calibration_CalibrateGyroResponse>
-  func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>
-  func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>
-  func subscribeCalibrateLevelHorizon(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>
-  func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, callOptions: CallOptions?, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>
-  func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse>
+internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol: GRPCClient {
+  func subscribeCalibrateGyro(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGyroResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, Mavsdk_Rpc_Calibration_CalibrateGyroResponse>
+
+  func subscribeCalibrateAccelerometer(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>
+
+  func subscribeCalibrateMagnetometer(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>
+
+  func subscribeCalibrateLevelHorizon(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>
+
+  func subscribeCalibrateGimbalAccelerometer(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>
+
+  func cancel(
+    _ request: Mavsdk_Rpc_Calibration_CancelRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Calibration_CalibrationServiceClient: GRPCClient, Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
+extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
+
+  /// Perform gyro calibration.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCalibrateGyro.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCalibrateGyro(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGyroResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, Mavsdk_Rpc_Calibration_CalibrateGyroResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Perform accelerometer calibration.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCalibrateAccelerometer.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCalibrateAccelerometer(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Perform magnetometer calibration.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCalibrateMagnetometer.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCalibrateMagnetometer(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Perform board level horizon calibration.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCalibrateLevelHorizon.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCalibrateLevelHorizon(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateLevelHorizon",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Perform gimbal accelerometer calibration.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCalibrateGimbalAccelerometer.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCalibrateGimbalAccelerometer(
+    _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
+  /// Cancel ongoing calibration process.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Cancel.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func cancel(
+    _ request: Mavsdk_Rpc_Calibration_CancelRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.calibration.CalibrationService/Cancel",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Calibration_CalibrationServiceClient: Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -50,89 +197,6 @@ internal final class Mavsdk_Rpc_Calibration_CalibrationServiceClient: GRPCClient
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  /// Perform gyro calibration.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCalibrateGyro.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCalibrateGyro(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGyroResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, Mavsdk_Rpc_Calibration_CalibrateGyroResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Perform accelerometer calibration.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCalibrateAccelerometer.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCalibrateAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Perform magnetometer calibration.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCalibrateMagnetometer.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCalibrateMagnetometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Perform board level horizon calibration.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCalibrateLevelHorizon.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCalibrateLevelHorizon(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateLevelHorizon",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Perform gimbal accelerometer calibration.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCalibrateGimbalAccelerometer.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCalibrateGimbalAccelerometer(_ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, callOptions: CallOptions? = nil, handler: @escaping (Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse) -> Void) -> ServerStreamingCall<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse> {
-    return self.makeServerStreamingCall(path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer",
-                                        request: request,
-                                        callOptions: callOptions ?? self.defaultCallOptions,
-                                        handler: handler)
-  }
-
-  /// Cancel ongoing calibration process.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Cancel.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func cancel(_ request: Mavsdk_Rpc_Calibration_CancelRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.calibration.CalibrationService/Cancel",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -152,49 +216,49 @@ internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceProvider: CallHandler
 }
 
 extension Mavsdk_Rpc_Calibration_CalibrationServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.calibration.CalibrationService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.calibration.CalibrationService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "SubscribeCalibrateGyro":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCalibrateGyro(request: request, context: context)
         }
       }
 
     case "SubscribeCalibrateAccelerometer":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCalibrateAccelerometer(request: request, context: context)
         }
       }
 
     case "SubscribeCalibrateMagnetometer":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCalibrateMagnetometer(request: request, context: context)
         }
       }
 
     case "SubscribeCalibrateLevelHorizon":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCalibrateLevelHorizon(request: request, context: context)
         }
       }
 
     case "SubscribeCalibrateGimbalAccelerometer":
-      return ServerStreamingCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.subscribeCalibrateGimbalAccelerometer(request: request, context: context)
         }
       }
 
     case "Cancel":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.cancel(request: request, context: context)
         }
@@ -204,19 +268,4 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CalibrateGyroResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CancelRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Calibration_CancelResponse: GRPCProtobufPayload {}
 

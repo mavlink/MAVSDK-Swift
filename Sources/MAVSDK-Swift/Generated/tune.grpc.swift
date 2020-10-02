@@ -20,19 +20,41 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-import Foundation
 import GRPC
 import NIO
-import NIOHTTP1
 import SwiftProtobuf
 
 
 /// Usage: instantiate Mavsdk_Rpc_Tune_TuneServiceClient, then call methods of this protocol to make API calls.
-internal protocol Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
-  func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, callOptions: CallOptions?) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>
+internal protocol Mavsdk_Rpc_Tune_TuneServiceClientProtocol: GRPCClient {
+  func playTune(
+    _ request: Mavsdk_Rpc_Tune_PlayTuneRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>
+
 }
 
-internal final class Mavsdk_Rpc_Tune_TuneServiceClient: GRPCClient, Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
+extension Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
+
+  /// Send a tune to be played by the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to PlayTune.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func playTune(
+    _ request: Mavsdk_Rpc_Tune_PlayTuneRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.tune.TuneService/PlayTune",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+}
+
+internal final class Mavsdk_Rpc_Tune_TuneServiceClient: Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
 
@@ -45,19 +67,6 @@ internal final class Mavsdk_Rpc_Tune_TuneServiceClient: GRPCClient, Mavsdk_Rpc_T
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
   }
-
-  /// Send a tune to be played by the system.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to PlayTune.
-  ///   - callOptions: Call options; `self.defaultCallOptions` is used if `nil`.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func playTune(_ request: Mavsdk_Rpc_Tune_PlayTuneRequest, callOptions: CallOptions? = nil) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse> {
-    return self.makeUnaryCall(path: "/mavsdk.rpc.tune.TuneService/PlayTune",
-                              request: request,
-                              callOptions: callOptions ?? self.defaultCallOptions)
-  }
-
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -67,14 +76,14 @@ internal protocol Mavsdk_Rpc_Tune_TuneServiceProvider: CallHandlerProvider {
 }
 
 extension Mavsdk_Rpc_Tune_TuneServiceProvider {
-  internal var serviceName: String { return "mavsdk.rpc.tune.TuneService" }
+  internal var serviceName: Substring { return "mavsdk.rpc.tune.TuneService" }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: String, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
+  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
     switch methodName {
     case "PlayTune":
-      return UnaryCallHandler(callHandlerContext: callHandlerContext) { context in
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.playTune(request: request, context: context)
         }
@@ -84,9 +93,4 @@ extension Mavsdk_Rpc_Tune_TuneServiceProvider {
     }
   }
 }
-
-
-// Provides conformance to `GRPCPayload` for request and response messages
-extension Mavsdk_Rpc_Tune_PlayTuneRequest: GRPCProtobufPayload {}
-extension Mavsdk_Rpc_Tune_PlayTuneResponse: GRPCProtobufPayload {}
 
