@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package mavsdk.rpc.calibration;
+
+import "mavsdk_options.proto";
+
+option java_package = "io.mavsdk.calibration";
+option java_outer_classname = "CalibrationProto";
+
+// Enable to calibrate sensors of a drone such as gyro, accelerometer, and magnetometer.
+service CalibrationService {
+    // Perform gyro calibration.
+    rpc SubscribeCalibrateGyro(SubscribeCalibrateGyroRequest) returns(stream CalibrateGyroResponse) {
+        option (mavsdk.options.async_type) = ASYNC;
+        option (mavsdk.options.is_finite) = true;
+    }
+    // Perform accelerometer calibration.
+    rpc SubscribeCalibrateAccelerometer(SubscribeCalibrateAccelerometerRequest) returns(stream CalibrateAccelerometerResponse) {
+        option (mavsdk.options.async_type) = ASYNC;
+        option (mavsdk.options.is_finite) = true;
+    }
+    // Perform magnetometer calibration.
+    rpc SubscribeCalibrateMagnetometer(SubscribeCalibrateMagnetometerRequest) returns(stream CalibrateMagnetometerResponse) {
+        option (mavsdk.options.async_type) = ASYNC;
+        option (mavsdk.options.is_finite) = true;
+    }
+    // Perform board level horizon calibration.
+    rpc SubscribeCalibrateLevelHorizon(SubscribeCalibrateLevelHorizonRequest) returns(stream CalibrateLevelHorizonResponse) {
+        option (mavsdk.options.async_type) = ASYNC;
+        option (mavsdk.options.is_finite) = true;
+    }
+    // Perform gimbal accelerometer calibration.
+    rpc SubscribeCalibrateGimbalAccelerometer(SubscribeCalibrateGimbalAccelerometerRequest) returns(stream CalibrateGimbalAccelerometerResponse) {
+        option (mavsdk.options.async_type) = ASYNC;
+        option (mavsdk.options.is_finite) = true;
+    }
+    // Cancel ongoing calibration process.
+    rpc Cancel(CancelRequest) returns(CancelResponse) { option (mavsdk.options.async_type) = SYNC; }
+}
+
+message SubscribeCalibrateGyroRequest {}
+message CalibrateGyroResponse {
+    CalibrationResult calibration_result = 1;
+    ProgressData progress_data = 2; // Progress data
+}
+
+message SubscribeCalibrateAccelerometerRequest {}
+message CalibrateAccelerometerResponse {
+    CalibrationResult calibration_result = 1;
+    ProgressData progress_data = 2; // Progress data
+}
+
+message SubscribeCalibrateMagnetometerRequest {}
+message CalibrateMagnetometerResponse {
+    CalibrationResult calibration_result = 1;
+    ProgressData progress_data = 2; // Progress data
+}
+
+message SubscribeCalibrateLevelHorizonRequest {}
+message CalibrateLevelHorizonResponse {
+    CalibrationResult calibration_result = 1;
+    ProgressData progress_data = 2; // Progress data
+}
+
+message SubscribeCalibrateGimbalAccelerometerRequest {}
+message CalibrateGimbalAccelerometerResponse {
+    CalibrationResult calibration_result = 1;
+    ProgressData progress_data = 2; // Progress data
+}
+
+message CancelRequest {}
+message CancelResponse {}
+
+// Result type.
+message CalibrationResult {
+    // Possible results returned for calibration commands
+    enum Result {
+        RESULT_UNKNOWN = 0; // Unknown result
+        RESULT_SUCCESS = 1; // The calibration succeeded
+        RESULT_NEXT = 2; // Intermediate message showing progress or instructions on the next steps
+        RESULT_FAILED = 3; // Calibration failed
+        RESULT_NO_SYSTEM = 4; // No system is connected
+        RESULT_CONNECTION_ERROR = 5; // Connection error
+        RESULT_BUSY = 6; // Vehicle is busy
+        RESULT_COMMAND_DENIED = 7; // Command refused by vehicle
+        RESULT_TIMEOUT = 8; // Command timed out
+        RESULT_CANCELLED = 9; // Calibration process was cancelled
+        RESULT_FAILED_ARMED = 10; // Calibration process failed since the vehicle is armed
+    }
+
+    Result result = 1; // Result enum value
+    string result_str = 2; // Human-readable English string describing the result
+}
+
+/*
+ * Progress data coming from calibration.
+ *
+ * Can be a progress percentage, or an instruction text.
+ */
+message ProgressData {
+    bool has_progress = 1 [(mavsdk.options.default_value)="false"]; // Whether this ProgressData contains a 'progress' status or not
+    float progress = 2 [(mavsdk.options.default_value)="NaN"]; // Progress (percentage)
+
+    bool has_status_text = 3 [(mavsdk.options.default_value)="false"]; // Whether this ProgressData contains a 'status_text' or not
+    string status_text = 4; // Instruction text
+}
