@@ -1,3 +1,0 @@
-github "jonasvautherin/grpc-swift" "master"
-github "ReactiveX/RxSwift" == 5.0.1
-binary "https://s3.eu-central-1.amazonaws.com/dronecode-sdk/backend.json" == 0.28.0
