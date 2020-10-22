@@ -451,4 +451,32 @@ public class Info {
             return Disposables.create()
         }
     }
+
+    public func getSpeedFactor() -> Single<Double> {
+        return Single<Double>.create { single in
+            let request = Mavsdk_Rpc_Info_GetSpeedFactorRequest()
+
+            
+
+            do {
+                let response = try self.service.getSpeedFactor(request)
+
+                
+                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+                let speedFactor = response.speedFactor
+                
+                single(.success(speedFactor))
+            } catch {
+                single(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }

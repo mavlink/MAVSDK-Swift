@@ -49,6 +49,12 @@ fileprivate final class Mavsdk_Rpc_Param_ParamServiceSetParamFloatCallBase: Clie
   override class var method: String { return "/mavsdk.rpc.param.ParamService/SetParamFloat" }
 }
 
+internal protocol Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Param_ParamServiceGetAllParamsCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>, Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall {
+  override class var method: String { return "/mavsdk.rpc.param.ParamService/GetAllParams" }
+}
+
 
 /// Instantiate Mavsdk_Rpc_Param_ParamServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Param_ParamServiceService: ServiceClient {
@@ -75,6 +81,12 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func setParamFloat(_ request: Mavsdk_Rpc_Param_SetParamFloatRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_SetParamFloatResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetParamFloatCall
+
+  /// Synchronous. Unary.
+  func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetAllParamsResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetAllParamsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall
 
 }
 
@@ -117,6 +129,16 @@ internal extension Mavsdk_Rpc_Param_ParamServiceService {
   @discardableResult
   func setParamFloat(_ request: Mavsdk_Rpc_Param_SetParamFloatRequest, completion: @escaping (Mavsdk_Rpc_Param_SetParamFloatResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceSetParamFloatCall {
     return try self.setParamFloat(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest) throws -> Mavsdk_Rpc_Param_GetAllParamsResponse {
+    return try self.getAllParams(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, completion: @escaping (Mavsdk_Rpc_Param_GetAllParamsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall {
+    return try self.getAllParams(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -170,6 +192,18 @@ internal final class Mavsdk_Rpc_Param_ParamServiceServiceClient: ServiceClientBa
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+  /// Synchronous. Unary.
+  internal func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetAllParamsResponse {
+    return try Mavsdk_Rpc_Param_ParamServiceGetAllParamsCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetAllParamsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall {
+    return try Mavsdk_Rpc_Param_ParamServiceGetAllParamsCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
 }
 
 class Mavsdk_Rpc_Param_ParamServiceGetParamIntCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceGetParamIntCall {
@@ -186,6 +220,10 @@ class Mavsdk_Rpc_Param_ParamServiceGetParamFloatCallTestStub: ClientCallUnaryTes
 
 class Mavsdk_Rpc_Param_ParamServiceSetParamFloatCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceSetParamFloatCall {
   override class var method: String { return "/mavsdk.rpc.param.ParamService/SetParamFloat" }
+}
+
+class Mavsdk_Rpc_Param_ParamServiceGetAllParamsCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall {
+  override class var method: String { return "/mavsdk.rpc.param.ParamService/GetAllParams" }
 }
 
 class Mavsdk_Rpc_Param_ParamServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Param_ParamServiceService {
@@ -249,6 +287,21 @@ class Mavsdk_Rpc_Param_ParamServiceServiceTestStub: ServiceClientTestStubBase, M
     return Mavsdk_Rpc_Param_ParamServiceSetParamFloatCallTestStub()
   }
 
+  var getAllParamsRequests: [Mavsdk_Rpc_Param_GetAllParamsRequest] = []
+  var getAllParamsResponses: [Mavsdk_Rpc_Param_GetAllParamsResponse] = []
+  func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Param_GetAllParamsResponse {
+    getAllParamsRequests.append(request)
+    defer { getAllParamsResponses.removeFirst() }
+    return getAllParamsResponses.first!
+  }
+  @discardableResult
+  func getAllParams(_ request: Mavsdk_Rpc_Param_GetAllParamsRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Param_GetAllParamsResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Param_ParamServiceGetAllParamsCall {
+    let response = try self.getAllParams(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Param_ParamServiceGetAllParamsCallTestStub()
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -259,6 +312,7 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceProvider: ServiceProvider {
   func setParamInt(request: Mavsdk_Rpc_Param_SetParamIntRequest, session: Mavsdk_Rpc_Param_ParamServiceSetParamIntSession) throws -> Mavsdk_Rpc_Param_SetParamIntResponse
   func getParamFloat(request: Mavsdk_Rpc_Param_GetParamFloatRequest, session: Mavsdk_Rpc_Param_ParamServiceGetParamFloatSession) throws -> Mavsdk_Rpc_Param_GetParamFloatResponse
   func setParamFloat(request: Mavsdk_Rpc_Param_SetParamFloatRequest, session: Mavsdk_Rpc_Param_ParamServiceSetParamFloatSession) throws -> Mavsdk_Rpc_Param_SetParamFloatResponse
+  func getAllParams(request: Mavsdk_Rpc_Param_GetAllParamsRequest, session: Mavsdk_Rpc_Param_ParamServiceGetAllParamsSession) throws -> Mavsdk_Rpc_Param_GetAllParamsResponse
 }
 
 extension Mavsdk_Rpc_Param_ParamServiceProvider {
@@ -287,6 +341,11 @@ extension Mavsdk_Rpc_Param_ParamServiceProvider {
       return try Mavsdk_Rpc_Param_ParamServiceSetParamFloatSessionBase(
         handler: handler,
         providerBlock: { try self.setParamFloat(request: $0, session: $1 as! Mavsdk_Rpc_Param_ParamServiceSetParamFloatSessionBase) })
+          .run()
+    case "/mavsdk.rpc.param.ParamService/GetAllParams":
+      return try Mavsdk_Rpc_Param_ParamServiceGetAllParamsSessionBase(
+        handler: handler,
+        providerBlock: { try self.getAllParams(request: $0, session: $1 as! Mavsdk_Rpc_Param_ParamServiceGetAllParamsSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -317,4 +376,10 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceSetParamFloatSession: ServerSessi
 fileprivate final class Mavsdk_Rpc_Param_ParamServiceSetParamFloatSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>, Mavsdk_Rpc_Param_ParamServiceSetParamFloatSession {}
 
 class Mavsdk_Rpc_Param_ParamServiceSetParamFloatSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceSetParamFloatSession {}
+
+internal protocol Mavsdk_Rpc_Param_ParamServiceGetAllParamsSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Param_ParamServiceGetAllParamsSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>, Mavsdk_Rpc_Param_ParamServiceGetAllParamsSession {}
+
+class Mavsdk_Rpc_Param_ParamServiceGetAllParamsSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Param_ParamServiceGetAllParamsSession {}
 

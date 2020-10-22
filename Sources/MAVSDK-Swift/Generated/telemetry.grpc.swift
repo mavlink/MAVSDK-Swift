@@ -441,6 +441,22 @@ fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochT
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime" }
 }
 
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall: ClientCallServerStreaming {
+  /// Do not call this directly, call `receive()` in the protocol extension below instead.
+  func _receive(timeout: DispatchTime) throws -> Mavsdk_Rpc_Telemetry_DistanceSensorResponse?
+  /// Call this to wait for a result. Nonblocking.
+  func receive(completion: @escaping (ResultOrRPCError<Mavsdk_Rpc_Telemetry_DistanceSensorResponse?>) -> Void) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall {
+  /// Call this to wait for a result. Blocking.
+  func receive(timeout: DispatchTime = .distantFuture) throws -> Mavsdk_Rpc_Telemetry_DistanceSensorResponse? { return try self._receive(timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCallBase: ClientCallServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeDistanceSensor" }
+}
+
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
@@ -547,6 +563,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall:
 
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime" }
+}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateDistanceSensor" }
 }
 
 
@@ -682,6 +704,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
   /// Use methods on the returned object to get streamed responses.
   func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall
 
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  func subscribeDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall
+
   /// Synchronous. Unary.
   func setRatePosition(_ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse
   /// Asynchronous. Unary.
@@ -789,6 +816,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall
+
+  /// Synchronous. Unary.
+  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall
 
 }
 
@@ -921,6 +954,11 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
   /// Asynchronous. Server-streaming.
   func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
     return try self.subscribeUnixEpochTime(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  func subscribeDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall {
+    return try self.subscribeDistanceSensor(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
@@ -1101,6 +1139,16 @@ internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceService {
   @discardableResult
   func setRateUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
     return try self.setRateUnixEpochTime(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest) throws -> Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse {
+    return try self.setRateDistanceSensor(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall {
+    return try self.setRateDistanceSensor(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -1311,6 +1359,14 @@ internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: Service
   /// Use methods on the returned object to get streamed responses.
   internal func subscribeUnixEpochTime(_ request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCall {
     return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Asynchronous. Server-streaming.
+  /// Send the initial message.
+  /// Use methods on the returned object to get streamed responses.
+  internal func subscribeDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCallBase(channel)
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
@@ -1530,6 +1586,18 @@ internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceClient: Service
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+  /// Synchronous. Unary.
+  internal func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall {
+    return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
 }
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_PositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribePositionCall {
@@ -1636,6 +1704,10 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeCallTestStub: C
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime" }
 }
 
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCallTestStub: ClientCallServerStreamingTestStub<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SubscribeDistanceSensor" }
+}
+
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionCall {
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition" }
 }
@@ -1706,6 +1778,10 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuCallTestStub: ClientCallUna
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCall {
   override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime" }
+}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall {
+  override class var method: String { return "/mavsdk.rpc.telemetry.TelemetryService/SetRateDistanceSensor" }
 }
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Telemetry_TelemetryServiceService {
@@ -1915,6 +1991,14 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStu
     subscribeUnixEpochTimeRequests.append(request)
     defer { subscribeUnixEpochTimeCalls.removeFirst() }
     return subscribeUnixEpochTimeCalls.first!
+  }
+
+  var subscribeDistanceSensorRequests: [Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest] = []
+  var subscribeDistanceSensorCalls: [Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall] = []
+  func subscribeDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, metadata customMetadata: Metadata, completion: ((CallResult) -> Void)?) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorCall {
+    subscribeDistanceSensorRequests.append(request)
+    defer { subscribeDistanceSensorCalls.removeFirst() }
+    return subscribeDistanceSensorCalls.first!
   }
 
   var setRatePositionRequests: [Mavsdk_Rpc_Telemetry_SetRatePositionRequest] = []
@@ -2187,6 +2271,21 @@ class Mavsdk_Rpc_Telemetry_TelemetryServiceServiceTestStub: ServiceClientTestStu
     return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeCallTestStub()
   }
 
+  var setRateDistanceSensorRequests: [Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest] = []
+  var setRateDistanceSensorResponses: [Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse] = []
+  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse {
+    setRateDistanceSensorRequests.append(request)
+    defer { setRateDistanceSensorResponses.removeFirst() }
+    return setRateDistanceSensorResponses.first!
+  }
+  @discardableResult
+  func setRateDistanceSensor(_ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCall {
+    let response = try self.setRateDistanceSensor(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorCallTestStub()
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -2219,6 +2318,7 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: ServiceProvider
   func subscribeImu(request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeImuSession) throws -> ServerStatus?
   func subscribeHealthAllOk(request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeHealthAllOkSession) throws -> ServerStatus?
   func subscribeUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession) throws -> ServerStatus?
+  func subscribeDistanceSensor(request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSession) throws -> ServerStatus?
   func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession) throws -> Mavsdk_Rpc_Telemetry_SetRatePositionResponse
   func setRateHome(request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateHomeSession) throws -> Mavsdk_Rpc_Telemetry_SetRateHomeResponse
   func setRateInAir(request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateInAirSession) throws -> Mavsdk_Rpc_Telemetry_SetRateInAirResponse
@@ -2237,6 +2337,7 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: ServiceProvider
   func setRateFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateFixedwingMetricsSession) throws -> Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse
   func setRateImu(request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateImuSession) throws -> Mavsdk_Rpc_Telemetry_SetRateImuResponse
   func setRateUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession) throws -> Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse
+  func setRateDistanceSensor(request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, session: Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession) throws -> Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse
 }
 
 extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
@@ -2376,6 +2477,11 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         handler: handler,
         providerBlock: { try self.subscribeUnixEpochTime(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSessionBase) })
           .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SubscribeDistanceSensor":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSessionBase(
+        handler: handler,
+        providerBlock: { try self.subscribeDistanceSensor(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSessionBase) })
+          .run()
     case "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition":
       return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSessionBase(
         handler: handler,
@@ -2465,6 +2571,11 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
       return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionBase(
         handler: handler,
         providerBlock: { try self.setRateUnixEpochTime(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionBase) })
+          .run()
+    case "/mavsdk.rpc.telemetry.TelemetryService/SetRateDistanceSensor":
+      return try Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSessionBase(
+        handler: handler,
+        providerBlock: { try self.setRateDistanceSensor(request: $0, session: $1 as! Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -3018,6 +3129,27 @@ fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochT
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeUnixEpochTimeSession {}
 
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSession: ServerSessionServerStreaming {
+  /// Send a message to the stream. Nonblocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_DistanceSensorResponse, completion: @escaping (Error?) -> Void) throws
+  /// Do not call this directly, call `send()` in the protocol extension below instead.
+  func _send(_ message: Mavsdk_Rpc_Telemetry_DistanceSensorResponse, timeout: DispatchTime) throws
+
+  /// Close the connection and send the status. Non-blocking.
+  /// This method should be called if and only if your request handler returns a nil value instead of a server status;
+  /// otherwise SwiftGRPC will take care of sending the status for you.
+  func close(withStatus status: ServerStatus, completion: (() -> Void)?) throws
+}
+
+internal extension Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSession {
+  /// Send a message to the stream and wait for the send operation to finish. Blocking.
+  func send(_ message: Mavsdk_Rpc_Telemetry_DistanceSensorResponse, timeout: DispatchTime = .distantFuture) throws { try self._send(message, timeout: timeout) }
+}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSessionBase: ServerSessionServerStreamingBase<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSessionTestStub: ServerSessionServerStreamingTestStub<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSubscribeDistanceSensorSession {}
+
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession: ServerSessionUnary {}
 
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRatePositionSession {}
@@ -3125,4 +3257,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessi
 fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession {}
 
 class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateUnixEpochTimeSession {}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession {}
+
+class Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Telemetry_TelemetryServiceSetRateDistanceSensorSession {}
 

@@ -49,6 +49,12 @@ fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionCallBase: ClientCal
   override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
 }
 
+internal protocol Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>, Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall {
+  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetSpeedFactor" }
+}
+
 
 /// Instantiate Mavsdk_Rpc_Info_InfoServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Info_InfoServiceService: ServiceClient {
@@ -75,6 +81,12 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall
+
+  /// Synchronous. Unary.
+  func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetSpeedFactorResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetSpeedFactorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall
 
 }
 
@@ -117,6 +129,16 @@ internal extension Mavsdk_Rpc_Info_InfoServiceService {
   @discardableResult
   func getVersion(_ request: Mavsdk_Rpc_Info_GetVersionRequest, completion: @escaping (Mavsdk_Rpc_Info_GetVersionResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
     return try self.getVersion(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest) throws -> Mavsdk_Rpc_Info_GetSpeedFactorResponse {
+    return try self.getSpeedFactor(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, completion: @escaping (Mavsdk_Rpc_Info_GetSpeedFactorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall {
+    return try self.getSpeedFactor(request, metadata: self.metadata, completion: completion)
   }
 
 }
@@ -170,6 +192,18 @@ internal final class Mavsdk_Rpc_Info_InfoServiceServiceClient: ServiceClientBase
       .start(request: request, metadata: customMetadata, completion: completion)
   }
 
+  /// Synchronous. Unary.
+  internal func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetSpeedFactorResponse {
+    return try Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetSpeedFactorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall {
+    return try Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
 }
 
 class Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetFlightInformationCall {
@@ -186,6 +220,10 @@ class Mavsdk_Rpc_Info_InfoServiceGetProductCallTestStub: ClientCallUnaryTestStub
 
 class Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionCall {
   override class var method: String { return "/mavsdk.rpc.info.InfoService/GetVersion" }
+}
+
+class Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall {
+  override class var method: String { return "/mavsdk.rpc.info.InfoService/GetSpeedFactor" }
 }
 
 class Mavsdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, Mavsdk_Rpc_Info_InfoServiceService {
@@ -249,6 +287,21 @@ class Mavsdk_Rpc_Info_InfoServiceServiceTestStub: ServiceClientTestStubBase, Mav
     return Mavsdk_Rpc_Info_InfoServiceGetVersionCallTestStub()
   }
 
+  var getSpeedFactorRequests: [Mavsdk_Rpc_Info_GetSpeedFactorRequest] = []
+  var getSpeedFactorResponses: [Mavsdk_Rpc_Info_GetSpeedFactorResponse] = []
+  func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Info_GetSpeedFactorResponse {
+    getSpeedFactorRequests.append(request)
+    defer { getSpeedFactorResponses.removeFirst() }
+    return getSpeedFactorResponses.first!
+  }
+  @discardableResult
+  func getSpeedFactor(_ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Info_GetSpeedFactorResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCall {
+    let response = try self.getSpeedFactor(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorCallTestStub()
+  }
+
 }
 
 /// To build a server, implement a class that conforms to this protocol.
@@ -259,6 +312,7 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: ServiceProvider {
   func getIdentification(request: Mavsdk_Rpc_Info_GetIdentificationRequest, session: Mavsdk_Rpc_Info_InfoServiceGetIdentificationSession) throws -> Mavsdk_Rpc_Info_GetIdentificationResponse
   func getProduct(request: Mavsdk_Rpc_Info_GetProductRequest, session: Mavsdk_Rpc_Info_InfoServiceGetProductSession) throws -> Mavsdk_Rpc_Info_GetProductResponse
   func getVersion(request: Mavsdk_Rpc_Info_GetVersionRequest, session: Mavsdk_Rpc_Info_InfoServiceGetVersionSession) throws -> Mavsdk_Rpc_Info_GetVersionResponse
+  func getSpeedFactor(request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, session: Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSession) throws -> Mavsdk_Rpc_Info_GetSpeedFactorResponse
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceProvider {
@@ -287,6 +341,11 @@ extension Mavsdk_Rpc_Info_InfoServiceProvider {
       return try Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase(
         handler: handler,
         providerBlock: { try self.getVersion(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase) })
+          .run()
+    case "/mavsdk.rpc.info.InfoService/GetSpeedFactor":
+      return try Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSessionBase(
+        handler: handler,
+        providerBlock: { try self.getSpeedFactor(request: $0, session: $1 as! Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSessionBase) })
           .run()
     default:
       throw HandleMethodError.unknownMethod
@@ -317,4 +376,10 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceGetVersionSession: ServerSessionUna
 fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetVersionSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>, Mavsdk_Rpc_Info_InfoServiceGetVersionSession {}
 
 class Mavsdk_Rpc_Info_InfoServiceGetVersionSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetVersionSession {}
+
+internal protocol Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>, Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSession {}
+
+class Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Info_InfoServiceGetSpeedFactorSession {}
 

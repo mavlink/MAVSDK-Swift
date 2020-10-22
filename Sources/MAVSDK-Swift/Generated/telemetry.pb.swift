@@ -225,34 +225,59 @@ extension Mavsdk_Rpc_Telemetry_FlightMode: CaseIterable {
 enum Mavsdk_Rpc_Telemetry_StatusTextType: SwiftProtobuf.Enum {
   typealias RawValue = Int
 
-  /// Information or other
-  case info // = 0
+  /// Debug
+  case debug // = 0
+
+  /// Information
+  case info // = 1
+
+  /// Notice
+  case notice // = 2
 
   /// Warning
-  case warning // = 1
+  case warning // = 3
+
+  /// Error
+  case error // = 4
 
   /// Critical
-  case critical // = 2
+  case critical // = 5
+
+  /// Alert
+  case alert // = 6
+
+  /// Emergency
+  case emergency // = 7
   case UNRECOGNIZED(Int)
 
   init() {
-    self = .info
+    self = .debug
   }
 
   init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .info
-    case 1: self = .warning
-    case 2: self = .critical
+    case 0: self = .debug
+    case 1: self = .info
+    case 2: self = .notice
+    case 3: self = .warning
+    case 4: self = .error
+    case 5: self = .critical
+    case 6: self = .alert
+    case 7: self = .emergency
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   var rawValue: Int {
     switch self {
-    case .info: return 0
-    case .warning: return 1
-    case .critical: return 2
+    case .debug: return 0
+    case .info: return 1
+    case .notice: return 2
+    case .warning: return 3
+    case .error: return 4
+    case .critical: return 5
+    case .alert: return 6
+    case .emergency: return 7
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -264,9 +289,14 @@ enum Mavsdk_Rpc_Telemetry_StatusTextType: SwiftProtobuf.Enum {
 extension Mavsdk_Rpc_Telemetry_StatusTextType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Mavsdk_Rpc_Telemetry_StatusTextType] = [
+    .debug,
     .info,
+    .notice,
     .warning,
+    .error,
     .critical,
+    .alert,
+    .emergency,
   ]
 }
 
@@ -1113,6 +1143,38 @@ struct Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse {
   init() {}
 }
 
+struct Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_DistanceSensorResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next Distance Sensor status
+  var distanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor {
+    get {return _storage._distanceSensor ?? Mavsdk_Rpc_Telemetry_DistanceSensor()}
+    set {_uniqueStorage()._distanceSensor = newValue}
+  }
+  /// Returns true if `distanceSensor` has been explicitly set.
+  var hasDistanceSensor: Bool {return _storage._distanceSensor != nil}
+  /// Clears the value of `distanceSensor`. Subsequent reads from it will return its default value.
+  mutating func clearDistanceSensor() {_uniqueStorage()._distanceSensor = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 struct Mavsdk_Rpc_Telemetry_SetRatePositionRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1793,6 +1855,40 @@ struct Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_uniqueStorage()._telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// Position type in global coordinates.
 struct Mavsdk_Rpc_Telemetry_Position {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1986,7 +2082,7 @@ struct Mavsdk_Rpc_Telemetry_StatusText {
   // methods supported on all messages.
 
   /// Message type
-  var type: Mavsdk_Rpc_Telemetry_StatusTextType = .info
+  var type: Mavsdk_Rpc_Telemetry_StatusTextType = .debug
 
   /// MAVLink status message
   var text: String = String()
@@ -2236,6 +2332,26 @@ extension Mavsdk_Rpc_Telemetry_Odometry.MavFrame: CaseIterable {
 }
 
 #endif  // swift(>=4.2)
+
+/// DistanceSensor message type.
+struct Mavsdk_Rpc_Telemetry_DistanceSensor {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Minimum distance the sensor can measure, NaN if unknown.
+  var minimumDistanceM: Float = 0
+
+  /// Maximum distance the sensor can measure, NaN if unknown.
+  var maximumDistanceM: Float = 0
+
+  /// Current distance reading, NaN if unknown.
+  var currentDistanceM: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
 
 /// PositionNed message type.
 struct Mavsdk_Rpc_Telemetry_PositionNed {
@@ -2589,9 +2705,14 @@ extension Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf._ProtoNameProviding {
 
 extension Mavsdk_Rpc_Telemetry_StatusTextType: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "STATUS_TEXT_TYPE_INFO"),
-    1: .same(proto: "STATUS_TEXT_TYPE_WARNING"),
-    2: .same(proto: "STATUS_TEXT_TYPE_CRITICAL"),
+    0: .same(proto: "STATUS_TEXT_TYPE_DEBUG"),
+    1: .same(proto: "STATUS_TEXT_TYPE_INFO"),
+    2: .same(proto: "STATUS_TEXT_TYPE_NOTICE"),
+    3: .same(proto: "STATUS_TEXT_TYPE_WARNING"),
+    4: .same(proto: "STATUS_TEXT_TYPE_ERROR"),
+    5: .same(proto: "STATUS_TEXT_TYPE_CRITICAL"),
+    6: .same(proto: "STATUS_TEXT_TYPE_ALERT"),
+    7: .same(proto: "STATUS_TEXT_TYPE_EMERGENCY"),
   ]
 }
 
@@ -4493,6 +4614,86 @@ extension Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse: SwiftProtobuf.Message, Swi
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeDistanceSensorRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_DistanceSensorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DistanceSensorResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "distance_sensor"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _distanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _distanceSensor = source._distanceSensor
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._distanceSensor)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._distanceSensor {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_DistanceSensorResponse, rhs: Mavsdk_Rpc_Telemetry_DistanceSensorResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._distanceSensor != rhs_storage._distanceSensor {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_SetRatePositionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetRatePositionRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -6293,6 +6494,96 @@ extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse: SwiftProtobuf.Messa
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateDistanceSensorRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.rateHz)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateDistanceSensorResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _telemetryResult = source._telemetryResult
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._telemetryResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_Position: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Position"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -6663,7 +6954,7 @@ extension Mavsdk_Rpc_Telemetry_StatusText: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.type != .info {
+    if self.type != .debug {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 1)
     }
     if !self.text.isEmpty {
@@ -6993,6 +7284,47 @@ extension Mavsdk_Rpc_Telemetry_Odometry.MavFrame: SwiftProtobuf._ProtoNameProvid
     16: .same(proto: "MAV_FRAME_VISION_NED"),
     18: .same(proto: "MAV_FRAME_ESTIM_NED"),
   ]
+}
+
+extension Mavsdk_Rpc_Telemetry_DistanceSensor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DistanceSensor"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "minimum_distance_m"),
+    2: .standard(proto: "maximum_distance_m"),
+    3: .standard(proto: "current_distance_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.minimumDistanceM)
+      case 2: try decoder.decodeSingularFloatField(value: &self.maximumDistanceM)
+      case 3: try decoder.decodeSingularFloatField(value: &self.currentDistanceM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.minimumDistanceM != 0 {
+      try visitor.visitSingularFloatField(value: self.minimumDistanceM, fieldNumber: 1)
+    }
+    if self.maximumDistanceM != 0 {
+      try visitor.visitSingularFloatField(value: self.maximumDistanceM, fieldNumber: 2)
+    }
+    if self.currentDistanceM != 0 {
+      try visitor.visitSingularFloatField(value: self.currentDistanceM, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_DistanceSensor, rhs: Mavsdk_Rpc_Telemetry_DistanceSensor) -> Bool {
+    if lhs.minimumDistanceM != rhs.minimumDistanceM {return false}
+    if lhs.maximumDistanceM != rhs.maximumDistanceM {return false}
+    if lhs.currentDistanceM != rhs.currentDistanceM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
 
 extension Mavsdk_Rpc_Telemetry_PositionNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

@@ -183,6 +183,43 @@ struct Mavsdk_Rpc_Info_GetVersionResponse {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Mavsdk_Rpc_Info_GetSpeedFactorRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Info_GetSpeedFactorResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var infoResult: Mavsdk_Rpc_Info_InfoResult {
+    get {return _storage._infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
+    set {_uniqueStorage()._infoResult = newValue}
+  }
+  /// Returns true if `infoResult` has been explicitly set.
+  var hasInfoResult: Bool {return _storage._infoResult != nil}
+  /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
+  mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
+
+  /// Speed factor of simulation
+  var speedFactor: Double {
+    get {return _storage._speedFactor}
+    set {_uniqueStorage()._speedFactor = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// System flight information.
 struct Mavsdk_Rpc_Info_FlightInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -696,6 +733,94 @@ extension Mavsdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, SwiftProtob
         let rhs_storage = _args.1
         if _storage._infoResult != rhs_storage._infoResult {return false}
         if _storage._version != rhs_storage._version {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetSpeedFactorRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSpeedFactorRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetSpeedFactorRequest, rhs: Mavsdk_Rpc_Info_GetSpeedFactorRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetSpeedFactorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSpeedFactorResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "info_result"),
+    2: .standard(proto: "speed_factor"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
+    var _speedFactor: Double = 0
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _infoResult = source._infoResult
+      _speedFactor = source._speedFactor
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._infoResult)
+        case 2: try decoder.decodeSingularDoubleField(value: &_storage._speedFactor)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._infoResult {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._speedFactor != 0 {
+        try visitor.visitSingularDoubleField(value: _storage._speedFactor, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetSpeedFactorResponse, rhs: Mavsdk_Rpc_Info_GetSpeedFactorResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._infoResult != rhs_storage._infoResult {return false}
+        if _storage._speedFactor != rhs_storage._speedFactor {return false}
         return true
       }
       if !storagesAreEqual {return false}

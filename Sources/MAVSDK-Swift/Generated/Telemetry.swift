@@ -181,19 +181,34 @@ public class Telemetry {
     }
 
     public enum StatusTextType: Equatable {
+        case debug
         case info
+        case notice
         case warning
+        case error
         case critical
+        case alert
+        case emergency
         case UNRECOGNIZED(Int)
 
         internal var rpcStatusTextType: Mavsdk_Rpc_Telemetry_StatusTextType {
             switch self {
+            case .debug:
+                return .debug
             case .info:
                 return .info
+            case .notice:
+                return .notice
             case .warning:
                 return .warning
+            case .error:
+                return .error
             case .critical:
                 return .critical
+            case .alert:
+                return .alert
+            case .emergency:
+                return .emergency
             case .UNRECOGNIZED(let i):
                 return .UNRECOGNIZED(i)
             }
@@ -201,12 +216,22 @@ public class Telemetry {
 
         internal static func translateFromRpc(_ rpcStatusTextType: Mavsdk_Rpc_Telemetry_StatusTextType) -> StatusTextType {
             switch rpcStatusTextType {
+            case .debug:
+                return .debug
             case .info:
                 return .info
+            case .notice:
+                return .notice
             case .warning:
                 return .warning
+            case .error:
+                return .error
             case .critical:
                 return .critical
+            case .alert:
+                return .alert
+            case .emergency:
+                return .emergency
             case .UNRECOGNIZED(let i):
                 return .UNRECOGNIZED(i)
             }
@@ -1009,6 +1034,51 @@ public class Telemetry {
                 && lhs.angularVelocityBody == rhs.angularVelocityBody
                 && lhs.poseCovariance == rhs.poseCovariance
                 && lhs.velocityCovariance == rhs.velocityCovariance
+        }
+    }
+
+    public struct DistanceSensor: Equatable {
+        public let minimumDistanceM: Float
+        public let maximumDistanceM: Float
+        public let currentDistanceM: Float
+
+        
+
+        public init(minimumDistanceM: Float, maximumDistanceM: Float, currentDistanceM: Float) {
+            self.minimumDistanceM = minimumDistanceM
+            self.maximumDistanceM = maximumDistanceM
+            self.currentDistanceM = currentDistanceM
+        }
+
+        internal var rpcDistanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor {
+            var rpcDistanceSensor = Mavsdk_Rpc_Telemetry_DistanceSensor()
+            
+                
+            rpcDistanceSensor.minimumDistanceM = minimumDistanceM
+                
+            
+            
+                
+            rpcDistanceSensor.maximumDistanceM = maximumDistanceM
+                
+            
+            
+                
+            rpcDistanceSensor.currentDistanceM = currentDistanceM
+                
+            
+
+            return rpcDistanceSensor
+        }
+
+        internal static func translateFromRpc(_ rpcDistanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor) -> DistanceSensor {
+            return DistanceSensor(minimumDistanceM: rpcDistanceSensor.minimumDistanceM, maximumDistanceM: rpcDistanceSensor.maximumDistanceM, currentDistanceM: rpcDistanceSensor.currentDistanceM)
+        }
+
+        public static func == (lhs: DistanceSensor, rhs: DistanceSensor) -> Bool {
+            return lhs.minimumDistanceM == rhs.minimumDistanceM
+                && lhs.maximumDistanceM == rhs.maximumDistanceM
+                && lhs.currentDistanceM == rhs.currentDistanceM
         }
     }
 
@@ -2892,6 +2962,59 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
+    public lazy var distanceSensor: Observable<DistanceSensor> = createDistanceSensorObservable()
+
+
+    private func createDistanceSensorObservable() -> Observable<DistanceSensor> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest()
+
+            
+
+            do {
+                let call = try self.service.subscribeDistanceSensor(request, completion: { (callResult) in
+                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
+                    }
+                })
+
+                let disposable = self.scheduler.schedule(0, action: { _ in
+                    
+                    while let response = try? call.receive() {
+                        
+                            
+                        let distanceSensor = DistanceSensor.translateFromRpc(response.distanceSensor)
+                        
+
+                        
+                        observer.onNext(distanceSensor)
+                        
+                    }
+                    
+
+                    return Disposables.create()
+                })
+
+                return Disposables.create {
+                    call.cancel()
+                    disposable.dispose()
+                }
+            } catch {
+                observer.onError(error)
+                return Disposables.create()
+            }
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
     public func setRatePosition(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRatePositionRequest()
@@ -3381,6 +3504,34 @@ public class Telemetry {
             do {
                 
                 let response = try self.service.setRateUnixEpochTime(request)
+
+                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func setRateDistanceSensor(rateHz: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest()
+
+            
+                
+            request.rateHz = rateHz
+                
+            
+
+            do {
+                
+                let response = try self.service.setRateDistanceSensor(request)
 
                 if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
