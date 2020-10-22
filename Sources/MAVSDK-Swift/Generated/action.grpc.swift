@@ -61,6 +61,12 @@ fileprivate final class Mavsdk_Rpc_Action_ActionServiceShutdownCallBase: ClientC
   override class var method: String { return "/mavsdk.rpc.action.ActionService/Shutdown" }
 }
 
+internal protocol Mavsdk_Rpc_Action_ActionServiceTerminateCall: ClientCallUnary {}
+
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceTerminateCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_TerminateRequest, Mavsdk_Rpc_Action_TerminateResponse>, Mavsdk_Rpc_Action_ActionServiceTerminateCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/Terminate" }
+}
+
 internal protocol Mavsdk_Rpc_Action_ActionServiceKillCall: ClientCallUnary {}
 
 fileprivate final class Mavsdk_Rpc_Action_ActionServiceKillCallBase: ClientCallUnaryBase<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>, Mavsdk_Rpc_Action_ActionServiceKillCall {
@@ -165,6 +171,12 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceService: ServiceClient {
   /// Asynchronous. Unary.
   @discardableResult
   func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_ShutdownResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceShutdownCall
+
+  /// Synchronous. Unary.
+  func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TerminateResponse
+  /// Asynchronous. Unary.
+  @discardableResult
+  func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TerminateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTerminateCall
 
   /// Synchronous. Unary.
   func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse
@@ -293,6 +305,16 @@ internal extension Mavsdk_Rpc_Action_ActionServiceService {
   @discardableResult
   func shutdown(_ request: Mavsdk_Rpc_Action_ShutdownRequest, completion: @escaping (Mavsdk_Rpc_Action_ShutdownResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceShutdownCall {
     return try self.shutdown(request, metadata: self.metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest) throws -> Mavsdk_Rpc_Action_TerminateResponse {
+    return try self.terminate(request, metadata: self.metadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, completion: @escaping (Mavsdk_Rpc_Action_TerminateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTerminateCall {
+    return try self.terminate(request, metadata: self.metadata, completion: completion)
   }
 
   /// Synchronous. Unary.
@@ -481,6 +503,18 @@ internal final class Mavsdk_Rpc_Action_ActionServiceServiceClient: ServiceClient
   }
 
   /// Synchronous. Unary.
+  internal func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TerminateResponse {
+    return try Mavsdk_Rpc_Action_ActionServiceTerminateCallBase(channel)
+      .run(request: request, metadata: customMetadata)
+  }
+  /// Asynchronous. Unary.
+  @discardableResult
+  internal func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TerminateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTerminateCall {
+    return try Mavsdk_Rpc_Action_ActionServiceTerminateCallBase(channel)
+      .start(request: request, metadata: customMetadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
   internal func kill(_ request: Mavsdk_Rpc_Action_KillRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_KillResponse {
     return try Mavsdk_Rpc_Action_ActionServiceKillCallBase(channel)
       .run(request: request, metadata: customMetadata)
@@ -638,6 +672,10 @@ class Mavsdk_Rpc_Action_ActionServiceShutdownCallTestStub: ClientCallUnaryTestSt
   override class var method: String { return "/mavsdk.rpc.action.ActionService/Shutdown" }
 }
 
+class Mavsdk_Rpc_Action_ActionServiceTerminateCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTerminateCall {
+  override class var method: String { return "/mavsdk.rpc.action.ActionService/Terminate" }
+}
+
 class Mavsdk_Rpc_Action_ActionServiceKillCallTestStub: ClientCallUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceKillCall {
   override class var method: String { return "/mavsdk.rpc.action.ActionService/Kill" }
 }
@@ -771,6 +809,21 @@ class Mavsdk_Rpc_Action_ActionServiceServiceTestStub: ServiceClientTestStubBase,
     let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
     completion(response, callResult)
     return Mavsdk_Rpc_Action_ActionServiceShutdownCallTestStub()
+  }
+
+  var terminateRequests: [Mavsdk_Rpc_Action_TerminateRequest] = []
+  var terminateResponses: [Mavsdk_Rpc_Action_TerminateResponse] = []
+  func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, metadata customMetadata: Metadata) throws -> Mavsdk_Rpc_Action_TerminateResponse {
+    terminateRequests.append(request)
+    defer { terminateResponses.removeFirst() }
+    return terminateResponses.first!
+  }
+  @discardableResult
+  func terminate(_ request: Mavsdk_Rpc_Action_TerminateRequest, metadata customMetadata: Metadata, completion: @escaping (Mavsdk_Rpc_Action_TerminateResponse?, CallResult) -> Void) throws -> Mavsdk_Rpc_Action_ActionServiceTerminateCall {
+    let response = try self.terminate(request)
+    let callResult = CallResult(success: true, statusCode: .ok, statusMessage: "OK", resultData: nil, initialMetadata: nil, trailingMetadata: nil)
+    completion(response, callResult)
+    return Mavsdk_Rpc_Action_ActionServiceTerminateCallTestStub()
   }
 
   var killRequests: [Mavsdk_Rpc_Action_KillRequest] = []
@@ -950,6 +1003,7 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: ServiceProvider {
   func land(request: Mavsdk_Rpc_Action_LandRequest, session: Mavsdk_Rpc_Action_ActionServiceLandSession) throws -> Mavsdk_Rpc_Action_LandResponse
   func reboot(request: Mavsdk_Rpc_Action_RebootRequest, session: Mavsdk_Rpc_Action_ActionServiceRebootSession) throws -> Mavsdk_Rpc_Action_RebootResponse
   func shutdown(request: Mavsdk_Rpc_Action_ShutdownRequest, session: Mavsdk_Rpc_Action_ActionServiceShutdownSession) throws -> Mavsdk_Rpc_Action_ShutdownResponse
+  func terminate(request: Mavsdk_Rpc_Action_TerminateRequest, session: Mavsdk_Rpc_Action_ActionServiceTerminateSession) throws -> Mavsdk_Rpc_Action_TerminateResponse
   func kill(request: Mavsdk_Rpc_Action_KillRequest, session: Mavsdk_Rpc_Action_ActionServiceKillSession) throws -> Mavsdk_Rpc_Action_KillResponse
   func returnToLaunch(request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, session: Mavsdk_Rpc_Action_ActionServiceReturnToLaunchSession) throws -> Mavsdk_Rpc_Action_ReturnToLaunchResponse
   func gotoLocation(request: Mavsdk_Rpc_Action_GotoLocationRequest, session: Mavsdk_Rpc_Action_ActionServiceGotoLocationSession) throws -> Mavsdk_Rpc_Action_GotoLocationResponse
@@ -999,6 +1053,11 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
       return try Mavsdk_Rpc_Action_ActionServiceShutdownSessionBase(
         handler: handler,
         providerBlock: { try self.shutdown(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceShutdownSessionBase) })
+          .run()
+    case "/mavsdk.rpc.action.ActionService/Terminate":
+      return try Mavsdk_Rpc_Action_ActionServiceTerminateSessionBase(
+        handler: handler,
+        providerBlock: { try self.terminate(request: $0, session: $1 as! Mavsdk_Rpc_Action_ActionServiceTerminateSessionBase) })
           .run()
     case "/mavsdk.rpc.action.ActionService/Kill":
       return try Mavsdk_Rpc_Action_ActionServiceKillSessionBase(
@@ -1096,6 +1155,12 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceShutdownSession: ServerSessionU
 fileprivate final class Mavsdk_Rpc_Action_ActionServiceShutdownSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>, Mavsdk_Rpc_Action_ActionServiceShutdownSession {}
 
 class Mavsdk_Rpc_Action_ActionServiceShutdownSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceShutdownSession {}
+
+internal protocol Mavsdk_Rpc_Action_ActionServiceTerminateSession: ServerSessionUnary {}
+
+fileprivate final class Mavsdk_Rpc_Action_ActionServiceTerminateSessionBase: ServerSessionUnaryBase<Mavsdk_Rpc_Action_TerminateRequest, Mavsdk_Rpc_Action_TerminateResponse>, Mavsdk_Rpc_Action_ActionServiceTerminateSession {}
+
+class Mavsdk_Rpc_Action_ActionServiceTerminateSessionTestStub: ServerSessionUnaryTestStub, Mavsdk_Rpc_Action_ActionServiceTerminateSession {}
 
 internal protocol Mavsdk_Rpc_Action_ActionServiceKillSession: ServerSessionUnary {}
 
