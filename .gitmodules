@@ -1,0 +1,3 @@
+[submodule "Sources/MAVSDK-Swift/proto"]
+	path = Sources/MAVSDK-Swift/proto
+	url = https://github.com/mavlink/mavsdk-proto
