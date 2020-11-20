@@ -316,12 +316,13 @@ public class Action {
 
             do {
                 
-                let response = try self.service.terminate(request)
+                let response = self.service.terminate(request)
 
-                if (response.actionResult.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(response.actionResult.result), description: response.actionResult.resultStr)))
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {

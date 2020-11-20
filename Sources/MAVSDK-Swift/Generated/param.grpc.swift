@@ -47,6 +47,11 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>
 
+  func getAllParams(
+    _ request: Mavsdk_Rpc_Param_GetAllParamsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>
+
 }
 
 extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
@@ -130,6 +135,24 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
       callOptions: callOptions ?? self.defaultCallOptions
     )
   }
+
+  ///
+  /// Get all parameters.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetAllParams.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getAllParams(
+    _ request: Mavsdk_Rpc_Param_GetAllParamsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.param.ParamService/GetAllParams",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
 }
 
 internal final class Mavsdk_Rpc_Param_ParamServiceClient: Mavsdk_Rpc_Param_ParamServiceClientProtocol {
@@ -169,6 +192,9 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceProvider: CallHandlerProvider {
   ///
   /// If the type is wrong, the result will be `WRONG_TYPE`.
   func setParamFloat(request: Mavsdk_Rpc_Param_SetParamFloatRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_SetParamFloatResponse>
+  ///
+  /// Get all parameters.
+  func getAllParams(request: Mavsdk_Rpc_Param_GetAllParamsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetAllParamsResponse>
 }
 
 extension Mavsdk_Rpc_Param_ParamServiceProvider {
@@ -203,6 +229,13 @@ extension Mavsdk_Rpc_Param_ParamServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setParamFloat(request: request, context: context)
+        }
+      }
+
+    case "GetAllParams":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getAllParams(request: request, context: context)
         }
       }
 

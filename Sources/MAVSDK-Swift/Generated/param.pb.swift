@@ -185,19 +185,19 @@ struct Mavsdk_Rpc_Param_GetAllParamsResponse {
 
   /// Collection of all parameters
   var params: Mavsdk_Rpc_Param_AllParams {
-    get {return _storage._params ?? Mavsdk_Rpc_Param_AllParams()}
-    set {_uniqueStorage()._params = newValue}
+    get {return _params ?? Mavsdk_Rpc_Param_AllParams()}
+    set {_params = newValue}
   }
   /// Returns true if `params` has been explicitly set.
-  var hasParams: Bool {return _storage._params != nil}
+  var hasParams: Bool {return self._params != nil}
   /// Clears the value of `params`. Subsequent reads from it will return its default value.
-  mutating func clearParams() {_uniqueStorage()._params = nil}
+  mutating func clearParams() {self._params = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _params: Mavsdk_Rpc_Param_AllParams? = nil
 }
 
 ///
@@ -625,56 +625,24 @@ extension Mavsdk_Rpc_Param_GetAllParamsResponse: SwiftProtobuf.Message, SwiftPro
     1: .same(proto: "params"),
   ]
 
-  fileprivate class _StorageClass {
-    var _params: Mavsdk_Rpc_Param_AllParams? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _params = source._params
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._params)
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._params)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._params {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
+    if let v = self._params {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Param_GetAllParamsResponse, rhs: Mavsdk_Rpc_Param_GetAllParamsResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._params != rhs_storage._params {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._params != rhs._params {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

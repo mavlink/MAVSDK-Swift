@@ -1492,6 +1492,51 @@ public class Telemetry {
         }
     }
 
+    public struct GpsGlobalOrigin: Equatable {
+        public let latitudeDeg: Double
+        public let longitudeDeg: Double
+        public let altitudeM: Float
+
+        
+
+        public init(latitudeDeg: Double, longitudeDeg: Double, altitudeM: Float) {
+            self.latitudeDeg = latitudeDeg
+            self.longitudeDeg = longitudeDeg
+            self.altitudeM = altitudeM
+        }
+
+        internal var rpcGpsGlobalOrigin: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin {
+            var rpcGpsGlobalOrigin = Mavsdk_Rpc_Telemetry_GpsGlobalOrigin()
+            
+                
+            rpcGpsGlobalOrigin.latitudeDeg = latitudeDeg
+                
+            
+            
+                
+            rpcGpsGlobalOrigin.longitudeDeg = longitudeDeg
+                
+            
+            
+                
+            rpcGpsGlobalOrigin.altitudeM = altitudeM
+                
+            
+
+            return rpcGpsGlobalOrigin
+        }
+
+        internal static func translateFromRpc(_ rpcGpsGlobalOrigin: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin) -> GpsGlobalOrigin {
+            return GpsGlobalOrigin(latitudeDeg: rpcGpsGlobalOrigin.latitudeDeg, longitudeDeg: rpcGpsGlobalOrigin.longitudeDeg, altitudeM: rpcGpsGlobalOrigin.altitudeM)
+        }
+
+        public static func == (lhs: GpsGlobalOrigin, rhs: GpsGlobalOrigin) -> Bool {
+            return lhs.latitudeDeg == rhs.latitudeDeg
+                && lhs.longitudeDeg == rhs.longitudeDeg
+                && lhs.altitudeM == rhs.altitudeM
+        }
+    }
+
     public struct TelemetryResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -2431,40 +2476,19 @@ public class Telemetry {
 
             
 
-            do {
-                let call = try self.service.subscribeDistanceSensor(request, completion: { (callResult) in
-                    if callResult.statusCode == .ok || callResult.statusCode == .cancelled {
-                        observer.onCompleted()
-                    } else {
-                        observer.onError(RuntimeTelemetryError(callResult.statusMessage!))
-                    }
-                })
+            _ = self.service.subscribeDistanceSensor(request, handler: { (response) in
 
-                let disposable = self.scheduler.schedule(0, action: { _ in
-                    
-                    while let response = try? call.receive() {
-                        
-                            
-                        let distanceSensor = DistanceSensor.translateFromRpc(response.distanceSensor)
-                        
+                
+                     
+                let distanceSensor = DistanceSensor.translateFromRpc(response.distanceSensor)
+                
 
-                        
-                        observer.onNext(distanceSensor)
-                        
-                    }
-                    
+                
+                observer.onNext(distanceSensor)
+                
+            })
 
-                    return Disposables.create()
-                })
-
-                return Disposables.create {
-                    call.cancel()
-                    disposable.dispose()
-                }
-            } catch {
-                observer.onError(error)
-                return Disposables.create()
-            }
+            return Disposables.create()
         }
         .retryWhen { error in
             error.map {
@@ -3008,16 +3032,47 @@ public class Telemetry {
 
             do {
                 
-                let response = try self.service.setRateDistanceSensor(request)
+                let response = self.service.setRateDistanceSensor(request)
 
-                if (response.telemetryResult.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(response.telemetryResult.result), description: response.telemetryResult.resultStr)))
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
                 completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getGpsGlobalOrigin() -> Single<GpsGlobalOrigin> {
+        return Single<GpsGlobalOrigin>.create { single in
+            let request = Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest()
+
+            
+
+            do {
+                let response = self.service.getGpsGlobalOrigin(request)
+
+                
+                let result = try response.response.wait().telemetryResult
+                if (result.result != Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    single(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    
+                    let gpsGlobalOrigin = try GpsGlobalOrigin.translateFromRpc(response.response.wait().gpsGlobalOrigin)
+                
+                single(.success(gpsGlobalOrigin))
+            } catch {
+                single(.error(error))
             }
 
             return Disposables.create()

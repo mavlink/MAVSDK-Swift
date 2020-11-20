@@ -72,6 +72,11 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol: GRPCClient 
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityNedRequest, Mavsdk_Rpc_Offboard_SetVelocityNedResponse>
 
+  func setPositionVelocityNed(
+    _ request: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse>
+
 }
 
 extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
@@ -211,7 +216,7 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
   }
 
   ///
-  /// Set the velocity in body coordinates and yaw angular rate.
+  /// Set the velocity in body coordinates and yaw angular rate. Not available for fixed-wing aircraft.
   ///
   /// - Parameters:
   ///   - request: Request to send to SetVelocityBody.
@@ -229,7 +234,7 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
   }
 
   ///
-  /// Set the velocity in NED coordinates and yaw.
+  /// Set the velocity in NED coordinates and yaw. Not available for fixed-wing aircraft.
   ///
   /// - Parameters:
   ///   - request: Request to send to SetVelocityNed.
@@ -241,6 +246,24 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
   ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetVelocityNedRequest, Mavsdk_Rpc_Offboard_SetVelocityNedResponse> {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.offboard.OffboardService/SetVelocityNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Set the position in NED coordinates, with the velocity to be used as feed-forward.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetPositionVelocityNed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setPositionVelocityNed(
+    _ request: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetPositionVelocityNed",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions
     )
@@ -294,11 +317,14 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceProvider: CallHandlerProvid
   /// Set the position in NED coordinates and yaw.
   func setPositionNed(request: Mavsdk_Rpc_Offboard_SetPositionNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetPositionNedResponse>
   ///
-  /// Set the velocity in body coordinates and yaw angular rate.
+  /// Set the velocity in body coordinates and yaw angular rate. Not available for fixed-wing aircraft.
   func setVelocityBody(request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetVelocityBodyResponse>
   ///
-  /// Set the velocity in NED coordinates and yaw.
+  /// Set the velocity in NED coordinates and yaw. Not available for fixed-wing aircraft.
   func setVelocityNed(request: Mavsdk_Rpc_Offboard_SetVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetVelocityNedResponse>
+  ///
+  /// Set the position in NED coordinates, with the velocity to be used as feed-forward.
+  func setPositionVelocityNed(request: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse>
 }
 
 extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
@@ -368,6 +394,13 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setVelocityNed(request: request, context: context)
+        }
+      }
+
+    case "SetPositionVelocityNed":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setPositionVelocityNed(request: request, context: context)
         }
       }
 

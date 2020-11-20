@@ -363,6 +363,60 @@ struct Mavsdk_Rpc_Offboard_SetVelocityNedResponse {
   fileprivate var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
 }
 
+struct Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Position and yaw
+  var positionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw {
+    get {return _positionNedYaw ?? Mavsdk_Rpc_Offboard_PositionNedYaw()}
+    set {_positionNedYaw = newValue}
+  }
+  /// Returns true if `positionNedYaw` has been explicitly set.
+  var hasPositionNedYaw: Bool {return self._positionNedYaw != nil}
+  /// Clears the value of `positionNedYaw`. Subsequent reads from it will return its default value.
+  mutating func clearPositionNedYaw() {self._positionNedYaw = nil}
+
+  /// Velocity and yaw
+  var velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw {
+    get {return _velocityNedYaw ?? Mavsdk_Rpc_Offboard_VelocityNedYaw()}
+    set {_velocityNedYaw = newValue}
+  }
+  /// Returns true if `velocityNedYaw` has been explicitly set.
+  var hasVelocityNedYaw: Bool {return self._velocityNedYaw != nil}
+  /// Clears the value of `velocityNedYaw`. Subsequent reads from it will return its default value.
+  mutating func clearVelocityNedYaw() {self._velocityNedYaw = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _positionNedYaw: Mavsdk_Rpc_Offboard_PositionNedYaw? = nil
+  fileprivate var _velocityNedYaw: Mavsdk_Rpc_Offboard_VelocityNedYaw? = nil
+}
+
+struct Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return self._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {self._offboardResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+}
+
 /// Type for attitude body angles in NED reference frame (roll, pitch, yaw and thrust)
 struct Mavsdk_Rpc_Offboard_Attitude {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1111,6 +1165,70 @@ extension Mavsdk_Rpc_Offboard_SetVelocityNedResponse: SwiftProtobuf.Message, Swi
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetVelocityNedResponse, rhs: Mavsdk_Rpc_Offboard_SetVelocityNedResponse) -> Bool {
+    if lhs._offboardResult != rhs._offboardResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetPositionVelocityNedRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "position_ned_yaw"),
+    2: .standard(proto: "velocity_ned_yaw"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._positionNedYaw)
+      case 2: try decoder.decodeSingularMessageField(value: &self._velocityNedYaw)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._positionNedYaw {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if let v = self._velocityNedYaw {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, rhs: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest) -> Bool {
+    if lhs._positionNedYaw != rhs._positionNedYaw {return false}
+    if lhs._velocityNedYaw != rhs._velocityNedYaw {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetPositionVelocityNedResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._offboardResult)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._offboardResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse, rhs: Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse) -> Bool {
     if lhs._offboardResult != rhs._offboardResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

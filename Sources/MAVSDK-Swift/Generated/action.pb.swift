@@ -222,19 +222,19 @@ struct Mavsdk_Rpc_Action_TerminateResponse {
   // methods supported on all messages.
 
   var actionResult: Mavsdk_Rpc_Action_ActionResult {
-    get {return _storage._actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
-    set {_uniqueStorage()._actionResult = newValue}
+    get {return _actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_actionResult = newValue}
   }
   /// Returns true if `actionResult` has been explicitly set.
-  var hasActionResult: Bool {return _storage._actionResult != nil}
+  var hasActionResult: Bool {return self._actionResult != nil}
   /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
-  mutating func clearActionResult() {_uniqueStorage()._actionResult = nil}
+  mutating func clearActionResult() {self._actionResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 }
 
 struct Mavsdk_Rpc_Action_KillRequest {
@@ -1047,56 +1047,24 @@ extension Mavsdk_Rpc_Action_TerminateResponse: SwiftProtobuf.Message, SwiftProto
     1: .standard(proto: "action_result"),
   ]
 
-  fileprivate class _StorageClass {
-    var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _actionResult = source._actionResult
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._actionResult)
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._actionResult)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._actionResult {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
+    if let v = self._actionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Action_TerminateResponse, rhs: Mavsdk_Rpc_Action_TerminateResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._actionResult != rhs_storage._actionResult {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._actionResult != rhs._actionResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

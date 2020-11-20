@@ -57,6 +57,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>
 
+  func terminate(
+    _ request: Mavsdk_Rpc_Action_TerminateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TerminateRequest, Mavsdk_Rpc_Action_TerminateResponse>
+
   func kill(
     _ request: Mavsdk_Rpc_Action_KillRequest,
     callOptions: CallOptions?
@@ -238,6 +243,26 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   ) -> UnaryCall<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse> {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Shutdown",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Send command to terminate the drone.
+  ///
+  /// This will run the terminate routine as configured on the drone (e.g. disarm and open the parachute).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Terminate.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func terminate(
+    _ request: Mavsdk_Rpc_Action_TerminateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_TerminateRequest, Mavsdk_Rpc_Action_TerminateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Terminate",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions
     )
@@ -517,6 +542,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// reject it if they are not already ready to shut down.
   func shutdown(request: Mavsdk_Rpc_Action_ShutdownRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_ShutdownResponse>
   ///
+  /// Send command to terminate the drone.
+  ///
+  /// This will run the terminate routine as configured on the drone (e.g. disarm and open the parachute).
+  func terminate(request: Mavsdk_Rpc_Action_TerminateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_TerminateResponse>
+  ///
   /// Send command to kill the drone.
   ///
   /// This will disarm a drone irrespective of whether it is landed or flying.
@@ -617,6 +647,13 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.shutdown(request: request, context: context)
+        }
+      }
+
+    case "Terminate":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.terminate(request: request, context: context)
         }
       }
 
