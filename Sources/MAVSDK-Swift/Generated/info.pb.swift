@@ -188,6 +188,40 @@ struct Mavsdk_Rpc_Info_GetVersionResponse {
   fileprivate var _version: Mavsdk_Rpc_Info_Version? = nil
 }
 
+struct Mavsdk_Rpc_Info_GetSpeedFactorRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Info_GetSpeedFactorResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var infoResult: Mavsdk_Rpc_Info_InfoResult {
+    get {return _infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
+    set {_infoResult = newValue}
+  }
+  /// Returns true if `infoResult` has been explicitly set.
+  var hasInfoResult: Bool {return self._infoResult != nil}
+  /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
+  mutating func clearInfoResult() {self._infoResult = nil}
+
+  /// Speed factor of simulation
+  var speedFactor: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
+}
+
 /// System flight information.
 struct Mavsdk_Rpc_Info_FlightInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -569,6 +603,60 @@ extension Mavsdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, SwiftProtob
   static func ==(lhs: Mavsdk_Rpc_Info_GetVersionResponse, rhs: Mavsdk_Rpc_Info_GetVersionResponse) -> Bool {
     if lhs._infoResult != rhs._infoResult {return false}
     if lhs._version != rhs._version {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetSpeedFactorRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSpeedFactorRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetSpeedFactorRequest, rhs: Mavsdk_Rpc_Info_GetSpeedFactorRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Info_GetSpeedFactorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetSpeedFactorResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "info_result"),
+    2: .standard(proto: "speed_factor"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._infoResult)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.speedFactor)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._infoResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if self.speedFactor != 0 {
+      try visitor.visitSingularDoubleField(value: self.speedFactor, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Info_GetSpeedFactorResponse, rhs: Mavsdk_Rpc_Info_GetSpeedFactorResponse) -> Bool {
+    if lhs._infoResult != rhs._infoResult {return false}
+    if lhs.speedFactor != rhs.speedFactor {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

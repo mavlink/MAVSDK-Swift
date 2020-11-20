@@ -183,6 +183,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>
 
+  func subscribeDistanceSensor(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_DistanceSensorResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>
+
   func setRatePosition(
     _ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest,
     callOptions: CallOptions?
@@ -272,6 +278,16 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     _ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
+
+  func setRateDistanceSensor(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>
+
+  func getGpsGlobalOrigin(
+    _ request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>
 
 }
 
@@ -797,6 +813,26 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
+  /// Subscribe to 'Distance Sensor' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeDistanceSensor.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeDistanceSensor(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_DistanceSensorResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeDistanceSensor",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
+
   /// Set rate to 'position' updates.
   ///
   /// - Parameters:
@@ -1102,6 +1138,40 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       callOptions: callOptions ?? self.defaultCallOptions
     )
   }
+
+  /// Set rate to 'Distance Sensor' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateDistanceSensor.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateDistanceSensor(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateDistanceSensor",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  /// Get the GPS location of where the estimator has been initialized.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetGpsGlobalOrigin.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getGpsGlobalOrigin(
+    _ request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/GetGpsGlobalOrigin",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
 }
 
 internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceClient: Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
@@ -1173,6 +1243,8 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   func subscribeHealthAllOk(request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>) -> EventLoopFuture<GRPCStatus>
   /// Subscribe to 'unix epoch time' updates.
   func subscribeUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to 'Distance Sensor' updates.
+  func subscribeDistanceSensor(request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>) -> EventLoopFuture<GRPCStatus>
   /// Set rate to 'position' updates.
   func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
   /// Set rate to 'home position' updates.
@@ -1209,6 +1281,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   func setRateImu(request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateImuResponse>
   /// Set rate to 'unix epoch time' updates.
   func setRateUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
+  /// Set rate to 'Distance Sensor' updates.
+  func setRateDistanceSensor(request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>
+  /// Get the GPS location of where the estimator has been initialized.
+  func getGpsGlobalOrigin(request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>
 }
 
 extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
@@ -1400,6 +1476,13 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         }
       }
 
+    case "SubscribeDistanceSensor":
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeDistanceSensor(request: request, context: context)
+        }
+      }
+
     case "SetRatePosition":
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
@@ -1523,6 +1606,20 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRateUnixEpochTime(request: request, context: context)
+        }
+      }
+
+    case "SetRateDistanceSensor":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setRateDistanceSensor(request: request, context: context)
+        }
+      }
+
+    case "GetGpsGlobalOrigin":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getGpsGlobalOrigin(request: request, context: context)
         }
       }
 
