@@ -39,7 +39,7 @@ let package = Package(
             ]
     ),
     .binaryTarget(name: "mavsdk_server",
-                  path: "./Sources/mavsdk_server/mavsdk_server.xcframework"),
+                  path: "./Sources/MavsdkServer/mavsdk_server.xcframework"),
     .testTarget(name: "MAVSDK-SwiftTests",
                 dependencies: [
                   "MAVSDK-Swift",
