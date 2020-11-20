@@ -47,6 +47,11 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>
 
+  func getSpeedFactor(
+    _ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>
+
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
@@ -118,6 +123,23 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
       callOptions: callOptions ?? self.defaultCallOptions
     )
   }
+
+  /// Get the speed factor of a simulation (with lockstep a simulation can run faster or slower than realtime).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetSpeedFactor.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getSpeedFactor(
+    _ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.info.InfoService/GetSpeedFactor",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
 }
 
 internal final class Mavsdk_Rpc_Info_InfoServiceClient: Mavsdk_Rpc_Info_InfoServiceClientProtocol {
@@ -145,6 +167,8 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: CallHandlerProvider {
   func getProduct(request: Mavsdk_Rpc_Info_GetProductRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetProductResponse>
   /// Get the version information of the system.
   func getVersion(request: Mavsdk_Rpc_Info_GetVersionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetVersionResponse>
+  /// Get the speed factor of a simulation (with lockstep a simulation can run faster or slower than realtime).
+  func getSpeedFactor(request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetSpeedFactorResponse>
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceProvider {
@@ -179,6 +203,13 @@ extension Mavsdk_Rpc_Info_InfoServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.getVersion(request: request, context: context)
+        }
+      }
+
+    case "GetSpeedFactor":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.getSpeedFactor(request: request, context: context)
         }
       }
 

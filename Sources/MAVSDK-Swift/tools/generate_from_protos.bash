@@ -19,7 +19,7 @@ command -v protoc-gen-mavsdk > /dev/null || {
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PB_PLUGINS_DIR=${PB_PLUGINS_DIR:-"${SCRIPT_DIR}/../proto/pb_plugins"}
 PROTO_DIR=${PROTO_DIR:-"${SCRIPT_DIR}/../proto/protos"}
-OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Sources/MAVSDK-Swift/Generated"}
+OUTPUT_DIR=${OUTPUT_DIR:-"${SCRIPT_DIR}/../Generated"}
 
 PLUGIN_LIST=$(cd ${PROTO_DIR} && ls -d */ | sed 's:/*$::')
 

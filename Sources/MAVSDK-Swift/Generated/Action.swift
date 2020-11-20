@@ -308,6 +308,31 @@ public class Action {
         }
     }
 
+    public func terminate() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Action_TerminateRequest()
+
+            
+
+            do {
+                
+                let response = self.service.terminate(request)
+
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
     public func kill() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_KillRequest()

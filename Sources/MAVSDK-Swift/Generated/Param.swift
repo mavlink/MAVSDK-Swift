@@ -40,6 +40,117 @@ public class Param {
     
 
 
+    public struct IntParam: Equatable {
+        public let name: String
+        public let value: Int32
+
+        
+
+        public init(name: String, value: Int32) {
+            self.name = name
+            self.value = value
+        }
+
+        internal var rpcIntParam: Mavsdk_Rpc_Param_IntParam {
+            var rpcIntParam = Mavsdk_Rpc_Param_IntParam()
+            
+                
+            rpcIntParam.name = name
+                
+            
+            
+                
+            rpcIntParam.value = value
+                
+            
+
+            return rpcIntParam
+        }
+
+        internal static func translateFromRpc(_ rpcIntParam: Mavsdk_Rpc_Param_IntParam) -> IntParam {
+            return IntParam(name: rpcIntParam.name, value: rpcIntParam.value)
+        }
+
+        public static func == (lhs: IntParam, rhs: IntParam) -> Bool {
+            return lhs.name == rhs.name
+                && lhs.value == rhs.value
+        }
+    }
+
+    public struct FloatParam: Equatable {
+        public let name: String
+        public let value: Float
+
+        
+
+        public init(name: String, value: Float) {
+            self.name = name
+            self.value = value
+        }
+
+        internal var rpcFloatParam: Mavsdk_Rpc_Param_FloatParam {
+            var rpcFloatParam = Mavsdk_Rpc_Param_FloatParam()
+            
+                
+            rpcFloatParam.name = name
+                
+            
+            
+                
+            rpcFloatParam.value = value
+                
+            
+
+            return rpcFloatParam
+        }
+
+        internal static func translateFromRpc(_ rpcFloatParam: Mavsdk_Rpc_Param_FloatParam) -> FloatParam {
+            return FloatParam(name: rpcFloatParam.name, value: rpcFloatParam.value)
+        }
+
+        public static func == (lhs: FloatParam, rhs: FloatParam) -> Bool {
+            return lhs.name == rhs.name
+                && lhs.value == rhs.value
+        }
+    }
+
+    public struct AllParams: Equatable {
+        public let intParams: [IntParam]
+        public let floatParams: [FloatParam]
+
+        
+
+        public init(intParams: [IntParam], floatParams: [FloatParam]) {
+            self.intParams = intParams
+            self.floatParams = floatParams
+        }
+
+        internal var rpcAllParams: Mavsdk_Rpc_Param_AllParams {
+            var rpcAllParams = Mavsdk_Rpc_Param_AllParams()
+            
+                
+            rpcAllParams.intParams = intParams.map{ $0.rpcIntParam }
+                
+            
+            
+                
+            rpcAllParams.floatParams = floatParams.map{ $0.rpcFloatParam }
+                
+            
+
+            return rpcAllParams
+        }
+
+        internal static func translateFromRpc(_ rpcAllParams: Mavsdk_Rpc_Param_AllParams) -> AllParams {
+            return AllParams(intParams: rpcAllParams.intParams.map{ IntParam.translateFromRpc($0) }, floatParams: rpcAllParams.floatParams.map{ FloatParam.translateFromRpc($0) })
+        }
+
+        public static func == (lhs: AllParams, rhs: AllParams) -> Bool {
+            return lhs.intParams == rhs.intParams
+                && lhs.floatParams == rhs.floatParams
+        }
+    }
+
     public struct ParamResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -254,6 +365,29 @@ public class Param {
                 
             } catch {
                 completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    public func getAllParams() -> Single<AllParams> {
+        return Single<AllParams>.create { single in
+            let request = Mavsdk_Rpc_Param_GetAllParamsRequest()
+
+            
+
+            do {
+                let response = self.service.getAllParams(request)
+
+                
+
+    	    
+                    let params = try AllParams.translateFromRpc(response.response.wait().params)
+                
+                single(.success(params))
+            } catch {
+                single(.error(error))
             }
 
             return Disposables.create()

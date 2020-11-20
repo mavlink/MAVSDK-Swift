@@ -706,4 +706,37 @@ public class Offboard {
             return Disposables.create()
         }
     }
+
+    public func setPositionVelocityNed(positionNedYaw: PositionNedYaw, velocityNedYaw: VelocityNedYaw) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest()
+
+            
+                
+            request.positionNedYaw = positionNedYaw.rpcPositionNedYaw
+                
+            
+                
+            request.velocityNedYaw = velocityNedYaw.rpcVelocityNedYaw
+                
+            
+
+            do {
+                
+                let response = self.service.setPositionVelocityNed(request)
+
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }

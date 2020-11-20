@@ -206,6 +206,37 @@ struct Mavsdk_Rpc_Action_ShutdownResponse {
   fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 }
 
+struct Mavsdk_Rpc_Action_TerminateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Action_TerminateResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return self._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {self._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
+}
+
 struct Mavsdk_Rpc_Action_KillRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -985,6 +1016,54 @@ extension Mavsdk_Rpc_Action_ShutdownResponse: SwiftProtobuf.Message, SwiftProtob
   }
 
   static func ==(lhs: Mavsdk_Rpc_Action_ShutdownResponse, rhs: Mavsdk_Rpc_Action_ShutdownResponse) -> Bool {
+    if lhs._actionResult != rhs._actionResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_TerminateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TerminateRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_TerminateRequest, rhs: Mavsdk_Rpc_Action_TerminateRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_TerminateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TerminateResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._actionResult)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._actionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_TerminateResponse, rhs: Mavsdk_Rpc_Action_TerminateResponse) -> Bool {
     if lhs._actionResult != rhs._actionResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
