@@ -204,25 +204,22 @@ struct Mavsdk_Rpc_Info_GetSpeedFactorResponse {
   // methods supported on all messages.
 
   var infoResult: Mavsdk_Rpc_Info_InfoResult {
-    get {return _storage._infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
-    set {_uniqueStorage()._infoResult = newValue}
+    get {return _infoResult ?? Mavsdk_Rpc_Info_InfoResult()}
+    set {_infoResult = newValue}
   }
   /// Returns true if `infoResult` has been explicitly set.
-  var hasInfoResult: Bool {return _storage._infoResult != nil}
+  var hasInfoResult: Bool {return self._infoResult != nil}
   /// Clears the value of `infoResult`. Subsequent reads from it will return its default value.
-  mutating func clearInfoResult() {_uniqueStorage()._infoResult = nil}
+  mutating func clearInfoResult() {self._infoResult = nil}
 
   /// Speed factor of simulation
-  var speedFactor: Double {
-    get {return _storage._speedFactor}
-    set {_uniqueStorage()._speedFactor = newValue}
-  }
+  var speedFactor: Double = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
 }
 
 /// System flight information.
@@ -637,63 +634,29 @@ extension Mavsdk_Rpc_Info_GetSpeedFactorResponse: SwiftProtobuf.Message, SwiftPr
     2: .standard(proto: "speed_factor"),
   ]
 
-  fileprivate class _StorageClass {
-    var _infoResult: Mavsdk_Rpc_Info_InfoResult? = nil
-    var _speedFactor: Double = 0
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _infoResult = source._infoResult
-      _speedFactor = source._speedFactor
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._infoResult)
-        case 2: try decoder.decodeSingularDoubleField(value: &_storage._speedFactor)
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._infoResult)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.speedFactor)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._infoResult {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._speedFactor != 0 {
-        try visitor.visitSingularDoubleField(value: _storage._speedFactor, fieldNumber: 2)
-      }
+    if let v = self._infoResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if self.speedFactor != 0 {
+      try visitor.visitSingularDoubleField(value: self.speedFactor, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Info_GetSpeedFactorResponse, rhs: Mavsdk_Rpc_Info_GetSpeedFactorResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._infoResult != rhs_storage._infoResult {return false}
-        if _storage._speedFactor != rhs_storage._speedFactor {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._infoResult != rhs._infoResult {return false}
+    if lhs.speedFactor != rhs.speedFactor {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

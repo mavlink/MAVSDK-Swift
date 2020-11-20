@@ -378,12 +378,12 @@ public class Param {
             
 
             do {
-                let response = try self.service.getAllParams(request)
+                let response = self.service.getAllParams(request)
 
                 
 
-                
-                    let params = AllParams.translateFromRpc(response.params)
+    	    
+                    let params = try AllParams.translateFromRpc(response.response.wait().params)
                 
                 single(.success(params))
             } catch {

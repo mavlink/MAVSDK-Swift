@@ -468,17 +468,18 @@ public class Info {
             
 
             do {
-                let response = try self.service.getSpeedFactor(request)
+                let response = self.service.getSpeedFactor(request)
 
                 
-                if (response.infoResult.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(response.infoResult.result), description: response.infoResult.resultStr)))
+                let result = try response.response.wait().infoResult
+                if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
+                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
                 
 
-                let speedFactor = response.speedFactor
+    	    let speedFactor = try response.response.wait().speedFactor
                 
                 single(.success(speedFactor))
             } catch {

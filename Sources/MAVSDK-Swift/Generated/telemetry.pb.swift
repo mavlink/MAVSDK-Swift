@@ -1161,19 +1161,19 @@ struct Mavsdk_Rpc_Telemetry_DistanceSensorResponse {
 
   /// The next Distance Sensor status
   var distanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor {
-    get {return _storage._distanceSensor ?? Mavsdk_Rpc_Telemetry_DistanceSensor()}
-    set {_uniqueStorage()._distanceSensor = newValue}
+    get {return _distanceSensor ?? Mavsdk_Rpc_Telemetry_DistanceSensor()}
+    set {_distanceSensor = newValue}
   }
   /// Returns true if `distanceSensor` has been explicitly set.
-  var hasDistanceSensor: Bool {return _storage._distanceSensor != nil}
+  var hasDistanceSensor: Bool {return self._distanceSensor != nil}
   /// Clears the value of `distanceSensor`. Subsequent reads from it will return its default value.
-  mutating func clearDistanceSensor() {_uniqueStorage()._distanceSensor = nil}
+  mutating func clearDistanceSensor() {self._distanceSensor = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _distanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor? = nil
 }
 
 struct Mavsdk_Rpc_Telemetry_SetRatePositionRequest {
@@ -1875,19 +1875,60 @@ struct Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse {
   // methods supported on all messages.
 
   var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
-    get {return _storage._telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
-    set {_uniqueStorage()._telemetryResult = newValue}
+    get {return _telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_telemetryResult = newValue}
   }
   /// Returns true if `telemetryResult` has been explicitly set.
-  var hasTelemetryResult: Bool {return _storage._telemetryResult != nil}
+  var hasTelemetryResult: Bool {return self._telemetryResult != nil}
   /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
-  mutating func clearTelemetryResult() {_uniqueStorage()._telemetryResult = nil}
+  mutating func clearTelemetryResult() {self._telemetryResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _storage = _StorageClass.defaultInstance
+  fileprivate var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+}
+
+struct Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return self._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {self._telemetryResult = nil}
+
+  var gpsGlobalOrigin: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin {
+    get {return _gpsGlobalOrigin ?? Mavsdk_Rpc_Telemetry_GpsGlobalOrigin()}
+    set {_gpsGlobalOrigin = newValue}
+  }
+  /// Returns true if `gpsGlobalOrigin` has been explicitly set.
+  var hasGpsGlobalOrigin: Bool {return self._gpsGlobalOrigin != nil}
+  /// Clears the value of `gpsGlobalOrigin`. Subsequent reads from it will return its default value.
+  mutating func clearGpsGlobalOrigin() {self._gpsGlobalOrigin = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+  fileprivate var _gpsGlobalOrigin: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin? = nil
 }
 
 /// Position type in global coordinates.
@@ -2570,6 +2611,26 @@ struct Mavsdk_Rpc_Telemetry_Imu {
   fileprivate var _accelerationFrd: Mavsdk_Rpc_Telemetry_AccelerationFrd? = nil
   fileprivate var _angularVelocityFrd: Mavsdk_Rpc_Telemetry_AngularVelocityFrd? = nil
   fileprivate var _magneticFieldFrd: Mavsdk_Rpc_Telemetry_MagneticFieldFrd? = nil
+}
+
+/// Gps global origin type.
+struct Mavsdk_Rpc_Telemetry_GpsGlobalOrigin {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Latitude of the origin
+  var latitudeDeg: Double = 0
+
+  /// Longitude of the origin
+  var longitudeDeg: Double = 0
+
+  /// Altitude AMSL (above mean sea level) in metres
+  var altitudeM: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
 }
 
 /// Result type.
@@ -3996,56 +4057,24 @@ extension Mavsdk_Rpc_Telemetry_DistanceSensorResponse: SwiftProtobuf.Message, Sw
     1: .standard(proto: "distance_sensor"),
   ]
 
-  fileprivate class _StorageClass {
-    var _distanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _distanceSensor = source._distanceSensor
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._distanceSensor)
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._distanceSensor)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._distanceSensor {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
+    if let v = self._distanceSensor {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Telemetry_DistanceSensorResponse, rhs: Mavsdk_Rpc_Telemetry_DistanceSensorResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._distanceSensor != rhs_storage._distanceSensor {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._distanceSensor != rhs._distanceSensor {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5246,56 +5275,78 @@ extension Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse: SwiftProtobuf.Mess
     1: .standard(proto: "telemetry_result"),
   ]
 
-  fileprivate class _StorageClass {
-    var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _telemetryResult = source._telemetryResult
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._telemetryResult)
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._telemetryResult)
+      default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._telemetryResult {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
+    if let v = self._telemetryResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._telemetryResult != rhs_storage._telemetryResult {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
+    if lhs._telemetryResult != rhs._telemetryResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetGpsGlobalOriginRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
     }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, rhs: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetGpsGlobalOriginResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+    2: .standard(proto: "gps_global_origin"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._telemetryResult)
+      case 2: try decoder.decodeSingularMessageField(value: &self._gpsGlobalOrigin)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._telemetryResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if let v = self._gpsGlobalOrigin {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse, rhs: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse) -> Bool {
+    if lhs._telemetryResult != rhs._telemetryResult {return false}
+    if lhs._gpsGlobalOrigin != rhs._gpsGlobalOrigin {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6360,6 +6411,47 @@ extension Mavsdk_Rpc_Telemetry_Imu: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs._angularVelocityFrd != rhs._angularVelocityFrd {return false}
     if lhs._magneticFieldFrd != rhs._magneticFieldFrd {return false}
     if lhs.temperatureDegc != rhs.temperatureDegc {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_GpsGlobalOrigin: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GpsGlobalOrigin"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "latitude_deg"),
+    2: .standard(proto: "longitude_deg"),
+    3: .standard(proto: "altitude_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
+      case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
+      case 3: try decoder.decodeSingularFloatField(value: &self.altitudeM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.latitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latitudeDeg, fieldNumber: 1)
+    }
+    if self.longitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 2)
+    }
+    if self.altitudeM != 0 {
+      try visitor.visitSingularFloatField(value: self.altitudeM, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin, rhs: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin) -> Bool {
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.altitudeM != rhs.altitudeM {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
