@@ -77,9 +77,10 @@ Before contributing, it's a good idea to file an issue on GitHub to get feedback
 
 ### Build the SDK
 
-MAVSDK functions are mainly generated from files in the _/proto_ submodule (see _Sources/MAVSDK-Swift/proto_). First, you may need to intialized any unitialized or nested submodules.
-```
-$ git submodule update --init --recursive
+MAVSDK functions are mainly generated from files in the _/proto_ submodule (see _Sources/MAVSDK-Swift/proto_). First, you may need to intialize any unitialized and/or nested submodules.
+
+```shell
+git submodule update --init --recursive
 ```
 
 Prior to building the SDK you may need to install the following packages via [Homebrew](https://brew.sh/).
@@ -88,17 +89,34 @@ Prior to building the SDK you may need to install the following packages via [Ho
 brew install protobuf
 ```
 
-To generate the source code, run:
+You will also need to install the following [Python](https://www.python.org/) libraries for MAVSDK. The first two commands are optional and the last is required.
+
+```shell
+python3 -m venv venv
+source venv/bin/activate
+
+pip3 install protoc-gen-mavsdk 
+```
+
+Then, to generate the source code, run:
 
 ```shell
 bash Sources/MAVSDK-Swift/tools/generate_from_protos.bash
 ```
 
-After that, you can build the code with Swift Package Manager using:
+**NOTE**: The following requires Xcode 12 and Swift 5.3.
 
-```shell
-swift build
-```
+With your current Xcode project open, you can then locally source MAVSDK-Swift into your project by opening a Finder window, dragging-and-dropping the MAVSDK-Swift directory it within the top level of your .xcodeproj, then `File > Swift Packages > Resolve Package Versions`.
+
+**NOTE**: If you have Xcode 11 and Swift 5.2 or lower and require `MavsdkServer`, use these additional steps.
+
+Move `MavsdkServer.swift` from within the MAVSDK-Swift package into your project. Modify Package.swift to remove the follwing:
+- "MavsdkServer" `.library`
+- "MavsdkServer" `.target`
+- "mavsdk_server" `.binaryTarget`
+- "MavsdkServer" reference within "MAVSDK-SwiftTests" `.testTarget`.
+
+Next, using Finder, download, unzip and move the binary for the iOS MAVSDK server (`mavsdk_server.xcframework`) downloaded from [MAVSDK Releases](https://github.com/mavlink/MAVSDK/releases) into your projects root directory (or where other dependencies may be installed) and update `FRAMEWORK_SEARCH_PATHS` in the Target Build Settings accordingly to find it.
 
 ### Generate docs
 
