@@ -1,27 +1,13 @@
 import Foundation
 import MAVSDK_Swift
+import MavsdkServer
 import RxSwift
 
-func isValidIP(_ s: String) -> Bool {
-    let parts = s.components(separatedBy: ".")
-    let nums = parts.compactMap { Int($0) }
-    return parts.count == 4 && nums.count == 4 && nums.filter { $0 >= 0 && $0 < 256}.count == 4
-}
+let mavsdkServer = MavsdkServer()
+let port = mavsdkServer.run()
+print("MavsdkServer is now running on port \(port)")
 
-print("Starting...")
-
-if (CommandLine.argc != 2) {
-    print("Error: expecting the mavsdk_server IP address as an argument!")
-    exit(1)
-}
-
-if (!isValidIP(CommandLine.arguments[1])) {
-    print("Error: Invalid IPv4 entered as mavsdk_server address!")
-    exit(1)
-}
-
-let address = CommandLine.arguments[1]
-let drone = Drone(address: address, port: 50051)
+let drone = Drone(port: Int32(port))
 
 _ = drone.telemetry.battery.subscribe(onNext: { battery in print(battery) })
 _ = drone.telemetry.position.subscribe(onNext: { position in print(position) })
