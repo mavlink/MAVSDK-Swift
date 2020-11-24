@@ -5,13 +5,14 @@ import PackageDescription
 let package = Package(
     name: "takeoff_and_land",
     dependencies: [
-        .package(name: "MAVSDK-Swift", path: "../../../sdk"),
+        .package(name: "MAVSDK_Swift", path: "../../.."),
     ],
     targets: [
         .target(
             name: "takeoff_and_land",
             dependencies: [
-                .product(name: "MAVSDK_Swift", package: "MAVSDK-Swift")
+                .product(name: "MAVSDK_Swift", package: "MAVSDK_Swift"),
+                .product(name: "MavsdkServer", package: "MAVSDK_Swift")
             ]
 	)
     ]
