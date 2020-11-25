@@ -9,7 +9,7 @@ The official MAVSDK client for Swift. This cross-platform gRPC library communica
 Add the following to your Package.swift dependencies:
 ```
 dependencies: [
-     .package(url: "https://github.com/mavlink/MAVSDK-Swift", from: "1.0.0"),
+     .package(url: "https://github.com/mavlink/MAVSDK-Swift", from: "0.9.0"),
 ],
 ```
 And add each product within each target as needed (`MavsdkServer` may be optional):
