@@ -1,5 +1,7 @@
 # MAVSDK-Swift
 
+The official MAVSDK client for Swift. This cross-platform gRPC library communicates to MAVLink compatible systems using a plugin architecture.
+
 ## Installing
 
 ### Swift Package
@@ -9,7 +11,6 @@ Add the following to your Package.swift dependencies:
 dependencies: [
      .package(url: "https://github.com/mavlink/MAVSDK-Swift", from: "1.0.0"),
 ],
-
 ```
 And add each product within each target as needed (`MavsdkServer` may be optional):
 ```
@@ -77,19 +78,19 @@ Before contributing, it's a good idea to file an issue on GitHub to get feedback
 
 ### Build the SDK
 
-MAVSDK functions are mainly generated from files in the _/proto_ submodule (see _Sources/MAVSDK-Swift/proto_). First, you may need to intialize any unitialized and/or nested submodules.
+MAVSDK functions are mainly generated from files in the _/proto_ submodule (see _Sources/MAVSDK-Swift/proto_). First, you may need to initialize any uninitialized and nested submodules.
 
 ```shell
 git submodule update --init --recursive
 ```
 
-Prior to building the SDK you may need to install the following packages via [Homebrew](https://brew.sh/).
+Before building the SDK you may need to install the following packages via [Homebrew](https://brew.sh/).
 
 ```shell
 brew install protobuf
 ```
 
-You will also need to install the following [Python](https://www.python.org/) libraries for MAVSDK. The first two commands are optional and the last is required.
+You will also need to install the following [Python](https://www.python.org/) libraries for MAVSDK. The first two commands are optional, and the last is required.
 
 ```shell
 python3 -m venv venv
@@ -106,7 +107,7 @@ bash Sources/MAVSDK-Swift/tools/generate_from_protos.bash
 
 **NOTE**: The following requires Xcode 12 and Swift 5.3.
 
-With your current Xcode project open, you can then locally source MAVSDK-Swift into your project by opening a Finder window, dragging-and-dropping the MAVSDK-Swift directory it within the top level of your .xcodeproj, then `File > Swift Packages > Resolve Package Versions`.
+With your current Xcode project open, you can then locally source MAVSDK-Swift to override the remote Swift Package into your project. Open a Finder window, drag-and-drop the MAVSDK-Swift directory within the top level of your .xcodeproj, then click `File > Swift Packages > Resolve Package Versions` to resolve the package dependencies.
 
 **NOTE**: If you have Xcode 11 and Swift 5.2 or lower and require `MavsdkServer`, use these additional steps.
 
@@ -120,12 +121,12 @@ Next, using Finder, download, unzip and move the binary for the iOS MAVSDK serve
 
 ### Generate docs
 
-**Note**: The docs are generated in travis-ci for the master branch and pushed to a [s3 bucket](http://dronecode-sdk-swift.s3.eu-central-1.amazonaws.com/docs/index.html).
+**Note**: Travis CI generates docs for the master branch and pushes them to a [s3 bucket](http://dronecode-sdk-swift.s3.eu-central-1.amazonaws.com/docs/index.html).
 
 To test the doc generation locally, install [jazzy](https://github.com/realm/jazzy):
 
 ```
-gem install jazzy
+sudo gem install jazzy
 ```
 
 Then, to generate the docs, run:
