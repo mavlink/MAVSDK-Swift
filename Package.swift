@@ -14,6 +14,11 @@ let package = Package(
              targets: [
               "MavsdkServer"
              ]
+    ),
+    .executable(name: "Example",
+                targets: [
+                  "Example"
+                ]
     )
   ],
   dependencies: [
@@ -39,8 +44,16 @@ let package = Package(
             ]
     ),
     .binaryTarget(name: "mavsdk_server",
-                  url: "https://github.com/mavlink/MAVSDK/releases/download/v0.34.0/mavsdk_server_ios.zip",
-                  checksum: "5fd38c13b66beb7ff993cb5b29ec27fa578850ea98e86ae0a363a640ef945556"),
+                  path: "./Sources/mavsdk_server/mavsdk_server.xcframework"),
+//    .binaryTarget(name: "mavsdk_server",
+//                  url: "https://github.com/mavlink/MAVSDK/releases/download/v0.34.0/mavsdk_server_ios.zip",
+//                  checksum: "5fd38c13b66beb7ff993cb5b29ec27fa578850ea98e86ae0a363a640ef945556"),
+    .target(name: "Example",
+            dependencies: [
+              "MAVSDK-Swift",
+              .product(name: "RxSwift", package: "RxSwift")
+            ]
+    ),
     .testTarget(name: "MAVSDK-SwiftTests",
                 dependencies: [
                   "MAVSDK-Swift",
