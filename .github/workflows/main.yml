@@ -45,7 +45,7 @@ jobs:
       - name: generate docs
         run: bash Sources/MAVSDK-Swift/tools/generate_docs.sh
       - name: deploy docs (if master)
-        if: github.ref == 'refs/heads/master')
+        if: github.ref == 'refs/heads/master'
         run: s3cmd --acl-public --access_key=${{ secrets.AWS_ACCESS_KEY_ID }} --secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/master/;
       - name: deploy docs (if tag)
         if: startsWith(github.ref, 'refs/tags/')
