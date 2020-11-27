@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Enable raw missions as exposed by MAVLink.
+ */
 public class MissionRaw {
     private let service: Mavsdk_Rpc_MissionRaw_MissionRawServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `MissionRaw` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,12 +53,27 @@ public class MissionRaw {
     
 
 
+    /**
+     Mission progress type.
+     */
     public struct MissionProgress: Equatable {
         public let current: Int32
         public let total: Int32
 
         
 
+        /**
+         Initializes a new `MissionProgress`.
+
+         
+         - Parameters:
+            
+            - current:  Current mission item index (0-based)
+            
+            - total:  Total number of mission items
+            
+         
+         */
         public init(current: Int32, total: Int32) {
             self.current = current
             self.total = total
@@ -77,6 +105,9 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Mission item exactly identical to MAVLink MISSION_ITEM_INT.
+     */
     public struct MissionItem: Equatable {
         public let seq: UInt32
         public let frame: UInt32
@@ -94,6 +125,40 @@ public class MissionRaw {
 
         
 
+        /**
+         Initializes a new `MissionItem`.
+
+         
+         - Parameters:
+            
+            - seq:  Sequence (uint16_t)
+            
+            - frame:  The coordinate system of the waypoint (actually uint8_t)
+            
+            - command:  The scheduled action for the waypoint (actually uint16_t)
+            
+            - current:  false:0, true:1 (actually uint8_t)
+            
+            - autocontinue:  Autocontinue to next waypoint (actually uint8_t)
+            
+            - param1:  PARAM1, see MAV_CMD enum
+            
+            - param2:  PARAM2, see MAV_CMD enum
+            
+            - param3:  PARAM3, see MAV_CMD enum
+            
+            - param4:  PARAM4, see MAV_CMD enum
+            
+            - x:  PARAM5 / local: x position in meters * 1e4, global: latitude in degrees * 10^7
+            
+            - y:  PARAM6 / y position: local: x position in meters * 1e4, global: longitude in degrees *10^7
+            
+            - z:  PARAM7 / local: Z coordinate, global: altitude (relative or absolute, depending on frame)
+            
+            - missionType:  @brief Mission type (actually uint8_t)
+            
+         
+         */
         public init(seq: UInt32, frame: UInt32, command: UInt32, current: UInt32, autocontinue: UInt32, param1: Float, param2: Float, param3: Float, param4: Float, x: Int32, y: Int32, z: Float, missionType: UInt32) {
             self.seq = seq
             self.frame = frame
@@ -202,6 +267,9 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct MissionRawResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -209,16 +277,29 @@ public class MissionRaw {
         
         
 
+        /**
+         Possible results returned for action requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  Error.
             case error
+            ///  Too many mission items in the mission.
             case tooManyMissionItems
+            ///  Vehicle is busy.
             case busy
+            ///  Request timed out.
             case timeout
+            ///  Invalid argument.
             case invalidArgument
+            ///  Mission downloaded from the system is not supported.
             case unsupported
+            ///  No mission available on the system.
             case noMissionAvailable
+            ///  Mission transfer (upload or download) has been cancelled.
             case transferCancelled
             case UNRECOGNIZED(Int)
 
@@ -278,6 +359,18 @@ public class MissionRaw {
         }
         
 
+        /**
+         Initializes a new `MissionRawResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -310,6 +403,15 @@ public class MissionRaw {
     }
 
 
+    /**
+     Upload a list of raw mission items to the system.
+
+     The raw mission items are uploaded to a drone. Once uploaded the mission
+     can be started and executed even if the connection is lost.
+
+     - Parameter missionItems: The mission items
+     
+     */
     public func uploadMission(missionItems: [MissionItem]) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_MissionRaw_UploadMissionRequest()
@@ -339,6 +441,11 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Cancel an ongoing mission upload.
+
+     
+     */
     public func cancelMissionUpload() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest()
@@ -364,6 +471,11 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Download a list of raw mission items from the system (asynchronous).
+
+     
+     */
     public func downloadMission() -> Single<[MissionItem]> {
         return Single<[MissionItem]>.create { single in
             let request = Mavsdk_Rpc_MissionRaw_DownloadMissionRequest()
@@ -394,6 +506,11 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Cancel an ongoing mission download.
+
+     
+     */
     public func cancelMissionDownload() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest()
@@ -419,6 +536,13 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Start the mission.
+
+     A mission must be uploaded to the vehicle before this can be called.
+
+     
+     */
     public func startMission() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_MissionRaw_StartMissionRequest()
@@ -444,6 +568,16 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Pause the mission.
+
+     Pausing the mission puts the vehicle into
+     [HOLD mode](https://docs.px4.io/en/flight_modes/hold.html).
+     A multicopter should just hover at the spot while a fixedwing vehicle should loiter
+     around the location where it paused.
+
+     
+     */
     public func pauseMission() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_MissionRaw_PauseMissionRequest()
@@ -469,6 +603,11 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Clear the mission saved on the vehicle.
+
+     
+     */
     public func clearMission() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_MissionRaw_ClearMissionRequest()
@@ -494,6 +633,15 @@ public class MissionRaw {
         }
     }
 
+    /**
+     Sets the raw mission item index to go to.
+
+     By setting the current index to 0, the mission is restarted from the beginning. If it is set
+     to a specific index of a raw mission item, the mission will be set to this item.
+
+     - Parameter index: Index of the mission item to be set as the next one (0-based)
+     
+     */
     public func setCurrentMissionItem(index: Int32) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest()
@@ -524,7 +672,11 @@ public class MissionRaw {
     }
 
 
+    /**
+     Subscribe to mission progress updates.
+     */
     public lazy var missionProgress: Observable<MissionProgress> = createMissionProgressObservable()
+
 
 
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
@@ -556,7 +708,17 @@ public class MissionRaw {
     }
 
 
+    /**
+     *
+     Subscribes to mission changed.
+
+     This notification can be used to be informed if a ground station has
+     been uploaded or changed by a ground station or companion computer.
+
+     @param callback Callback to notify about change.
+     */
     public lazy var missionChanged: Observable<Bool> = createMissionChangedObservable()
+
 
 
     private func createMissionChangedObservable() -> Observable<Bool> {

@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Access to the connection state and running plugins.
+ */
 public class Core {
     private let service: Mavsdk_Rpc_Core_CoreServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Core` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -35,12 +48,27 @@ public class Core {
     
 
 
+    /**
+     Connection state type.
+     */
     public struct ConnectionState: Equatable {
         public let uuid: UInt64
         public let isConnected: Bool
 
         
 
+        /**
+         Initializes a new `ConnectionState`.
+
+         
+         - Parameters:
+            
+            - uuid:  UUID of the vehicle
+            
+            - isConnected:  Whether the vehicle got connected or disconnected
+            
+         
+         */
         public init(uuid: UInt64, isConnected: Bool) {
             self.uuid = uuid
             self.isConnected = isConnected
@@ -72,6 +100,9 @@ public class Core {
         }
     }
 
+    /**
+     Plugin info type.
+     */
     public struct PluginInfo: Equatable {
         public let name: String
         public let address: String
@@ -79,6 +110,20 @@ public class Core {
 
         
 
+        /**
+         Initializes a new `PluginInfo`.
+
+         
+         - Parameters:
+            
+            - name:  Name of the plugin
+            
+            - address:  Address where the plugin is running
+            
+            - port:  Port where the plugin is running
+            
+         
+         */
         public init(name: String, address: String, port: Int32) {
             self.name = name
             self.address = address
@@ -119,7 +164,11 @@ public class Core {
 
 
 
+    /**
+     Subscribe to 'connection state' updates.
+     */
     public lazy var connectionState: Observable<ConnectionState> = createConnectionStateObservable()
+
 
 
     private func createConnectionStateObservable() -> Observable<ConnectionState> {
@@ -150,6 +199,11 @@ public class Core {
         .share(replay: 1)
     }
 
+    /**
+     Get a list of currently running plugins.
+
+     
+     */
     public func listRunningPlugins() -> Single<[PluginInfo]> {
         return Single<[PluginInfo]>.create { single in
             let request = Mavsdk_Rpc_Core_ListRunningPluginsRequest()

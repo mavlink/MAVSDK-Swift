@@ -3,11 +3,30 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Can be used to manage cameras that implement the MAVLink
+ Camera Protocol: https://mavlink.io/en/protocol/camera.html.
+
+ Currently only a single camera is supported.
+ When multiple cameras are supported the plugin will need to be
+ instantiated separately for every camera and the camera selected using
+ `select_camera`.
+ */
 public class Camera {
     private let service: Mavsdk_Rpc_Camera_CameraServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Camera` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -39,9 +58,15 @@ public class Camera {
     }
     
 
+    /**
+     Camera mode type.
+     */
     public enum Mode: Equatable {
+        ///  Unknown.
         case unknown
+        ///  Photo mode.
         case photo
+        ///  Video mode.
         case video
         case UNRECOGNIZED(Int)
 
@@ -73,6 +98,9 @@ public class Camera {
     }
 
 
+    /**
+     Result type.
+     */
     public struct CameraResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -80,14 +108,25 @@ public class Camera {
         
         
 
+        /**
+         Possible results returned for camera commands
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Command executed successfully.
             case success
+            ///  Command in progress.
             case inProgress
+            ///  Camera is busy and rejected command.
             case busy
+            ///  Camera denied the command.
             case denied
+            ///  An error has occured while executing the command.
             case error
+            ///  Command timed out.
             case timeout
+            ///  Command has wrong argument(s).
             case wrongArgument
             case UNRECOGNIZED(Int)
 
@@ -139,6 +178,18 @@ public class Camera {
         }
         
 
+        /**
+         Initializes a new `CameraResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -170,6 +221,9 @@ public class Camera {
         }
     }
 
+    /**
+     Position type in global coordinates.
+     */
     public struct Position: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
@@ -178,6 +232,22 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `Position`.
+
+         
+         - Parameters:
+            
+            - latitudeDeg:  Latitude in degrees (range: -90 to +90)
+            
+            - longitudeDeg:  Longitude in degrees (range: -180 to +180)
+            
+            - absoluteAltitudeM:  Altitude AMSL (above mean sea level) in metres
+            
+            - relativeAltitudeM:  Altitude relative to takeoff altitude in metres
+            
+         
+         */
         public init(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, relativeAltitudeM: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -223,6 +293,16 @@ public class Camera {
         }
     }
 
+    /**
+     Quaternion type.
+
+     All rotations and axis systems follow the right-hand rule.
+     The Hamilton quaternion product definition is used.
+     A zero-rotation quaternion is represented by (1,0,0,0).
+     The quaternion could also be written as w + xi + yj + zk.
+
+     For more info see: https://en.wikipedia.org/wiki/Quaternion
+     */
     public struct Quaternion: Equatable {
         public let w: Float
         public let x: Float
@@ -231,6 +311,22 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `Quaternion`.
+
+         
+         - Parameters:
+            
+            - w:  Quaternion entry 0, also denoted as a
+            
+            - x:  Quaternion entry 1, also denoted as b
+            
+            - y:  Quaternion entry 2, also denoted as c
+            
+            - z:  Quaternion entry 3, also denoted as d
+            
+         
+         */
         public init(w: Float, x: Float, y: Float, z: Float) {
             self.w = w
             self.x = x
@@ -276,6 +372,14 @@ public class Camera {
         }
     }
 
+    /**
+     Euler angle type.
+
+     All rotations and axis systems follow the right-hand rule.
+     The Euler angles follow the convention of a 3-2-1 intrinsic Tait-Bryan rotation sequence.
+
+     For more info see https://en.wikipedia.org/wiki/Euler_angles
+     */
     public struct EulerAngle: Equatable {
         public let rollDeg: Float
         public let pitchDeg: Float
@@ -283,6 +387,20 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `EulerAngle`.
+
+         
+         - Parameters:
+            
+            - rollDeg:  Roll angle in degrees, positive is banking to the right
+            
+            - pitchDeg:  Pitch angle in degrees, positive is pitching nose up
+            
+            - yawDeg:  Yaw angle in degrees, positive is clock-wise seen from above
+            
+         
+         */
         public init(rollDeg: Float, pitchDeg: Float, yawDeg: Float) {
             self.rollDeg = rollDeg
             self.pitchDeg = pitchDeg
@@ -321,6 +439,9 @@ public class Camera {
         }
     }
 
+    /**
+     Information about a picture just captured.
+     */
     public struct CaptureInfo: Equatable {
         public let position: Position
         public let attitudeQuaternion: Quaternion
@@ -332,6 +453,28 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `CaptureInfo`.
+
+         
+         - Parameters:
+            
+            - position:  Location where the picture was taken
+            
+            - attitudeQuaternion:  Attitude of the camera when the picture was taken (quaternion)
+            
+            - attitudeEulerAngle:  Attitude of the camera when the picture was taken (euler angle)
+            
+            - timeUtcUs:  Timestamp in UTC (since UNIX epoch) in microseconds
+            
+            - isSuccess:  True if the capture was successful
+            
+            - index:  Zero-based index of this image since vehicle was armed
+            
+            - fileURL:  Download URL of this image
+            
+         
+         */
         public init(position: Position, attitudeQuaternion: Quaternion, attitudeEulerAngle: EulerAngle, timeUtcUs: UInt64, isSuccess: Bool, index: Int32, fileURL: String) {
             self.position = position
             self.attitudeQuaternion = attitudeQuaternion
@@ -398,6 +541,9 @@ public class Camera {
         }
     }
 
+    /**
+     Type for video stream settings.
+     */
     public struct VideoStreamSettings: Equatable {
         public let frameRateHz: Float
         public let horizontalResolutionPix: UInt32
@@ -408,6 +554,26 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `VideoStreamSettings`.
+
+         
+         - Parameters:
+            
+            - frameRateHz:  Frames per second
+            
+            - horizontalResolutionPix:  Horizontal resolution (in pixels)
+            
+            - verticalResolutionPix:  Vertical resolution (in pixels)
+            
+            - bitRateBS:  Bit rate (in bits per second)
+            
+            - rotationDeg:  Video image rotation (clockwise, 0-359 degrees)
+            
+            - uri:  Video stream URI
+            
+         
+         */
         public init(frameRateHz: Float, horizontalResolutionPix: UInt32, verticalResolutionPix: UInt32, bitRateBS: UInt32, rotationDeg: UInt32, uri: String) {
             self.frameRateHz = frameRateHz
             self.horizontalResolutionPix = horizontalResolutionPix
@@ -467,6 +633,9 @@ public class Camera {
         }
     }
 
+    /**
+     Information about the video stream.
+     */
     public struct VideoStreamInfo: Equatable {
         public let settings: VideoStreamSettings
         public let status: Status
@@ -474,8 +643,13 @@ public class Camera {
         
         
 
+        /**
+         Video stream status type.
+         */
         public enum Status: Equatable {
+            ///  Video stream is not running.
             case notRunning
+            ///  Video stream is running.
             case inProgress
             case UNRECOGNIZED(Int)
 
@@ -503,6 +677,18 @@ public class Camera {
         }
         
 
+        /**
+         Initializes a new `VideoStreamInfo`.
+
+         
+         - Parameters:
+            
+            - settings:  Video stream settings
+            
+            - status:  Current status of video streaming
+            
+         
+         */
         public init(settings: VideoStreamSettings, status: Status) {
             self.settings = settings
             self.status = status
@@ -534,6 +720,9 @@ public class Camera {
         }
     }
 
+    /**
+     Information about the camera status.
+     */
     public struct Status: Equatable {
         public let videoOn: Bool
         public let photoIntervalOn: Bool
@@ -547,9 +736,15 @@ public class Camera {
         
         
 
+        /**
+         Storage status type.
+         */
         public enum StorageStatus: Equatable {
+            ///  Status not available.
             case notAvailable
+            ///  Storage is not formatted (i.e. has no recognized file system).
             case unformatted
+            ///  Storage is formatted (i.e. has recognized a file system).
             case formatted
             case UNRECOGNIZED(Int)
 
@@ -581,6 +776,30 @@ public class Camera {
         }
         
 
+        /**
+         Initializes a new `Status`.
+
+         
+         - Parameters:
+            
+            - videoOn:  Whether video recording is currently in process
+            
+            - photoIntervalOn:  Whether a photo interval is currently in process
+            
+            - usedStorageMib:  Used storage (in MiB)
+            
+            - availableStorageMib:  Available storage (in MiB)
+            
+            - totalStorageMib:  Total storage (in MiB)
+            
+            - recordingTimeS:  Elapsed time since starting the video recording (in seconds)
+            
+            - mediaFolderName:  Current folder name where media are saved
+            
+            - storageStatus:  Storage status
+            
+         
+         */
         public init(videoOn: Bool, photoIntervalOn: Bool, usedStorageMib: Float, availableStorageMib: Float, totalStorageMib: Float, recordingTimeS: Float, mediaFolderName: String, storageStatus: StorageStatus) {
             self.videoOn = videoOn
             self.photoIntervalOn = photoIntervalOn
@@ -654,12 +873,27 @@ public class Camera {
         }
     }
 
+    /**
+     Type to represent a setting option.
+     */
     public struct Option: Equatable {
         public let optionID: String
         public let optionDescription: String
 
         
 
+        /**
+         Initializes a new `Option`.
+
+         
+         - Parameters:
+            
+            - optionID:  Name of the option (machine readable)
+            
+            - optionDescription:  Description of the option (human readable)
+            
+         
+         */
         public init(optionID: String, optionDescription: String) {
             self.optionID = optionID
             self.optionDescription = optionDescription
@@ -691,6 +925,9 @@ public class Camera {
         }
     }
 
+    /**
+     Type to represent a setting with a selected option.
+     */
     public struct Setting: Equatable {
         public let settingID: String
         public let settingDescription: String
@@ -699,6 +936,22 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `Setting`.
+
+         
+         - Parameters:
+            
+            - settingID:  Name of a setting (machine readable)
+            
+            - settingDescription:  Description of the setting (human readable). This field is meant to be read from the drone, ignore it when setting.
+            
+            - option:  Selected option
+            
+            - isRange:  If option is given as a range. This field is meant to be read from the drone, ignore it when setting.
+            
+         
+         */
         public init(settingID: String, settingDescription: String, option: Option, isRange: Bool) {
             self.settingID = settingID
             self.settingDescription = settingDescription
@@ -744,6 +997,9 @@ public class Camera {
         }
     }
 
+    /**
+     Type to represent a setting with a list of options to choose from.
+     */
     public struct SettingOptions: Equatable {
         public let settingID: String
         public let settingDescription: String
@@ -752,6 +1008,22 @@ public class Camera {
 
         
 
+        /**
+         Initializes a new `SettingOptions`.
+
+         
+         - Parameters:
+            
+            - settingID:  Name of the setting (machine readable)
+            
+            - settingDescription:  Description of the setting (human readable)
+            
+            - options:  List of options or if range [min, max] or [min, max, interval]
+            
+            - isRange:  If option is given as a range
+            
+         
+         */
         public init(settingID: String, settingDescription: String, options: [Option], isRange: Bool) {
             self.settingID = settingID
             self.settingDescription = settingDescription
@@ -797,12 +1069,27 @@ public class Camera {
         }
     }
 
+    /**
+     Type to represent a camera information.
+     */
     public struct Information: Equatable {
         public let vendorName: String
         public let modelName: String
 
         
 
+        /**
+         Initializes a new `Information`.
+
+         
+         - Parameters:
+            
+            - vendorName:  Name of the camera vendor
+            
+            - modelName:  Name of the camera model
+            
+         
+         */
         public init(vendorName: String, modelName: String) {
             self.vendorName = vendorName
             self.modelName = modelName
@@ -835,6 +1122,11 @@ public class Camera {
     }
 
 
+    /**
+     Take one photo.
+
+     
+     */
     public func takePhoto() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_TakePhotoRequest()
@@ -860,6 +1152,12 @@ public class Camera {
         }
     }
 
+    /**
+     Start photo timelapse with a given interval.
+
+     - Parameter intervalS: Interval between photos (in seconds)
+     
+     */
     public func startPhotoInterval(intervalS: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Camera_StartPhotoIntervalRequest()
@@ -889,6 +1187,11 @@ public class Camera {
         }
     }
 
+    /**
+     Stop a running photo timelapse.
+
+     
+     */
     public func stopPhotoInterval() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_StopPhotoIntervalRequest()
@@ -914,6 +1217,11 @@ public class Camera {
         }
     }
 
+    /**
+     Start a video recording.
+
+     
+     */
     public func startVideo() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_StartVideoRequest()
@@ -939,6 +1247,11 @@ public class Camera {
         }
     }
 
+    /**
+     Stop a running video recording.
+
+     
+     */
     public func stopVideo() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_StopVideoRequest()
@@ -964,6 +1277,11 @@ public class Camera {
         }
     }
 
+    /**
+     Start video streaming.
+
+     
+     */
     public func startVideoStreaming() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_StartVideoStreamingRequest()
@@ -989,6 +1307,11 @@ public class Camera {
         }
     }
 
+    /**
+     Stop current video streaming.
+
+     
+     */
     public func stopVideoStreaming() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_StopVideoStreamingRequest()
@@ -1014,6 +1337,12 @@ public class Camera {
         }
     }
 
+    /**
+     Set camera mode.
+
+     - Parameter mode: Camera mode to set
+     
+     */
     public func setMode(mode: Mode) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Camera_SetModeRequest()
@@ -1044,7 +1373,11 @@ public class Camera {
     }
 
 
+    /**
+     Subscribe to camera mode updates.
+     */
     public lazy var mode: Observable<Mode> = createModeObservable()
+
 
 
     private func createModeObservable() -> Observable<Mode> {
@@ -1076,7 +1409,11 @@ public class Camera {
     }
 
 
+    /**
+     Subscribe to camera information updates.
+     */
     public lazy var information: Observable<Information> = createInformationObservable()
+
 
 
     private func createInformationObservable() -> Observable<Information> {
@@ -1108,7 +1445,11 @@ public class Camera {
     }
 
 
+    /**
+     Subscribe to video stream info updates.
+     */
     public lazy var videoStreamInfo: Observable<VideoStreamInfo> = createVideoStreamInfoObservable()
+
 
 
     private func createVideoStreamInfoObservable() -> Observable<VideoStreamInfo> {
@@ -1140,7 +1481,11 @@ public class Camera {
     }
 
 
+    /**
+     Subscribe to capture info updates.
+     */
     public lazy var captureInfo: Observable<CaptureInfo> = createCaptureInfoObservable()
+
 
 
     private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
@@ -1172,7 +1517,11 @@ public class Camera {
     }
 
 
+    /**
+     Subscribe to camera status updates.
+     */
     public lazy var status: Observable<Status> = createStatusObservable()
+
 
 
     private func createStatusObservable() -> Observable<Status> {
@@ -1204,7 +1553,11 @@ public class Camera {
     }
 
 
+    /**
+     Get the list of current camera settings.
+     */
     public lazy var currentSettings: Observable<[Setting]> = createCurrentSettingsObservable()
+
 
 
     private func createCurrentSettingsObservable() -> Observable<[Setting]> {
@@ -1235,7 +1588,11 @@ public class Camera {
     }
 
 
+    /**
+     Get the list of settings that can be changed.
+     */
     public lazy var possibleSettingOptions: Observable<[SettingOptions]> = createPossibleSettingOptionsObservable()
+
 
 
     private func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
@@ -1265,6 +1622,14 @@ public class Camera {
         .share(replay: 1)
     }
 
+    /**
+     Set a setting to some value.
+
+     Only setting_id of setting and option_id of option needs to be set.
+
+     - Parameter setting: Desired setting
+     
+     */
     public func setSetting(setting: Setting) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Camera_SetSettingRequest()
@@ -1294,6 +1659,14 @@ public class Camera {
         }
     }
 
+    /**
+     Get a setting.
+
+     Only setting_id of setting needs to be set.
+
+     - Parameter setting: Requested setting
+     
+     */
     public func getSetting(setting: Setting) -> Single<Setting> {
         return Single<Setting>.create { single in
             var request = Mavsdk_Rpc_Camera_GetSettingRequest()
@@ -1328,6 +1701,13 @@ public class Camera {
         }
     }
 
+    /**
+     Format storage (e.g. SD card) in camera.
+
+     This will delete all content of the camera storage!
+
+     
+     */
     public func formatStorage() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Camera_FormatStorageRequest()

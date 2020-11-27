@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Implements file transfer functionality using MAVLink FTP.
+ */
 public class Ftp {
     private let service: Mavsdk_Rpc_Ftp_FtpServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Ftp` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,12 +53,27 @@ public class Ftp {
     
 
 
+    /**
+     Progress data type for file transfer.
+     */
     public struct ProgressData: Equatable {
         public let bytesTransferred: UInt32
         public let totalBytes: UInt32
 
         
 
+        /**
+         Initializes a new `ProgressData`.
+
+         
+         - Parameters:
+            
+            - bytesTransferred:  The number of bytes already transferred.
+            
+            - totalBytes:  The total bytes to transfer.
+            
+         
+         */
         public init(bytesTransferred: UInt32, totalBytes: UInt32) {
             self.bytesTransferred = bytesTransferred
             self.totalBytes = totalBytes
@@ -77,6 +105,9 @@ public class Ftp {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct FtpResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -84,18 +115,33 @@ public class Ftp {
         
         
 
+        /**
+         Possible results returned for FTP commands
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Success.
             case success
+            ///  Intermediate message showing progress.
             case next
+            ///  Timeout.
             case timeout
+            ///  Operation is already in progress.
             case busy
+            ///  File IO operation error.
             case fileIoError
+            ///  File exists already.
             case fileExists
+            ///  File does not exist.
             case fileDoesNotExist
+            ///  File is write protected.
             case fileProtected
+            ///  Invalid parameter.
             case invalidParameter
+            ///  Unsupported command.
             case unsupported
+            ///  General protocol error.
             case protocolError
             case UNRECOGNIZED(Int)
 
@@ -163,6 +209,18 @@ public class Ftp {
         }
         
 
+        /**
+         Initializes a new `FtpResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -195,6 +253,11 @@ public class Ftp {
     }
 
 
+    /**
+     Resets FTP server in case there are stale open sessions.
+
+     
+     */
     public func reset() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Ftp_ResetRequest()
@@ -221,6 +284,11 @@ public class Ftp {
     }
 
 
+
+
+    /**
+     Downloads a file to local directory.
+     */
 
     public func download(remoteFilePath: String, localDir: String) -> Observable<ProgressData> {
         return Observable.create { observer in
@@ -269,6 +337,11 @@ public class Ftp {
 
 
 
+
+    /**
+     Uploads local file to remote directory.
+     */
+
     public func upload(localFilePath: String, remoteDir: String) -> Observable<ProgressData> {
         return Observable.create { observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeUploadRequest()
@@ -314,6 +387,12 @@ public class Ftp {
         .share(replay: 1)
     }
 
+    /**
+     Lists items from a remote directory.
+
+     - Parameter remoteDir: The remote directory to list the contents for.
+     
+     */
     public func listDirectory(remoteDir: String) -> Single<[String]> {
         return Single<[String]>.create { single in
             var request = Mavsdk_Rpc_Ftp_ListDirectoryRequest()
@@ -347,6 +426,12 @@ public class Ftp {
         }
     }
 
+    /**
+     Creates a remote directory.
+
+     - Parameter remoteDir: The remote directory to create.
+     
+     */
     public func createDirectory(remoteDir: String) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Ftp_CreateDirectoryRequest()
@@ -376,6 +461,12 @@ public class Ftp {
         }
     }
 
+    /**
+     Removes a remote directory.
+
+     - Parameter remoteDir: The remote directory to remove.
+     
+     */
     public func removeDirectory(remoteDir: String) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Ftp_RemoveDirectoryRequest()
@@ -405,6 +496,12 @@ public class Ftp {
         }
     }
 
+    /**
+     Removes a remote file.
+
+     - Parameter remoteFilePath: The path of the remote file to remove.
+     
+     */
     public func removeFile(remoteFilePath: String) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Ftp_RemoveFileRequest()
@@ -434,6 +531,14 @@ public class Ftp {
         }
     }
 
+    /**
+     Renames a remote file or remote directory.
+
+     - Parameters:
+        - remoteFromPath: The remote source path.
+        - remoteToPath: The remote destination path.
+     
+     */
     public func rename(remoteFromPath: String, remoteToPath: String) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Ftp_RenameRequest()
@@ -467,6 +572,14 @@ public class Ftp {
         }
     }
 
+    /**
+     Compares a local file to a remote file using a CRC32 checksum.
+
+     - Parameters:
+        - localFilePath: The path of the local file.
+        - remoteFilePath: The path of the remote file.
+     
+     */
     public func areFilesIdentical(localFilePath: String, remoteFilePath: String) -> Single<Bool> {
         return Single<Bool>.create { single in
             var request = Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest()
@@ -504,6 +617,12 @@ public class Ftp {
         }
     }
 
+    /**
+     Set root directory for MAVLink FTP server.
+
+     - Parameter rootDir: The root directory to set.
+     
+     */
     public func setRootDirectory(rootDir: String) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Ftp_SetRootDirectoryRequest()
@@ -533,6 +652,12 @@ public class Ftp {
         }
     }
 
+    /**
+     Set target component ID. By default it is the autopilot.
+
+     - Parameter compid: The component ID to set.
+     
+     */
     public func setTargetCompid(compid: UInt32) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Ftp_SetTargetCompidRequest()
@@ -562,6 +687,11 @@ public class Ftp {
         }
     }
 
+    /**
+     Get our own component ID.
+
+     
+     */
     public func getOurCompid() -> Single<UInt32> {
         return Single<UInt32>.create { single in
             let request = Mavsdk_Rpc_Ftp_GetOurCompidRequest()

@@ -3,11 +3,25 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ *
+ Allow to communicate with the vehicle's system shell.
+ */
 public class Shell {
     private let service: Mavsdk_Rpc_Shell_ShellServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Shell` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,6 +54,9 @@ public class Shell {
     
 
 
+    /**
+     Result type.
+     */
     public struct ShellResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -47,12 +64,21 @@ public class Shell {
         
         
 
+        /**
+         Possible results returned for shell requests
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  No system is connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Response was not received.
             case noResponse
+            ///  Shell busy (transfer in progress).
             case busy
             case UNRECOGNIZED(Int)
 
@@ -96,6 +122,18 @@ public class Shell {
         }
         
 
+        /**
+         Initializes a new `ShellResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -128,6 +166,12 @@ public class Shell {
     }
 
 
+    /**
+     Send a command line.
+
+     - Parameter command: The command line to send
+     
+     */
     public func send(command: String) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Shell_SendRequest()
@@ -158,7 +202,13 @@ public class Shell {
     }
 
 
+    /**
+     Receive feedback from a sent command line.
+
+     This subscription needs to be made before a command line is sent, otherwise, no response will be sent.
+     */
     public lazy var receive: Observable<String> = createReceiveObservable()
+
 
 
     private func createReceiveObservable() -> Observable<String> {

@@ -3,11 +3,25 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Allow users to get vehicle telemetry and state information
+ (e.g. battery, GPS, RC connection, flight mode etc.) and set telemetry update rates.
+ */
 public class Telemetry {
     private let service: Mavsdk_Rpc_Telemetry_TelemetryServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Telemetry` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -39,13 +53,23 @@ public class Telemetry {
     }
     
 
+    /**
+     GPS fix type.
+     */
     public enum FixType: Equatable {
+        ///  No GPS connected.
         case noGps
+        ///  No position information, GPS is connected.
         case noFix
+        ///  2D position.
         case fix2D
+        ///  3D position.
         case fix3D
+        ///  DGPS/SBAS aided 3D position.
         case fixDgps
+        ///  RTK float, 3D position.
         case rtkFloat
+        ///  RTK Fixed, 3D position.
         case rtkFixed
         case UNRECOGNIZED(Int)
 
@@ -92,21 +116,42 @@ public class Telemetry {
         }
     }
 
+    /**
+     Flight modes.
+
+     For more information about flight modes, check out
+     https://docs.px4.io/master/en/config/flight_mode.html.
+     */
     public enum FlightMode: Equatable {
+        ///  Mode not known.
         case unknown
+        ///  Armed and ready to take off.
         case ready
+        ///  Taking off.
         case takeoff
+        ///  Holding (hovering in place (or circling for fixed-wing vehicles).
         case hold
+        ///  In mission.
         case mission
+        ///  Returning to launch position (then landing).
         case returnToLaunch
+        ///  Landing.
         case land
+        ///  In 'offboard' mode.
         case offboard
+        ///  In 'follow-me' mode.
         case followMe
+        ///  In 'Manual' mode.
         case manual
+        ///  In 'Altitude Control' mode.
         case altctl
+        ///  In 'Position Control' mode.
         case posctl
+        ///  In 'Acro' mode.
         case acro
+        ///  In 'Stabilize' mode.
         case stabilized
+        ///  In 'Rattitude' mode.
         case rattitude
         case UNRECOGNIZED(Int)
 
@@ -185,14 +230,25 @@ public class Telemetry {
         }
     }
 
+    /**
+     Status types.
+     */
     public enum StatusTextType: Equatable {
+        ///  Debug.
         case debug
+        ///  Information.
         case info
+        ///  Notice.
         case notice
+        ///  Warning.
         case warning
+        ///  Error.
         case error
+        ///  Critical.
         case critical
+        ///  Alert.
         case alert
+        ///  Emergency.
         case emergency
         case UNRECOGNIZED(Int)
 
@@ -243,11 +299,19 @@ public class Telemetry {
         }
     }
 
+    /**
+     Landed State enumeration.
+     */
     public enum LandedState: Equatable {
+        ///  Landed state is unknown.
         case unknown
+        ///  The vehicle is on the ground.
         case onGround
+        ///  The vehicle is in the air.
         case inAir
+        ///  The vehicle is taking off.
         case takingOff
+        ///  The vehicle is landing.
         case landing
         case UNRECOGNIZED(Int)
 
@@ -287,6 +351,9 @@ public class Telemetry {
     }
 
 
+    /**
+     Position type in global coordinates.
+     */
     public struct Position: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
@@ -295,6 +362,22 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `Position`.
+
+         
+         - Parameters:
+            
+            - latitudeDeg:  Latitude in degrees (range: -90 to +90)
+            
+            - longitudeDeg:  Longitude in degrees (range: -180 to +180)
+            
+            - absoluteAltitudeM:  Altitude AMSL (above mean sea level) in metres
+            
+            - relativeAltitudeM:  Altitude relative to takeoff altitude in metres
+            
+         
+         */
         public init(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, relativeAltitudeM: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -340,6 +423,16 @@ public class Telemetry {
         }
     }
 
+    /**
+     Quaternion type.
+
+     All rotations and axis systems follow the right-hand rule.
+     The Hamilton quaternion product definition is used.
+     A zero-rotation quaternion is represented by (1,0,0,0).
+     The quaternion could also be written as w + xi + yj + zk.
+
+     For more info see: https://en.wikipedia.org/wiki/Quaternion
+     */
     public struct Quaternion: Equatable {
         public let w: Float
         public let x: Float
@@ -348,6 +441,22 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `Quaternion`.
+
+         
+         - Parameters:
+            
+            - w:  Quaternion entry 0, also denoted as a
+            
+            - x:  Quaternion entry 1, also denoted as b
+            
+            - y:  Quaternion entry 2, also denoted as c
+            
+            - z:  Quaternion entry 3, also denoted as d
+            
+         
+         */
         public init(w: Float, x: Float, y: Float, z: Float) {
             self.w = w
             self.x = x
@@ -393,6 +502,14 @@ public class Telemetry {
         }
     }
 
+    /**
+     Euler angle type.
+
+     All rotations and axis systems follow the right-hand rule.
+     The Euler angles follow the convention of a 3-2-1 intrinsic Tait-Bryan rotation sequence.
+
+     For more info see https://en.wikipedia.org/wiki/Euler_angles
+     */
     public struct EulerAngle: Equatable {
         public let rollDeg: Float
         public let pitchDeg: Float
@@ -400,6 +517,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `EulerAngle`.
+
+         
+         - Parameters:
+            
+            - rollDeg:  Roll angle in degrees, positive is banking to the right
+            
+            - pitchDeg:  Pitch angle in degrees, positive is pitching nose up
+            
+            - yawDeg:  Yaw angle in degrees, positive is clock-wise seen from above
+            
+         
+         */
         public init(rollDeg: Float, pitchDeg: Float, yawDeg: Float) {
             self.rollDeg = rollDeg
             self.pitchDeg = pitchDeg
@@ -438,6 +569,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Angular velocity type.
+     */
     public struct AngularVelocityBody: Equatable {
         public let rollRadS: Float
         public let pitchRadS: Float
@@ -445,6 +579,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `AngularVelocityBody`.
+
+         
+         - Parameters:
+            
+            - rollRadS:  Roll angular velocity
+            
+            - pitchRadS:  Pitch angular velocity
+            
+            - yawRadS:  Yaw angular velocity
+            
+         
+         */
         public init(rollRadS: Float, pitchRadS: Float, yawRadS: Float) {
             self.rollRadS = rollRadS
             self.pitchRadS = pitchRadS
@@ -483,12 +631,27 @@ public class Telemetry {
         }
     }
 
+    /**
+     GPS information type.
+     */
     public struct GpsInfo: Equatable {
         public let numSatellites: Int32
         public let fixType: FixType
 
         
 
+        /**
+         Initializes a new `GpsInfo`.
+
+         
+         - Parameters:
+            
+            - numSatellites:  Number of visible satellites in use
+            
+            - fixType:  Fix type
+            
+         
+         */
         public init(numSatellites: Int32, fixType: FixType) {
             self.numSatellites = numSatellites
             self.fixType = fixType
@@ -520,12 +683,27 @@ public class Telemetry {
         }
     }
 
+    /**
+     Battery type.
+     */
     public struct Battery: Equatable {
         public let voltageV: Float
         public let remainingPercent: Float
 
         
 
+        /**
+         Initializes a new `Battery`.
+
+         
+         - Parameters:
+            
+            - voltageV:  Voltage in volts
+            
+            - remainingPercent:  Estimated battery remaining (range: 0.0 to 1.0)
+            
+         
+         */
         public init(voltageV: Float, remainingPercent: Float) {
             self.voltageV = voltageV
             self.remainingPercent = remainingPercent
@@ -557,6 +735,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Health type.
+     */
     public struct Health: Equatable {
         public let isGyrometerCalibrationOk: Bool
         public let isAccelerometerCalibrationOk: Bool
@@ -568,6 +749,28 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `Health`.
+
+         
+         - Parameters:
+            
+            - isGyrometerCalibrationOk:  True if the gyrometer is calibrated
+            
+            - isAccelerometerCalibrationOk:  True if the accelerometer is calibrated
+            
+            - isMagnetometerCalibrationOk:  True if the magnetometer is calibrated
+            
+            - isLevelCalibrationOk:  True if the vehicle has a valid level calibration
+            
+            - isLocalPositionOk:  True if the local position estimate is good enough to fly in 'position control' mode
+            
+            - isGlobalPositionOk:  True if the global position estimate is good enough to fly in 'position control' mode
+            
+            - isHomePositionOk:  True if the home position has been initialized properly
+            
+         
+         */
         public init(isGyrometerCalibrationOk: Bool, isAccelerometerCalibrationOk: Bool, isMagnetometerCalibrationOk: Bool, isLevelCalibrationOk: Bool, isLocalPositionOk: Bool, isGlobalPositionOk: Bool, isHomePositionOk: Bool) {
             self.isGyrometerCalibrationOk = isGyrometerCalibrationOk
             self.isAccelerometerCalibrationOk = isAccelerometerCalibrationOk
@@ -634,6 +837,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Remote control status type.
+     */
     public struct RcStatus: Equatable {
         public let wasAvailableOnce: Bool
         public let isAvailable: Bool
@@ -641,6 +847,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `RcStatus`.
+
+         
+         - Parameters:
+            
+            - wasAvailableOnce:  True if an RC signal has been available once
+            
+            - isAvailable:  True if the RC signal is available now
+            
+            - signalStrengthPercent:  Signal strength (range: 0 to 100)
+            
+         
+         */
         public init(wasAvailableOnce: Bool, isAvailable: Bool, signalStrengthPercent: Float) {
             self.wasAvailableOnce = wasAvailableOnce
             self.isAvailable = isAvailable
@@ -679,12 +899,27 @@ public class Telemetry {
         }
     }
 
+    /**
+     StatusText information type.
+     */
     public struct StatusText: Equatable {
         public let type: StatusTextType
         public let text: String
 
         
 
+        /**
+         Initializes a new `StatusText`.
+
+         
+         - Parameters:
+            
+            - type:  Message type
+            
+            - text:  MAVLink status message
+            
+         
+         */
         public init(type: StatusTextType, text: String) {
             self.type = type
             self.text = text
@@ -716,12 +951,27 @@ public class Telemetry {
         }
     }
 
+    /**
+     Actuator control target type.
+     */
     public struct ActuatorControlTarget: Equatable {
         public let group: Int32
         public let controls: [Float]
 
         
 
+        /**
+         Initializes a new `ActuatorControlTarget`.
+
+         
+         - Parameters:
+            
+            - group:  An actuator control group is e.g. 'attitude' for the core flight controls, or 'gimbal' for a payload.
+            
+            - controls:  Controls normed from -1 to 1, where 0 is neutral position.
+            
+         
+         */
         public init(group: Int32, controls: [Float]) {
             self.group = group
             self.controls = controls
@@ -753,12 +1003,27 @@ public class Telemetry {
         }
     }
 
+    /**
+     Actuator output status type.
+     */
     public struct ActuatorOutputStatus: Equatable {
         public let active: UInt32
         public let actuator: [Float]
 
         
 
+        /**
+         Initializes a new `ActuatorOutputStatus`.
+
+         
+         - Parameters:
+            
+            - active:  Active outputs
+            
+            - actuator:  Servo/motor output values
+            
+         
+         */
         public init(active: UInt32, actuator: [Float]) {
             self.active = active
             self.actuator = actuator
@@ -790,11 +1055,25 @@ public class Telemetry {
         }
     }
 
+    /**
+     Covariance type.
+
+     Row-major representation of a 6x6 cross-covariance matrix
+     upper right triangle.
+     Set first to NaN if unknown.
+     */
     public struct Covariance: Equatable {
         public let covarianceMatrix: [Float]
 
         
 
+        /**
+         Initializes a new `Covariance`.
+
+         
+         - Parameter covarianceMatrix:  Representation of a covariance matrix.
+         
+         */
         public init(covarianceMatrix: [Float]) {
             self.covarianceMatrix = covarianceMatrix
         }
@@ -819,6 +1098,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Velocity type, represented in the Body (X Y Z) frame and in metres/second.
+     */
     public struct VelocityBody: Equatable {
         public let xMS: Float
         public let yMS: Float
@@ -826,6 +1108,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `VelocityBody`.
+
+         
+         - Parameters:
+            
+            - xMS:  Velocity in X in metres/second
+            
+            - yMS:  Velocity in Y in metres/second
+            
+            - zMS:  Velocity in Z in metres/second
+            
+         
+         */
         public init(xMS: Float, yMS: Float, zMS: Float) {
             self.xMS = xMS
             self.yMS = yMS
@@ -864,6 +1160,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Position type, represented in the Body (X Y Z) frame
+     */
     public struct PositionBody: Equatable {
         public let xM: Float
         public let yM: Float
@@ -871,6 +1170,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `PositionBody`.
+
+         
+         - Parameters:
+            
+            - xM:  X Position in metres.
+            
+            - yM:  Y Position in metres.
+            
+            - zM:  Z Position in metres.
+            
+         
+         */
         public init(xM: Float, yM: Float, zM: Float) {
             self.xM = xM
             self.yM = yM
@@ -909,6 +1222,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Odometry message type.
+     */
     public struct Odometry: Equatable {
         public let timeUsec: UInt64
         public let frameID: MavFrame
@@ -923,10 +1239,17 @@ public class Telemetry {
         
         
 
+        /**
+         Mavlink frame id
+         */
         public enum MavFrame: Equatable {
+            ///  Frame is undefined..
             case undef
+            ///  Setpoint in body NED frame. This makes sense if all position control is externalized - e.g. useful to command 2 m/s^2 acceleration to the right..
             case bodyNed
+            ///  Odometry local coordinate frame of data given by a vision estimation system, Z-down (x: north, y: east, z: down)..
             case visionNed
+            ///  Odometry local coordinate frame of data given by an estimator running onboard the vehicle, Z-down (x: north, y: east, z: down)..
             case estimNed
             case UNRECOGNIZED(Int)
 
@@ -962,6 +1285,32 @@ public class Telemetry {
         }
         
 
+        /**
+         Initializes a new `Odometry`.
+
+         
+         - Parameters:
+            
+            - timeUsec:  Timestamp (0 to use Backend timestamp).
+            
+            - frameID:  Coordinate frame of reference for the pose data.
+            
+            - childFrameID:  Coordinate frame of reference for the velocity in free space (twist) data.
+            
+            - positionBody:  Position.
+            
+            - q:  Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation).
+            
+            - velocityBody:  Linear velocity (m/s).
+            
+            - angularVelocityBody:  Angular velocity (rad/s).
+            
+            - poseCovariance:  Pose cross-covariance matrix.
+            
+            - velocityCovariance:  Velocity cross-covariance matrix.
+            
+         
+         */
         public init(timeUsec: UInt64, frameID: MavFrame, childFrameID: MavFrame, positionBody: PositionBody, q: Quaternion, velocityBody: VelocityBody, angularVelocityBody: AngularVelocityBody, poseCovariance: Covariance, velocityCovariance: Covariance) {
             self.timeUsec = timeUsec
             self.frameID = frameID
@@ -1042,6 +1391,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     DistanceSensor message type.
+     */
     public struct DistanceSensor: Equatable {
         public let minimumDistanceM: Float
         public let maximumDistanceM: Float
@@ -1049,6 +1401,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `DistanceSensor`.
+
+         
+         - Parameters:
+            
+            - minimumDistanceM:  Minimum distance the sensor can measure, NaN if unknown.
+            
+            - maximumDistanceM:  Maximum distance the sensor can measure, NaN if unknown.
+            
+            - currentDistanceM:  Current distance reading, NaN if unknown.
+            
+         
+         */
         public init(minimumDistanceM: Float, maximumDistanceM: Float, currentDistanceM: Float) {
             self.minimumDistanceM = minimumDistanceM
             self.maximumDistanceM = maximumDistanceM
@@ -1087,6 +1453,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     PositionNed message type.
+     */
     public struct PositionNed: Equatable {
         public let northM: Float
         public let eastM: Float
@@ -1094,6 +1463,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `PositionNed`.
+
+         
+         - Parameters:
+            
+            - northM:  Position along north direction in metres
+            
+            - eastM:  Position along east direction in metres
+            
+            - downM:  Position along down direction in metres
+            
+         
+         */
         public init(northM: Float, eastM: Float, downM: Float) {
             self.northM = northM
             self.eastM = eastM
@@ -1132,6 +1515,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     VelocityNed message type.
+     */
     public struct VelocityNed: Equatable {
         public let northMS: Float
         public let eastMS: Float
@@ -1139,6 +1525,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `VelocityNed`.
+
+         
+         - Parameters:
+            
+            - northMS:  Velocity along north direction in metres per second
+            
+            - eastMS:  Velocity along east direction in metres per second
+            
+            - downMS:  Velocity along down direction in metres per second
+            
+         
+         */
         public init(northMS: Float, eastMS: Float, downMS: Float) {
             self.northMS = northMS
             self.eastMS = eastMS
@@ -1177,12 +1577,27 @@ public class Telemetry {
         }
     }
 
+    /**
+     PositionVelocityNed message type.
+     */
     public struct PositionVelocityNed: Equatable {
         public let position: PositionNed
         public let velocity: VelocityNed
 
         
 
+        /**
+         Initializes a new `PositionVelocityNed`.
+
+         
+         - Parameters:
+            
+            - position:  Position (NED)
+            
+            - velocity:  Velocity (NED)
+            
+         
+         */
         public init(position: PositionNed, velocity: VelocityNed) {
             self.position = position
             self.velocity = velocity
@@ -1214,6 +1629,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     GroundTruth message type.
+     */
     public struct GroundTruth: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
@@ -1221,6 +1639,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `GroundTruth`.
+
+         
+         - Parameters:
+            
+            - latitudeDeg:  Latitude in degrees (range: -90 to +90)
+            
+            - longitudeDeg:  Longitude in degrees (range: -180 to 180)
+            
+            - absoluteAltitudeM:  Altitude AMSL (above mean sea level) in metres
+            
+         
+         */
         public init(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -1259,6 +1691,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     FixedwingMetrics message type.
+     */
     public struct FixedwingMetrics: Equatable {
         public let airspeedMS: Float
         public let throttlePercentage: Float
@@ -1266,6 +1701,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `FixedwingMetrics`.
+
+         
+         - Parameters:
+            
+            - airspeedMS:  Current indicated airspeed (IAS) in metres per second
+            
+            - throttlePercentage:  Current throttle setting (0 to 100)
+            
+            - climbRateMS:  Current climb rate in metres per second
+            
+         
+         */
         public init(airspeedMS: Float, throttlePercentage: Float, climbRateMS: Float) {
             self.airspeedMS = airspeedMS
             self.throttlePercentage = throttlePercentage
@@ -1304,6 +1753,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     AccelerationFrd message type.
+     */
     public struct AccelerationFrd: Equatable {
         public let forwardMS2: Float
         public let rightMS2: Float
@@ -1311,6 +1763,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `AccelerationFrd`.
+
+         
+         - Parameters:
+            
+            - forwardMS2:  Acceleration in forward direction in metres per second^2
+            
+            - rightMS2:  Acceleration in right direction in metres per second^2
+            
+            - downMS2:  Acceleration in down direction in metres per second^2
+            
+         
+         */
         public init(forwardMS2: Float, rightMS2: Float, downMS2: Float) {
             self.forwardMS2 = forwardMS2
             self.rightMS2 = rightMS2
@@ -1349,6 +1815,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     AngularVelocityFrd message type.
+     */
     public struct AngularVelocityFrd: Equatable {
         public let forwardRadS: Float
         public let rightRadS: Float
@@ -1356,6 +1825,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `AngularVelocityFrd`.
+
+         
+         - Parameters:
+            
+            - forwardRadS:  Angular velocity in forward direction in radians per second
+            
+            - rightRadS:  Angular velocity in right direction in radians per second
+            
+            - downRadS:  Angular velocity in Down direction in radians per second
+            
+         
+         */
         public init(forwardRadS: Float, rightRadS: Float, downRadS: Float) {
             self.forwardRadS = forwardRadS
             self.rightRadS = rightRadS
@@ -1394,6 +1877,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     MagneticFieldFrd message type.
+     */
     public struct MagneticFieldFrd: Equatable {
         public let forwardGauss: Float
         public let rightGauss: Float
@@ -1401,6 +1887,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `MagneticFieldFrd`.
+
+         
+         - Parameters:
+            
+            - forwardGauss:  Magnetic field in forward direction measured in Gauss
+            
+            - rightGauss:  Magnetic field in East direction measured in Gauss
+            
+            - downGauss:  Magnetic field in Down direction measured in Gauss
+            
+         
+         */
         public init(forwardGauss: Float, rightGauss: Float, downGauss: Float) {
             self.forwardGauss = forwardGauss
             self.rightGauss = rightGauss
@@ -1439,6 +1939,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Imu message type.
+     */
     public struct Imu: Equatable {
         public let accelerationFrd: AccelerationFrd
         public let angularVelocityFrd: AngularVelocityFrd
@@ -1447,6 +1950,22 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `Imu`.
+
+         
+         - Parameters:
+            
+            - accelerationFrd:  Acceleration
+            
+            - angularVelocityFrd:  Angular velocity
+            
+            - magneticFieldFrd:  Magnetic field
+            
+            - temperatureDegc:  Temperature
+            
+         
+         */
         public init(accelerationFrd: AccelerationFrd, angularVelocityFrd: AngularVelocityFrd, magneticFieldFrd: MagneticFieldFrd, temperatureDegc: Float) {
             self.accelerationFrd = accelerationFrd
             self.angularVelocityFrd = angularVelocityFrd
@@ -1492,6 +2011,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Gps global origin type.
+     */
     public struct GpsGlobalOrigin: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
@@ -1499,6 +2021,20 @@ public class Telemetry {
 
         
 
+        /**
+         Initializes a new `GpsGlobalOrigin`.
+
+         
+         - Parameters:
+            
+            - latitudeDeg:  Latitude of the origin
+            
+            - longitudeDeg:  Longitude of the origin
+            
+            - altitudeM:  Altitude AMSL (above mean sea level) in metres
+            
+         
+         */
         public init(latitudeDeg: Double, longitudeDeg: Double, altitudeM: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -1537,6 +2073,9 @@ public class Telemetry {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct TelemetryResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -1544,13 +2083,23 @@ public class Telemetry {
         
         
 
+        /**
+         Possible results returned for telemetry requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Success: the telemetry command was accepted by the vehicle.
             case success
+            ///  No system connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Vehicle is busy.
             case busy
+            ///  Command refused by vehicle.
             case commandDenied
+            ///  Request timed out.
             case timeout
             case UNRECOGNIZED(Int)
 
@@ -1598,6 +2147,18 @@ public class Telemetry {
         }
         
 
+        /**
+         Initializes a new `TelemetryResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -1631,7 +2192,11 @@ public class Telemetry {
 
 
 
+    /**
+     Subscribe to 'position' updates.
+     */
     public lazy var position: Observable<Position> = createPositionObservable()
+
 
 
     private func createPositionObservable() -> Observable<Position> {
@@ -1663,7 +2228,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'home position' updates.
+     */
     public lazy var home: Observable<Position> = createHomeObservable()
+
 
 
     private func createHomeObservable() -> Observable<Position> {
@@ -1695,7 +2264,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to in-air updates.
+     */
     public lazy var inAir: Observable<Bool> = createInAirObservable()
+
 
 
     private func createInAirObservable() -> Observable<Bool> {
@@ -1728,7 +2301,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to landed state updates
+     */
     public lazy var landedState: Observable<LandedState> = createLandedStateObservable()
+
 
 
     private func createLandedStateObservable() -> Observable<LandedState> {
@@ -1760,7 +2337,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to armed updates.
+     */
     public lazy var armed: Observable<Bool> = createArmedObservable()
+
 
 
     private func createArmedObservable() -> Observable<Bool> {
@@ -1793,7 +2374,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'attitude' updates (quaternion).
+     */
     public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
+
 
 
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
@@ -1825,7 +2410,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'attitude' updates (Euler).
+     */
     public lazy var attitudeEuler: Observable<EulerAngle> = createAttitudeEulerObservable()
+
 
 
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
@@ -1857,7 +2446,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'attitude' updates (angular velocity)
+     */
     public lazy var attitudeAngularVelocityBody: Observable<AngularVelocityBody> = createAttitudeAngularVelocityBodyObservable()
+
 
 
     private func createAttitudeAngularVelocityBodyObservable() -> Observable<AngularVelocityBody> {
@@ -1889,7 +2482,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'camera attitude' updates (quaternion).
+     */
     public lazy var cameraAttitudeQuaternion: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
+
 
 
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
@@ -1921,7 +2518,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'camera attitude' updates (Euler).
+     */
     public lazy var cameraAttitudeEuler: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
+
 
 
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
@@ -1953,7 +2554,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'ground speed' updates (NED).
+     */
     public lazy var velocityNed: Observable<VelocityNed> = createVelocityNedObservable()
+
 
 
     private func createVelocityNedObservable() -> Observable<VelocityNed> {
@@ -1985,7 +2590,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'GPS info' updates.
+     */
     public lazy var gpsInfo: Observable<GpsInfo> = createGpsInfoObservable()
+
 
 
     private func createGpsInfoObservable() -> Observable<GpsInfo> {
@@ -2017,7 +2626,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'battery' updates.
+     */
     public lazy var battery: Observable<Battery> = createBatteryObservable()
+
 
 
     private func createBatteryObservable() -> Observable<Battery> {
@@ -2049,7 +2662,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'flight mode' updates.
+     */
     public lazy var flightMode: Observable<FlightMode> = createFlightModeObservable()
+
 
 
     private func createFlightModeObservable() -> Observable<FlightMode> {
@@ -2081,7 +2698,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'health' updates.
+     */
     public lazy var health: Observable<Health> = createHealthObservable()
+
 
 
     private func createHealthObservable() -> Observable<Health> {
@@ -2113,7 +2734,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'RC status' updates.
+     */
     public lazy var rcStatus: Observable<RcStatus> = createRcStatusObservable()
+
 
 
     private func createRcStatusObservable() -> Observable<RcStatus> {
@@ -2145,7 +2770,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'status text' updates.
+     */
     public lazy var statusText: Observable<StatusText> = createStatusTextObservable()
+
 
 
     private func createStatusTextObservable() -> Observable<StatusText> {
@@ -2177,7 +2806,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'actuator control target' updates.
+     */
     public lazy var actuatorControlTarget: Observable<ActuatorControlTarget> = createActuatorControlTargetObservable()
+
 
 
     private func createActuatorControlTargetObservable() -> Observable<ActuatorControlTarget> {
@@ -2209,7 +2842,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'actuator output status' updates.
+     */
     public lazy var actuatorOutputStatus: Observable<ActuatorOutputStatus> = createActuatorOutputStatusObservable()
+
 
 
     private func createActuatorOutputStatusObservable() -> Observable<ActuatorOutputStatus> {
@@ -2241,7 +2878,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'odometry' updates.
+     */
     public lazy var odometry: Observable<Odometry> = createOdometryObservable()
+
 
 
     private func createOdometryObservable() -> Observable<Odometry> {
@@ -2273,7 +2914,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'position velocity' updates.
+     */
     public lazy var positionVelocityNed: Observable<PositionVelocityNed> = createPositionVelocityNedObservable()
+
 
 
     private func createPositionVelocityNedObservable() -> Observable<PositionVelocityNed> {
@@ -2305,7 +2950,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'ground truth' updates.
+     */
     public lazy var groundTruth: Observable<GroundTruth> = createGroundTruthObservable()
+
 
 
     private func createGroundTruthObservable() -> Observable<GroundTruth> {
@@ -2337,7 +2986,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'fixedwing metrics' updates.
+     */
     public lazy var fixedwingMetrics: Observable<FixedwingMetrics> = createFixedwingMetricsObservable()
+
 
 
     private func createFixedwingMetricsObservable() -> Observable<FixedwingMetrics> {
@@ -2369,7 +3022,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'IMU' updates.
+     */
     public lazy var imu: Observable<Imu> = createImuObservable()
+
 
 
     private func createImuObservable() -> Observable<Imu> {
@@ -2401,7 +3058,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'HealthAllOk' updates.
+     */
     public lazy var healthAllOk: Observable<Bool> = createHealthAllOkObservable()
+
 
 
     private func createHealthAllOkObservable() -> Observable<Bool> {
@@ -2434,7 +3095,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'unix epoch time' updates.
+     */
     public lazy var unixEpochTime: Observable<UInt64> = createUnixEpochTimeObservable()
+
 
 
     private func createUnixEpochTimeObservable() -> Observable<UInt64> {
@@ -2467,7 +3132,11 @@ public class Telemetry {
     }
 
 
+    /**
+     Subscribe to 'Distance Sensor' updates.
+     */
     public lazy var distanceSensor: Observable<DistanceSensor> = createDistanceSensorObservable()
+
 
 
     private func createDistanceSensorObservable() -> Observable<DistanceSensor> {
@@ -2498,6 +3167,12 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+    /**
+     Set rate to 'position' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRatePosition(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRatePositionRequest()
@@ -2527,6 +3202,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'home position' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateHome(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateHomeRequest()
@@ -2556,6 +3237,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to in-air updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateInAir(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateInAirRequest()
@@ -2585,6 +3272,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to landed state updates
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateLandedState(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest()
@@ -2614,6 +3307,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'attitude' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateAttitude(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest()
@@ -2643,6 +3342,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate of camera attitude updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateCameraAttitude(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest()
@@ -2672,6 +3377,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'ground speed' updates (NED).
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateVelocityNed(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest()
@@ -2701,6 +3412,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'GPS info' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateGpsInfo(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest()
@@ -2730,6 +3447,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'battery' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateBattery(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateBatteryRequest()
@@ -2759,6 +3482,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'RC status' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateRcStatus(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest()
@@ -2788,6 +3517,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'actuator control target' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateActuatorControlTarget(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest()
@@ -2817,6 +3552,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'actuator output status' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateActuatorOutputStatus(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest()
@@ -2846,6 +3587,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'odometry' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateOdometry(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateOdometryRequest()
@@ -2875,6 +3622,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'position velocity' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRatePositionVelocityNed(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest()
@@ -2904,6 +3657,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'ground truth' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateGroundTruth(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest()
@@ -2933,6 +3692,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'fixedwing metrics' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateFixedwingMetrics(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest()
@@ -2962,6 +3727,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'IMU' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateImu(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateImuRequest()
@@ -2991,6 +3762,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'unix epoch time' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateUnixEpochTime(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest()
@@ -3020,6 +3797,12 @@ public class Telemetry {
         }
     }
 
+    /**
+     Set rate to 'Distance Sensor' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
     public func setRateDistanceSensor(rateHz: Double) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest()
@@ -3049,6 +3832,11 @@ public class Telemetry {
         }
     }
 
+    /**
+     Get the GPS location of where the estimator has been initialized.
+
+     
+     */
     public func getGpsGlobalOrigin() -> Single<GpsGlobalOrigin> {
         return Single<GpsGlobalOrigin>.create { single in
             let request = Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest()

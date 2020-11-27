@@ -3,11 +3,25 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Allow users to command the vehicle to follow a specific target.
+ The target is provided as a GPS coordinate and altitude.
+ */
 public class FollowMe {
     private let service: Mavsdk_Rpc_FollowMe_FollowMeServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `FollowMe` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,6 +54,9 @@ public class FollowMe {
     
 
 
+    /**
+     Configuration type.
+     */
     public struct Config: Equatable {
         public let minHeightM: Float
         public let followDistanceM: Float
@@ -49,11 +66,19 @@ public class FollowMe {
         
         
 
+        /**
+         Direction relative to the target that the vehicle should follow
+         */
         public enum FollowDirection: Equatable {
+            ///  Do not follow.
             case none
+            ///  Follow from behind.
             case behind
+            ///  Follow from front.
             case front
+            ///  Follow from front right.
             case frontRight
+            ///  Follow from front left.
             case frontLeft
             case UNRECOGNIZED(Int)
 
@@ -93,6 +118,22 @@ public class FollowMe {
         }
         
 
+        /**
+         Initializes a new `Config`.
+
+         
+         - Parameters:
+            
+            - minHeightM:  Minimum height for the vehicle in meters (recommended minimum 8 meters)
+            
+            - followDistanceM:  Distance from target for vehicle to follow in meters (recommended minimum 1 meter)
+            
+            - followDirection:  Direction to follow in
+            
+            - responsiveness:  How responsive the vehicle is to the motion of the target (range 0.0 to 1.0)
+            
+         
+         */
         public init(minHeightM: Float, followDistanceM: Float, followDirection: FollowDirection, responsiveness: Float) {
             self.minHeightM = minHeightM
             self.followDistanceM = followDistanceM
@@ -138,6 +179,9 @@ public class FollowMe {
         }
     }
 
+    /**
+     Target location for the vehicle to follow
+     */
     public struct TargetLocation: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
@@ -148,6 +192,26 @@ public class FollowMe {
 
         
 
+        /**
+         Initializes a new `TargetLocation`.
+
+         
+         - Parameters:
+            
+            - latitudeDeg:  Target latitude in degrees
+            
+            - longitudeDeg:  Target longitude in degrees
+            
+            - absoluteAltitudeM:  Target altitude in meters above MSL
+            
+            - velocityXMS:  Target velocity in X axis, in meters per second
+            
+            - velocityYMS:  Target velocity in Y axis, in meters per second
+            
+            - velocityZMS:  Target velocity in Z axis, in meters per second
+            
+         
+         */
         public init(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, velocityXMS: Float, velocityYMS: Float, velocityZMS: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -207,6 +271,9 @@ public class FollowMe {
         }
     }
 
+    /**
+     
+     */
     public struct FollowMeResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -214,15 +281,27 @@ public class FollowMe {
         
         
 
+        /**
+         Possible results returned for followme operations
+         */
         public enum Result: Equatable {
+            ///  Unkown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  No system connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Vehicle is busy.
             case busy
+            ///  Command denied.
             case commandDenied
+            ///  Request timed out.
             case timeout
+            ///  FollowMe is not active.
             case notActive
+            ///  Failed to set FollowMe configuration.
             case setConfigFailed
             case UNRECOGNIZED(Int)
 
@@ -278,6 +357,18 @@ public class FollowMe {
         }
         
 
+        /**
+         Initializes a new `FollowMeResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -310,6 +401,11 @@ public class FollowMe {
     }
 
 
+    /**
+     Get current configuration.
+
+     
+     */
     public func getConfig() -> Single<Config> {
         return Single<Config>.create { single in
             let request = Mavsdk_Rpc_FollowMe_GetConfigRequest()
@@ -333,6 +429,12 @@ public class FollowMe {
         }
     }
 
+    /**
+     Apply configuration by sending it to the system.
+
+     - Parameter config: The new configuration to be set
+     
+     */
     public func setConfig(config: Config) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_FollowMe_SetConfigRequest()
@@ -362,6 +464,11 @@ public class FollowMe {
         }
     }
 
+    /**
+     Check if FollowMe is active.
+
+     
+     */
     public func isActive() -> Single<Bool> {
         return Single<Bool>.create { single in
             let request = Mavsdk_Rpc_FollowMe_IsActiveRequest()
@@ -384,6 +491,12 @@ public class FollowMe {
         }
     }
 
+    /**
+     Set location of the moving target.
+
+     - Parameter location: The new TargetLocation to follow
+     
+     */
     public func setTargetLocation(location: TargetLocation) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_FollowMe_SetTargetLocationRequest()
@@ -413,6 +526,11 @@ public class FollowMe {
         }
     }
 
+    /**
+     Get the last location of the target.
+
+     
+     */
     public func getLastLocation() -> Single<TargetLocation> {
         return Single<TargetLocation>.create { single in
             let request = Mavsdk_Rpc_FollowMe_GetLastLocationRequest()
@@ -436,6 +554,11 @@ public class FollowMe {
         }
     }
 
+    /**
+     Start FollowMe mode.
+
+     
+     */
     public func start() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_FollowMe_StartRequest()
@@ -461,6 +584,11 @@ public class FollowMe {
         }
     }
 
+    /**
+     Stop FollowMe mode.
+
+     
+     */
     public func stop() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_FollowMe_StopRequest()

@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Enable setting a geofence.
+ */
 public class Geofence {
     private let service: Mavsdk_Rpc_Geofence_GeofenceServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Geofence` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,12 +53,27 @@ public class Geofence {
     
 
 
+    /**
+     Point type.
+     */
     public struct Point: Equatable {
         public let latitudeDeg: Double
         public let longitudeDeg: Double
 
         
 
+        /**
+         Initializes a new `Point`.
+
+         
+         - Parameters:
+            
+            - latitudeDeg:  Latitude in degrees (range: -90 to +90)
+            
+            - longitudeDeg:  Longitude in degrees (range: -180 to +180)
+            
+         
+         */
         public init(latitudeDeg: Double, longitudeDeg: Double) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -77,6 +105,9 @@ public class Geofence {
         }
     }
 
+    /**
+     Polygon type.
+     */
     public struct Polygon: Equatable {
         public let points: [Point]
         public let fenceType: FenceType
@@ -84,8 +115,13 @@ public class Geofence {
         
         
 
+        /**
+         Geofence polygon types.
+         */
         public enum FenceType: Equatable {
+            ///  Type representing an inclusion fence.
             case inclusion
+            ///  Type representing an exclusion fence.
             case exclusion
             case UNRECOGNIZED(Int)
 
@@ -113,6 +149,18 @@ public class Geofence {
         }
         
 
+        /**
+         Initializes a new `Polygon`.
+
+         
+         - Parameters:
+            
+            - points:  Points defining the polygon
+            
+            - fenceType:  Fence type
+            
+         
+         */
         public init(points: [Point], fenceType: FenceType) {
             self.points = points
             self.fenceType = fenceType
@@ -144,6 +192,9 @@ public class Geofence {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct GeofenceResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -151,13 +202,23 @@ public class Geofence {
         
         
 
+        /**
+         Possible results returned for geofence requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  Error.
             case error
+            ///  Too many Polygon objects in the geofence.
             case tooManyGeofenceItems
+            ///  Vehicle is busy.
             case busy
+            ///  Request timed out.
             case timeout
+            ///  Invalid argument.
             case invalidArgument
             case UNRECOGNIZED(Int)
 
@@ -205,6 +266,18 @@ public class Geofence {
         }
         
 
+        /**
+         Initializes a new `GeofenceResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -237,6 +310,15 @@ public class Geofence {
     }
 
 
+    /**
+     Upload a geofence.
+
+     Polygons are uploaded to a drone. Once uploaded, the geofence will remain
+     on the drone even if a connection is lost.
+
+     - Parameter polygons: Polygon(s) representing the geofence(s)
+     
+     */
     public func uploadGeofence(polygons: [Polygon]) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Geofence_UploadGeofenceRequest()

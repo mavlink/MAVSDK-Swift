@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Enable simple actions such as arming, taking off, and landing.
+ */
 public class Action {
     private let service: Mavsdk_Rpc_Action_ActionServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Action` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,6 +53,9 @@ public class Action {
     
 
 
+    /**
+     Result type.
+     */
     public struct ActionResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -47,18 +63,33 @@ public class Action {
         
         
 
+        /**
+         Possible results returned for action requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request was successful.
             case success
+            ///  No system is connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Vehicle is busy.
             case busy
+            ///  Command refused by vehicle.
             case commandDenied
+            ///  Command refused because landed state is unknown.
             case commandDeniedLandedStateUnknown
+            ///  Command refused because vehicle not landed.
             case commandDeniedNotLanded
+            ///  Request timed out.
             case timeout
+            ///  Hybrid/VTOL transition support is unknown.
             case vtolTransitionSupportUnknown
+            ///  Vehicle does not support hybrid/VTOL transitions.
             case noVtolTransitionSupport
+            ///  Error getting or setting parameter.
             case parameterError
             case UNRECOGNIZED(Int)
 
@@ -126,6 +157,18 @@ public class Action {
         }
         
 
+        /**
+         Initializes a new `ActionResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -158,6 +201,14 @@ public class Action {
     }
 
 
+    /**
+     Send command to arm the drone.
+
+     Arming a drone normally causes motors to spin at idle.
+     Before arming take all safety precautions and stand clear of the drone!
+
+     
+     */
     public func arm() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_ArmRequest()
@@ -183,6 +234,14 @@ public class Action {
         }
     }
 
+    /**
+     Send command to disarm the drone.
+
+     This will disarm a drone that considers itself landed. If flying, the drone should
+     reject the disarm command. Disarming means that all motors will stop.
+
+     
+     */
     public func disarm() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_DisarmRequest()
@@ -208,6 +267,16 @@ public class Action {
         }
     }
 
+    /**
+     Send command to take off and hover.
+
+     This switches the drone into position control mode and commands
+     it to take off and hover at the takeoff altitude.
+
+     Note that the vehicle must be armed before it can take off.
+
+     
+     */
     public func takeoff() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_TakeoffRequest()
@@ -233,6 +302,13 @@ public class Action {
         }
     }
 
+    /**
+     Send command to land at the current position.
+
+     This switches the drone to 'Land' flight mode.
+
+     
+     */
     public func land() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_LandRequest()
@@ -258,6 +334,13 @@ public class Action {
         }
     }
 
+    /**
+     Send command to reboot the drone components.
+
+     This will reboot the autopilot, companion computer, camera and gimbal.
+
+     
+     */
     public func reboot() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_RebootRequest()
@@ -283,6 +366,15 @@ public class Action {
         }
     }
 
+    /**
+     Send command to shut down the drone components.
+
+     This will shut down the autopilot, onboard computer, camera and gimbal.
+     This command should only be used when the autopilot is disarmed and autopilots commonly
+     reject it if they are not already ready to shut down.
+
+     
+     */
     public func shutdown() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_ShutdownRequest()
@@ -308,6 +400,13 @@ public class Action {
         }
     }
 
+    /**
+     Send command to terminate the drone.
+
+     This will run the terminate routine as configured on the drone (e.g. disarm and open the parachute).
+
+     
+     */
     public func terminate() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_TerminateRequest()
@@ -333,6 +432,14 @@ public class Action {
         }
     }
 
+    /**
+     Send command to kill the drone.
+
+     This will disarm a drone irrespective of whether it is landed or flying.
+     Note that the drone will fall out of the sky if this command is used while flying.
+
+     
+     */
     public func kill() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_KillRequest()
@@ -358,6 +465,15 @@ public class Action {
         }
     }
 
+    /**
+     Send command to return to the launch (takeoff) position and land.
+
+     This switches the drone into [Return mode](https://docs.px4.io/master/en/flight_modes/return.html) which
+     generally means it will rise up to a certain altitude to clear any obstacles before heading
+     back to the launch (takeoff) position and land there.
+
+     
+     */
     public func returnToLaunch() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_ReturnToLaunchRequest()
@@ -383,6 +499,21 @@ public class Action {
         }
     }
 
+    /**
+     Send command to move the vehicle to a specific global position.
+
+     The latitude and longitude are given in degrees (WGS84 frame) and the altitude
+     in meters AMSL (above mean sea level).
+
+     The yaw angle is in degrees (frame is NED, 0 is North, positive is clockwise).
+
+     - Parameters:
+        - latitudeDeg: Latitude (in degrees)
+        - longitudeDeg: Longitude (in degrees)
+        - absoluteAltitudeM: Altitude AMSL (in meters)
+        - yawDeg: Yaw angle (in degrees, frame is NED, 0 is North, positive is clockwise)
+     
+     */
     public func gotoLocation(latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, yawDeg: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Action_GotoLocationRequest()
@@ -424,6 +555,15 @@ public class Action {
         }
     }
 
+    /**
+     Send command to transition the drone to fixedwing.
+
+     The associated action will only be executed for VTOL vehicles (on other vehicle types the
+     command will fail). The command will succeed if called when the vehicle
+     is already in fixedwing mode.
+
+     
+     */
     public func transitionToFixedwing() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_TransitionToFixedwingRequest()
@@ -449,6 +589,15 @@ public class Action {
         }
     }
 
+    /**
+     Send command to transition the drone to multicopter.
+
+     The associated action will only be executed for VTOL vehicles (on other vehicle types the
+     command will fail). The command will succeed if called when the vehicle
+     is already in multicopter mode.
+
+     
+     */
     public func transitionToMulticopter() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Action_TransitionToMulticopterRequest()
@@ -474,6 +623,11 @@ public class Action {
         }
     }
 
+    /**
+     Get the takeoff altitude (in meters above ground).
+
+     
+     */
     public func getTakeoffAltitude() -> Single<Float> {
         return Single<Float>.create { single in
             let request = Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest()
@@ -503,6 +657,12 @@ public class Action {
         }
     }
 
+    /**
+     Set takeoff altitude (in meters above ground).
+
+     - Parameter altitude: Takeoff altitude relative to ground/takeoff location (in meters)
+     
+     */
     public func setTakeoffAltitude(altitude: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest()
@@ -532,6 +692,11 @@ public class Action {
         }
     }
 
+    /**
+     Get the vehicle maximum speed (in metres/second).
+
+     
+     */
     public func getMaximumSpeed() -> Single<Float> {
         return Single<Float>.create { single in
             let request = Mavsdk_Rpc_Action_GetMaximumSpeedRequest()
@@ -561,6 +726,12 @@ public class Action {
         }
     }
 
+    /**
+     Set vehicle maximum speed (in metres/second).
+
+     - Parameter speed: Maximum speed (in metres/second)
+     
+     */
     public func setMaximumSpeed(speed: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Action_SetMaximumSpeedRequest()
@@ -590,6 +761,11 @@ public class Action {
         }
     }
 
+    /**
+     Get the return to launch minimum return altitude (in meters).
+
+     
+     */
     public func getReturnToLaunchAltitude() -> Single<Float> {
         return Single<Float>.create { single in
             let request = Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest()
@@ -619,6 +795,12 @@ public class Action {
         }
     }
 
+    /**
+     Set the return to launch minimum return altitude (in meters).
+
+     - Parameter relativeAltitudeM: Return altitude relative to takeoff location (in meters)
+     
+     */
     public func setReturnToLaunchAltitude(relativeAltitudeM: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest()

@@ -3,11 +3,27 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ *
+ Allows interfacing a vehicle with a motion capture system in
+ order to allow navigation without global positioning sources available
+ (e.g. indoors, or when flying under a bridge. etc.).
+ */
 public class Mocap {
     private let service: Mavsdk_Rpc_Mocap_MocapServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Mocap` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,6 +56,9 @@ public class Mocap {
     
 
 
+    /**
+     Body position type
+     */
     public struct PositionBody: Equatable {
         public let xM: Float
         public let yM: Float
@@ -47,6 +66,20 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `PositionBody`.
+
+         
+         - Parameters:
+            
+            - xM:  X position in metres.
+            
+            - yM:  Y position in metres.
+            
+            - zM:  Z position in metres.
+            
+         
+         */
         public init(xM: Float, yM: Float, zM: Float) {
             self.xM = xM
             self.yM = yM
@@ -85,6 +118,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Body angle type
+     */
     public struct AngleBody: Equatable {
         public let rollRad: Float
         public let pitchRad: Float
@@ -92,6 +128,20 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `AngleBody`.
+
+         
+         - Parameters:
+            
+            - rollRad:  Roll angle in radians.
+            
+            - pitchRad:  Pitch angle in radians.
+            
+            - yawRad:  Yaw angle in radians.
+            
+         
+         */
         public init(rollRad: Float, pitchRad: Float, yawRad: Float) {
             self.rollRad = rollRad
             self.pitchRad = pitchRad
@@ -130,6 +180,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Speed type, represented in the Body (X Y Z) frame and in metres/second.
+     */
     public struct SpeedBody: Equatable {
         public let xMS: Float
         public let yMS: Float
@@ -137,6 +190,20 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `SpeedBody`.
+
+         
+         - Parameters:
+            
+            - xMS:  Velocity in X in metres/second.
+            
+            - yMS:  Velocity in Y in metres/second.
+            
+            - zMS:  Velocity in Z in metres/second.
+            
+         
+         */
         public init(xMS: Float, yMS: Float, zMS: Float) {
             self.xMS = xMS
             self.yMS = yMS
@@ -175,6 +242,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Angular velocity type
+     */
     public struct AngularVelocityBody: Equatable {
         public let rollRadS: Float
         public let pitchRadS: Float
@@ -182,6 +252,20 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `AngularVelocityBody`.
+
+         
+         - Parameters:
+            
+            - rollRadS:  Roll angular velocity in radians/second.
+            
+            - pitchRadS:  Pitch angular velocity in radians/second.
+            
+            - yawRadS:  Yaw angular velocity in radians/second.
+            
+         
+         */
         public init(rollRadS: Float, pitchRadS: Float, yawRadS: Float) {
             self.rollRadS = rollRadS
             self.pitchRadS = pitchRadS
@@ -220,11 +304,24 @@ public class Mocap {
         }
     }
 
+    /**
+     Covariance type.
+     Row-major representation of a 6x6 cross-covariance matrix upper
+     right triangle.
+     Needs to be 21 entries or 1 entry with NaN if unknown.
+     */
     public struct Covariance: Equatable {
         public let covarianceMatrix: [Float]
 
         
 
+        /**
+         Initializes a new `Covariance`.
+
+         
+         - Parameter covarianceMatrix:  The covariance matrix
+         
+         */
         public init(covarianceMatrix: [Float]) {
             self.covarianceMatrix = covarianceMatrix
         }
@@ -249,6 +346,16 @@ public class Mocap {
         }
     }
 
+    /**
+     Quaternion type.
+
+     All rotations and axis systems follow the right-hand rule.
+     The Hamilton quaternion product definition is used.
+     A zero-rotation quaternion is represented by (1,0,0,0).
+     The quaternion could also be written as w + xi + yj + zk.
+
+     For more info see: https://en.wikipedia.org/wiki/Quaternion
+     */
     public struct Quaternion: Equatable {
         public let w: Float
         public let x: Float
@@ -257,6 +364,22 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `Quaternion`.
+
+         
+         - Parameters:
+            
+            - w:  Quaternion entry 0, also denoted as a
+            
+            - x:  Quaternion entry 1, also denoted as b
+            
+            - y:  Quaternion entry 2, also denoted as c
+            
+            - z:  Quaternion entry 3, also denoted as d
+            
+         
+         */
         public init(w: Float, x: Float, y: Float, z: Float) {
             self.w = w
             self.x = x
@@ -302,6 +425,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Global position/attitude estimate from a vision source.
+     */
     public struct VisionPositionEstimate: Equatable {
         public let timeUsec: UInt64
         public let positionBody: PositionBody
@@ -310,6 +436,22 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `VisionPositionEstimate`.
+
+         
+         - Parameters:
+            
+            - timeUsec:  PositionBody frame timestamp UNIX Epoch time (0 to use Backend timestamp)
+            
+            - positionBody:  Global position (m)
+            
+            - angleBody:  Body angle (rad).
+            
+            - poseCovariance:  Pose cross-covariance matrix.
+            
+         
+         */
         public init(timeUsec: UInt64, positionBody: PositionBody, angleBody: AngleBody, poseCovariance: Covariance) {
             self.timeUsec = timeUsec
             self.positionBody = positionBody
@@ -355,6 +497,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Motion capture attitude and position
+     */
     public struct AttitudePositionMocap: Equatable {
         public let timeUsec: UInt64
         public let q: Quaternion
@@ -363,6 +508,22 @@ public class Mocap {
 
         
 
+        /**
+         Initializes a new `AttitudePositionMocap`.
+
+         
+         - Parameters:
+            
+            - timeUsec:  PositionBody frame timestamp UNIX Epoch time (0 to use Backend timestamp)
+            
+            - q:  Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
+            
+            - positionBody:  Body Position (NED)
+            
+            - poseCovariance:  Pose cross-covariance matrix.
+            
+         
+         */
         public init(timeUsec: UInt64, q: Quaternion, positionBody: PositionBody, poseCovariance: Covariance) {
             self.timeUsec = timeUsec
             self.q = q
@@ -408,6 +569,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Odometry message to communicate odometry information with an external interface.
+     */
     public struct Odometry: Equatable {
         public let timeUsec: UInt64
         public let frameID: MavFrame
@@ -421,8 +585,13 @@ public class Mocap {
         
         
 
+        /**
+         Mavlink frame id
+         */
         public enum MavFrame: Equatable {
+            ///  MAVLink number: 14. Odometry local coordinate frame of data given by a motion capture system, Z-down (x: north, y: east, z: down)..
             case mocapNed
+            ///  MAVLink number: 20. Forward, Right, Down coordinate frame. This is a local frame with Z-down and arbitrary F/R alignment (i.e. not aligned with NED/earth frame). Replacement for MAV_FRAME_MOCAP_NED, MAV_FRAME_VISION_NED, MAV_FRAME_ESTIM_NED..
             case localFrd
             case UNRECOGNIZED(Int)
 
@@ -450,6 +619,30 @@ public class Mocap {
         }
         
 
+        /**
+         Initializes a new `Odometry`.
+
+         
+         - Parameters:
+            
+            - timeUsec:  Timestamp (0 to use Backend timestamp).
+            
+            - frameID:  Coordinate frame of reference for the pose data.
+            
+            - positionBody:  Body Position.
+            
+            - q:  Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation).
+            
+            - speedBody:  Linear speed (m/s).
+            
+            - angularVelocityBody:  Angular speed (rad/s).
+            
+            - poseCovariance:  Pose cross-covariance matrix.
+            
+            - velocityCovariance:  Velocity cross-covariance matrix.
+            
+         
+         */
         public init(timeUsec: UInt64, frameID: MavFrame, positionBody: PositionBody, q: Quaternion, speedBody: SpeedBody, angularVelocityBody: AngularVelocityBody, poseCovariance: Covariance, velocityCovariance: Covariance) {
             self.timeUsec = timeUsec
             self.frameID = frameID
@@ -523,6 +716,9 @@ public class Mocap {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct MocapResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -530,11 +726,19 @@ public class Mocap {
         
         
 
+        /**
+         Possible results returned for mocap requests
+         */
         public enum Result: Equatable {
+            ///  Unknown error.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  No system is connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Invalid request data.
             case invalidRequestData
             case UNRECOGNIZED(Int)
 
@@ -574,6 +778,18 @@ public class Mocap {
         }
         
 
+        /**
+         Initializes a new `MocapResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -606,6 +822,12 @@ public class Mocap {
     }
 
 
+    /**
+     Send Global position/attitude estimate from a vision source.
+
+     - Parameter visionPositionEstimate: The vision position estimate
+     
+     */
     public func setVisionPositionEstimate(visionPositionEstimate: VisionPositionEstimate) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest()
@@ -635,6 +857,12 @@ public class Mocap {
         }
     }
 
+    /**
+     Send motion capture attitude and position.
+
+     - Parameter attitudePositionMocap: The attitude and position data
+     
+     */
     public func setAttitudePositionMocap(attitudePositionMocap: AttitudePositionMocap) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest()
@@ -664,6 +892,12 @@ public class Mocap {
         }
     }
 
+    /**
+     Send odometry information with an external interface.
+
+     - Parameter odometry: The odometry data
+     
+     */
     public func setOdometry(odometry: Odometry) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Mocap_SetOdometryRequest()

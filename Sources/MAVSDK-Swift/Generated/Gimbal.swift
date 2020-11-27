@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Provide control over a gimbal.
+ */
 public class Gimbal {
     private let service: Mavsdk_Rpc_Gimbal_GimbalServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Gimbal` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -39,8 +52,13 @@ public class Gimbal {
     }
     
 
+    /**
+     Gimbal mode type.
+     */
     public enum GimbalMode: Equatable {
+        ///  Yaw follow will point the gimbal to the vehicle heading.
         case yawFollow
+        ///  Yaw lock will fix the gimbal poiting to an absolute direction.
         case yawLock
         case UNRECOGNIZED(Int)
 
@@ -68,6 +86,9 @@ public class Gimbal {
     }
 
 
+    /**
+     Result type.
+     */
     public struct GimbalResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -75,11 +96,19 @@ public class Gimbal {
         
         
 
+        /**
+         Possible results returned for gimbal commands.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Command was accepted.
             case success
+            ///  Error occurred sending the command.
             case error
+            ///  Command timed out.
             case timeout
+            ///  Functionality not supported.
             case unsupported
             case UNRECOGNIZED(Int)
 
@@ -119,6 +148,18 @@ public class Gimbal {
         }
         
 
+        /**
+         Initializes a new `GimbalResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -151,6 +192,18 @@ public class Gimbal {
     }
 
 
+    /**
+     Set gimbal pitch and yaw angles.
+
+     This sets the desired pitch and yaw angles of a gimbal.
+     Will return when the command is accepted, however, it might
+     take the gimbal longer to actually be set to the new angles.
+
+     - Parameters:
+        - pitchDeg: Pitch angle in degrees (negative points down)
+        - yawDeg: Yaw angle in degrees (positive is clock-wise, range: -180 to 180 or 0 to 360)
+     
+     */
     public func setPitchAndYaw(pitchDeg: Float, yawDeg: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest()
@@ -184,6 +237,16 @@ public class Gimbal {
         }
     }
 
+    /**
+     Set gimbal mode.
+
+     This sets the desired yaw mode of a gimbal.
+     Will return when the command is accepted. However, it might
+     take the gimbal longer to actually be set to the new angles.
+
+     - Parameter gimbalMode: The mode to be set.
+     
+     */
     public func setMode(gimbalMode: GimbalMode) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Gimbal_SetModeRequest()
@@ -213,6 +276,21 @@ public class Gimbal {
         }
     }
 
+    /**
+     Set gimbal region of interest (ROI).
+
+     This sets a region of interest that the gimbal will point to.
+     The gimbal will continue to point to the specified region until it
+     receives a new command.
+     The function will return when the command is accepted, however, it might
+     take the gimbal longer to actually rotate to the ROI.
+
+     - Parameters:
+        - latitudeDeg: Latitude in degrees
+        - longitudeDeg: Longitude in degrees
+        - altitudeM: Altitude in metres (AMSL)
+     
+     */
     public func setRoiLocation(latitudeDeg: Double, longitudeDeg: Double, altitudeM: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Gimbal_SetRoiLocationRequest()
