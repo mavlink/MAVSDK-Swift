@@ -3,11 +3,25 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Allow to download log files from the vehicle after a flight is complete.
+ For log streaming during flight check the logging plugin.
+ */
 public class LogFiles {
     private let service: Mavsdk_Rpc_LogFiles_LogFilesServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `LogFiles` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,11 +54,21 @@ public class LogFiles {
     
 
 
+    /**
+     Progress data coming when downloading a log file.
+     */
     public struct ProgressData: Equatable {
         public let progress: Float
 
         
 
+        /**
+         Initializes a new `ProgressData`.
+
+         
+         - Parameter progress:  Progress from 0 to 1
+         
+         */
         public init(progress: Float) {
             self.progress = progress
         }
@@ -69,6 +93,9 @@ public class LogFiles {
         }
     }
 
+    /**
+     Log file entry type.
+     */
     public struct Entry: Equatable {
         public let id: UInt32
         public let date: String
@@ -76,6 +103,20 @@ public class LogFiles {
 
         
 
+        /**
+         Initializes a new `Entry`.
+
+         
+         - Parameters:
+            
+            - id:  ID of the log file, to specify a file to be downloaded
+            
+            - date:  Date of the log file in UTC in ISO 8601 format "yyyy-mm-ddThh:mm:ssZ"
+            
+            - sizeBytes:  Size of file in bytes
+            
+         
+         */
         public init(id: UInt32, date: String, sizeBytes: UInt32) {
             self.id = id
             self.date = date
@@ -114,6 +155,9 @@ public class LogFiles {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct LogFilesResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -121,13 +165,23 @@ public class LogFiles {
         
         
 
+        /**
+         Possible results returned for calibration commands
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  Progress update.
             case next
+            ///  No log files found.
             case noLogfiles
+            ///  A timeout happened.
             case timeout
+            ///  Invalid argument.
             case invalidArgument
+            ///  File open failed.
             case fileOpenFailed
             case UNRECOGNIZED(Int)
 
@@ -175,6 +229,18 @@ public class LogFiles {
         }
         
 
+        /**
+         Initializes a new `LogFilesResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -207,6 +273,11 @@ public class LogFiles {
     }
 
 
+    /**
+     Get List of log files.
+
+     
+     */
     public func getEntries() -> Single<[Entry]> {
         return Single<[Entry]>.create { single in
             let request = Mavsdk_Rpc_LogFiles_GetEntriesRequest()
@@ -238,6 +309,11 @@ public class LogFiles {
     }
 
 
+
+
+    /**
+     Download log file.
+     */
 
     public func downloadLogFile(id: UInt32, path: String) -> Observable<ProgressData> {
         return Observable.create { observer in

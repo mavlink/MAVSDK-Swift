@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Inject failures into system to test failsafes.
+ */
 public class Failure {
     private let service: Mavsdk_Rpc_Failure_FailureServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Failure` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -39,21 +52,39 @@ public class Failure {
     }
     
 
+    /**
+     A failure unit.
+     */
     public enum FailureUnit: Equatable {
+        ///  Gyro.
         case sensorGyro
+        ///  Accelerometer.
         case sensorAccel
+        ///  Magnetometer.
         case sensorMag
+        ///  Barometer.
         case sensorBaro
+        ///  GPS.
         case sensorGps
+        ///  Optical flow.
         case sensorOpticalFlow
+        ///  Visual inertial odometry.
         case sensorVio
+        ///  Distance sensor.
         case sensorDistanceSensor
+        ///  Airspeed.
         case sensorAirspeed
+        ///  Battery.
         case systemBattery
+        ///  Motor.
         case systemMotor
+        ///  Servo.
         case systemServo
+        ///  Avoidance.
         case systemAvoidance
+        ///  RC signal.
         case systemRcSignal
+        ///  MAVLink signal.
         case systemMavlinkSignal
         case UNRECOGNIZED(Int)
 
@@ -132,14 +163,25 @@ public class Failure {
         }
     }
 
+    /**
+     A failure type
+     */
     public enum FailureType: Equatable {
+        ///  No failure injected, used to reset a previous failure.
         case ok
+        ///  Sets unit off, so completely non-responsive.
         case off
+        ///  Unit is stuck e.g. keeps reporting the same value.
         case stuck
+        ///  Unit is reporting complete garbage.
         case garbage
+        ///  Unit is consistently wrong.
         case wrong
+        ///  Unit is slow, so e.g. reporting at slower than expected rate.
         case slow
+        ///  Data of unit is delayed in time.
         case delayed
+        ///  Unit is sometimes working, sometimes not.
         case intermittent
         case UNRECOGNIZED(Int)
 
@@ -191,6 +233,9 @@ public class Failure {
     }
 
 
+    /**
+     
+     */
     public struct FailureResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -198,14 +243,25 @@ public class Failure {
         
         
 
+        /**
+         Possible results returned for failure requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  No system is connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Failure not supported.
             case unsupported
+            ///  Failure injection denied.
             case denied
+            ///  Failure injection is disabled.
             case disabled
+            ///  Request timed out.
             case timeout
             case UNRECOGNIZED(Int)
 
@@ -257,6 +313,18 @@ public class Failure {
         }
         
 
+        /**
+         Initializes a new `FailureResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -289,6 +357,15 @@ public class Failure {
     }
 
 
+    /**
+     Injects a failure.
+
+     - Parameters:
+        - failureUnit: The failure unit to send
+        - failureType: The failure type to send
+        - instance: Instance to affect (0 for all)
+     
+     */
     public func inject(failureUnit: FailureUnit, failureType: FailureType, instance: Int32) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Failure_InjectRequest()

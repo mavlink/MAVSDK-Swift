@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Enable to calibrate sensors of a drone such as gyro, accelerometer, and magnetometer.
+ */
 public class Calibration {
     private let service: Mavsdk_Rpc_Calibration_CalibrationServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Calibration` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,6 +53,9 @@ public class Calibration {
     
 
 
+    /**
+     Result type.
+     */
     public struct CalibrationResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -47,17 +63,31 @@ public class Calibration {
         
         
 
+        /**
+         Possible results returned for calibration commands
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  The calibration succeeded.
             case success
+            ///  Intermediate message showing progress or instructions on the next steps.
             case next
+            ///  Calibration failed.
             case failed
+            ///  No system is connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Vehicle is busy.
             case busy
+            ///  Command refused by vehicle.
             case commandDenied
+            ///  Command timed out.
             case timeout
+            ///  Calibration process was cancelled.
             case cancelled
+            ///  Calibration process failed since the vehicle is armed.
             case failedArmed
             case UNRECOGNIZED(Int)
 
@@ -121,6 +151,18 @@ public class Calibration {
         }
         
 
+        /**
+         Initializes a new `CalibrationResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -152,6 +194,11 @@ public class Calibration {
         }
     }
 
+    /**
+     Progress data coming from calibration.
+
+     Can be a progress percentage, or an instruction text.
+     */
     public struct ProgressData: Equatable {
         public let hasProgress: Bool
         public let progress: Float
@@ -160,6 +207,22 @@ public class Calibration {
 
         
 
+        /**
+         Initializes a new `ProgressData`.
+
+         
+         - Parameters:
+            
+            - hasProgress:  Whether this ProgressData contains a 'progress' status or not
+            
+            - progress:  Progress (percentage)
+            
+            - hasStatusText:  Whether this ProgressData contains a 'status_text' or not
+            
+            - statusText:  Instruction text
+            
+         
+         */
         public init(hasProgress: Bool, progress: Float, hasStatusText: Bool, statusText: String) {
             self.hasProgress = hasProgress
             self.progress = progress
@@ -208,6 +271,11 @@ public class Calibration {
 
 
 
+
+    /**
+     Perform gyro calibration.
+     */
+
     public func calibrateGyro() -> Observable<ProgressData> {
         return Observable.create { observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest()
@@ -246,6 +314,11 @@ public class Calibration {
     }
 
 
+
+
+    /**
+     Perform accelerometer calibration.
+     */
 
     public func calibrateAccelerometer() -> Observable<ProgressData> {
         return Observable.create { observer in
@@ -286,6 +359,11 @@ public class Calibration {
 
 
 
+
+    /**
+     Perform magnetometer calibration.
+     */
+
     public func calibrateMagnetometer() -> Observable<ProgressData> {
         return Observable.create { observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
@@ -324,6 +402,11 @@ public class Calibration {
     }
 
 
+
+
+    /**
+     Perform board level horizon calibration.
+     */
 
     public func calibrateLevelHorizon() -> Observable<ProgressData> {
         return Observable.create { observer in
@@ -364,6 +447,11 @@ public class Calibration {
 
 
 
+
+    /**
+     Perform gimbal accelerometer calibration.
+     */
+
     public func calibrateGimbalAccelerometer() -> Observable<ProgressData> {
         return Observable.create { observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest()
@@ -401,6 +489,11 @@ public class Calibration {
         .share(replay: 1)
     }
 
+    /**
+     Cancel ongoing calibration process.
+
+     
+     */
     public func cancel() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_Calibration_CancelRequest()

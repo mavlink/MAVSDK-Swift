@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Provide raw access to get and set parameters.
+ */
 public class Param {
     private let service: Mavsdk_Rpc_Param_ParamServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Param` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,12 +53,27 @@ public class Param {
     
 
 
+    /**
+     Type for integer parameters.
+     */
     public struct IntParam: Equatable {
         public let name: String
         public let value: Int32
 
         
 
+        /**
+         Initializes a new `IntParam`.
+
+         
+         - Parameters:
+            
+            - name:  Name of the parameter
+            
+            - value:  Value of the parameter
+            
+         
+         */
         public init(name: String, value: Int32) {
             self.name = name
             self.value = value
@@ -77,12 +105,27 @@ public class Param {
         }
     }
 
+    /**
+     Type for float paramters.
+     */
     public struct FloatParam: Equatable {
         public let name: String
         public let value: Float
 
         
 
+        /**
+         Initializes a new `FloatParam`.
+
+         
+         - Parameters:
+            
+            - name:  Name of the parameter
+            
+            - value:  Value of the parameter
+            
+         
+         */
         public init(name: String, value: Float) {
             self.name = name
             self.value = value
@@ -114,12 +157,27 @@ public class Param {
         }
     }
 
+    /**
+     Type collecting all integer and float parameters.
+     */
     public struct AllParams: Equatable {
         public let intParams: [IntParam]
         public let floatParams: [FloatParam]
 
         
 
+        /**
+         Initializes a new `AllParams`.
+
+         
+         - Parameters:
+            
+            - intParams:  Collection of all parameter names and values of type int
+            
+            - floatParams:  Collection of all parameter names and values of type float
+            
+         
+         */
         public init(intParams: [IntParam], floatParams: [FloatParam]) {
             self.intParams = intParams
             self.floatParams = floatParams
@@ -151,6 +209,9 @@ public class Param {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct ParamResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -158,12 +219,21 @@ public class Param {
         
         
 
+        /**
+         Possible results returned for param requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  Request timed out.
             case timeout
+            ///  Connection error.
             case connectionError
+            ///  Wrong type.
             case wrongType
+            ///  Parameter name too long (> 16).
             case paramNameTooLong
             case UNRECOGNIZED(Int)
 
@@ -207,6 +277,18 @@ public class Param {
         }
         
 
+        /**
+         Initializes a new `ParamResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -239,6 +321,14 @@ public class Param {
     }
 
 
+    /**
+     Get an int parameter.
+
+     If the type is wrong, the result will be `WRONG_TYPE`.
+
+     - Parameter name: Name of the parameter
+     
+     */
     public func getParamInt(name: String) -> Single<Int32> {
         return Single<Int32>.create { single in
             var request = Mavsdk_Rpc_Param_GetParamIntRequest()
@@ -272,6 +362,16 @@ public class Param {
         }
     }
 
+    /**
+     Set an int parameter.
+
+     If the type is wrong, the result will be `WRONG_TYPE`.
+
+     - Parameters:
+        - name: Name of the parameter to set
+        - value: Value the parameter should be set to
+     
+     */
     public func setParamInt(name: String, value: Int32) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Param_SetParamIntRequest()
@@ -305,6 +405,14 @@ public class Param {
         }
     }
 
+    /**
+     Get a float parameter.
+
+     If the type is wrong, the result will be `WRONG_TYPE`.
+
+     - Parameter name: Name of the parameter
+     
+     */
     public func getParamFloat(name: String) -> Single<Float> {
         return Single<Float>.create { single in
             var request = Mavsdk_Rpc_Param_GetParamFloatRequest()
@@ -338,6 +446,16 @@ public class Param {
         }
     }
 
+    /**
+     Set a float parameter.
+
+     If the type is wrong, the result will be `WRONG_TYPE`.
+
+     - Parameters:
+        - name: Name of the parameter to set
+        - value: Value the parameter should be set to
+     
+     */
     public func setParamFloat(name: String, value: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Param_SetParamFloatRequest()
@@ -371,6 +489,11 @@ public class Param {
         }
     }
 
+    /**
+     Get all parameters.
+
+     
+     */
     public func getAllParams() -> Single<AllParams> {
         return Single<AllParams>.create { single in
             let request = Mavsdk_Rpc_Param_GetAllParamsRequest()

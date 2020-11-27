@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Enable manual control using e.g. a joystick or gamepad.
+ */
 public class ManualControl {
     private let service: Mavsdk_Rpc_ManualControl_ManualControlServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `ManualControl` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,6 +53,9 @@ public class ManualControl {
     
 
 
+    /**
+     Result type.
+     */
     public struct ManualControlResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -47,15 +63,27 @@ public class ManualControl {
         
         
 
+        /**
+         Possible results returned for manual control requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request was successful.
             case success
+            ///  No system is connected.
             case noSystem
+            ///  Connection error.
             case connectionError
+            ///  Vehicle is busy.
             case busy
+            ///  Command refused by vehicle.
             case commandDenied
+            ///  Request timed out.
             case timeout
+            ///  Input out of range.
             case inputOutOfRange
+            ///  No Input set.
             case inputNotSet
             case UNRECOGNIZED(Int)
 
@@ -111,6 +139,18 @@ public class ManualControl {
         }
         
 
+        /**
+         Initializes a new `ManualControlResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -143,6 +183,14 @@ public class ManualControl {
     }
 
 
+    /**
+     Start position control using e.g. joystick input.
+
+     Requires manual control input to be sent regularly already.
+     Requires a valid position using e.g. GPS, external vision, or optical flow.
+
+     
+     */
     public func startPositionControl() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_ManualControl_StartPositionControlRequest()
@@ -168,6 +216,14 @@ public class ManualControl {
         }
     }
 
+    /**
+     Start altitude control
+
+     Requires manual control input to be sent regularly already.
+     Does not require a  valid position e.g. GPS.
+
+     
+     */
     public func startAltitudeControl() -> Completable {
         return Completable.create { completable in
             let request = Mavsdk_Rpc_ManualControl_StartAltitudeControlRequest()
@@ -193,6 +249,19 @@ public class ManualControl {
         }
     }
 
+    /**
+     Set manual control input
+
+     The manual control input needs to be sent at a rate high enough to prevent
+     triggering of RC loss, a good minimum rate is 10 Hz.
+
+     - Parameters:
+        - x: value between -1. to 1. negative -> backwards, positive -> forwards
+        - y: value between -1. to 1. negative -> left, positive -> right
+        - z: value between -1. to 1. negative -> down, positive -> up (usually for now, for multicopter 0 to 1 is expected)
+        - r: value between -1. to 1. negative -> turn anti-clockwise (towards the left), positive -> turn clockwise (towards the right)
+     
+     */
     public func setManualControlInput(x: Float, y: Float, z: Float, r: Float) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_ManualControl_SetManualControlInputRequest()

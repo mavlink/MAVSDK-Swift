@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Provide information about the hardware and/or software of a system.
+ */
 public class Info {
     private let service: Mavsdk_Rpc_Info_InfoServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Info` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -40,12 +53,27 @@ public class Info {
     
 
 
+    /**
+     System flight information.
+     */
     public struct FlightInfo: Equatable {
         public let timeBootMs: UInt32
         public let flightUid: UInt64
 
         
 
+        /**
+         Initializes a new `FlightInfo`.
+
+         
+         - Parameters:
+            
+            - timeBootMs:  Time since system boot
+            
+            - flightUid:  Flight counter. Starts from zero, is incremented at every disarm and is never reset (even after reboot)
+            
+         
+         */
         public init(timeBootMs: UInt32, flightUid: UInt64) {
             self.timeBootMs = timeBootMs
             self.flightUid = flightUid
@@ -77,11 +105,21 @@ public class Info {
         }
     }
 
+    /**
+     System identification.
+     */
     public struct Identification: Equatable {
         public let hardwareUid: String
 
         
 
+        /**
+         Initializes a new `Identification`.
+
+         
+         - Parameter hardwareUid:  UID of the hardware. This refers to uid2 of MAVLink. If the system does not support uid2 yet, this is all zeros.
+         
+         */
         public init(hardwareUid: String) {
             self.hardwareUid = hardwareUid
         }
@@ -106,6 +144,9 @@ public class Info {
         }
     }
 
+    /**
+     System product information.
+     */
     public struct Product: Equatable {
         public let vendorID: Int32
         public let vendorName: String
@@ -114,6 +155,22 @@ public class Info {
 
         
 
+        /**
+         Initializes a new `Product`.
+
+         
+         - Parameters:
+            
+            - vendorID:  ID of the board vendor
+            
+            - vendorName:  Name of the vendor
+            
+            - productID:  ID of the product
+            
+            - productName:  Name of the product
+            
+         
+         */
         public init(vendorID: Int32, vendorName: String, productID: Int32, productName: String) {
             self.vendorID = vendorID
             self.vendorName = vendorName
@@ -159,6 +216,9 @@ public class Info {
         }
     }
 
+    /**
+     System version information.
+     */
     public struct Version: Equatable {
         public let flightSwMajor: Int32
         public let flightSwMinor: Int32
@@ -174,6 +234,36 @@ public class Info {
 
         
 
+        /**
+         Initializes a new `Version`.
+
+         
+         - Parameters:
+            
+            - flightSwMajor:  Flight software major version
+            
+            - flightSwMinor:  Flight software minor version
+            
+            - flightSwPatch:  Flight software patch version
+            
+            - flightSwVendorMajor:  Flight software vendor major version
+            
+            - flightSwVendorMinor:  Flight software vendor minor version
+            
+            - flightSwVendorPatch:  Flight software vendor patch version
+            
+            - osSwMajor:  Operating system software major version
+            
+            - osSwMinor:  Operating system software minor version
+            
+            - osSwPatch:  Operating system software patch version
+            
+            - flightSwGitHash:  Flight software git hash
+            
+            - osSwGitHash:  Operating system software git hash
+            
+         
+         */
         public init(flightSwMajor: Int32, flightSwMinor: Int32, flightSwPatch: Int32, flightSwVendorMajor: Int32, flightSwVendorMinor: Int32, flightSwVendorPatch: Int32, osSwMajor: Int32, osSwMinor: Int32, osSwPatch: Int32, flightSwGitHash: String, osSwGitHash: String) {
             self.flightSwMajor = flightSwMajor
             self.flightSwMinor = flightSwMinor
@@ -268,6 +358,9 @@ public class Info {
         }
     }
 
+    /**
+     Result type.
+     */
     public struct InfoResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -275,9 +368,15 @@ public class Info {
         
         
 
+        /**
+         Possible results returned for info requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  Information has not been received yet.
             case informationNotReceivedYet
             case UNRECOGNIZED(Int)
 
@@ -309,6 +408,18 @@ public class Info {
         }
         
 
+        /**
+         Initializes a new `InfoResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -341,6 +452,11 @@ public class Info {
     }
 
 
+    /**
+     Get flight information of the system.
+
+     
+     */
     public func getFlightInformation() -> Single<FlightInfo> {
         return Single<FlightInfo>.create { single in
             let request = Mavsdk_Rpc_Info_GetFlightInformationRequest()
@@ -371,6 +487,11 @@ public class Info {
         }
     }
 
+    /**
+     Get the identification of the system.
+
+     
+     */
     public func getIdentification() -> Single<Identification> {
         return Single<Identification>.create { single in
             let request = Mavsdk_Rpc_Info_GetIdentificationRequest()
@@ -401,6 +522,11 @@ public class Info {
         }
     }
 
+    /**
+     Get product information of the system.
+
+     
+     */
     public func getProduct() -> Single<Product> {
         return Single<Product>.create { single in
             let request = Mavsdk_Rpc_Info_GetProductRequest()
@@ -431,6 +557,11 @@ public class Info {
         }
     }
 
+    /**
+     Get the version information of the system.
+
+     
+     */
     public func getVersion() -> Single<Version> {
         return Single<Version>.create { single in
             let request = Mavsdk_Rpc_Info_GetVersionRequest()
@@ -461,6 +592,11 @@ public class Info {
         }
     }
 
+    /**
+     Get the speed factor of a simulation (with lockstep a simulation can run faster or slower than realtime).
+
+     
+     */
     public func getSpeedFactor() -> Single<Double> {
         return Single<Double>.create { single in
             let request = Mavsdk_Rpc_Info_GetSpeedFactorRequest()

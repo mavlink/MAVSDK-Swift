@@ -3,11 +3,24 @@ import RxSwift
 import GRPC
 import NIO
 
+/**
+ Enable creating and sending a tune to be played on the system.
+ */
 public class Tune {
     private let service: Mavsdk_Rpc_Tune_TuneServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
+    /**
+     Initializes a new `Tune` plugin.
+
+     Normally never created manually, but used from the `Drone` helper class instead.
+
+     - Parameters:
+        - address: The address of the `MavsdkServer` instance to connect to
+        - port: The port of the `MavsdkServer` instance to connect to
+        - scheduler: The scheduler to be used by `Observable`s
+     */
     public convenience init(address: String = "localhost",
                             port: Int32 = 50051,
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -39,27 +52,51 @@ public class Tune {
     }
     
 
+    /**
+     An element of the tune
+     */
     public enum SongElement: Equatable {
+        ///  After this element, start playing legato.
         case styleLegato
+        ///  After this element, start playing normal.
         case styleNormal
+        ///  After this element, start playing staccato.
         case styleStaccato
+        ///  After this element, set the note duration to 1.
         case duration1
+        ///  After this element, set the note duration to 2.
         case duration2
+        ///  After this element, set the note duration to 4.
         case duration4
+        ///  After this element, set the note duration to 8.
         case duration8
+        ///  After this element, set the note duration to 16.
         case duration16
+        ///  After this element, set the note duration to 32.
         case duration32
+        ///  Play note A.
         case noteA
+        ///  Play note B.
         case noteB
+        ///  Play note C.
         case noteC
+        ///  Play note D.
         case noteD
+        ///  Play note E.
         case noteE
+        ///  Play note F.
         case noteF
+        ///  Play note G.
         case noteG
+        ///  Play a rest.
         case notePause
+        ///  After this element, sharp the note (half a step up).
         case sharp
+        ///  After this element, flat the note (half a step down).
         case flat
+        ///  After this element, shift the note 1 octave up.
         case octaveUp
+        ///  After this element, shift the note 1 octave down.
         case octaveDown
         case UNRECOGNIZED(Int)
 
@@ -163,12 +200,27 @@ public class Tune {
     }
 
 
+    /**
+     Tune description, containing song elements and tempo.
+     */
     public struct TuneDescription: Equatable {
         public let songElements: [SongElement]
         public let tempo: Int32
 
         
 
+        /**
+         Initializes a new `TuneDescription`.
+
+         
+         - Parameters:
+            
+            - songElements:  The list of song elements (notes, pauses, ...) to be played
+            
+            - tempo:  The tempo of the song (range: 32 - 255)
+            
+         
+         */
         public init(songElements: [SongElement], tempo: Int32) {
             self.songElements = songElements
             self.tempo = tempo
@@ -200,6 +252,9 @@ public class Tune {
         }
     }
 
+    /**
+     
+     */
     public struct TuneResult: Equatable {
         public let result: Result
         public let resultStr: String
@@ -207,11 +262,19 @@ public class Tune {
         
         
 
+        /**
+         Possible results returned for tune requests.
+         */
         public enum Result: Equatable {
+            ///  Unknown result.
             case unknown
+            ///  Request succeeded.
             case success
+            ///  Invalid tempo (range: 32 - 255).
             case invalidTempo
+            ///  Invalid tune: encoded string must be at most 247 chars.
             case tuneTooLong
+            ///  Failed to send the request.
             case error
             case UNRECOGNIZED(Int)
 
@@ -251,6 +314,18 @@ public class Tune {
         }
         
 
+        /**
+         Initializes a new `TuneResult`.
+
+         
+         - Parameters:
+            
+            - result:  Result enum value
+            
+            - resultStr:  Human-readable English string describing the result
+            
+         
+         */
         public init(result: Result, resultStr: String) {
             self.result = result
             self.resultStr = resultStr
@@ -283,6 +358,12 @@ public class Tune {
     }
 
 
+    /**
+     Send a tune to be played by the system.
+
+     - Parameter tuneDescription: The tune to be played
+     
+     */
     public func playTune(tuneDescription: TuneDescription) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Tune_PlayTuneRequest()
