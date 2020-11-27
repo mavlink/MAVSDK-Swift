@@ -1,6 +1,10 @@
 
+/**
+ {{ enum_description }}
+ */
 public enum {{ name.upper_camel_case }}: Equatable {
     {%- for value in values %}
+    /// {{ value.description.rstrip() }}.
     case {{ value.name.lower_camel_case }}
     {%- endfor %}
     case UNRECOGNIZED(Int)

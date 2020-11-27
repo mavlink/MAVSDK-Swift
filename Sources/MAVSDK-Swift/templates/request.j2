@@ -1,4 +1,16 @@
 
+/**
+ {{ method_description }}
+
+ {% if params|length == 1 -%}
+ - Parameter {{ params[0].name.lower_camel_case }}:{{ params[0].description.rstrip() }}
+ {% elif params|length > 1 -%}
+ - Parameters:
+    {%- for param in params %}
+    - {{ param.name.lower_camel_case }}:{{ param.description.rstrip() }}
+    {%- endfor %}
+ {% endif %}
+ */
 public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Single<{{ return_type.name }}> {
     return Single<{{ return_type.name }}>.create { single in
         {% if params|length > 0 %}var{% else %}let{% endif %} request = {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ name.upper_camel_case }}Request()

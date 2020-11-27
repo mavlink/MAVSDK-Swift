@@ -1,3 +1,6 @@
+/**
+ {{ struct_description }}
+ */
 public struct {{ name.upper_camel_case }}: Equatable {
     {%- for field in fields %}
     public let {{ field.name.lower_camel_case }}: {{ field.type_info.name }}
@@ -7,6 +10,18 @@ public struct {{ name.upper_camel_case }}: Equatable {
     {{ '\n' + indent(nested_enums[nested_enum], 1) }}
     {% endfor %}
 
+    /**
+     Initializes a new `{{ name.upper_camel_case }}`.
+
+     {% if fields|length == 1 %}
+     - Parameter {{ fields[0].name.lower_camel_case }}: {{ fields[0].description.rstrip() }}
+     {% elif fields|length > 1 %}
+     - Parameters:
+        {% for field in fields %}
+        - {{ field.name.lower_camel_case }}: {{ field.description.rstrip() }}
+        {% endfor %}
+     {% endif %}
+     */
     public init({% for field in fields %}{{ field.name.lower_camel_case }}: {{ field.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) {
         {%- for field in fields %}
         self.{{ field.name.lower_camel_case }} = {{ field.name.lower_camel_case }}
