@@ -18,7 +18,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0-alpha.20"),
-    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
+    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1"),
   ],
   targets: [
     .target(name: "MAVSDK-Swift",
@@ -39,8 +39,8 @@ let package = Package(
             ]
     ),
     .binaryTarget(name: "mavsdk_server",
-                  url: "https://github.com/mavlink/MAVSDK/releases/download/v0.35.0/mavsdk_server.xcframework.zip",
-                  checksum: "ccdd9b7c77841ea5f6b03aec8c418ed8a3bfa82770eafd296457bcfbecfbfef5"),
+                  url: "https://github.com/mavlink/MAVSDK/releases/download/v0.35.1/mavsdk_server.xcframework.zip",
+                  checksum: "b66200120286445bb3e63d74de8250cff2c8c3562a27ad64c555d7d5f9eee285"),
     .testTarget(name: "MAVSDK-SwiftTests",
                 dependencies: [
                   "MAVSDK-Swift",
