@@ -32,6 +32,11 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>
 
+  func setPitchRateAndYawRate(
+    _ request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>
+
   func setMode(
     _ request: Mavsdk_Rpc_Gimbal_SetModeRequest,
     callOptions: CallOptions?
@@ -41,6 +46,22 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>
+
+  func takeControl(
+    _ request: Mavsdk_Rpc_Gimbal_TakeControlRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_TakeControlRequest, Mavsdk_Rpc_Gimbal_TakeControlResponse>
+
+  func releaseControl(
+    _ request: Mavsdk_Rpc_Gimbal_ReleaseControlRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_ReleaseControlRequest, Mavsdk_Rpc_Gimbal_ReleaseControlResponse>
+
+  func subscribeControl(
+    _ request: Mavsdk_Rpc_Gimbal_SubscribeControlRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Gimbal_ControlResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Gimbal_SubscribeControlRequest, Mavsdk_Rpc_Gimbal_ControlResponse>
 
 }
 
@@ -64,6 +85,29 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
   ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse> {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  ///
+  /// Set gimbal angular rates around pitch and yaw axes.
+  ///
+  /// This sets the desired angular rates around pitch and yaw axes of a gimbal.
+  /// Will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually reach the angular rate.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetPitchRateAndYawRate.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setPitchRateAndYawRate(
+    _ request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.gimbal.GimbalService/SetPitchRateAndYawRate",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions
     )
@@ -114,6 +158,77 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
       callOptions: callOptions ?? self.defaultCallOptions
     )
   }
+
+  ///
+  /// Take control.
+  ///
+  /// There can be only two components in control of a gimbal at any given time.
+  /// One with "primary" control, and one with "secondary" control. The way the
+  /// secondary control is implemented is not specified and hence depends on the
+  /// vehicle.
+  ///
+  /// Components are expected to be cooperative, which means that they can
+  /// override each other and should therefore do it carefully.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to TakeControl.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func takeControl(
+    _ request: Mavsdk_Rpc_Gimbal_TakeControlRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_TakeControlRequest, Mavsdk_Rpc_Gimbal_TakeControlResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.gimbal.GimbalService/TakeControl",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Release control.
+  ///
+  /// Release control, such that other components can control the gimbal.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ReleaseControl.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func releaseControl(
+    _ request: Mavsdk_Rpc_Gimbal_ReleaseControlRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_ReleaseControlRequest, Mavsdk_Rpc_Gimbal_ReleaseControlResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.gimbal.GimbalService/ReleaseControl",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// Subscribe to control status updates.
+  ///
+  /// This allows a component to know if it has primary, secondary or
+  /// no control over the gimbal. Also, it gives the system and component ids
+  /// of the other components in control (if any).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeControl.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeControl(
+    _ request: Mavsdk_Rpc_Gimbal_SubscribeControlRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Gimbal_ControlResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Gimbal_SubscribeControlRequest, Mavsdk_Rpc_Gimbal_ControlResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.gimbal.GimbalService/SubscribeControl",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      handler: handler
+    )
+  }
 }
 
 internal final class Mavsdk_Rpc_Gimbal_GimbalServiceClient: Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
@@ -142,6 +257,14 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// take the gimbal longer to actually be set to the new angles.
   func setPitchAndYaw(request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>
   ///
+  ///
+  /// Set gimbal angular rates around pitch and yaw axes.
+  ///
+  /// This sets the desired angular rates around pitch and yaw axes of a gimbal.
+  /// Will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually reach the angular rate.
+  func setPitchRateAndYawRate(request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>
+  ///
   /// Set gimbal mode.
   ///
   /// This sets the desired yaw mode of a gimbal.
@@ -157,6 +280,29 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// The function will return when the command is accepted, however, it might
   /// take the gimbal longer to actually rotate to the ROI.
   func setRoiLocation(request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>
+  ///
+  /// Take control.
+  ///
+  /// There can be only two components in control of a gimbal at any given time.
+  /// One with "primary" control, and one with "secondary" control. The way the
+  /// secondary control is implemented is not specified and hence depends on the
+  /// vehicle.
+  ///
+  /// Components are expected to be cooperative, which means that they can
+  /// override each other and should therefore do it carefully.
+  func takeControl(request: Mavsdk_Rpc_Gimbal_TakeControlRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_TakeControlResponse>
+  ///
+  /// Release control.
+  ///
+  /// Release control, such that other components can control the gimbal.
+  func releaseControl(request: Mavsdk_Rpc_Gimbal_ReleaseControlRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_ReleaseControlResponse>
+  ///
+  /// Subscribe to control status updates.
+  ///
+  /// This allows a component to know if it has primary, secondary or
+  /// no control over the gimbal. Also, it gives the system and component ids
+  /// of the other components in control (if any).
+  func subscribeControl(request: Mavsdk_Rpc_Gimbal_SubscribeControlRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Gimbal_ControlResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
 extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
@@ -173,6 +319,13 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
         }
       }
 
+    case "SetPitchRateAndYawRate":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.setPitchRateAndYawRate(request: request, context: context)
+        }
+      }
+
     case "SetMode":
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
@@ -184,6 +337,27 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setRoiLocation(request: request, context: context)
+        }
+      }
+
+    case "TakeControl":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.takeControl(request: request, context: context)
+        }
+      }
+
+    case "ReleaseControl":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.releaseControl(request: request, context: context)
+        }
+      }
+
+    case "SubscribeControl":
+      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.subscribeControl(request: request, context: context)
         }
       }
 

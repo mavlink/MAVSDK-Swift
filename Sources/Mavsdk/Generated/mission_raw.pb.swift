@@ -391,7 +391,7 @@ struct Mavsdk_Rpc_MissionRaw_MissionItem {
   /// PARAM7 / local: Z coordinate, global: altitude (relative or absolute, depending on frame)
   var z: Float = 0
 
-  /// @brief Mission type (actually uint8_t)
+  /// Mission type (actually uint8_t)
   var missionType: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
