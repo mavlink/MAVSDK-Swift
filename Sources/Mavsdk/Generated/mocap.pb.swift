@@ -380,70 +380,76 @@ struct Mavsdk_Rpc_Mocap_Odometry {
   // methods supported on all messages.
 
   /// Timestamp (0 to use Backend timestamp).
-  var timeUsec: UInt64 = 0
+  var timeUsec: UInt64 {
+    get {return _storage._timeUsec}
+    set {_uniqueStorage()._timeUsec = newValue}
+  }
 
   /// Coordinate frame of reference for the pose data.
-  var frameID: Mavsdk_Rpc_Mocap_Odometry.MavFrame = .mocapNed
+  var frameID: Mavsdk_Rpc_Mocap_Odometry.MavFrame {
+    get {return _storage._frameID}
+    set {_uniqueStorage()._frameID = newValue}
+  }
 
   /// Body Position.
   var positionBody: Mavsdk_Rpc_Mocap_PositionBody {
-    get {return _positionBody ?? Mavsdk_Rpc_Mocap_PositionBody()}
-    set {_positionBody = newValue}
+    get {return _storage._positionBody ?? Mavsdk_Rpc_Mocap_PositionBody()}
+    set {_uniqueStorage()._positionBody = newValue}
   }
   /// Returns true if `positionBody` has been explicitly set.
-  var hasPositionBody: Bool {return self._positionBody != nil}
+  var hasPositionBody: Bool {return _storage._positionBody != nil}
   /// Clears the value of `positionBody`. Subsequent reads from it will return its default value.
-  mutating func clearPositionBody() {self._positionBody = nil}
+  mutating func clearPositionBody() {_uniqueStorage()._positionBody = nil}
 
   /// Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation).
   var q: Mavsdk_Rpc_Mocap_Quaternion {
-    get {return _q ?? Mavsdk_Rpc_Mocap_Quaternion()}
-    set {_q = newValue}
+    get {return _storage._q ?? Mavsdk_Rpc_Mocap_Quaternion()}
+    set {_uniqueStorage()._q = newValue}
   }
   /// Returns true if `q` has been explicitly set.
-  var hasQ: Bool {return self._q != nil}
+  var hasQ: Bool {return _storage._q != nil}
   /// Clears the value of `q`. Subsequent reads from it will return its default value.
-  mutating func clearQ() {self._q = nil}
+  mutating func clearQ() {_uniqueStorage()._q = nil}
 
   /// Linear speed (m/s).
   var speedBody: Mavsdk_Rpc_Mocap_SpeedBody {
-    get {return _speedBody ?? Mavsdk_Rpc_Mocap_SpeedBody()}
-    set {_speedBody = newValue}
+    get {return _storage._speedBody ?? Mavsdk_Rpc_Mocap_SpeedBody()}
+    set {_uniqueStorage()._speedBody = newValue}
   }
   /// Returns true if `speedBody` has been explicitly set.
-  var hasSpeedBody: Bool {return self._speedBody != nil}
+  var hasSpeedBody: Bool {return _storage._speedBody != nil}
   /// Clears the value of `speedBody`. Subsequent reads from it will return its default value.
-  mutating func clearSpeedBody() {self._speedBody = nil}
+  mutating func clearSpeedBody() {_uniqueStorage()._speedBody = nil}
 
   /// Angular speed (rad/s).
   var angularVelocityBody: Mavsdk_Rpc_Mocap_AngularVelocityBody {
-    get {return _angularVelocityBody ?? Mavsdk_Rpc_Mocap_AngularVelocityBody()}
-    set {_angularVelocityBody = newValue}
+    get {return _storage._angularVelocityBody ?? Mavsdk_Rpc_Mocap_AngularVelocityBody()}
+    set {_uniqueStorage()._angularVelocityBody = newValue}
   }
   /// Returns true if `angularVelocityBody` has been explicitly set.
-  var hasAngularVelocityBody: Bool {return self._angularVelocityBody != nil}
+  var hasAngularVelocityBody: Bool {return _storage._angularVelocityBody != nil}
   /// Clears the value of `angularVelocityBody`. Subsequent reads from it will return its default value.
-  mutating func clearAngularVelocityBody() {self._angularVelocityBody = nil}
+  mutating func clearAngularVelocityBody() {_uniqueStorage()._angularVelocityBody = nil}
 
   /// Pose cross-covariance matrix.
   var poseCovariance: Mavsdk_Rpc_Mocap_Covariance {
-    get {return _poseCovariance ?? Mavsdk_Rpc_Mocap_Covariance()}
-    set {_poseCovariance = newValue}
+    get {return _storage._poseCovariance ?? Mavsdk_Rpc_Mocap_Covariance()}
+    set {_uniqueStorage()._poseCovariance = newValue}
   }
   /// Returns true if `poseCovariance` has been explicitly set.
-  var hasPoseCovariance: Bool {return self._poseCovariance != nil}
+  var hasPoseCovariance: Bool {return _storage._poseCovariance != nil}
   /// Clears the value of `poseCovariance`. Subsequent reads from it will return its default value.
-  mutating func clearPoseCovariance() {self._poseCovariance = nil}
+  mutating func clearPoseCovariance() {_uniqueStorage()._poseCovariance = nil}
 
   /// Velocity cross-covariance matrix.
   var velocityCovariance: Mavsdk_Rpc_Mocap_Covariance {
-    get {return _velocityCovariance ?? Mavsdk_Rpc_Mocap_Covariance()}
-    set {_velocityCovariance = newValue}
+    get {return _storage._velocityCovariance ?? Mavsdk_Rpc_Mocap_Covariance()}
+    set {_uniqueStorage()._velocityCovariance = newValue}
   }
   /// Returns true if `velocityCovariance` has been explicitly set.
-  var hasVelocityCovariance: Bool {return self._velocityCovariance != nil}
+  var hasVelocityCovariance: Bool {return _storage._velocityCovariance != nil}
   /// Clears the value of `velocityCovariance`. Subsequent reads from it will return its default value.
-  mutating func clearVelocityCovariance() {self._velocityCovariance = nil}
+  mutating func clearVelocityCovariance() {_uniqueStorage()._velocityCovariance = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -482,12 +488,7 @@ struct Mavsdk_Rpc_Mocap_Odometry {
 
   init() {}
 
-  fileprivate var _positionBody: Mavsdk_Rpc_Mocap_PositionBody? = nil
-  fileprivate var _q: Mavsdk_Rpc_Mocap_Quaternion? = nil
-  fileprivate var _speedBody: Mavsdk_Rpc_Mocap_SpeedBody? = nil
-  fileprivate var _angularVelocityBody: Mavsdk_Rpc_Mocap_AngularVelocityBody? = nil
-  fileprivate var _poseCovariance: Mavsdk_Rpc_Mocap_Covariance? = nil
-  fileprivate var _velocityCovariance: Mavsdk_Rpc_Mocap_Covariance? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 #if swift(>=4.2)
@@ -594,8 +595,11 @@ extension Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest: SwiftProtobuf.Messa
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._visionPositionEstimate)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._visionPositionEstimate) }()
       default: break
       }
     }
@@ -623,8 +627,11 @@ extension Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse: SwiftProtobuf.Mess
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._mocapResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._mocapResult) }()
       default: break
       }
     }
@@ -652,8 +659,11 @@ extension Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest: SwiftProtobuf.Messag
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._attitudePositionMocap)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._attitudePositionMocap) }()
       default: break
       }
     }
@@ -681,8 +691,11 @@ extension Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse: SwiftProtobuf.Messa
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._mocapResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._mocapResult) }()
       default: break
       }
     }
@@ -710,8 +723,11 @@ extension Mavsdk_Rpc_Mocap_SetOdometryRequest: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._odometry)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._odometry) }()
       default: break
       }
     }
@@ -739,8 +755,11 @@ extension Mavsdk_Rpc_Mocap_SetOdometryResponse: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._mocapResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._mocapResult) }()
       default: break
       }
     }
@@ -770,10 +789,13 @@ extension Mavsdk_Rpc_Mocap_PositionBody: SwiftProtobuf.Message, SwiftProtobuf._M
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.xM)
-      case 2: try decoder.decodeSingularFloatField(value: &self.yM)
-      case 3: try decoder.decodeSingularFloatField(value: &self.zM)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.xM) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.yM) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.zM) }()
       default: break
       }
     }
@@ -811,10 +833,13 @@ extension Mavsdk_Rpc_Mocap_AngleBody: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.rollRad)
-      case 2: try decoder.decodeSingularFloatField(value: &self.pitchRad)
-      case 3: try decoder.decodeSingularFloatField(value: &self.yawRad)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.rollRad) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.pitchRad) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.yawRad) }()
       default: break
       }
     }
@@ -852,10 +877,13 @@ extension Mavsdk_Rpc_Mocap_SpeedBody: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.xMS)
-      case 2: try decoder.decodeSingularFloatField(value: &self.yMS)
-      case 3: try decoder.decodeSingularFloatField(value: &self.zMS)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.xMS) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.yMS) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.zMS) }()
       default: break
       }
     }
@@ -893,10 +921,13 @@ extension Mavsdk_Rpc_Mocap_AngularVelocityBody: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.rollRadS)
-      case 2: try decoder.decodeSingularFloatField(value: &self.pitchRadS)
-      case 3: try decoder.decodeSingularFloatField(value: &self.yawRadS)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.rollRadS) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.pitchRadS) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.yawRadS) }()
       default: break
       }
     }
@@ -932,8 +963,11 @@ extension Mavsdk_Rpc_Mocap_Covariance: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeRepeatedFloatField(value: &self.covarianceMatrix)
+      case 1: try { try decoder.decodeRepeatedFloatField(value: &self.covarianceMatrix) }()
       default: break
       }
     }
@@ -964,11 +998,14 @@ extension Mavsdk_Rpc_Mocap_Quaternion: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.w)
-      case 2: try decoder.decodeSingularFloatField(value: &self.x)
-      case 3: try decoder.decodeSingularFloatField(value: &self.y)
-      case 4: try decoder.decodeSingularFloatField(value: &self.z)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.w) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.x) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.y) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.z) }()
       default: break
       }
     }
@@ -1011,11 +1048,14 @@ extension Mavsdk_Rpc_Mocap_VisionPositionEstimate: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt64Field(value: &self.timeUsec)
-      case 2: try decoder.decodeSingularMessageField(value: &self._positionBody)
-      case 3: try decoder.decodeSingularMessageField(value: &self._angleBody)
-      case 4: try decoder.decodeSingularMessageField(value: &self._poseCovariance)
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.timeUsec) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._positionBody) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._angleBody) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._poseCovariance) }()
       default: break
       }
     }
@@ -1058,11 +1098,14 @@ extension Mavsdk_Rpc_Mocap_AttitudePositionMocap: SwiftProtobuf.Message, SwiftPr
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt64Field(value: &self.timeUsec)
-      case 2: try decoder.decodeSingularMessageField(value: &self._q)
-      case 3: try decoder.decodeSingularMessageField(value: &self._positionBody)
-      case 4: try decoder.decodeSingularMessageField(value: &self._poseCovariance)
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.timeUsec) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._q) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._positionBody) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._poseCovariance) }()
       default: break
       }
     }
@@ -1107,59 +1150,108 @@ extension Mavsdk_Rpc_Mocap_Odometry: SwiftProtobuf.Message, SwiftProtobuf._Messa
     8: .standard(proto: "velocity_covariance"),
   ]
 
+  fileprivate class _StorageClass {
+    var _timeUsec: UInt64 = 0
+    var _frameID: Mavsdk_Rpc_Mocap_Odometry.MavFrame = .mocapNed
+    var _positionBody: Mavsdk_Rpc_Mocap_PositionBody? = nil
+    var _q: Mavsdk_Rpc_Mocap_Quaternion? = nil
+    var _speedBody: Mavsdk_Rpc_Mocap_SpeedBody? = nil
+    var _angularVelocityBody: Mavsdk_Rpc_Mocap_AngularVelocityBody? = nil
+    var _poseCovariance: Mavsdk_Rpc_Mocap_Covariance? = nil
+    var _velocityCovariance: Mavsdk_Rpc_Mocap_Covariance? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _timeUsec = source._timeUsec
+      _frameID = source._frameID
+      _positionBody = source._positionBody
+      _q = source._q
+      _speedBody = source._speedBody
+      _angularVelocityBody = source._angularVelocityBody
+      _poseCovariance = source._poseCovariance
+      _velocityCovariance = source._velocityCovariance
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt64Field(value: &self.timeUsec)
-      case 2: try decoder.decodeSingularEnumField(value: &self.frameID)
-      case 3: try decoder.decodeSingularMessageField(value: &self._positionBody)
-      case 4: try decoder.decodeSingularMessageField(value: &self._q)
-      case 5: try decoder.decodeSingularMessageField(value: &self._speedBody)
-      case 6: try decoder.decodeSingularMessageField(value: &self._angularVelocityBody)
-      case 7: try decoder.decodeSingularMessageField(value: &self._poseCovariance)
-      case 8: try decoder.decodeSingularMessageField(value: &self._velocityCovariance)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularUInt64Field(value: &_storage._timeUsec) }()
+        case 2: try { try decoder.decodeSingularEnumField(value: &_storage._frameID) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._positionBody) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._q) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._speedBody) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._angularVelocityBody) }()
+        case 7: try { try decoder.decodeSingularMessageField(value: &_storage._poseCovariance) }()
+        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._velocityCovariance) }()
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.timeUsec != 0 {
-      try visitor.visitSingularUInt64Field(value: self.timeUsec, fieldNumber: 1)
-    }
-    if self.frameID != .mocapNed {
-      try visitor.visitSingularEnumField(value: self.frameID, fieldNumber: 2)
-    }
-    if let v = self._positionBody {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
-    if let v = self._q {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-    }
-    if let v = self._speedBody {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    }
-    if let v = self._angularVelocityBody {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    }
-    if let v = self._poseCovariance {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    }
-    if let v = self._velocityCovariance {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._timeUsec != 0 {
+        try visitor.visitSingularUInt64Field(value: _storage._timeUsec, fieldNumber: 1)
+      }
+      if _storage._frameID != .mocapNed {
+        try visitor.visitSingularEnumField(value: _storage._frameID, fieldNumber: 2)
+      }
+      if let v = _storage._positionBody {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if let v = _storage._q {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._speedBody {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._angularVelocityBody {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if let v = _storage._poseCovariance {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }
+      if let v = _storage._velocityCovariance {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Mocap_Odometry, rhs: Mavsdk_Rpc_Mocap_Odometry) -> Bool {
-    if lhs.timeUsec != rhs.timeUsec {return false}
-    if lhs.frameID != rhs.frameID {return false}
-    if lhs._positionBody != rhs._positionBody {return false}
-    if lhs._q != rhs._q {return false}
-    if lhs._speedBody != rhs._speedBody {return false}
-    if lhs._angularVelocityBody != rhs._angularVelocityBody {return false}
-    if lhs._poseCovariance != rhs._poseCovariance {return false}
-    if lhs._velocityCovariance != rhs._velocityCovariance {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._timeUsec != rhs_storage._timeUsec {return false}
+        if _storage._frameID != rhs_storage._frameID {return false}
+        if _storage._positionBody != rhs_storage._positionBody {return false}
+        if _storage._q != rhs_storage._q {return false}
+        if _storage._speedBody != rhs_storage._speedBody {return false}
+        if _storage._angularVelocityBody != rhs_storage._angularVelocityBody {return false}
+        if _storage._poseCovariance != rhs_storage._poseCovariance {return false}
+        if _storage._velocityCovariance != rhs_storage._velocityCovariance {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1181,9 +1273,12 @@ extension Mavsdk_Rpc_Mocap_MocapResult: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }

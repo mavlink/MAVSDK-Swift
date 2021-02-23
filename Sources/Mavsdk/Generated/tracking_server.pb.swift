@@ -273,20 +273,20 @@ struct Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse {
   // methods supported on all messages.
 
   /// The result of sending the response.
-  var result: Mavsdk_Rpc_TrackingServer_TrackingServerResult {
-    get {return _result ?? Mavsdk_Rpc_TrackingServer_TrackingServerResult()}
-    set {_result = newValue}
+  var trackingServerResult: Mavsdk_Rpc_TrackingServer_TrackingServerResult {
+    get {return _trackingServerResult ?? Mavsdk_Rpc_TrackingServer_TrackingServerResult()}
+    set {_trackingServerResult = newValue}
   }
-  /// Returns true if `result` has been explicitly set.
-  var hasResult: Bool {return self._result != nil}
-  /// Clears the value of `result`. Subsequent reads from it will return its default value.
-  mutating func clearResult() {self._result = nil}
+  /// Returns true if `trackingServerResult` has been explicitly set.
+  var hasTrackingServerResult: Bool {return self._trackingServerResult != nil}
+  /// Clears the value of `trackingServerResult`. Subsequent reads from it will return its default value.
+  mutating func clearTrackingServerResult() {self._trackingServerResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _result: Mavsdk_Rpc_TrackingServer_TrackingServerResult? = nil
+  fileprivate var _trackingServerResult: Mavsdk_Rpc_TrackingServer_TrackingServerResult? = nil
 }
 
 struct Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest {
@@ -308,20 +308,20 @@ struct Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse {
   // methods supported on all messages.
 
   /// The result of sending the response.
-  var result: Mavsdk_Rpc_TrackingServer_TrackingServerResult {
-    get {return _result ?? Mavsdk_Rpc_TrackingServer_TrackingServerResult()}
-    set {_result = newValue}
+  var trackingServerResult: Mavsdk_Rpc_TrackingServer_TrackingServerResult {
+    get {return _trackingServerResult ?? Mavsdk_Rpc_TrackingServer_TrackingServerResult()}
+    set {_trackingServerResult = newValue}
   }
-  /// Returns true if `result` has been explicitly set.
-  var hasResult: Bool {return self._result != nil}
-  /// Clears the value of `result`. Subsequent reads from it will return its default value.
-  mutating func clearResult() {self._result = nil}
+  /// Returns true if `trackingServerResult` has been explicitly set.
+  var hasTrackingServerResult: Bool {return self._trackingServerResult != nil}
+  /// Clears the value of `trackingServerResult`. Subsequent reads from it will return its default value.
+  mutating func clearTrackingServerResult() {self._trackingServerResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _result: Mavsdk_Rpc_TrackingServer_TrackingServerResult? = nil
+  fileprivate var _trackingServerResult: Mavsdk_Rpc_TrackingServer_TrackingServerResult? = nil
 }
 
 struct Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest {
@@ -343,20 +343,20 @@ struct Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse {
   // methods supported on all messages.
 
   /// The result of sending the response.
-  var result: Mavsdk_Rpc_TrackingServer_TrackingServerResult {
-    get {return _result ?? Mavsdk_Rpc_TrackingServer_TrackingServerResult()}
-    set {_result = newValue}
+  var trackingServerResult: Mavsdk_Rpc_TrackingServer_TrackingServerResult {
+    get {return _trackingServerResult ?? Mavsdk_Rpc_TrackingServer_TrackingServerResult()}
+    set {_trackingServerResult = newValue}
   }
-  /// Returns true if `result` has been explicitly set.
-  var hasResult: Bool {return self._result != nil}
-  /// Clears the value of `result`. Subsequent reads from it will return its default value.
-  mutating func clearResult() {self._result = nil}
+  /// Returns true if `trackingServerResult` has been explicitly set.
+  var hasTrackingServerResult: Bool {return self._trackingServerResult != nil}
+  /// Clears the value of `trackingServerResult`. Subsequent reads from it will return its default value.
+  mutating func clearTrackingServerResult() {self._trackingServerResult = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _result: Mavsdk_Rpc_TrackingServer_TrackingServerResult? = nil
+  fileprivate var _trackingServerResult: Mavsdk_Rpc_TrackingServer_TrackingServerResult? = nil
 }
 
 /// Point description type
@@ -498,8 +498,11 @@ extension Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusRequest: SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._trackedPoint)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackedPoint) }()
       default: break
       }
     }
@@ -546,8 +549,11 @@ extension Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusRequest: SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._trackedRectangle)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackedRectangle) }()
       default: break
       }
     }
@@ -651,8 +657,11 @@ extension Mavsdk_Rpc_TrackingServer_TrackingPointCommandResponse: SwiftProtobuf.
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._trackPoint)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackPoint) }()
       default: break
       }
     }
@@ -699,8 +708,11 @@ extension Mavsdk_Rpc_TrackingServer_TrackingRectangleCommandResponse: SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._trackRectangle)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackRectangle) }()
       default: break
       }
     }
@@ -747,8 +759,11 @@ extension Mavsdk_Rpc_TrackingServer_TrackingOffCommandResponse: SwiftProtobuf.Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularInt32Field(value: &self.dummy)
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.dummy) }()
       default: break
       }
     }
@@ -776,8 +791,11 @@ extension Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandRequest: SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.commandAnswer)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.commandAnswer) }()
       default: break
       }
     }
@@ -800,27 +818,30 @@ extension Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandRequest: SwiftPro
 extension Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RespondTrackingPointCommandResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "result"),
+    1: .standard(proto: "tracking_server_result"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._result)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackingServerResult) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._result {
+    if let v = self._trackingServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse, rhs: Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse) -> Bool {
-    if lhs._result != rhs._result {return false}
+    if lhs._trackingServerResult != rhs._trackingServerResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -834,8 +855,11 @@ extension Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest: Swif
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.commandAnswer)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.commandAnswer) }()
       default: break
       }
     }
@@ -858,27 +882,30 @@ extension Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest: Swif
 extension Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RespondTrackingRectangleCommandResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "result"),
+    1: .standard(proto: "tracking_server_result"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._result)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackingServerResult) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._result {
+    if let v = self._trackingServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse, rhs: Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse) -> Bool {
-    if lhs._result != rhs._result {return false}
+    if lhs._trackingServerResult != rhs._trackingServerResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -892,8 +919,11 @@ extension Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest: SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.commandAnswer)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.commandAnswer) }()
       default: break
       }
     }
@@ -916,27 +946,30 @@ extension Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest: SwiftProto
 extension Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RespondTrackingOffCommandResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "result"),
+    1: .standard(proto: "tracking_server_result"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._result)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._trackingServerResult) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._result {
+    if let v = self._trackingServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse, rhs: Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse) -> Bool {
-    if lhs._result != rhs._result {return false}
+    if lhs._trackingServerResult != rhs._trackingServerResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -952,10 +985,13 @@ extension Mavsdk_Rpc_TrackingServer_TrackPoint: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.pointX)
-      case 2: try decoder.decodeSingularFloatField(value: &self.pointY)
-      case 3: try decoder.decodeSingularFloatField(value: &self.radius)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.pointX) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.pointY) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.radius) }()
       default: break
       }
     }
@@ -994,11 +1030,14 @@ extension Mavsdk_Rpc_TrackingServer_TrackRectangle: SwiftProtobuf.Message, Swift
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.topLeftCornerX)
-      case 2: try decoder.decodeSingularFloatField(value: &self.topLeftCornerY)
-      case 3: try decoder.decodeSingularFloatField(value: &self.bottomRightCornerX)
-      case 4: try decoder.decodeSingularFloatField(value: &self.bottomRightCornerY)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.topLeftCornerX) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.topLeftCornerY) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.bottomRightCornerX) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.bottomRightCornerY) }()
       default: break
       }
     }
@@ -1039,9 +1078,12 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerResult: SwiftProtobuf.Message,
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }

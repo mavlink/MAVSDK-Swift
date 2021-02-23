@@ -25,8 +25,14 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Ftp_FtpServiceClient, then call methods of this protocol to make API calls.
+///
+/// Implements file transfer functionality using MAVLink FTP.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Ftp_FtpServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol? { get }
+
   func reset(
     _ request: Mavsdk_Rpc_Ftp_ResetRequest,
     callOptions: CallOptions?
@@ -88,10 +94,12 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>
-
 }
 
 extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.ftp.FtpService"
+  }
 
   ///
   /// Resets FTP server in case there are stale open sessions.
@@ -107,7 +115,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/Reset",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeResetInterceptors() ?? []
     )
   }
 
@@ -128,6 +137,7 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
       path: "/mavsdk.rpc.ftp.FtpService/SubscribeDownload",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeDownloadInterceptors() ?? [],
       handler: handler
     )
   }
@@ -149,6 +159,7 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
       path: "/mavsdk.rpc.ftp.FtpService/SubscribeUpload",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeUploadInterceptors() ?? [],
       handler: handler
     )
   }
@@ -167,7 +178,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/ListDirectory",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListDirectoryInterceptors() ?? []
     )
   }
 
@@ -185,7 +197,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/CreateDirectory",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCreateDirectoryInterceptors() ?? []
     )
   }
 
@@ -203,7 +216,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/RemoveDirectory",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRemoveDirectoryInterceptors() ?? []
     )
   }
 
@@ -221,7 +235,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/RemoveFile",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRemoveFileInterceptors() ?? []
     )
   }
 
@@ -239,7 +254,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/Rename",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRenameInterceptors() ?? []
     )
   }
 
@@ -257,7 +273,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/AreFilesIdentical",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAreFilesIdenticalInterceptors() ?? []
     )
   }
 
@@ -275,7 +292,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/SetRootDirectory",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRootDirectoryInterceptors() ?? []
     )
   }
 
@@ -293,7 +311,8 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/SetTargetCompid",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetTargetCompidInterceptors() ?? []
     )
   }
 
@@ -311,61 +330,124 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.ftp.FtpService/GetOurCompid",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetOurCompidInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'reset'.
+  func makeResetInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeDownload'.
+  func makeSubscribeDownloadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeUpload'.
+  func makeSubscribeUploadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SubscribeUploadRequest, Mavsdk_Rpc_Ftp_UploadResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'listDirectory'.
+  func makeListDirectoryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_ListDirectoryRequest, Mavsdk_Rpc_Ftp_ListDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'createDirectory'.
+  func makeCreateDirectoryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_CreateDirectoryRequest, Mavsdk_Rpc_Ftp_CreateDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'removeDirectory'.
+  func makeRemoveDirectoryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, Mavsdk_Rpc_Ftp_RemoveDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'removeFile'.
+  func makeRemoveFileInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_RemoveFileRequest, Mavsdk_Rpc_Ftp_RemoveFileResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'rename'.
+  func makeRenameInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_RenameRequest, Mavsdk_Rpc_Ftp_RenameResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'areFilesIdentical'.
+  func makeAreFilesIdenticalInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRootDirectory'.
+  func makeSetRootDirectoryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setTargetCompid'.
+  func makeSetTargetCompidInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getOurCompid'.
+  func makeGetOurCompidInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>]
 }
 
 internal final class Mavsdk_Rpc_Ftp_FtpServiceClient: Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.ftp.FtpService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+///
+/// Implements file transfer functionality using MAVLink FTP.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Ftp_FtpServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Ftp_FtpServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Resets FTP server in case there are stale open sessions.
   func reset(request: Mavsdk_Rpc_Ftp_ResetRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_ResetResponse>
+
   ///
   /// Downloads a file to local directory.
   func subscribeDownload(request: Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Ftp_DownloadResponse>) -> EventLoopFuture<GRPCStatus>
+
   ///
   /// Uploads local file to remote directory.
   func subscribeUpload(request: Mavsdk_Rpc_Ftp_SubscribeUploadRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Ftp_UploadResponse>) -> EventLoopFuture<GRPCStatus>
+
   ///
   /// Lists items from a remote directory.
   func listDirectory(request: Mavsdk_Rpc_Ftp_ListDirectoryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_ListDirectoryResponse>
+
   ///
   /// Creates a remote directory.
   func createDirectory(request: Mavsdk_Rpc_Ftp_CreateDirectoryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_CreateDirectoryResponse>
+
   ///
   /// Removes a remote directory.
   func removeDirectory(request: Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_RemoveDirectoryResponse>
+
   ///
   /// Removes a remote file.
   func removeFile(request: Mavsdk_Rpc_Ftp_RemoveFileRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_RemoveFileResponse>
+
   ///
   /// Renames a remote file or remote directory.
   func rename(request: Mavsdk_Rpc_Ftp_RenameRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_RenameResponse>
+
   ///
   /// Compares a local file to a remote file using a CRC32 checksum.
   func areFilesIdentical(request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>
+
   ///
   /// Set root directory for MAVLink FTP server.
   func setRootDirectory(request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>
+
   ///
   /// Set target component ID. By default it is the autopilot.
   func setTargetCompid(request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_SetTargetCompidResponse>
+
   ///
   /// Get our own component ID.
   func getOurCompid(request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_GetOurCompidResponse>
@@ -376,94 +458,172 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "Reset":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.reset(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_ResetRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_ResetResponse>(),
+        interceptors: self.interceptors?.makeResetInterceptors() ?? [],
+        userFunction: self.reset(request:context:)
+      )
 
     case "SubscribeDownload":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeDownload(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_DownloadResponse>(),
+        interceptors: self.interceptors?.makeSubscribeDownloadInterceptors() ?? [],
+        userFunction: self.subscribeDownload(request:context:)
+      )
 
     case "SubscribeUpload":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeUpload(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_SubscribeUploadRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_UploadResponse>(),
+        interceptors: self.interceptors?.makeSubscribeUploadInterceptors() ?? [],
+        userFunction: self.subscribeUpload(request:context:)
+      )
 
     case "ListDirectory":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.listDirectory(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_ListDirectoryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_ListDirectoryResponse>(),
+        interceptors: self.interceptors?.makeListDirectoryInterceptors() ?? [],
+        userFunction: self.listDirectory(request:context:)
+      )
 
     case "CreateDirectory":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.createDirectory(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_CreateDirectoryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_CreateDirectoryResponse>(),
+        interceptors: self.interceptors?.makeCreateDirectoryInterceptors() ?? [],
+        userFunction: self.createDirectory(request:context:)
+      )
 
     case "RemoveDirectory":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.removeDirectory(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_RemoveDirectoryResponse>(),
+        interceptors: self.interceptors?.makeRemoveDirectoryInterceptors() ?? [],
+        userFunction: self.removeDirectory(request:context:)
+      )
 
     case "RemoveFile":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.removeFile(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_RemoveFileRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_RemoveFileResponse>(),
+        interceptors: self.interceptors?.makeRemoveFileInterceptors() ?? [],
+        userFunction: self.removeFile(request:context:)
+      )
 
     case "Rename":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.rename(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_RenameRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_RenameResponse>(),
+        interceptors: self.interceptors?.makeRenameInterceptors() ?? [],
+        userFunction: self.rename(request:context:)
+      )
 
     case "AreFilesIdentical":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.areFilesIdentical(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>(),
+        interceptors: self.interceptors?.makeAreFilesIdenticalInterceptors() ?? [],
+        userFunction: self.areFilesIdentical(request:context:)
+      )
 
     case "SetRootDirectory":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRootDirectory(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>(),
+        interceptors: self.interceptors?.makeSetRootDirectoryInterceptors() ?? [],
+        userFunction: self.setRootDirectory(request:context:)
+      )
 
     case "SetTargetCompid":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setTargetCompid(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_SetTargetCompidRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_SetTargetCompidResponse>(),
+        interceptors: self.interceptors?.makeSetTargetCompidInterceptors() ?? [],
+        userFunction: self.setTargetCompid(request:context:)
+      )
 
     case "GetOurCompid":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getOurCompid(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_GetOurCompidRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_GetOurCompidResponse>(),
+        interceptors: self.interceptors?.makeGetOurCompidInterceptors() ?? [],
+        userFunction: self.getOurCompid(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Ftp_FtpServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'reset'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeResetInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeDownload'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeDownloadInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeUpload'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeUploadInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_SubscribeUploadRequest, Mavsdk_Rpc_Ftp_UploadResponse>]
+
+  /// - Returns: Interceptors to use when handling 'listDirectory'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListDirectoryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_ListDirectoryRequest, Mavsdk_Rpc_Ftp_ListDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'createDirectory'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCreateDirectoryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_CreateDirectoryRequest, Mavsdk_Rpc_Ftp_CreateDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'removeDirectory'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRemoveDirectoryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_RemoveDirectoryRequest, Mavsdk_Rpc_Ftp_RemoveDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'removeFile'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRemoveFileInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_RemoveFileRequest, Mavsdk_Rpc_Ftp_RemoveFileResponse>]
+
+  /// - Returns: Interceptors to use when handling 'rename'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRenameInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_RenameRequest, Mavsdk_Rpc_Ftp_RenameResponse>]
+
+  /// - Returns: Interceptors to use when handling 'areFilesIdentical'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeAreFilesIdenticalInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRootDirectory'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRootDirectoryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setTargetCompid'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetTargetCompidInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getOurCompid'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetOurCompidInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>]
+}

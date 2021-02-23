@@ -624,8 +624,11 @@ extension Mavsdk_Rpc_Ftp_ResetResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -654,9 +657,12 @@ extension Mavsdk_Rpc_Ftp_SubscribeDownloadRequest: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.remoteFilePath)
-      case 2: try decoder.decodeSingularStringField(value: &self.localDir)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.remoteFilePath) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.localDir) }()
       default: break
       }
     }
@@ -689,9 +695,12 @@ extension Mavsdk_Rpc_Ftp_DownloadResponse: SwiftProtobuf.Message, SwiftProtobuf.
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -724,9 +733,12 @@ extension Mavsdk_Rpc_Ftp_SubscribeUploadRequest: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.localFilePath)
-      case 2: try decoder.decodeSingularStringField(value: &self.remoteDir)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.localFilePath) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.remoteDir) }()
       default: break
       }
     }
@@ -759,9 +771,12 @@ extension Mavsdk_Rpc_Ftp_UploadResponse: SwiftProtobuf.Message, SwiftProtobuf._M
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -793,8 +808,11 @@ extension Mavsdk_Rpc_Ftp_ListDirectoryRequest: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.remoteDir)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.remoteDir) }()
       default: break
       }
     }
@@ -823,9 +841,12 @@ extension Mavsdk_Rpc_Ftp_ListDirectoryResponse: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
-      case 2: try decoder.decodeRepeatedStringField(value: &self.paths)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.paths) }()
       default: break
       }
     }
@@ -857,8 +878,11 @@ extension Mavsdk_Rpc_Ftp_CreateDirectoryRequest: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.remoteDir)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.remoteDir) }()
       default: break
       }
     }
@@ -886,8 +910,11 @@ extension Mavsdk_Rpc_Ftp_CreateDirectoryResponse: SwiftProtobuf.Message, SwiftPr
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -915,8 +942,11 @@ extension Mavsdk_Rpc_Ftp_RemoveDirectoryRequest: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.remoteDir)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.remoteDir) }()
       default: break
       }
     }
@@ -944,8 +974,11 @@ extension Mavsdk_Rpc_Ftp_RemoveDirectoryResponse: SwiftProtobuf.Message, SwiftPr
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -973,8 +1006,11 @@ extension Mavsdk_Rpc_Ftp_RemoveFileRequest: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.remoteFilePath)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.remoteFilePath) }()
       default: break
       }
     }
@@ -1002,8 +1038,11 @@ extension Mavsdk_Rpc_Ftp_RemoveFileResponse: SwiftProtobuf.Message, SwiftProtobu
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -1032,9 +1071,12 @@ extension Mavsdk_Rpc_Ftp_RenameRequest: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.remoteFromPath)
-      case 2: try decoder.decodeSingularStringField(value: &self.remoteToPath)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.remoteFromPath) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.remoteToPath) }()
       default: break
       }
     }
@@ -1066,8 +1108,11 @@ extension Mavsdk_Rpc_Ftp_RenameResponse: SwiftProtobuf.Message, SwiftProtobuf._M
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -1096,9 +1141,12 @@ extension Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.localFilePath)
-      case 2: try decoder.decodeSingularStringField(value: &self.remoteFilePath)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.localFilePath) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.remoteFilePath) }()
       default: break
       }
     }
@@ -1131,9 +1179,12 @@ extension Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse: SwiftProtobuf.Message, Swift
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
-      case 2: try decoder.decodeSingularBoolField(value: &self.areIdentical)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.areIdentical) }()
       default: break
       }
     }
@@ -1165,8 +1216,11 @@ extension Mavsdk_Rpc_Ftp_SetRootDirectoryRequest: SwiftProtobuf.Message, SwiftPr
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.rootDir)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.rootDir) }()
       default: break
       }
     }
@@ -1194,8 +1248,11 @@ extension Mavsdk_Rpc_Ftp_SetRootDirectoryResponse: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -1223,8 +1280,11 @@ extension Mavsdk_Rpc_Ftp_SetTargetCompidRequest: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.compid)
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.compid) }()
       default: break
       }
     }
@@ -1252,8 +1312,11 @@ extension Mavsdk_Rpc_Ftp_SetTargetCompidResponse: SwiftProtobuf.Message, SwiftPr
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._ftpResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._ftpResult) }()
       default: break
       }
     }
@@ -1300,8 +1363,11 @@ extension Mavsdk_Rpc_Ftp_GetOurCompidResponse: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.compid)
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.compid) }()
       default: break
       }
     }
@@ -1330,9 +1396,12 @@ extension Mavsdk_Rpc_Ftp_ProgressData: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.bytesTransferred)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.totalBytes)
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.bytesTransferred) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.totalBytes) }()
       default: break
       }
     }
@@ -1365,9 +1434,12 @@ extension Mavsdk_Rpc_Ftp_FtpResult: SwiftProtobuf.Message, SwiftProtobuf._Messag
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }

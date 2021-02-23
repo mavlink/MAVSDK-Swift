@@ -155,7 +155,7 @@ public class MissionRaw {
             
             - z:  PARAM7 / local: Z coordinate, global: altitude (relative or absolute, depending on frame)
             
-            - missionType:  @brief Mission type (actually uint8_t)
+            - missionType:  Mission type (actually uint8_t)
             
          
          */

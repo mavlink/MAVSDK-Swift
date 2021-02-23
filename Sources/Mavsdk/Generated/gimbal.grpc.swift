@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Gimbal_GimbalServiceClient, then call methods of this protocol to make API calls.
+/// Provide control over a gimbal.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Gimbal_GimbalServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Gimbal_GimbalServiceClientInterceptorFactoryProtocol? { get }
+
   func setPitchAndYaw(
     _ request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest,
     callOptions: CallOptions?
@@ -62,10 +67,12 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_Gimbal_ControlResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Gimbal_SubscribeControlRequest, Mavsdk_Rpc_Gimbal_ControlResponse>
-
 }
 
 extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.gimbal.GimbalService"
+  }
 
   ///
   ///
@@ -86,7 +93,32 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.gimbal.GimbalService/SetPitchAndYaw",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetPitchAndYawInterceptors() ?? []
+    )
+  }
+
+  ///
+  ///
+  /// Set gimbal angular rates around pitch and yaw axes.
+  ///
+  /// This sets the desired angular rates around pitch and yaw axes of a gimbal.
+  /// Will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually reach the angular rate.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetPitchRateAndYawRate.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setPitchRateAndYawRate(
+    _ request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.gimbal.GimbalService/SetPitchRateAndYawRate",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetPitchRateAndYawRateInterceptors() ?? []
     )
   }
 
@@ -131,7 +163,8 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.gimbal.GimbalService/SetMode",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetModeInterceptors() ?? []
     )
   }
 
@@ -155,7 +188,8 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.gimbal.GimbalService/SetRoiLocation",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRoiLocationInterceptors() ?? []
     )
   }
 
@@ -181,7 +215,8 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.gimbal.GimbalService/TakeControl",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTakeControlInterceptors() ?? []
     )
   }
 
@@ -201,7 +236,8 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.gimbal.GimbalService/ReleaseControl",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeReleaseControlInterceptors() ?? []
     )
   }
 
@@ -226,28 +262,64 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
       path: "/mavsdk.rpc.gimbal.GimbalService/SubscribeControl",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeControlInterceptors() ?? [],
       handler: handler
     )
   }
 }
 
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'setPitchAndYaw'.
+  func makeSetPitchAndYawInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setPitchRateAndYawRate'.
+  func makeSetPitchRateAndYawRateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setMode'.
+  func makeSetModeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRoiLocation'.
+  func makeSetRoiLocationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'takeControl'.
+  func makeTakeControlInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_TakeControlRequest, Mavsdk_Rpc_Gimbal_TakeControlResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'releaseControl'.
+  func makeReleaseControlInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_ReleaseControlRequest, Mavsdk_Rpc_Gimbal_ReleaseControlResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeControl'.
+  func makeSubscribeControlInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Gimbal_SubscribeControlRequest, Mavsdk_Rpc_Gimbal_ControlResponse>]
+}
+
 internal final class Mavsdk_Rpc_Gimbal_GimbalServiceClient: Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Gimbal_GimbalServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.gimbal.GimbalService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Gimbal_GimbalServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Provide control over a gimbal.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Gimbal_GimbalServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   ///
   /// Set gimbal pitch and yaw angles.
@@ -256,6 +328,16 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// Will return when the command is accepted, however, it might
   /// take the gimbal longer to actually be set to the new angles.
   func setPitchAndYaw(request: Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>
+
+  ///
+  ///
+  /// Set gimbal angular rates around pitch and yaw axes.
+  ///
+  /// This sets the desired angular rates around pitch and yaw axes of a gimbal.
+  /// Will return when the command is accepted, however, it might
+  /// take the gimbal longer to actually reach the angular rate.
+  func setPitchRateAndYawRate(request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>
+
   ///
   ///
   /// Set gimbal angular rates around pitch and yaw axes.
@@ -271,6 +353,7 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// Will return when the command is accepted. However, it might
   /// take the gimbal longer to actually be set to the new angles.
   func setMode(request: Mavsdk_Rpc_Gimbal_SetModeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetModeResponse>
+
   ///
   /// Set gimbal region of interest (ROI).
   ///
@@ -310,14 +393,28 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "SetPitchAndYaw":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setPitchAndYaw(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>(),
+        interceptors: self.interceptors?.makeSetPitchAndYawInterceptors() ?? [],
+        userFunction: self.setPitchAndYaw(request:context:)
+      )
+
+    case "SetPitchRateAndYawRate":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>(),
+        interceptors: self.interceptors?.makeSetPitchRateAndYawRateInterceptors() ?? [],
+        userFunction: self.setPitchRateAndYawRate(request:context:)
+      )
 
     case "SetPitchRateAndYawRate":
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
@@ -327,42 +424,83 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
       }
 
     case "SetMode":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setMode(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_SetModeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_SetModeResponse>(),
+        interceptors: self.interceptors?.makeSetModeInterceptors() ?? [],
+        userFunction: self.setMode(request:context:)
+      )
 
     case "SetRoiLocation":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRoiLocation(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>(),
+        interceptors: self.interceptors?.makeSetRoiLocationInterceptors() ?? [],
+        userFunction: self.setRoiLocation(request:context:)
+      )
 
     case "TakeControl":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.takeControl(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_TakeControlRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_TakeControlResponse>(),
+        interceptors: self.interceptors?.makeTakeControlInterceptors() ?? [],
+        userFunction: self.takeControl(request:context:)
+      )
 
     case "ReleaseControl":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.releaseControl(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_ReleaseControlRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_ReleaseControlResponse>(),
+        interceptors: self.interceptors?.makeReleaseControlInterceptors() ?? [],
+        userFunction: self.releaseControl(request:context:)
+      )
 
     case "SubscribeControl":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeControl(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Gimbal_SubscribeControlRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Gimbal_ControlResponse>(),
+        interceptors: self.interceptors?.makeSubscribeControlInterceptors() ?? [],
+        userFunction: self.subscribeControl(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'setPitchAndYaw'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetPitchAndYawInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest, Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setPitchRateAndYawRate'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetPitchRateAndYawRateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setMode'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetModeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_SetModeRequest, Mavsdk_Rpc_Gimbal_SetModeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRoiLocation'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRoiLocationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>]
+
+  /// - Returns: Interceptors to use when handling 'takeControl'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTakeControlInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_TakeControlRequest, Mavsdk_Rpc_Gimbal_TakeControlResponse>]
+
+  /// - Returns: Interceptors to use when handling 'releaseControl'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeReleaseControlInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_ReleaseControlRequest, Mavsdk_Rpc_Gimbal_ReleaseControlResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeControl'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeControlInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Gimbal_SubscribeControlRequest, Mavsdk_Rpc_Gimbal_ControlResponse>]
+}

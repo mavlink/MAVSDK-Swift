@@ -25,8 +25,14 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_LogFiles_LogFilesServiceClient, then call methods of this protocol to make API calls.
+/// Allow to download log files from the vehicle after a flight is complete.
+/// For log streaming during flight check the logging plugin.
+///
+/// Usage: instantiate `Mavsdk_Rpc_LogFiles_LogFilesServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_LogFiles_LogFilesServiceClientInterceptorFactoryProtocol? { get }
+
   func getEntries(
     _ request: Mavsdk_Rpc_LogFiles_GetEntriesRequest,
     callOptions: CallOptions?
@@ -37,10 +43,12 @@ internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol: GRPCClient 
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_LogFiles_DownloadLogFileResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>
-
 }
 
 extension Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.log_files.LogFilesService"
+  }
 
   /// Get List of log files.
   ///
@@ -55,7 +63,8 @@ extension Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.log_files.LogFilesService/GetEntries",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEntriesInterceptors() ?? []
     )
   }
 
@@ -75,30 +84,53 @@ extension Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
       path: "/mavsdk.rpc.log_files.LogFilesService/SubscribeDownloadLogFile",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeDownloadLogFileInterceptors() ?? [],
       handler: handler
     )
   }
 }
 
+internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'getEntries'.
+  func makeGetEntriesInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_LogFiles_GetEntriesRequest, Mavsdk_Rpc_LogFiles_GetEntriesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeDownloadLogFile'.
+  func makeSubscribeDownloadLogFileInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>]
+}
+
 internal final class Mavsdk_Rpc_LogFiles_LogFilesServiceClient: Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_LogFiles_LogFilesServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.log_files.LogFilesService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_LogFiles_LogFilesServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Allow to download log files from the vehicle after a flight is complete.
+/// For log streaming during flight check the logging plugin.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_LogFiles_LogFilesServiceServerInterceptorFactoryProtocol? { get }
+
   /// Get List of log files.
   func getEntries(request: Mavsdk_Rpc_LogFiles_GetEntriesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_LogFiles_GetEntriesResponse>
+
   /// Download log file.
   func subscribeDownloadLogFile(request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>) -> EventLoopFuture<GRPCStatus>
 }
@@ -108,24 +140,42 @@ extension Mavsdk_Rpc_LogFiles_LogFilesServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "GetEntries":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getEntries(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_LogFiles_GetEntriesRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_LogFiles_GetEntriesResponse>(),
+        interceptors: self.interceptors?.makeGetEntriesInterceptors() ?? [],
+        userFunction: self.getEntries(request:context:)
+      )
 
     case "SubscribeDownloadLogFile":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeDownloadLogFile(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>(),
+        interceptors: self.interceptors?.makeSubscribeDownloadLogFileInterceptors() ?? [],
+        userFunction: self.subscribeDownloadLogFile(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'getEntries'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetEntriesInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_LogFiles_GetEntriesRequest, Mavsdk_Rpc_LogFiles_GetEntriesResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeDownloadLogFile'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeDownloadLogFileInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>]
+}

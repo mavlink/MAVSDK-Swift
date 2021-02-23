@@ -25,8 +25,15 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Telemetry_TelemetryServiceClient, then call methods of this protocol to make API calls.
+///
+/// Allow users to get vehicle telemetry and state information
+/// (e.g. battery, GPS, RC connection, flight mode etc.) and set telemetry update rates.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Telemetry_TelemetryServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryProtocol? { get }
+
   func subscribePosition(
     _ request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest,
     callOptions: CallOptions?,
@@ -288,10 +295,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     _ request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>
-
 }
 
 extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.telemetry.TelemetryService"
+  }
 
   /// Subscribe to 'position' updates.
   ///
@@ -309,6 +318,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePosition",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribePositionInterceptors() ?? [],
       handler: handler
     )
   }
@@ -329,6 +339,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHome",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeHomeInterceptors() ?? [],
       handler: handler
     )
   }
@@ -349,6 +360,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeInAir",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeInAirInterceptors() ?? [],
       handler: handler
     )
   }
@@ -369,6 +381,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeLandedState",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeLandedStateInterceptors() ?? [],
       handler: handler
     )
   }
@@ -389,6 +402,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeArmed",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeArmedInterceptors() ?? [],
       handler: handler
     )
   }
@@ -409,6 +423,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeQuaternion",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeAttitudeQuaternionInterceptors() ?? [],
       handler: handler
     )
   }
@@ -429,6 +444,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeEuler",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeAttitudeEulerInterceptors() ?? [],
       handler: handler
     )
   }
@@ -449,6 +465,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAttitudeAngularVelocityBody",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeAttitudeAngularVelocityBodyInterceptors() ?? [],
       handler: handler
     )
   }
@@ -469,6 +486,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCameraAttitudeQuaternionInterceptors() ?? [],
       handler: handler
     )
   }
@@ -489,6 +507,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCameraAttitudeEulerInterceptors() ?? [],
       handler: handler
     )
   }
@@ -509,6 +528,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVelocityNed",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeVelocityNedInterceptors() ?? [],
       handler: handler
     )
   }
@@ -529,6 +549,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGpsInfo",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeGpsInfoInterceptors() ?? [],
       handler: handler
     )
   }
@@ -549,6 +570,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeBattery",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeBatteryInterceptors() ?? [],
       handler: handler
     )
   }
@@ -569,6 +591,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFlightMode",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeFlightModeInterceptors() ?? [],
       handler: handler
     )
   }
@@ -589,6 +612,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealth",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeHealthInterceptors() ?? [],
       handler: handler
     )
   }
@@ -609,6 +633,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRcStatus",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeRcStatusInterceptors() ?? [],
       handler: handler
     )
   }
@@ -629,6 +654,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeStatusText",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeStatusTextInterceptors() ?? [],
       handler: handler
     )
   }
@@ -649,6 +675,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorControlTarget",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeActuatorControlTargetInterceptors() ?? [],
       handler: handler
     )
   }
@@ -669,6 +696,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeActuatorOutputStatus",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeActuatorOutputStatusInterceptors() ?? [],
       handler: handler
     )
   }
@@ -689,6 +717,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeOdometry",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeOdometryInterceptors() ?? [],
       handler: handler
     )
   }
@@ -709,6 +738,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribePositionVelocityNed",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribePositionVelocityNedInterceptors() ?? [],
       handler: handler
     )
   }
@@ -729,6 +759,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeGroundTruth",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeGroundTruthInterceptors() ?? [],
       handler: handler
     )
   }
@@ -749,6 +780,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeFixedwingMetrics",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeFixedwingMetricsInterceptors() ?? [],
       handler: handler
     )
   }
@@ -769,6 +801,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeImu",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeImuInterceptors() ?? [],
       handler: handler
     )
   }
@@ -789,6 +822,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHealthAllOk",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeHealthAllOkInterceptors() ?? [],
       handler: handler
     )
   }
@@ -809,6 +843,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeUnixEpochTime",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeUnixEpochTimeInterceptors() ?? [],
       handler: handler
     )
   }
@@ -829,6 +864,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeDistanceSensor",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeDistanceSensorInterceptors() ?? [],
       handler: handler
     )
   }
@@ -846,7 +882,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePosition",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRatePositionInterceptors() ?? []
     )
   }
 
@@ -863,7 +900,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateHome",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateHomeInterceptors() ?? []
     )
   }
 
@@ -880,7 +918,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateInAir",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateInAirInterceptors() ?? []
     )
   }
 
@@ -897,7 +936,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateLandedState",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateLandedStateInterceptors() ?? []
     )
   }
 
@@ -914,7 +954,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateAttitudeInterceptors() ?? []
     )
   }
 
@@ -931,7 +972,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateCameraAttitudeInterceptors() ?? []
     )
   }
 
@@ -948,7 +990,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateVelocityNed",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateVelocityNedInterceptors() ?? []
     )
   }
 
@@ -965,7 +1008,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGpsInfo",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateGpsInfoInterceptors() ?? []
     )
   }
 
@@ -982,7 +1026,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateBattery",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateBatteryInterceptors() ?? []
     )
   }
 
@@ -999,7 +1044,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateRcStatus",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateRcStatusInterceptors() ?? []
     )
   }
 
@@ -1016,7 +1062,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorControlTarget",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateActuatorControlTargetInterceptors() ?? []
     )
   }
 
@@ -1033,7 +1080,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateActuatorOutputStatus",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateActuatorOutputStatusInterceptors() ?? []
     )
   }
 
@@ -1050,7 +1098,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateOdometry",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateOdometryInterceptors() ?? []
     )
   }
 
@@ -1067,7 +1116,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRatePositionVelocityNed",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRatePositionVelocityNedInterceptors() ?? []
     )
   }
 
@@ -1084,7 +1134,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateGroundTruth",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateGroundTruthInterceptors() ?? []
     )
   }
 
@@ -1101,7 +1152,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateFixedwingMetrics",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateFixedwingMetricsInterceptors() ?? []
     )
   }
 
@@ -1118,7 +1170,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateImu",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateImuInterceptors() ?? []
     )
   }
 
@@ -1135,7 +1188,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateUnixEpochTime",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateUnixEpochTimeInterceptors() ?? []
     )
   }
 
@@ -1152,7 +1206,8 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateDistanceSensor",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateDistanceSensorInterceptors() ?? []
     )
   }
 
@@ -1169,120 +1224,324 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.telemetry.TelemetryService/GetGpsGlobalOrigin",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetGpsGlobalOriginInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'subscribePosition'.
+  func makeSubscribePositionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeHome'.
+  func makeSubscribeHomeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeInAir'.
+  func makeSubscribeInAirInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeLandedState'.
+  func makeSubscribeLandedStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeArmed'.
+  func makeSubscribeArmedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeAttitudeQuaternion'.
+  func makeSubscribeAttitudeQuaternionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeAttitudeEuler'.
+  func makeSubscribeAttitudeEulerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeAttitudeAngularVelocityBody'.
+  func makeSubscribeAttitudeAngularVelocityBodyInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCameraAttitudeQuaternion'.
+  func makeSubscribeCameraAttitudeQuaternionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCameraAttitudeEuler'.
+  func makeSubscribeCameraAttitudeEulerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeVelocityNed'.
+  func makeSubscribeVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeGpsInfo'.
+  func makeSubscribeGpsInfoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeBattery'.
+  func makeSubscribeBatteryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeFlightMode'.
+  func makeSubscribeFlightModeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeHealth'.
+  func makeSubscribeHealthInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeRcStatus'.
+  func makeSubscribeRcStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeStatusText'.
+  func makeSubscribeStatusTextInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeActuatorControlTarget'.
+  func makeSubscribeActuatorControlTargetInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeActuatorOutputStatus'.
+  func makeSubscribeActuatorOutputStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeOdometry'.
+  func makeSubscribeOdometryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribePositionVelocityNed'.
+  func makeSubscribePositionVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeGroundTruth'.
+  func makeSubscribeGroundTruthInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeFixedwingMetrics'.
+  func makeSubscribeFixedwingMetricsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeImu'.
+  func makeSubscribeImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeHealthAllOk'.
+  func makeSubscribeHealthAllOkInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeUnixEpochTime'.
+  func makeSubscribeUnixEpochTimeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeDistanceSensor'.
+  func makeSubscribeDistanceSensorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRatePosition'.
+  func makeSetRatePositionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateHome'.
+  func makeSetRateHomeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateInAir'.
+  func makeSetRateInAirInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateLandedState'.
+  func makeSetRateLandedStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateAttitude'.
+  func makeSetRateAttitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateCameraAttitude'.
+  func makeSetRateCameraAttitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateVelocityNed'.
+  func makeSetRateVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateGpsInfo'.
+  func makeSetRateGpsInfoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateBattery'.
+  func makeSetRateBatteryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateRcStatus'.
+  func makeSetRateRcStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateActuatorControlTarget'.
+  func makeSetRateActuatorControlTargetInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateActuatorOutputStatus'.
+  func makeSetRateActuatorOutputStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateOdometry'.
+  func makeSetRateOdometryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRatePositionVelocityNed'.
+  func makeSetRatePositionVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateGroundTruth'.
+  func makeSetRateGroundTruthInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateFixedwingMetrics'.
+  func makeSetRateFixedwingMetricsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateImu'.
+  func makeSetRateImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateUnixEpochTime'.
+  func makeSetRateUnixEpochTimeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateDistanceSensor'.
+  func makeSetRateDistanceSensorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getGpsGlobalOrigin'.
+  func makeGetGpsGlobalOriginInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>]
 }
 
 internal final class Mavsdk_Rpc_Telemetry_TelemetryServiceClient: Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.telemetry.TelemetryService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+///
+/// Allow users to get vehicle telemetry and state information
+/// (e.g. battery, GPS, RC connection, flight mode etc.) and set telemetry update rates.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryProtocol? { get }
+
   /// Subscribe to 'position' updates.
   func subscribePosition(request: Mavsdk_Rpc_Telemetry_SubscribePositionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_PositionResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'home position' updates.
   func subscribeHome(request: Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HomeResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to in-air updates.
   func subscribeInAir(request: Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_InAirResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to landed state updates
   func subscribeLandedState(request: Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_LandedStateResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to armed updates.
   func subscribeArmed(request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ArmedResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'attitude' updates (quaternion).
   func subscribeAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'attitude' updates (Euler).
   func subscribeAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'attitude' updates (angular velocity)
   func subscribeAttitudeAngularVelocityBody(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'camera attitude' updates (quaternion).
   func subscribeCameraAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'camera attitude' updates (Euler).
   func subscribeCameraAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'ground speed' updates (NED).
   func subscribeVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_VelocityNedResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'GPS info' updates.
   func subscribeGpsInfo(request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_GpsInfoResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'battery' updates.
   func subscribeBattery(request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_BatteryResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'flight mode' updates.
   func subscribeFlightMode(request: Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_FlightModeResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'health' updates.
   func subscribeHealth(request: Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HealthResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'RC status' updates.
   func subscribeRcStatus(request: Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_RcStatusResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'status text' updates.
   func subscribeStatusText(request: Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_StatusTextResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'actuator control target' updates.
   func subscribeActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'actuator output status' updates.
   func subscribeActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'odometry' updates.
   func subscribeOdometry(request: Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_OdometryResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'position velocity' updates.
   func subscribePositionVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'ground truth' updates.
   func subscribeGroundTruth(request: Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_GroundTruthResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'fixedwing metrics' updates.
   func subscribeFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'IMU' updates.
   func subscribeImu(request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ImuResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'HealthAllOk' updates.
   func subscribeHealthAllOk(request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'unix epoch time' updates.
   func subscribeUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'Distance Sensor' updates.
   func subscribeDistanceSensor(request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Set rate to 'position' updates.
   func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
+
   /// Set rate to 'home position' updates.
   func setRateHome(request: Mavsdk_Rpc_Telemetry_SetRateHomeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateHomeResponse>
+
   /// Set rate to in-air updates.
   func setRateInAir(request: Mavsdk_Rpc_Telemetry_SetRateInAirRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateInAirResponse>
+
   /// Set rate to landed state updates
   func setRateLandedState(request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
+
   /// Set rate to 'attitude' updates.
   func setRateAttitude(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
+
   /// Set rate of camera attitude updates.
   func setRateCameraAttitude(request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
+
   /// Set rate to 'ground speed' updates (NED).
   func setRateVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>
+
   /// Set rate to 'GPS info' updates.
   func setRateGpsInfo(request: Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>
+
   /// Set rate to 'battery' updates.
   func setRateBattery(request: Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>
+
   /// Set rate to 'RC status' updates.
   func setRateRcStatus(request: Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>
+
   /// Set rate to 'actuator control target' updates.
   func setRateActuatorControlTarget(request: Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>
+
   /// Set rate to 'actuator output status' updates.
   func setRateActuatorOutputStatus(request: Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>
+
   /// Set rate to 'odometry' updates.
   func setRateOdometry(request: Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>
+
   /// Set rate to 'position velocity' updates.
   func setRatePositionVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>
+
   /// Set rate to 'ground truth' updates.
   func setRateGroundTruth(request: Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>
+
   /// Set rate to 'fixedwing metrics' updates.
   func setRateFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>
+
   /// Set rate to 'IMU' updates.
   func setRateImu(request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateImuResponse>
+
   /// Set rate to 'unix epoch time' updates.
   func setRateUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
+
   /// Set rate to 'Distance Sensor' updates.
   func setRateDistanceSensor(request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>
+
   /// Get the GPS location of where the estimator has been initialized.
   func getGpsGlobalOrigin(request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>
 }
@@ -1292,339 +1551,627 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "SubscribePosition":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribePosition(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribePositionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_PositionResponse>(),
+        interceptors: self.interceptors?.makeSubscribePositionInterceptors() ?? [],
+        userFunction: self.subscribePosition(request:context:)
+      )
 
     case "SubscribeHome":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeHome(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_HomeResponse>(),
+        interceptors: self.interceptors?.makeSubscribeHomeInterceptors() ?? [],
+        userFunction: self.subscribeHome(request:context:)
+      )
 
     case "SubscribeInAir":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeInAir(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_InAirResponse>(),
+        interceptors: self.interceptors?.makeSubscribeInAirInterceptors() ?? [],
+        userFunction: self.subscribeInAir(request:context:)
+      )
 
     case "SubscribeLandedState":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeLandedState(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_LandedStateResponse>(),
+        interceptors: self.interceptors?.makeSubscribeLandedStateInterceptors() ?? [],
+        userFunction: self.subscribeLandedState(request:context:)
+      )
 
     case "SubscribeArmed":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeArmed(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ArmedResponse>(),
+        interceptors: self.interceptors?.makeSubscribeArmedInterceptors() ?? [],
+        userFunction: self.subscribeArmed(request:context:)
+      )
 
     case "SubscribeAttitudeQuaternion":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeAttitudeQuaternion(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>(),
+        interceptors: self.interceptors?.makeSubscribeAttitudeQuaternionInterceptors() ?? [],
+        userFunction: self.subscribeAttitudeQuaternion(request:context:)
+      )
 
     case "SubscribeAttitudeEuler":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeAttitudeEuler(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>(),
+        interceptors: self.interceptors?.makeSubscribeAttitudeEulerInterceptors() ?? [],
+        userFunction: self.subscribeAttitudeEuler(request:context:)
+      )
 
     case "SubscribeAttitudeAngularVelocityBody":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeAttitudeAngularVelocityBody(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>(),
+        interceptors: self.interceptors?.makeSubscribeAttitudeAngularVelocityBodyInterceptors() ?? [],
+        userFunction: self.subscribeAttitudeAngularVelocityBody(request:context:)
+      )
 
     case "SubscribeCameraAttitudeQuaternion":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCameraAttitudeQuaternion(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCameraAttitudeQuaternionInterceptors() ?? [],
+        userFunction: self.subscribeCameraAttitudeQuaternion(request:context:)
+      )
 
     case "SubscribeCameraAttitudeEuler":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCameraAttitudeEuler(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCameraAttitudeEulerInterceptors() ?? [],
+        userFunction: self.subscribeCameraAttitudeEuler(request:context:)
+      )
 
     case "SubscribeVelocityNed":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeVelocityNed(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_VelocityNedResponse>(),
+        interceptors: self.interceptors?.makeSubscribeVelocityNedInterceptors() ?? [],
+        userFunction: self.subscribeVelocityNed(request:context:)
+      )
 
     case "SubscribeGpsInfo":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeGpsInfo(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_GpsInfoResponse>(),
+        interceptors: self.interceptors?.makeSubscribeGpsInfoInterceptors() ?? [],
+        userFunction: self.subscribeGpsInfo(request:context:)
+      )
 
     case "SubscribeBattery":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeBattery(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_BatteryResponse>(),
+        interceptors: self.interceptors?.makeSubscribeBatteryInterceptors() ?? [],
+        userFunction: self.subscribeBattery(request:context:)
+      )
 
     case "SubscribeFlightMode":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeFlightMode(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_FlightModeResponse>(),
+        interceptors: self.interceptors?.makeSubscribeFlightModeInterceptors() ?? [],
+        userFunction: self.subscribeFlightMode(request:context:)
+      )
 
     case "SubscribeHealth":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeHealth(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_HealthResponse>(),
+        interceptors: self.interceptors?.makeSubscribeHealthInterceptors() ?? [],
+        userFunction: self.subscribeHealth(request:context:)
+      )
 
     case "SubscribeRcStatus":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeRcStatus(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_RcStatusResponse>(),
+        interceptors: self.interceptors?.makeSubscribeRcStatusInterceptors() ?? [],
+        userFunction: self.subscribeRcStatus(request:context:)
+      )
 
     case "SubscribeStatusText":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeStatusText(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_StatusTextResponse>(),
+        interceptors: self.interceptors?.makeSubscribeStatusTextInterceptors() ?? [],
+        userFunction: self.subscribeStatusText(request:context:)
+      )
 
     case "SubscribeActuatorControlTarget":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeActuatorControlTarget(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>(),
+        interceptors: self.interceptors?.makeSubscribeActuatorControlTargetInterceptors() ?? [],
+        userFunction: self.subscribeActuatorControlTarget(request:context:)
+      )
 
     case "SubscribeActuatorOutputStatus":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeActuatorOutputStatus(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>(),
+        interceptors: self.interceptors?.makeSubscribeActuatorOutputStatusInterceptors() ?? [],
+        userFunction: self.subscribeActuatorOutputStatus(request:context:)
+      )
 
     case "SubscribeOdometry":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeOdometry(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_OdometryResponse>(),
+        interceptors: self.interceptors?.makeSubscribeOdometryInterceptors() ?? [],
+        userFunction: self.subscribeOdometry(request:context:)
+      )
 
     case "SubscribePositionVelocityNed":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribePositionVelocityNed(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>(),
+        interceptors: self.interceptors?.makeSubscribePositionVelocityNedInterceptors() ?? [],
+        userFunction: self.subscribePositionVelocityNed(request:context:)
+      )
 
     case "SubscribeGroundTruth":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeGroundTruth(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_GroundTruthResponse>(),
+        interceptors: self.interceptors?.makeSubscribeGroundTruthInterceptors() ?? [],
+        userFunction: self.subscribeGroundTruth(request:context:)
+      )
 
     case "SubscribeFixedwingMetrics":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeFixedwingMetrics(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>(),
+        interceptors: self.interceptors?.makeSubscribeFixedwingMetricsInterceptors() ?? [],
+        userFunction: self.subscribeFixedwingMetrics(request:context:)
+      )
 
     case "SubscribeImu":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeImu(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeImuRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ImuResponse>(),
+        interceptors: self.interceptors?.makeSubscribeImuInterceptors() ?? [],
+        userFunction: self.subscribeImu(request:context:)
+      )
 
     case "SubscribeHealthAllOk":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeHealthAllOk(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>(),
+        interceptors: self.interceptors?.makeSubscribeHealthAllOkInterceptors() ?? [],
+        userFunction: self.subscribeHealthAllOk(request:context:)
+      )
 
     case "SubscribeUnixEpochTime":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeUnixEpochTime(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>(),
+        interceptors: self.interceptors?.makeSubscribeUnixEpochTimeInterceptors() ?? [],
+        userFunction: self.subscribeUnixEpochTime(request:context:)
+      )
 
     case "SubscribeDistanceSensor":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeDistanceSensor(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>(),
+        interceptors: self.interceptors?.makeSubscribeDistanceSensorInterceptors() ?? [],
+        userFunction: self.subscribeDistanceSensor(request:context:)
+      )
 
     case "SetRatePosition":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRatePosition(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRatePositionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>(),
+        interceptors: self.interceptors?.makeSetRatePositionInterceptors() ?? [],
+        userFunction: self.setRatePosition(request:context:)
+      )
 
     case "SetRateHome":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateHome(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateHomeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateHomeResponse>(),
+        interceptors: self.interceptors?.makeSetRateHomeInterceptors() ?? [],
+        userFunction: self.setRateHome(request:context:)
+      )
 
     case "SetRateInAir":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateInAir(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateInAirRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateInAirResponse>(),
+        interceptors: self.interceptors?.makeSetRateInAirInterceptors() ?? [],
+        userFunction: self.setRateInAir(request:context:)
+      )
 
     case "SetRateLandedState":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateLandedState(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>(),
+        interceptors: self.interceptors?.makeSetRateLandedStateInterceptors() ?? [],
+        userFunction: self.setRateLandedState(request:context:)
+      )
 
     case "SetRateAttitude":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateAttitude(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>(),
+        interceptors: self.interceptors?.makeSetRateAttitudeInterceptors() ?? [],
+        userFunction: self.setRateAttitude(request:context:)
+      )
 
     case "SetRateCameraAttitude":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateCameraAttitude(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>(),
+        interceptors: self.interceptors?.makeSetRateCameraAttitudeInterceptors() ?? [],
+        userFunction: self.setRateCameraAttitude(request:context:)
+      )
 
     case "SetRateVelocityNed":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateVelocityNed(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>(),
+        interceptors: self.interceptors?.makeSetRateVelocityNedInterceptors() ?? [],
+        userFunction: self.setRateVelocityNed(request:context:)
+      )
 
     case "SetRateGpsInfo":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateGpsInfo(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>(),
+        interceptors: self.interceptors?.makeSetRateGpsInfoInterceptors() ?? [],
+        userFunction: self.setRateGpsInfo(request:context:)
+      )
 
     case "SetRateBattery":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateBattery(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>(),
+        interceptors: self.interceptors?.makeSetRateBatteryInterceptors() ?? [],
+        userFunction: self.setRateBattery(request:context:)
+      )
 
     case "SetRateRcStatus":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateRcStatus(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>(),
+        interceptors: self.interceptors?.makeSetRateRcStatusInterceptors() ?? [],
+        userFunction: self.setRateRcStatus(request:context:)
+      )
 
     case "SetRateActuatorControlTarget":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateActuatorControlTarget(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>(),
+        interceptors: self.interceptors?.makeSetRateActuatorControlTargetInterceptors() ?? [],
+        userFunction: self.setRateActuatorControlTarget(request:context:)
+      )
 
     case "SetRateActuatorOutputStatus":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateActuatorOutputStatus(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>(),
+        interceptors: self.interceptors?.makeSetRateActuatorOutputStatusInterceptors() ?? [],
+        userFunction: self.setRateActuatorOutputStatus(request:context:)
+      )
 
     case "SetRateOdometry":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateOdometry(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>(),
+        interceptors: self.interceptors?.makeSetRateOdometryInterceptors() ?? [],
+        userFunction: self.setRateOdometry(request:context:)
+      )
 
     case "SetRatePositionVelocityNed":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRatePositionVelocityNed(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>(),
+        interceptors: self.interceptors?.makeSetRatePositionVelocityNedInterceptors() ?? [],
+        userFunction: self.setRatePositionVelocityNed(request:context:)
+      )
 
     case "SetRateGroundTruth":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateGroundTruth(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>(),
+        interceptors: self.interceptors?.makeSetRateGroundTruthInterceptors() ?? [],
+        userFunction: self.setRateGroundTruth(request:context:)
+      )
 
     case "SetRateFixedwingMetrics":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateFixedwingMetrics(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>(),
+        interceptors: self.interceptors?.makeSetRateFixedwingMetricsInterceptors() ?? [],
+        userFunction: self.setRateFixedwingMetrics(request:context:)
+      )
 
     case "SetRateImu":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateImu(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateImuRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateImuResponse>(),
+        interceptors: self.interceptors?.makeSetRateImuInterceptors() ?? [],
+        userFunction: self.setRateImu(request:context:)
+      )
 
     case "SetRateUnixEpochTime":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateUnixEpochTime(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>(),
+        interceptors: self.interceptors?.makeSetRateUnixEpochTimeInterceptors() ?? [],
+        userFunction: self.setRateUnixEpochTime(request:context:)
+      )
 
     case "SetRateDistanceSensor":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setRateDistanceSensor(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>(),
+        interceptors: self.interceptors?.makeSetRateDistanceSensorInterceptors() ?? [],
+        userFunction: self.setRateDistanceSensor(request:context:)
+      )
 
     case "GetGpsGlobalOrigin":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getGpsGlobalOrigin(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>(),
+        interceptors: self.interceptors?.makeGetGpsGlobalOriginInterceptors() ?? [],
+        userFunction: self.getGpsGlobalOrigin(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'subscribePosition'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribePositionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribePositionRequest, Mavsdk_Rpc_Telemetry_PositionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeHome'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeHomeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHomeRequest, Mavsdk_Rpc_Telemetry_HomeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeInAir'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeInAirInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeInAirRequest, Mavsdk_Rpc_Telemetry_InAirResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeLandedState'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeLandedStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest, Mavsdk_Rpc_Telemetry_LandedStateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeArmed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeArmedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeAttitudeQuaternion'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeAttitudeQuaternionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeAttitudeEuler'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeAttitudeEulerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_AttitudeEulerResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeAttitudeAngularVelocityBody'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeAttitudeAngularVelocityBodyInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeCameraAttitudeQuaternion'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCameraAttitudeQuaternionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeCameraAttitudeEuler'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCameraAttitudeEulerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeVelocityNed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeVelocityNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeGpsInfo'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeGpsInfoInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeBattery'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeBatteryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeFlightMode'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeFlightModeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest, Mavsdk_Rpc_Telemetry_FlightModeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeHealth'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeHealthInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHealthRequest, Mavsdk_Rpc_Telemetry_HealthResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeRcStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeRcStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest, Mavsdk_Rpc_Telemetry_RcStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeStatusText'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeStatusTextInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest, Mavsdk_Rpc_Telemetry_StatusTextResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeActuatorControlTarget'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeActuatorControlTargetInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_ActuatorControlTargetResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeActuatorOutputStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeActuatorOutputStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_ActuatorOutputStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeOdometry'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeOdometryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest, Mavsdk_Rpc_Telemetry_OdometryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribePositionVelocityNed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribePositionVelocityNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_PositionVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeGroundTruth'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeGroundTruthInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest, Mavsdk_Rpc_Telemetry_GroundTruthResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeFixedwingMetrics'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeFixedwingMetricsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeImu'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeHealthAllOk'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeHealthAllOkInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeUnixEpochTime'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeUnixEpochTimeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_UnixEpochTimeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeDistanceSensor'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeDistanceSensorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRatePosition'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRatePositionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateHome'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateHomeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateHomeRequest, Mavsdk_Rpc_Telemetry_SetRateHomeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateInAir'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateInAirInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateInAirRequest, Mavsdk_Rpc_Telemetry_SetRateInAirResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateLandedState'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateLandedStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateAttitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateAttitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateCameraAttitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateCameraAttitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateVelocityNed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateVelocityNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateGpsInfo'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateGpsInfoInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest, Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateBattery'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateBatteryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateBatteryRequest, Mavsdk_Rpc_Telemetry_SetRateBatteryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateRcStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateRcStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest, Mavsdk_Rpc_Telemetry_SetRateRcStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateActuatorControlTarget'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateActuatorControlTargetInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateActuatorOutputStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateActuatorOutputStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest, Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateOdometry'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateOdometryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateOdometryRequest, Mavsdk_Rpc_Telemetry_SetRateOdometryResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRatePositionVelocityNed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRatePositionVelocityNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateGroundTruth'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateGroundTruthInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest, Mavsdk_Rpc_Telemetry_SetRateGroundTruthResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateFixedwingMetrics'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateFixedwingMetricsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest, Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateImu'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateUnixEpochTime'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateUnixEpochTimeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateDistanceSensor'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateDistanceSensorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getGpsGlobalOrigin'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetGpsGlobalOriginInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>]
+}

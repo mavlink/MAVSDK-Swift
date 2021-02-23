@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Action_ActionServiceClient, then call methods of this protocol to make API calls.
+/// Enable simple actions such as arming, taking off, and landing.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Action_ActionServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtocol? { get }
+
   func arm(
     _ request: Mavsdk_Rpc_Action_ArmRequest,
     callOptions: CallOptions?
@@ -121,10 +126,12 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>
-
 }
 
 extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.action.ActionService"
+  }
 
   ///
   /// Send command to arm the drone.
@@ -143,7 +150,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Arm",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeArmInterceptors() ?? []
     )
   }
 
@@ -164,7 +172,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Disarm",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDisarmInterceptors() ?? []
     )
   }
 
@@ -187,7 +196,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Takeoff",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTakeoffInterceptors() ?? []
     )
   }
 
@@ -207,7 +217,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Land",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeLandInterceptors() ?? []
     )
   }
 
@@ -227,7 +238,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Reboot",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRebootInterceptors() ?? []
     )
   }
 
@@ -249,7 +261,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Shutdown",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeShutdownInterceptors() ?? []
     )
   }
 
@@ -269,7 +282,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Terminate",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTerminateInterceptors() ?? []
     )
   }
 
@@ -290,7 +304,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/Kill",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeKillInterceptors() ?? []
     )
   }
 
@@ -312,7 +327,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/ReturnToLaunch",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeReturnToLaunchInterceptors() ?? []
     )
   }
 
@@ -335,7 +351,29 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/GotoLocation",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGotoLocationInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Send command do orbit to the drone.
+  ///
+  /// This will run the orbit routine with the given parameters.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DoOrbit.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func doOrbit(
+    _ request: Mavsdk_Rpc_Action_DoOrbitRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/DoOrbit",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDoOrbitInterceptors() ?? []
     )
   }
 
@@ -377,7 +415,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/TransitionToFixedwing",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTransitionToFixedwingInterceptors() ?? []
     )
   }
 
@@ -399,7 +438,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/TransitionToMulticopter",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTransitionToMulticopterInterceptors() ?? []
     )
   }
 
@@ -417,7 +457,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/GetTakeoffAltitude",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetTakeoffAltitudeInterceptors() ?? []
     )
   }
 
@@ -435,7 +476,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/SetTakeoffAltitude",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetTakeoffAltitudeInterceptors() ?? []
     )
   }
 
@@ -453,7 +495,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/GetMaximumSpeed",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetMaximumSpeedInterceptors() ?? []
     )
   }
 
@@ -471,7 +514,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/SetMaximumSpeed",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetMaximumSpeedInterceptors() ?? []
     )
   }
 
@@ -489,7 +533,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/GetReturnToLaunchAltitude",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetReturnToLaunchAltitudeInterceptors() ?? []
     )
   }
 
@@ -507,40 +552,114 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.action.ActionService/SetReturnToLaunchAltitude",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetReturnToLaunchAltitudeInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'arm'.
+  func makeArmInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'disarm'.
+  func makeDisarmInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'takeoff'.
+  func makeTakeoffInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_TakeoffRequest, Mavsdk_Rpc_Action_TakeoffResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'land'.
+  func makeLandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_LandRequest, Mavsdk_Rpc_Action_LandResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'reboot'.
+  func makeRebootInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_RebootRequest, Mavsdk_Rpc_Action_RebootResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'shutdown'.
+  func makeShutdownInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'terminate'.
+  func makeTerminateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_TerminateRequest, Mavsdk_Rpc_Action_TerminateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'kill'.
+  func makeKillInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'returnToLaunch'.
+  func makeReturnToLaunchInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_ReturnToLaunchRequest, Mavsdk_Rpc_Action_ReturnToLaunchResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'gotoLocation'.
+  func makeGotoLocationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'doOrbit'.
+  func makeDoOrbitInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'transitionToFixedwing'.
+  func makeTransitionToFixedwingInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'transitionToMulticopter'.
+  func makeTransitionToMulticopterInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_TransitionToMulticopterRequest, Mavsdk_Rpc_Action_TransitionToMulticopterResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getTakeoffAltitude'.
+  func makeGetTakeoffAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setTakeoffAltitude'.
+  func makeSetTakeoffAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getMaximumSpeed'.
+  func makeGetMaximumSpeedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setMaximumSpeed'.
+  func makeSetMaximumSpeedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getReturnToLaunchAltitude'.
+  func makeGetReturnToLaunchAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setReturnToLaunchAltitude'.
+  func makeSetReturnToLaunchAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>]
 }
 
 internal final class Mavsdk_Rpc_Action_ActionServiceClient: Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.action.ActionService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Enable simple actions such as arming, taking off, and landing.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Send command to arm the drone.
   ///
   /// Arming a drone normally causes motors to spin at idle.
   /// Before arming take all safety precautions and stand clear of the drone!
   func arm(request: Mavsdk_Rpc_Action_ArmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_ArmResponse>
+
   ///
   /// Send command to disarm the drone.
   ///
   /// This will disarm a drone that considers itself landed. If flying, the drone should
   /// reject the disarm command. Disarming means that all motors will stop.
   func disarm(request: Mavsdk_Rpc_Action_DisarmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_DisarmResponse>
+
   ///
   /// Send command to take off and hover.
   ///
@@ -549,16 +668,19 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   ///
   /// Note that the vehicle must be armed before it can take off.
   func takeoff(request: Mavsdk_Rpc_Action_TakeoffRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_TakeoffResponse>
+
   ///
   /// Send command to land at the current position.
   ///
   /// This switches the drone to 'Land' flight mode.
   func land(request: Mavsdk_Rpc_Action_LandRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_LandResponse>
+
   ///
   /// Send command to reboot the drone components.
   ///
   /// This will reboot the autopilot, companion computer, camera and gimbal.
   func reboot(request: Mavsdk_Rpc_Action_RebootRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_RebootResponse>
+
   ///
   /// Send command to shut down the drone components.
   ///
@@ -566,17 +688,20 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// This command should only be used when the autopilot is disarmed and autopilots commonly
   /// reject it if they are not already ready to shut down.
   func shutdown(request: Mavsdk_Rpc_Action_ShutdownRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_ShutdownResponse>
+
   ///
   /// Send command to terminate the drone.
   ///
   /// This will run the terminate routine as configured on the drone (e.g. disarm and open the parachute).
   func terminate(request: Mavsdk_Rpc_Action_TerminateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_TerminateResponse>
+
   ///
   /// Send command to kill the drone.
   ///
   /// This will disarm a drone irrespective of whether it is landed or flying.
   /// Note that the drone will fall out of the sky if this command is used while flying.
   func kill(request: Mavsdk_Rpc_Action_KillRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_KillResponse>
+
   ///
   /// Send command to return to the launch (takeoff) position and land.
   ///
@@ -584,6 +709,7 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// generally means it will rise up to a certain altitude to clear any obstacles before heading
   /// back to the launch (takeoff) position and land there.
   func returnToLaunch(request: Mavsdk_Rpc_Action_ReturnToLaunchRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_ReturnToLaunchResponse>
+
   ///
   /// Send command to move the vehicle to a specific global position.
   ///
@@ -592,6 +718,13 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   ///
   /// The yaw angle is in degrees (frame is NED, 0 is North, positive is clockwise).
   func gotoLocation(request: Mavsdk_Rpc_Action_GotoLocationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_GotoLocationResponse>
+
+  ///
+  /// Send command do orbit to the drone.
+  ///
+  /// This will run the orbit routine with the given parameters.
+  func doOrbit(request: Mavsdk_Rpc_Action_DoOrbitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_DoOrbitResponse>
+
   ///
   /// Send command do orbit to the drone.
   ///
@@ -604,6 +737,7 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// command will fail). The command will succeed if called when the vehicle
   /// is already in fixedwing mode.
   func transitionToFixedwing(request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_TransitionToFixedwingResponse>
+
   ///
   /// Send command to transition the drone to multicopter.
   ///
@@ -611,21 +745,27 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// command will fail). The command will succeed if called when the vehicle
   /// is already in multicopter mode.
   func transitionToMulticopter(request: Mavsdk_Rpc_Action_TransitionToMulticopterRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_TransitionToMulticopterResponse>
+
   ///
   /// Get the takeoff altitude (in meters above ground).
   func getTakeoffAltitude(request: Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse>
+
   ///
   /// Set takeoff altitude (in meters above ground).
   func setTakeoffAltitude(request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>
+
   ///
   /// Get the vehicle maximum speed (in metres/second).
   func getMaximumSpeed(request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_GetMaximumSpeedResponse>
+
   ///
   /// Set vehicle maximum speed (in metres/second).
   func setMaximumSpeed(request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetMaximumSpeedResponse>
+
   ///
   /// Get the return to launch minimum return altitude (in meters).
   func getReturnToLaunchAltitude(request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>
+
   ///
   /// Set the return to launch minimum return altitude (in meters).
   func setReturnToLaunchAltitude(request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>
@@ -636,77 +776,109 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "Arm":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.arm(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_ArmRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_ArmResponse>(),
+        interceptors: self.interceptors?.makeArmInterceptors() ?? [],
+        userFunction: self.arm(request:context:)
+      )
 
     case "Disarm":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.disarm(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_DisarmRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_DisarmResponse>(),
+        interceptors: self.interceptors?.makeDisarmInterceptors() ?? [],
+        userFunction: self.disarm(request:context:)
+      )
 
     case "Takeoff":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.takeoff(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_TakeoffRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_TakeoffResponse>(),
+        interceptors: self.interceptors?.makeTakeoffInterceptors() ?? [],
+        userFunction: self.takeoff(request:context:)
+      )
 
     case "Land":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.land(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_LandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_LandResponse>(),
+        interceptors: self.interceptors?.makeLandInterceptors() ?? [],
+        userFunction: self.land(request:context:)
+      )
 
     case "Reboot":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.reboot(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_RebootRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_RebootResponse>(),
+        interceptors: self.interceptors?.makeRebootInterceptors() ?? [],
+        userFunction: self.reboot(request:context:)
+      )
 
     case "Shutdown":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.shutdown(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_ShutdownRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_ShutdownResponse>(),
+        interceptors: self.interceptors?.makeShutdownInterceptors() ?? [],
+        userFunction: self.shutdown(request:context:)
+      )
 
     case "Terminate":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.terminate(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_TerminateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_TerminateResponse>(),
+        interceptors: self.interceptors?.makeTerminateInterceptors() ?? [],
+        userFunction: self.terminate(request:context:)
+      )
 
     case "Kill":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.kill(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_KillRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_KillResponse>(),
+        interceptors: self.interceptors?.makeKillInterceptors() ?? [],
+        userFunction: self.kill(request:context:)
+      )
 
     case "ReturnToLaunch":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.returnToLaunch(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_ReturnToLaunchRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_ReturnToLaunchResponse>(),
+        interceptors: self.interceptors?.makeReturnToLaunchInterceptors() ?? [],
+        userFunction: self.returnToLaunch(request:context:)
+      )
 
     case "GotoLocation":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.gotoLocation(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_GotoLocationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_GotoLocationResponse>(),
+        interceptors: self.interceptors?.makeGotoLocationInterceptors() ?? [],
+        userFunction: self.gotoLocation(request:context:)
+      )
+
+    case "DoOrbit":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_DoOrbitRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_DoOrbitResponse>(),
+        interceptors: self.interceptors?.makeDoOrbitInterceptors() ?? [],
+        userFunction: self.doOrbit(request:context:)
+      )
 
     case "DoOrbit":
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
@@ -716,63 +888,158 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
       }
 
     case "TransitionToFixedwing":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.transitionToFixedwing(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_TransitionToFixedwingRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_TransitionToFixedwingResponse>(),
+        interceptors: self.interceptors?.makeTransitionToFixedwingInterceptors() ?? [],
+        userFunction: self.transitionToFixedwing(request:context:)
+      )
 
     case "TransitionToMulticopter":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.transitionToMulticopter(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_TransitionToMulticopterRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_TransitionToMulticopterResponse>(),
+        interceptors: self.interceptors?.makeTransitionToMulticopterInterceptors() ?? [],
+        userFunction: self.transitionToMulticopter(request:context:)
+      )
 
     case "GetTakeoffAltitude":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getTakeoffAltitude(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse>(),
+        interceptors: self.interceptors?.makeGetTakeoffAltitudeInterceptors() ?? [],
+        userFunction: self.getTakeoffAltitude(request:context:)
+      )
 
     case "SetTakeoffAltitude":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setTakeoffAltitude(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>(),
+        interceptors: self.interceptors?.makeSetTakeoffAltitudeInterceptors() ?? [],
+        userFunction: self.setTakeoffAltitude(request:context:)
+      )
 
     case "GetMaximumSpeed":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getMaximumSpeed(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_GetMaximumSpeedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_GetMaximumSpeedResponse>(),
+        interceptors: self.interceptors?.makeGetMaximumSpeedInterceptors() ?? [],
+        userFunction: self.getMaximumSpeed(request:context:)
+      )
 
     case "SetMaximumSpeed":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setMaximumSpeed(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_SetMaximumSpeedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_SetMaximumSpeedResponse>(),
+        interceptors: self.interceptors?.makeSetMaximumSpeedInterceptors() ?? [],
+        userFunction: self.setMaximumSpeed(request:context:)
+      )
 
     case "GetReturnToLaunchAltitude":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getReturnToLaunchAltitude(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>(),
+        interceptors: self.interceptors?.makeGetReturnToLaunchAltitudeInterceptors() ?? [],
+        userFunction: self.getReturnToLaunchAltitude(request:context:)
+      )
 
     case "SetReturnToLaunchAltitude":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setReturnToLaunchAltitude(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>(),
+        interceptors: self.interceptors?.makeSetReturnToLaunchAltitudeInterceptors() ?? [],
+        userFunction: self.setReturnToLaunchAltitude(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'arm'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeArmInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>]
+
+  /// - Returns: Interceptors to use when handling 'disarm'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDisarmInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse>]
+
+  /// - Returns: Interceptors to use when handling 'takeoff'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTakeoffInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_TakeoffRequest, Mavsdk_Rpc_Action_TakeoffResponse>]
+
+  /// - Returns: Interceptors to use when handling 'land'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeLandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_LandRequest, Mavsdk_Rpc_Action_LandResponse>]
+
+  /// - Returns: Interceptors to use when handling 'reboot'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRebootInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_RebootRequest, Mavsdk_Rpc_Action_RebootResponse>]
+
+  /// - Returns: Interceptors to use when handling 'shutdown'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeShutdownInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_ShutdownRequest, Mavsdk_Rpc_Action_ShutdownResponse>]
+
+  /// - Returns: Interceptors to use when handling 'terminate'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTerminateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_TerminateRequest, Mavsdk_Rpc_Action_TerminateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'kill'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeKillInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_KillRequest, Mavsdk_Rpc_Action_KillResponse>]
+
+  /// - Returns: Interceptors to use when handling 'returnToLaunch'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeReturnToLaunchInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_ReturnToLaunchRequest, Mavsdk_Rpc_Action_ReturnToLaunchResponse>]
+
+  /// - Returns: Interceptors to use when handling 'gotoLocation'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGotoLocationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_GotoLocationRequest, Mavsdk_Rpc_Action_GotoLocationResponse>]
+
+  /// - Returns: Interceptors to use when handling 'doOrbit'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDoOrbitInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse>]
+
+  /// - Returns: Interceptors to use when handling 'transitionToFixedwing'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTransitionToFixedwingInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>]
+
+  /// - Returns: Interceptors to use when handling 'transitionToMulticopter'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTransitionToMulticopterInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_TransitionToMulticopterRequest, Mavsdk_Rpc_Action_TransitionToMulticopterResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getTakeoffAltitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetTakeoffAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setTakeoffAltitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetTakeoffAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getMaximumSpeed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetMaximumSpeedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setMaximumSpeed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetMaximumSpeedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getReturnToLaunchAltitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetReturnToLaunchAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setReturnToLaunchAltitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetReturnToLaunchAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>]
+}

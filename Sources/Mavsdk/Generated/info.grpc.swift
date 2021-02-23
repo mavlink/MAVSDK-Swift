@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Info_InfoServiceClient, then call methods of this protocol to make API calls.
+/// Provide information about the hardware and/or software of a system.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Info_InfoServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Info_InfoServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Info_InfoServiceClientInterceptorFactoryProtocol? { get }
+
   func getFlightInformation(
     _ request: Mavsdk_Rpc_Info_GetFlightInformationRequest,
     callOptions: CallOptions?
@@ -51,10 +56,12 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>
-
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.info.InfoService"
+  }
 
   /// Get flight information of the system.
   ///
@@ -69,7 +76,8 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.info.InfoService/GetFlightInformation",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetFlightInformationInterceptors() ?? []
     )
   }
 
@@ -86,7 +94,8 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.info.InfoService/GetIdentification",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetIdentificationInterceptors() ?? []
     )
   }
 
@@ -103,7 +112,8 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.info.InfoService/GetProduct",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetProductInterceptors() ?? []
     )
   }
 
@@ -120,7 +130,8 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.info.InfoService/GetVersion",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetVersionInterceptors() ?? []
     )
   }
 
@@ -137,36 +148,70 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.info.InfoService/GetSpeedFactor",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetSpeedFactorInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Info_InfoServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'getFlightInformation'.
+  func makeGetFlightInformationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_GetFlightInformationRequest, Mavsdk_Rpc_Info_GetFlightInformationResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getIdentification'.
+  func makeGetIdentificationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_GetIdentificationRequest, Mavsdk_Rpc_Info_GetIdentificationResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getProduct'.
+  func makeGetProductInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_GetProductRequest, Mavsdk_Rpc_Info_GetProductResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getVersion'.
+  func makeGetVersionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getSpeedFactor'.
+  func makeGetSpeedFactorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>]
 }
 
 internal final class Mavsdk_Rpc_Info_InfoServiceClient: Mavsdk_Rpc_Info_InfoServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Info_InfoServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.info.InfoService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Info_InfoServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Provide information about the hardware and/or software of a system.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Info_InfoServiceServerInterceptorFactoryProtocol? { get }
+
   /// Get flight information of the system.
   func getFlightInformation(request: Mavsdk_Rpc_Info_GetFlightInformationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetFlightInformationResponse>
+
   /// Get the identification of the system.
   func getIdentification(request: Mavsdk_Rpc_Info_GetIdentificationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetIdentificationResponse>
+
   /// Get product information of the system.
   func getProduct(request: Mavsdk_Rpc_Info_GetProductRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetProductResponse>
+
   /// Get the version information of the system.
   func getVersion(request: Mavsdk_Rpc_Info_GetVersionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetVersionResponse>
+
   /// Get the speed factor of a simulation (with lockstep a simulation can run faster or slower than realtime).
   func getSpeedFactor(request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetSpeedFactorResponse>
 }
@@ -176,45 +221,81 @@ extension Mavsdk_Rpc_Info_InfoServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "GetFlightInformation":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getFlightInformation(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Info_GetFlightInformationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Info_GetFlightInformationResponse>(),
+        interceptors: self.interceptors?.makeGetFlightInformationInterceptors() ?? [],
+        userFunction: self.getFlightInformation(request:context:)
+      )
 
     case "GetIdentification":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getIdentification(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Info_GetIdentificationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Info_GetIdentificationResponse>(),
+        interceptors: self.interceptors?.makeGetIdentificationInterceptors() ?? [],
+        userFunction: self.getIdentification(request:context:)
+      )
 
     case "GetProduct":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getProduct(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Info_GetProductRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Info_GetProductResponse>(),
+        interceptors: self.interceptors?.makeGetProductInterceptors() ?? [],
+        userFunction: self.getProduct(request:context:)
+      )
 
     case "GetVersion":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getVersion(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Info_GetVersionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Info_GetVersionResponse>(),
+        interceptors: self.interceptors?.makeGetVersionInterceptors() ?? [],
+        userFunction: self.getVersion(request:context:)
+      )
 
     case "GetSpeedFactor":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getSpeedFactor(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Info_GetSpeedFactorRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Info_GetSpeedFactorResponse>(),
+        interceptors: self.interceptors?.makeGetSpeedFactorInterceptors() ?? [],
+        userFunction: self.getSpeedFactor(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Info_InfoServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'getFlightInformation'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetFlightInformationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_GetFlightInformationRequest, Mavsdk_Rpc_Info_GetFlightInformationResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getIdentification'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetIdentificationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_GetIdentificationRequest, Mavsdk_Rpc_Info_GetIdentificationResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getProduct'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetProductInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_GetProductRequest, Mavsdk_Rpc_Info_GetProductResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getVersion'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetVersionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_GetVersionRequest, Mavsdk_Rpc_Info_GetVersionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getSpeedFactor'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetSpeedFactorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>]
+}

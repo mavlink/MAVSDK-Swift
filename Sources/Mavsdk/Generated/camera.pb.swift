@@ -1288,8 +1288,11 @@ extension Mavsdk_Rpc_Camera_TakePhotoResponse: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1317,8 +1320,11 @@ extension Mavsdk_Rpc_Camera_StartPhotoIntervalRequest: SwiftProtobuf.Message, Sw
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.intervalS)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.intervalS) }()
       default: break
       }
     }
@@ -1346,8 +1352,11 @@ extension Mavsdk_Rpc_Camera_StartPhotoIntervalResponse: SwiftProtobuf.Message, S
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1394,8 +1403,11 @@ extension Mavsdk_Rpc_Camera_StopPhotoIntervalResponse: SwiftProtobuf.Message, Sw
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1442,8 +1454,11 @@ extension Mavsdk_Rpc_Camera_StartVideoResponse: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1490,8 +1505,11 @@ extension Mavsdk_Rpc_Camera_StopVideoResponse: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1538,8 +1556,11 @@ extension Mavsdk_Rpc_Camera_StartVideoStreamingResponse: SwiftProtobuf.Message, 
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1586,8 +1607,11 @@ extension Mavsdk_Rpc_Camera_StopVideoStreamingResponse: SwiftProtobuf.Message, S
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1615,8 +1639,11 @@ extension Mavsdk_Rpc_Camera_SetModeRequest: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.mode)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.mode) }()
       default: break
       }
     }
@@ -1644,8 +1671,11 @@ extension Mavsdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftProtobu
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -1673,8 +1703,11 @@ extension Mavsdk_Rpc_Camera_ListPhotosRequest: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.photosRange)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.photosRange) }()
       default: break
       }
     }
@@ -1703,9 +1736,12 @@ extension Mavsdk_Rpc_Camera_ListPhotosResponse: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.captureInfos)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.captureInfos) }()
       default: break
       }
     }
@@ -1756,8 +1792,11 @@ extension Mavsdk_Rpc_Camera_InformationResponse: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._information)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._information) }()
       default: break
       }
     }
@@ -1804,8 +1843,11 @@ extension Mavsdk_Rpc_Camera_ModeResponse: SwiftProtobuf.Message, SwiftProtobuf._
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.mode)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.mode) }()
       default: break
       }
     }
@@ -1852,8 +1894,11 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfoResponse: SwiftProtobuf.Message, Swif
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._videoStreamInfo)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._videoStreamInfo) }()
       default: break
       }
     }
@@ -1900,8 +1945,11 @@ extension Mavsdk_Rpc_Camera_CaptureInfoResponse: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._captureInfo)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._captureInfo) }()
       default: break
       }
     }
@@ -1948,8 +1996,11 @@ extension Mavsdk_Rpc_Camera_StatusResponse: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraStatus)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraStatus) }()
       default: break
       }
     }
@@ -1996,8 +2047,11 @@ extension Mavsdk_Rpc_Camera_CurrentSettingsResponse: SwiftProtobuf.Message, Swif
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.currentSettings)
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.currentSettings) }()
       default: break
       }
     }
@@ -2044,8 +2098,11 @@ extension Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse: SwiftProtobuf.Messag
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeRepeatedMessageField(value: &self.settingOptions)
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.settingOptions) }()
       default: break
       }
     }
@@ -2073,8 +2130,11 @@ extension Mavsdk_Rpc_Camera_SetSettingRequest: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._setting)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._setting) }()
       default: break
       }
     }
@@ -2102,8 +2162,11 @@ extension Mavsdk_Rpc_Camera_SetSettingResponse: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -2131,8 +2194,11 @@ extension Mavsdk_Rpc_Camera_GetSettingRequest: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._setting)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._setting) }()
       default: break
       }
     }
@@ -2161,9 +2227,12 @@ extension Mavsdk_Rpc_Camera_GetSettingResponse: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._setting)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._setting) }()
       default: break
       }
     }
@@ -2214,8 +2283,11 @@ extension Mavsdk_Rpc_Camera_FormatStorageResponse: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
       default: break
       }
     }
@@ -2244,9 +2316,12 @@ extension Mavsdk_Rpc_Camera_CameraResult: SwiftProtobuf.Message, SwiftProtobuf._
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }
@@ -2294,11 +2369,14 @@ extension Mavsdk_Rpc_Camera_Position: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
-      case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
-      case 3: try decoder.decodeSingularFloatField(value: &self.absoluteAltitudeM)
-      case 4: try decoder.decodeSingularFloatField(value: &self.relativeAltitudeM)
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.latitudeDeg) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.longitudeDeg) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.absoluteAltitudeM) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.relativeAltitudeM) }()
       default: break
       }
     }
@@ -2341,11 +2419,14 @@ extension Mavsdk_Rpc_Camera_Quaternion: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.w)
-      case 2: try decoder.decodeSingularFloatField(value: &self.x)
-      case 3: try decoder.decodeSingularFloatField(value: &self.y)
-      case 4: try decoder.decodeSingularFloatField(value: &self.z)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.w) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.x) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.y) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.z) }()
       default: break
       }
     }
@@ -2387,10 +2468,13 @@ extension Mavsdk_Rpc_Camera_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf._Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.rollDeg)
-      case 2: try decoder.decodeSingularFloatField(value: &self.pitchDeg)
-      case 3: try decoder.decodeSingularFloatField(value: &self.yawDeg)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.rollDeg) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.pitchDeg) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
       default: break
       }
     }
@@ -2432,14 +2516,17 @@ extension Mavsdk_Rpc_Camera_CaptureInfo: SwiftProtobuf.Message, SwiftProtobuf._M
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._position)
-      case 2: try decoder.decodeSingularMessageField(value: &self._attitudeQuaternion)
-      case 3: try decoder.decodeSingularMessageField(value: &self._attitudeEulerAngle)
-      case 4: try decoder.decodeSingularUInt64Field(value: &self.timeUtcUs)
-      case 5: try decoder.decodeSingularBoolField(value: &self.isSuccess)
-      case 6: try decoder.decodeSingularInt32Field(value: &self.index)
-      case 7: try decoder.decodeSingularStringField(value: &self.fileURL)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._position) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._attitudeQuaternion) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._attitudeEulerAngle) }()
+      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.timeUtcUs) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.isSuccess) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.index) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.fileURL) }()
       default: break
       }
     }
@@ -2496,13 +2583,16 @@ extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.frameRateHz)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.horizontalResolutionPix)
-      case 3: try decoder.decodeSingularUInt32Field(value: &self.verticalResolutionPix)
-      case 4: try decoder.decodeSingularUInt32Field(value: &self.bitRateBS)
-      case 5: try decoder.decodeSingularUInt32Field(value: &self.rotationDeg)
-      case 6: try decoder.decodeSingularStringField(value: &self.uri)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.frameRateHz) }()
+      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.horizontalResolutionPix) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.verticalResolutionPix) }()
+      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.bitRateBS) }()
+      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.rotationDeg) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.uri) }()
       default: break
       }
     }
@@ -2551,9 +2641,12 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._settings)
-      case 2: try decoder.decodeSingularEnumField(value: &self.status)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._settings) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
       default: break
       }
     }
@@ -2599,15 +2692,18 @@ extension Mavsdk_Rpc_Camera_Status: SwiftProtobuf.Message, SwiftProtobuf._Messag
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.videoOn)
-      case 2: try decoder.decodeSingularBoolField(value: &self.photoIntervalOn)
-      case 3: try decoder.decodeSingularFloatField(value: &self.usedStorageMib)
-      case 4: try decoder.decodeSingularFloatField(value: &self.availableStorageMib)
-      case 5: try decoder.decodeSingularFloatField(value: &self.totalStorageMib)
-      case 6: try decoder.decodeSingularFloatField(value: &self.recordingTimeS)
-      case 7: try decoder.decodeSingularStringField(value: &self.mediaFolderName)
-      case 8: try decoder.decodeSingularEnumField(value: &self.storageStatus)
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.videoOn) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.photoIntervalOn) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.usedStorageMib) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.availableStorageMib) }()
+      case 5: try { try decoder.decodeSingularFloatField(value: &self.totalStorageMib) }()
+      case 6: try { try decoder.decodeSingularFloatField(value: &self.recordingTimeS) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.mediaFolderName) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.storageStatus) }()
       default: break
       }
     }
@@ -2672,9 +2768,12 @@ extension Mavsdk_Rpc_Camera_Option: SwiftProtobuf.Message, SwiftProtobuf._Messag
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.optionID)
-      case 2: try decoder.decodeSingularStringField(value: &self.optionDescription)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.optionID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.optionDescription) }()
       default: break
       }
     }
@@ -2709,11 +2808,14 @@ extension Mavsdk_Rpc_Camera_Setting: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.settingID)
-      case 2: try decoder.decodeSingularStringField(value: &self.settingDescription)
-      case 3: try decoder.decodeSingularMessageField(value: &self._option)
-      case 4: try decoder.decodeSingularBoolField(value: &self.isRange)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.settingID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.settingDescription) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._option) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isRange) }()
       default: break
       }
     }
@@ -2756,11 +2858,14 @@ extension Mavsdk_Rpc_Camera_SettingOptions: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.settingID)
-      case 2: try decoder.decodeSingularStringField(value: &self.settingDescription)
-      case 3: try decoder.decodeRepeatedMessageField(value: &self.options)
-      case 4: try decoder.decodeSingularBoolField(value: &self.isRange)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.settingID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.settingDescription) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.options) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isRange) }()
       default: break
       }
     }
@@ -2801,9 +2906,12 @@ extension Mavsdk_Rpc_Camera_Information: SwiftProtobuf.Message, SwiftProtobuf._M
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.vendorName)
-      case 2: try decoder.decodeSingularStringField(value: &self.modelName)
+      case 1: try { try decoder.decodeSingularStringField(value: &self.vendorName) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.modelName) }()
       default: break
       }
     }
