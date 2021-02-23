@@ -71,6 +71,51 @@ extension Mavsdk_Rpc_Camera_Mode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Photos range type.
+enum Mavsdk_Rpc_Camera_PhotosRange: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+
+  /// All the photos present on the camera
+  case all // = 0
+
+  /// Photos taken since MAVSDK got connected
+  case sinceConnection // = 1
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .all
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .all
+    case 1: self = .sinceConnection
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .all: return 0
+    case .sinceConnection: return 1
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Mavsdk_Rpc_Camera_PhotosRange: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Camera_PhotosRange] = [
+    .all,
+    .sinceConnection,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Mavsdk_Rpc_Camera_TakePhotoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -317,6 +362,43 @@ struct Mavsdk_Rpc_Camera_SetModeResponse {
   var hasCameraResult: Bool {return self._cameraResult != nil}
   /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
   mutating func clearCameraResult() {self._cameraResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
+}
+
+struct Mavsdk_Rpc_Camera_ListPhotosRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Which photos should be listed (all or since connection)
+  var photosRange: Mavsdk_Rpc_Camera_PhotosRange = .all
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Camera_ListPhotosResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
+    set {_cameraResult = newValue}
+  }
+  /// Returns true if `cameraResult` has been explicitly set.
+  var hasCameraResult: Bool {return self._cameraResult != nil}
+  /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
+  mutating func clearCameraResult() {self._cameraResult = nil}
+
+  /// List of capture infos (representing the photos)
+  var captureInfos: [Mavsdk_Rpc_Camera_CaptureInfo] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -931,12 +1013,12 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
   mutating func clearSettings() {self._settings = nil}
 
   /// Current status of video streaming
-  var status: Mavsdk_Rpc_Camera_VideoStreamInfo.Status = .notRunning
+  var status: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus = .notRunning
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Video stream status type.
-  enum Status: SwiftProtobuf.Enum {
+  enum VideoStreamStatus: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
     /// Video stream is not running
@@ -975,9 +1057,9 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
 
 #if swift(>=4.2)
 
-extension Mavsdk_Rpc_Camera_VideoStreamInfo.Status: CaseIterable {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.Status] = [
+  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
     .notRunning,
     .inProgress,
   ]
@@ -1169,6 +1251,13 @@ extension Mavsdk_Rpc_Camera_Mode: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "MODE_UNKNOWN"),
     1: .same(proto: "MODE_PHOTO"),
     2: .same(proto: "MODE_VIDEO"),
+  ]
+}
+
+extension Mavsdk_Rpc_Camera_PhotosRange: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "PHOTOS_RANGE_ALL"),
+    1: .same(proto: "PHOTOS_RANGE_SINCE_CONNECTION"),
   ]
 }
 
@@ -1571,6 +1660,70 @@ extension Mavsdk_Rpc_Camera_SetModeResponse: SwiftProtobuf.Message, SwiftProtobu
 
   static func ==(lhs: Mavsdk_Rpc_Camera_SetModeResponse, rhs: Mavsdk_Rpc_Camera_SetModeResponse) -> Bool {
     if lhs._cameraResult != rhs._cameraResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_ListPhotosRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ListPhotosRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "photos_range"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.photosRange)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.photosRange != .all {
+      try visitor.visitSingularEnumField(value: self.photosRange, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_ListPhotosRequest, rhs: Mavsdk_Rpc_Camera_ListPhotosRequest) -> Bool {
+    if lhs.photosRange != rhs.photosRange {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_ListPhotosResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ListPhotosResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "camera_result"),
+    2: .standard(proto: "capture_infos"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._cameraResult)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.captureInfos)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._cameraResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if !self.captureInfos.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.captureInfos, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_ListPhotosResponse, rhs: Mavsdk_Rpc_Camera_ListPhotosResponse) -> Bool {
+    if lhs._cameraResult != rhs._cameraResult {return false}
+    if lhs.captureInfos != rhs.captureInfos {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2424,10 +2577,10 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
   }
 }
 
-extension Mavsdk_Rpc_Camera_VideoStreamInfo.Status: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "STATUS_NOT_RUNNING"),
-    1: .same(proto: "STATUS_IN_PROGRESS"),
+    0: .same(proto: "VIDEO_STREAM_STATUS_NOT_RUNNING"),
+    1: .same(proto: "VIDEO_STREAM_STATUS_IN_PROGRESS"),
   ]
 }
 

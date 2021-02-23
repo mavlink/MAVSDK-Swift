@@ -97,6 +97,39 @@ public class Camera {
         }
     }
 
+    /**
+     Photos range type.
+     */
+    public enum PhotosRange: Equatable {
+        ///  All the photos present on the camera.
+        case all
+        ///  Photos taken since MAVSDK got connected.
+        case sinceConnection
+        case UNRECOGNIZED(Int)
+
+        internal var rpcPhotosRange: Mavsdk_Rpc_Camera_PhotosRange {
+            switch self {
+            case .all:
+                return .all
+            case .sinceConnection:
+                return .sinceConnection
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcPhotosRange: Mavsdk_Rpc_Camera_PhotosRange) -> PhotosRange {
+            switch rpcPhotosRange {
+            case .all:
+                return .all
+            case .sinceConnection:
+                return .sinceConnection
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     /**
      Result type.
@@ -638,7 +671,7 @@ public class Camera {
      */
     public struct VideoStreamInfo: Equatable {
         public let settings: VideoStreamSettings
-        public let status: Status
+        public let status: VideoStreamStatus
 
         
         
@@ -646,14 +679,14 @@ public class Camera {
         /**
          Video stream status type.
          */
-        public enum Status: Equatable {
+        public enum VideoStreamStatus: Equatable {
             ///  Video stream is not running.
             case notRunning
             ///  Video stream is running.
             case inProgress
             case UNRECOGNIZED(Int)
 
-            internal var rpcStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.Status {
+            internal var rpcVideoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus {
                 switch self {
                 case .notRunning:
                     return .notRunning
@@ -664,8 +697,8 @@ public class Camera {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.Status) -> Status {
-                switch rpcStatus {
+            internal static func translateFromRpc(_ rpcVideoStreamStatus: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus) -> VideoStreamStatus {
+                switch rpcVideoStreamStatus {
                 case .notRunning:
                     return .notRunning
                 case .inProgress:
@@ -689,7 +722,7 @@ public class Camera {
             
          
          */
-        public init(settings: VideoStreamSettings, status: Status) {
+        public init(settings: VideoStreamSettings, status: VideoStreamStatus) {
             self.settings = settings
             self.status = status
         }
@@ -703,7 +736,7 @@ public class Camera {
             
             
                 
-            rpcVideoStreamInfo.status = status.rpcStatus
+            rpcVideoStreamInfo.status = status.rpcVideoStreamStatus
                 
             
 
@@ -711,7 +744,7 @@ public class Camera {
         }
 
         internal static func translateFromRpc(_ rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
-            return VideoStreamInfo(settings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.settings), status: Status.translateFromRpc(rpcVideoStreamInfo.status))
+            return VideoStreamInfo(settings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.settings), status: VideoStreamStatus.translateFromRpc(rpcVideoStreamInfo.status))
         }
 
         public static func == (lhs: VideoStreamInfo, rhs: VideoStreamInfo) -> Bool {
@@ -1366,6 +1399,46 @@ public class Camera {
                 
             } catch {
                 completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     List photos available on the camera.
+
+     - Parameter photosRange: Which photos should be listed (all or since connection)
+     
+     */
+    public func listPhotos(photosRange: PhotosRange) -> Single<[CaptureInfo]> {
+        return Single<[CaptureInfo]>.create { single in
+            var request = Mavsdk_Rpc_Camera_ListPhotosRequest()
+
+            
+                
+            request.photosRange = photosRange.rpcPhotosRange
+                
+            
+
+            do {
+                let response = self.service.listPhotos(request)
+
+                
+                let result = try response.response.wait().cameraResult
+                if (result.result != Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                    single(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    
+                    let captureInfos = try response.response.wait().captureInfos.map{ CaptureInfo.translateFromRpc($0) }
+                
+                single(.success(captureInfos))
+            } catch {
+                single(.error(error))
             }
 
             return Disposables.create()

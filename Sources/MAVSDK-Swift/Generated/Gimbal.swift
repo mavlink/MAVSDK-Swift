@@ -85,6 +85,127 @@ public class Gimbal {
         }
     }
 
+    /**
+     Control mode
+     */
+    public enum ControlMode: Equatable {
+        ///  Indicates that the component does not have control over the gimbal.
+        case none
+        ///  To take primary control over the gimbal.
+        case primary
+        ///  To take secondary control over the gimbal.
+        case secondary
+        case UNRECOGNIZED(Int)
+
+        internal var rpcControlMode: Mavsdk_Rpc_Gimbal_ControlMode {
+            switch self {
+            case .none:
+                return .none
+            case .primary:
+                return .primary
+            case .secondary:
+                return .secondary
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcControlMode: Mavsdk_Rpc_Gimbal_ControlMode) -> ControlMode {
+            switch rpcControlMode {
+            case .none:
+                return .none
+            case .primary:
+                return .primary
+            case .secondary:
+                return .secondary
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
+
+    /**
+     Control status
+     */
+    public struct ControlStatus: Equatable {
+        public let controlMode: ControlMode
+        public let sysidPrimaryControl: Int32
+        public let compidPrimaryControl: Int32
+        public let sysidSecondaryControl: Int32
+        public let compidSecondaryControl: Int32
+
+        
+
+        /**
+         Initializes a new `ControlStatus`.
+
+         
+         - Parameters:
+            
+            - controlMode:  Control mode (none, primary or secondary)
+            
+            - sysidPrimaryControl:  Sysid of the component that has primary control over the gimbal (0 if no one is in control)
+            
+            - compidPrimaryControl:  Compid of the component that has primary control over the gimbal (0 if no one is in control)
+            
+            - sysidSecondaryControl:  Sysid of the component that has secondary control over the gimbal (0 if no one is in control)
+            
+            - compidSecondaryControl:  Compid of the component that has secondary control over the gimbal (0 if no one is in control)
+            
+         
+         */
+        public init(controlMode: ControlMode, sysidPrimaryControl: Int32, compidPrimaryControl: Int32, sysidSecondaryControl: Int32, compidSecondaryControl: Int32) {
+            self.controlMode = controlMode
+            self.sysidPrimaryControl = sysidPrimaryControl
+            self.compidPrimaryControl = compidPrimaryControl
+            self.sysidSecondaryControl = sysidSecondaryControl
+            self.compidSecondaryControl = compidSecondaryControl
+        }
+
+        internal var rpcControlStatus: Mavsdk_Rpc_Gimbal_ControlStatus {
+            var rpcControlStatus = Mavsdk_Rpc_Gimbal_ControlStatus()
+            
+                
+            rpcControlStatus.controlMode = controlMode.rpcControlMode
+                
+            
+            
+                
+            rpcControlStatus.sysidPrimaryControl = sysidPrimaryControl
+                
+            
+            
+                
+            rpcControlStatus.compidPrimaryControl = compidPrimaryControl
+                
+            
+            
+                
+            rpcControlStatus.sysidSecondaryControl = sysidSecondaryControl
+                
+            
+            
+                
+            rpcControlStatus.compidSecondaryControl = compidSecondaryControl
+                
+            
+
+            return rpcControlStatus
+        }
+
+        internal static func translateFromRpc(_ rpcControlStatus: Mavsdk_Rpc_Gimbal_ControlStatus) -> ControlStatus {
+            return ControlStatus(controlMode: ControlMode.translateFromRpc(rpcControlStatus.controlMode), sysidPrimaryControl: rpcControlStatus.sysidPrimaryControl, compidPrimaryControl: rpcControlStatus.compidPrimaryControl, sysidSecondaryControl: rpcControlStatus.sysidSecondaryControl, compidSecondaryControl: rpcControlStatus.compidSecondaryControl)
+        }
+
+        public static func == (lhs: ControlStatus, rhs: ControlStatus) -> Bool {
+            return lhs.controlMode == rhs.controlMode
+                && lhs.sysidPrimaryControl == rhs.sysidPrimaryControl
+                && lhs.compidPrimaryControl == rhs.compidPrimaryControl
+                && lhs.sysidSecondaryControl == rhs.sysidSecondaryControl
+                && lhs.compidSecondaryControl == rhs.compidSecondaryControl
+        }
+    }
 
     /**
      Result type.
@@ -238,6 +359,51 @@ public class Gimbal {
     }
 
     /**
+     Set gimbal angular rates around pitch and yaw axes.
+
+     This sets the desired angular rates around pitch and yaw axes of a gimbal.
+     Will return when the command is accepted, however, it might
+     take the gimbal longer to actually reach the angular rate.
+
+     - Parameters:
+        - pitchRateDegS: Angular rate around pitch axis in degrees/second (negative downward)
+        - yawRateDegS: Angular rate around yaw axis in degrees/second (positive is clock-wise)
+     
+     */
+    public func setPitchRateAndYawRate(pitchRateDegS: Float, yawRateDegS: Float) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest()
+
+            
+                
+            request.pitchRateDegS = pitchRateDegS
+                
+            
+                
+            request.yawRateDegS = yawRateDegS
+                
+            
+
+            do {
+                
+                let response = self.service.setPitchRateAndYawRate(request)
+
+                let result = try response.response.wait().gimbalResult
+                if (result.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
      Set gimbal mode.
 
      This sets the desired yaw mode of a gimbal.
@@ -326,5 +492,120 @@ public class Gimbal {
 
             return Disposables.create()
         }
+    }
+
+    /**
+     Take control.
+
+     There can be only two components in control of a gimbal at any given time.
+     One with "primary" control, and one with "secondary" control. The way the
+     secondary control is implemented is not specified and hence depends on the
+     vehicle.
+
+     Components are expected to be cooperative, which means that they can
+     override each other and should therefore do it carefully.
+
+     - Parameter controlMode: Control mode (primary or secondary)
+     
+     */
+    public func takeControl(controlMode: ControlMode) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Gimbal_TakeControlRequest()
+
+            
+                
+            request.controlMode = controlMode.rpcControlMode
+                
+            
+
+            do {
+                
+                let response = self.service.takeControl(request)
+
+                let result = try response.response.wait().gimbalResult
+                if (result.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Release control.
+
+     Release control, such that other components can control the gimbal.
+
+     
+     */
+    public func releaseControl() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Gimbal_ReleaseControlRequest()
+
+            
+
+            do {
+                
+                let response = self.service.releaseControl(request)
+
+                let result = try response.response.wait().gimbalResult
+                if (result.result == Mavsdk_Rpc_Gimbal_GimbalResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(GimbalError(code: GimbalResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+
+    /**
+     Subscribe to control status updates.
+
+     This allows a component to know if it has primary, secondary or
+     no control over the gimbal. Also, it gives the system and component ids
+     of the other components in control (if any).
+     */
+    public lazy var control: Observable<ControlStatus> = createControlObservable()
+
+
+
+    private func createControlObservable() -> Observable<ControlStatus> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Gimbal_SubscribeControlRequest()
+
+            
+
+            _ = self.service.subscribeControl(request, handler: { (response) in
+
+                
+                     
+                let control = ControlStatus.translateFromRpc(response.controlStatus)
+                
+
+                
+                observer.onNext(control)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeGimbalError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
     }
 }

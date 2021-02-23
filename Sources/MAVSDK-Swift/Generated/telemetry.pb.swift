@@ -1980,6 +1980,9 @@ struct Mavsdk_Rpc_Telemetry_Quaternion {
   /// Quaternion entry 3, also denoted as d
   var z: Float = 0
 
+  /// Timestamp in microseconds
+  var timestampUs: UInt64 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -2005,6 +2008,9 @@ struct Mavsdk_Rpc_Telemetry_EulerAngle {
 
   /// Yaw angle in degrees, positive is clock-wise seen from above
   var yawDeg: Float = 0
+
+  /// Timestamp in microseconds
+  var timestampUs: UInt64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5406,6 +5412,7 @@ extension Mavsdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftProtobuf.
     2: .same(proto: "x"),
     3: .same(proto: "y"),
     4: .same(proto: "z"),
+    5: .standard(proto: "timestamp_us"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5415,6 +5422,7 @@ extension Mavsdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftProtobuf.
       case 2: try decoder.decodeSingularFloatField(value: &self.x)
       case 3: try decoder.decodeSingularFloatField(value: &self.y)
       case 4: try decoder.decodeSingularFloatField(value: &self.z)
+      case 5: try decoder.decodeSingularUInt64Field(value: &self.timestampUs)
       default: break
       }
     }
@@ -5433,6 +5441,9 @@ extension Mavsdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftProtobuf.
     if self.z != 0 {
       try visitor.visitSingularFloatField(value: self.z, fieldNumber: 4)
     }
+    if self.timestampUs != 0 {
+      try visitor.visitSingularUInt64Field(value: self.timestampUs, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5441,6 +5452,7 @@ extension Mavsdk_Rpc_Telemetry_Quaternion: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.x != rhs.x {return false}
     if lhs.y != rhs.y {return false}
     if lhs.z != rhs.z {return false}
+    if lhs.timestampUs != rhs.timestampUs {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5452,6 +5464,7 @@ extension Mavsdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf.
     1: .standard(proto: "roll_deg"),
     2: .standard(proto: "pitch_deg"),
     3: .standard(proto: "yaw_deg"),
+    4: .standard(proto: "timestamp_us"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5460,6 +5473,7 @@ extension Mavsdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf.
       case 1: try decoder.decodeSingularFloatField(value: &self.rollDeg)
       case 2: try decoder.decodeSingularFloatField(value: &self.pitchDeg)
       case 3: try decoder.decodeSingularFloatField(value: &self.yawDeg)
+      case 4: try decoder.decodeSingularUInt64Field(value: &self.timestampUs)
       default: break
       }
     }
@@ -5475,6 +5489,9 @@ extension Mavsdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf.
     if self.yawDeg != 0 {
       try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 3)
     }
+    if self.timestampUs != 0 {
+      try visitor.visitSingularUInt64Field(value: self.timestampUs, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5482,6 +5499,7 @@ extension Mavsdk_Rpc_Telemetry_EulerAngle: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.rollDeg != rhs.rollDeg {return false}
     if lhs.pitchDeg != rhs.pitchDeg {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
+    if lhs.timestampUs != rhs.timestampUs {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
