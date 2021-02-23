@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Calibration_CalibrationServiceClient, then call methods of this protocol to make API calls.
+/// Enable to calibrate sensors of a drone such as gyro, accelerometer, and magnetometer.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Calibration_CalibrationServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Calibration_CalibrationServiceClientInterceptorFactoryProtocol? { get }
+
   func subscribeCalibrateGyro(
     _ request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest,
     callOptions: CallOptions?,
@@ -61,10 +66,12 @@ internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol: GRPCC
     _ request: Mavsdk_Rpc_Calibration_CancelRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse>
-
 }
 
 extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.calibration.CalibrationService"
+  }
 
   /// Perform gyro calibration.
   ///
@@ -82,6 +89,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
       path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGyro",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCalibrateGyroInterceptors() ?? [],
       handler: handler
     )
   }
@@ -102,6 +110,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
       path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateAccelerometer",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCalibrateAccelerometerInterceptors() ?? [],
       handler: handler
     )
   }
@@ -122,6 +131,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
       path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateMagnetometer",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCalibrateMagnetometerInterceptors() ?? [],
       handler: handler
     )
   }
@@ -142,6 +152,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
       path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateLevelHorizon",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCalibrateLevelHorizonInterceptors() ?? [],
       handler: handler
     )
   }
@@ -162,6 +173,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
       path: "/mavsdk.rpc.calibration.CalibrationService/SubscribeCalibrateGimbalAccelerometer",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCalibrateGimbalAccelerometerInterceptors() ?? [],
       handler: handler
     )
   }
@@ -179,38 +191,76 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.calibration.CalibrationService/Cancel",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCancelInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCalibrateGyro'.
+  func makeSubscribeCalibrateGyroInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, Mavsdk_Rpc_Calibration_CalibrateGyroResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCalibrateAccelerometer'.
+  func makeSubscribeCalibrateAccelerometerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCalibrateMagnetometer'.
+  func makeSubscribeCalibrateMagnetometerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCalibrateLevelHorizon'.
+  func makeSubscribeCalibrateLevelHorizonInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeCalibrateGimbalAccelerometer'.
+  func makeSubscribeCalibrateGimbalAccelerometerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'cancel'.
+  func makeCancelInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse>]
 }
 
 internal final class Mavsdk_Rpc_Calibration_CalibrationServiceClient: Mavsdk_Rpc_Calibration_CalibrationServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Calibration_CalibrationServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.calibration.CalibrationService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Calibration_CalibrationServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Enable to calibrate sensors of a drone such as gyro, accelerometer, and magnetometer.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Calibration_CalibrationServiceServerInterceptorFactoryProtocol? { get }
+
   /// Perform gyro calibration.
   func subscribeCalibrateGyro(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Calibration_CalibrateGyroResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Perform accelerometer calibration.
   func subscribeCalibrateAccelerometer(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Perform magnetometer calibration.
   func subscribeCalibrateMagnetometer(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Perform board level horizon calibration.
   func subscribeCalibrateLevelHorizon(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Perform gimbal accelerometer calibration.
   func subscribeCalibrateGimbalAccelerometer(request: Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Cancel ongoing calibration process.
   func cancel(request: Mavsdk_Rpc_Calibration_CancelRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Calibration_CancelResponse>
 }
@@ -220,52 +270,94 @@ extension Mavsdk_Rpc_Calibration_CalibrationServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "SubscribeCalibrateGyro":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCalibrateGyro(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Calibration_CalibrateGyroResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCalibrateGyroInterceptors() ?? [],
+        userFunction: self.subscribeCalibrateGyro(request:context:)
+      )
 
     case "SubscribeCalibrateAccelerometer":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCalibrateAccelerometer(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCalibrateAccelerometerInterceptors() ?? [],
+        userFunction: self.subscribeCalibrateAccelerometer(request:context:)
+      )
 
     case "SubscribeCalibrateMagnetometer":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCalibrateMagnetometer(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCalibrateMagnetometerInterceptors() ?? [],
+        userFunction: self.subscribeCalibrateMagnetometer(request:context:)
+      )
 
     case "SubscribeCalibrateLevelHorizon":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCalibrateLevelHorizon(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCalibrateLevelHorizonInterceptors() ?? [],
+        userFunction: self.subscribeCalibrateLevelHorizon(request:context:)
+      )
 
     case "SubscribeCalibrateGimbalAccelerometer":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeCalibrateGimbalAccelerometer(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCalibrateGimbalAccelerometerInterceptors() ?? [],
+        userFunction: self.subscribeCalibrateGimbalAccelerometer(request:context:)
+      )
 
     case "Cancel":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.cancel(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Calibration_CancelRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Calibration_CancelResponse>(),
+        interceptors: self.interceptors?.makeCancelInterceptors() ?? [],
+        userFunction: self.cancel(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Calibration_CalibrationServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'subscribeCalibrateGyro'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCalibrateGyroInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest, Mavsdk_Rpc_Calibration_CalibrateGyroResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeCalibrateAccelerometer'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCalibrateAccelerometerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeCalibrateMagnetometer'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCalibrateMagnetometerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest, Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeCalibrateLevelHorizon'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCalibrateLevelHorizonInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest, Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeCalibrateGimbalAccelerometer'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCalibrateGimbalAccelerometerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest, Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse>]
+
+  /// - Returns: Interceptors to use when handling 'cancel'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCancelInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Calibration_CancelRequest, Mavsdk_Rpc_Calibration_CancelResponse>]
+}

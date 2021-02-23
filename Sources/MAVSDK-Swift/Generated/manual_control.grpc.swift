@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_ManualControl_ManualControlServiceClient, then call methods of this protocol to make API calls.
+/// Enable manual control using e.g. a joystick or gamepad.
+///
+/// Usage: instantiate `Mavsdk_Rpc_ManualControl_ManualControlServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_ManualControl_ManualControlServiceClientInterceptorFactoryProtocol? { get }
+
   func startPositionControl(
     _ request: Mavsdk_Rpc_ManualControl_StartPositionControlRequest,
     callOptions: CallOptions?
@@ -41,10 +46,12 @@ internal protocol Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol: G
     _ request: Mavsdk_Rpc_ManualControl_SetManualControlInputRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_ManualControl_SetManualControlInputRequest, Mavsdk_Rpc_ManualControl_SetManualControlInputResponse>
-
 }
 
 extension Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.manual_control.ManualControlService"
+  }
 
   ///
   /// Start position control using e.g. joystick input.
@@ -63,7 +70,8 @@ extension Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.manual_control.ManualControlService/StartPositionControl",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStartPositionControlInterceptors() ?? []
     )
   }
 
@@ -84,7 +92,8 @@ extension Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.manual_control.ManualControlService/StartAltitudeControl",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStartAltitudeControlInterceptors() ?? []
     )
   }
 
@@ -105,40 +114,66 @@ extension Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.manual_control.ManualControlService/SetManualControlInput",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetManualControlInputInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_ManualControl_ManualControlServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'startPositionControl'.
+  func makeStartPositionControlInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_ManualControl_StartPositionControlRequest, Mavsdk_Rpc_ManualControl_StartPositionControlResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'startAltitudeControl'.
+  func makeStartAltitudeControlInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_ManualControl_StartAltitudeControlRequest, Mavsdk_Rpc_ManualControl_StartAltitudeControlResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setManualControlInput'.
+  func makeSetManualControlInputInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_ManualControl_SetManualControlInputRequest, Mavsdk_Rpc_ManualControl_SetManualControlInputResponse>]
 }
 
 internal final class Mavsdk_Rpc_ManualControl_ManualControlServiceClient: Mavsdk_Rpc_ManualControl_ManualControlServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_ManualControl_ManualControlServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.manual_control.ManualControlService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_ManualControl_ManualControlServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Enable manual control using e.g. a joystick or gamepad.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_ManualControl_ManualControlServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_ManualControl_ManualControlServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Start position control using e.g. joystick input.
   ///
   /// Requires manual control input to be sent regularly already.
   /// Requires a valid position using e.g. GPS, external vision, or optical flow.
   func startPositionControl(request: Mavsdk_Rpc_ManualControl_StartPositionControlRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_ManualControl_StartPositionControlResponse>
+
   ///
   /// Start altitude control
   ///
   /// Requires manual control input to be sent regularly already.
   /// Does not require a  valid position e.g. GPS.
   func startAltitudeControl(request: Mavsdk_Rpc_ManualControl_StartAltitudeControlRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_ManualControl_StartAltitudeControlResponse>
+
   ///
   /// Set manual control input
   ///
@@ -152,31 +187,55 @@ extension Mavsdk_Rpc_ManualControl_ManualControlServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "StartPositionControl":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.startPositionControl(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_ManualControl_StartPositionControlRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_ManualControl_StartPositionControlResponse>(),
+        interceptors: self.interceptors?.makeStartPositionControlInterceptors() ?? [],
+        userFunction: self.startPositionControl(request:context:)
+      )
 
     case "StartAltitudeControl":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.startAltitudeControl(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_ManualControl_StartAltitudeControlRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_ManualControl_StartAltitudeControlResponse>(),
+        interceptors: self.interceptors?.makeStartAltitudeControlInterceptors() ?? [],
+        userFunction: self.startAltitudeControl(request:context:)
+      )
 
     case "SetManualControlInput":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setManualControlInput(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_ManualControl_SetManualControlInputRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_ManualControl_SetManualControlInputResponse>(),
+        interceptors: self.interceptors?.makeSetManualControlInputInterceptors() ?? [],
+        userFunction: self.setManualControlInput(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_ManualControl_ManualControlServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'startPositionControl'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeStartPositionControlInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_ManualControl_StartPositionControlRequest, Mavsdk_Rpc_ManualControl_StartPositionControlResponse>]
+
+  /// - Returns: Interceptors to use when handling 'startAltitudeControl'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeStartAltitudeControlInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_ManualControl_StartAltitudeControlRequest, Mavsdk_Rpc_ManualControl_StartAltitudeControlResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setManualControlInput'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetManualControlInputInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_ManualControl_SetManualControlInputRequest, Mavsdk_Rpc_ManualControl_SetManualControlInputResponse>]
+}

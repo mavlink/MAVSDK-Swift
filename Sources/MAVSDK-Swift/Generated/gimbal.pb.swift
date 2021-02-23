@@ -495,9 +495,12 @@ extension Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.pitchDeg)
-      case 2: try decoder.decodeSingularFloatField(value: &self.yawDeg)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.pitchDeg) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
       default: break
       }
     }
@@ -529,8 +532,11 @@ extension Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse: SwiftProtobuf.Message, Swift
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._gimbalResult) }()
       default: break
       }
     }
@@ -559,9 +565,12 @@ extension Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest: SwiftProtobuf.Message
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularFloatField(value: &self.pitchRateDegS)
-      case 2: try decoder.decodeSingularFloatField(value: &self.yawRateDegS)
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.pitchRateDegS) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.yawRateDegS) }()
       default: break
       }
     }
@@ -593,8 +602,11 @@ extension Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse: SwiftProtobuf.Messag
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._gimbalResult) }()
       default: break
       }
     }
@@ -622,8 +634,11 @@ extension Mavsdk_Rpc_Gimbal_SetModeRequest: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.gimbalMode)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.gimbalMode) }()
       default: break
       }
     }
@@ -651,8 +666,11 @@ extension Mavsdk_Rpc_Gimbal_SetModeResponse: SwiftProtobuf.Message, SwiftProtobu
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._gimbalResult) }()
       default: break
       }
     }
@@ -682,10 +700,13 @@ extension Mavsdk_Rpc_Gimbal_SetRoiLocationRequest: SwiftProtobuf.Message, SwiftP
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
-      case 2: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
-      case 3: try decoder.decodeSingularFloatField(value: &self.altitudeM)
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.latitudeDeg) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.longitudeDeg) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.altitudeM) }()
       default: break
       }
     }
@@ -721,8 +742,11 @@ extension Mavsdk_Rpc_Gimbal_SetRoiLocationResponse: SwiftProtobuf.Message, Swift
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._gimbalResult) }()
       default: break
       }
     }
@@ -750,8 +774,11 @@ extension Mavsdk_Rpc_Gimbal_TakeControlRequest: SwiftProtobuf.Message, SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.controlMode)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.controlMode) }()
       default: break
       }
     }
@@ -779,8 +806,11 @@ extension Mavsdk_Rpc_Gimbal_TakeControlResponse: SwiftProtobuf.Message, SwiftPro
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._gimbalResult) }()
       default: break
       }
     }
@@ -827,8 +857,11 @@ extension Mavsdk_Rpc_Gimbal_ReleaseControlResponse: SwiftProtobuf.Message, Swift
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._gimbalResult) }()
       default: break
       }
     }
@@ -875,8 +908,11 @@ extension Mavsdk_Rpc_Gimbal_ControlResponse: SwiftProtobuf.Message, SwiftProtobu
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._controlStatus)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._controlStatus) }()
       default: break
       }
     }
@@ -908,12 +944,15 @@ extension Mavsdk_Rpc_Gimbal_ControlStatus: SwiftProtobuf.Message, SwiftProtobuf.
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.controlMode)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.sysidPrimaryControl)
-      case 3: try decoder.decodeSingularInt32Field(value: &self.compidPrimaryControl)
-      case 4: try decoder.decodeSingularInt32Field(value: &self.sysidSecondaryControl)
-      case 5: try decoder.decodeSingularInt32Field(value: &self.compidSecondaryControl)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.controlMode) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.sysidPrimaryControl) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.compidPrimaryControl) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.sysidSecondaryControl) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.compidSecondaryControl) }()
       default: break
       }
     }
@@ -958,9 +997,12 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult: SwiftProtobuf.Message, SwiftProtobuf._
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }

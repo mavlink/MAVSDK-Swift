@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_TrackingServer_TrackingServerServiceClient, then call methods of this protocol to make API calls.
+/// API for an onboard image tracking software.
+///
+/// Usage: instantiate `Mavsdk_Rpc_TrackingServer_TrackingServerServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientInterceptorFactoryProtocol? { get }
+
   func setTrackingPointStatus(
     _ request: Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusRequest,
     callOptions: CallOptions?
@@ -74,10 +79,12 @@ internal protocol Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol:
     _ request: Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse>
-
 }
 
 extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.tracking_server.TrackingServerService"
+  }
 
   /// Set/update the current point tracking status.
   ///
@@ -92,7 +99,8 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/SetTrackingPointStatus",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetTrackingPointStatusInterceptors() ?? []
     )
   }
 
@@ -109,7 +117,8 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/SetTrackingRectangleStatus",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetTrackingRectangleStatusInterceptors() ?? []
     )
   }
 
@@ -126,7 +135,8 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/SetTrackingOffStatus",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetTrackingOffStatusInterceptors() ?? []
     )
   }
 
@@ -146,6 +156,7 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/SubscribeTrackingPointCommand",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeTrackingPointCommandInterceptors() ?? [],
       handler: handler
     )
   }
@@ -166,6 +177,7 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/SubscribeTrackingRectangleCommand",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeTrackingRectangleCommandInterceptors() ?? [],
       handler: handler
     )
   }
@@ -186,6 +198,7 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/SubscribeTrackingOffCommand",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeTrackingOffCommandInterceptors() ?? [],
       handler: handler
     )
   }
@@ -203,7 +216,8 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/RespondTrackingPointCommand",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRespondTrackingPointCommandInterceptors() ?? []
     )
   }
 
@@ -220,7 +234,8 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/RespondTrackingRectangleCommand",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRespondTrackingRectangleCommandInterceptors() ?? []
     )
   }
 
@@ -237,44 +252,94 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tracking_server.TrackingServerService/RespondTrackingOffCommand",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeRespondTrackingOffCommandInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'setTrackingPointStatus'.
+  func makeSetTrackingPointStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusRequest, Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setTrackingRectangleStatus'.
+  func makeSetTrackingRectangleStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusRequest, Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setTrackingOffStatus'.
+  func makeSetTrackingOffStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusRequest, Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeTrackingPointCommand'.
+  func makeSubscribeTrackingPointCommandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_SubscribeTrackingPointCommandRequest, Mavsdk_Rpc_TrackingServer_TrackingPointCommandResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeTrackingRectangleCommand'.
+  func makeSubscribeTrackingRectangleCommandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_SubscribeTrackingRectangleCommandRequest, Mavsdk_Rpc_TrackingServer_TrackingRectangleCommandResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeTrackingOffCommand'.
+  func makeSubscribeTrackingOffCommandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_SubscribeTrackingOffCommandRequest, Mavsdk_Rpc_TrackingServer_TrackingOffCommandResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'respondTrackingPointCommand'.
+  func makeRespondTrackingPointCommandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'respondTrackingRectangleCommand'.
+  func makeRespondTrackingRectangleCommandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'respondTrackingOffCommand'.
+  func makeRespondTrackingOffCommandInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse>]
 }
 
 internal final class Mavsdk_Rpc_TrackingServer_TrackingServerServiceClient: Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.tracking_server.TrackingServerService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_TrackingServer_TrackingServerServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// API for an onboard image tracking software.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_TrackingServer_TrackingServerServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_TrackingServer_TrackingServerServiceServerInterceptorFactoryProtocol? { get }
+
   /// Set/update the current point tracking status.
   func setTrackingPointStatus(request: Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusResponse>
+
   /// Set/update the current rectangle tracking status.
   func setTrackingRectangleStatus(request: Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusResponse>
+
   /// Set the current tracking status to off.
   func setTrackingOffStatus(request: Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusResponse>
+
   /// Subscribe to incoming tracking point command.
   func subscribeTrackingPointCommand(request: Mavsdk_Rpc_TrackingServer_SubscribeTrackingPointCommandRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_TrackingServer_TrackingPointCommandResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to incoming tracking rectangle command.
   func subscribeTrackingRectangleCommand(request: Mavsdk_Rpc_TrackingServer_SubscribeTrackingRectangleCommandRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_TrackingServer_TrackingRectangleCommandResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to incoming tracking off command.
   func subscribeTrackingOffCommand(request: Mavsdk_Rpc_TrackingServer_SubscribeTrackingOffCommandRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_TrackingServer_TrackingOffCommandResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Respond to an incoming tracking point command.
   func respondTrackingPointCommand(request: Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse>
+
   /// Respond to an incoming tracking rectangle command.
   func respondTrackingRectangleCommand(request: Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse>
+
   /// Respond to an incoming tracking off command.
   func respondTrackingOffCommand(request: Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse>
 }
@@ -284,73 +349,133 @@ extension Mavsdk_Rpc_TrackingServer_TrackingServerServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "SetTrackingPointStatus":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setTrackingPointStatus(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusResponse>(),
+        interceptors: self.interceptors?.makeSetTrackingPointStatusInterceptors() ?? [],
+        userFunction: self.setTrackingPointStatus(request:context:)
+      )
 
     case "SetTrackingRectangleStatus":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setTrackingRectangleStatus(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusResponse>(),
+        interceptors: self.interceptors?.makeSetTrackingRectangleStatusInterceptors() ?? [],
+        userFunction: self.setTrackingRectangleStatus(request:context:)
+      )
 
     case "SetTrackingOffStatus":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setTrackingOffStatus(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusResponse>(),
+        interceptors: self.interceptors?.makeSetTrackingOffStatusInterceptors() ?? [],
+        userFunction: self.setTrackingOffStatus(request:context:)
+      )
 
     case "SubscribeTrackingPointCommand":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeTrackingPointCommand(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_SubscribeTrackingPointCommandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_TrackingPointCommandResponse>(),
+        interceptors: self.interceptors?.makeSubscribeTrackingPointCommandInterceptors() ?? [],
+        userFunction: self.subscribeTrackingPointCommand(request:context:)
+      )
 
     case "SubscribeTrackingRectangleCommand":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeTrackingRectangleCommand(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_SubscribeTrackingRectangleCommandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_TrackingRectangleCommandResponse>(),
+        interceptors: self.interceptors?.makeSubscribeTrackingRectangleCommandInterceptors() ?? [],
+        userFunction: self.subscribeTrackingRectangleCommand(request:context:)
+      )
 
     case "SubscribeTrackingOffCommand":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeTrackingOffCommand(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_SubscribeTrackingOffCommandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_TrackingOffCommandResponse>(),
+        interceptors: self.interceptors?.makeSubscribeTrackingOffCommandInterceptors() ?? [],
+        userFunction: self.subscribeTrackingOffCommand(request:context:)
+      )
 
     case "RespondTrackingPointCommand":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.respondTrackingPointCommand(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse>(),
+        interceptors: self.interceptors?.makeRespondTrackingPointCommandInterceptors() ?? [],
+        userFunction: self.respondTrackingPointCommand(request:context:)
+      )
 
     case "RespondTrackingRectangleCommand":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.respondTrackingRectangleCommand(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse>(),
+        interceptors: self.interceptors?.makeRespondTrackingRectangleCommandInterceptors() ?? [],
+        userFunction: self.respondTrackingRectangleCommand(request:context:)
+      )
 
     case "RespondTrackingOffCommand":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.respondTrackingOffCommand(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse>(),
+        interceptors: self.interceptors?.makeRespondTrackingOffCommandInterceptors() ?? [],
+        userFunction: self.respondTrackingOffCommand(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_TrackingServer_TrackingServerServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'setTrackingPointStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetTrackingPointStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusRequest, Mavsdk_Rpc_TrackingServer_SetTrackingPointStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setTrackingRectangleStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetTrackingRectangleStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusRequest, Mavsdk_Rpc_TrackingServer_SetTrackingRectangleStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setTrackingOffStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetTrackingOffStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusRequest, Mavsdk_Rpc_TrackingServer_SetTrackingOffStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeTrackingPointCommand'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeTrackingPointCommandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_SubscribeTrackingPointCommandRequest, Mavsdk_Rpc_TrackingServer_TrackingPointCommandResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeTrackingRectangleCommand'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeTrackingRectangleCommandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_SubscribeTrackingRectangleCommandRequest, Mavsdk_Rpc_TrackingServer_TrackingRectangleCommandResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeTrackingOffCommand'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeTrackingOffCommandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_SubscribeTrackingOffCommandRequest, Mavsdk_Rpc_TrackingServer_TrackingOffCommandResponse>]
+
+  /// - Returns: Interceptors to use when handling 'respondTrackingPointCommand'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRespondTrackingPointCommandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingPointCommandResponse>]
+
+  /// - Returns: Interceptors to use when handling 'respondTrackingRectangleCommand'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRespondTrackingRectangleCommandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingRectangleCommandResponse>]
+
+  /// - Returns: Interceptors to use when handling 'respondTrackingOffCommand'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeRespondTrackingOffCommandInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandRequest, Mavsdk_Rpc_TrackingServer_RespondTrackingOffCommandResponse>]
+}

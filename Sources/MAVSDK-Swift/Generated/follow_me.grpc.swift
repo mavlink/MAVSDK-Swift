@@ -25,8 +25,15 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_FollowMe_FollowMeServiceClient, then call methods of this protocol to make API calls.
+///
+/// Allow users to command the vehicle to follow a specific target.
+/// The target is provided as a GPS coordinate and altitude.
+///
+/// Usage: instantiate `Mavsdk_Rpc_FollowMe_FollowMeServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_FollowMe_FollowMeServiceClientInterceptorFactoryProtocol? { get }
+
   func getConfig(
     _ request: Mavsdk_Rpc_FollowMe_GetConfigRequest,
     callOptions: CallOptions?
@@ -61,10 +68,12 @@ internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol: GRPCClient 
     _ request: Mavsdk_Rpc_FollowMe_StopRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse>
-
 }
 
 extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.follow_me.FollowMeService"
+  }
 
   /// Get current configuration.
   ///
@@ -79,7 +88,8 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/GetConfig",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetConfigInterceptors() ?? []
     )
   }
 
@@ -96,7 +106,8 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/SetConfig",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetConfigInterceptors() ?? []
     )
   }
 
@@ -113,7 +124,8 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/IsActive",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeIsActiveInterceptors() ?? []
     )
   }
 
@@ -130,7 +142,8 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/SetTargetLocation",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetTargetLocationInterceptors() ?? []
     )
   }
 
@@ -147,7 +160,8 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/GetLastLocation",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetLastLocationInterceptors() ?? []
     )
   }
 
@@ -164,7 +178,8 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/Start",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStartInterceptors() ?? []
     )
   }
 
@@ -181,40 +196,84 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.follow_me.FollowMeService/Stop",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStopInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'getConfig'.
+  func makeGetConfigInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_GetConfigRequest, Mavsdk_Rpc_FollowMe_GetConfigResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setConfig'.
+  func makeSetConfigInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_SetConfigRequest, Mavsdk_Rpc_FollowMe_SetConfigResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'isActive'.
+  func makeIsActiveInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_IsActiveRequest, Mavsdk_Rpc_FollowMe_IsActiveResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setTargetLocation'.
+  func makeSetTargetLocationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, Mavsdk_Rpc_FollowMe_SetTargetLocationResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getLastLocation'.
+  func makeGetLastLocationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_GetLastLocationRequest, Mavsdk_Rpc_FollowMe_GetLastLocationResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'start'.
+  func makeStartInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_StartRequest, Mavsdk_Rpc_FollowMe_StartResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'stop'.
+  func makeStopInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse>]
 }
 
 internal final class Mavsdk_Rpc_FollowMe_FollowMeServiceClient: Mavsdk_Rpc_FollowMe_FollowMeServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_FollowMe_FollowMeServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.follow_me.FollowMeService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_FollowMe_FollowMeServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+///
+/// Allow users to command the vehicle to follow a specific target.
+/// The target is provided as a GPS coordinate and altitude.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_FollowMe_FollowMeServiceServerInterceptorFactoryProtocol? { get }
+
   /// Get current configuration.
   func getConfig(request: Mavsdk_Rpc_FollowMe_GetConfigRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_GetConfigResponse>
+
   /// Apply configuration by sending it to the system.
   func setConfig(request: Mavsdk_Rpc_FollowMe_SetConfigRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_SetConfigResponse>
+
   /// Check if FollowMe is active.
   func isActive(request: Mavsdk_Rpc_FollowMe_IsActiveRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_IsActiveResponse>
+
   /// Set location of the moving target.
   func setTargetLocation(request: Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_SetTargetLocationResponse>
+
   /// Get the last location of the target.
   func getLastLocation(request: Mavsdk_Rpc_FollowMe_GetLastLocationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_GetLastLocationResponse>
+
   /// Start FollowMe mode.
   func start(request: Mavsdk_Rpc_FollowMe_StartRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_StartResponse>
+
   /// Stop FollowMe mode.
   func stop(request: Mavsdk_Rpc_FollowMe_StopRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_FollowMe_StopResponse>
 }
@@ -224,59 +283,107 @@ extension Mavsdk_Rpc_FollowMe_FollowMeServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "GetConfig":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getConfig(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_GetConfigRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_GetConfigResponse>(),
+        interceptors: self.interceptors?.makeGetConfigInterceptors() ?? [],
+        userFunction: self.getConfig(request:context:)
+      )
 
     case "SetConfig":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setConfig(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_SetConfigRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_SetConfigResponse>(),
+        interceptors: self.interceptors?.makeSetConfigInterceptors() ?? [],
+        userFunction: self.setConfig(request:context:)
+      )
 
     case "IsActive":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.isActive(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_IsActiveRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_IsActiveResponse>(),
+        interceptors: self.interceptors?.makeIsActiveInterceptors() ?? [],
+        userFunction: self.isActive(request:context:)
+      )
 
     case "SetTargetLocation":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setTargetLocation(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_SetTargetLocationResponse>(),
+        interceptors: self.interceptors?.makeSetTargetLocationInterceptors() ?? [],
+        userFunction: self.setTargetLocation(request:context:)
+      )
 
     case "GetLastLocation":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getLastLocation(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_GetLastLocationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_GetLastLocationResponse>(),
+        interceptors: self.interceptors?.makeGetLastLocationInterceptors() ?? [],
+        userFunction: self.getLastLocation(request:context:)
+      )
 
     case "Start":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.start(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_StartRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_StartResponse>(),
+        interceptors: self.interceptors?.makeStartInterceptors() ?? [],
+        userFunction: self.start(request:context:)
+      )
 
     case "Stop":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.stop(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_FollowMe_StopRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_FollowMe_StopResponse>(),
+        interceptors: self.interceptors?.makeStopInterceptors() ?? [],
+        userFunction: self.stop(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_FollowMe_FollowMeServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'getConfig'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetConfigInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_GetConfigRequest, Mavsdk_Rpc_FollowMe_GetConfigResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setConfig'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetConfigInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_SetConfigRequest, Mavsdk_Rpc_FollowMe_SetConfigResponse>]
+
+  /// - Returns: Interceptors to use when handling 'isActive'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeIsActiveInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_IsActiveRequest, Mavsdk_Rpc_FollowMe_IsActiveResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setTargetLocation'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetTargetLocationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_SetTargetLocationRequest, Mavsdk_Rpc_FollowMe_SetTargetLocationResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getLastLocation'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetLastLocationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_GetLastLocationRequest, Mavsdk_Rpc_FollowMe_GetLastLocationResponse>]
+
+  /// - Returns: Interceptors to use when handling 'start'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeStartInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_StartRequest, Mavsdk_Rpc_FollowMe_StartResponse>]
+
+  /// - Returns: Interceptors to use when handling 'stop'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeStopInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_FollowMe_StopRequest, Mavsdk_Rpc_FollowMe_StopResponse>]
+}

@@ -25,16 +25,23 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Failure_FailureServiceClient, then call methods of this protocol to make API calls.
+/// Inject failures into system to test failsafes.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Failure_FailureServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Failure_FailureServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Failure_FailureServiceClientInterceptorFactoryProtocol? { get }
+
   func inject(
     _ request: Mavsdk_Rpc_Failure_InjectRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Failure_InjectRequest, Mavsdk_Rpc_Failure_InjectResponse>
-
 }
 
 extension Mavsdk_Rpc_Failure_FailureServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.failure.FailureService"
+  }
 
   /// Injects a failure.
   ///
@@ -49,28 +56,46 @@ extension Mavsdk_Rpc_Failure_FailureServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.failure.FailureService/Inject",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeInjectInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Failure_FailureServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'inject'.
+  func makeInjectInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Failure_InjectRequest, Mavsdk_Rpc_Failure_InjectResponse>]
 }
 
 internal final class Mavsdk_Rpc_Failure_FailureServiceClient: Mavsdk_Rpc_Failure_FailureServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Failure_FailureServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.failure.FailureService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Failure_FailureServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Inject failures into system to test failsafes.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Failure_FailureServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Failure_FailureServiceServerInterceptorFactoryProtocol? { get }
+
   /// Injects a failure.
   func inject(request: Mavsdk_Rpc_Failure_InjectRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Failure_InjectResponse>
 }
@@ -80,17 +105,29 @@ extension Mavsdk_Rpc_Failure_FailureServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "Inject":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.inject(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Failure_InjectRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Failure_InjectResponse>(),
+        interceptors: self.interceptors?.makeInjectInterceptors() ?? [],
+        userFunction: self.inject(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Failure_FailureServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'inject'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeInjectInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Failure_InjectRequest, Mavsdk_Rpc_Failure_InjectResponse>]
+}
