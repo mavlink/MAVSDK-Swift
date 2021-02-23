@@ -52,6 +52,57 @@ public class Action {
     }
     
 
+    /**
+     Yaw behaviour during orbit flight.
+     */
+    public enum OrbitYawBehavior: Equatable {
+        ///  Vehicle front points to the center (default).
+        case holdFrontToCircleCenter
+        ///  Vehicle front holds heading when message received.
+        case holdInitialHeading
+        ///  Yaw uncontrolled.
+        case uncontrolled
+        ///  Vehicle front follows flight path (tangential to circle).
+        case holdFrontTangentToCircle
+        ///  Yaw controlled by RC input.
+        case rcControlled
+        case UNRECOGNIZED(Int)
+
+        internal var rpcOrbitYawBehavior: Mavsdk_Rpc_Action_OrbitYawBehavior {
+            switch self {
+            case .holdFrontToCircleCenter:
+                return .holdFrontToCircleCenter
+            case .holdInitialHeading:
+                return .holdInitialHeading
+            case .uncontrolled:
+                return .uncontrolled
+            case .holdFrontTangentToCircle:
+                return .holdFrontTangentToCircle
+            case .rcControlled:
+                return .rcControlled
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcOrbitYawBehavior: Mavsdk_Rpc_Action_OrbitYawBehavior) -> OrbitYawBehavior {
+            switch rpcOrbitYawBehavior {
+            case .holdFrontToCircleCenter:
+                return .holdFrontToCircleCenter
+            case .holdInitialHeading:
+                return .holdInitialHeading
+            case .uncontrolled:
+                return .uncontrolled
+            case .holdFrontTangentToCircle:
+                return .holdFrontTangentToCircle
+            case .rcControlled:
+                return .rcControlled
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     /**
      Result type.
@@ -539,6 +590,69 @@ public class Action {
             do {
                 
                 let response = self.service.gotoLocation(request)
+
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Send command do orbit to the drone.
+
+     This will run the orbit routine with the given parameters.
+
+     - Parameters:
+        - radiusM: Radius of circle (in meters)
+        - velocityMs: Tangential velocity (in m/s)
+        - yawBehavior: Yaw behavior of vehicle (ORBIT_YAW_BEHAVIOUR)
+        - latitudeDeg: Center point latitude in degrees. NAN: use current latitude for center
+        - longitudeDeg: Center point longitude in degrees. NAN: use current longitude for center
+        - absoluteAltitudeM: Center point altitude in meters. NAN: use current altitude for center
+     
+     */
+    public func doOrbit(radiusM: Float, velocityMs: Float, yawBehavior: OrbitYawBehavior, latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Action_DoOrbitRequest()
+
+            
+                
+            request.radiusM = radiusM
+                
+            
+                
+            request.velocityMs = velocityMs
+                
+            
+                
+            request.yawBehavior = yawBehavior.rpcOrbitYawBehavior
+                
+            
+                
+            request.latitudeDeg = latitudeDeg
+                
+            
+                
+            request.longitudeDeg = longitudeDeg
+                
+            
+                
+            request.absoluteAltitudeM = absoluteAltitudeM
+                
+            
+
+            do {
+                
+                let response = self.service.doOrbit(request)
 
                 let result = try response.response.wait().actionResult
                 if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {

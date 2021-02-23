@@ -438,6 +438,7 @@ public class Telemetry {
         public let x: Float
         public let y: Float
         public let z: Float
+        public let timestampUs: UInt64
 
         
 
@@ -455,13 +456,16 @@ public class Telemetry {
             
             - z:  Quaternion entry 3, also denoted as d
             
+            - timestampUs:  Timestamp in microseconds
+            
          
          */
-        public init(w: Float, x: Float, y: Float, z: Float) {
+        public init(w: Float, x: Float, y: Float, z: Float, timestampUs: UInt64) {
             self.w = w
             self.x = x
             self.y = y
             self.z = z
+            self.timestampUs = timestampUs
         }
 
         internal var rpcQuaternion: Mavsdk_Rpc_Telemetry_Quaternion {
@@ -486,12 +490,17 @@ public class Telemetry {
             rpcQuaternion.z = z
                 
             
+            
+                
+            rpcQuaternion.timestampUs = timestampUs
+                
+            
 
             return rpcQuaternion
         }
 
         internal static func translateFromRpc(_ rpcQuaternion: Mavsdk_Rpc_Telemetry_Quaternion) -> Quaternion {
-            return Quaternion(w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z)
+            return Quaternion(w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z, timestampUs: rpcQuaternion.timestampUs)
         }
 
         public static func == (lhs: Quaternion, rhs: Quaternion) -> Bool {
@@ -499,6 +508,7 @@ public class Telemetry {
                 && lhs.x == rhs.x
                 && lhs.y == rhs.y
                 && lhs.z == rhs.z
+                && lhs.timestampUs == rhs.timestampUs
         }
     }
 
@@ -514,6 +524,7 @@ public class Telemetry {
         public let rollDeg: Float
         public let pitchDeg: Float
         public let yawDeg: Float
+        public let timestampUs: UInt64
 
         
 
@@ -529,12 +540,15 @@ public class Telemetry {
             
             - yawDeg:  Yaw angle in degrees, positive is clock-wise seen from above
             
+            - timestampUs:  Timestamp in microseconds
+            
          
          */
-        public init(rollDeg: Float, pitchDeg: Float, yawDeg: Float) {
+        public init(rollDeg: Float, pitchDeg: Float, yawDeg: Float, timestampUs: UInt64) {
             self.rollDeg = rollDeg
             self.pitchDeg = pitchDeg
             self.yawDeg = yawDeg
+            self.timestampUs = timestampUs
         }
 
         internal var rpcEulerAngle: Mavsdk_Rpc_Telemetry_EulerAngle {
@@ -554,18 +568,24 @@ public class Telemetry {
             rpcEulerAngle.yawDeg = yawDeg
                 
             
+            
+                
+            rpcEulerAngle.timestampUs = timestampUs
+                
+            
 
             return rpcEulerAngle
         }
 
         internal static func translateFromRpc(_ rpcEulerAngle: Mavsdk_Rpc_Telemetry_EulerAngle) -> EulerAngle {
-            return EulerAngle(rollDeg: rpcEulerAngle.rollDeg, pitchDeg: rpcEulerAngle.pitchDeg, yawDeg: rpcEulerAngle.yawDeg)
+            return EulerAngle(rollDeg: rpcEulerAngle.rollDeg, pitchDeg: rpcEulerAngle.pitchDeg, yawDeg: rpcEulerAngle.yawDeg, timestampUs: rpcEulerAngle.timestampUs)
         }
 
         public static func == (lhs: EulerAngle, rhs: EulerAngle) -> Bool {
             return lhs.rollDeg == rhs.rollDeg
                 && lhs.pitchDeg == rhs.pitchDeg
                 && lhs.yawDeg == rhs.yawDeg
+                && lhs.timestampUs == rhs.timestampUs
         }
     }
 

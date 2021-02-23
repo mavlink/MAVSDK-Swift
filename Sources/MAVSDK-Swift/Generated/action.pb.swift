@@ -20,6 +20,69 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// Yaw behaviour during orbit flight.
+enum Mavsdk_Rpc_Action_OrbitYawBehavior: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+
+  /// Vehicle front points to the center (default)
+  case holdFrontToCircleCenter // = 0
+
+  /// Vehicle front holds heading when message received
+  case holdInitialHeading // = 1
+
+  /// Yaw uncontrolled
+  case uncontrolled // = 2
+
+  /// Vehicle front follows flight path (tangential to circle)
+  case holdFrontTangentToCircle // = 3
+
+  /// Yaw controlled by RC input
+  case rcControlled // = 4
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .holdFrontToCircleCenter
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .holdFrontToCircleCenter
+    case 1: self = .holdInitialHeading
+    case 2: self = .uncontrolled
+    case 3: self = .holdFrontTangentToCircle
+    case 4: self = .rcControlled
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .holdFrontToCircleCenter: return 0
+    case .holdInitialHeading: return 1
+    case .uncontrolled: return 2
+    case .holdFrontTangentToCircle: return 3
+    case .rcControlled: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Mavsdk_Rpc_Action_OrbitYawBehavior: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Action_OrbitYawBehavior] = [
+    .holdFrontToCircleCenter,
+    .holdInitialHeading,
+    .uncontrolled,
+    .holdFrontTangentToCircle,
+    .rcControlled,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Mavsdk_Rpc_Action_ArmRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -322,6 +385,55 @@ struct Mavsdk_Rpc_Action_GotoLocationRequest {
 }
 
 struct Mavsdk_Rpc_Action_GotoLocationResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return self._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {self._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
+}
+
+struct Mavsdk_Rpc_Action_DoOrbitRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Radius of circle (in meters)
+  var radiusM: Float = 0
+
+  /// Tangential velocity (in m/s)
+  var velocityMs: Float = 0
+
+  /// Yaw behavior of vehicle (ORBIT_YAW_BEHAVIOUR)
+  var yawBehavior: Mavsdk_Rpc_Action_OrbitYawBehavior = .holdFrontToCircleCenter
+
+  /// Center point latitude in degrees. NAN: use current latitude for center
+  var latitudeDeg: Double = 0
+
+  /// Center point longitude in degrees. NAN: use current longitude for center
+  var longitudeDeg: Double = 0
+
+  /// Center point altitude in meters. NAN: use current altitude for center
+  var absoluteAltitudeM: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Action_DoOrbitResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -733,6 +845,16 @@ extension Mavsdk_Rpc_Action_ActionResult.Result: CaseIterable {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.action"
+
+extension Mavsdk_Rpc_Action_OrbitYawBehavior: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ORBIT_YAW_BEHAVIOR_HOLD_FRONT_TO_CIRCLE_CENTER"),
+    1: .same(proto: "ORBIT_YAW_BEHAVIOR_HOLD_INITIAL_HEADING"),
+    2: .same(proto: "ORBIT_YAW_BEHAVIOR_UNCONTROLLED"),
+    3: .same(proto: "ORBIT_YAW_BEHAVIOR_HOLD_FRONT_TANGENT_TO_CIRCLE"),
+    4: .same(proto: "ORBIT_YAW_BEHAVIOR_RC_CONTROLLED"),
+  ]
+}
 
 extension Mavsdk_Rpc_Action_ArmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ArmRequest"
@@ -1236,6 +1358,94 @@ extension Mavsdk_Rpc_Action_GotoLocationResponse: SwiftProtobuf.Message, SwiftPr
   }
 
   static func ==(lhs: Mavsdk_Rpc_Action_GotoLocationResponse, rhs: Mavsdk_Rpc_Action_GotoLocationResponse) -> Bool {
+    if lhs._actionResult != rhs._actionResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_DoOrbitRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DoOrbitRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "radius_m"),
+    2: .standard(proto: "velocity_ms"),
+    3: .standard(proto: "yaw_behavior"),
+    5: .standard(proto: "latitude_deg"),
+    6: .standard(proto: "longitude_deg"),
+    7: .standard(proto: "absolute_altitude_m"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.radiusM)
+      case 2: try decoder.decodeSingularFloatField(value: &self.velocityMs)
+      case 3: try decoder.decodeSingularEnumField(value: &self.yawBehavior)
+      case 5: try decoder.decodeSingularDoubleField(value: &self.latitudeDeg)
+      case 6: try decoder.decodeSingularDoubleField(value: &self.longitudeDeg)
+      case 7: try decoder.decodeSingularDoubleField(value: &self.absoluteAltitudeM)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.radiusM != 0 {
+      try visitor.visitSingularFloatField(value: self.radiusM, fieldNumber: 1)
+    }
+    if self.velocityMs != 0 {
+      try visitor.visitSingularFloatField(value: self.velocityMs, fieldNumber: 2)
+    }
+    if self.yawBehavior != .holdFrontToCircleCenter {
+      try visitor.visitSingularEnumField(value: self.yawBehavior, fieldNumber: 3)
+    }
+    if self.latitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latitudeDeg, fieldNumber: 5)
+    }
+    if self.longitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 6)
+    }
+    if self.absoluteAltitudeM != 0 {
+      try visitor.visitSingularDoubleField(value: self.absoluteAltitudeM, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_DoOrbitRequest, rhs: Mavsdk_Rpc_Action_DoOrbitRequest) -> Bool {
+    if lhs.radiusM != rhs.radiusM {return false}
+    if lhs.velocityMs != rhs.velocityMs {return false}
+    if lhs.yawBehavior != rhs.yawBehavior {return false}
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_DoOrbitResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DoOrbitResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._actionResult)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._actionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_DoOrbitResponse, rhs: Mavsdk_Rpc_Action_DoOrbitResponse) -> Bool {
     if lhs._actionResult != rhs._actionResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

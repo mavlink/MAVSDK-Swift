@@ -67,6 +67,11 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Camera_SetModeRequest, Mavsdk_Rpc_Camera_SetModeResponse>
 
+  func listPhotos(
+    _ request: Mavsdk_Rpc_Camera_ListPhotosRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ListPhotosRequest, Mavsdk_Rpc_Camera_ListPhotosResponse>
+
   func subscribeMode(
     _ request: Mavsdk_Rpc_Camera_SubscribeModeRequest,
     callOptions: CallOptions?,
@@ -267,6 +272,24 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   ) -> UnaryCall<Mavsdk_Rpc_Camera_SetModeRequest, Mavsdk_Rpc_Camera_SetModeResponse> {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.camera.CameraService/SetMode",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions
+    )
+  }
+
+  ///
+  /// List photos available on the camera.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ListPhotos.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func listPhotos(
+    _ request: Mavsdk_Rpc_Camera_ListPhotosRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ListPhotosRequest, Mavsdk_Rpc_Camera_ListPhotosResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/ListPhotos",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions
     )
@@ -522,6 +545,9 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
   /// Set camera mode.
   func setMode(request: Mavsdk_Rpc_Camera_SetModeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_SetModeResponse>
   ///
+  /// List photos available on the camera.
+  func listPhotos(request: Mavsdk_Rpc_Camera_ListPhotosRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ListPhotosResponse>
+  ///
   /// Subscribe to camera mode updates.
   func subscribeMode(request: Mavsdk_Rpc_Camera_SubscribeModeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_ModeResponse>) -> EventLoopFuture<GRPCStatus>
   ///
@@ -619,6 +645,13 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
       return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
         return { request in
           self.setMode(request: request, context: context)
+        }
+      }
+
+    case "ListPhotos":
+      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
+        return { request in
+          self.listPhotos(request: request, context: context)
         }
       }
 

@@ -65,6 +65,57 @@ extension Mavsdk_Rpc_Gimbal_GimbalMode: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Control mode
+enum Mavsdk_Rpc_Gimbal_ControlMode: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+
+  /// Indicates that the component does not have control over the gimbal
+  case none // = 0
+
+  /// To take primary control over the gimbal
+  case primary // = 1
+
+  /// To take secondary control over the gimbal
+  case secondary // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .none
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .none
+    case 1: self = .primary
+    case 2: self = .secondary
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .none: return 0
+    case .primary: return 1
+    case .secondary: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Mavsdk_Rpc_Gimbal_ControlMode: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Gimbal_ControlMode] = [
+    .none,
+    .primary,
+    .secondary,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -82,6 +133,43 @@ struct Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest {
 }
 
 struct Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult {
+    get {return _gimbalResult ?? Mavsdk_Rpc_Gimbal_GimbalResult()}
+    set {_gimbalResult = newValue}
+  }
+  /// Returns true if `gimbalResult` has been explicitly set.
+  var hasGimbalResult: Bool {return self._gimbalResult != nil}
+  /// Clears the value of `gimbalResult`. Subsequent reads from it will return its default value.
+  mutating func clearGimbalResult() {self._gimbalResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult? = nil
+}
+
+struct Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Angular rate around pitch axis in degrees/second (negative downward)
+  var pitchRateDegS: Float = 0
+
+  /// Angular rate around yaw axis in degrees/second (positive is clock-wise)
+  var yawRateDegS: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -176,6 +264,129 @@ struct Mavsdk_Rpc_Gimbal_SetRoiLocationResponse {
   fileprivate var _gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult? = nil
 }
 
+struct Mavsdk_Rpc_Gimbal_TakeControlRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Control mode (primary or secondary)
+  var controlMode: Mavsdk_Rpc_Gimbal_ControlMode = .none
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Gimbal_TakeControlResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult {
+    get {return _gimbalResult ?? Mavsdk_Rpc_Gimbal_GimbalResult()}
+    set {_gimbalResult = newValue}
+  }
+  /// Returns true if `gimbalResult` has been explicitly set.
+  var hasGimbalResult: Bool {return self._gimbalResult != nil}
+  /// Clears the value of `gimbalResult`. Subsequent reads from it will return its default value.
+  mutating func clearGimbalResult() {self._gimbalResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult? = nil
+}
+
+struct Mavsdk_Rpc_Gimbal_ReleaseControlRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Gimbal_ReleaseControlResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult {
+    get {return _gimbalResult ?? Mavsdk_Rpc_Gimbal_GimbalResult()}
+    set {_gimbalResult = newValue}
+  }
+  /// Returns true if `gimbalResult` has been explicitly set.
+  var hasGimbalResult: Bool {return self._gimbalResult != nil}
+  /// Clears the value of `gimbalResult`. Subsequent reads from it will return its default value.
+  mutating func clearGimbalResult() {self._gimbalResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _gimbalResult: Mavsdk_Rpc_Gimbal_GimbalResult? = nil
+}
+
+struct Mavsdk_Rpc_Gimbal_SubscribeControlRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Gimbal_ControlResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Control status
+  var controlStatus: Mavsdk_Rpc_Gimbal_ControlStatus {
+    get {return _controlStatus ?? Mavsdk_Rpc_Gimbal_ControlStatus()}
+    set {_controlStatus = newValue}
+  }
+  /// Returns true if `controlStatus` has been explicitly set.
+  var hasControlStatus: Bool {return self._controlStatus != nil}
+  /// Clears the value of `controlStatus`. Subsequent reads from it will return its default value.
+  mutating func clearControlStatus() {self._controlStatus = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _controlStatus: Mavsdk_Rpc_Gimbal_ControlStatus? = nil
+}
+
+/// Control status
+struct Mavsdk_Rpc_Gimbal_ControlStatus {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Control mode (none, primary or secondary)
+  var controlMode: Mavsdk_Rpc_Gimbal_ControlMode = .none
+
+  /// Sysid of the component that has primary control over the gimbal (0 if no one is in control)
+  var sysidPrimaryControl: Int32 = 0
+
+  /// Compid of the component that has primary control over the gimbal (0 if no one is in control)
+  var compidPrimaryControl: Int32 = 0
+
+  /// Sysid of the component that has secondary control over the gimbal (0 if no one is in control)
+  var sysidSecondaryControl: Int32 = 0
+
+  /// Compid of the component that has secondary control over the gimbal (0 if no one is in control)
+  var compidSecondaryControl: Int32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Gimbal_GimbalResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -267,6 +478,14 @@ extension Mavsdk_Rpc_Gimbal_GimbalMode: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Mavsdk_Rpc_Gimbal_ControlMode: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "CONTROL_MODE_NONE"),
+    1: .same(proto: "CONTROL_MODE_PRIMARY"),
+    2: .same(proto: "CONTROL_MODE_SECONDARY"),
+  ]
+}
+
 extension Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetPitchAndYawRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -325,6 +544,70 @@ extension Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse: SwiftProtobuf.Message, Swift
   }
 
   static func ==(lhs: Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse, rhs: Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse) -> Bool {
+    if lhs._gimbalResult != rhs._gimbalResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetPitchRateAndYawRateRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "pitch_rate_deg_s"),
+    2: .standard(proto: "yaw_rate_deg_s"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.pitchRateDegS)
+      case 2: try decoder.decodeSingularFloatField(value: &self.yawRateDegS)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.pitchRateDegS != 0 {
+      try visitor.visitSingularFloatField(value: self.pitchRateDegS, fieldNumber: 1)
+    }
+    if self.yawRateDegS != 0 {
+      try visitor.visitSingularFloatField(value: self.yawRateDegS, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, rhs: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest) -> Bool {
+    if lhs.pitchRateDegS != rhs.pitchRateDegS {return false}
+    if lhs.yawRateDegS != rhs.yawRateDegS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetPitchRateAndYawRateResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "gimbal_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._gimbalResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse, rhs: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse) -> Bool {
     if lhs._gimbalResult != rhs._gimbalResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -454,6 +737,213 @@ extension Mavsdk_Rpc_Gimbal_SetRoiLocationResponse: SwiftProtobuf.Message, Swift
 
   static func ==(lhs: Mavsdk_Rpc_Gimbal_SetRoiLocationResponse, rhs: Mavsdk_Rpc_Gimbal_SetRoiLocationResponse) -> Bool {
     if lhs._gimbalResult != rhs._gimbalResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_TakeControlRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TakeControlRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "control_mode"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.controlMode)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.controlMode != .none {
+      try visitor.visitSingularEnumField(value: self.controlMode, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_TakeControlRequest, rhs: Mavsdk_Rpc_Gimbal_TakeControlRequest) -> Bool {
+    if lhs.controlMode != rhs.controlMode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_TakeControlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TakeControlResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "gimbal_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._gimbalResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_TakeControlResponse, rhs: Mavsdk_Rpc_Gimbal_TakeControlResponse) -> Bool {
+    if lhs._gimbalResult != rhs._gimbalResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_ReleaseControlRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ReleaseControlRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_ReleaseControlRequest, rhs: Mavsdk_Rpc_Gimbal_ReleaseControlRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_ReleaseControlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ReleaseControlResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "gimbal_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._gimbalResult)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._gimbalResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_ReleaseControlResponse, rhs: Mavsdk_Rpc_Gimbal_ReleaseControlResponse) -> Bool {
+    if lhs._gimbalResult != rhs._gimbalResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_SubscribeControlRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeControlRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_SubscribeControlRequest, rhs: Mavsdk_Rpc_Gimbal_SubscribeControlRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_ControlResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ControlResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "control_status"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._controlStatus)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._controlStatus {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_ControlResponse, rhs: Mavsdk_Rpc_Gimbal_ControlResponse) -> Bool {
+    if lhs._controlStatus != rhs._controlStatus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Gimbal_ControlStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ControlStatus"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "control_mode"),
+    2: .standard(proto: "sysid_primary_control"),
+    3: .standard(proto: "compid_primary_control"),
+    4: .standard(proto: "sysid_secondary_control"),
+    5: .standard(proto: "compid_secondary_control"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.controlMode)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.sysidPrimaryControl)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.compidPrimaryControl)
+      case 4: try decoder.decodeSingularInt32Field(value: &self.sysidSecondaryControl)
+      case 5: try decoder.decodeSingularInt32Field(value: &self.compidSecondaryControl)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.controlMode != .none {
+      try visitor.visitSingularEnumField(value: self.controlMode, fieldNumber: 1)
+    }
+    if self.sysidPrimaryControl != 0 {
+      try visitor.visitSingularInt32Field(value: self.sysidPrimaryControl, fieldNumber: 2)
+    }
+    if self.compidPrimaryControl != 0 {
+      try visitor.visitSingularInt32Field(value: self.compidPrimaryControl, fieldNumber: 3)
+    }
+    if self.sysidSecondaryControl != 0 {
+      try visitor.visitSingularInt32Field(value: self.sysidSecondaryControl, fieldNumber: 4)
+    }
+    if self.compidSecondaryControl != 0 {
+      try visitor.visitSingularInt32Field(value: self.compidSecondaryControl, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Gimbal_ControlStatus, rhs: Mavsdk_Rpc_Gimbal_ControlStatus) -> Bool {
+    if lhs.controlMode != rhs.controlMode {return false}
+    if lhs.sysidPrimaryControl != rhs.sysidPrimaryControl {return false}
+    if lhs.compidPrimaryControl != rhs.compidPrimaryControl {return false}
+    if lhs.sysidSecondaryControl != rhs.sysidSecondaryControl {return false}
+    if lhs.compidSecondaryControl != rhs.compidSecondaryControl {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
