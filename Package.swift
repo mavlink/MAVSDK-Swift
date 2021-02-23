@@ -17,7 +17,7 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0-alpha.20"),
+    .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0"),
     .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
   ],
   targets: [

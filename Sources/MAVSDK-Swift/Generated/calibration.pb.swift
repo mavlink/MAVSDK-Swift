@@ -424,9 +424,12 @@ extension Mavsdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Message, S
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._calibrationResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._calibrationResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -478,9 +481,12 @@ extension Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProtobuf.M
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._calibrationResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._calibrationResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -532,9 +538,12 @@ extension Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProtobuf.Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._calibrationResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._calibrationResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -586,9 +595,12 @@ extension Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse: SwiftProtobuf.Me
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._calibrationResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._calibrationResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -640,9 +652,12 @@ extension Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: SwiftProt
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._calibrationResult)
-      case 2: try decoder.decodeSingularMessageField(value: &self._progressData)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._calibrationResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
       default: break
       }
     }
@@ -713,9 +728,12 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult: SwiftProtobuf.Message, Swift
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }
@@ -766,11 +784,14 @@ extension Mavsdk_Rpc_Calibration_ProgressData: SwiftProtobuf.Message, SwiftProto
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularBoolField(value: &self.hasProgress_p)
-      case 2: try decoder.decodeSingularFloatField(value: &self.progress)
-      case 3: try decoder.decodeSingularBoolField(value: &self.hasStatusText_p)
-      case 4: try decoder.decodeSingularStringField(value: &self.statusText)
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.hasProgress_p) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.progress) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.hasStatusText_p) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.statusText) }()
       default: break
       }
     }

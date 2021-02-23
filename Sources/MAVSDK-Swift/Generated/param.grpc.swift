@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Param_ParamServiceClient, then call methods of this protocol to make API calls.
+/// Provide raw access to get and set parameters.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Param_ParamServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Param_ParamServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol? { get }
+
   func getParamInt(
     _ request: Mavsdk_Rpc_Param_GetParamIntRequest,
     callOptions: CallOptions?
@@ -51,10 +56,12 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Param_GetAllParamsRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>
-
 }
 
 extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.param.ParamService"
+  }
 
   ///
   /// Get an int parameter.
@@ -72,7 +79,8 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.param.ParamService/GetParamInt",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetParamIntInterceptors() ?? []
     )
   }
 
@@ -92,7 +100,8 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.param.ParamService/SetParamInt",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetParamIntInterceptors() ?? []
     )
   }
 
@@ -112,7 +121,8 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.param.ParamService/GetParamFloat",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetParamFloatInterceptors() ?? []
     )
   }
 
@@ -132,7 +142,8 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.param.ParamService/SetParamFloat",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetParamFloatInterceptors() ?? []
     )
   }
 
@@ -150,48 +161,82 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.param.ParamService/GetAllParams",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetAllParamsInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'getParamInt'.
+  func makeGetParamIntInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_GetParamIntRequest, Mavsdk_Rpc_Param_GetParamIntResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setParamInt'.
+  func makeSetParamIntInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_SetParamIntRequest, Mavsdk_Rpc_Param_SetParamIntResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getParamFloat'.
+  func makeGetParamFloatInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_GetParamFloatRequest, Mavsdk_Rpc_Param_GetParamFloatResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setParamFloat'.
+  func makeSetParamFloatInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getAllParams'.
+  func makeGetAllParamsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>]
 }
 
 internal final class Mavsdk_Rpc_Param_ParamServiceClient: Mavsdk_Rpc_Param_ParamServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.param.ParamService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Provide raw access to get and set parameters.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Param_ParamServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Param_ParamServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Get an int parameter.
   ///
   /// If the type is wrong, the result will be `WRONG_TYPE`.
   func getParamInt(request: Mavsdk_Rpc_Param_GetParamIntRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetParamIntResponse>
+
   ///
   /// Set an int parameter.
   ///
   /// If the type is wrong, the result will be `WRONG_TYPE`.
   func setParamInt(request: Mavsdk_Rpc_Param_SetParamIntRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_SetParamIntResponse>
+
   ///
   /// Get a float parameter.
   ///
   /// If the type is wrong, the result will be `WRONG_TYPE`.
   func getParamFloat(request: Mavsdk_Rpc_Param_GetParamFloatRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetParamFloatResponse>
+
   ///
   /// Set a float parameter.
   ///
   /// If the type is wrong, the result will be `WRONG_TYPE`.
   func setParamFloat(request: Mavsdk_Rpc_Param_SetParamFloatRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_SetParamFloatResponse>
+
   ///
   /// Get all parameters.
   func getAllParams(request: Mavsdk_Rpc_Param_GetAllParamsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetAllParamsResponse>
@@ -202,45 +247,81 @@ extension Mavsdk_Rpc_Param_ParamServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "GetParamInt":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getParamInt(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_GetParamIntRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_GetParamIntResponse>(),
+        interceptors: self.interceptors?.makeGetParamIntInterceptors() ?? [],
+        userFunction: self.getParamInt(request:context:)
+      )
 
     case "SetParamInt":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setParamInt(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_SetParamIntRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_SetParamIntResponse>(),
+        interceptors: self.interceptors?.makeSetParamIntInterceptors() ?? [],
+        userFunction: self.setParamInt(request:context:)
+      )
 
     case "GetParamFloat":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getParamFloat(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_GetParamFloatRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_GetParamFloatResponse>(),
+        interceptors: self.interceptors?.makeGetParamFloatInterceptors() ?? [],
+        userFunction: self.getParamFloat(request:context:)
+      )
 
     case "SetParamFloat":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setParamFloat(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_SetParamFloatRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_SetParamFloatResponse>(),
+        interceptors: self.interceptors?.makeSetParamFloatInterceptors() ?? [],
+        userFunction: self.setParamFloat(request:context:)
+      )
 
     case "GetAllParams":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.getAllParams(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_GetAllParamsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_GetAllParamsResponse>(),
+        interceptors: self.interceptors?.makeGetAllParamsInterceptors() ?? [],
+        userFunction: self.getAllParams(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Param_ParamServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'getParamInt'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetParamIntInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_GetParamIntRequest, Mavsdk_Rpc_Param_GetParamIntResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setParamInt'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetParamIntInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_SetParamIntRequest, Mavsdk_Rpc_Param_SetParamIntResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getParamFloat'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetParamFloatInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_GetParamFloatRequest, Mavsdk_Rpc_Param_GetParamFloatResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setParamFloat'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetParamFloatInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getAllParams'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetAllParamsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>]
+}

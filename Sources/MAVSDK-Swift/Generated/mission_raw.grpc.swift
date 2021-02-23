@@ -25,8 +25,13 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_MissionRaw_MissionRawServiceClient, then call methods of this protocol to make API calls.
+/// Enable raw missions as exposed by MAVLink.
+///
+/// Usage: instantiate `Mavsdk_Rpc_MissionRaw_MissionRawServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactoryProtocol? { get }
+
   func uploadMission(
     _ request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest,
     callOptions: CallOptions?
@@ -78,10 +83,12 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol: GRPCCli
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_MissionRaw_MissionChangedResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>
-
 }
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.mission_raw.MissionRawService"
+  }
 
   ///
   /// Upload a list of raw mission items to the system.
@@ -100,7 +107,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/UploadMission",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUploadMissionInterceptors() ?? []
     )
   }
 
@@ -118,7 +126,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionUpload",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCancelMissionUploadInterceptors() ?? []
     )
   }
 
@@ -136,7 +145,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/DownloadMission",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDownloadMissionInterceptors() ?? []
     )
   }
 
@@ -154,7 +164,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/CancelMissionDownload",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCancelMissionDownloadInterceptors() ?? []
     )
   }
 
@@ -174,7 +185,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/StartMission",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeStartMissionInterceptors() ?? []
     )
   }
 
@@ -197,7 +209,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/PauseMission",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePauseMissionInterceptors() ?? []
     )
   }
 
@@ -215,7 +228,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/ClearMission",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeClearMissionInterceptors() ?? []
     )
   }
 
@@ -236,7 +250,8 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mission_raw.MissionRawService/SetCurrentMissionItem",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetCurrentMissionItemInterceptors() ?? []
     )
   }
 
@@ -257,6 +272,7 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
       path: "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionProgress",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeMissionProgressInterceptors() ?? [],
       handler: handler
     )
   }
@@ -283,48 +299,98 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
       path: "/mavsdk.rpc.mission_raw.MissionRawService/SubscribeMissionChanged",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeMissionChangedInterceptors() ?? [],
       handler: handler
     )
   }
 }
 
+internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'uploadMission'.
+  func makeUploadMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'cancelMissionUpload'.
+  func makeCancelMissionUploadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'downloadMission'.
+  func makeDownloadMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'cancelMissionDownload'.
+  func makeCancelMissionDownloadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'startMission'.
+  func makeStartMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_StartMissionRequest, Mavsdk_Rpc_MissionRaw_StartMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'pauseMission'.
+  func makePauseMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_PauseMissionRequest, Mavsdk_Rpc_MissionRaw_PauseMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'clearMission'.
+  func makeClearMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_ClearMissionRequest, Mavsdk_Rpc_MissionRaw_ClearMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setCurrentMissionItem'.
+  func makeSetCurrentMissionItemInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeMissionProgress'.
+  func makeSubscribeMissionProgressInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, Mavsdk_Rpc_MissionRaw_MissionProgressResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeMissionChanged'.
+  func makeSubscribeMissionChangedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>]
+}
+
 internal final class Mavsdk_Rpc_MissionRaw_MissionRawServiceClient: Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.mission_raw.MissionRawService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Enable raw missions as exposed by MAVLink.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_MissionRaw_MissionRawServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Upload a list of raw mission items to the system.
   ///
   /// The raw mission items are uploaded to a drone. Once uploaded the mission
   /// can be started and executed even if the connection is lost.
   func uploadMission(request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_UploadMissionResponse>
+
   ///
   /// Cancel an ongoing mission upload.
   func cancelMissionUpload(request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>
+
   ///
   /// Download a list of raw mission items from the system (asynchronous).
   func downloadMission(request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>
+
   ///
   /// Cancel an ongoing mission download.
   func cancelMissionDownload(request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>
+
   ///
   /// Start the mission.
   ///
   /// A mission must be uploaded to the vehicle before this can be called.
   func startMission(request: Mavsdk_Rpc_MissionRaw_StartMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_StartMissionResponse>
+
   ///
   /// Pause the mission.
   ///
@@ -333,18 +399,22 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerPr
   /// A multicopter should just hover at the spot while a fixedwing vehicle should loiter
   /// around the location where it paused.
   func pauseMission(request: Mavsdk_Rpc_MissionRaw_PauseMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_PauseMissionResponse>
+
   ///
   /// Clear the mission saved on the vehicle.
   func clearMission(request: Mavsdk_Rpc_MissionRaw_ClearMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_ClearMissionResponse>
+
   ///
   /// Sets the raw mission item index to go to.
   ///
   /// By setting the current index to 0, the mission is restarted from the beginning. If it is set
   /// to a specific index of a raw mission item, the mission will be set to this item.
   func setCurrentMissionItem(request: Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>
+
   ///
   /// Subscribe to mission progress updates.
   func subscribeMissionProgress(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_MissionRaw_MissionProgressResponse>) -> EventLoopFuture<GRPCStatus>
+
   ///*
   /// Subscribes to mission changed.
   ///
@@ -360,80 +430,146 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "UploadMission":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.uploadMission(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_UploadMissionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_UploadMissionResponse>(),
+        interceptors: self.interceptors?.makeUploadMissionInterceptors() ?? [],
+        userFunction: self.uploadMission(request:context:)
+      )
 
     case "CancelMissionUpload":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.cancelMissionUpload(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>(),
+        interceptors: self.interceptors?.makeCancelMissionUploadInterceptors() ?? [],
+        userFunction: self.cancelMissionUpload(request:context:)
+      )
 
     case "DownloadMission":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.downloadMission(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>(),
+        interceptors: self.interceptors?.makeDownloadMissionInterceptors() ?? [],
+        userFunction: self.downloadMission(request:context:)
+      )
 
     case "CancelMissionDownload":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.cancelMissionDownload(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>(),
+        interceptors: self.interceptors?.makeCancelMissionDownloadInterceptors() ?? [],
+        userFunction: self.cancelMissionDownload(request:context:)
+      )
 
     case "StartMission":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.startMission(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_StartMissionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_StartMissionResponse>(),
+        interceptors: self.interceptors?.makeStartMissionInterceptors() ?? [],
+        userFunction: self.startMission(request:context:)
+      )
 
     case "PauseMission":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.pauseMission(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_PauseMissionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_PauseMissionResponse>(),
+        interceptors: self.interceptors?.makePauseMissionInterceptors() ?? [],
+        userFunction: self.pauseMission(request:context:)
+      )
 
     case "ClearMission":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.clearMission(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_ClearMissionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_ClearMissionResponse>(),
+        interceptors: self.interceptors?.makeClearMissionInterceptors() ?? [],
+        userFunction: self.clearMission(request:context:)
+      )
 
     case "SetCurrentMissionItem":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setCurrentMissionItem(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>(),
+        interceptors: self.interceptors?.makeSetCurrentMissionItemInterceptors() ?? [],
+        userFunction: self.setCurrentMissionItem(request:context:)
+      )
 
     case "SubscribeMissionProgress":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeMissionProgress(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_MissionProgressResponse>(),
+        interceptors: self.interceptors?.makeSubscribeMissionProgressInterceptors() ?? [],
+        userFunction: self.subscribeMissionProgress(request:context:)
+      )
 
     case "SubscribeMissionChanged":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeMissionChanged(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_MissionChangedResponse>(),
+        interceptors: self.interceptors?.makeSubscribeMissionChangedInterceptors() ?? [],
+        userFunction: self.subscribeMissionChanged(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'uploadMission'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUploadMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'cancelMissionUpload'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCancelMissionUploadInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>]
+
+  /// - Returns: Interceptors to use when handling 'downloadMission'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDownloadMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'cancelMissionDownload'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCancelMissionDownloadInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>]
+
+  /// - Returns: Interceptors to use when handling 'startMission'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeStartMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_StartMissionRequest, Mavsdk_Rpc_MissionRaw_StartMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'pauseMission'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePauseMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_PauseMissionRequest, Mavsdk_Rpc_MissionRaw_PauseMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'clearMission'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeClearMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_ClearMissionRequest, Mavsdk_Rpc_MissionRaw_ClearMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setCurrentMissionItem'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetCurrentMissionItemInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest, Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeMissionProgress'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeMissionProgressInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest, Mavsdk_Rpc_MissionRaw_MissionProgressResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeMissionChanged'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeMissionChangedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>]
+}

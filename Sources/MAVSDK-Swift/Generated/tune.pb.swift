@@ -356,8 +356,11 @@ extension Mavsdk_Rpc_Tune_PlayTuneRequest: SwiftProtobuf.Message, SwiftProtobuf.
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._tuneDescription)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._tuneDescription) }()
       default: break
       }
     }
@@ -385,8 +388,11 @@ extension Mavsdk_Rpc_Tune_PlayTuneResponse: SwiftProtobuf.Message, SwiftProtobuf
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularMessageField(value: &self._tuneResult)
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._tuneResult) }()
       default: break
       }
     }
@@ -415,9 +421,12 @@ extension Mavsdk_Rpc_Tune_TuneDescription: SwiftProtobuf.Message, SwiftProtobuf.
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeRepeatedEnumField(value: &self.songElements)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.tempo)
+      case 1: try { try decoder.decodeRepeatedEnumField(value: &self.songElements) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.tempo) }()
       default: break
       }
     }
@@ -450,9 +459,12 @@ extension Mavsdk_Rpc_Tune_TuneResult: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.result)
-      case 2: try decoder.decodeSingularStringField(value: &self.resultStr)
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.result) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.resultStr) }()
       default: break
       }
     }

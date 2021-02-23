@@ -25,8 +25,16 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Mocap_MocapServiceClient, then call methods of this protocol to make API calls.
+///*
+/// Allows interfacing a vehicle with a motion capture system in
+/// order to allow navigation without global positioning sources available
+/// (e.g. indoors, or when flying under a bridge. etc.).
+///
+/// Usage: instantiate `Mavsdk_Rpc_Mocap_MocapServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Mocap_MocapServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Mocap_MocapServiceClientInterceptorFactoryProtocol? { get }
+
   func setVisionPositionEstimate(
     _ request: Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest,
     callOptions: CallOptions?
@@ -41,10 +49,12 @@ internal protocol Mavsdk_Rpc_Mocap_MocapServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Mocap_SetOdometryRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse>
-
 }
 
 extension Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.mocap.MocapService"
+  }
 
   /// Send Global position/attitude estimate from a vision source.
   ///
@@ -59,7 +69,8 @@ extension Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mocap.MocapService/SetVisionPositionEstimate",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetVisionPositionEstimateInterceptors() ?? []
     )
   }
 
@@ -76,7 +87,8 @@ extension Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mocap.MocapService/SetAttitudePositionMocap",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetAttitudePositionMocapInterceptors() ?? []
     )
   }
 
@@ -93,32 +105,61 @@ extension Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.mocap.MocapService/SetOdometry",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetOdometryInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Mocap_MocapServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'setVisionPositionEstimate'.
+  func makeSetVisionPositionEstimateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setAttitudePositionMocap'.
+  func makeSetAttitudePositionMocapInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setOdometry'.
+  func makeSetOdometryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse>]
 }
 
 internal final class Mavsdk_Rpc_Mocap_MocapServiceClient: Mavsdk_Rpc_Mocap_MocapServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Mocap_MocapServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.mocap.MocapService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Mocap_MocapServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+///*
+/// Allows interfacing a vehicle with a motion capture system in
+/// order to allow navigation without global positioning sources available
+/// (e.g. indoors, or when flying under a bridge. etc.).
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Mocap_MocapServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Mocap_MocapServiceServerInterceptorFactoryProtocol? { get }
+
   /// Send Global position/attitude estimate from a vision source.
   func setVisionPositionEstimate(request: Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse>
+
   /// Send motion capture attitude and position.
   func setAttitudePositionMocap(request: Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse>
+
   /// Send odometry information with an external interface.
   func setOdometry(request: Mavsdk_Rpc_Mocap_SetOdometryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mocap_SetOdometryResponse>
 }
@@ -128,31 +169,55 @@ extension Mavsdk_Rpc_Mocap_MocapServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "SetVisionPositionEstimate":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setVisionPositionEstimate(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse>(),
+        interceptors: self.interceptors?.makeSetVisionPositionEstimateInterceptors() ?? [],
+        userFunction: self.setVisionPositionEstimate(request:context:)
+      )
 
     case "SetAttitudePositionMocap":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setAttitudePositionMocap(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse>(),
+        interceptors: self.interceptors?.makeSetAttitudePositionMocapInterceptors() ?? [],
+        userFunction: self.setAttitudePositionMocap(request:context:)
+      )
 
     case "SetOdometry":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setOdometry(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Mocap_SetOdometryRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mocap_SetOdometryResponse>(),
+        interceptors: self.interceptors?.makeSetOdometryInterceptors() ?? [],
+        userFunction: self.setOdometry(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Mocap_MocapServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'setVisionPositionEstimate'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetVisionPositionEstimateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest, Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setAttitudePositionMocap'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetAttitudePositionMocapInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest, Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setOdometry'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetOdometryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mocap_SetOdometryRequest, Mavsdk_Rpc_Mocap_SetOdometryResponse>]
+}

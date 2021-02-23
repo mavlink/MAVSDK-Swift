@@ -25,16 +25,23 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Tune_TuneServiceClient, then call methods of this protocol to make API calls.
+/// Enable creating and sending a tune to be played on the system.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Tune_TuneServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Tune_TuneServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Tune_TuneServiceClientInterceptorFactoryProtocol? { get }
+
   func playTune(
     _ request: Mavsdk_Rpc_Tune_PlayTuneRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>
-
 }
 
 extension Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.tune.TuneService"
+  }
 
   /// Send a tune to be played by the system.
   ///
@@ -49,28 +56,46 @@ extension Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.tune.TuneService/PlayTune",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePlayTuneInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Tune_TuneServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'playTune'.
+  func makePlayTuneInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>]
 }
 
 internal final class Mavsdk_Rpc_Tune_TuneServiceClient: Mavsdk_Rpc_Tune_TuneServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Tune_TuneServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.tune.TuneService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Tune_TuneServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Enable creating and sending a tune to be played on the system.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Tune_TuneServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Tune_TuneServiceServerInterceptorFactoryProtocol? { get }
+
   /// Send a tune to be played by the system.
   func playTune(request: Mavsdk_Rpc_Tune_PlayTuneRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Tune_PlayTuneResponse>
 }
@@ -80,17 +105,29 @@ extension Mavsdk_Rpc_Tune_TuneServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "PlayTune":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.playTune(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Tune_PlayTuneRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Tune_PlayTuneResponse>(),
+        interceptors: self.interceptors?.makePlayTuneInterceptors() ?? [],
+        userFunction: self.playTune(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Tune_TuneServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'playTune'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePlayTuneInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Tune_PlayTuneRequest, Mavsdk_Rpc_Tune_PlayTuneResponse>]
+}

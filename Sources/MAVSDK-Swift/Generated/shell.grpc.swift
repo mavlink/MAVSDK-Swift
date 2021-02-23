@@ -25,8 +25,14 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Shell_ShellServiceClient, then call methods of this protocol to make API calls.
+///*
+/// Allow to communicate with the vehicle's system shell.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Shell_ShellServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Shell_ShellServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Shell_ShellServiceClientInterceptorFactoryProtocol? { get }
+
   func send(
     _ request: Mavsdk_Rpc_Shell_SendRequest,
     callOptions: CallOptions?
@@ -37,10 +43,12 @@ internal protocol Mavsdk_Rpc_Shell_ShellServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_Shell_ReceiveResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse>
-
 }
 
 extension Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.shell.ShellService"
+  }
 
   ///
   /// Send a command line.
@@ -56,7 +64,8 @@ extension Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.shell.ShellService/Send",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSendInterceptors() ?? []
     )
   }
 
@@ -79,31 +88,54 @@ extension Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
       path: "/mavsdk.rpc.shell.ShellService/SubscribeReceive",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeReceiveInterceptors() ?? [],
       handler: handler
     )
   }
 }
 
+internal protocol Mavsdk_Rpc_Shell_ShellServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'send'.
+  func makeSendInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Shell_SendRequest, Mavsdk_Rpc_Shell_SendResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeReceive'.
+  func makeSubscribeReceiveInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse>]
+}
+
 internal final class Mavsdk_Rpc_Shell_ShellServiceClient: Mavsdk_Rpc_Shell_ShellServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Shell_ShellServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.shell.ShellService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Shell_ShellServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+///*
+/// Allow to communicate with the vehicle's system shell.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Shell_ShellServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Shell_ShellServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Send a command line.
   func send(request: Mavsdk_Rpc_Shell_SendRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Shell_SendResponse>
+
   ///
   /// Receive feedback from a sent command line.
   ///
@@ -116,24 +148,42 @@ extension Mavsdk_Rpc_Shell_ShellServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "Send":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.send(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Shell_SendRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Shell_SendResponse>(),
+        interceptors: self.interceptors?.makeSendInterceptors() ?? [],
+        userFunction: self.send(request:context:)
+      )
 
     case "SubscribeReceive":
-      return CallHandlerFactory.makeServerStreaming(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.subscribeReceive(request: request, context: context)
-        }
-      }
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Shell_SubscribeReceiveRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Shell_ReceiveResponse>(),
+        interceptors: self.interceptors?.makeSubscribeReceiveInterceptors() ?? [],
+        userFunction: self.subscribeReceive(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Shell_ShellServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'send'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSendInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Shell_SendRequest, Mavsdk_Rpc_Shell_SendResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeReceive'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeReceiveInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Shell_SubscribeReceiveRequest, Mavsdk_Rpc_Shell_ReceiveResponse>]
+}

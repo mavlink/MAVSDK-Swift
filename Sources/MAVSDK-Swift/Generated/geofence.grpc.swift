@@ -25,16 +25,23 @@ import NIO
 import SwiftProtobuf
 
 
-/// Usage: instantiate Mavsdk_Rpc_Geofence_GeofenceServiceClient, then call methods of this protocol to make API calls.
+/// Enable setting a geofence.
+///
+/// Usage: instantiate `Mavsdk_Rpc_Geofence_GeofenceServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol: GRPCClient {
+  var serviceName: String { get }
+  var interceptors: Mavsdk_Rpc_Geofence_GeofenceServiceClientInterceptorFactoryProtocol? { get }
+
   func uploadGeofence(
     _ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>
-
 }
 
 extension Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
+  internal var serviceName: String {
+    return "mavsdk.rpc.geofence.GeofenceService"
+  }
 
   ///
   /// Upload a geofence.
@@ -53,28 +60,46 @@ extension Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
     return self.makeUnaryCall(
       path: "/mavsdk.rpc.geofence.GeofenceService/UploadGeofence",
       request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUploadGeofenceInterceptors() ?? []
     )
   }
+}
+
+internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'uploadGeofence'.
+  func makeUploadGeofenceInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>]
 }
 
 internal final class Mavsdk_Rpc_Geofence_GeofenceServiceClient: Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
   internal let channel: GRPCChannel
   internal var defaultCallOptions: CallOptions
+  internal var interceptors: Mavsdk_Rpc_Geofence_GeofenceServiceClientInterceptorFactoryProtocol?
 
   /// Creates a client for the mavsdk.rpc.geofence.GeofenceService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
   ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  internal init(channel: GRPCChannel, defaultCallOptions: CallOptions = CallOptions()) {
+  ///   - interceptors: A factory providing interceptors for each RPC.
+  internal init(
+    channel: GRPCChannel,
+    defaultCallOptions: CallOptions = CallOptions(),
+    interceptors: Mavsdk_Rpc_Geofence_GeofenceServiceClientInterceptorFactoryProtocol? = nil
+  ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
+    self.interceptors = interceptors
   }
 }
 
+/// Enable setting a geofence.
+///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceProvider: CallHandlerProvider {
+  var interceptors: Mavsdk_Rpc_Geofence_GeofenceServiceServerInterceptorFactoryProtocol? { get }
+
   ///
   /// Upload a geofence.
   ///
@@ -88,17 +113,29 @@ extension Mavsdk_Rpc_Geofence_GeofenceServiceProvider {
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
   /// Returns nil for methods not handled by this service.
-  internal func handleMethod(_ methodName: Substring, callHandlerContext: CallHandlerContext) -> GRPCCallHandler? {
-    switch methodName {
+  internal func handle(
+    method name: Substring,
+    context: CallHandlerContext
+  ) -> GRPCServerHandlerProtocol? {
+    switch name {
     case "UploadGeofence":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.uploadGeofence(request: request, context: context)
-        }
-      }
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Geofence_UploadGeofenceRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Geofence_UploadGeofenceResponse>(),
+        interceptors: self.interceptors?.makeUploadGeofenceInterceptors() ?? [],
+        userFunction: self.uploadGeofence(request:context:)
+      )
 
-    default: return nil
+    default:
+      return nil
     }
   }
 }
 
+internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'uploadGeofence'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUploadGeofenceInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>]
+}
