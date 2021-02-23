@@ -378,26 +378,6 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   }
 
   ///
-  /// Send command do orbit to the drone.
-  ///
-  /// This will run the orbit routine with the given parameters.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to DoOrbit.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func doOrbit(
-    _ request: Mavsdk_Rpc_Action_DoOrbitRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.action.ActionService/DoOrbit",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
-    )
-  }
-
-  ///
   /// Send command to transition the drone to fixedwing.
   ///
   /// The associated action will only be executed for VTOL vehicles (on other vehicle types the
@@ -726,11 +706,6 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   func doOrbit(request: Mavsdk_Rpc_Action_DoOrbitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_DoOrbitResponse>
 
   ///
-  /// Send command do orbit to the drone.
-  ///
-  /// This will run the orbit routine with the given parameters.
-  func doOrbit(request: Mavsdk_Rpc_Action_DoOrbitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_DoOrbitResponse>
-  ///
   /// Send command to transition the drone to fixedwing.
   ///
   /// The associated action will only be executed for VTOL vehicles (on other vehicle types the
@@ -879,13 +854,6 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         interceptors: self.interceptors?.makeDoOrbitInterceptors() ?? [],
         userFunction: self.doOrbit(request:context:)
       )
-
-    case "DoOrbit":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.doOrbit(request: request, context: context)
-        }
-      }
 
     case "TransitionToFixedwing":
       return UnaryServerHandler(

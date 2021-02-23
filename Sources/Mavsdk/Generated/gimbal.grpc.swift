@@ -123,29 +123,6 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceClientProtocol {
   }
 
   ///
-  ///
-  /// Set gimbal angular rates around pitch and yaw axes.
-  ///
-  /// This sets the desired angular rates around pitch and yaw axes of a gimbal.
-  /// Will return when the command is accepted, however, it might
-  /// take the gimbal longer to actually reach the angular rate.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetPitchRateAndYawRate.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setPitchRateAndYawRate(
-    _ request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.gimbal.GimbalService/SetPitchRateAndYawRate",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions
-    )
-  }
-
-  ///
   /// Set gimbal mode.
   ///
   /// This sets the desired yaw mode of a gimbal.
@@ -337,15 +314,7 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// Will return when the command is accepted, however, it might
   /// take the gimbal longer to actually reach the angular rate.
   func setPitchRateAndYawRate(request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>
-
-  ///
-  ///
-  /// Set gimbal angular rates around pitch and yaw axes.
-  ///
-  /// This sets the desired angular rates around pitch and yaw axes of a gimbal.
-  /// Will return when the command is accepted, however, it might
-  /// take the gimbal longer to actually reach the angular rate.
-  func setPitchRateAndYawRate(request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>
+  
   ///
   /// Set gimbal mode.
   ///
@@ -415,13 +384,6 @@ extension Mavsdk_Rpc_Gimbal_GimbalServiceProvider {
         interceptors: self.interceptors?.makeSetPitchRateAndYawRateInterceptors() ?? [],
         userFunction: self.setPitchRateAndYawRate(request:context:)
       )
-
-    case "SetPitchRateAndYawRate":
-      return CallHandlerFactory.makeUnary(callHandlerContext: callHandlerContext) { context in
-        return { request in
-          self.setPitchRateAndYawRate(request: request, context: context)
-        }
-      }
 
     case "SetMode":
       return UnaryServerHandler(
