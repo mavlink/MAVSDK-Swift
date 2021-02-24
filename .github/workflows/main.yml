@@ -3,12 +3,12 @@ name: Build
 on:
   push:
     branches:
-    - 'master'
+      - "master"
     tags:
-    - '*'
+      - "*"
   pull_request:
     branches:
-    - '*'
+      - "*"
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
       - name: install tools
         run: pip3 install protoc-gen-mavsdk && brew install protobuf
       - name: generate from protos
-        run: bash Sources/MAVSDK-Swift/tools/generate_from_protos.bash
+        run: bash Sources/Mavsdk/tools/generate_from_protos.bash
       - name: check for diff
         run: git diff --exit-code
   generate-docs:
@@ -43,7 +43,7 @@ jobs:
       - name: install tools
         run: gem install jazzy && pip install s3cmd
       - name: generate docs
-        run: bash Sources/MAVSDK-Swift/tools/generate_docs.sh
+        run: bash Sources/Mavsdk/tools/generate_docs.sh
       - name: deploy docs (if master)
         if: github.ref == 'refs/heads/master'
         run: s3cmd --acl-public --access_key=${{ secrets.AWS_ACCESS_KEY_ID }} --secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }} --add-header="Cache-Control:public, max-age=0" put --recursive docs/swift_output/* s3://dronecode-sdk-swift/docs/master/;
