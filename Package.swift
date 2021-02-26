@@ -16,7 +16,7 @@ let package = Package(
     ),
     .library(name: "MavsdkServer",
              targets: [
-              "mavsdk_server"
+              "MavsdkServer"
              ]
     )
   ],
@@ -28,13 +28,17 @@ let package = Package(
     .target(name: "Mavsdk",
             dependencies: [
               .product(name: "GRPC", package: "grpc-swift"),
-              .product(name: "RxSwift", package: "RxSwift"),
-              "mavsdk_server"
+              .product(name: "RxSwift", package: "RxSwift")
             ],
             exclude: [
               "proto",
               "templates",
               "tools"
+            ]
+    ),
+    .target(name: "MavsdkServer",
+            dependencies: [
+              "mavsdk_server"
             ]
     ),
     .binaryTarget(name: "mavsdk_server",
