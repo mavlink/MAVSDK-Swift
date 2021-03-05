@@ -38,7 +38,7 @@ let package = Package(
     ),
     .target(name: "MavsdkServer",
             dependencies: [
-              "mavsdk_server"
+              .target(name: "mavsdk_server")
             ]
     ),
     .binaryTarget(name: "mavsdk_server",
