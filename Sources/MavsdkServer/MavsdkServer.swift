@@ -1,6 +1,6 @@
 #if !os(Linux)
 import Foundation
-import mavsdk_server
+@_implementationOnly import mavsdk_server
 
 public class MavsdkServer {
     private var mavsdkServerHandle: OpaquePointer? = Optional.none
