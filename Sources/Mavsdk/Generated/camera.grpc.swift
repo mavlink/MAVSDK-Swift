@@ -666,7 +666,7 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
   ///
   /// List photos available on the camera.
   func listPhotos(request: Mavsdk_Rpc_Camera_ListPhotosRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ListPhotosResponse>
-  
+
   ///
   /// Subscribe to camera mode updates.
   func subscribeMode(request: Mavsdk_Rpc_Camera_SubscribeModeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_ModeResponse>) -> EventLoopFuture<GRPCStatus>

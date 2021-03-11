@@ -314,7 +314,7 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// Will return when the command is accepted, however, it might
   /// take the gimbal longer to actually reach the angular rate.
   func setPitchRateAndYawRate(request: Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse>
-  
+
   ///
   /// Set gimbal mode.
   ///
@@ -332,6 +332,7 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// The function will return when the command is accepted, however, it might
   /// take the gimbal longer to actually rotate to the ROI.
   func setRoiLocation(request: Mavsdk_Rpc_Gimbal_SetRoiLocationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_SetRoiLocationResponse>
+
   ///
   /// Take control.
   ///
@@ -343,11 +344,13 @@ internal protocol Mavsdk_Rpc_Gimbal_GimbalServiceProvider: CallHandlerProvider {
   /// Components are expected to be cooperative, which means that they can
   /// override each other and should therefore do it carefully.
   func takeControl(request: Mavsdk_Rpc_Gimbal_TakeControlRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_TakeControlResponse>
+
   ///
   /// Release control.
   ///
   /// Release control, such that other components can control the gimbal.
   func releaseControl(request: Mavsdk_Rpc_Gimbal_ReleaseControlRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Gimbal_ReleaseControlResponse>
+
   ///
   /// Subscribe to control status updates.
   ///

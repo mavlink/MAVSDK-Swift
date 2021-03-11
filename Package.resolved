@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "MAVSDK-XCFramework",
+        "repositoryURL": "https://github.com/mavlink/MAVSDK-XCFramework",
+        "state": {
+          "branch": null,
+          "revision": "4a27a60c2caf9c3a2b60befb6ae642f019c24b65",
+          "version": "0.37.0"
+        }
+      },
+      {
         "package": "RxSwift",
         "repositoryURL": "https://github.com/ReactiveX/RxSwift.git",
         "state": {
