@@ -41,7 +41,7 @@ jobs:
         with:
           submodules: recursive
       - name: install tools
-        run: gem install jazzy && pip install s3cmd
+        run: gem install jazzy && pip install --user s3cmd
       - name: generate docs
         run: bash Sources/Mavsdk/tools/generate_docs.sh
       - name: deploy docs (if master)
