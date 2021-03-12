@@ -1,6 +1,6 @@
 import RxBlocking
 import XCTest
-@testable import MAVSDK_Swift
+@testable import Mavsdk
 
 class CoreTest: XCTestCase {
 

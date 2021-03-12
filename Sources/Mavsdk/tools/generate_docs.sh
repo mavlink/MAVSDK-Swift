@@ -17,4 +17,4 @@ jazzy \
     --module-version master \
     --root-url https://mavsdk.mavlink.io/docs/swift \
     --output docs/swift_output \
-    --module MAVSDK_Swift
+    --module Mavsdk

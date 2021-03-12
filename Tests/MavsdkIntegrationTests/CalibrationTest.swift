@@ -1,6 +1,6 @@
 import RxSwift
 import XCTest
-@testable import MAVSDK_Swift
+@testable import Mavsdk
 
 class CalibrationTest: XCTestCase {
 
