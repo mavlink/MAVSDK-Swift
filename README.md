@@ -64,7 +64,7 @@ or
 ```swift
 _ = drone.telemetry.position
      .subscribe(onNext: { position in
-          print(position) 
+          print(position)
      }, onError: { error in
           print(error.localizedDescription)
      })
@@ -96,7 +96,7 @@ You will also need to install the following [Python](https://www.python.org/) li
 python3 -m venv venv
 source venv/bin/activate
 
-pip3 install protoc-gen-mavsdk 
+pip3 install protoc-gen-mavsdk
 ```
 
 Then, to generate the source code, run:
@@ -124,7 +124,7 @@ Next, using Finder, download, unzip and move the binary for the iOS MAVSDK serve
 
 ### Generate docs
 
-**Note**: Travis CI generates docs for the master branch and pushes them to a [s3 bucket](http://dronecode-sdk-swift.s3.eu-central-1.amazonaws.com/docs/index.html).
+**Note**: CI generates docs for the main branch and pushes them to a [s3 bucket](http://dronecode-sdk-swift.s3.eu-central-1.amazonaws.com/docs/index.html).
 
 To test the doc generation locally, install [jazzy](https://github.com/realm/jazzy):
 
