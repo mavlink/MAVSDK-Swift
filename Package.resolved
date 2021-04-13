@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/mavlink/MAVSDK-XCFramework",
         "state": {
           "branch": null,
-          "revision": "4a27a60c2caf9c3a2b60befb6ae642f019c24b65",
-          "version": "0.37.0"
+          "revision": "ef704436a0ea3ba3dd207146cda8ff65518cf55b",
+          "version": "0.39.0"
         }
       },
       {
