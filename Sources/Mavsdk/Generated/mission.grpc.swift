@@ -92,11 +92,6 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>
-
-  func importQgroundcontrolMission(
-    _ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>
 }
 
 extension Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
@@ -359,28 +354,6 @@ extension Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
       interceptors: self.interceptors?.makeSetReturnToLaunchAfterMissionInterceptors() ?? []
     )
   }
-
-  ///
-  /// Import a QGroundControl (QGC) mission plan.
-  ///
-  /// The method will fail if any of the imported mission items are not supported
-  /// by the MAVSDK API.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to ImportQgroundcontrolMission.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func importQgroundcontrolMission(
-    _ request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.mission.MissionService/ImportQgroundcontrolMission",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeImportQgroundcontrolMissionInterceptors() ?? []
-    )
-  }
 }
 
 internal protocol Mavsdk_Rpc_Mission_MissionServiceClientInterceptorFactoryProtocol {
@@ -420,9 +393,6 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceClientInterceptorFactoryProto
 
   /// - Returns: Interceptors to use when invoking 'setReturnToLaunchAfterMission'.
   func makeSetReturnToLaunchAfterMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'importQgroundcontrolMission'.
-  func makeImportQgroundcontrolMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>]
 }
 
 internal final class Mavsdk_Rpc_Mission_MissionServiceClient: Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
@@ -525,13 +495,6 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: CallHandlerProvider
   /// This will only take effect for the next mission upload, meaning that
   /// the mission may have to be uploaded again.
   func setReturnToLaunchAfterMission(request: Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>
-
-  ///
-  /// Import a QGroundControl (QGC) mission plan.
-  ///
-  /// The method will fail if any of the imported mission items are not supported
-  /// by the MAVSDK API.
-  func importQgroundcontrolMission(request: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>
 }
 
 extension Mavsdk_Rpc_Mission_MissionServiceProvider {
@@ -652,15 +615,6 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
         userFunction: self.setReturnToLaunchAfterMission(request:context:)
       )
 
-    case "ImportQgroundcontrolMission":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>(),
-        interceptors: self.interceptors?.makeImportQgroundcontrolMissionInterceptors() ?? [],
-        userFunction: self.importQgroundcontrolMission(request:context:)
-      )
-
     default:
       return nil
     }
@@ -716,8 +670,4 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceServerInterceptorFactoryProto
   /// - Returns: Interceptors to use when handling 'setReturnToLaunchAfterMission'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetReturnToLaunchAfterMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest, Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse>]
-
-  /// - Returns: Interceptors to use when handling 'importQgroundcontrolMission'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeImportQgroundcontrolMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse>]
 }

@@ -315,13 +315,13 @@ public class LogFiles {
      Download log file.
      */
 
-    public func downloadLogFile(id: UInt32, path: String) -> Observable<ProgressData> {
+    public func downloadLogFile(entry: Entry, path: String) -> Observable<ProgressData> {
         return Observable.create { observer in
             var request = Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest()
 
             
                 
-            request.id = id
+            request.entry = entry.rpcEntry
                 
             
                 

@@ -417,6 +417,49 @@ struct Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse {
   fileprivate var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
 }
 
+struct Mavsdk_Rpc_Offboard_SetAccelerationNedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Acceleration
+  var accelerationNed: Mavsdk_Rpc_Offboard_AccelerationNed {
+    get {return _accelerationNed ?? Mavsdk_Rpc_Offboard_AccelerationNed()}
+    set {_accelerationNed = newValue}
+  }
+  /// Returns true if `accelerationNed` has been explicitly set.
+  var hasAccelerationNed: Bool {return self._accelerationNed != nil}
+  /// Clears the value of `accelerationNed`. Subsequent reads from it will return its default value.
+  mutating func clearAccelerationNed() {self._accelerationNed = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _accelerationNed: Mavsdk_Rpc_Offboard_AccelerationNed? = nil
+}
+
+struct Mavsdk_Rpc_Offboard_SetAccelerationNedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return self._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {self._offboardResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+}
+
 /// Type for attitude body angles in NED reference frame (roll, pitch, yaw and thrust)
 struct Mavsdk_Rpc_Offboard_Attitude {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -571,6 +614,26 @@ struct Mavsdk_Rpc_Offboard_VelocityNedYaw {
 
   /// Yaw in degrees (0 North, positive is clock-wise looking from above)
   var yawDeg: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Type for acceleration commands in NED (North East Down) coordinates.
+struct Mavsdk_Rpc_Offboard_AccelerationNed {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Acceleration North (in metres/second^2)
+  var northMS2: Float = 0
+
+  /// Acceleration East (in metres/second^2)
+  var eastMS2: Float = 0
+
+  /// Acceleration Down (in metres/second^2)
+  var downMS2: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1286,6 +1349,70 @@ extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse: SwiftProtobuf.Mess
   }
 }
 
+extension Mavsdk_Rpc_Offboard_SetAccelerationNedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetAccelerationNedRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "acceleration_ned"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._accelerationNed) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._accelerationNed {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetAccelerationNedRequest, rhs: Mavsdk_Rpc_Offboard_SetAccelerationNedRequest) -> Bool {
+    if lhs._accelerationNed != rhs._accelerationNed {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_SetAccelerationNedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetAccelerationNedResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._offboardResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._offboardResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetAccelerationNedResponse, rhs: Mavsdk_Rpc_Offboard_SetAccelerationNedResponse) -> Bool {
+    if lhs._offboardResult != rhs._offboardResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Offboard_Attitude: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Attitude"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1595,6 +1722,50 @@ extension Mavsdk_Rpc_Offboard_VelocityNedYaw: SwiftProtobuf.Message, SwiftProtob
     if lhs.eastMS != rhs.eastMS {return false}
     if lhs.downMS != rhs.downMS {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_AccelerationNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".AccelerationNed"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "north_m_s2"),
+    2: .standard(proto: "east_m_s2"),
+    3: .standard(proto: "down_m_s2"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.northMS2) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.eastMS2) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.downMS2) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.northMS2 != 0 {
+      try visitor.visitSingularFloatField(value: self.northMS2, fieldNumber: 1)
+    }
+    if self.eastMS2 != 0 {
+      try visitor.visitSingularFloatField(value: self.eastMS2, fieldNumber: 2)
+    }
+    if self.downMS2 != 0 {
+      try visitor.visitSingularFloatField(value: self.downMS2, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_AccelerationNed, rhs: Mavsdk_Rpc_Offboard_AccelerationNed) -> Bool {
+    if lhs.northMS2 != rhs.northMS2 {return false}
+    if lhs.eastMS2 != rhs.eastMS2 {return false}
+    if lhs.downMS2 != rhs.downMS2 {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

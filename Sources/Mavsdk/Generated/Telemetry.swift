@@ -704,6 +704,181 @@ public class Telemetry {
     }
 
     /**
+     Raw GPS information type.
+
+     Warning: this is an advanced type! If you want the location of the drone, use
+     the position instead. This message exposes the raw values of the GNSS sensor.
+     */
+    public struct RawGps: Equatable {
+        public let timestampUs: UInt64
+        public let latitudeDeg: Double
+        public let longitudeDeg: Double
+        public let absoluteAltitudeM: Float
+        public let hdop: Float
+        public let vdop: Float
+        public let velocityMS: Float
+        public let cogDeg: Float
+        public let altitudeEllipsoidM: Float
+        public let horizontalUncertaintyM: Float
+        public let verticalUncertaintyM: Float
+        public let velocityUncertaintyMS: Float
+        public let headingUncertaintyDeg: Float
+        public let yawDeg: Float
+
+        
+
+        /**
+         Initializes a new `RawGps`.
+
+         
+         - Parameters:
+            
+            - timestampUs:  Timestamp in microseconds (UNIX Epoch time or time since system boot, to be inferred)
+            
+            - latitudeDeg:  Latitude in degrees (WGS84, EGM96 ellipsoid)
+            
+            - longitudeDeg:  Longitude in degrees (WGS84, EGM96 ellipsoid)
+            
+            - absoluteAltitudeM:  Altitude AMSL (above mean sea level) in metres
+            
+            - hdop:  GPS HDOP horizontal dilution of position (unitless). If unknown, set to NaN
+            
+            - vdop:  GPS VDOP vertical dilution of position (unitless). If unknown, set to NaN
+            
+            - velocityMS:  Ground velocity in metres per second
+            
+            - cogDeg:  Course over ground (NOT heading, but direction of movement) in degrees. If unknown, set to NaN
+            
+            - altitudeEllipsoidM:  Altitude in metres (above WGS84, EGM96 ellipsoid)
+            
+            - horizontalUncertaintyM:  Position uncertainty in metres
+            
+            - verticalUncertaintyM:  Altitude uncertainty in metres
+            
+            - velocityUncertaintyMS:  Velocity uncertainty in metres per second
+            
+            - headingUncertaintyDeg:  Heading uncertainty in degrees
+            
+            - yawDeg:  Yaw in earth frame from north.
+            
+         
+         */
+        public init(timestampUs: UInt64, latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, hdop: Float, vdop: Float, velocityMS: Float, cogDeg: Float, altitudeEllipsoidM: Float, horizontalUncertaintyM: Float, verticalUncertaintyM: Float, velocityUncertaintyMS: Float, headingUncertaintyDeg: Float, yawDeg: Float) {
+            self.timestampUs = timestampUs
+            self.latitudeDeg = latitudeDeg
+            self.longitudeDeg = longitudeDeg
+            self.absoluteAltitudeM = absoluteAltitudeM
+            self.hdop = hdop
+            self.vdop = vdop
+            self.velocityMS = velocityMS
+            self.cogDeg = cogDeg
+            self.altitudeEllipsoidM = altitudeEllipsoidM
+            self.horizontalUncertaintyM = horizontalUncertaintyM
+            self.verticalUncertaintyM = verticalUncertaintyM
+            self.velocityUncertaintyMS = velocityUncertaintyMS
+            self.headingUncertaintyDeg = headingUncertaintyDeg
+            self.yawDeg = yawDeg
+        }
+
+        internal var rpcRawGps: Mavsdk_Rpc_Telemetry_RawGps {
+            var rpcRawGps = Mavsdk_Rpc_Telemetry_RawGps()
+            
+                
+            rpcRawGps.timestampUs = timestampUs
+                
+            
+            
+                
+            rpcRawGps.latitudeDeg = latitudeDeg
+                
+            
+            
+                
+            rpcRawGps.longitudeDeg = longitudeDeg
+                
+            
+            
+                
+            rpcRawGps.absoluteAltitudeM = absoluteAltitudeM
+                
+            
+            
+                
+            rpcRawGps.hdop = hdop
+                
+            
+            
+                
+            rpcRawGps.vdop = vdop
+                
+            
+            
+                
+            rpcRawGps.velocityMS = velocityMS
+                
+            
+            
+                
+            rpcRawGps.cogDeg = cogDeg
+                
+            
+            
+                
+            rpcRawGps.altitudeEllipsoidM = altitudeEllipsoidM
+                
+            
+            
+                
+            rpcRawGps.horizontalUncertaintyM = horizontalUncertaintyM
+                
+            
+            
+                
+            rpcRawGps.verticalUncertaintyM = verticalUncertaintyM
+                
+            
+            
+                
+            rpcRawGps.velocityUncertaintyMS = velocityUncertaintyMS
+                
+            
+            
+                
+            rpcRawGps.headingUncertaintyDeg = headingUncertaintyDeg
+                
+            
+            
+                
+            rpcRawGps.yawDeg = yawDeg
+                
+            
+
+            return rpcRawGps
+        }
+
+        internal static func translateFromRpc(_ rpcRawGps: Mavsdk_Rpc_Telemetry_RawGps) -> RawGps {
+            return RawGps(timestampUs: rpcRawGps.timestampUs, latitudeDeg: rpcRawGps.latitudeDeg, longitudeDeg: rpcRawGps.longitudeDeg, absoluteAltitudeM: rpcRawGps.absoluteAltitudeM, hdop: rpcRawGps.hdop, vdop: rpcRawGps.vdop, velocityMS: rpcRawGps.velocityMS, cogDeg: rpcRawGps.cogDeg, altitudeEllipsoidM: rpcRawGps.altitudeEllipsoidM, horizontalUncertaintyM: rpcRawGps.horizontalUncertaintyM, verticalUncertaintyM: rpcRawGps.verticalUncertaintyM, velocityUncertaintyMS: rpcRawGps.velocityUncertaintyMS, headingUncertaintyDeg: rpcRawGps.headingUncertaintyDeg, yawDeg: rpcRawGps.yawDeg)
+        }
+
+        public static func == (lhs: RawGps, rhs: RawGps) -> Bool {
+            return lhs.timestampUs == rhs.timestampUs
+                && lhs.latitudeDeg == rhs.latitudeDeg
+                && lhs.longitudeDeg == rhs.longitudeDeg
+                && lhs.absoluteAltitudeM == rhs.absoluteAltitudeM
+                && lhs.hdop == rhs.hdop
+                && lhs.vdop == rhs.vdop
+                && lhs.velocityMS == rhs.velocityMS
+                && lhs.cogDeg == rhs.cogDeg
+                && lhs.altitudeEllipsoidM == rhs.altitudeEllipsoidM
+                && lhs.horizontalUncertaintyM == rhs.horizontalUncertaintyM
+                && lhs.verticalUncertaintyM == rhs.verticalUncertaintyM
+                && lhs.velocityUncertaintyMS == rhs.velocityUncertaintyMS
+                && lhs.headingUncertaintyDeg == rhs.headingUncertaintyDeg
+                && lhs.yawDeg == rhs.yawDeg
+        }
+    }
+
+    /**
      Battery type.
      */
     public struct Battery: Equatable {
@@ -1474,6 +1649,88 @@ public class Telemetry {
     }
 
     /**
+     Scaled Pressure message type.
+     */
+    public struct ScaledPressure: Equatable {
+        public let timestampUs: UInt64
+        public let absolutePressureHpa: Float
+        public let differentialPressureHpa: Float
+        public let temperatureDeg: Float
+        public let differentialPressureTemperatureDeg: Float
+
+        
+
+        /**
+         Initializes a new `ScaledPressure`.
+
+         
+         - Parameters:
+            
+            - timestampUs:  Timestamp (time since system boot)
+            
+            - absolutePressureHpa:  Absolute pressure in hPa
+            
+            - differentialPressureHpa:  Differential pressure 1 in hPa
+            
+            - temperatureDeg:  Absolute pressure temperature (in celcius)
+            
+            - differentialPressureTemperatureDeg:  Differential pressure temperature (in celcius, 0 if not available)
+            
+         
+         */
+        public init(timestampUs: UInt64, absolutePressureHpa: Float, differentialPressureHpa: Float, temperatureDeg: Float, differentialPressureTemperatureDeg: Float) {
+            self.timestampUs = timestampUs
+            self.absolutePressureHpa = absolutePressureHpa
+            self.differentialPressureHpa = differentialPressureHpa
+            self.temperatureDeg = temperatureDeg
+            self.differentialPressureTemperatureDeg = differentialPressureTemperatureDeg
+        }
+
+        internal var rpcScaledPressure: Mavsdk_Rpc_Telemetry_ScaledPressure {
+            var rpcScaledPressure = Mavsdk_Rpc_Telemetry_ScaledPressure()
+            
+                
+            rpcScaledPressure.timestampUs = timestampUs
+                
+            
+            
+                
+            rpcScaledPressure.absolutePressureHpa = absolutePressureHpa
+                
+            
+            
+                
+            rpcScaledPressure.differentialPressureHpa = differentialPressureHpa
+                
+            
+            
+                
+            rpcScaledPressure.temperatureDeg = temperatureDeg
+                
+            
+            
+                
+            rpcScaledPressure.differentialPressureTemperatureDeg = differentialPressureTemperatureDeg
+                
+            
+
+            return rpcScaledPressure
+        }
+
+        internal static func translateFromRpc(_ rpcScaledPressure: Mavsdk_Rpc_Telemetry_ScaledPressure) -> ScaledPressure {
+            return ScaledPressure(timestampUs: rpcScaledPressure.timestampUs, absolutePressureHpa: rpcScaledPressure.absolutePressureHpa, differentialPressureHpa: rpcScaledPressure.differentialPressureHpa, temperatureDeg: rpcScaledPressure.temperatureDeg, differentialPressureTemperatureDeg: rpcScaledPressure.differentialPressureTemperatureDeg)
+        }
+
+        public static func == (lhs: ScaledPressure, rhs: ScaledPressure) -> Bool {
+            return lhs.timestampUs == rhs.timestampUs
+                && lhs.absolutePressureHpa == rhs.absolutePressureHpa
+                && lhs.differentialPressureHpa == rhs.differentialPressureHpa
+                && lhs.temperatureDeg == rhs.temperatureDeg
+                && lhs.differentialPressureTemperatureDeg == rhs.differentialPressureTemperatureDeg
+        }
+    }
+
+    /**
      PositionNed message type.
      */
     public struct PositionNed: Equatable {
@@ -1967,6 +2224,7 @@ public class Telemetry {
         public let angularVelocityFrd: AngularVelocityFrd
         public let magneticFieldFrd: MagneticFieldFrd
         public let temperatureDegc: Float
+        public let timestampUs: UInt64
 
         
 
@@ -1984,13 +2242,16 @@ public class Telemetry {
             
             - temperatureDegc:  Temperature
             
+            - timestampUs:  Timestamp in microseconds
+            
          
          */
-        public init(accelerationFrd: AccelerationFrd, angularVelocityFrd: AngularVelocityFrd, magneticFieldFrd: MagneticFieldFrd, temperatureDegc: Float) {
+        public init(accelerationFrd: AccelerationFrd, angularVelocityFrd: AngularVelocityFrd, magneticFieldFrd: MagneticFieldFrd, temperatureDegc: Float, timestampUs: UInt64) {
             self.accelerationFrd = accelerationFrd
             self.angularVelocityFrd = angularVelocityFrd
             self.magneticFieldFrd = magneticFieldFrd
             self.temperatureDegc = temperatureDegc
+            self.timestampUs = timestampUs
         }
 
         internal var rpcImu: Mavsdk_Rpc_Telemetry_Imu {
@@ -2015,12 +2276,17 @@ public class Telemetry {
             rpcImu.temperatureDegc = temperatureDegc
                 
             
+            
+                
+            rpcImu.timestampUs = timestampUs
+                
+            
 
             return rpcImu
         }
 
         internal static func translateFromRpc(_ rpcImu: Mavsdk_Rpc_Telemetry_Imu) -> Imu {
-            return Imu(accelerationFrd: AccelerationFrd.translateFromRpc(rpcImu.accelerationFrd), angularVelocityFrd: AngularVelocityFrd.translateFromRpc(rpcImu.angularVelocityFrd), magneticFieldFrd: MagneticFieldFrd.translateFromRpc(rpcImu.magneticFieldFrd), temperatureDegc: rpcImu.temperatureDegc)
+            return Imu(accelerationFrd: AccelerationFrd.translateFromRpc(rpcImu.accelerationFrd), angularVelocityFrd: AngularVelocityFrd.translateFromRpc(rpcImu.angularVelocityFrd), magneticFieldFrd: MagneticFieldFrd.translateFromRpc(rpcImu.magneticFieldFrd), temperatureDegc: rpcImu.temperatureDegc, timestampUs: rpcImu.timestampUs)
         }
 
         public static func == (lhs: Imu, rhs: Imu) -> Bool {
@@ -2028,6 +2294,7 @@ public class Telemetry {
                 && lhs.angularVelocityFrd == rhs.angularVelocityFrd
                 && lhs.magneticFieldFrd == rhs.magneticFieldFrd
                 && lhs.temperatureDegc == rhs.temperatureDegc
+                && lhs.timestampUs == rhs.timestampUs
         }
     }
 
@@ -2647,6 +2914,42 @@ public class Telemetry {
 
 
     /**
+     Subscribe to 'Raw GPS' updates.
+     */
+    public lazy var rawGps: Observable<RawGps> = createRawGpsObservable()
+
+
+
+    private func createRawGpsObservable() -> Observable<RawGps> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest()
+
+            
+
+            _ = self.service.subscribeRawGps(request, handler: { (response) in
+
+                
+                     
+                let rawGps = RawGps.translateFromRpc(response.rawGps)
+                
+
+                
+                observer.onNext(rawGps)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+
+    /**
      Subscribe to 'battery' updates.
      */
     public lazy var battery: Observable<Battery> = createBatteryObservable()
@@ -3043,7 +3346,7 @@ public class Telemetry {
 
 
     /**
-     Subscribe to 'IMU' updates.
+     Subscribe to 'IMU' updates (in SI units in NED body frame).
      */
     public lazy var imu: Observable<Imu> = createImuObservable()
 
@@ -3064,6 +3367,78 @@ public class Telemetry {
 
                 
                 observer.onNext(imu)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+
+    /**
+     Subscribe to 'Scaled IMU' updates.
+     */
+    public lazy var scaledImu: Observable<Imu> = createScaledImuObservable()
+
+
+
+    private func createScaledImuObservable() -> Observable<Imu> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest()
+
+            
+
+            _ = self.service.subscribeScaledImu(request, handler: { (response) in
+
+                
+                     
+                let scaledImu = Imu.translateFromRpc(response.imu)
+                
+
+                
+                observer.onNext(scaledImu)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+
+    /**
+     Subscribe to 'Raw IMU' updates.
+     */
+    public lazy var rawImu: Observable<Imu> = createRawImuObservable()
+
+
+
+    private func createRawImuObservable() -> Observable<Imu> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest()
+
+            
+
+            _ = self.service.subscribeRawImu(request, handler: { (response) in
+
+                
+                     
+                let rawImu = Imu.translateFromRpc(response.imu)
+                
+
+                
+                observer.onNext(rawImu)
                 
             })
 
@@ -3174,6 +3549,42 @@ public class Telemetry {
 
                 
                 observer.onNext(distanceSensor)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+
+    /**
+     Subscribe to 'Scaled Pressure' updates.
+     */
+    public lazy var scaledPressure: Observable<ScaledPressure> = createScaledPressureObservable()
+
+
+
+    private func createScaledPressureObservable() -> Observable<ScaledPressure> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest()
+
+            
+
+            _ = self.service.subscribeScaledPressure(request, handler: { (response) in
+
+                
+                     
+                let scaledPressure = ScaledPressure.translateFromRpc(response.scaledPressure)
+                
+
+                
+                observer.onNext(scaledPressure)
                 
             })
 
@@ -3766,6 +4177,76 @@ public class Telemetry {
             do {
                 
                 let response = self.service.setRateImu(request)
+
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set rate to 'Scaled IMU' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
+    public func setRateScaledImu(rateHz: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest()
+
+            
+                
+            request.rateHz = rateHz
+                
+            
+
+            do {
+                
+                let response = self.service.setRateScaledImu(request)
+
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set rate to 'Raw IMU' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
+    public func setRateRawImu(rateHz: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Telemetry_SetRateRawImuRequest()
+
+            
+                
+            request.rateHz = rateHz
+                
+            
+
+            do {
+                
+                let response = self.service.setRateRawImu(request)
 
                 let result = try response.response.wait().telemetryResult
                 if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {

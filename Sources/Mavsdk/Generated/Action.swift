@@ -670,6 +670,42 @@ public class Action {
     }
 
     /**
+     Send command to hold position (a.k.a. "Loiter").
+
+     Sends a command to drone to change to Hold flight mode, causing the
+     vehicle to stop and maintain its current GPS position and altitude.
+
+     Note: this command is specific to the PX4 Autopilot flight stack as
+     it implies a change to a PX4-specific mode.
+
+     
+     */
+    public func hold() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Action_HoldRequest()
+
+            
+
+            do {
+                
+                let response = self.service.hold(request)
+
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
      Send command to transition the drone to fixedwing.
 
      The associated action will only be executed for VTOL vehicles (on other vehicle types the

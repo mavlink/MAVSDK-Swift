@@ -303,7 +303,7 @@ public class Mission {
          
          - Parameters:
             
-            - current:  Current mission item index (0-based)
+            - current:  Current mission item index (0-based), if equal to total, the mission is finished
             
             - total:  Total number of mission items
             
@@ -372,10 +372,6 @@ public class Mission {
             case unsupported
             ///  No mission available on the system.
             case noMissionAvailable
-            ///  Failed to open the QGroundControl plan.
-            case failedToOpenQgcPlan
-            ///  Failed to parse the QGroundControl plan.
-            case failedToParseQgcPlan
             ///  Unsupported mission command.
             case unsupportedMissionCmd
             ///  Mission transfer (upload or download) has been cancelled.
@@ -402,10 +398,6 @@ public class Mission {
                     return .unsupported
                 case .noMissionAvailable:
                     return .noMissionAvailable
-                case .failedToOpenQgcPlan:
-                    return .failedToOpenQgcPlan
-                case .failedToParseQgcPlan:
-                    return .failedToParseQgcPlan
                 case .unsupportedMissionCmd:
                     return .unsupportedMissionCmd
                 case .transferCancelled:
@@ -435,10 +427,6 @@ public class Mission {
                     return .unsupported
                 case .noMissionAvailable:
                     return .noMissionAvailable
-                case .failedToOpenQgcPlan:
-                    return .failedToOpenQgcPlan
-                case .failedToParseQgcPlan:
-                    return .failedToParseQgcPlan
                 case .unsupportedMissionCmd:
                     return .unsupportedMissionCmd
                 case .transferCancelled:
@@ -907,49 +895,6 @@ public class Mission {
                 
             } catch {
                 completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Import a QGroundControl (QGC) mission plan.
-
-     The method will fail if any of the imported mission items are not supported
-     by the MAVSDK API.
-
-     - Parameter qgcPlanPath: File path of the QGC plan
-     
-     */
-    public func importQgroundcontrolMission(qgcPlanPath: String) -> Single<MissionPlan> {
-        return Single<MissionPlan>.create { single in
-            var request = Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest()
-
-            
-                
-            request.qgcPlanPath = qgcPlanPath
-                
-            
-
-            do {
-                let response = self.service.importQgroundcontrolMission(request)
-
-                
-                let result = try response.response.wait().missionResult
-                if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-
-                    return Disposables.create()
-                }
-                
-
-    	    
-                    let missionPlan = try MissionPlan.translateFromRpc(response.response.wait().missionPlan)
-                
-                single(.success(missionPlan))
-            } catch {
-                single(.error(error))
             }
 
             return Disposables.create()

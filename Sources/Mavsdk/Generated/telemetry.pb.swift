@@ -723,6 +723,38 @@ struct Mavsdk_Rpc_Telemetry_GpsInfoResponse {
   fileprivate var _gpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo? = nil
 }
 
+struct Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_RawGpsResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next 'Raw GPS' state. Warning: this is an advanced feature, use `Position` updates to get the location of the drone!
+  var rawGps: Mavsdk_Rpc_Telemetry_RawGps {
+    get {return _rawGps ?? Mavsdk_Rpc_Telemetry_RawGps()}
+    set {_rawGps = newValue}
+  }
+  /// Returns true if `rawGps` has been explicitly set.
+  var hasRawGps: Bool {return self._rawGps != nil}
+  /// Clears the value of `rawGps`. Subsequent reads from it will return its default value.
+  mutating func clearRawGps() {self._rawGps = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _rawGps: Mavsdk_Rpc_Telemetry_RawGps? = nil
+}
+
 struct Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1098,6 +1130,70 @@ struct Mavsdk_Rpc_Telemetry_ImuResponse {
   fileprivate var _imu: Mavsdk_Rpc_Telemetry_Imu? = nil
 }
 
+struct Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_ScaledImuResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next scaled IMU status
+  var imu: Mavsdk_Rpc_Telemetry_Imu {
+    get {return _imu ?? Mavsdk_Rpc_Telemetry_Imu()}
+    set {_imu = newValue}
+  }
+  /// Returns true if `imu` has been explicitly set.
+  var hasImu: Bool {return self._imu != nil}
+  /// Clears the value of `imu`. Subsequent reads from it will return its default value.
+  mutating func clearImu() {self._imu = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _imu: Mavsdk_Rpc_Telemetry_Imu? = nil
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_RawImuResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next raw IMU status
+  var imu: Mavsdk_Rpc_Telemetry_Imu {
+    get {return _imu ?? Mavsdk_Rpc_Telemetry_Imu()}
+    set {_imu = newValue}
+  }
+  /// Returns true if `imu` has been explicitly set.
+  var hasImu: Bool {return self._imu != nil}
+  /// Clears the value of `imu`. Subsequent reads from it will return its default value.
+  mutating func clearImu() {self._imu = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _imu: Mavsdk_Rpc_Telemetry_Imu? = nil
+}
+
 struct Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1174,6 +1270,38 @@ struct Mavsdk_Rpc_Telemetry_DistanceSensorResponse {
   init() {}
 
   fileprivate var _distanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor? = nil
+}
+
+struct Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_ScaledPressureResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next Scaled Pressure status
+  var scaledPressure: Mavsdk_Rpc_Telemetry_ScaledPressure {
+    get {return _scaledPressure ?? Mavsdk_Rpc_Telemetry_ScaledPressure()}
+    set {_scaledPressure = newValue}
+  }
+  /// Returns true if `scaledPressure` has been explicitly set.
+  var hasScaledPressure: Bool {return self._scaledPressure != nil}
+  /// Clears the value of `scaledPressure`. Subsequent reads from it will return its default value.
+  mutating func clearScaledPressure() {self._scaledPressure = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _scaledPressure: Mavsdk_Rpc_Telemetry_ScaledPressure? = nil
 }
 
 struct Mavsdk_Rpc_Telemetry_SetRatePositionRequest {
@@ -1516,6 +1644,19 @@ struct Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse {
   fileprivate var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
 }
 
+struct Mavsdk_Rpc_Telemetry_SetRateRawGpsRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Mavsdk_Rpc_Telemetry_SetRateBatteryRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1822,6 +1963,74 @@ struct Mavsdk_Rpc_Telemetry_SetRateImuResponse {
   fileprivate var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
 }
 
+struct Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return self._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {self._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateRawImuRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The requested rate (in Hertz)
+  var rateHz: Double = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Telemetry_SetRateRawImuResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
+    get {return _telemetryResult ?? Mavsdk_Rpc_Telemetry_TelemetryResult()}
+    set {_telemetryResult = newValue}
+  }
+  /// Returns true if `telemetryResult` has been explicitly set.
+  var hasTelemetryResult: Bool {return self._telemetryResult != nil}
+  /// Clears the value of `telemetryResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryResult() {self._telemetryResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _telemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult? = nil
+}
+
 struct Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -2048,6 +2257,63 @@ struct Mavsdk_Rpc_Telemetry_GpsInfo {
 
   /// Fix type
   var fixType: Mavsdk_Rpc_Telemetry_FixType = .noGps
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+///
+/// Raw GPS information type.
+///
+/// Warning: this is an advanced type! If you want the location of the drone, use
+/// the position instead. This message exposes the raw values of the GNSS sensor.
+struct Mavsdk_Rpc_Telemetry_RawGps {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Timestamp in microseconds (UNIX Epoch time or time since system boot, to be inferred)
+  var timestampUs: UInt64 = 0
+
+  /// Latitude in degrees (WGS84, EGM96 ellipsoid)
+  var latitudeDeg: Double = 0
+
+  /// Longitude in degrees (WGS84, EGM96 ellipsoid)
+  var longitudeDeg: Double = 0
+
+  /// Altitude AMSL (above mean sea level) in metres
+  var absoluteAltitudeM: Float = 0
+
+  /// GPS HDOP horizontal dilution of position (unitless). If unknown, set to NaN
+  var hdop: Float = 0
+
+  /// GPS VDOP vertical dilution of position (unitless). If unknown, set to NaN
+  var vdop: Float = 0
+
+  /// Ground velocity in metres per second
+  var velocityMS: Float = 0
+
+  /// Course over ground (NOT heading, but direction of movement) in degrees. If unknown, set to NaN
+  var cogDeg: Float = 0
+
+  /// Altitude in metres (above WGS84, EGM96 ellipsoid)
+  var altitudeEllipsoidM: Float = 0
+
+  /// Position uncertainty in metres
+  var horizontalUncertaintyM: Float = 0
+
+  /// Altitude uncertainty in metres
+  var verticalUncertaintyM: Float = 0
+
+  /// Velocity uncertainty in metres per second
+  var velocityUncertaintyMS: Float = 0
+
+  /// Heading uncertainty in degrees
+  var headingUncertaintyDeg: Float = 0
+
+  /// Yaw in earth frame from north.
+  var yawDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2401,6 +2667,32 @@ struct Mavsdk_Rpc_Telemetry_DistanceSensor {
   init() {}
 }
 
+/// Scaled Pressure message type.
+struct Mavsdk_Rpc_Telemetry_ScaledPressure {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Timestamp (time since system boot)
+  var timestampUs: UInt64 = 0
+
+  /// Absolute pressure in hPa
+  var absolutePressureHpa: Float = 0
+
+  /// Differential pressure 1 in hPa
+  var differentialPressureHpa: Float = 0
+
+  /// Absolute pressure temperature (in celcius)
+  var temperatureDeg: Float = 0
+
+  /// Differential pressure temperature (in celcius, 0 if not available)
+  var differentialPressureTemperatureDeg: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// PositionNed message type.
 struct Mavsdk_Rpc_Telemetry_PositionNed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -2613,6 +2905,9 @@ struct Mavsdk_Rpc_Telemetry_Imu {
 
   /// Temperature
   var temperatureDegc: Float = 0
+
+  /// Timestamp in microseconds
+  var timestampUs: UInt64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3406,6 +3701,57 @@ extension Mavsdk_Rpc_Telemetry_GpsInfoResponse: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeRawGpsRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_RawGpsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".RawGpsResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "raw_gps"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._rawGps) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._rawGps {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_RawGpsResponse, rhs: Mavsdk_Rpc_Telemetry_RawGpsResponse) -> Bool {
+    if lhs._rawGps != rhs._rawGps {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeBatteryRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -4018,6 +4364,108 @@ extension Mavsdk_Rpc_Telemetry_ImuResponse: SwiftProtobuf.Message, SwiftProtobuf
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeScaledImuRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_ScaledImuResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ScaledImuResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "imu"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._imu) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._imu {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_ScaledImuResponse, rhs: Mavsdk_Rpc_Telemetry_ScaledImuResponse) -> Bool {
+    if lhs._imu != rhs._imu {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeRawImuRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_RawImuResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".RawImuResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "imu"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._imu) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._imu {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_RawImuResponse, rhs: Mavsdk_Rpc_Telemetry_RawImuResponse) -> Bool {
+    if lhs._imu != rhs._imu {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SubscribeHealthAllOkRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -4166,6 +4614,57 @@ extension Mavsdk_Rpc_Telemetry_DistanceSensorResponse: SwiftProtobuf.Message, Sw
 
   static func ==(lhs: Mavsdk_Rpc_Telemetry_DistanceSensorResponse, rhs: Mavsdk_Rpc_Telemetry_DistanceSensorResponse) -> Bool {
     if lhs._distanceSensor != rhs._distanceSensor {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeScaledPressureRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, rhs: Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_ScaledPressureResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ScaledPressureResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "scaled_pressure"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._scaledPressure) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._scaledPressure {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_ScaledPressureResponse, rhs: Mavsdk_Rpc_Telemetry_ScaledPressureResponse) -> Bool {
+    if lhs._scaledPressure != rhs._scaledPressure {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4811,6 +5310,38 @@ extension Mavsdk_Rpc_Telemetry_SetRateGpsInfoResponse: SwiftProtobuf.Message, Sw
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SetRateRawGpsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateRawGpsRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.rateHz) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateRawGpsRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateRawGpsRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_SetRateBatteryRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetRateBatteryRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -5387,6 +5918,134 @@ extension Mavsdk_Rpc_Telemetry_SetRateImuResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateScaledImuRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.rateHz) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateScaledImuResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._telemetryResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._telemetryResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse) -> Bool {
+    if lhs._telemetryResult != rhs._telemetryResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateRawImuRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateRawImuRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "rate_hz"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.rateHz) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rateHz != 0 {
+      try visitor.visitSingularDoubleField(value: self.rateHz, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateRawImuRequest, rhs: Mavsdk_Rpc_Telemetry_SetRateRawImuRequest) -> Bool {
+    if lhs.rateHz != rhs.rateHz {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_SetRateRawImuResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetRateRawImuResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._telemetryResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._telemetryResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_SetRateRawImuResponse, rhs: Mavsdk_Rpc_Telemetry_SetRateRawImuResponse) -> Bool {
+    if lhs._telemetryResult != rhs._telemetryResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".SetRateUnixEpochTimeRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -5805,6 +6464,116 @@ extension Mavsdk_Rpc_Telemetry_GpsInfo: SwiftProtobuf.Message, SwiftProtobuf._Me
   static func ==(lhs: Mavsdk_Rpc_Telemetry_GpsInfo, rhs: Mavsdk_Rpc_Telemetry_GpsInfo) -> Bool {
     if lhs.numSatellites != rhs.numSatellites {return false}
     if lhs.fixType != rhs.fixType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Telemetry_RawGps: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".RawGps"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "timestamp_us"),
+    2: .standard(proto: "latitude_deg"),
+    3: .standard(proto: "longitude_deg"),
+    4: .standard(proto: "absolute_altitude_m"),
+    5: .same(proto: "hdop"),
+    6: .same(proto: "vdop"),
+    7: .standard(proto: "velocity_m_s"),
+    8: .standard(proto: "cog_deg"),
+    9: .standard(proto: "altitude_ellipsoid_m"),
+    10: .standard(proto: "horizontal_uncertainty_m"),
+    11: .standard(proto: "vertical_uncertainty_m"),
+    12: .standard(proto: "velocity_uncertainty_m_s"),
+    13: .standard(proto: "heading_uncertainty_deg"),
+    14: .standard(proto: "yaw_deg"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.timestampUs) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.latitudeDeg) }()
+      case 3: try { try decoder.decodeSingularDoubleField(value: &self.longitudeDeg) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.absoluteAltitudeM) }()
+      case 5: try { try decoder.decodeSingularFloatField(value: &self.hdop) }()
+      case 6: try { try decoder.decodeSingularFloatField(value: &self.vdop) }()
+      case 7: try { try decoder.decodeSingularFloatField(value: &self.velocityMS) }()
+      case 8: try { try decoder.decodeSingularFloatField(value: &self.cogDeg) }()
+      case 9: try { try decoder.decodeSingularFloatField(value: &self.altitudeEllipsoidM) }()
+      case 10: try { try decoder.decodeSingularFloatField(value: &self.horizontalUncertaintyM) }()
+      case 11: try { try decoder.decodeSingularFloatField(value: &self.verticalUncertaintyM) }()
+      case 12: try { try decoder.decodeSingularFloatField(value: &self.velocityUncertaintyMS) }()
+      case 13: try { try decoder.decodeSingularFloatField(value: &self.headingUncertaintyDeg) }()
+      case 14: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timestampUs != 0 {
+      try visitor.visitSingularUInt64Field(value: self.timestampUs, fieldNumber: 1)
+    }
+    if self.latitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latitudeDeg, fieldNumber: 2)
+    }
+    if self.longitudeDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.longitudeDeg, fieldNumber: 3)
+    }
+    if self.absoluteAltitudeM != 0 {
+      try visitor.visitSingularFloatField(value: self.absoluteAltitudeM, fieldNumber: 4)
+    }
+    if self.hdop != 0 {
+      try visitor.visitSingularFloatField(value: self.hdop, fieldNumber: 5)
+    }
+    if self.vdop != 0 {
+      try visitor.visitSingularFloatField(value: self.vdop, fieldNumber: 6)
+    }
+    if self.velocityMS != 0 {
+      try visitor.visitSingularFloatField(value: self.velocityMS, fieldNumber: 7)
+    }
+    if self.cogDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.cogDeg, fieldNumber: 8)
+    }
+    if self.altitudeEllipsoidM != 0 {
+      try visitor.visitSingularFloatField(value: self.altitudeEllipsoidM, fieldNumber: 9)
+    }
+    if self.horizontalUncertaintyM != 0 {
+      try visitor.visitSingularFloatField(value: self.horizontalUncertaintyM, fieldNumber: 10)
+    }
+    if self.verticalUncertaintyM != 0 {
+      try visitor.visitSingularFloatField(value: self.verticalUncertaintyM, fieldNumber: 11)
+    }
+    if self.velocityUncertaintyMS != 0 {
+      try visitor.visitSingularFloatField(value: self.velocityUncertaintyMS, fieldNumber: 12)
+    }
+    if self.headingUncertaintyDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.headingUncertaintyDeg, fieldNumber: 13)
+    }
+    if self.yawDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 14)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_RawGps, rhs: Mavsdk_Rpc_Telemetry_RawGps) -> Bool {
+    if lhs.timestampUs != rhs.timestampUs {return false}
+    if lhs.latitudeDeg != rhs.latitudeDeg {return false}
+    if lhs.longitudeDeg != rhs.longitudeDeg {return false}
+    if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
+    if lhs.hdop != rhs.hdop {return false}
+    if lhs.vdop != rhs.vdop {return false}
+    if lhs.velocityMS != rhs.velocityMS {return false}
+    if lhs.cogDeg != rhs.cogDeg {return false}
+    if lhs.altitudeEllipsoidM != rhs.altitudeEllipsoidM {return false}
+    if lhs.horizontalUncertaintyM != rhs.horizontalUncertaintyM {return false}
+    if lhs.verticalUncertaintyM != rhs.verticalUncertaintyM {return false}
+    if lhs.velocityUncertaintyMS != rhs.velocityUncertaintyMS {return false}
+    if lhs.headingUncertaintyDeg != rhs.headingUncertaintyDeg {return false}
+    if lhs.yawDeg != rhs.yawDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6375,6 +7144,62 @@ extension Mavsdk_Rpc_Telemetry_DistanceSensor: SwiftProtobuf.Message, SwiftProto
   }
 }
 
+extension Mavsdk_Rpc_Telemetry_ScaledPressure: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ScaledPressure"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "timestamp_us"),
+    2: .standard(proto: "absolute_pressure_hpa"),
+    3: .standard(proto: "differential_pressure_hpa"),
+    4: .standard(proto: "temperature_deg"),
+    5: .standard(proto: "differential_pressure_temperature_deg"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.timestampUs) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.absolutePressureHpa) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.differentialPressureHpa) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.temperatureDeg) }()
+      case 5: try { try decoder.decodeSingularFloatField(value: &self.differentialPressureTemperatureDeg) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timestampUs != 0 {
+      try visitor.visitSingularUInt64Field(value: self.timestampUs, fieldNumber: 1)
+    }
+    if self.absolutePressureHpa != 0 {
+      try visitor.visitSingularFloatField(value: self.absolutePressureHpa, fieldNumber: 2)
+    }
+    if self.differentialPressureHpa != 0 {
+      try visitor.visitSingularFloatField(value: self.differentialPressureHpa, fieldNumber: 3)
+    }
+    if self.temperatureDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.temperatureDeg, fieldNumber: 4)
+    }
+    if self.differentialPressureTemperatureDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.differentialPressureTemperatureDeg, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Telemetry_ScaledPressure, rhs: Mavsdk_Rpc_Telemetry_ScaledPressure) -> Bool {
+    if lhs.timestampUs != rhs.timestampUs {return false}
+    if lhs.absolutePressureHpa != rhs.absolutePressureHpa {return false}
+    if lhs.differentialPressureHpa != rhs.differentialPressureHpa {return false}
+    if lhs.temperatureDeg != rhs.temperatureDeg {return false}
+    if lhs.differentialPressureTemperatureDeg != rhs.differentialPressureTemperatureDeg {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Telemetry_PositionNed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PositionNed"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -6728,6 +7553,7 @@ extension Mavsdk_Rpc_Telemetry_Imu: SwiftProtobuf.Message, SwiftProtobuf._Messag
     2: .standard(proto: "angular_velocity_frd"),
     3: .standard(proto: "magnetic_field_frd"),
     4: .standard(proto: "temperature_degc"),
+    5: .standard(proto: "timestamp_us"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6740,6 +7566,7 @@ extension Mavsdk_Rpc_Telemetry_Imu: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 2: try { try decoder.decodeSingularMessageField(value: &self._angularVelocityFrd) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._magneticFieldFrd) }()
       case 4: try { try decoder.decodeSingularFloatField(value: &self.temperatureDegc) }()
+      case 5: try { try decoder.decodeSingularUInt64Field(value: &self.timestampUs) }()
       default: break
       }
     }
@@ -6758,6 +7585,9 @@ extension Mavsdk_Rpc_Telemetry_Imu: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.temperatureDegc != 0 {
       try visitor.visitSingularFloatField(value: self.temperatureDegc, fieldNumber: 4)
     }
+    if self.timestampUs != 0 {
+      try visitor.visitSingularUInt64Field(value: self.timestampUs, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -6766,6 +7596,7 @@ extension Mavsdk_Rpc_Telemetry_Imu: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs._angularVelocityFrd != rhs._angularVelocityFrd {return false}
     if lhs._magneticFieldFrd != rhs._magneticFieldFrd {return false}
     if lhs.temperatureDegc != rhs.temperatureDegc {return false}
+    if lhs.timestampUs != rhs.timestampUs {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

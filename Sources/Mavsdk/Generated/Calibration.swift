@@ -502,8 +502,14 @@ public class Calibration {
 
             do {
                 
-                let _ = try self.service.cancel(request)
-                completable(.completed)
+                let response = self.service.cancel(request)
+
+                let result = try response.response.wait().calibrationResult
+                if (result.result == Mavsdk_Rpc_Calibration_CalibrationResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(CalibrationError(code: CalibrationResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
                 
             } catch {
                 completable(.error(error))

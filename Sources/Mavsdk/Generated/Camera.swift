@@ -584,6 +584,7 @@ public class Camera {
         public let bitRateBS: UInt32
         public let rotationDeg: UInt32
         public let uri: String
+        public let horizontalFovDeg: Float
 
         
 
@@ -605,15 +606,18 @@ public class Camera {
             
             - uri:  Video stream URI
             
+            - horizontalFovDeg:  Horizontal fov in degrees
+            
          
          */
-        public init(frameRateHz: Float, horizontalResolutionPix: UInt32, verticalResolutionPix: UInt32, bitRateBS: UInt32, rotationDeg: UInt32, uri: String) {
+        public init(frameRateHz: Float, horizontalResolutionPix: UInt32, verticalResolutionPix: UInt32, bitRateBS: UInt32, rotationDeg: UInt32, uri: String, horizontalFovDeg: Float) {
             self.frameRateHz = frameRateHz
             self.horizontalResolutionPix = horizontalResolutionPix
             self.verticalResolutionPix = verticalResolutionPix
             self.bitRateBS = bitRateBS
             self.rotationDeg = rotationDeg
             self.uri = uri
+            self.horizontalFovDeg = horizontalFovDeg
         }
 
         internal var rpcVideoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings {
@@ -648,12 +652,17 @@ public class Camera {
             rpcVideoStreamSettings.uri = uri
                 
             
+            
+                
+            rpcVideoStreamSettings.horizontalFovDeg = horizontalFovDeg
+                
+            
 
             return rpcVideoStreamSettings
         }
 
         internal static func translateFromRpc(_ rpcVideoStreamSettings: Mavsdk_Rpc_Camera_VideoStreamSettings) -> VideoStreamSettings {
-            return VideoStreamSettings(frameRateHz: rpcVideoStreamSettings.frameRateHz, horizontalResolutionPix: rpcVideoStreamSettings.horizontalResolutionPix, verticalResolutionPix: rpcVideoStreamSettings.verticalResolutionPix, bitRateBS: rpcVideoStreamSettings.bitRateBS, rotationDeg: rpcVideoStreamSettings.rotationDeg, uri: rpcVideoStreamSettings.uri)
+            return VideoStreamSettings(frameRateHz: rpcVideoStreamSettings.frameRateHz, horizontalResolutionPix: rpcVideoStreamSettings.horizontalResolutionPix, verticalResolutionPix: rpcVideoStreamSettings.verticalResolutionPix, bitRateBS: rpcVideoStreamSettings.bitRateBS, rotationDeg: rpcVideoStreamSettings.rotationDeg, uri: rpcVideoStreamSettings.uri, horizontalFovDeg: rpcVideoStreamSettings.horizontalFovDeg)
         }
 
         public static func == (lhs: VideoStreamSettings, rhs: VideoStreamSettings) -> Bool {
@@ -663,6 +672,7 @@ public class Camera {
                 && lhs.bitRateBS == rhs.bitRateBS
                 && lhs.rotationDeg == rhs.rotationDeg
                 && lhs.uri == rhs.uri
+                && lhs.horizontalFovDeg == rhs.horizontalFovDeg
         }
     }
 
@@ -672,6 +682,7 @@ public class Camera {
     public struct VideoStreamInfo: Equatable {
         public let settings: VideoStreamSettings
         public let status: VideoStreamStatus
+        public let spectrum: VideoStreamSpectrum
 
         
         
@@ -709,6 +720,47 @@ public class Camera {
             }
         }
         
+        
+
+        /**
+         Video stream light spectrum type
+         */
+        public enum VideoStreamSpectrum: Equatable {
+            ///  Unknown.
+            case unknown
+            ///  Visible light.
+            case visibleLight
+            ///  Infrared.
+            case infrared
+            case UNRECOGNIZED(Int)
+
+            internal var rpcVideoStreamSpectrum: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum {
+                switch self {
+                case .unknown:
+                    return .unknown
+                case .visibleLight:
+                    return .visibleLight
+                case .infrared:
+                    return .infrared
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+
+            internal static func translateFromRpc(_ rpcVideoStreamSpectrum: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum) -> VideoStreamSpectrum {
+                switch rpcVideoStreamSpectrum {
+                case .unknown:
+                    return .unknown
+                case .visibleLight:
+                    return .visibleLight
+                case .infrared:
+                    return .infrared
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+        }
+        
 
         /**
          Initializes a new `VideoStreamInfo`.
@@ -720,11 +772,14 @@ public class Camera {
             
             - status:  Current status of video streaming
             
+            - spectrum:  Light-spectrum of the video stream
+            
          
          */
-        public init(settings: VideoStreamSettings, status: VideoStreamStatus) {
+        public init(settings: VideoStreamSettings, status: VideoStreamStatus, spectrum: VideoStreamSpectrum) {
             self.settings = settings
             self.status = status
+            self.spectrum = spectrum
         }
 
         internal var rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo {
@@ -739,17 +794,23 @@ public class Camera {
             rpcVideoStreamInfo.status = status.rpcVideoStreamStatus
                 
             
+            
+                
+            rpcVideoStreamInfo.spectrum = spectrum.rpcVideoStreamSpectrum
+                
+            
 
             return rpcVideoStreamInfo
         }
 
         internal static func translateFromRpc(_ rpcVideoStreamInfo: Mavsdk_Rpc_Camera_VideoStreamInfo) -> VideoStreamInfo {
-            return VideoStreamInfo(settings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.settings), status: VideoStreamStatus.translateFromRpc(rpcVideoStreamInfo.status))
+            return VideoStreamInfo(settings: VideoStreamSettings.translateFromRpc(rpcVideoStreamInfo.settings), status: VideoStreamStatus.translateFromRpc(rpcVideoStreamInfo.status), spectrum: VideoStreamSpectrum.translateFromRpc(rpcVideoStreamInfo.spectrum))
         }
 
         public static func == (lhs: VideoStreamInfo, rhs: VideoStreamInfo) -> Bool {
             return lhs.settings == rhs.settings
                 && lhs.status == rhs.status
+                && lhs.spectrum == rhs.spectrum
         }
     }
 
@@ -779,6 +840,8 @@ public class Camera {
             case unformatted
             ///  Storage is formatted (i.e. has recognized a file system).
             case formatted
+            ///  Storage status is not supported.
+            case notSupported
             case UNRECOGNIZED(Int)
 
             internal var rpcStorageStatus: Mavsdk_Rpc_Camera_Status.StorageStatus {
@@ -789,6 +852,8 @@ public class Camera {
                     return .unformatted
                 case .formatted:
                     return .formatted
+                case .notSupported:
+                    return .notSupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -802,6 +867,8 @@ public class Camera {
                     return .unformatted
                 case .formatted:
                     return .formatted
+                case .notSupported:
+                    return .notSupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -1108,6 +1175,11 @@ public class Camera {
     public struct Information: Equatable {
         public let vendorName: String
         public let modelName: String
+        public let focalLengthMm: Float
+        public let horizontalSensorSizeMm: Float
+        public let verticalSensorSizeMm: Float
+        public let horizontalResolutionPx: UInt32
+        public let verticalResolutionPx: UInt32
 
         
 
@@ -1121,11 +1193,26 @@ public class Camera {
             
             - modelName:  Name of the camera model
             
+            - focalLengthMm:  Focal length
+            
+            - horizontalSensorSizeMm:  Horizontal sensor size
+            
+            - verticalSensorSizeMm:  Vertical sensor size
+            
+            - horizontalResolutionPx:  Horizontal image resolution in pixels
+            
+            - verticalResolutionPx:  Vertical image resolution in pixels
+            
          
          */
-        public init(vendorName: String, modelName: String) {
+        public init(vendorName: String, modelName: String, focalLengthMm: Float, horizontalSensorSizeMm: Float, verticalSensorSizeMm: Float, horizontalResolutionPx: UInt32, verticalResolutionPx: UInt32) {
             self.vendorName = vendorName
             self.modelName = modelName
+            self.focalLengthMm = focalLengthMm
+            self.horizontalSensorSizeMm = horizontalSensorSizeMm
+            self.verticalSensorSizeMm = verticalSensorSizeMm
+            self.horizontalResolutionPx = horizontalResolutionPx
+            self.verticalResolutionPx = verticalResolutionPx
         }
 
         internal var rpcInformation: Mavsdk_Rpc_Camera_Information {
@@ -1140,17 +1227,47 @@ public class Camera {
             rpcInformation.modelName = modelName
                 
             
+            
+                
+            rpcInformation.focalLengthMm = focalLengthMm
+                
+            
+            
+                
+            rpcInformation.horizontalSensorSizeMm = horizontalSensorSizeMm
+                
+            
+            
+                
+            rpcInformation.verticalSensorSizeMm = verticalSensorSizeMm
+                
+            
+            
+                
+            rpcInformation.horizontalResolutionPx = horizontalResolutionPx
+                
+            
+            
+                
+            rpcInformation.verticalResolutionPx = verticalResolutionPx
+                
+            
 
             return rpcInformation
         }
 
         internal static func translateFromRpc(_ rpcInformation: Mavsdk_Rpc_Camera_Information) -> Information {
-            return Information(vendorName: rpcInformation.vendorName, modelName: rpcInformation.modelName)
+            return Information(vendorName: rpcInformation.vendorName, modelName: rpcInformation.modelName, focalLengthMm: rpcInformation.focalLengthMm, horizontalSensorSizeMm: rpcInformation.horizontalSensorSizeMm, verticalSensorSizeMm: rpcInformation.verticalSensorSizeMm, horizontalResolutionPx: rpcInformation.horizontalResolutionPx, verticalResolutionPx: rpcInformation.verticalResolutionPx)
         }
 
         public static func == (lhs: Information, rhs: Information) -> Bool {
             return lhs.vendorName == rhs.vendorName
                 && lhs.modelName == rhs.modelName
+                && lhs.focalLengthMm == rhs.focalLengthMm
+                && lhs.horizontalSensorSizeMm == rhs.horizontalSensorSizeMm
+                && lhs.verticalSensorSizeMm == rhs.verticalSensorSizeMm
+                && lhs.horizontalResolutionPx == rhs.horizontalResolutionPx
+                && lhs.verticalResolutionPx == rhs.verticalResolutionPx
         }
     }
 

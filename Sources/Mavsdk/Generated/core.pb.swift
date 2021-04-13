@@ -81,9 +81,6 @@ struct Mavsdk_Rpc_Core_ConnectionState {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// UUID of the vehicle
-  var uuid: UInt64 = 0
-
   /// Whether the vehicle got connected or disconnected
   var isConnected: Bool = false
 
@@ -221,7 +218,6 @@ extension Mavsdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Message, Swi
 extension Mavsdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ConnectionState"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "uuid"),
     2: .standard(proto: "is_connected"),
   ]
 
@@ -231,7 +227,6 @@ extension Mavsdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.uuid) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.isConnected) }()
       default: break
       }
@@ -239,9 +234,6 @@ extension Mavsdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.uuid != 0 {
-      try visitor.visitSingularUInt64Field(value: self.uuid, fieldNumber: 1)
-    }
     if self.isConnected != false {
       try visitor.visitSingularBoolField(value: self.isConnected, fieldNumber: 2)
     }
@@ -249,7 +241,6 @@ extension Mavsdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf.
   }
 
   static func ==(lhs: Mavsdk_Rpc_Core_ConnectionState, rhs: Mavsdk_Rpc_Core_ConnectionState) -> Bool {
-    if lhs.uuid != rhs.uuid {return false}
     if lhs.isConnected != rhs.isConnected {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

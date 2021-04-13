@@ -52,7 +52,6 @@ public class Core {
      Connection state type.
      */
     public struct ConnectionState: Equatable {
-        public let uuid: UInt64
         public let isConnected: Bool
 
         
@@ -61,26 +60,15 @@ public class Core {
          Initializes a new `ConnectionState`.
 
          
-         - Parameters:
-            
-            - uuid:  UUID of the vehicle
-            
-            - isConnected:  Whether the vehicle got connected or disconnected
-            
+         - Parameter isConnected:  Whether the vehicle got connected or disconnected
          
          */
-        public init(uuid: UInt64, isConnected: Bool) {
-            self.uuid = uuid
+        public init(isConnected: Bool) {
             self.isConnected = isConnected
         }
 
         internal var rpcConnectionState: Mavsdk_Rpc_Core_ConnectionState {
             var rpcConnectionState = Mavsdk_Rpc_Core_ConnectionState()
-            
-                
-            rpcConnectionState.uuid = uuid
-                
-            
             
                 
             rpcConnectionState.isConnected = isConnected
@@ -91,12 +79,11 @@ public class Core {
         }
 
         internal static func translateFromRpc(_ rpcConnectionState: Mavsdk_Rpc_Core_ConnectionState) -> ConnectionState {
-            return ConnectionState(uuid: rpcConnectionState.uuid, isConnected: rpcConnectionState.isConnected)
+            return ConnectionState(isConnected: rpcConnectionState.isConnected)
         }
 
         public static func == (lhs: ConnectionState, rhs: ConnectionState) -> Bool {
-            return lhs.uuid == rhs.uuid
-                && lhs.isConnected == rhs.isConnected
+            return lhs.isConnected == rhs.isConnected
         }
     }
 

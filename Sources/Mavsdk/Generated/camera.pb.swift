@@ -991,6 +991,9 @@ struct Mavsdk_Rpc_Camera_VideoStreamSettings {
   /// Video stream URI
   var uri: String = String()
 
+  /// Horizontal fov in degrees
+  var horizontalFovDeg: Float = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -1014,6 +1017,9 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
 
   /// Current status of video streaming
   var status: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus = .notRunning
+
+  /// Light-spectrum of the video stream
+  var spectrum: Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum = .unknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1050,6 +1056,44 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
 
   }
 
+  /// Video stream light spectrum type
+  enum VideoStreamSpectrum: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+
+    /// Unknown
+    case unknown // = 0
+
+    /// Visible light
+    case visibleLight // = 1
+
+    /// Infrared
+    case infrared // = 2
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .unknown
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 1: self = .visibleLight
+      case 2: self = .infrared
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .visibleLight: return 1
+      case .infrared: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
   init() {}
 
   fileprivate var _settings: Mavsdk_Rpc_Camera_VideoStreamSettings? = nil
@@ -1062,6 +1106,15 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
   static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
     .notRunning,
     .inProgress,
+  ]
+}
+
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum] = [
+    .unknown,
+    .visibleLight,
+    .infrared,
   ]
 }
 
@@ -1111,6 +1164,9 @@ struct Mavsdk_Rpc_Camera_Status {
 
     /// Storage is formatted (i.e. has recognized a file system)
     case formatted // = 2
+
+    /// Storage status is not supported
+    case notSupported // = 3
     case UNRECOGNIZED(Int)
 
     init() {
@@ -1122,6 +1178,7 @@ struct Mavsdk_Rpc_Camera_Status {
       case 0: self = .notAvailable
       case 1: self = .unformatted
       case 2: self = .formatted
+      case 3: self = .notSupported
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -1131,6 +1188,7 @@ struct Mavsdk_Rpc_Camera_Status {
       case .notAvailable: return 0
       case .unformatted: return 1
       case .formatted: return 2
+      case .notSupported: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -1148,6 +1206,7 @@ extension Mavsdk_Rpc_Camera_Status.StorageStatus: CaseIterable {
     .notAvailable,
     .unformatted,
     .formatted,
+    .notSupported,
   ]
 }
 
@@ -1236,6 +1295,21 @@ struct Mavsdk_Rpc_Camera_Information {
 
   /// Name of the camera model
   var modelName: String = String()
+
+  /// Focal length
+  var focalLengthMm: Float = 0
+
+  /// Horizontal sensor size
+  var horizontalSensorSizeMm: Float = 0
+
+  /// Vertical sensor size
+  var verticalSensorSizeMm: Float = 0
+
+  /// Horizontal image resolution in pixels
+  var horizontalResolutionPx: UInt32 = 0
+
+  /// Vertical image resolution in pixels
+  var verticalResolutionPx: UInt32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2579,6 +2653,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftPro
     4: .standard(proto: "bit_rate_b_s"),
     5: .standard(proto: "rotation_deg"),
     6: .same(proto: "uri"),
+    7: .standard(proto: "horizontal_fov_deg"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2593,6 +2668,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftPro
       case 4: try { try decoder.decodeSingularUInt32Field(value: &self.bitRateBS) }()
       case 5: try { try decoder.decodeSingularUInt32Field(value: &self.rotationDeg) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.uri) }()
+      case 7: try { try decoder.decodeSingularFloatField(value: &self.horizontalFovDeg) }()
       default: break
       }
     }
@@ -2617,6 +2693,9 @@ extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftPro
     if !self.uri.isEmpty {
       try visitor.visitSingularStringField(value: self.uri, fieldNumber: 6)
     }
+    if self.horizontalFovDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.horizontalFovDeg, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2627,6 +2706,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamSettings: SwiftProtobuf.Message, SwiftPro
     if lhs.bitRateBS != rhs.bitRateBS {return false}
     if lhs.rotationDeg != rhs.rotationDeg {return false}
     if lhs.uri != rhs.uri {return false}
+    if lhs.horizontalFovDeg != rhs.horizontalFovDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2637,6 +2717,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "settings"),
     2: .same(proto: "status"),
+    3: .same(proto: "spectrum"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2647,6 +2728,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._settings) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.spectrum) }()
       default: break
       }
     }
@@ -2659,12 +2741,16 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo: SwiftProtobuf.Message, SwiftProtobu
     if self.status != .notRunning {
       try visitor.visitSingularEnumField(value: self.status, fieldNumber: 2)
     }
+    if self.spectrum != .unknown {
+      try visitor.visitSingularEnumField(value: self.spectrum, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Camera_VideoStreamInfo, rhs: Mavsdk_Rpc_Camera_VideoStreamInfo) -> Bool {
     if lhs._settings != rhs._settings {return false}
     if lhs.status != rhs.status {return false}
+    if lhs.spectrum != rhs.spectrum {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2674,6 +2760,14 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: SwiftProtobuf._Pr
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "VIDEO_STREAM_STATUS_NOT_RUNNING"),
     1: .same(proto: "VIDEO_STREAM_STATUS_IN_PROGRESS"),
+  ]
+}
+
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "VIDEO_STREAM_SPECTRUM_UNKNOWN"),
+    1: .same(proto: "VIDEO_STREAM_SPECTRUM_VISIBLE_LIGHT"),
+    2: .same(proto: "VIDEO_STREAM_SPECTRUM_INFRARED"),
   ]
 }
 
@@ -2756,6 +2850,7 @@ extension Mavsdk_Rpc_Camera_Status.StorageStatus: SwiftProtobuf._ProtoNameProvid
     0: .same(proto: "STORAGE_STATUS_NOT_AVAILABLE"),
     1: .same(proto: "STORAGE_STATUS_UNFORMATTED"),
     2: .same(proto: "STORAGE_STATUS_FORMATTED"),
+    3: .same(proto: "STORAGE_STATUS_NOT_SUPPORTED"),
   ]
 }
 
@@ -2902,6 +2997,11 @@ extension Mavsdk_Rpc_Camera_Information: SwiftProtobuf.Message, SwiftProtobuf._M
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "vendor_name"),
     2: .standard(proto: "model_name"),
+    3: .standard(proto: "focal_length_mm"),
+    4: .standard(proto: "horizontal_sensor_size_mm"),
+    5: .standard(proto: "vertical_sensor_size_mm"),
+    6: .standard(proto: "horizontal_resolution_px"),
+    7: .standard(proto: "vertical_resolution_px"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2912,6 +3012,11 @@ extension Mavsdk_Rpc_Camera_Information: SwiftProtobuf.Message, SwiftProtobuf._M
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.vendorName) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.modelName) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.focalLengthMm) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.horizontalSensorSizeMm) }()
+      case 5: try { try decoder.decodeSingularFloatField(value: &self.verticalSensorSizeMm) }()
+      case 6: try { try decoder.decodeSingularUInt32Field(value: &self.horizontalResolutionPx) }()
+      case 7: try { try decoder.decodeSingularUInt32Field(value: &self.verticalResolutionPx) }()
       default: break
       }
     }
@@ -2924,12 +3029,32 @@ extension Mavsdk_Rpc_Camera_Information: SwiftProtobuf.Message, SwiftProtobuf._M
     if !self.modelName.isEmpty {
       try visitor.visitSingularStringField(value: self.modelName, fieldNumber: 2)
     }
+    if self.focalLengthMm != 0 {
+      try visitor.visitSingularFloatField(value: self.focalLengthMm, fieldNumber: 3)
+    }
+    if self.horizontalSensorSizeMm != 0 {
+      try visitor.visitSingularFloatField(value: self.horizontalSensorSizeMm, fieldNumber: 4)
+    }
+    if self.verticalSensorSizeMm != 0 {
+      try visitor.visitSingularFloatField(value: self.verticalSensorSizeMm, fieldNumber: 5)
+    }
+    if self.horizontalResolutionPx != 0 {
+      try visitor.visitSingularUInt32Field(value: self.horizontalResolutionPx, fieldNumber: 6)
+    }
+    if self.verticalResolutionPx != 0 {
+      try visitor.visitSingularUInt32Field(value: self.verticalResolutionPx, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Camera_Information, rhs: Mavsdk_Rpc_Camera_Information) -> Bool {
     if lhs.vendorName != rhs.vendorName {return false}
     if lhs.modelName != rhs.modelName {return false}
+    if lhs.focalLengthMm != rhs.focalLengthMm {return false}
+    if lhs.horizontalSensorSizeMm != rhs.horizontalSensorSizeMm {return false}
+    if lhs.verticalSensorSizeMm != rhs.verticalSensorSizeMm {return false}
+    if lhs.horizontalResolutionPx != rhs.horizontalResolutionPx {return false}
+    if lhs.verticalResolutionPx != rhs.verticalResolutionPx {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -68,7 +68,7 @@ public class MissionRaw {
          
          - Parameters:
             
-            - current:  Current mission item index (0-based)
+            - current:  Current mission item index (0-based), if equal to total, the mission is finished
             
             - total:  Total number of mission items
             
@@ -268,6 +268,68 @@ public class MissionRaw {
     }
 
     /**
+     Mission import data
+     */
+    public struct MissionImportData: Equatable {
+        public let missionItems: [MissionItem]
+        public let geofenceItems: [MissionItem]
+        public let rallyItems: [MissionItem]
+
+        
+
+        /**
+         Initializes a new `MissionImportData`.
+
+         
+         - Parameters:
+            
+            - missionItems:  Mission items
+            
+            - geofenceItems:  Geofence items
+            
+            - rallyItems:  Rally items
+            
+         
+         */
+        public init(missionItems: [MissionItem], geofenceItems: [MissionItem], rallyItems: [MissionItem]) {
+            self.missionItems = missionItems
+            self.geofenceItems = geofenceItems
+            self.rallyItems = rallyItems
+        }
+
+        internal var rpcMissionImportData: Mavsdk_Rpc_MissionRaw_MissionImportData {
+            var rpcMissionImportData = Mavsdk_Rpc_MissionRaw_MissionImportData()
+            
+                
+            rpcMissionImportData.missionItems = missionItems.map{ $0.rpcMissionItem }
+                
+            
+            
+                
+            rpcMissionImportData.geofenceItems = geofenceItems.map{ $0.rpcMissionItem }
+                
+            
+            
+                
+            rpcMissionImportData.rallyItems = rallyItems.map{ $0.rpcMissionItem }
+                
+            
+
+            return rpcMissionImportData
+        }
+
+        internal static func translateFromRpc(_ rpcMissionImportData: Mavsdk_Rpc_MissionRaw_MissionImportData) -> MissionImportData {
+            return MissionImportData(missionItems: rpcMissionImportData.missionItems.map{ MissionItem.translateFromRpc($0) }, geofenceItems: rpcMissionImportData.geofenceItems.map{ MissionItem.translateFromRpc($0) }, rallyItems: rpcMissionImportData.rallyItems.map{ MissionItem.translateFromRpc($0) })
+        }
+
+        public static func == (lhs: MissionImportData, rhs: MissionImportData) -> Bool {
+            return lhs.missionItems == rhs.missionItems
+                && lhs.geofenceItems == rhs.geofenceItems
+                && lhs.rallyItems == rhs.rallyItems
+        }
+    }
+
+    /**
      Result type.
      */
     public struct MissionRawResult: Equatable {
@@ -301,6 +363,10 @@ public class MissionRaw {
             case noMissionAvailable
             ///  Mission transfer (upload or download) has been cancelled.
             case transferCancelled
+            ///  Failed to open the QGroundControl plan.
+            case failedToOpenQgcPlan
+            ///  Failed to parse the QGroundControl plan.
+            case failedToParseQgcPlan
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_MissionRaw_MissionRawResult.Result {
@@ -325,6 +391,10 @@ public class MissionRaw {
                     return .noMissionAvailable
                 case .transferCancelled:
                     return .transferCancelled
+                case .failedToOpenQgcPlan:
+                    return .failedToOpenQgcPlan
+                case .failedToParseQgcPlan:
+                    return .failedToParseQgcPlan
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -352,6 +422,10 @@ public class MissionRaw {
                     return .noMissionAvailable
                 case .transferCancelled:
                     return .transferCancelled
+                case .failedToOpenQgcPlan:
+                    return .failedToOpenQgcPlan
+                case .failedToParseQgcPlan:
+                    return .failedToParseQgcPlan
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -748,5 +822,51 @@ public class MissionRaw {
             }
         }
         .share(replay: 1)
+    }
+
+    /**
+     Import a QGroundControl missions in JSON .plan format.
+
+     Supported:
+     - Waypoints
+     - Survey
+     Not supported:
+     - Structure Scan
+
+     - Parameter qgcPlanPath: File path of the QGC plan
+     
+     */
+    public func importQgroundcontrolMission(qgcPlanPath: String) -> Single<MissionImportData> {
+        return Single<MissionImportData>.create { single in
+            var request = Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest()
+
+            
+                
+            request.qgcPlanPath = qgcPlanPath
+                
+            
+
+            do {
+                let response = self.service.importQgroundcontrolMission(request)
+
+                
+                let result = try response.response.wait().missionRawResult
+                if (result.result != Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
+                    single(.error(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    
+                    let missionImportData = try MissionImportData.translateFromRpc(response.response.wait().missionImportData)
+                
+                single(.success(missionImportData))
+            } catch {
+                single(.error(error))
+            }
+
+            return Disposables.create()
+        }
     }
 }

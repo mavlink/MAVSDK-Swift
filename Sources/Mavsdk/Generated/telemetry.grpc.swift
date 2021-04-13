@@ -106,6 +106,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_GpsInfoResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>
 
+  func subscribeRawGps(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_RawGpsResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest, Mavsdk_Rpc_Telemetry_RawGpsResponse>
+
   func subscribeBattery(
     _ request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest,
     callOptions: CallOptions?,
@@ -178,6 +184,18 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_ImuResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>
 
+  func subscribeScaledImu(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ScaledImuResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest, Mavsdk_Rpc_Telemetry_ScaledImuResponse>
+
+  func subscribeRawImu(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_RawImuResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest, Mavsdk_Rpc_Telemetry_RawImuResponse>
+
   func subscribeHealthAllOk(
     _ request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest,
     callOptions: CallOptions?,
@@ -195,6 +213,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_Telemetry_DistanceSensorResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>
+
+  func subscribeScaledPressure(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ScaledPressureResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse>
 
   func setRatePosition(
     _ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest,
@@ -280,6 +304,16 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     _ request: Mavsdk_Rpc_Telemetry_SetRateImuRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>
+
+  func setRateScaledImu(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest, Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse>
+
+  func setRateRawImu(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateRawImuRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRawImuRequest, Mavsdk_Rpc_Telemetry_SetRateRawImuResponse>
 
   func setRateUnixEpochTime(
     _ request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest,
@@ -554,6 +588,27 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
+  /// Subscribe to 'Raw GPS' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeRawGps.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeRawGps(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_RawGpsResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest, Mavsdk_Rpc_Telemetry_RawGpsResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRawGps",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeRawGpsInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
   /// Subscribe to 'battery' updates.
   ///
   /// - Parameters:
@@ -785,7 +840,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
-  /// Subscribe to 'IMU' updates.
+  /// Subscribe to 'IMU' updates (in SI units in NED body frame).
   ///
   /// - Parameters:
   ///   - request: Request to send to SubscribeImu.
@@ -802,6 +857,48 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSubscribeImuInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'Scaled IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeScaledImu.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeScaledImu(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ScaledImuResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest, Mavsdk_Rpc_Telemetry_ScaledImuResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeScaledImu",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeScaledImuInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'Raw IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeRawImu.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeRawImu(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_RawImuResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest, Mavsdk_Rpc_Telemetry_RawImuResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeRawImu",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeRawImuInterceptors() ?? [],
       handler: handler
     )
   }
@@ -865,6 +962,27 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSubscribeDistanceSensorInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
+  /// Subscribe to 'Scaled Pressure' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeScaledPressure.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeScaledPressure(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_ScaledPressureResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeScaledPressure",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeScaledPressureInterceptors() ?? [],
       handler: handler
     )
   }
@@ -1175,6 +1293,42 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
+  /// Set rate to 'Scaled IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateScaledImu.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateScaledImu(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest, Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateScaledImu",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateScaledImuInterceptors() ?? []
+    )
+  }
+
+  /// Set rate to 'Raw IMU' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateRawImu.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateRawImu(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateRawImuRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateRawImuRequest, Mavsdk_Rpc_Telemetry_SetRateRawImuResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateRawImu",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateRawImuInterceptors() ?? []
+    )
+  }
+
   /// Set rate to 'unix epoch time' updates.
   ///
   /// - Parameters:
@@ -1268,6 +1422,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'subscribeGpsInfo'.
   func makeSubscribeGpsInfoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeRawGps'.
+  func makeSubscribeRawGpsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest, Mavsdk_Rpc_Telemetry_RawGpsResponse>]
+
   /// - Returns: Interceptors to use when invoking 'subscribeBattery'.
   func makeSubscribeBatteryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>]
 
@@ -1304,6 +1461,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'subscribeImu'.
   func makeSubscribeImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeScaledImu'.
+  func makeSubscribeScaledImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest, Mavsdk_Rpc_Telemetry_ScaledImuResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeRawImu'.
+  func makeSubscribeRawImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest, Mavsdk_Rpc_Telemetry_RawImuResponse>]
+
   /// - Returns: Interceptors to use when invoking 'subscribeHealthAllOk'.
   func makeSubscribeHealthAllOkInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>]
 
@@ -1312,6 +1475,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
 
   /// - Returns: Interceptors to use when invoking 'subscribeDistanceSensor'.
   func makeSubscribeDistanceSensorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeScaledPressure'.
+  func makeSubscribeScaledPressureInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse>]
 
   /// - Returns: Interceptors to use when invoking 'setRatePosition'.
   func makeSetRatePositionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
@@ -1363,6 +1529,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
 
   /// - Returns: Interceptors to use when invoking 'setRateImu'.
   func makeSetRateImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateScaledImu'.
+  func makeSetRateScaledImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest, Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateRawImu'.
+  func makeSetRateRawImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateRawImuRequest, Mavsdk_Rpc_Telemetry_SetRateRawImuResponse>]
 
   /// - Returns: Interceptors to use when invoking 'setRateUnixEpochTime'.
   func makeSetRateUnixEpochTimeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>]
@@ -1440,6 +1612,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   /// Subscribe to 'GPS info' updates.
   func subscribeGpsInfo(request: Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_GpsInfoResponse>) -> EventLoopFuture<GRPCStatus>
 
+  /// Subscribe to 'Raw GPS' updates.
+  func subscribeRawGps(request: Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_RawGpsResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'battery' updates.
   func subscribeBattery(request: Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_BatteryResponse>) -> EventLoopFuture<GRPCStatus>
 
@@ -1473,8 +1648,14 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   /// Subscribe to 'fixedwing metrics' updates.
   func subscribeFixedwingMetrics(request: Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_FixedwingMetricsResponse>) -> EventLoopFuture<GRPCStatus>
 
-  /// Subscribe to 'IMU' updates.
+  /// Subscribe to 'IMU' updates (in SI units in NED body frame).
   func subscribeImu(request: Mavsdk_Rpc_Telemetry_SubscribeImuRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ImuResponse>) -> EventLoopFuture<GRPCStatus>
+
+  /// Subscribe to 'Scaled IMU' updates.
+  func subscribeScaledImu(request: Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ScaledImuResponse>) -> EventLoopFuture<GRPCStatus>
+
+  /// Subscribe to 'Raw IMU' updates.
+  func subscribeRawImu(request: Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_RawImuResponse>) -> EventLoopFuture<GRPCStatus>
 
   /// Subscribe to 'HealthAllOk' updates.
   func subscribeHealthAllOk(request: Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HealthAllOkResponse>) -> EventLoopFuture<GRPCStatus>
@@ -1484,6 +1665,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
 
   /// Subscribe to 'Distance Sensor' updates.
   func subscribeDistanceSensor(request: Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>) -> EventLoopFuture<GRPCStatus>
+
+  /// Subscribe to 'Scaled Pressure' updates.
+  func subscribeScaledPressure(request: Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ScaledPressureResponse>) -> EventLoopFuture<GRPCStatus>
 
   /// Set rate to 'position' updates.
   func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
@@ -1535,6 +1719,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
 
   /// Set rate to 'IMU' updates.
   func setRateImu(request: Mavsdk_Rpc_Telemetry_SetRateImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateImuResponse>
+
+  /// Set rate to 'Scaled IMU' updates.
+  func setRateScaledImu(request: Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse>
+
+  /// Set rate to 'Raw IMU' updates.
+  func setRateRawImu(request: Mavsdk_Rpc_Telemetry_SetRateRawImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateRawImuResponse>
 
   /// Set rate to 'unix epoch time' updates.
   func setRateUnixEpochTime(request: Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeResponse>
@@ -1664,6 +1854,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.subscribeGpsInfo(request:context:)
       )
 
+    case "SubscribeRawGps":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_RawGpsResponse>(),
+        interceptors: self.interceptors?.makeSubscribeRawGpsInterceptors() ?? [],
+        userFunction: self.subscribeRawGps(request:context:)
+      )
+
     case "SubscribeBattery":
       return ServerStreamingServerHandler(
         context: context,
@@ -1772,6 +1971,24 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.subscribeImu(request:context:)
       )
 
+    case "SubscribeScaledImu":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ScaledImuResponse>(),
+        interceptors: self.interceptors?.makeSubscribeScaledImuInterceptors() ?? [],
+        userFunction: self.subscribeScaledImu(request:context:)
+      )
+
+    case "SubscribeRawImu":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_RawImuResponse>(),
+        interceptors: self.interceptors?.makeSubscribeRawImuInterceptors() ?? [],
+        userFunction: self.subscribeRawImu(request:context:)
+      )
+
     case "SubscribeHealthAllOk":
       return ServerStreamingServerHandler(
         context: context,
@@ -1797,6 +2014,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_DistanceSensorResponse>(),
         interceptors: self.interceptors?.makeSubscribeDistanceSensorInterceptors() ?? [],
         userFunction: self.subscribeDistanceSensor(request:context:)
+      )
+
+    case "SubscribeScaledPressure":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ScaledPressureResponse>(),
+        interceptors: self.interceptors?.makeSubscribeScaledPressureInterceptors() ?? [],
+        userFunction: self.subscribeScaledPressure(request:context:)
       )
 
     case "SetRatePosition":
@@ -1952,6 +2178,24 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.setRateImu(request:context:)
       )
 
+    case "SetRateScaledImu":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse>(),
+        interceptors: self.interceptors?.makeSetRateScaledImuInterceptors() ?? [],
+        userFunction: self.setRateScaledImu(request:context:)
+      )
+
+    case "SetRateRawImu":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateRawImuRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateRawImuResponse>(),
+        interceptors: self.interceptors?.makeSetRateRawImuInterceptors() ?? [],
+        userFunction: self.setRateRawImu(request:context:)
+      )
+
     case "SetRateUnixEpochTime":
       return UnaryServerHandler(
         context: context,
@@ -2035,6 +2279,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeGpsInfoInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest, Mavsdk_Rpc_Telemetry_GpsInfoResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeRawGps'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeRawGpsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest, Mavsdk_Rpc_Telemetry_RawGpsResponse>]
+
   /// - Returns: Interceptors to use when handling 'subscribeBattery'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeBatteryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest, Mavsdk_Rpc_Telemetry_BatteryResponse>]
@@ -2083,6 +2331,14 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeImuRequest, Mavsdk_Rpc_Telemetry_ImuResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeScaledImu'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeScaledImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest, Mavsdk_Rpc_Telemetry_ScaledImuResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeRawImu'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeRawImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest, Mavsdk_Rpc_Telemetry_RawImuResponse>]
+
   /// - Returns: Interceptors to use when handling 'subscribeHealthAllOk'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeHealthAllOkInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest, Mavsdk_Rpc_Telemetry_HealthAllOkResponse>]
@@ -2094,6 +2350,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   /// - Returns: Interceptors to use when handling 'subscribeDistanceSensor'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeDistanceSensorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest, Mavsdk_Rpc_Telemetry_DistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeScaledPressure'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeScaledPressureInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse>]
 
   /// - Returns: Interceptors to use when handling 'setRatePosition'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -2162,6 +2422,14 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   /// - Returns: Interceptors to use when handling 'setRateImu'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetRateImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateImuRequest, Mavsdk_Rpc_Telemetry_SetRateImuResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateScaledImu'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateScaledImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest, Mavsdk_Rpc_Telemetry_SetRateScaledImuResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateRawImu'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateRawImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateRawImuRequest, Mavsdk_Rpc_Telemetry_SetRateRawImuResponse>]
 
   /// - Returns: Interceptors to use when handling 'setRateUnixEpochTime'.
   ///   Defaults to calling `self.makeInterceptors()`.

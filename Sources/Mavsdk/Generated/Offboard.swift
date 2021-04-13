@@ -515,6 +515,68 @@ public class Offboard {
     }
 
     /**
+     Type for acceleration commands in NED (North East Down) coordinates.
+     */
+    public struct AccelerationNed: Equatable {
+        public let northMS2: Float
+        public let eastMS2: Float
+        public let downMS2: Float
+
+        
+
+        /**
+         Initializes a new `AccelerationNed`.
+
+         
+         - Parameters:
+            
+            - northMS2:  Acceleration North (in metres/second^2)
+            
+            - eastMS2:  Acceleration East (in metres/second^2)
+            
+            - downMS2:  Acceleration Down (in metres/second^2)
+            
+         
+         */
+        public init(northMS2: Float, eastMS2: Float, downMS2: Float) {
+            self.northMS2 = northMS2
+            self.eastMS2 = eastMS2
+            self.downMS2 = downMS2
+        }
+
+        internal var rpcAccelerationNed: Mavsdk_Rpc_Offboard_AccelerationNed {
+            var rpcAccelerationNed = Mavsdk_Rpc_Offboard_AccelerationNed()
+            
+                
+            rpcAccelerationNed.northMS2 = northMS2
+                
+            
+            
+                
+            rpcAccelerationNed.eastMS2 = eastMS2
+                
+            
+            
+                
+            rpcAccelerationNed.downMS2 = downMS2
+                
+            
+
+            return rpcAccelerationNed
+        }
+
+        internal static func translateFromRpc(_ rpcAccelerationNed: Mavsdk_Rpc_Offboard_AccelerationNed) -> AccelerationNed {
+            return AccelerationNed(northMS2: rpcAccelerationNed.northMS2, eastMS2: rpcAccelerationNed.eastMS2, downMS2: rpcAccelerationNed.downMS2)
+        }
+
+        public static func == (lhs: AccelerationNed, rhs: AccelerationNed) -> Bool {
+            return lhs.northMS2 == rhs.northMS2
+                && lhs.eastMS2 == rhs.eastMS2
+                && lhs.downMS2 == rhs.downMS2
+        }
+    }
+
+    /**
      Result type.
      */
     public struct OffboardResult: Equatable {
@@ -968,6 +1030,41 @@ public class Offboard {
             do {
                 
                 let response = self.service.setPositionVelocityNed(request)
+
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set the acceleration in NED coordinates.
+
+     - Parameter accelerationNed: Acceleration
+     
+     */
+    public func setAccelerationNed(accelerationNed: AccelerationNed) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Offboard_SetAccelerationNedRequest()
+
+            
+                
+            request.accelerationNed = accelerationNed.rpcAccelerationNed
+                
+            
+
+            do {
+                
+                let response = self.service.setAccelerationNed(request)
 
                 let result = try response.response.wait().offboardResult
                 if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {

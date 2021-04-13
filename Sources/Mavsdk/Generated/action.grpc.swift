@@ -87,6 +87,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse>
 
+  func hold(
+    _ request: Mavsdk_Rpc_Action_HoldRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse>
+
   func transitionToFixedwing(
     _ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest,
     callOptions: CallOptions?
@@ -378,6 +383,31 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   }
 
   ///
+  /// Send command to hold position (a.k.a. "Loiter").
+  ///
+  /// Sends a command to drone to change to Hold flight mode, causing the
+  /// vehicle to stop and maintain its current GPS position and altitude.
+  ///
+  /// Note: this command is specific to the PX4 Autopilot flight stack as
+  /// it implies a change to a PX4-specific mode.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Hold.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func hold(
+    _ request: Mavsdk_Rpc_Action_HoldRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/Hold",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeHoldInterceptors() ?? []
+    )
+  }
+
+  ///
   /// Send command to transition the drone to fixedwing.
   ///
   /// The associated action will only be executed for VTOL vehicles (on other vehicle types the
@@ -573,6 +603,9 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when invoking 'doOrbit'.
   func makeDoOrbitInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'hold'.
+  func makeHoldInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse>]
+
   /// - Returns: Interceptors to use when invoking 'transitionToFixedwing'.
   func makeTransitionToFixedwingInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>]
 
@@ -704,6 +737,16 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   ///
   /// This will run the orbit routine with the given parameters.
   func doOrbit(request: Mavsdk_Rpc_Action_DoOrbitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_DoOrbitResponse>
+
+  ///
+  /// Send command to hold position (a.k.a. "Loiter").
+  ///
+  /// Sends a command to drone to change to Hold flight mode, causing the
+  /// vehicle to stop and maintain its current GPS position and altitude.
+  ///
+  /// Note: this command is specific to the PX4 Autopilot flight stack as
+  /// it implies a change to a PX4-specific mode.
+  func hold(request: Mavsdk_Rpc_Action_HoldRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_HoldResponse>
 
   ///
   /// Send command to transition the drone to fixedwing.
@@ -855,6 +898,15 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         userFunction: self.doOrbit(request:context:)
       )
 
+    case "Hold":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_HoldRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_HoldResponse>(),
+        interceptors: self.interceptors?.makeHoldInterceptors() ?? [],
+        userFunction: self.hold(request:context:)
+      )
+
     case "TransitionToFixedwing":
       return UnaryServerHandler(
         context: context,
@@ -978,6 +1030,10 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when handling 'doOrbit'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeDoOrbitInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_DoOrbitRequest, Mavsdk_Rpc_Action_DoOrbitResponse>]
+
+  /// - Returns: Interceptors to use when handling 'hold'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeHoldInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse>]
 
   /// - Returns: Interceptors to use when handling 'transitionToFixedwing'.
   ///   Defaults to calling `self.makeInterceptors()`.

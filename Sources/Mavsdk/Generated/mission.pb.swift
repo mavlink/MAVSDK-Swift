@@ -428,51 +428,6 @@ struct Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse {
   fileprivate var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
 }
 
-struct Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// File path of the QGC plan
-  var qgcPlanPath: String = String()
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
-    get {return _missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
-    set {_missionResult = newValue}
-  }
-  /// Returns true if `missionResult` has been explicitly set.
-  var hasMissionResult: Bool {return self._missionResult != nil}
-  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
-  mutating func clearMissionResult() {self._missionResult = nil}
-
-  /// The mission plan
-  var missionPlan: Mavsdk_Rpc_Mission_MissionPlan {
-    get {return _missionPlan ?? Mavsdk_Rpc_Mission_MissionPlan()}
-    set {_missionPlan = newValue}
-  }
-  /// Returns true if `missionPlan` has been explicitly set.
-  var hasMissionPlan: Bool {return self._missionPlan != nil}
-  /// Clears the value of `missionPlan`. Subsequent reads from it will return its default value.
-  mutating func clearMissionPlan() {self._missionPlan = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
-  fileprivate var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
-}
-
 ///
 /// Type representing a mission item.
 ///
@@ -609,7 +564,7 @@ struct Mavsdk_Rpc_Mission_MissionProgress {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Current mission item index (0-based)
+  /// Current mission item index (0-based), if equal to total, the mission is finished
   var current: Int32 = 0
 
   /// Total number of mission items
@@ -665,12 +620,6 @@ struct Mavsdk_Rpc_Mission_MissionResult {
     /// No mission available on the system
     case noMissionAvailable // = 8
 
-    /// Failed to open the QGroundControl plan
-    case failedToOpenQgcPlan // = 9
-
-    /// Failed to parse the QGroundControl plan
-    case failedToParseQgcPlan // = 10
-
     /// Unsupported mission command
     case unsupportedMissionCmd // = 11
 
@@ -693,8 +642,6 @@ struct Mavsdk_Rpc_Mission_MissionResult {
       case 6: self = .invalidArgument
       case 7: self = .unsupported
       case 8: self = .noMissionAvailable
-      case 9: self = .failedToOpenQgcPlan
-      case 10: self = .failedToParseQgcPlan
       case 11: self = .unsupportedMissionCmd
       case 12: self = .transferCancelled
       default: self = .UNRECOGNIZED(rawValue)
@@ -712,8 +659,6 @@ struct Mavsdk_Rpc_Mission_MissionResult {
       case .invalidArgument: return 6
       case .unsupported: return 7
       case .noMissionAvailable: return 8
-      case .failedToOpenQgcPlan: return 9
-      case .failedToParseQgcPlan: return 10
       case .unsupportedMissionCmd: return 11
       case .transferCancelled: return 12
       case .UNRECOGNIZED(let i): return i
@@ -739,8 +684,6 @@ extension Mavsdk_Rpc_Mission_MissionResult.Result: CaseIterable {
     .invalidArgument,
     .unsupported,
     .noMissionAvailable,
-    .failedToOpenQgcPlan,
-    .failedToParseQgcPlan,
     .unsupportedMissionCmd,
     .transferCancelled,
   ]
@@ -1421,76 +1364,6 @@ extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: SwiftProtobu
   }
 }
 
-extension Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ImportQgroundcontrolMissionRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "qgc_plan_path"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.qgcPlanPath) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.qgcPlanPath.isEmpty {
-      try visitor.visitSingularStringField(value: self.qgcPlanPath, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest, rhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionRequest) -> Bool {
-    if lhs.qgcPlanPath != rhs.qgcPlanPath {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ImportQgroundcontrolMissionResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "mission_result"),
-    2: .standard(proto: "mission_plan"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._missionResult) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._missionPlan) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._missionPlan {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse, rhs: Mavsdk_Rpc_Mission_ImportQgroundcontrolMissionResponse) -> Bool {
-    if lhs._missionResult != rhs._missionResult {return false}
-    if lhs._missionPlan != rhs._missionPlan {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".MissionItem"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1707,8 +1580,6 @@ extension Mavsdk_Rpc_Mission_MissionResult.Result: SwiftProtobuf._ProtoNameProvi
     6: .same(proto: "RESULT_INVALID_ARGUMENT"),
     7: .same(proto: "RESULT_UNSUPPORTED"),
     8: .same(proto: "RESULT_NO_MISSION_AVAILABLE"),
-    9: .same(proto: "RESULT_FAILED_TO_OPEN_QGC_PLAN"),
-    10: .same(proto: "RESULT_FAILED_TO_PARSE_QGC_PLAN"),
     11: .same(proto: "RESULT_UNSUPPORTED_MISSION_CMD"),
     12: .same(proto: "RESULT_TRANSFER_CANCELLED"),
   ]

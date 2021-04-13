@@ -83,6 +83,11 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol: GRPCCli
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_MissionRaw_MissionChangedResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>
+
+  func importQgroundcontrolMission(
+    _ request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>
 }
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
@@ -303,6 +308,31 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
       handler: handler
     )
   }
+
+  ///
+  /// Import a QGroundControl missions in JSON .plan format.
+  ///
+  /// Supported:
+  /// - Waypoints
+  /// - Survey
+  /// Not supported:
+  /// - Structure Scan
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ImportQgroundcontrolMission.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func importQgroundcontrolMission(
+    _ request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission_raw.MissionRawService/ImportQgroundcontrolMission",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeImportQgroundcontrolMissionInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactoryProtocol {
@@ -336,6 +366,9 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactor
 
   /// - Returns: Interceptors to use when invoking 'subscribeMissionChanged'.
   func makeSubscribeMissionChangedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'importQgroundcontrolMission'.
+  func makeImportQgroundcontrolMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>]
 }
 
 internal final class Mavsdk_Rpc_MissionRaw_MissionRawServiceClient: Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
@@ -423,6 +456,16 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerPr
   ///
   /// @param callback Callback to notify about change.
   func subscribeMissionChanged(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_MissionRaw_MissionChangedResponse>) -> EventLoopFuture<GRPCStatus>
+
+  ///
+  /// Import a QGroundControl missions in JSON .plan format.
+  ///
+  /// Supported:
+  /// - Waypoints
+  /// - Survey
+  /// Not supported:
+  /// - Structure Scan
+  func importQgroundcontrolMission(request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>
 }
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
@@ -525,6 +568,15 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
         userFunction: self.subscribeMissionChanged(request:context:)
       )
 
+    case "ImportQgroundcontrolMission":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>(),
+        interceptors: self.interceptors?.makeImportQgroundcontrolMissionInterceptors() ?? [],
+        userFunction: self.importQgroundcontrolMission(request:context:)
+      )
+
     default:
       return nil
     }
@@ -572,4 +624,8 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceServerInterceptorFactor
   /// - Returns: Interceptors to use when handling 'subscribeMissionChanged'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeMissionChangedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, Mavsdk_Rpc_MissionRaw_MissionChangedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'importQgroundcontrolMission'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeImportQgroundcontrolMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>]
 }

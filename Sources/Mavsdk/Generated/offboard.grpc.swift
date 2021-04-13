@@ -89,6 +89,11 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol: GRPCClient 
     _ request: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse>
+
+  func setAccelerationNed(
+    _ request: Mavsdk_Rpc_Offboard_SetAccelerationNedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAccelerationNedRequest, Mavsdk_Rpc_Offboard_SetAccelerationNedResponse>
 }
 
 extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
@@ -293,6 +298,25 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
       interceptors: self.interceptors?.makeSetPositionVelocityNedInterceptors() ?? []
     )
   }
+
+  ///
+  /// Set the acceleration in NED coordinates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetAccelerationNed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setAccelerationNed(
+    _ request: Mavsdk_Rpc_Offboard_SetAccelerationNedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetAccelerationNedRequest, Mavsdk_Rpc_Offboard_SetAccelerationNedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetAccelerationNed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetAccelerationNedInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientInterceptorFactoryProtocol {
@@ -326,6 +350,9 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientInterceptorFactoryPro
 
   /// - Returns: Interceptors to use when invoking 'setPositionVelocityNed'.
   func makeSetPositionVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setAccelerationNed'.
+  func makeSetAccelerationNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Offboard_SetAccelerationNedRequest, Mavsdk_Rpc_Offboard_SetAccelerationNedResponse>]
 }
 
 internal final class Mavsdk_Rpc_Offboard_OffboardServiceClient: Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
@@ -411,6 +438,10 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceProvider: CallHandlerProvid
   ///
   /// Set the position in NED coordinates, with the velocity to be used as feed-forward.
   func setPositionVelocityNed(request: Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse>
+
+  ///
+  /// Set the acceleration in NED coordinates.
+  func setAccelerationNed(request: Mavsdk_Rpc_Offboard_SetAccelerationNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetAccelerationNedResponse>
 }
 
 extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
@@ -513,6 +544,15 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
         userFunction: self.setPositionVelocityNed(request:context:)
       )
 
+    case "SetAccelerationNed":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Offboard_SetAccelerationNedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Offboard_SetAccelerationNedResponse>(),
+        interceptors: self.interceptors?.makeSetAccelerationNedInterceptors() ?? [],
+        userFunction: self.setAccelerationNed(request:context:)
+      )
+
     default:
       return nil
     }
@@ -560,4 +600,8 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceServerInterceptorFactoryPro
   /// - Returns: Interceptors to use when handling 'setPositionVelocityNed'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetPositionVelocityNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest, Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setAccelerationNed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetAccelerationNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Offboard_SetAccelerationNedRequest, Mavsdk_Rpc_Offboard_SetAccelerationNedResponse>]
 }
