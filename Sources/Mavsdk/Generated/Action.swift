@@ -706,6 +706,47 @@ public class Action {
     }
 
     /**
+     Send command to set the value of an actuator.
+
+     - Parameters:
+        - index: Index of actuator (starting with 1)
+        - value: Value to set the actuator to (normalized from [-1..1])
+     
+     */
+    public func setActuator(index: Int32, value: Float) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Action_SetActuatorRequest()
+
+            
+                
+            request.index = index
+                
+            
+                
+            request.value = value
+                
+            
+
+            do {
+                
+                let response = self.service.setActuator(request)
+
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
      Send command to transition the drone to fixedwing.
 
      The associated action will only be executed for VTOL vehicles (on other vehicle types the

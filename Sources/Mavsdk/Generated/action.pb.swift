@@ -485,6 +485,43 @@ struct Mavsdk_Rpc_Action_HoldResponse {
   fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 }
 
+struct Mavsdk_Rpc_Action_SetActuatorRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Index of actuator (starting with 1)
+  var index: Int32 = 0
+
+  /// Value to set the actuator to (normalized from [-1..1])
+  var value: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Action_SetActuatorResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return self._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {self._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
+}
+
 struct Mavsdk_Rpc_Action_TransitionToFixedwingRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1567,6 +1604,76 @@ extension Mavsdk_Rpc_Action_HoldResponse: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   static func ==(lhs: Mavsdk_Rpc_Action_HoldResponse, rhs: Mavsdk_Rpc_Action_HoldResponse) -> Bool {
+    if lhs._actionResult != rhs._actionResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_SetActuatorRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetActuatorRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "index"),
+    2: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.index) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.index != 0 {
+      try visitor.visitSingularInt32Field(value: self.index, fieldNumber: 1)
+    }
+    if self.value != 0 {
+      try visitor.visitSingularFloatField(value: self.value, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_SetActuatorRequest, rhs: Mavsdk_Rpc_Action_SetActuatorRequest) -> Bool {
+    if lhs.index != rhs.index {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_SetActuatorResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetActuatorResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._actionResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._actionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_SetActuatorResponse, rhs: Mavsdk_Rpc_Action_SetActuatorResponse) -> Bool {
     if lhs._actionResult != rhs._actionResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

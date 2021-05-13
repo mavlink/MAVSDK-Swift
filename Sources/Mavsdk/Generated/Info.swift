@@ -110,6 +110,7 @@ public class Info {
      */
     public struct Identification: Equatable {
         public let hardwareUid: String
+        public let legacyUid: UInt64
 
         
 
@@ -117,11 +118,17 @@ public class Info {
          Initializes a new `Identification`.
 
          
-         - Parameter hardwareUid:  UID of the hardware. This refers to uid2 of MAVLink. If the system does not support uid2 yet, this is all zeros.
+         - Parameters:
+            
+            - hardwareUid:  UID of the hardware. This refers to uid2 of MAVLink. If the system does not support uid2 yet, this is all zeros.
+            
+            - legacyUid:  Legacy UID of the hardware, referred to as uid in MAVLink (formerly exposed during system discovery as UUID).
+            
          
          */
-        public init(hardwareUid: String) {
+        public init(hardwareUid: String, legacyUid: UInt64) {
             self.hardwareUid = hardwareUid
+            self.legacyUid = legacyUid
         }
 
         internal var rpcIdentification: Mavsdk_Rpc_Info_Identification {
@@ -131,16 +138,22 @@ public class Info {
             rpcIdentification.hardwareUid = hardwareUid
                 
             
+            
+                
+            rpcIdentification.legacyUid = legacyUid
+                
+            
 
             return rpcIdentification
         }
 
         internal static func translateFromRpc(_ rpcIdentification: Mavsdk_Rpc_Info_Identification) -> Identification {
-            return Identification(hardwareUid: rpcIdentification.hardwareUid)
+            return Identification(hardwareUid: rpcIdentification.hardwareUid, legacyUid: rpcIdentification.legacyUid)
         }
 
         public static func == (lhs: Identification, rhs: Identification) -> Bool {
             return lhs.hardwareUid == rhs.hardwareUid
+                && lhs.legacyUid == rhs.legacyUid
         }
     }
 

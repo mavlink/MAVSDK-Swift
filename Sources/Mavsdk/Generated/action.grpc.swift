@@ -92,6 +92,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse>
 
+  func setActuator(
+    _ request: Mavsdk_Rpc_Action_SetActuatorRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetActuatorRequest, Mavsdk_Rpc_Action_SetActuatorResponse>
+
   func transitionToFixedwing(
     _ request: Mavsdk_Rpc_Action_TransitionToFixedwingRequest,
     callOptions: CallOptions?
@@ -408,6 +413,25 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   }
 
   ///
+  /// Send command to set the value of an actuator.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetActuator.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setActuator(
+    _ request: Mavsdk_Rpc_Action_SetActuatorRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetActuatorRequest, Mavsdk_Rpc_Action_SetActuatorResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/SetActuator",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetActuatorInterceptors() ?? []
+    )
+  }
+
+  ///
   /// Send command to transition the drone to fixedwing.
   ///
   /// The associated action will only be executed for VTOL vehicles (on other vehicle types the
@@ -606,6 +630,9 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when invoking 'hold'.
   func makeHoldInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'setActuator'.
+  func makeSetActuatorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetActuatorRequest, Mavsdk_Rpc_Action_SetActuatorResponse>]
+
   /// - Returns: Interceptors to use when invoking 'transitionToFixedwing'.
   func makeTransitionToFixedwingInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_TransitionToFixedwingRequest, Mavsdk_Rpc_Action_TransitionToFixedwingResponse>]
 
@@ -747,6 +774,10 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// Note: this command is specific to the PX4 Autopilot flight stack as
   /// it implies a change to a PX4-specific mode.
   func hold(request: Mavsdk_Rpc_Action_HoldRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_HoldResponse>
+
+  ///
+  /// Send command to set the value of an actuator.
+  func setActuator(request: Mavsdk_Rpc_Action_SetActuatorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetActuatorResponse>
 
   ///
   /// Send command to transition the drone to fixedwing.
@@ -907,6 +938,15 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         userFunction: self.hold(request:context:)
       )
 
+    case "SetActuator":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_SetActuatorRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_SetActuatorResponse>(),
+        interceptors: self.interceptors?.makeSetActuatorInterceptors() ?? [],
+        userFunction: self.setActuator(request:context:)
+      )
+
     case "TransitionToFixedwing":
       return UnaryServerHandler(
         context: context,
@@ -1034,6 +1074,10 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when handling 'hold'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeHoldInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_HoldRequest, Mavsdk_Rpc_Action_HoldResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setActuator'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetActuatorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetActuatorRequest, Mavsdk_Rpc_Action_SetActuatorResponse>]
 
   /// - Returns: Interceptors to use when handling 'transitionToFixedwing'.
   ///   Defaults to calling `self.makeInterceptors()`.

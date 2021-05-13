@@ -248,6 +248,9 @@ struct Mavsdk_Rpc_Info_Identification {
   /// UID of the hardware. This refers to uid2 of MAVLink. If the system does not support uid2 yet, this is all zeros.
   var hardwareUid: String = String()
 
+  /// Legacy UID of the hardware, referred to as uid in MAVLink (formerly exposed during system discovery as UUID).
+  var legacyUid: UInt64 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -719,6 +722,7 @@ extension Mavsdk_Rpc_Info_Identification: SwiftProtobuf.Message, SwiftProtobuf._
   static let protoMessageName: String = _protobuf_package + ".Identification"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "hardware_uid"),
+    2: .standard(proto: "legacy_uid"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -728,6 +732,7 @@ extension Mavsdk_Rpc_Info_Identification: SwiftProtobuf.Message, SwiftProtobuf._
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.hardwareUid) }()
+      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.legacyUid) }()
       default: break
       }
     }
@@ -737,11 +742,15 @@ extension Mavsdk_Rpc_Info_Identification: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.hardwareUid.isEmpty {
       try visitor.visitSingularStringField(value: self.hardwareUid, fieldNumber: 1)
     }
+    if self.legacyUid != 0 {
+      try visitor.visitSingularUInt64Field(value: self.legacyUid, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Info_Identification, rhs: Mavsdk_Rpc_Info_Identification) -> Bool {
     if lhs.hardwareUid != rhs.hardwareUid {return false}
+    if lhs.legacyUid != rhs.legacyUid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
