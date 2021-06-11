@@ -171,6 +171,9 @@ struct Mavsdk_Rpc_Geofence_GeofenceResult {
 
     /// Invalid argument
     case invalidArgument // = 6
+
+    /// No system connected
+    case noSystem // = 7
     case UNRECOGNIZED(Int)
 
     init() {
@@ -186,6 +189,7 @@ struct Mavsdk_Rpc_Geofence_GeofenceResult {
       case 4: self = .busy
       case 5: self = .timeout
       case 6: self = .invalidArgument
+      case 7: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -199,6 +203,7 @@ struct Mavsdk_Rpc_Geofence_GeofenceResult {
       case .busy: return 4
       case .timeout: return 5
       case .invalidArgument: return 6
+      case .noSystem: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -220,6 +225,7 @@ extension Mavsdk_Rpc_Geofence_GeofenceResult.Result: CaseIterable {
     .busy,
     .timeout,
     .invalidArgument,
+    .noSystem,
   ]
 }
 
@@ -423,5 +429,6 @@ extension Mavsdk_Rpc_Geofence_GeofenceResult.Result: SwiftProtobuf._ProtoNamePro
     4: .same(proto: "RESULT_BUSY"),
     5: .same(proto: "RESULT_TIMEOUT"),
     6: .same(proto: "RESULT_INVALID_ARGUMENT"),
+    7: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

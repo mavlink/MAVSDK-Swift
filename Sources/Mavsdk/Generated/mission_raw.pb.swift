@@ -517,6 +517,9 @@ struct Mavsdk_Rpc_MissionRaw_MissionRawResult {
 
     /// Failed to parse the QGroundControl plan
     case failedToParseQgcPlan // = 11
+
+    /// No system connected
+    case noSystem // = 12
     case UNRECOGNIZED(Int)
 
     init() {
@@ -537,6 +540,7 @@ struct Mavsdk_Rpc_MissionRaw_MissionRawResult {
       case 9: self = .transferCancelled
       case 10: self = .failedToOpenQgcPlan
       case 11: self = .failedToParseQgcPlan
+      case 12: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -555,6 +559,7 @@ struct Mavsdk_Rpc_MissionRaw_MissionRawResult {
       case .transferCancelled: return 9
       case .failedToOpenQgcPlan: return 10
       case .failedToParseQgcPlan: return 11
+      case .noSystem: return 12
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -581,6 +586,7 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawResult.Result: CaseIterable {
     .transferCancelled,
     .failedToOpenQgcPlan,
     .failedToParseQgcPlan,
+    .noSystem,
   ]
 }
 
@@ -1440,5 +1446,6 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawResult.Result: SwiftProtobuf._ProtoNam
     9: .same(proto: "RESULT_TRANSFER_CANCELLED"),
     10: .same(proto: "RESULT_FAILED_TO_OPEN_QGC_PLAN"),
     11: .same(proto: "RESULT_FAILED_TO_PARSE_QGC_PLAN"),
+    12: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

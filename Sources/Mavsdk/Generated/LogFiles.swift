@@ -183,6 +183,8 @@ public class LogFiles {
             case invalidArgument
             ///  File open failed.
             case fileOpenFailed
+            ///  No system is connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_LogFiles_LogFilesResult.Result {
@@ -201,6 +203,8 @@ public class LogFiles {
                     return .invalidArgument
                 case .fileOpenFailed:
                     return .fileOpenFailed
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -222,6 +226,8 @@ public class LogFiles {
                     return .invalidArgument
                 case .fileOpenFailed:
                     return .fileOpenFailed
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

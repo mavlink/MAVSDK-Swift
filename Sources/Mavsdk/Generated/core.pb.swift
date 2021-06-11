@@ -52,23 +52,23 @@ struct Mavsdk_Rpc_Core_ConnectionStateResponse {
   fileprivate var _connectionState: Mavsdk_Rpc_Core_ConnectionState? = nil
 }
 
-struct Mavsdk_Rpc_Core_ListRunningPluginsRequest {
+struct Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  /// Timeout in seconds
+  var timeoutS: Double = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 }
 
-struct Mavsdk_Rpc_Core_ListRunningPluginsResponse {
+struct Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  /// Plugin info
-  var pluginInfo: [Mavsdk_Rpc_Core_PluginInfo] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -83,26 +83,6 @@ struct Mavsdk_Rpc_Core_ConnectionState {
 
   /// Whether the vehicle got connected or disconnected
   var isConnected: Bool = false
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-/// Plugin info type.
-struct Mavsdk_Rpc_Core_PluginInfo {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// Name of the plugin
-  var name: String = String()
-
-  /// Address where the plugin is running
-  var address: String = String()
-
-  /// Port where the plugin is running
-  var port: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -164,8 +144,40 @@ extension Mavsdk_Rpc_Core_ConnectionStateResponse: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension Mavsdk_Rpc_Core_ListRunningPluginsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ListRunningPluginsRequest"
+extension Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetMavlinkTimeoutRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "timeout_s"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.timeoutS) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.timeoutS != 0 {
+      try visitor.visitSingularDoubleField(value: self.timeoutS, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest, rhs: Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest) -> Bool {
+    if lhs.timeoutS != rhs.timeoutS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetMavlinkTimeoutResponse"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -177,39 +189,7 @@ extension Mavsdk_Rpc_Core_ListRunningPluginsRequest: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_Core_ListRunningPluginsRequest, rhs: Mavsdk_Rpc_Core_ListRunningPluginsRequest) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_Core_ListRunningPluginsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ListRunningPluginsResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "plugin_info"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.pluginInfo) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.pluginInfo.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.pluginInfo, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Core_ListRunningPluginsResponse, rhs: Mavsdk_Rpc_Core_ListRunningPluginsResponse) -> Bool {
-    if lhs.pluginInfo != rhs.pluginInfo {return false}
+  static func ==(lhs: Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse, rhs: Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -242,50 +222,6 @@ extension Mavsdk_Rpc_Core_ConnectionState: SwiftProtobuf.Message, SwiftProtobuf.
 
   static func ==(lhs: Mavsdk_Rpc_Core_ConnectionState, rhs: Mavsdk_Rpc_Core_ConnectionState) -> Bool {
     if lhs.isConnected != rhs.isConnected {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_Core_PluginInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PluginInfo"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "name"),
-    2: .same(proto: "address"),
-    3: .same(proto: "port"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.address) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.port) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
-    }
-    if !self.address.isEmpty {
-      try visitor.visitSingularStringField(value: self.address, fieldNumber: 2)
-    }
-    if self.port != 0 {
-      try visitor.visitSingularInt32Field(value: self.port, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_Core_PluginInfo, rhs: Mavsdk_Rpc_Core_PluginInfo) -> Bool {
-    if lhs.name != rhs.name {return false}
-    if lhs.address != rhs.address {return false}
-    if lhs.port != rhs.port {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

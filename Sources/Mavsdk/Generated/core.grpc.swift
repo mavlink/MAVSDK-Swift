@@ -25,7 +25,7 @@ import NIO
 import SwiftProtobuf
 
 
-/// Access to the connection state and running plugins.
+/// Access to the connection state and core configurations
 ///
 /// Usage: instantiate `Mavsdk_Rpc_Core_CoreServiceClient`, then call methods of this protocol to make API calls.
 internal protocol Mavsdk_Rpc_Core_CoreServiceClientProtocol: GRPCClient {
@@ -38,10 +38,10 @@ internal protocol Mavsdk_Rpc_Core_CoreServiceClientProtocol: GRPCClient {
     handler: @escaping (Mavsdk_Rpc_Core_ConnectionStateResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>
 
-  func listRunningPlugins(
-    _ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest,
+  func setMavlinkTimeout(
+    _ request: Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>
+  ) -> UnaryCall<Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest, Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse>
 }
 
 extension Mavsdk_Rpc_Core_CoreServiceClientProtocol {
@@ -49,6 +49,7 @@ extension Mavsdk_Rpc_Core_CoreServiceClientProtocol {
     return "mavsdk.rpc.core.CoreService"
   }
 
+  ///
   /// Subscribe to 'connection state' updates.
   ///
   /// - Parameters:
@@ -70,21 +71,27 @@ extension Mavsdk_Rpc_Core_CoreServiceClientProtocol {
     )
   }
 
-  /// Get a list of currently running plugins.
+  ///
+  /// Set timeout of MAVLink transfers.
+  ///
+  /// The default timeout used is generally (0.5 seconds) seconds.
+  /// If MAVSDK is used on the same host this timeout can be reduced, while
+  /// if MAVSDK has to communicate over links with high latency it might
+  /// need to be increased to prevent timeouts.
   ///
   /// - Parameters:
-  ///   - request: Request to send to ListRunningPlugins.
+  ///   - request: Request to send to SetMavlinkTimeout.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func listRunningPlugins(
-    _ request: Mavsdk_Rpc_Core_ListRunningPluginsRequest,
+  internal func setMavlinkTimeout(
+    _ request: Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse> {
+  ) -> UnaryCall<Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest, Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse> {
     return self.makeUnaryCall(
-      path: "/mavsdk.rpc.core.CoreService/ListRunningPlugins",
+      path: "/mavsdk.rpc.core.CoreService/SetMavlinkTimeout",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeListRunningPluginsInterceptors() ?? []
+      interceptors: self.interceptors?.makeSetMavlinkTimeoutInterceptors() ?? []
     )
   }
 }
@@ -94,8 +101,8 @@ internal protocol Mavsdk_Rpc_Core_CoreServiceClientInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when invoking 'subscribeConnectionState'.
   func makeSubscribeConnectionStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'listRunningPlugins'.
-  func makeListRunningPluginsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>]
+  /// - Returns: Interceptors to use when invoking 'setMavlinkTimeout'.
+  func makeSetMavlinkTimeoutInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest, Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse>]
 }
 
 internal final class Mavsdk_Rpc_Core_CoreServiceClient: Mavsdk_Rpc_Core_CoreServiceClientProtocol {
@@ -120,17 +127,24 @@ internal final class Mavsdk_Rpc_Core_CoreServiceClient: Mavsdk_Rpc_Core_CoreServ
   }
 }
 
-/// Access to the connection state and running plugins.
+/// Access to the connection state and core configurations
 ///
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Core_CoreServiceProvider: CallHandlerProvider {
   var interceptors: Mavsdk_Rpc_Core_CoreServiceServerInterceptorFactoryProtocol? { get }
 
+  ///
   /// Subscribe to 'connection state' updates.
   func subscribeConnectionState(request: Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Core_ConnectionStateResponse>) -> EventLoopFuture<GRPCStatus>
 
-  /// Get a list of currently running plugins.
-  func listRunningPlugins(request: Mavsdk_Rpc_Core_ListRunningPluginsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Core_ListRunningPluginsResponse>
+  ///
+  /// Set timeout of MAVLink transfers.
+  ///
+  /// The default timeout used is generally (0.5 seconds) seconds.
+  /// If MAVSDK is used on the same host this timeout can be reduced, while
+  /// if MAVSDK has to communicate over links with high latency it might
+  /// need to be increased to prevent timeouts.
+  func setMavlinkTimeout(request: Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse>
 }
 
 extension Mavsdk_Rpc_Core_CoreServiceProvider {
@@ -152,13 +166,13 @@ extension Mavsdk_Rpc_Core_CoreServiceProvider {
         userFunction: self.subscribeConnectionState(request:context:)
       )
 
-    case "ListRunningPlugins":
+    case "SetMavlinkTimeout":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Core_ListRunningPluginsRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Core_ListRunningPluginsResponse>(),
-        interceptors: self.interceptors?.makeListRunningPluginsInterceptors() ?? [],
-        userFunction: self.listRunningPlugins(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse>(),
+        interceptors: self.interceptors?.makeSetMavlinkTimeoutInterceptors() ?? [],
+        userFunction: self.setMavlinkTimeout(request:context:)
       )
 
     default:
@@ -173,7 +187,7 @@ internal protocol Mavsdk_Rpc_Core_CoreServiceServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeConnectionStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Core_SubscribeConnectionStateRequest, Mavsdk_Rpc_Core_ConnectionStateResponse>]
 
-  /// - Returns: Interceptors to use when handling 'listRunningPlugins'.
+  /// - Returns: Interceptors to use when handling 'setMavlinkTimeout'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeListRunningPluginsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Core_ListRunningPluginsRequest, Mavsdk_Rpc_Core_ListRunningPluginsResponse>]
+  func makeSetMavlinkTimeoutInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest, Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse>]
 }
