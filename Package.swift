@@ -30,7 +30,6 @@ let package = Package(
             dependencies: [
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "RxSwift", package: "RxSwift"),
-                .product(name: "RxTest", package: "RxSwift"),
                 .product(name: "RxBlocking", package: "RxSwift")
             ],
             exclude: [
