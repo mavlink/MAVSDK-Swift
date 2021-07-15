@@ -18,11 +18,16 @@ let package = Package(
              targets: [
               "MavsdkServer"
              ]
+    ),
+    .library(name: "MavsdkTests",
+             targets: [
+              "MavsdkTests"
+             ]
     )
   ],
   dependencies: [
     .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0"),
-    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
+    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1"),
     .package(url: "https://github.com/byuarus/MAVSDK-XCFramework", .exact("0.40.0-gac872140"))
   ],
   targets: [
