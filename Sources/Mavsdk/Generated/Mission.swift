@@ -72,6 +72,8 @@ public class Mission {
         public let cameraAction: CameraAction
         public let loiterTimeS: Float
         public let cameraPhotoIntervalS: Double
+        public let acceptanceRadiusM: Float
+        public let yawDeg: Float
 
         
         
@@ -160,9 +162,13 @@ public class Mission {
             
             - cameraPhotoIntervalS:  Camera photo interval to use after this mission item (in seconds)
             
+            - acceptanceRadiusM:  Radius for completing a mission item (in metres)
+            
+            - yawDeg:  Absolute yaw angle (in degrees)
+            
          
          */
-        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double) {
+        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double, acceptanceRadiusM: Float, yawDeg: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
             self.relativeAltitudeM = relativeAltitudeM
@@ -173,6 +179,8 @@ public class Mission {
             self.cameraAction = cameraAction
             self.loiterTimeS = loiterTimeS
             self.cameraPhotoIntervalS = cameraPhotoIntervalS
+            self.acceptanceRadiusM = acceptanceRadiusM
+            self.yawDeg = yawDeg
         }
 
         internal var rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem {
@@ -227,12 +235,22 @@ public class Mission {
             rpcMissionItem.cameraPhotoIntervalS = cameraPhotoIntervalS
                 
             
+            
+                
+            rpcMissionItem.acceptanceRadiusM = acceptanceRadiusM
+                
+            
+            
+                
+            rpcMissionItem.yawDeg = yawDeg
+                
+            
 
             return rpcMissionItem
         }
 
         internal static func translateFromRpc(_ rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem) -> MissionItem {
-            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS)
+            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS, acceptanceRadiusM: rpcMissionItem.acceptanceRadiusM, yawDeg: rpcMissionItem.yawDeg)
         }
 
         public static func == (lhs: MissionItem, rhs: MissionItem) -> Bool {
@@ -246,6 +264,8 @@ public class Mission {
                 && lhs.cameraAction == rhs.cameraAction
                 && lhs.loiterTimeS == rhs.loiterTimeS
                 && lhs.cameraPhotoIntervalS == rhs.cameraPhotoIntervalS
+                && lhs.acceptanceRadiusM == rhs.acceptanceRadiusM
+                && lhs.yawDeg == rhs.yawDeg
         }
     }
 
@@ -376,6 +396,8 @@ public class Mission {
             case unsupportedMissionCmd
             ///  Mission transfer (upload or download) has been cancelled.
             case transferCancelled
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Mission_MissionResult.Result {
@@ -402,6 +424,8 @@ public class Mission {
                     return .unsupportedMissionCmd
                 case .transferCancelled:
                     return .transferCancelled
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -431,6 +455,8 @@ public class Mission {
                     return .unsupportedMissionCmd
                 case .transferCancelled:
                     return .transferCancelled
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

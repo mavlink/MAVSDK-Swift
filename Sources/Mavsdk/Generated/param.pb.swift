@@ -219,7 +219,7 @@ struct Mavsdk_Rpc_Param_IntParam {
 }
 
 ///
-/// Type for float paramters.
+/// Type for float parameters.
 struct Mavsdk_Rpc_Param_FloatParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -289,6 +289,9 @@ struct Mavsdk_Rpc_Param_ParamResult {
 
     /// Parameter name too long (> 16)
     case paramNameTooLong // = 5
+
+    /// No system connected
+    case noSystem // = 6
     case UNRECOGNIZED(Int)
 
     init() {
@@ -303,6 +306,7 @@ struct Mavsdk_Rpc_Param_ParamResult {
       case 3: self = .connectionError
       case 4: self = .wrongType
       case 5: self = .paramNameTooLong
+      case 6: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -315,6 +319,7 @@ struct Mavsdk_Rpc_Param_ParamResult {
       case .connectionError: return 3
       case .wrongType: return 4
       case .paramNameTooLong: return 5
+      case .noSystem: return 6
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -335,6 +340,7 @@ extension Mavsdk_Rpc_Param_ParamResult.Result: CaseIterable {
     .connectionError,
     .wrongType,
     .paramNameTooLong,
+    .noSystem,
   ]
 }
 
@@ -835,5 +841,6 @@ extension Mavsdk_Rpc_Param_ParamResult.Result: SwiftProtobuf._ProtoNameProviding
     3: .same(proto: "RESULT_CONNECTION_ERROR"),
     4: .same(proto: "RESULT_WRONG_TYPE"),
     5: .same(proto: "RESULT_PARAM_NAME_TOO_LONG"),
+    6: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

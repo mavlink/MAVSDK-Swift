@@ -231,6 +231,8 @@ public class Gimbal {
             case timeout
             ///  Functionality not supported.
             case unsupported
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Gimbal_GimbalResult.Result {
@@ -245,6 +247,8 @@ public class Gimbal {
                     return .timeout
                 case .unsupported:
                     return .unsupported
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -262,6 +266,8 @@ public class Gimbal {
                     return .timeout
                 case .unsupported:
                     return .unsupported
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

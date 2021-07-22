@@ -220,6 +220,8 @@ public class Geofence {
             case timeout
             ///  Invalid argument.
             case invalidArgument
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Geofence_GeofenceResult.Result {
@@ -238,6 +240,8 @@ public class Geofence {
                     return .timeout
                 case .invalidArgument:
                     return .invalidArgument
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -259,6 +263,8 @@ public class Geofence {
                     return .timeout
                 case .invalidArgument:
                     return .invalidArgument
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

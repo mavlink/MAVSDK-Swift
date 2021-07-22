@@ -143,6 +143,8 @@ public class Ftp {
             case unsupported
             ///  General protocol error.
             case protocolError
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Ftp_FtpResult.Result {
@@ -171,6 +173,8 @@ public class Ftp {
                     return .unsupported
                 case .protocolError:
                     return .protocolError
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -202,6 +206,8 @@ public class Ftp {
                     return .unsupported
                 case .protocolError:
                     return .protocolError
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

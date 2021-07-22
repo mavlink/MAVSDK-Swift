@@ -106,7 +106,7 @@ public class Param {
     }
 
     /**
-     Type for float paramters.
+     Type for float parameters.
      */
     public struct FloatParam: Equatable {
         public let name: String
@@ -235,6 +235,8 @@ public class Param {
             case wrongType
             ///  Parameter name too long (> 16).
             case paramNameTooLong
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Param_ParamResult.Result {
@@ -251,6 +253,8 @@ public class Param {
                     return .wrongType
                 case .paramNameTooLong:
                     return .paramNameTooLong
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -270,6 +274,8 @@ public class Param {
                     return .wrongType
                 case .paramNameTooLong:
                     return .paramNameTooLong
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

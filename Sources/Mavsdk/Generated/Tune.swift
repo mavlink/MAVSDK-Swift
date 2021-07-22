@@ -276,6 +276,8 @@ public class Tune {
             case tuneTooLong
             ///  Failed to send the request.
             case error
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Tune_TuneResult.Result {
@@ -290,6 +292,8 @@ public class Tune {
                     return .tuneTooLong
                 case .error:
                     return .error
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -307,6 +311,8 @@ public class Tune {
                     return .tuneTooLong
                 case .error:
                     return .error
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

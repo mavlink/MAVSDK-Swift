@@ -387,7 +387,7 @@ struct Mavsdk_Rpc_FollowMe_FollowMeResult {
   enum Result: SwiftProtobuf.Enum {
     typealias RawValue = Int
 
-    /// Unkown result
+    /// Unknown result
     case unknown // = 0
 
     /// Request succeeded

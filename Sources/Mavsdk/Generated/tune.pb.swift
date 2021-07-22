@@ -270,6 +270,9 @@ struct Mavsdk_Rpc_Tune_TuneResult {
 
     /// Failed to send the request
     case error // = 4
+
+    /// No system connected
+    case noSystem // = 5
     case UNRECOGNIZED(Int)
 
     init() {
@@ -283,6 +286,7 @@ struct Mavsdk_Rpc_Tune_TuneResult {
       case 2: self = .invalidTempo
       case 3: self = .tuneTooLong
       case 4: self = .error
+      case 5: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -294,6 +298,7 @@ struct Mavsdk_Rpc_Tune_TuneResult {
       case .invalidTempo: return 2
       case .tuneTooLong: return 3
       case .error: return 4
+      case .noSystem: return 5
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -313,6 +318,7 @@ extension Mavsdk_Rpc_Tune_TuneResult.Result: CaseIterable {
     .invalidTempo,
     .tuneTooLong,
     .error,
+    .noSystem,
   ]
 }
 
@@ -495,5 +501,6 @@ extension Mavsdk_Rpc_Tune_TuneResult.Result: SwiftProtobuf._ProtoNameProviding {
     2: .same(proto: "RESULT_INVALID_TEMPO"),
     3: .same(proto: "RESULT_TUNE_TOO_LONG"),
     4: .same(proto: "RESULT_ERROR"),
+    5: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

@@ -349,6 +349,9 @@ struct Mavsdk_Rpc_Info_InfoResult {
 
     /// Information has not been received yet
     case informationNotReceivedYet // = 2
+
+    /// No system is connected
+    case noSystem // = 3
     case UNRECOGNIZED(Int)
 
     init() {
@@ -360,6 +363,7 @@ struct Mavsdk_Rpc_Info_InfoResult {
       case 0: self = .unknown
       case 1: self = .success
       case 2: self = .informationNotReceivedYet
+      case 3: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -369,6 +373,7 @@ struct Mavsdk_Rpc_Info_InfoResult {
       case .unknown: return 0
       case .success: return 1
       case .informationNotReceivedYet: return 2
+      case .noSystem: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -386,6 +391,7 @@ extension Mavsdk_Rpc_Info_InfoResult.Result: CaseIterable {
     .unknown,
     .success,
     .informationNotReceivedYet,
+    .noSystem,
   ]
 }
 
@@ -941,5 +947,6 @@ extension Mavsdk_Rpc_Info_InfoResult.Result: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "RESULT_UNKNOWN"),
     1: .same(proto: "RESULT_SUCCESS"),
     2: .same(proto: "RESULT_INFORMATION_NOT_RECEIVED_YET"),
+    3: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

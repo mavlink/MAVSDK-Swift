@@ -765,7 +765,7 @@ struct Mavsdk_Rpc_Camera_CameraResult {
     /// Camera denied the command
     case denied // = 4
 
-    /// An error has occured while executing the command
+    /// An error has occurred while executing the command
     case error // = 5
 
     /// Command timed out
@@ -773,6 +773,9 @@ struct Mavsdk_Rpc_Camera_CameraResult {
 
     /// Command has wrong argument(s)
     case wrongArgument // = 7
+
+    /// No system connected
+    case noSystem // = 8
     case UNRECOGNIZED(Int)
 
     init() {
@@ -789,6 +792,7 @@ struct Mavsdk_Rpc_Camera_CameraResult {
       case 5: self = .error
       case 6: self = .timeout
       case 7: self = .wrongArgument
+      case 8: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -803,6 +807,7 @@ struct Mavsdk_Rpc_Camera_CameraResult {
       case .error: return 5
       case .timeout: return 6
       case .wrongArgument: return 7
+      case .noSystem: return 8
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -825,6 +830,7 @@ extension Mavsdk_Rpc_Camera_CameraResult.Result: CaseIterable {
     .error,
     .timeout,
     .wrongArgument,
+    .noSystem,
   ]
 }
 
@@ -2429,6 +2435,7 @@ extension Mavsdk_Rpc_Camera_CameraResult.Result: SwiftProtobuf._ProtoNameProvidi
     5: .same(proto: "RESULT_ERROR"),
     6: .same(proto: "RESULT_TIMEOUT"),
     7: .same(proto: "RESULT_WRONG_ARGUMENT"),
+    8: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }
 
