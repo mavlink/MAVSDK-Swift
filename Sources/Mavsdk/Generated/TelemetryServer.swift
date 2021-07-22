@@ -4,16 +4,16 @@ import GRPC
 import NIO
 
 /**
- Allow users to get vehicle telemetry and state information
+ Allow users to provide vehicle telemetry and state information
  (e.g. battery, GPS, RC connection, flight mode etc.) and set telemetry update rates.
  */
-public class Telemetry {
-    private let service: Mavsdk_Rpc_Telemetry_TelemetryServiceClient
+public class TelemetryServer {
+    private let service: Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
     /**
-     Initializes a new `Telemetry` plugin.
+     Initializes a new `TelemetryServer` plugin.
 
      Normally never created manually, but used from the `Drone` helper class instead.
 
@@ -27,18 +27,18 @@ public class Telemetry {
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
         let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
-        let service = Mavsdk_Rpc_Telemetry_TelemetryServiceClient(channel: channel)
+        let service = Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClient(channel: channel)
 
         self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Telemetry_TelemetryServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
+    init(service: Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
         self.clientEventLoopGroup = eventLoopGroup
     }
 
-    public struct RuntimeTelemetryError: Error {
+    public struct RuntimeTelemetryServerError: Error {
         public let description: String
 
         init(_ description: String) {
@@ -47,8 +47,8 @@ public class Telemetry {
     }
 
     
-    public struct TelemetryError: Error {
-        public let code: Telemetry.TelemetryResult.Result
+    public struct TelemetryServerError: Error {
+        public let code: TelemetryServer.TelemetryServerResult.Result
         public let description: String
     }
     
@@ -73,7 +73,7 @@ public class Telemetry {
         case rtkFixed
         case UNRECOGNIZED(Int)
 
-        internal var rpcFixType: Mavsdk_Rpc_Telemetry_FixType {
+        internal var rpcFixType: Mavsdk_Rpc_TelemetryServer_FixType {
             switch self {
             case .noGps:
                 return .noGps
@@ -94,7 +94,7 @@ public class Telemetry {
             }
         }
 
-        internal static func translateFromRpc(_ rpcFixType: Mavsdk_Rpc_Telemetry_FixType) -> FixType {
+        internal static func translateFromRpc(_ rpcFixType: Mavsdk_Rpc_TelemetryServer_FixType) -> FixType {
             switch rpcFixType {
             case .noGps:
                 return .noGps
@@ -155,7 +155,7 @@ public class Telemetry {
         case rattitude
         case UNRECOGNIZED(Int)
 
-        internal var rpcFlightMode: Mavsdk_Rpc_Telemetry_FlightMode {
+        internal var rpcFlightMode: Mavsdk_Rpc_TelemetryServer_FlightMode {
             switch self {
             case .unknown:
                 return .unknown
@@ -192,7 +192,7 @@ public class Telemetry {
             }
         }
 
-        internal static func translateFromRpc(_ rpcFlightMode: Mavsdk_Rpc_Telemetry_FlightMode) -> FlightMode {
+        internal static func translateFromRpc(_ rpcFlightMode: Mavsdk_Rpc_TelemetryServer_FlightMode) -> FlightMode {
             switch rpcFlightMode {
             case .unknown:
                 return .unknown
@@ -252,7 +252,7 @@ public class Telemetry {
         case emergency
         case UNRECOGNIZED(Int)
 
-        internal var rpcStatusTextType: Mavsdk_Rpc_Telemetry_StatusTextType {
+        internal var rpcStatusTextType: Mavsdk_Rpc_TelemetryServer_StatusTextType {
             switch self {
             case .debug:
                 return .debug
@@ -275,7 +275,7 @@ public class Telemetry {
             }
         }
 
-        internal static func translateFromRpc(_ rpcStatusTextType: Mavsdk_Rpc_Telemetry_StatusTextType) -> StatusTextType {
+        internal static func translateFromRpc(_ rpcStatusTextType: Mavsdk_Rpc_TelemetryServer_StatusTextType) -> StatusTextType {
             switch rpcStatusTextType {
             case .debug:
                 return .debug
@@ -315,7 +315,7 @@ public class Telemetry {
         case landing
         case UNRECOGNIZED(Int)
 
-        internal var rpcLandedState: Mavsdk_Rpc_Telemetry_LandedState {
+        internal var rpcLandedState: Mavsdk_Rpc_TelemetryServer_LandedState {
             switch self {
             case .unknown:
                 return .unknown
@@ -332,7 +332,7 @@ public class Telemetry {
             }
         }
 
-        internal static func translateFromRpc(_ rpcLandedState: Mavsdk_Rpc_Telemetry_LandedState) -> LandedState {
+        internal static func translateFromRpc(_ rpcLandedState: Mavsdk_Rpc_TelemetryServer_LandedState) -> LandedState {
             switch rpcLandedState {
             case .unknown:
                 return .unknown
@@ -385,8 +385,8 @@ public class Telemetry {
             self.relativeAltitudeM = relativeAltitudeM
         }
 
-        internal var rpcPosition: Mavsdk_Rpc_Telemetry_Position {
-            var rpcPosition = Mavsdk_Rpc_Telemetry_Position()
+        internal var rpcPosition: Mavsdk_Rpc_TelemetryServer_Position {
+            var rpcPosition = Mavsdk_Rpc_TelemetryServer_Position()
             
                 
             rpcPosition.latitudeDeg = latitudeDeg
@@ -411,7 +411,7 @@ public class Telemetry {
             return rpcPosition
         }
 
-        internal static func translateFromRpc(_ rpcPosition: Mavsdk_Rpc_Telemetry_Position) -> Position {
+        internal static func translateFromRpc(_ rpcPosition: Mavsdk_Rpc_TelemetryServer_Position) -> Position {
             return Position(latitudeDeg: rpcPosition.latitudeDeg, longitudeDeg: rpcPosition.longitudeDeg, absoluteAltitudeM: rpcPosition.absoluteAltitudeM, relativeAltitudeM: rpcPosition.relativeAltitudeM)
         }
 
@@ -468,8 +468,8 @@ public class Telemetry {
             self.timestampUs = timestampUs
         }
 
-        internal var rpcQuaternion: Mavsdk_Rpc_Telemetry_Quaternion {
-            var rpcQuaternion = Mavsdk_Rpc_Telemetry_Quaternion()
+        internal var rpcQuaternion: Mavsdk_Rpc_TelemetryServer_Quaternion {
+            var rpcQuaternion = Mavsdk_Rpc_TelemetryServer_Quaternion()
             
                 
             rpcQuaternion.w = w
@@ -499,7 +499,7 @@ public class Telemetry {
             return rpcQuaternion
         }
 
-        internal static func translateFromRpc(_ rpcQuaternion: Mavsdk_Rpc_Telemetry_Quaternion) -> Quaternion {
+        internal static func translateFromRpc(_ rpcQuaternion: Mavsdk_Rpc_TelemetryServer_Quaternion) -> Quaternion {
             return Quaternion(w: rpcQuaternion.w, x: rpcQuaternion.x, y: rpcQuaternion.y, z: rpcQuaternion.z, timestampUs: rpcQuaternion.timestampUs)
         }
 
@@ -551,8 +551,8 @@ public class Telemetry {
             self.timestampUs = timestampUs
         }
 
-        internal var rpcEulerAngle: Mavsdk_Rpc_Telemetry_EulerAngle {
-            var rpcEulerAngle = Mavsdk_Rpc_Telemetry_EulerAngle()
+        internal var rpcEulerAngle: Mavsdk_Rpc_TelemetryServer_EulerAngle {
+            var rpcEulerAngle = Mavsdk_Rpc_TelemetryServer_EulerAngle()
             
                 
             rpcEulerAngle.rollDeg = rollDeg
@@ -577,7 +577,7 @@ public class Telemetry {
             return rpcEulerAngle
         }
 
-        internal static func translateFromRpc(_ rpcEulerAngle: Mavsdk_Rpc_Telemetry_EulerAngle) -> EulerAngle {
+        internal static func translateFromRpc(_ rpcEulerAngle: Mavsdk_Rpc_TelemetryServer_EulerAngle) -> EulerAngle {
             return EulerAngle(rollDeg: rpcEulerAngle.rollDeg, pitchDeg: rpcEulerAngle.pitchDeg, yawDeg: rpcEulerAngle.yawDeg, timestampUs: rpcEulerAngle.timestampUs)
         }
 
@@ -619,8 +619,8 @@ public class Telemetry {
             self.yawRadS = yawRadS
         }
 
-        internal var rpcAngularVelocityBody: Mavsdk_Rpc_Telemetry_AngularVelocityBody {
-            var rpcAngularVelocityBody = Mavsdk_Rpc_Telemetry_AngularVelocityBody()
+        internal var rpcAngularVelocityBody: Mavsdk_Rpc_TelemetryServer_AngularVelocityBody {
+            var rpcAngularVelocityBody = Mavsdk_Rpc_TelemetryServer_AngularVelocityBody()
             
                 
             rpcAngularVelocityBody.rollRadS = rollRadS
@@ -640,7 +640,7 @@ public class Telemetry {
             return rpcAngularVelocityBody
         }
 
-        internal static func translateFromRpc(_ rpcAngularVelocityBody: Mavsdk_Rpc_Telemetry_AngularVelocityBody) -> AngularVelocityBody {
+        internal static func translateFromRpc(_ rpcAngularVelocityBody: Mavsdk_Rpc_TelemetryServer_AngularVelocityBody) -> AngularVelocityBody {
             return AngularVelocityBody(rollRadS: rpcAngularVelocityBody.rollRadS, pitchRadS: rpcAngularVelocityBody.pitchRadS, yawRadS: rpcAngularVelocityBody.yawRadS)
         }
 
@@ -677,8 +677,8 @@ public class Telemetry {
             self.fixType = fixType
         }
 
-        internal var rpcGpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo {
-            var rpcGpsInfo = Mavsdk_Rpc_Telemetry_GpsInfo()
+        internal var rpcGpsInfo: Mavsdk_Rpc_TelemetryServer_GpsInfo {
+            var rpcGpsInfo = Mavsdk_Rpc_TelemetryServer_GpsInfo()
             
                 
             rpcGpsInfo.numSatellites = numSatellites
@@ -693,7 +693,7 @@ public class Telemetry {
             return rpcGpsInfo
         }
 
-        internal static func translateFromRpc(_ rpcGpsInfo: Mavsdk_Rpc_Telemetry_GpsInfo) -> GpsInfo {
+        internal static func translateFromRpc(_ rpcGpsInfo: Mavsdk_Rpc_TelemetryServer_GpsInfo) -> GpsInfo {
             return GpsInfo(numSatellites: rpcGpsInfo.numSatellites, fixType: FixType.translateFromRpc(rpcGpsInfo.fixType))
         }
 
@@ -780,8 +780,8 @@ public class Telemetry {
             self.yawDeg = yawDeg
         }
 
-        internal var rpcRawGps: Mavsdk_Rpc_Telemetry_RawGps {
-            var rpcRawGps = Mavsdk_Rpc_Telemetry_RawGps()
+        internal var rpcRawGps: Mavsdk_Rpc_TelemetryServer_RawGps {
+            var rpcRawGps = Mavsdk_Rpc_TelemetryServer_RawGps()
             
                 
             rpcRawGps.timestampUs = timestampUs
@@ -856,7 +856,7 @@ public class Telemetry {
             return rpcRawGps
         }
 
-        internal static func translateFromRpc(_ rpcRawGps: Mavsdk_Rpc_Telemetry_RawGps) -> RawGps {
+        internal static func translateFromRpc(_ rpcRawGps: Mavsdk_Rpc_TelemetryServer_RawGps) -> RawGps {
             return RawGps(timestampUs: rpcRawGps.timestampUs, latitudeDeg: rpcRawGps.latitudeDeg, longitudeDeg: rpcRawGps.longitudeDeg, absoluteAltitudeM: rpcRawGps.absoluteAltitudeM, hdop: rpcRawGps.hdop, vdop: rpcRawGps.vdop, velocityMS: rpcRawGps.velocityMS, cogDeg: rpcRawGps.cogDeg, altitudeEllipsoidM: rpcRawGps.altitudeEllipsoidM, horizontalUncertaintyM: rpcRawGps.horizontalUncertaintyM, verticalUncertaintyM: rpcRawGps.verticalUncertaintyM, velocityUncertaintyMS: rpcRawGps.velocityUncertaintyMS, headingUncertaintyDeg: rpcRawGps.headingUncertaintyDeg, yawDeg: rpcRawGps.yawDeg)
         }
 
@@ -882,7 +882,6 @@ public class Telemetry {
      Battery type.
      */
     public struct Battery: Equatable {
-        public let id: UInt32
         public let voltageV: Float
         public let remainingPercent: Float
 
@@ -894,27 +893,19 @@ public class Telemetry {
          
          - Parameters:
             
-            - id:  Battery ID, for systems with multiple batteries
-            
             - voltageV:  Voltage in volts
             
             - remainingPercent:  Estimated battery remaining (range: 0.0 to 1.0)
             
          
          */
-        public init(id: UInt32, voltageV: Float, remainingPercent: Float) {
-            self.id = id
+        public init(voltageV: Float, remainingPercent: Float) {
             self.voltageV = voltageV
             self.remainingPercent = remainingPercent
         }
 
-        internal var rpcBattery: Mavsdk_Rpc_Telemetry_Battery {
-            var rpcBattery = Mavsdk_Rpc_Telemetry_Battery()
-            
-                
-            rpcBattery.id = id
-                
-            
+        internal var rpcBattery: Mavsdk_Rpc_TelemetryServer_Battery {
+            var rpcBattery = Mavsdk_Rpc_TelemetryServer_Battery()
             
                 
             rpcBattery.voltageV = voltageV
@@ -929,13 +920,12 @@ public class Telemetry {
             return rpcBattery
         }
 
-        internal static func translateFromRpc(_ rpcBattery: Mavsdk_Rpc_Telemetry_Battery) -> Battery {
-            return Battery(id: rpcBattery.id, voltageV: rpcBattery.voltageV, remainingPercent: rpcBattery.remainingPercent)
+        internal static func translateFromRpc(_ rpcBattery: Mavsdk_Rpc_TelemetryServer_Battery) -> Battery {
+            return Battery(voltageV: rpcBattery.voltageV, remainingPercent: rpcBattery.remainingPercent)
         }
 
         public static func == (lhs: Battery, rhs: Battery) -> Bool {
-            return lhs.id == rhs.id
-                && lhs.voltageV == rhs.voltageV
+            return lhs.voltageV == rhs.voltageV
                 && lhs.remainingPercent == rhs.remainingPercent
         }
     }
@@ -986,8 +976,8 @@ public class Telemetry {
             self.isArmable = isArmable
         }
 
-        internal var rpcHealth: Mavsdk_Rpc_Telemetry_Health {
-            var rpcHealth = Mavsdk_Rpc_Telemetry_Health()
+        internal var rpcHealth: Mavsdk_Rpc_TelemetryServer_Health {
+            var rpcHealth = Mavsdk_Rpc_TelemetryServer_Health()
             
                 
             rpcHealth.isGyrometerCalibrationOk = isGyrometerCalibrationOk
@@ -1027,7 +1017,7 @@ public class Telemetry {
             return rpcHealth
         }
 
-        internal static func translateFromRpc(_ rpcHealth: Mavsdk_Rpc_Telemetry_Health) -> Health {
+        internal static func translateFromRpc(_ rpcHealth: Mavsdk_Rpc_TelemetryServer_Health) -> Health {
             return Health(isGyrometerCalibrationOk: rpcHealth.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: rpcHealth.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: rpcHealth.isMagnetometerCalibrationOk, isLocalPositionOk: rpcHealth.isLocalPositionOk, isGlobalPositionOk: rpcHealth.isGlobalPositionOk, isHomePositionOk: rpcHealth.isHomePositionOk, isArmable: rpcHealth.isArmable)
         }
 
@@ -1072,8 +1062,8 @@ public class Telemetry {
             self.signalStrengthPercent = signalStrengthPercent
         }
 
-        internal var rpcRcStatus: Mavsdk_Rpc_Telemetry_RcStatus {
-            var rpcRcStatus = Mavsdk_Rpc_Telemetry_RcStatus()
+        internal var rpcRcStatus: Mavsdk_Rpc_TelemetryServer_RcStatus {
+            var rpcRcStatus = Mavsdk_Rpc_TelemetryServer_RcStatus()
             
                 
             rpcRcStatus.wasAvailableOnce = wasAvailableOnce
@@ -1093,7 +1083,7 @@ public class Telemetry {
             return rpcRcStatus
         }
 
-        internal static func translateFromRpc(_ rpcRcStatus: Mavsdk_Rpc_Telemetry_RcStatus) -> RcStatus {
+        internal static func translateFromRpc(_ rpcRcStatus: Mavsdk_Rpc_TelemetryServer_RcStatus) -> RcStatus {
             return RcStatus(wasAvailableOnce: rpcRcStatus.wasAvailableOnce, isAvailable: rpcRcStatus.isAvailable, signalStrengthPercent: rpcRcStatus.signalStrengthPercent)
         }
 
@@ -1130,8 +1120,8 @@ public class Telemetry {
             self.text = text
         }
 
-        internal var rpcStatusText: Mavsdk_Rpc_Telemetry_StatusText {
-            var rpcStatusText = Mavsdk_Rpc_Telemetry_StatusText()
+        internal var rpcStatusText: Mavsdk_Rpc_TelemetryServer_StatusText {
+            var rpcStatusText = Mavsdk_Rpc_TelemetryServer_StatusText()
             
                 
             rpcStatusText.type = type.rpcStatusTextType
@@ -1146,7 +1136,7 @@ public class Telemetry {
             return rpcStatusText
         }
 
-        internal static func translateFromRpc(_ rpcStatusText: Mavsdk_Rpc_Telemetry_StatusText) -> StatusText {
+        internal static func translateFromRpc(_ rpcStatusText: Mavsdk_Rpc_TelemetryServer_StatusText) -> StatusText {
             return StatusText(type: StatusTextType.translateFromRpc(rpcStatusText.type), text: rpcStatusText.text)
         }
 
@@ -1182,8 +1172,8 @@ public class Telemetry {
             self.controls = controls
         }
 
-        internal var rpcActuatorControlTarget: Mavsdk_Rpc_Telemetry_ActuatorControlTarget {
-            var rpcActuatorControlTarget = Mavsdk_Rpc_Telemetry_ActuatorControlTarget()
+        internal var rpcActuatorControlTarget: Mavsdk_Rpc_TelemetryServer_ActuatorControlTarget {
+            var rpcActuatorControlTarget = Mavsdk_Rpc_TelemetryServer_ActuatorControlTarget()
             
                 
             rpcActuatorControlTarget.group = group
@@ -1198,7 +1188,7 @@ public class Telemetry {
             return rpcActuatorControlTarget
         }
 
-        internal static func translateFromRpc(_ rpcActuatorControlTarget: Mavsdk_Rpc_Telemetry_ActuatorControlTarget) -> ActuatorControlTarget {
+        internal static func translateFromRpc(_ rpcActuatorControlTarget: Mavsdk_Rpc_TelemetryServer_ActuatorControlTarget) -> ActuatorControlTarget {
             return ActuatorControlTarget(group: rpcActuatorControlTarget.group, controls: rpcActuatorControlTarget.controls)
         }
 
@@ -1234,8 +1224,8 @@ public class Telemetry {
             self.actuator = actuator
         }
 
-        internal var rpcActuatorOutputStatus: Mavsdk_Rpc_Telemetry_ActuatorOutputStatus {
-            var rpcActuatorOutputStatus = Mavsdk_Rpc_Telemetry_ActuatorOutputStatus()
+        internal var rpcActuatorOutputStatus: Mavsdk_Rpc_TelemetryServer_ActuatorOutputStatus {
+            var rpcActuatorOutputStatus = Mavsdk_Rpc_TelemetryServer_ActuatorOutputStatus()
             
                 
             rpcActuatorOutputStatus.active = active
@@ -1250,7 +1240,7 @@ public class Telemetry {
             return rpcActuatorOutputStatus
         }
 
-        internal static func translateFromRpc(_ rpcActuatorOutputStatus: Mavsdk_Rpc_Telemetry_ActuatorOutputStatus) -> ActuatorOutputStatus {
+        internal static func translateFromRpc(_ rpcActuatorOutputStatus: Mavsdk_Rpc_TelemetryServer_ActuatorOutputStatus) -> ActuatorOutputStatus {
             return ActuatorOutputStatus(active: rpcActuatorOutputStatus.active, actuator: rpcActuatorOutputStatus.actuator)
         }
 
@@ -1283,8 +1273,8 @@ public class Telemetry {
             self.covarianceMatrix = covarianceMatrix
         }
 
-        internal var rpcCovariance: Mavsdk_Rpc_Telemetry_Covariance {
-            var rpcCovariance = Mavsdk_Rpc_Telemetry_Covariance()
+        internal var rpcCovariance: Mavsdk_Rpc_TelemetryServer_Covariance {
+            var rpcCovariance = Mavsdk_Rpc_TelemetryServer_Covariance()
             
                 
             rpcCovariance.covarianceMatrix = covarianceMatrix
@@ -1294,7 +1284,7 @@ public class Telemetry {
             return rpcCovariance
         }
 
-        internal static func translateFromRpc(_ rpcCovariance: Mavsdk_Rpc_Telemetry_Covariance) -> Covariance {
+        internal static func translateFromRpc(_ rpcCovariance: Mavsdk_Rpc_TelemetryServer_Covariance) -> Covariance {
             return Covariance(covarianceMatrix: rpcCovariance.covarianceMatrix)
         }
 
@@ -1333,8 +1323,8 @@ public class Telemetry {
             self.zMS = zMS
         }
 
-        internal var rpcVelocityBody: Mavsdk_Rpc_Telemetry_VelocityBody {
-            var rpcVelocityBody = Mavsdk_Rpc_Telemetry_VelocityBody()
+        internal var rpcVelocityBody: Mavsdk_Rpc_TelemetryServer_VelocityBody {
+            var rpcVelocityBody = Mavsdk_Rpc_TelemetryServer_VelocityBody()
             
                 
             rpcVelocityBody.xMS = xMS
@@ -1354,7 +1344,7 @@ public class Telemetry {
             return rpcVelocityBody
         }
 
-        internal static func translateFromRpc(_ rpcVelocityBody: Mavsdk_Rpc_Telemetry_VelocityBody) -> VelocityBody {
+        internal static func translateFromRpc(_ rpcVelocityBody: Mavsdk_Rpc_TelemetryServer_VelocityBody) -> VelocityBody {
             return VelocityBody(xMS: rpcVelocityBody.xMS, yMS: rpcVelocityBody.yMS, zMS: rpcVelocityBody.zMS)
         }
 
@@ -1395,8 +1385,8 @@ public class Telemetry {
             self.zM = zM
         }
 
-        internal var rpcPositionBody: Mavsdk_Rpc_Telemetry_PositionBody {
-            var rpcPositionBody = Mavsdk_Rpc_Telemetry_PositionBody()
+        internal var rpcPositionBody: Mavsdk_Rpc_TelemetryServer_PositionBody {
+            var rpcPositionBody = Mavsdk_Rpc_TelemetryServer_PositionBody()
             
                 
             rpcPositionBody.xM = xM
@@ -1416,7 +1406,7 @@ public class Telemetry {
             return rpcPositionBody
         }
 
-        internal static func translateFromRpc(_ rpcPositionBody: Mavsdk_Rpc_Telemetry_PositionBody) -> PositionBody {
+        internal static func translateFromRpc(_ rpcPositionBody: Mavsdk_Rpc_TelemetryServer_PositionBody) -> PositionBody {
             return PositionBody(xM: rpcPositionBody.xM, yM: rpcPositionBody.yM, zM: rpcPositionBody.zM)
         }
 
@@ -1458,7 +1448,7 @@ public class Telemetry {
             case estimNed
             case UNRECOGNIZED(Int)
 
-            internal var rpcMavFrame: Mavsdk_Rpc_Telemetry_Odometry.MavFrame {
+            internal var rpcMavFrame: Mavsdk_Rpc_TelemetryServer_Odometry.MavFrame {
                 switch self {
                 case .undef:
                     return .undef
@@ -1473,7 +1463,7 @@ public class Telemetry {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcMavFrame: Mavsdk_Rpc_Telemetry_Odometry.MavFrame) -> MavFrame {
+            internal static func translateFromRpc(_ rpcMavFrame: Mavsdk_Rpc_TelemetryServer_Odometry.MavFrame) -> MavFrame {
                 switch rpcMavFrame {
                 case .undef:
                     return .undef
@@ -1528,8 +1518,8 @@ public class Telemetry {
             self.velocityCovariance = velocityCovariance
         }
 
-        internal var rpcOdometry: Mavsdk_Rpc_Telemetry_Odometry {
-            var rpcOdometry = Mavsdk_Rpc_Telemetry_Odometry()
+        internal var rpcOdometry: Mavsdk_Rpc_TelemetryServer_Odometry {
+            var rpcOdometry = Mavsdk_Rpc_TelemetryServer_Odometry()
             
                 
             rpcOdometry.timeUsec = timeUsec
@@ -1579,7 +1569,7 @@ public class Telemetry {
             return rpcOdometry
         }
 
-        internal static func translateFromRpc(_ rpcOdometry: Mavsdk_Rpc_Telemetry_Odometry) -> Odometry {
+        internal static func translateFromRpc(_ rpcOdometry: Mavsdk_Rpc_TelemetryServer_Odometry) -> Odometry {
             return Odometry(timeUsec: rpcOdometry.timeUsec, frameID: MavFrame.translateFromRpc(rpcOdometry.frameID), childFrameID: MavFrame.translateFromRpc(rpcOdometry.childFrameID), positionBody: PositionBody.translateFromRpc(rpcOdometry.positionBody), q: Quaternion.translateFromRpc(rpcOdometry.q), velocityBody: VelocityBody.translateFromRpc(rpcOdometry.velocityBody), angularVelocityBody: AngularVelocityBody.translateFromRpc(rpcOdometry.angularVelocityBody), poseCovariance: Covariance.translateFromRpc(rpcOdometry.poseCovariance), velocityCovariance: Covariance.translateFromRpc(rpcOdometry.velocityCovariance))
         }
 
@@ -1626,8 +1616,8 @@ public class Telemetry {
             self.currentDistanceM = currentDistanceM
         }
 
-        internal var rpcDistanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor {
-            var rpcDistanceSensor = Mavsdk_Rpc_Telemetry_DistanceSensor()
+        internal var rpcDistanceSensor: Mavsdk_Rpc_TelemetryServer_DistanceSensor {
+            var rpcDistanceSensor = Mavsdk_Rpc_TelemetryServer_DistanceSensor()
             
                 
             rpcDistanceSensor.minimumDistanceM = minimumDistanceM
@@ -1647,7 +1637,7 @@ public class Telemetry {
             return rpcDistanceSensor
         }
 
-        internal static func translateFromRpc(_ rpcDistanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor) -> DistanceSensor {
+        internal static func translateFromRpc(_ rpcDistanceSensor: Mavsdk_Rpc_TelemetryServer_DistanceSensor) -> DistanceSensor {
             return DistanceSensor(minimumDistanceM: rpcDistanceSensor.minimumDistanceM, maximumDistanceM: rpcDistanceSensor.maximumDistanceM, currentDistanceM: rpcDistanceSensor.currentDistanceM)
         }
 
@@ -1696,8 +1686,8 @@ public class Telemetry {
             self.differentialPressureTemperatureDeg = differentialPressureTemperatureDeg
         }
 
-        internal var rpcScaledPressure: Mavsdk_Rpc_Telemetry_ScaledPressure {
-            var rpcScaledPressure = Mavsdk_Rpc_Telemetry_ScaledPressure()
+        internal var rpcScaledPressure: Mavsdk_Rpc_TelemetryServer_ScaledPressure {
+            var rpcScaledPressure = Mavsdk_Rpc_TelemetryServer_ScaledPressure()
             
                 
             rpcScaledPressure.timestampUs = timestampUs
@@ -1727,7 +1717,7 @@ public class Telemetry {
             return rpcScaledPressure
         }
 
-        internal static func translateFromRpc(_ rpcScaledPressure: Mavsdk_Rpc_Telemetry_ScaledPressure) -> ScaledPressure {
+        internal static func translateFromRpc(_ rpcScaledPressure: Mavsdk_Rpc_TelemetryServer_ScaledPressure) -> ScaledPressure {
             return ScaledPressure(timestampUs: rpcScaledPressure.timestampUs, absolutePressureHpa: rpcScaledPressure.absolutePressureHpa, differentialPressureHpa: rpcScaledPressure.differentialPressureHpa, temperatureDeg: rpcScaledPressure.temperatureDeg, differentialPressureTemperatureDeg: rpcScaledPressure.differentialPressureTemperatureDeg)
         }
 
@@ -1770,8 +1760,8 @@ public class Telemetry {
             self.downM = downM
         }
 
-        internal var rpcPositionNed: Mavsdk_Rpc_Telemetry_PositionNed {
-            var rpcPositionNed = Mavsdk_Rpc_Telemetry_PositionNed()
+        internal var rpcPositionNed: Mavsdk_Rpc_TelemetryServer_PositionNed {
+            var rpcPositionNed = Mavsdk_Rpc_TelemetryServer_PositionNed()
             
                 
             rpcPositionNed.northM = northM
@@ -1791,7 +1781,7 @@ public class Telemetry {
             return rpcPositionNed
         }
 
-        internal static func translateFromRpc(_ rpcPositionNed: Mavsdk_Rpc_Telemetry_PositionNed) -> PositionNed {
+        internal static func translateFromRpc(_ rpcPositionNed: Mavsdk_Rpc_TelemetryServer_PositionNed) -> PositionNed {
             return PositionNed(northM: rpcPositionNed.northM, eastM: rpcPositionNed.eastM, downM: rpcPositionNed.downM)
         }
 
@@ -1832,8 +1822,8 @@ public class Telemetry {
             self.downMS = downMS
         }
 
-        internal var rpcVelocityNed: Mavsdk_Rpc_Telemetry_VelocityNed {
-            var rpcVelocityNed = Mavsdk_Rpc_Telemetry_VelocityNed()
+        internal var rpcVelocityNed: Mavsdk_Rpc_TelemetryServer_VelocityNed {
+            var rpcVelocityNed = Mavsdk_Rpc_TelemetryServer_VelocityNed()
             
                 
             rpcVelocityNed.northMS = northMS
@@ -1853,7 +1843,7 @@ public class Telemetry {
             return rpcVelocityNed
         }
 
-        internal static func translateFromRpc(_ rpcVelocityNed: Mavsdk_Rpc_Telemetry_VelocityNed) -> VelocityNed {
+        internal static func translateFromRpc(_ rpcVelocityNed: Mavsdk_Rpc_TelemetryServer_VelocityNed) -> VelocityNed {
             return VelocityNed(northMS: rpcVelocityNed.northMS, eastMS: rpcVelocityNed.eastMS, downMS: rpcVelocityNed.downMS)
         }
 
@@ -1890,8 +1880,8 @@ public class Telemetry {
             self.velocity = velocity
         }
 
-        internal var rpcPositionVelocityNed: Mavsdk_Rpc_Telemetry_PositionVelocityNed {
-            var rpcPositionVelocityNed = Mavsdk_Rpc_Telemetry_PositionVelocityNed()
+        internal var rpcPositionVelocityNed: Mavsdk_Rpc_TelemetryServer_PositionVelocityNed {
+            var rpcPositionVelocityNed = Mavsdk_Rpc_TelemetryServer_PositionVelocityNed()
             
                 
             rpcPositionVelocityNed.position = position.rpcPositionNed
@@ -1906,7 +1896,7 @@ public class Telemetry {
             return rpcPositionVelocityNed
         }
 
-        internal static func translateFromRpc(_ rpcPositionVelocityNed: Mavsdk_Rpc_Telemetry_PositionVelocityNed) -> PositionVelocityNed {
+        internal static func translateFromRpc(_ rpcPositionVelocityNed: Mavsdk_Rpc_TelemetryServer_PositionVelocityNed) -> PositionVelocityNed {
             return PositionVelocityNed(position: PositionNed.translateFromRpc(rpcPositionVelocityNed.position), velocity: VelocityNed.translateFromRpc(rpcPositionVelocityNed.velocity))
         }
 
@@ -1946,8 +1936,8 @@ public class Telemetry {
             self.absoluteAltitudeM = absoluteAltitudeM
         }
 
-        internal var rpcGroundTruth: Mavsdk_Rpc_Telemetry_GroundTruth {
-            var rpcGroundTruth = Mavsdk_Rpc_Telemetry_GroundTruth()
+        internal var rpcGroundTruth: Mavsdk_Rpc_TelemetryServer_GroundTruth {
+            var rpcGroundTruth = Mavsdk_Rpc_TelemetryServer_GroundTruth()
             
                 
             rpcGroundTruth.latitudeDeg = latitudeDeg
@@ -1967,7 +1957,7 @@ public class Telemetry {
             return rpcGroundTruth
         }
 
-        internal static func translateFromRpc(_ rpcGroundTruth: Mavsdk_Rpc_Telemetry_GroundTruth) -> GroundTruth {
+        internal static func translateFromRpc(_ rpcGroundTruth: Mavsdk_Rpc_TelemetryServer_GroundTruth) -> GroundTruth {
             return GroundTruth(latitudeDeg: rpcGroundTruth.latitudeDeg, longitudeDeg: rpcGroundTruth.longitudeDeg, absoluteAltitudeM: rpcGroundTruth.absoluteAltitudeM)
         }
 
@@ -2008,8 +1998,8 @@ public class Telemetry {
             self.climbRateMS = climbRateMS
         }
 
-        internal var rpcFixedwingMetrics: Mavsdk_Rpc_Telemetry_FixedwingMetrics {
-            var rpcFixedwingMetrics = Mavsdk_Rpc_Telemetry_FixedwingMetrics()
+        internal var rpcFixedwingMetrics: Mavsdk_Rpc_TelemetryServer_FixedwingMetrics {
+            var rpcFixedwingMetrics = Mavsdk_Rpc_TelemetryServer_FixedwingMetrics()
             
                 
             rpcFixedwingMetrics.airspeedMS = airspeedMS
@@ -2029,7 +2019,7 @@ public class Telemetry {
             return rpcFixedwingMetrics
         }
 
-        internal static func translateFromRpc(_ rpcFixedwingMetrics: Mavsdk_Rpc_Telemetry_FixedwingMetrics) -> FixedwingMetrics {
+        internal static func translateFromRpc(_ rpcFixedwingMetrics: Mavsdk_Rpc_TelemetryServer_FixedwingMetrics) -> FixedwingMetrics {
             return FixedwingMetrics(airspeedMS: rpcFixedwingMetrics.airspeedMS, throttlePercentage: rpcFixedwingMetrics.throttlePercentage, climbRateMS: rpcFixedwingMetrics.climbRateMS)
         }
 
@@ -2070,8 +2060,8 @@ public class Telemetry {
             self.downMS2 = downMS2
         }
 
-        internal var rpcAccelerationFrd: Mavsdk_Rpc_Telemetry_AccelerationFrd {
-            var rpcAccelerationFrd = Mavsdk_Rpc_Telemetry_AccelerationFrd()
+        internal var rpcAccelerationFrd: Mavsdk_Rpc_TelemetryServer_AccelerationFrd {
+            var rpcAccelerationFrd = Mavsdk_Rpc_TelemetryServer_AccelerationFrd()
             
                 
             rpcAccelerationFrd.forwardMS2 = forwardMS2
@@ -2091,7 +2081,7 @@ public class Telemetry {
             return rpcAccelerationFrd
         }
 
-        internal static func translateFromRpc(_ rpcAccelerationFrd: Mavsdk_Rpc_Telemetry_AccelerationFrd) -> AccelerationFrd {
+        internal static func translateFromRpc(_ rpcAccelerationFrd: Mavsdk_Rpc_TelemetryServer_AccelerationFrd) -> AccelerationFrd {
             return AccelerationFrd(forwardMS2: rpcAccelerationFrd.forwardMS2, rightMS2: rpcAccelerationFrd.rightMS2, downMS2: rpcAccelerationFrd.downMS2)
         }
 
@@ -2132,8 +2122,8 @@ public class Telemetry {
             self.downRadS = downRadS
         }
 
-        internal var rpcAngularVelocityFrd: Mavsdk_Rpc_Telemetry_AngularVelocityFrd {
-            var rpcAngularVelocityFrd = Mavsdk_Rpc_Telemetry_AngularVelocityFrd()
+        internal var rpcAngularVelocityFrd: Mavsdk_Rpc_TelemetryServer_AngularVelocityFrd {
+            var rpcAngularVelocityFrd = Mavsdk_Rpc_TelemetryServer_AngularVelocityFrd()
             
                 
             rpcAngularVelocityFrd.forwardRadS = forwardRadS
@@ -2153,7 +2143,7 @@ public class Telemetry {
             return rpcAngularVelocityFrd
         }
 
-        internal static func translateFromRpc(_ rpcAngularVelocityFrd: Mavsdk_Rpc_Telemetry_AngularVelocityFrd) -> AngularVelocityFrd {
+        internal static func translateFromRpc(_ rpcAngularVelocityFrd: Mavsdk_Rpc_TelemetryServer_AngularVelocityFrd) -> AngularVelocityFrd {
             return AngularVelocityFrd(forwardRadS: rpcAngularVelocityFrd.forwardRadS, rightRadS: rpcAngularVelocityFrd.rightRadS, downRadS: rpcAngularVelocityFrd.downRadS)
         }
 
@@ -2194,8 +2184,8 @@ public class Telemetry {
             self.downGauss = downGauss
         }
 
-        internal var rpcMagneticFieldFrd: Mavsdk_Rpc_Telemetry_MagneticFieldFrd {
-            var rpcMagneticFieldFrd = Mavsdk_Rpc_Telemetry_MagneticFieldFrd()
+        internal var rpcMagneticFieldFrd: Mavsdk_Rpc_TelemetryServer_MagneticFieldFrd {
+            var rpcMagneticFieldFrd = Mavsdk_Rpc_TelemetryServer_MagneticFieldFrd()
             
                 
             rpcMagneticFieldFrd.forwardGauss = forwardGauss
@@ -2215,7 +2205,7 @@ public class Telemetry {
             return rpcMagneticFieldFrd
         }
 
-        internal static func translateFromRpc(_ rpcMagneticFieldFrd: Mavsdk_Rpc_Telemetry_MagneticFieldFrd) -> MagneticFieldFrd {
+        internal static func translateFromRpc(_ rpcMagneticFieldFrd: Mavsdk_Rpc_TelemetryServer_MagneticFieldFrd) -> MagneticFieldFrd {
             return MagneticFieldFrd(forwardGauss: rpcMagneticFieldFrd.forwardGauss, rightGauss: rpcMagneticFieldFrd.rightGauss, downGauss: rpcMagneticFieldFrd.downGauss)
         }
 
@@ -2264,8 +2254,8 @@ public class Telemetry {
             self.timestampUs = timestampUs
         }
 
-        internal var rpcImu: Mavsdk_Rpc_Telemetry_Imu {
-            var rpcImu = Mavsdk_Rpc_Telemetry_Imu()
+        internal var rpcImu: Mavsdk_Rpc_TelemetryServer_Imu {
+            var rpcImu = Mavsdk_Rpc_TelemetryServer_Imu()
             
                 
             rpcImu.accelerationFrd = accelerationFrd.rpcAccelerationFrd
@@ -2295,7 +2285,7 @@ public class Telemetry {
             return rpcImu
         }
 
-        internal static func translateFromRpc(_ rpcImu: Mavsdk_Rpc_Telemetry_Imu) -> Imu {
+        internal static func translateFromRpc(_ rpcImu: Mavsdk_Rpc_TelemetryServer_Imu) -> Imu {
             return Imu(accelerationFrd: AccelerationFrd.translateFromRpc(rpcImu.accelerationFrd), angularVelocityFrd: AngularVelocityFrd.translateFromRpc(rpcImu.angularVelocityFrd), magneticFieldFrd: MagneticFieldFrd.translateFromRpc(rpcImu.magneticFieldFrd), temperatureDegc: rpcImu.temperatureDegc, timestampUs: rpcImu.timestampUs)
         }
 
@@ -2309,71 +2299,9 @@ public class Telemetry {
     }
 
     /**
-     Gps global origin type.
-     */
-    public struct GpsGlobalOrigin: Equatable {
-        public let latitudeDeg: Double
-        public let longitudeDeg: Double
-        public let altitudeM: Float
-
-        
-
-        /**
-         Initializes a new `GpsGlobalOrigin`.
-
-         
-         - Parameters:
-            
-            - latitudeDeg:  Latitude of the origin
-            
-            - longitudeDeg:  Longitude of the origin
-            
-            - altitudeM:  Altitude AMSL (above mean sea level) in metres
-            
-         
-         */
-        public init(latitudeDeg: Double, longitudeDeg: Double, altitudeM: Float) {
-            self.latitudeDeg = latitudeDeg
-            self.longitudeDeg = longitudeDeg
-            self.altitudeM = altitudeM
-        }
-
-        internal var rpcGpsGlobalOrigin: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin {
-            var rpcGpsGlobalOrigin = Mavsdk_Rpc_Telemetry_GpsGlobalOrigin()
-            
-                
-            rpcGpsGlobalOrigin.latitudeDeg = latitudeDeg
-                
-            
-            
-                
-            rpcGpsGlobalOrigin.longitudeDeg = longitudeDeg
-                
-            
-            
-                
-            rpcGpsGlobalOrigin.altitudeM = altitudeM
-                
-            
-
-            return rpcGpsGlobalOrigin
-        }
-
-        internal static func translateFromRpc(_ rpcGpsGlobalOrigin: Mavsdk_Rpc_Telemetry_GpsGlobalOrigin) -> GpsGlobalOrigin {
-            return GpsGlobalOrigin(latitudeDeg: rpcGpsGlobalOrigin.latitudeDeg, longitudeDeg: rpcGpsGlobalOrigin.longitudeDeg, altitudeM: rpcGpsGlobalOrigin.altitudeM)
-        }
-
-        public static func == (lhs: GpsGlobalOrigin, rhs: GpsGlobalOrigin) -> Bool {
-            return lhs.latitudeDeg == rhs.latitudeDeg
-                && lhs.longitudeDeg == rhs.longitudeDeg
-                && lhs.altitudeM == rhs.altitudeM
-        }
-    }
-
-    /**
      Result type.
      */
-    public struct TelemetryResult: Equatable {
+    public struct TelemetryServerResult: Equatable {
         public let result: Result
         public let resultStr: String
 
@@ -2402,7 +2330,7 @@ public class Telemetry {
             case unsupported
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: Mavsdk_Rpc_Telemetry_TelemetryResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
@@ -2425,7 +2353,7 @@ public class Telemetry {
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Telemetry_TelemetryResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
@@ -2451,7 +2379,7 @@ public class Telemetry {
         
 
         /**
-         Initializes a new `TelemetryResult`.
+         Initializes a new `TelemetryServerResult`.
 
          
          - Parameters:
@@ -2467,1178 +2395,64 @@ public class Telemetry {
             self.resultStr = resultStr
         }
 
-        internal var rpcTelemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult {
-            var rpcTelemetryResult = Mavsdk_Rpc_Telemetry_TelemetryResult()
+        internal var rpcTelemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult {
+            var rpcTelemetryServerResult = Mavsdk_Rpc_TelemetryServer_TelemetryServerResult()
             
                 
-            rpcTelemetryResult.result = result.rpcResult
+            rpcTelemetryServerResult.result = result.rpcResult
                 
             
             
                 
-            rpcTelemetryResult.resultStr = resultStr
+            rpcTelemetryServerResult.resultStr = resultStr
                 
             
 
-            return rpcTelemetryResult
+            return rpcTelemetryServerResult
         }
 
-        internal static func translateFromRpc(_ rpcTelemetryResult: Mavsdk_Rpc_Telemetry_TelemetryResult) -> TelemetryResult {
-            return TelemetryResult(result: Result.translateFromRpc(rpcTelemetryResult.result), resultStr: rpcTelemetryResult.resultStr)
+        internal static func translateFromRpc(_ rpcTelemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult) -> TelemetryServerResult {
+            return TelemetryServerResult(result: Result.translateFromRpc(rpcTelemetryServerResult.result), resultStr: rpcTelemetryServerResult.resultStr)
         }
 
-        public static func == (lhs: TelemetryResult, rhs: TelemetryResult) -> Bool {
+        public static func == (lhs: TelemetryServerResult, rhs: TelemetryServerResult) -> Bool {
             return lhs.result == rhs.result
                 && lhs.resultStr == rhs.resultStr
         }
     }
 
 
-
     /**
-     Subscribe to 'position' updates.
-     */
-    public lazy var position: Observable<Position> = createPositionObservable()
-
-
-
-    private func createPositionObservable() -> Observable<Position> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribePositionRequest()
-
-            
-
-            _ = self.service.subscribePosition(request, handler: { (response) in
-
-                
-                     
-                let position = Position.translateFromRpc(response.position)
-                
-
-                
-                observer.onNext(position)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'home position' updates.
-     */
-    public lazy var home: Observable<Position> = createHomeObservable()
-
-
-
-    private func createHomeObservable() -> Observable<Position> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeHomeRequest()
-
-            
-
-            _ = self.service.subscribeHome(request, handler: { (response) in
-
-                
-                     
-                let home = Position.translateFromRpc(response.home)
-                
-
-                
-                observer.onNext(home)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to in-air updates.
-     */
-    public lazy var inAir: Observable<Bool> = createInAirObservable()
-
-
-
-    private func createInAirObservable() -> Observable<Bool> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeInAirRequest()
-
-            
-
-            _ = self.service.subscribeInAir(request, handler: { (response) in
-
-                
-                     
-                let inAir = response.isInAir
-                    
-                
-
-                
-                observer.onNext(inAir)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to landed state updates
-     */
-    public lazy var landedState: Observable<LandedState> = createLandedStateObservable()
-
-
-
-    private func createLandedStateObservable() -> Observable<LandedState> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest()
-
-            
-
-            _ = self.service.subscribeLandedState(request, handler: { (response) in
-
-                
-                     
-                let landedState = LandedState.translateFromRpc(response.landedState)
-                
-
-                
-                observer.onNext(landedState)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to armed updates.
-     */
-    public lazy var armed: Observable<Bool> = createArmedObservable()
-
-
-
-    private func createArmedObservable() -> Observable<Bool> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeArmedRequest()
-
-            
-
-            _ = self.service.subscribeArmed(request, handler: { (response) in
-
-                
-                     
-                let armed = response.isArmed
-                    
-                
-
-                
-                observer.onNext(armed)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'attitude' updates (quaternion).
-     */
-    public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
-
-
-
-    private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
-
-            
-
-            _ = self.service.subscribeAttitudeQuaternion(request, handler: { (response) in
-
-                
-                     
-                let attitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
-                
-
-                
-                observer.onNext(attitudeQuaternion)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'attitude' updates (Euler).
-     */
-    public lazy var attitudeEuler: Observable<EulerAngle> = createAttitudeEulerObservable()
-
-
-
-    private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
-
-            
-
-            _ = self.service.subscribeAttitudeEuler(request, handler: { (response) in
-
-                
-                     
-                let attitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
-                
-
-                
-                observer.onNext(attitudeEuler)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'attitude' updates (angular velocity)
-     */
-    public lazy var attitudeAngularVelocityBody: Observable<AngularVelocityBody> = createAttitudeAngularVelocityBodyObservable()
-
-
-
-    private func createAttitudeAngularVelocityBodyObservable() -> Observable<AngularVelocityBody> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest()
-
-            
-
-            _ = self.service.subscribeAttitudeAngularVelocityBody(request, handler: { (response) in
-
-                
-                     
-                let attitudeAngularVelocityBody = AngularVelocityBody.translateFromRpc(response.attitudeAngularVelocityBody)
-                
-
-                
-                observer.onNext(attitudeAngularVelocityBody)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'camera attitude' updates (quaternion).
-     */
-    public lazy var cameraAttitudeQuaternion: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
-
-
-
-    private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
-
-            
-
-            _ = self.service.subscribeCameraAttitudeQuaternion(request, handler: { (response) in
-
-                
-                     
-                let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
-                
-
-                
-                observer.onNext(cameraAttitudeQuaternion)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'camera attitude' updates (Euler).
-     */
-    public lazy var cameraAttitudeEuler: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
-
-
-
-    private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
-
-            
-
-            _ = self.service.subscribeCameraAttitudeEuler(request, handler: { (response) in
-
-                
-                     
-                let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
-                
-
-                
-                observer.onNext(cameraAttitudeEuler)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'ground speed' updates (NED).
-     */
-    public lazy var velocityNed: Observable<VelocityNed> = createVelocityNedObservable()
-
-
-
-    private func createVelocityNedObservable() -> Observable<VelocityNed> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest()
-
-            
-
-            _ = self.service.subscribeVelocityNed(request, handler: { (response) in
-
-                
-                     
-                let velocityNed = VelocityNed.translateFromRpc(response.velocityNed)
-                
-
-                
-                observer.onNext(velocityNed)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'GPS info' updates.
-     */
-    public lazy var gpsInfo: Observable<GpsInfo> = createGpsInfoObservable()
-
-
-
-    private func createGpsInfoObservable() -> Observable<GpsInfo> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest()
-
-            
-
-            _ = self.service.subscribeGpsInfo(request, handler: { (response) in
-
-                
-                     
-                let gpsInfo = GpsInfo.translateFromRpc(response.gpsInfo)
-                
-
-                
-                observer.onNext(gpsInfo)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'Raw GPS' updates.
-     */
-    public lazy var rawGps: Observable<RawGps> = createRawGpsObservable()
-
-
-
-    private func createRawGpsObservable() -> Observable<RawGps> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest()
-
-            
-
-            _ = self.service.subscribeRawGps(request, handler: { (response) in
-
-                
-                     
-                let rawGps = RawGps.translateFromRpc(response.rawGps)
-                
-
-                
-                observer.onNext(rawGps)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'battery' updates.
-     */
-    public lazy var battery: Observable<Battery> = createBatteryObservable()
-
-
-
-    private func createBatteryObservable() -> Observable<Battery> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest()
-
-            
-
-            _ = self.service.subscribeBattery(request, handler: { (response) in
-
-                
-                     
-                let battery = Battery.translateFromRpc(response.battery)
-                
-
-                
-                observer.onNext(battery)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'flight mode' updates.
-     */
-    public lazy var flightMode: Observable<FlightMode> = createFlightModeObservable()
-
-
-
-    private func createFlightModeObservable() -> Observable<FlightMode> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest()
-
-            
-
-            _ = self.service.subscribeFlightMode(request, handler: { (response) in
-
-                
-                     
-                let flightMode = FlightMode.translateFromRpc(response.flightMode)
-                
-
-                
-                observer.onNext(flightMode)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'health' updates.
-     */
-    public lazy var health: Observable<Health> = createHealthObservable()
-
-
-
-    private func createHealthObservable() -> Observable<Health> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeHealthRequest()
-
-            
-
-            _ = self.service.subscribeHealth(request, handler: { (response) in
-
-                
-                     
-                let health = Health.translateFromRpc(response.health)
-                
-
-                
-                observer.onNext(health)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'RC status' updates.
-     */
-    public lazy var rcStatus: Observable<RcStatus> = createRcStatusObservable()
-
-
-
-    private func createRcStatusObservable() -> Observable<RcStatus> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest()
-
-            
-
-            _ = self.service.subscribeRcStatus(request, handler: { (response) in
-
-                
-                     
-                let rcStatus = RcStatus.translateFromRpc(response.rcStatus)
-                
-
-                
-                observer.onNext(rcStatus)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'status text' updates.
-     */
-    public lazy var statusText: Observable<StatusText> = createStatusTextObservable()
-
-
-
-    private func createStatusTextObservable() -> Observable<StatusText> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest()
-
-            
-
-            _ = self.service.subscribeStatusText(request, handler: { (response) in
-
-                
-                     
-                let statusText = StatusText.translateFromRpc(response.statusText)
-                
-
-                
-                observer.onNext(statusText)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'actuator control target' updates.
-     */
-    public lazy var actuatorControlTarget: Observable<ActuatorControlTarget> = createActuatorControlTargetObservable()
-
-
-
-    private func createActuatorControlTargetObservable() -> Observable<ActuatorControlTarget> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest()
-
-            
-
-            _ = self.service.subscribeActuatorControlTarget(request, handler: { (response) in
-
-                
-                     
-                let actuatorControlTarget = ActuatorControlTarget.translateFromRpc(response.actuatorControlTarget)
-                
-
-                
-                observer.onNext(actuatorControlTarget)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'actuator output status' updates.
-     */
-    public lazy var actuatorOutputStatus: Observable<ActuatorOutputStatus> = createActuatorOutputStatusObservable()
-
-
-
-    private func createActuatorOutputStatusObservable() -> Observable<ActuatorOutputStatus> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest()
-
-            
-
-            _ = self.service.subscribeActuatorOutputStatus(request, handler: { (response) in
-
-                
-                     
-                let actuatorOutputStatus = ActuatorOutputStatus.translateFromRpc(response.actuatorOutputStatus)
-                
-
-                
-                observer.onNext(actuatorOutputStatus)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'odometry' updates.
-     */
-    public lazy var odometry: Observable<Odometry> = createOdometryObservable()
-
-
-
-    private func createOdometryObservable() -> Observable<Odometry> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest()
-
-            
-
-            _ = self.service.subscribeOdometry(request, handler: { (response) in
-
-                
-                     
-                let odometry = Odometry.translateFromRpc(response.odometry)
-                
-
-                
-                observer.onNext(odometry)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'position velocity' updates.
-     */
-    public lazy var positionVelocityNed: Observable<PositionVelocityNed> = createPositionVelocityNedObservable()
-
-
-
-    private func createPositionVelocityNedObservable() -> Observable<PositionVelocityNed> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest()
-
-            
-
-            _ = self.service.subscribePositionVelocityNed(request, handler: { (response) in
-
-                
-                     
-                let positionVelocityNed = PositionVelocityNed.translateFromRpc(response.positionVelocityNed)
-                
-
-                
-                observer.onNext(positionVelocityNed)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'ground truth' updates.
-     */
-    public lazy var groundTruth: Observable<GroundTruth> = createGroundTruthObservable()
-
-
-
-    private func createGroundTruthObservable() -> Observable<GroundTruth> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest()
-
-            
-
-            _ = self.service.subscribeGroundTruth(request, handler: { (response) in
-
-                
-                     
-                let groundTruth = GroundTruth.translateFromRpc(response.groundTruth)
-                
-
-                
-                observer.onNext(groundTruth)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'fixedwing metrics' updates.
-     */
-    public lazy var fixedwingMetrics: Observable<FixedwingMetrics> = createFixedwingMetricsObservable()
-
-
-
-    private func createFixedwingMetricsObservable() -> Observable<FixedwingMetrics> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest()
-
-            
-
-            _ = self.service.subscribeFixedwingMetrics(request, handler: { (response) in
-
-                
-                     
-                let fixedwingMetrics = FixedwingMetrics.translateFromRpc(response.fixedwingMetrics)
-                
-
-                
-                observer.onNext(fixedwingMetrics)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'IMU' updates (in SI units in NED body frame).
-     */
-    public lazy var imu: Observable<Imu> = createImuObservable()
-
-
-
-    private func createImuObservable() -> Observable<Imu> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeImuRequest()
-
-            
-
-            _ = self.service.subscribeImu(request, handler: { (response) in
-
-                
-                     
-                let imu = Imu.translateFromRpc(response.imu)
-                
-
-                
-                observer.onNext(imu)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'Scaled IMU' updates.
-     */
-    public lazy var scaledImu: Observable<Imu> = createScaledImuObservable()
-
-
-
-    private func createScaledImuObservable() -> Observable<Imu> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest()
-
-            
-
-            _ = self.service.subscribeScaledImu(request, handler: { (response) in
-
-                
-                     
-                let scaledImu = Imu.translateFromRpc(response.imu)
-                
-
-                
-                observer.onNext(scaledImu)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'Raw IMU' updates.
-     */
-    public lazy var rawImu: Observable<Imu> = createRawImuObservable()
-
-
-
-    private func createRawImuObservable() -> Observable<Imu> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest()
-
-            
-
-            _ = self.service.subscribeRawImu(request, handler: { (response) in
-
-                
-                     
-                let rawImu = Imu.translateFromRpc(response.imu)
-                
-
-                
-                observer.onNext(rawImu)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'HealthAllOk' updates.
-     */
-    public lazy var healthAllOk: Observable<Bool> = createHealthAllOkObservable()
-
-
-
-    private func createHealthAllOkObservable() -> Observable<Bool> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest()
-
-            
-
-            _ = self.service.subscribeHealthAllOk(request, handler: { (response) in
-
-                
-                     
-                let healthAllOk = response.isHealthAllOk
-                    
-                
-
-                
-                observer.onNext(healthAllOk)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'unix epoch time' updates.
-     */
-    public lazy var unixEpochTime: Observable<UInt64> = createUnixEpochTimeObservable()
-
-
-
-    private func createUnixEpochTimeObservable() -> Observable<UInt64> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest()
-
-            
-
-            _ = self.service.subscribeUnixEpochTime(request, handler: { (response) in
-
-                
-                     
-                let unixEpochTime = response.timeUs
-                    
-                
-
-                
-                observer.onNext(unixEpochTime)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'Distance Sensor' updates.
-     */
-    public lazy var distanceSensor: Observable<DistanceSensor> = createDistanceSensorObservable()
-
-
-
-    private func createDistanceSensorObservable() -> Observable<DistanceSensor> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest()
-
-            
-
-            _ = self.service.subscribeDistanceSensor(request, handler: { (response) in
-
-                
-                     
-                let distanceSensor = DistanceSensor.translateFromRpc(response.distanceSensor)
-                
-
-                
-                observer.onNext(distanceSensor)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'Scaled Pressure' updates.
-     */
-    public lazy var scaledPressure: Observable<ScaledPressure> = createScaledPressureObservable()
-
-
-
-    private func createScaledPressureObservable() -> Observable<ScaledPressure> {
-        return Observable.create { observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest()
-
-            
-
-            _ = self.service.subscribeScaledPressure(request, handler: { (response) in
-
-                
-                     
-                let scaledPressure = ScaledPressure.translateFromRpc(response.scaledPressure)
-                
-
-                
-                observer.onNext(scaledPressure)
-                
-            })
-
-            return Disposables.create()
-        }
-        .retryWhen { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-    /**
-     Set rate to 'position' updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
+     Publish to 'position' updates.
+
+     - Parameters:
+        - position: The next position
+        - velocityNed: The next velocity (NED)
      
      */
-    public func setRatePosition(rateHz: Double) -> Completable {
+    public func publishPosition(position: Position, velocityNed: VelocityNed) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRatePositionRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishPositionRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.position = position.rpcPosition
+                
+            
+                
+            request.velocityNed = velocityNed.rpcVelocityNed
                 
             
 
             do {
                 
-                let response = self.service.setRatePosition(request)
+                let response = self.service.publishPosition(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3650,30 +2464,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'home position' updates.
+     Publish to 'home position' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter home: The next home position
      
      */
-    public func setRateHome(rateHz: Double) -> Completable {
+    public func publishHome(home: Position) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateHomeRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishHomeRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.home = home.rpcPosition
                 
             
 
             do {
                 
-                let response = self.service.setRateHome(request)
+                let response = self.service.publishHome(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3685,30 +2499,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to in-air updates.
+     Publish to armed updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter isArmed: The next 'armed' state
      
      */
-    public func setRateInAir(rateHz: Double) -> Completable {
+    public func publishArmed(isArmed: Bool) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateInAirRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishArmedRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.isArmed = isArmed
                 
             
 
             do {
                 
-                let response = self.service.setRateInAir(request)
+                let response = self.service.publishArmed(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3720,30 +2534,36 @@ public class Telemetry {
     }
 
     /**
-     Set rate to landed state updates
+     Publish to 'Raw GPS' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameters:
+        - rawGps: The next 'Raw GPS' state. Warning: this is an advanced feature, use `Position` updates to get the location of the drone!
+        - gpsInfo: The next 'GPS info' state
      
      */
-    public func setRateLandedState(rateHz: Double) -> Completable {
+    public func publishRawGps(rawGps: RawGps, gpsInfo: GpsInfo) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishRawGpsRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.rawGps = rawGps.rpcRawGps
+                
+            
+                
+            request.gpsInfo = gpsInfo.rpcGpsInfo
                 
             
 
             do {
                 
-                let response = self.service.setRateLandedState(request)
+                let response = self.service.publishRawGps(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3755,30 +2575,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'attitude' updates.
+     Publish to 'battery' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter battery: The next 'battery' state
      
      */
-    public func setRateAttitude(rateHz: Double) -> Completable {
+    public func publishBattery(battery: Battery) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.battery = battery.rpcBattery
                 
             
 
             do {
                 
-                let response = self.service.setRateAttitude(request)
+                let response = self.service.publishBattery(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3790,30 +2610,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate of camera attitude updates.
+     Publish to 'flight mode' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter flightMode: The next flight mode
      
      */
-    public func setRateCameraAttitude(rateHz: Double) -> Completable {
+    public func publishFlightMode(flightMode: FlightMode) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.flightMode = flightMode.rpcFlightMode
                 
             
 
             do {
                 
-                let response = self.service.setRateCameraAttitude(request)
+                let response = self.service.publishFlightMode(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3825,30 +2645,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'ground speed' updates (NED).
+     Publish to 'health' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter health: The next 'health' state
      
      */
-    public func setRateVelocityNed(rateHz: Double) -> Completable {
+    public func publishHealth(health: Health) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishHealthRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.health = health.rpcHealth
                 
             
 
             do {
                 
-                let response = self.service.setRateVelocityNed(request)
+                let response = self.service.publishHealth(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3860,30 +2680,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'GPS info' updates.
+     Publish to 'status text' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter statusText: The next 'status text'
      
      */
-    public func setRateGpsInfo(rateHz: Double) -> Completable {
+    public func publishStatusText(statusText: StatusText) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateGpsInfoRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishStatusTextRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.statusText = statusText.rpcStatusText
                 
             
 
             do {
                 
-                let response = self.service.setRateGpsInfo(request)
+                let response = self.service.publishStatusText(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3895,30 +2715,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'battery' updates.
+     Publish to 'odometry' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter odometry: The next odometry status
      
      */
-    public func setRateBattery(rateHz: Double) -> Completable {
+    public func publishOdometry(odometry: Odometry) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateBatteryRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishOdometryRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.odometry = odometry.rpcOdometry
                 
             
 
             do {
                 
-                let response = self.service.setRateBattery(request)
+                let response = self.service.publishOdometry(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3930,30 +2750,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'RC status' updates.
+     Publish to 'position velocity' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter positionVelocityNed: The next position and velocity status
      
      */
-    public func setRateRcStatus(rateHz: Double) -> Completable {
+    public func publishPositionVelocityNed(positionVelocityNed: PositionVelocityNed) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateRcStatusRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishPositionVelocityNedRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.positionVelocityNed = positionVelocityNed.rpcPositionVelocityNed
                 
             
 
             do {
                 
-                let response = self.service.setRateRcStatus(request)
+                let response = self.service.publishPositionVelocityNed(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -3965,30 +2785,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'actuator control target' updates.
+     Publish to 'ground truth' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter groundTruth: Ground truth position information available in simulation
      
      */
-    public func setRateActuatorControlTarget(rateHz: Double) -> Completable {
+    public func publishGroundTruth(groundTruth: GroundTruth) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateActuatorControlTargetRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishGroundTruthRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.groundTruth = groundTruth.rpcGroundTruth
                 
             
 
             do {
                 
-                let response = self.service.setRateActuatorControlTarget(request)
+                let response = self.service.publishGroundTruth(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -4000,30 +2820,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'actuator output status' updates.
+     Publish to 'IMU' updates (in SI units in NED body frame).
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter imu: The next IMU status
      
      */
-    public func setRateActuatorOutputStatus(rateHz: Double) -> Completable {
+    public func publishImu(imu: Imu) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateActuatorOutputStatusRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishImuRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.imu = imu.rpcImu
                 
             
 
             do {
                 
-                let response = self.service.setRateActuatorOutputStatus(request)
+                let response = self.service.publishImu(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -4035,30 +2855,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'odometry' updates.
+     Publish to 'Scaled IMU' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter imu: The next scaled IMU status
      
      */
-    public func setRateOdometry(rateHz: Double) -> Completable {
+    public func publishScaledImu(imu: Imu) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateOdometryRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishScaledImuRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.imu = imu.rpcImu
                 
             
 
             do {
                 
-                let response = self.service.setRateOdometry(request)
+                let response = self.service.publishScaledImu(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -4070,30 +2890,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'position velocity' updates.
+     Publish to 'Raw IMU' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter imu: The next raw IMU status
      
      */
-    public func setRatePositionVelocityNed(rateHz: Double) -> Completable {
+    public func publishRawImu(imu: Imu) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRatePositionVelocityNedRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.imu = imu.rpcImu
                 
             
 
             do {
                 
-                let response = self.service.setRatePositionVelocityNed(request)
+                let response = self.service.publishRawImu(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -4105,30 +2925,30 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'ground truth' updates.
+     Publish to 'HealthAllOk' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter isHealthAllOk: The next 'health all ok' status
      
      */
-    public func setRateGroundTruth(rateHz: Double) -> Completable {
+    public func publishHealthAllOk(isHealthAllOk: Bool) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateGroundTruthRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.isHealthAllOk = isHealthAllOk
                 
             
 
             do {
                 
-                let response = self.service.setRateGroundTruth(request)
+                let response = self.service.publishHealthAllOk(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -4140,244 +2960,34 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'fixedwing metrics' updates.
+     Publish to 'unix epoch time' updates.
 
-     - Parameter rateHz: The requested rate (in Hertz)
+     - Parameter timeUs: The next 'unix epoch time' status
      
      */
-    public func setRateFixedwingMetrics(rateHz: Double) -> Completable {
+    public func publishUnixEpochTime(timeUs: UInt64) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateFixedwingMetricsRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest()
 
             
                 
-            request.rateHz = rateHz
+            request.timeUs = timeUs
                 
             
 
             do {
                 
-                let response = self.service.setRateFixedwingMetrics(request)
+                let response = self.service.publishUnixEpochTime(request)
 
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
                 completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Set rate to 'IMU' updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
-     
-     */
-    public func setRateImu(rateHz: Double) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateImuRequest()
-
-            
-                
-            request.rateHz = rateHz
-                
-            
-
-            do {
-                
-                let response = self.service.setRateImu(request)
-
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Set rate to 'Scaled IMU' updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
-     
-     */
-    public func setRateScaledImu(rateHz: Double) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateScaledImuRequest()
-
-            
-                
-            request.rateHz = rateHz
-                
-            
-
-            do {
-                
-                let response = self.service.setRateScaledImu(request)
-
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Set rate to 'Raw IMU' updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
-     
-     */
-    public func setRateRawImu(rateHz: Double) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateRawImuRequest()
-
-            
-                
-            request.rateHz = rateHz
-                
-            
-
-            do {
-                
-                let response = self.service.setRateRawImu(request)
-
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Set rate to 'unix epoch time' updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
-     
-     */
-    public func setRateUnixEpochTime(rateHz: Double) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateUnixEpochTimeRequest()
-
-            
-                
-            request.rateHz = rateHz
-                
-            
-
-            do {
-                
-                let response = self.service.setRateUnixEpochTime(request)
-
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Set rate to 'Distance Sensor' updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
-     
-     */
-    public func setRateDistanceSensor(rateHz: Double) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest()
-
-            
-                
-            request.rateHz = rateHz
-                
-            
-
-            do {
-                
-                let response = self.service.setRateDistanceSensor(request)
-
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Get the GPS location of where the estimator has been initialized.
-
-     
-     */
-    public func getGpsGlobalOrigin() -> Single<GpsGlobalOrigin> {
-        return Single<GpsGlobalOrigin>.create { single in
-            let request = Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest()
-
-            
-
-            do {
-                let response = self.service.getGpsGlobalOrigin(request)
-
-                
-                let result = try response.response.wait().telemetryResult
-                if (result.result != Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    single(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-
-                    return Disposables.create()
-                }
-                
-
-    	    
-                    let gpsGlobalOrigin = try GpsGlobalOrigin.translateFromRpc(response.response.wait().gpsGlobalOrigin)
-                
-                single(.success(gpsGlobalOrigin))
-            } catch {
-                single(.error(error))
             }
 
             return Disposables.create()

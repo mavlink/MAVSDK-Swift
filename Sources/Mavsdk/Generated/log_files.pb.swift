@@ -184,6 +184,9 @@ struct Mavsdk_Rpc_LogFiles_LogFilesResult {
 
     /// File open failed
     case fileOpenFailed // = 6
+
+    /// No system is connected
+    case noSystem // = 7
     case UNRECOGNIZED(Int)
 
     init() {
@@ -199,6 +202,7 @@ struct Mavsdk_Rpc_LogFiles_LogFilesResult {
       case 4: self = .timeout
       case 5: self = .invalidArgument
       case 6: self = .fileOpenFailed
+      case 7: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -212,6 +216,7 @@ struct Mavsdk_Rpc_LogFiles_LogFilesResult {
       case .timeout: return 4
       case .invalidArgument: return 5
       case .fileOpenFailed: return 6
+      case .noSystem: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -233,6 +238,7 @@ extension Mavsdk_Rpc_LogFiles_LogFilesResult.Result: CaseIterable {
     .timeout,
     .invalidArgument,
     .fileOpenFailed,
+    .noSystem,
   ]
 }
 
@@ -498,5 +504,6 @@ extension Mavsdk_Rpc_LogFiles_LogFilesResult.Result: SwiftProtobuf._ProtoNamePro
     4: .same(proto: "RESULT_TIMEOUT"),
     5: .same(proto: "RESULT_INVALID_ARGUMENT"),
     6: .same(proto: "RESULT_FILE_OPEN_FAILED"),
+    7: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

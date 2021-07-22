@@ -470,6 +470,12 @@ struct Mavsdk_Rpc_Mission_MissionItem {
   /// Camera photo interval to use after this mission item (in seconds)
   var cameraPhotoIntervalS: Double = 0
 
+  /// Radius for completing a mission item (in metres)
+  var acceptanceRadiusM: Float = 0
+
+  /// Absolute yaw angle (in degrees)
+  var yawDeg: Float = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Possible camera actions at a mission item.
@@ -625,6 +631,9 @@ struct Mavsdk_Rpc_Mission_MissionResult {
 
     /// Mission transfer (upload or download) has been cancelled
     case transferCancelled // = 12
+
+    /// No system connected
+    case noSystem // = 13
     case UNRECOGNIZED(Int)
 
     init() {
@@ -644,6 +653,7 @@ struct Mavsdk_Rpc_Mission_MissionResult {
       case 8: self = .noMissionAvailable
       case 11: self = .unsupportedMissionCmd
       case 12: self = .transferCancelled
+      case 13: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -661,6 +671,7 @@ struct Mavsdk_Rpc_Mission_MissionResult {
       case .noMissionAvailable: return 8
       case .unsupportedMissionCmd: return 11
       case .transferCancelled: return 12
+      case .noSystem: return 13
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -686,6 +697,7 @@ extension Mavsdk_Rpc_Mission_MissionResult.Result: CaseIterable {
     .noMissionAvailable,
     .unsupportedMissionCmd,
     .transferCancelled,
+    .noSystem,
   ]
 }
 
@@ -1377,6 +1389,8 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     8: .standard(proto: "camera_action"),
     9: .standard(proto: "loiter_time_s"),
     10: .standard(proto: "camera_photo_interval_s"),
+    11: .standard(proto: "acceptance_radius_m"),
+    12: .standard(proto: "yaw_deg"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1395,6 +1409,8 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
       case 8: try { try decoder.decodeSingularEnumField(value: &self.cameraAction) }()
       case 9: try { try decoder.decodeSingularFloatField(value: &self.loiterTimeS) }()
       case 10: try { try decoder.decodeSingularDoubleField(value: &self.cameraPhotoIntervalS) }()
+      case 11: try { try decoder.decodeSingularFloatField(value: &self.acceptanceRadiusM) }()
+      case 12: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
       default: break
       }
     }
@@ -1431,6 +1447,12 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if self.cameraPhotoIntervalS != 0 {
       try visitor.visitSingularDoubleField(value: self.cameraPhotoIntervalS, fieldNumber: 10)
     }
+    if self.acceptanceRadiusM != 0 {
+      try visitor.visitSingularFloatField(value: self.acceptanceRadiusM, fieldNumber: 11)
+    }
+    if self.yawDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1445,6 +1467,8 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.cameraAction != rhs.cameraAction {return false}
     if lhs.loiterTimeS != rhs.loiterTimeS {return false}
     if lhs.cameraPhotoIntervalS != rhs.cameraPhotoIntervalS {return false}
+    if lhs.acceptanceRadiusM != rhs.acceptanceRadiusM {return false}
+    if lhs.yawDeg != rhs.yawDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1582,5 +1606,6 @@ extension Mavsdk_Rpc_Mission_MissionResult.Result: SwiftProtobuf._ProtoNameProvi
     8: .same(proto: "RESULT_NO_MISSION_AVAILABLE"),
     11: .same(proto: "RESULT_UNSUPPORTED_MISSION_CMD"),
     12: .same(proto: "RESULT_TRANSFER_CANCELLED"),
+    13: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }

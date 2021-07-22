@@ -155,12 +155,14 @@ public class Camera {
             case busy
             ///  Camera denied the command.
             case denied
-            ///  An error has occured while executing the command.
+            ///  An error has occurred while executing the command.
             case error
             ///  Command timed out.
             case timeout
             ///  Command has wrong argument(s).
             case wrongArgument
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Camera_CameraResult.Result {
@@ -181,6 +183,8 @@ public class Camera {
                     return .timeout
                 case .wrongArgument:
                     return .wrongArgument
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -204,6 +208,8 @@ public class Camera {
                     return .timeout
                 case .wrongArgument:
                     return .wrongArgument
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

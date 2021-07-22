@@ -285,7 +285,7 @@ public class FollowMe {
          Possible results returned for followme operations
          */
         public enum Result: Equatable {
-            ///  Unkown result.
+            ///  Unknown result.
             case unknown
             ///  Request succeeded.
             case success

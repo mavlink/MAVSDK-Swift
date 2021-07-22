@@ -4,7 +4,7 @@ import GRPC
 import NIO
 
 /**
- Access to the connection state and running plugins.
+ Access to the connection state and core configurations
  */
 public class Core {
     private let service: Mavsdk_Rpc_Core_CoreServiceClient
@@ -87,68 +87,6 @@ public class Core {
         }
     }
 
-    /**
-     Plugin info type.
-     */
-    public struct PluginInfo: Equatable {
-        public let name: String
-        public let address: String
-        public let port: Int32
-
-        
-
-        /**
-         Initializes a new `PluginInfo`.
-
-         
-         - Parameters:
-            
-            - name:  Name of the plugin
-            
-            - address:  Address where the plugin is running
-            
-            - port:  Port where the plugin is running
-            
-         
-         */
-        public init(name: String, address: String, port: Int32) {
-            self.name = name
-            self.address = address
-            self.port = port
-        }
-
-        internal var rpcPluginInfo: Mavsdk_Rpc_Core_PluginInfo {
-            var rpcPluginInfo = Mavsdk_Rpc_Core_PluginInfo()
-            
-                
-            rpcPluginInfo.name = name
-                
-            
-            
-                
-            rpcPluginInfo.address = address
-                
-            
-            
-                
-            rpcPluginInfo.port = port
-                
-            
-
-            return rpcPluginInfo
-        }
-
-        internal static func translateFromRpc(_ rpcPluginInfo: Mavsdk_Rpc_Core_PluginInfo) -> PluginInfo {
-            return PluginInfo(name: rpcPluginInfo.name, address: rpcPluginInfo.address, port: rpcPluginInfo.port)
-        }
-
-        public static func == (lhs: PluginInfo, rhs: PluginInfo) -> Bool {
-            return lhs.name == rhs.name
-                && lhs.address == rhs.address
-                && lhs.port == rhs.port
-        }
-    }
-
 
 
     /**
@@ -187,27 +125,33 @@ public class Core {
     }
 
     /**
-     Get a list of currently running plugins.
+     Set timeout of MAVLink transfers.
 
+     The default timeout used is generally (0.5 seconds) seconds.
+     If MAVSDK is used on the same host this timeout can be reduced, while
+     if MAVSDK has to communicate over links with high latency it might
+     need to be increased to prevent timeouts.
+
+     - Parameter timeoutS: Timeout in seconds
      
      */
-    public func listRunningPlugins() -> Single<[PluginInfo]> {
-        return Single<[PluginInfo]>.create { single in
-            let request = Mavsdk_Rpc_Core_ListRunningPluginsRequest()
+    public func setMavlinkTimeout(timeoutS: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest()
 
+            
+                
+            request.timeoutS = timeoutS
+                
             
 
             do {
-                let response = self.service.listRunningPlugins(request)
-
                 
-
-    	    
-                    let pluginInfo = try response.response.wait().pluginInfo.map{ PluginInfo.translateFromRpc($0) }
+                let _ = try self.service.setMavlinkTimeout(request)
+                completable(.completed)
                 
-                single(.success(pluginInfo))
             } catch {
-                single(.error(error))
+                completable(.error(error))
             }
 
             return Disposables.create()

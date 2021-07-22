@@ -367,6 +367,8 @@ public class MissionRaw {
             case failedToOpenQgcPlan
             ///  Failed to parse the QGroundControl plan.
             case failedToParseQgcPlan
+            ///  No system connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_MissionRaw_MissionRawResult.Result {
@@ -395,6 +397,8 @@ public class MissionRaw {
                     return .failedToOpenQgcPlan
                 case .failedToParseQgcPlan:
                     return .failedToParseQgcPlan
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -426,6 +430,8 @@ public class MissionRaw {
                     return .failedToOpenQgcPlan
                 case .failedToParseQgcPlan:
                     return .failedToParseQgcPlan
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

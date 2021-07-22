@@ -4,15 +4,15 @@ import GRPC
 import NIO
 
 /**
- Provide raw access to get and set parameters.
+ Provide raw access to retrieve and provide server parameters.
  */
-public class Param {
-    private let service: Mavsdk_Rpc_Param_ParamServiceClient
+public class ParamServer {
+    private let service: Mavsdk_Rpc_ParamServer_ParamServerServiceClient
     private let scheduler: SchedulerType
     private let clientEventLoopGroup: EventLoopGroup
 
     /**
-     Initializes a new `Param` plugin.
+     Initializes a new `ParamServer` plugin.
 
      Normally never created manually, but used from the `Drone` helper class instead.
 
@@ -26,18 +26,18 @@ public class Param {
                             scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         let eventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 2)
         let channel = ClientConnection.insecure(group: eventLoopGroup).connect(host: address, port: Int(port))
-        let service = Mavsdk_Rpc_Param_ParamServiceClient(channel: channel)
+        let service = Mavsdk_Rpc_ParamServer_ParamServerServiceClient(channel: channel)
 
         self.init(service: service, scheduler: scheduler, eventLoopGroup: eventLoopGroup)
     }
 
-    init(service: Mavsdk_Rpc_Param_ParamServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
+    init(service: Mavsdk_Rpc_ParamServer_ParamServerServiceClient, scheduler: SchedulerType, eventLoopGroup: EventLoopGroup) {
         self.service = service
         self.scheduler = scheduler
         self.clientEventLoopGroup = eventLoopGroup
     }
 
-    public struct RuntimeParamError: Error {
+    public struct RuntimeParamServerError: Error {
         public let description: String
 
         init(_ description: String) {
@@ -46,8 +46,8 @@ public class Param {
     }
 
     
-    public struct ParamError: Error {
-        public let code: Param.ParamResult.Result
+    public struct ParamServerError: Error {
+        public let code: ParamServer.ParamServerResult.Result
         public let description: String
     }
     
@@ -79,8 +79,8 @@ public class Param {
             self.value = value
         }
 
-        internal var rpcIntParam: Mavsdk_Rpc_Param_IntParam {
-            var rpcIntParam = Mavsdk_Rpc_Param_IntParam()
+        internal var rpcIntParam: Mavsdk_Rpc_ParamServer_IntParam {
+            var rpcIntParam = Mavsdk_Rpc_ParamServer_IntParam()
             
                 
             rpcIntParam.name = name
@@ -95,7 +95,7 @@ public class Param {
             return rpcIntParam
         }
 
-        internal static func translateFromRpc(_ rpcIntParam: Mavsdk_Rpc_Param_IntParam) -> IntParam {
+        internal static func translateFromRpc(_ rpcIntParam: Mavsdk_Rpc_ParamServer_IntParam) -> IntParam {
             return IntParam(name: rpcIntParam.name, value: rpcIntParam.value)
         }
 
@@ -131,8 +131,8 @@ public class Param {
             self.value = value
         }
 
-        internal var rpcFloatParam: Mavsdk_Rpc_Param_FloatParam {
-            var rpcFloatParam = Mavsdk_Rpc_Param_FloatParam()
+        internal var rpcFloatParam: Mavsdk_Rpc_ParamServer_FloatParam {
+            var rpcFloatParam = Mavsdk_Rpc_ParamServer_FloatParam()
             
                 
             rpcFloatParam.name = name
@@ -147,7 +147,7 @@ public class Param {
             return rpcFloatParam
         }
 
-        internal static func translateFromRpc(_ rpcFloatParam: Mavsdk_Rpc_Param_FloatParam) -> FloatParam {
+        internal static func translateFromRpc(_ rpcFloatParam: Mavsdk_Rpc_ParamServer_FloatParam) -> FloatParam {
             return FloatParam(name: rpcFloatParam.name, value: rpcFloatParam.value)
         }
 
@@ -183,8 +183,8 @@ public class Param {
             self.floatParams = floatParams
         }
 
-        internal var rpcAllParams: Mavsdk_Rpc_Param_AllParams {
-            var rpcAllParams = Mavsdk_Rpc_Param_AllParams()
+        internal var rpcAllParams: Mavsdk_Rpc_ParamServer_AllParams {
+            var rpcAllParams = Mavsdk_Rpc_ParamServer_AllParams()
             
                 
             rpcAllParams.intParams = intParams.map{ $0.rpcIntParam }
@@ -199,7 +199,7 @@ public class Param {
             return rpcAllParams
         }
 
-        internal static func translateFromRpc(_ rpcAllParams: Mavsdk_Rpc_Param_AllParams) -> AllParams {
+        internal static func translateFromRpc(_ rpcAllParams: Mavsdk_Rpc_ParamServer_AllParams) -> AllParams {
             return AllParams(intParams: rpcAllParams.intParams.map{ IntParam.translateFromRpc($0) }, floatParams: rpcAllParams.floatParams.map{ FloatParam.translateFromRpc($0) })
         }
 
@@ -212,7 +212,7 @@ public class Param {
     /**
      Result type.
      */
-    public struct ParamResult: Equatable {
+    public struct ParamServerResult: Equatable {
         public let result: Result
         public let resultStr: String
 
@@ -227,55 +227,43 @@ public class Param {
             case unknown
             ///  Request succeeded.
             case success
-            ///  Request timed out.
-            case timeout
-            ///  Connection error.
-            case connectionError
+            ///  Not Found.
+            case notFound
             ///  Wrong type.
             case wrongType
             ///  Parameter name too long (> 16).
             case paramNameTooLong
-            ///  No system connected.
-            case noSystem
             case UNRECOGNIZED(Int)
 
-            internal var rpcResult: Mavsdk_Rpc_Param_ParamResult.Result {
+            internal var rpcResult: Mavsdk_Rpc_ParamServer_ParamServerResult.Result {
                 switch self {
                 case .unknown:
                     return .unknown
                 case .success:
                     return .success
-                case .timeout:
-                    return .timeout
-                case .connectionError:
-                    return .connectionError
+                case .notFound:
+                    return .notFound
                 case .wrongType:
                     return .wrongType
                 case .paramNameTooLong:
                     return .paramNameTooLong
-                case .noSystem:
-                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
             }
 
-            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_Param_ParamResult.Result) -> Result {
+            internal static func translateFromRpc(_ rpcResult: Mavsdk_Rpc_ParamServer_ParamServerResult.Result) -> Result {
                 switch rpcResult {
                 case .unknown:
                     return .unknown
                 case .success:
                     return .success
-                case .timeout:
-                    return .timeout
-                case .connectionError:
-                    return .connectionError
+                case .notFound:
+                    return .notFound
                 case .wrongType:
                     return .wrongType
                 case .paramNameTooLong:
                     return .paramNameTooLong
-                case .noSystem:
-                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -284,7 +272,7 @@ public class Param {
         
 
         /**
-         Initializes a new `ParamResult`.
+         Initializes a new `ParamServerResult`.
 
          
          - Parameters:
@@ -300,27 +288,27 @@ public class Param {
             self.resultStr = resultStr
         }
 
-        internal var rpcParamResult: Mavsdk_Rpc_Param_ParamResult {
-            var rpcParamResult = Mavsdk_Rpc_Param_ParamResult()
+        internal var rpcParamServerResult: Mavsdk_Rpc_ParamServer_ParamServerResult {
+            var rpcParamServerResult = Mavsdk_Rpc_ParamServer_ParamServerResult()
             
                 
-            rpcParamResult.result = result.rpcResult
+            rpcParamServerResult.result = result.rpcResult
                 
             
             
                 
-            rpcParamResult.resultStr = resultStr
+            rpcParamServerResult.resultStr = resultStr
                 
             
 
-            return rpcParamResult
+            return rpcParamServerResult
         }
 
-        internal static func translateFromRpc(_ rpcParamResult: Mavsdk_Rpc_Param_ParamResult) -> ParamResult {
-            return ParamResult(result: Result.translateFromRpc(rpcParamResult.result), resultStr: rpcParamResult.resultStr)
+        internal static func translateFromRpc(_ rpcParamServerResult: Mavsdk_Rpc_ParamServer_ParamServerResult) -> ParamServerResult {
+            return ParamServerResult(result: Result.translateFromRpc(rpcParamServerResult.result), resultStr: rpcParamServerResult.resultStr)
         }
 
-        public static func == (lhs: ParamResult, rhs: ParamResult) -> Bool {
+        public static func == (lhs: ParamServerResult, rhs: ParamServerResult) -> Bool {
             return lhs.result == rhs.result
                 && lhs.resultStr == rhs.resultStr
         }
@@ -328,16 +316,16 @@ public class Param {
 
 
     /**
-     Get an int parameter.
+     Retrieve an int parameter.
 
      If the type is wrong, the result will be `WRONG_TYPE`.
 
      - Parameter name: Name of the parameter
      
      */
-    public func getParamInt(name: String) -> Single<Int32> {
+    public func retrieveParamInt(name: String) -> Single<Int32> {
         return Single<Int32>.create { single in
-            var request = Mavsdk_Rpc_Param_GetParamIntRequest()
+            var request = Mavsdk_Rpc_ParamServer_RetrieveParamIntRequest()
 
             
                 
@@ -346,12 +334,12 @@ public class Param {
             
 
             do {
-                let response = self.service.getParamInt(request)
+                let response = self.service.retrieveParamInt(request)
 
                 
-                let result = try response.response.wait().paramResult
-                if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
-                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                let result = try response.response.wait().paramServerResult
+                if (result.result != Mavsdk_Rpc_ParamServer_ParamServerResult.Result.success) {
+                    single(.error(ParamServerError(code: ParamServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -369,18 +357,18 @@ public class Param {
     }
 
     /**
-     Set an int parameter.
+     Provide an int parameter.
 
      If the type is wrong, the result will be `WRONG_TYPE`.
 
      - Parameters:
-        - name: Name of the parameter to set
+        - name: Name of the parameter to provide
         - value: Value the parameter should be set to
      
      */
-    public func setParamInt(name: String, value: Int32) -> Completable {
+    public func provideParamInt(name: String, value: Int32) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Param_SetParamIntRequest()
+            var request = Mavsdk_Rpc_ParamServer_ProvideParamIntRequest()
 
             
                 
@@ -394,13 +382,13 @@ public class Param {
 
             do {
                 
-                let response = self.service.setParamInt(request)
+                let response = self.service.provideParamInt(request)
 
-                let result = try response.response.wait().paramResult
-                if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                let result = try response.response.wait().paramServerResult
+                if (result.result == Mavsdk_Rpc_ParamServer_ParamServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(ParamServerError(code: ParamServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -412,16 +400,16 @@ public class Param {
     }
 
     /**
-     Get a float parameter.
+     Retrieve a float parameter.
 
      If the type is wrong, the result will be `WRONG_TYPE`.
 
      - Parameter name: Name of the parameter
      
      */
-    public func getParamFloat(name: String) -> Single<Float> {
+    public func retrieveParamFloat(name: String) -> Single<Float> {
         return Single<Float>.create { single in
-            var request = Mavsdk_Rpc_Param_GetParamFloatRequest()
+            var request = Mavsdk_Rpc_ParamServer_RetrieveParamFloatRequest()
 
             
                 
@@ -430,12 +418,12 @@ public class Param {
             
 
             do {
-                let response = self.service.getParamFloat(request)
+                let response = self.service.retrieveParamFloat(request)
 
                 
-                let result = try response.response.wait().paramResult
-                if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
-                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                let result = try response.response.wait().paramServerResult
+                if (result.result != Mavsdk_Rpc_ParamServer_ParamServerResult.Result.success) {
+                    single(.error(ParamServerError(code: ParamServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -453,18 +441,18 @@ public class Param {
     }
 
     /**
-     Set a float parameter.
+     Provide a float parameter.
 
      If the type is wrong, the result will be `WRONG_TYPE`.
 
      - Parameters:
-        - name: Name of the parameter to set
+        - name: Name of the parameter to provide
         - value: Value the parameter should be set to
      
      */
-    public func setParamFloat(name: String, value: Float) -> Completable {
+    public func provideParamFloat(name: String, value: Float) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Param_SetParamFloatRequest()
+            var request = Mavsdk_Rpc_ParamServer_ProvideParamFloatRequest()
 
             
                 
@@ -478,13 +466,13 @@ public class Param {
 
             do {
                 
-                let response = self.service.setParamFloat(request)
+                let response = self.service.provideParamFloat(request)
 
-                let result = try response.response.wait().paramResult
-                if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                let result = try response.response.wait().paramServerResult
+                if (result.result == Mavsdk_Rpc_ParamServer_ParamServerResult.Result.success) {
                     completable(.completed)
                 } else {
-                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    completable(.error(ParamServerError(code: ParamServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
                 }
                 
             } catch {
@@ -496,18 +484,18 @@ public class Param {
     }
 
     /**
-     Get all parameters.
+     Retrieve all parameters.
 
      
      */
-    public func getAllParams() -> Single<AllParams> {
+    public func retrieveAllParams() -> Single<AllParams> {
         return Single<AllParams>.create { single in
-            let request = Mavsdk_Rpc_Param_GetAllParamsRequest()
+            let request = Mavsdk_Rpc_ParamServer_RetrieveAllParamsRequest()
 
             
 
             do {
-                let response = self.service.getAllParams(request)
+                let response = self.service.retrieveAllParams(request)
 
                 
 

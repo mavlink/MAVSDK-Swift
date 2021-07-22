@@ -391,6 +391,8 @@ public class Info {
             case success
             ///  Information has not been received yet.
             case informationNotReceivedYet
+            ///  No system is connected.
+            case noSystem
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Info_InfoResult.Result {
@@ -401,6 +403,8 @@ public class Info {
                     return .success
                 case .informationNotReceivedYet:
                     return .informationNotReceivedYet
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -414,6 +418,8 @@ public class Info {
                     return .success
                 case .informationNotReceivedYet:
                     return .informationNotReceivedYet
+                case .noSystem:
+                    return .noSystem
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

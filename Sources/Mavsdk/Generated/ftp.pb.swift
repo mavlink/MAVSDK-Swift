@@ -524,6 +524,9 @@ struct Mavsdk_Rpc_Ftp_FtpResult {
 
     /// General protocol error
     case protocolError // = 11
+
+    /// No system connected
+    case noSystem // = 12
     case UNRECOGNIZED(Int)
 
     init() {
@@ -544,6 +547,7 @@ struct Mavsdk_Rpc_Ftp_FtpResult {
       case 9: self = .invalidParameter
       case 10: self = .unsupported
       case 11: self = .protocolError
+      case 12: self = .noSystem
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -562,6 +566,7 @@ struct Mavsdk_Rpc_Ftp_FtpResult {
       case .invalidParameter: return 9
       case .unsupported: return 10
       case .protocolError: return 11
+      case .noSystem: return 12
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -588,6 +593,7 @@ extension Mavsdk_Rpc_Ftp_FtpResult.Result: CaseIterable {
     .invalidParameter,
     .unsupported,
     .protocolError,
+    .noSystem,
   ]
 }
 
@@ -1477,5 +1483,6 @@ extension Mavsdk_Rpc_Ftp_FtpResult.Result: SwiftProtobuf._ProtoNameProviding {
     9: .same(proto: "RESULT_INVALID_PARAMETER"),
     10: .same(proto: "RESULT_UNSUPPORTED"),
     11: .same(proto: "RESULT_PROTOCOL_ERROR"),
+    12: .same(proto: "RESULT_NO_SYSTEM"),
   ]
 }
