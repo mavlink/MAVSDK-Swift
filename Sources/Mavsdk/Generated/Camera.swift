@@ -155,7 +155,7 @@ public class Camera {
             case busy
             ///  Camera denied the command.
             case denied
-            ///  An error has occured while executing the command.
+            ///  An error has occurred while executing the command.
             case error
             ///  Command timed out.
             case timeout

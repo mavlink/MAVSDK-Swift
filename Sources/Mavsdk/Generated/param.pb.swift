@@ -219,7 +219,7 @@ struct Mavsdk_Rpc_Param_IntParam {
 }
 
 ///
-/// Type for float paramters.
+/// Type for float parameters.
 struct Mavsdk_Rpc_Param_FloatParam {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for

@@ -28,7 +28,7 @@ jobs:
         with:
           submodules: recursive
       - name: install tools
-        run: pip3 install protoc-gen-mavsdk && brew install protobuf
+        run: pip3 install protoc-gen-mavsdk && brew install protobuf || brew link --overwrite protobuf
       - name: generate from protos
         run: bash Sources/Mavsdk/tools/generate_from_protos.bash
       - name: check for diff

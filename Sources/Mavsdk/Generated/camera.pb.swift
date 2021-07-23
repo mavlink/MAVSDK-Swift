@@ -765,7 +765,7 @@ struct Mavsdk_Rpc_Camera_CameraResult {
     /// Camera denied the command
     case denied // = 4
 
-    /// An error has occured while executing the command
+    /// An error has occurred while executing the command
     case error // = 5
 
     /// Command timed out

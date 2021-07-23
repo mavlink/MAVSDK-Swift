@@ -473,6 +473,9 @@ struct Mavsdk_Rpc_Mission_MissionItem {
   /// Radius for completing a mission item (in metres)
   var acceptanceRadiusM: Float = 0
 
+  /// Absolute yaw angle (in degrees)
+  var yawDeg: Float = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Possible camera actions at a mission item.
@@ -1387,6 +1390,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     9: .standard(proto: "loiter_time_s"),
     10: .standard(proto: "camera_photo_interval_s"),
     11: .standard(proto: "acceptance_radius_m"),
+    12: .standard(proto: "yaw_deg"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1406,6 +1410,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
       case 9: try { try decoder.decodeSingularFloatField(value: &self.loiterTimeS) }()
       case 10: try { try decoder.decodeSingularDoubleField(value: &self.cameraPhotoIntervalS) }()
       case 11: try { try decoder.decodeSingularFloatField(value: &self.acceptanceRadiusM) }()
+      case 12: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
       default: break
       }
     }
@@ -1445,6 +1450,9 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if self.acceptanceRadiusM != 0 {
       try visitor.visitSingularFloatField(value: self.acceptanceRadiusM, fieldNumber: 11)
     }
+    if self.yawDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1460,6 +1468,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.loiterTimeS != rhs.loiterTimeS {return false}
     if lhs.cameraPhotoIntervalS != rhs.cameraPhotoIntervalS {return false}
     if lhs.acceptanceRadiusM != rhs.acceptanceRadiusM {return false}
+    if lhs.yawDeg != rhs.yawDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

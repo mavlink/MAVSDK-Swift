@@ -57,6 +57,13 @@ PROTOC_GEN_SWIFT=${TMP_DIR}/grpc-swift/.build/release/protoc-gen-swift
 PROTOC_GEN_GRPC_SWIFT=${TMP_DIR}/grpc-swift/.build/release/protoc-gen-grpc-swift
 
 for plugin in ${PLUGIN_LIST}; do
+    if [ "$plugin" = "tracking_server" ]; then
+        continue
+    fi
+
+    if [ "$plugin" = "param_server" ]; then
+        continue
+    fi
     protoc ${plugin}.proto -I${PROTO_DIR} -I${PROTO_DIR}/${plugin} --swift_out=${OUTPUT_DIR} --swiftgrpc_out=${OUTPUT_DIR} --plugin=protoc-gen-swift=${PROTOC_GEN_SWIFT} --plugin=protoc-gen-swiftgrpc=${PROTOC_GEN_GRPC_SWIFT}
 done
 
@@ -69,5 +76,12 @@ echo ""
 export TEMPLATE_PATH=${TEMPLATE_PATH:-"${SCRIPT_DIR}/../templates"}
 
 for plugin in ${PLUGIN_LIST}; do
+    if [ "$plugin" = "tracking_server" ]; then
+        continue
+    fi
+
+    if [ "$plugin" = "param_server" ]; then
+        continue
+    fi
     protoc ${plugin}.proto --plugin=protoc-gen-custom=$(which protoc-gen-mavsdk) -I${PROTO_DIR} -I${PROTO_DIR}/${plugin} --custom_out=${OUTPUT_DIR} --custom_opt=file_ext=swift
 done

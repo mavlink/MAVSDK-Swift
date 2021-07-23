@@ -2326,6 +2326,9 @@ struct Mavsdk_Rpc_Telemetry_Battery {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Battery ID, for systems with multiple batteries
+  var id: UInt32 = 0
+
   /// Voltage in volts
   var voltageV: Float = 0
 
@@ -2352,9 +2355,6 @@ struct Mavsdk_Rpc_Telemetry_Health {
   /// True if the magnetometer is calibrated
   var isMagnetometerCalibrationOk: Bool = false
 
-  /// True if the vehicle has a valid level calibration
-  var isLevelCalibrationOk: Bool = false
-
   /// True if the local position estimate is good enough to fly in 'position control' mode
   var isLocalPositionOk: Bool = false
 
@@ -2363,6 +2363,9 @@ struct Mavsdk_Rpc_Telemetry_Health {
 
   /// True if the home position has been initialized properly
   var isHomePositionOk: Bool = false
+
+  /// True if system can be armed
+  var isArmable: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2381,7 +2384,7 @@ struct Mavsdk_Rpc_Telemetry_RcStatus {
   /// True if the RC signal is available now
   var isAvailable: Bool = false
 
-  /// Signal strength (range: 0 to 100)
+  /// Signal strength (range: 0 to 100, NaN if unknown)
   var signalStrengthPercent: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -2682,10 +2685,10 @@ struct Mavsdk_Rpc_Telemetry_ScaledPressure {
   /// Differential pressure 1 in hPa
   var differentialPressureHpa: Float = 0
 
-  /// Absolute pressure temperature (in celcius)
+  /// Absolute pressure temperature (in celsius)
   var temperatureDeg: Float = 0
 
-  /// Differential pressure temperature (in celcius, 0 if not available)
+  /// Differential pressure temperature (in celsius, 0 if not available)
   var differentialPressureTemperatureDeg: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -2976,6 +2979,9 @@ struct Mavsdk_Rpc_Telemetry_TelemetryResult {
 
     /// Request timed out
     case timeout // = 6
+
+    /// Request not supported
+    case unsupported // = 7
     case UNRECOGNIZED(Int)
 
     init() {
@@ -2991,6 +2997,7 @@ struct Mavsdk_Rpc_Telemetry_TelemetryResult {
       case 4: self = .busy
       case 5: self = .commandDenied
       case 6: self = .timeout
+      case 7: self = .unsupported
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3004,6 +3011,7 @@ struct Mavsdk_Rpc_Telemetry_TelemetryResult {
       case .busy: return 4
       case .commandDenied: return 5
       case .timeout: return 6
+      case .unsupported: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3025,6 +3033,7 @@ extension Mavsdk_Rpc_Telemetry_TelemetryResult.Result: CaseIterable {
     .busy,
     .commandDenied,
     .timeout,
+    .unsupported,
   ]
 }
 
@@ -6582,6 +6591,7 @@ extension Mavsdk_Rpc_Telemetry_RawGps: SwiftProtobuf.Message, SwiftProtobuf._Mes
 extension Mavsdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Battery"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    3: .same(proto: "id"),
     1: .standard(proto: "voltage_v"),
     2: .standard(proto: "remaining_percent"),
   ]
@@ -6594,6 +6604,7 @@ extension Mavsdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtobuf._Me
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularFloatField(value: &self.voltageV) }()
       case 2: try { try decoder.decodeSingularFloatField(value: &self.remainingPercent) }()
+      case 3: try { try decoder.decodeSingularUInt32Field(value: &self.id) }()
       default: break
       }
     }
@@ -6606,10 +6617,14 @@ extension Mavsdk_Rpc_Telemetry_Battery: SwiftProtobuf.Message, SwiftProtobuf._Me
     if self.remainingPercent != 0 {
       try visitor.visitSingularFloatField(value: self.remainingPercent, fieldNumber: 2)
     }
+    if self.id != 0 {
+      try visitor.visitSingularUInt32Field(value: self.id, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Telemetry_Battery, rhs: Mavsdk_Rpc_Telemetry_Battery) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.voltageV != rhs.voltageV {return false}
     if lhs.remainingPercent != rhs.remainingPercent {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -6623,10 +6638,10 @@ extension Mavsdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._Mes
     1: .standard(proto: "is_gyrometer_calibration_ok"),
     2: .standard(proto: "is_accelerometer_calibration_ok"),
     3: .standard(proto: "is_magnetometer_calibration_ok"),
-    4: .standard(proto: "is_level_calibration_ok"),
     5: .standard(proto: "is_local_position_ok"),
     6: .standard(proto: "is_global_position_ok"),
     7: .standard(proto: "is_home_position_ok"),
+    8: .standard(proto: "is_armable"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6638,10 +6653,10 @@ extension Mavsdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._Mes
       case 1: try { try decoder.decodeSingularBoolField(value: &self.isGyrometerCalibrationOk) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.isAccelerometerCalibrationOk) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.isMagnetometerCalibrationOk) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.isLevelCalibrationOk) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.isLocalPositionOk) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.isGlobalPositionOk) }()
       case 7: try { try decoder.decodeSingularBoolField(value: &self.isHomePositionOk) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.isArmable) }()
       default: break
       }
     }
@@ -6657,9 +6672,6 @@ extension Mavsdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if self.isMagnetometerCalibrationOk != false {
       try visitor.visitSingularBoolField(value: self.isMagnetometerCalibrationOk, fieldNumber: 3)
     }
-    if self.isLevelCalibrationOk != false {
-      try visitor.visitSingularBoolField(value: self.isLevelCalibrationOk, fieldNumber: 4)
-    }
     if self.isLocalPositionOk != false {
       try visitor.visitSingularBoolField(value: self.isLocalPositionOk, fieldNumber: 5)
     }
@@ -6669,6 +6681,9 @@ extension Mavsdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if self.isHomePositionOk != false {
       try visitor.visitSingularBoolField(value: self.isHomePositionOk, fieldNumber: 7)
     }
+    if self.isArmable != false {
+      try visitor.visitSingularBoolField(value: self.isArmable, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -6676,10 +6691,10 @@ extension Mavsdk_Rpc_Telemetry_Health: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.isGyrometerCalibrationOk != rhs.isGyrometerCalibrationOk {return false}
     if lhs.isAccelerometerCalibrationOk != rhs.isAccelerometerCalibrationOk {return false}
     if lhs.isMagnetometerCalibrationOk != rhs.isMagnetometerCalibrationOk {return false}
-    if lhs.isLevelCalibrationOk != rhs.isLevelCalibrationOk {return false}
     if lhs.isLocalPositionOk != rhs.isLocalPositionOk {return false}
     if lhs.isGlobalPositionOk != rhs.isGlobalPositionOk {return false}
     if lhs.isHomePositionOk != rhs.isHomePositionOk {return false}
+    if lhs.isArmable != rhs.isArmable {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7693,5 +7708,6 @@ extension Mavsdk_Rpc_Telemetry_TelemetryResult.Result: SwiftProtobuf._ProtoNameP
     4: .same(proto: "RESULT_BUSY"),
     5: .same(proto: "RESULT_COMMAND_DENIED"),
     6: .same(proto: "RESULT_TIMEOUT"),
+    7: .same(proto: "RESULT_UNSUPPORTED"),
   ]
 }

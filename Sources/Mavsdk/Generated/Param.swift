@@ -106,7 +106,7 @@ public class Param {
     }
 
     /**
-     Type for float paramters.
+     Type for float parameters.
      */
     public struct FloatParam: Equatable {
         public let name: String
