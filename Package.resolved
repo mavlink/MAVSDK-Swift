@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/byuarus/MAVSDK-XCFramework",
         "state": {
           "branch": null,
-          "revision": "ca72c8fce28a876596731f811eaf114a2ace4548",
-          "version": "0.42.0"
+          "revision": "3c68ccf1a257442134b63003cee10e6016174140",
+          "version": "0.42.0-swift5.4"
         }
       },
       {
