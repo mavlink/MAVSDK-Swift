@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 
 import PackageDescription
 
@@ -41,8 +41,7 @@ let package = Package(
     .target(name: "MavsdkServer",
             dependencies: [
               .product(name: "mavsdk_server",
-                       package: "MAVSDK-XCFramework",
-                       condition: .when(platforms: [.iOS, .macOS]))
+                       package: "MAVSDK-XCFramework")
             ]
     ),
     .testTarget(name: "MavsdkTests",
