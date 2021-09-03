@@ -18,10 +18,7 @@ let package = Package(
              targets: [
               "MavsdkServer"
              ]
-    ),
-    .library(
-          name: "mavsdk_server",
-          targets: ["mavsdk_server"]),
+    )
   ],
   dependencies: [
     .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0"),
@@ -46,7 +43,7 @@ let package = Package(
             ]
     ),
     .binaryTarget(name: "mavsdk_server",
-                      url: "https://github.com/Esri/MAVSDK-Swift/releases/download/0.43.0/mavsdk_server.xcframework.zip",
+                      url: "https://github.com/mavlink/MAVSDK/releases/download/v0.43.0/mavsdk_server.xcframework.zip",
                       checksum: "7bd408da5d37902a5926dad5125267283732029194679754cdec3bd17704fa78"),
     .testTarget(name: "MavsdkTests",
                 dependencies: [
