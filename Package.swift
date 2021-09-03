@@ -18,6 +18,11 @@ let package = Package(
              targets: [
               "MavsdkServer"
              ]
+    ),
+    .library(name: "mavsdk_server",
+             targets: [
+              "mavsdk_server"
+             ]
     )
   ],
   dependencies: [
