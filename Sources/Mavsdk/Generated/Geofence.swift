@@ -353,4 +353,34 @@ public class Geofence {
             return Disposables.create()
         }
     }
+
+    /**
+     Clear all geofences saved on the vehicle.
+
+     
+     */
+    public func clearGeofence() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Geofence_ClearGeofenceRequest()
+
+            
+
+            do {
+                
+                let response = self.service.clearGeofence(request)
+
+                let result = try response.response.wait().geofenceResult
+                if (result.result == Mavsdk_Rpc_Geofence_GeofenceResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(GeofenceError(code: GeofenceResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }

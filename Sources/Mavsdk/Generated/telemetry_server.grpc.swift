@@ -44,10 +44,15 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtoco
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishHomeRequest, Mavsdk_Rpc_TelemetryServer_PublishHomeResponse>
 
-  func publishArmed(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishArmedRequest,
+  func publishSysStatus(
+    _ request: Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishArmedRequest, Mavsdk_Rpc_TelemetryServer_PublishArmedResponse>
+  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest, Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse>
+
+  func publishExtendedSysState(
+    _ request: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest, Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse>
 
   func publishRawGps(
     _ request: Mavsdk_Rpc_TelemetryServer_PublishRawGpsRequest,
@@ -58,16 +63,6 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtoco
     _ request: Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest, Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse>
-
-  func publishFlightMode(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest, Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse>
-
-  func publishHealth(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishHealthRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishHealthRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthResponse>
 
   func publishStatusText(
     _ request: Mavsdk_Rpc_TelemetryServer_PublishStatusTextRequest,
@@ -103,11 +98,6 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtoco
     _ request: Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest, Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse>
-
-  func publishHealthAllOk(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse>
 
   func publishUnixEpochTime(
     _ request: Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest,
@@ -156,21 +146,39 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtocol {
     )
   }
 
-  /// Publish to armed updates.
+  /// Publish 'sys status' updates.
   ///
   /// - Parameters:
-  ///   - request: Request to send to PublishArmed.
+  ///   - request: Request to send to PublishSysStatus.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func publishArmed(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishArmedRequest,
+  internal func publishSysStatus(
+    _ request: Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishArmedRequest, Mavsdk_Rpc_TelemetryServer_PublishArmedResponse> {
+  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest, Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse> {
     return self.makeUnaryCall(
-      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishArmed",
+      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishSysStatus",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makePublishArmedInterceptors() ?? []
+      interceptors: self.interceptors?.makePublishSysStatusInterceptors() ?? []
+    )
+  }
+
+  /// Publish 'extended sys state' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to PublishExtendedSysState.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func publishExtendedSysState(
+    _ request: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest, Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishExtendedSysState",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePublishExtendedSysStateInterceptors() ?? []
     )
   }
 
@@ -207,42 +215,6 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makePublishBatteryInterceptors() ?? []
-    )
-  }
-
-  /// Publish to 'flight mode' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to PublishFlightMode.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func publishFlightMode(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest, Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishFlightMode",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makePublishFlightModeInterceptors() ?? []
-    )
-  }
-
-  /// Publish to 'health' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to PublishHealth.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func publishHealth(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishHealthRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishHealthRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishHealth",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makePublishHealthInterceptors() ?? []
     )
   }
 
@@ -372,24 +344,6 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtocol {
     )
   }
 
-  /// Publish to 'HealthAllOk' updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to PublishHealthAllOk.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func publishHealthAllOk(
-    _ request: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishHealthAllOk",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makePublishHealthAllOkInterceptors() ?? []
-    )
-  }
-
   /// Publish to 'unix epoch time' updates.
   ///
   /// - Parameters:
@@ -417,20 +371,17 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientInterce
   /// - Returns: Interceptors to use when invoking 'publishHome'.
   func makePublishHomeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishHomeRequest, Mavsdk_Rpc_TelemetryServer_PublishHomeResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'publishArmed'.
-  func makePublishArmedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishArmedRequest, Mavsdk_Rpc_TelemetryServer_PublishArmedResponse>]
+  /// - Returns: Interceptors to use when invoking 'publishSysStatus'.
+  func makePublishSysStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest, Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'publishExtendedSysState'.
+  func makePublishExtendedSysStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest, Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse>]
 
   /// - Returns: Interceptors to use when invoking 'publishRawGps'.
   func makePublishRawGpsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishRawGpsRequest, Mavsdk_Rpc_TelemetryServer_PublishRawGpsResponse>]
 
   /// - Returns: Interceptors to use when invoking 'publishBattery'.
   func makePublishBatteryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest, Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'publishFlightMode'.
-  func makePublishFlightModeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest, Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'publishHealth'.
-  func makePublishHealthInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishHealthRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthResponse>]
 
   /// - Returns: Interceptors to use when invoking 'publishStatusText'.
   func makePublishStatusTextInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishStatusTextRequest, Mavsdk_Rpc_TelemetryServer_PublishStatusTextResponse>]
@@ -452,9 +403,6 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientInterce
 
   /// - Returns: Interceptors to use when invoking 'publishRawImu'.
   func makePublishRawImuInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest, Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'publishHealthAllOk'.
-  func makePublishHealthAllOkInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse>]
 
   /// - Returns: Interceptors to use when invoking 'publishUnixEpochTime'.
   func makePublishUnixEpochTimeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest, Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse>]
@@ -496,20 +444,17 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider: Cal
   /// Publish to 'home position' updates.
   func publishHome(request: Mavsdk_Rpc_TelemetryServer_PublishHomeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishHomeResponse>
 
-  /// Publish to armed updates.
-  func publishArmed(request: Mavsdk_Rpc_TelemetryServer_PublishArmedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishArmedResponse>
+  /// Publish 'sys status' updates.
+  func publishSysStatus(request: Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse>
+
+  /// Publish 'extended sys state' updates.
+  func publishExtendedSysState(request: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse>
 
   /// Publish to 'Raw GPS' updates.
   func publishRawGps(request: Mavsdk_Rpc_TelemetryServer_PublishRawGpsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishRawGpsResponse>
 
   /// Publish to 'battery' updates.
   func publishBattery(request: Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse>
-
-  /// Publish to 'flight mode' updates.
-  func publishFlightMode(request: Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse>
-
-  /// Publish to 'health' updates.
-  func publishHealth(request: Mavsdk_Rpc_TelemetryServer_PublishHealthRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishHealthResponse>
 
   /// Publish to 'status text' updates.
   func publishStatusText(request: Mavsdk_Rpc_TelemetryServer_PublishStatusTextRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishStatusTextResponse>
@@ -531,9 +476,6 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider: Cal
 
   /// Publish to 'Raw IMU' updates.
   func publishRawImu(request: Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse>
-
-  /// Publish to 'HealthAllOk' updates.
-  func publishHealthAllOk(request: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse>
 
   /// Publish to 'unix epoch time' updates.
   func publishUnixEpochTime(request: Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse>
@@ -567,13 +509,22 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider {
         userFunction: self.publishHome(request:context:)
       )
 
-    case "PublishArmed":
+    case "PublishSysStatus":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishArmedRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishArmedResponse>(),
-        interceptors: self.interceptors?.makePublishArmedInterceptors() ?? [],
-        userFunction: self.publishArmed(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse>(),
+        interceptors: self.interceptors?.makePublishSysStatusInterceptors() ?? [],
+        userFunction: self.publishSysStatus(request:context:)
+      )
+
+    case "PublishExtendedSysState":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse>(),
+        interceptors: self.interceptors?.makePublishExtendedSysStateInterceptors() ?? [],
+        userFunction: self.publishExtendedSysState(request:context:)
       )
 
     case "PublishRawGps":
@@ -592,24 +543,6 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse>(),
         interceptors: self.interceptors?.makePublishBatteryInterceptors() ?? [],
         userFunction: self.publishBattery(request:context:)
-      )
-
-    case "PublishFlightMode":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse>(),
-        interceptors: self.interceptors?.makePublishFlightModeInterceptors() ?? [],
-        userFunction: self.publishFlightMode(request:context:)
-      )
-
-    case "PublishHealth":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishHealthRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishHealthResponse>(),
-        interceptors: self.interceptors?.makePublishHealthInterceptors() ?? [],
-        userFunction: self.publishHealth(request:context:)
       )
 
     case "PublishStatusText":
@@ -675,15 +608,6 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider {
         userFunction: self.publishRawImu(request:context:)
       )
 
-    case "PublishHealthAllOk":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse>(),
-        interceptors: self.interceptors?.makePublishHealthAllOkInterceptors() ?? [],
-        userFunction: self.publishHealthAllOk(request:context:)
-      )
-
     case "PublishUnixEpochTime":
       return UnaryServerHandler(
         context: context,
@@ -709,9 +633,13 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceServerInterce
   ///   Defaults to calling `self.makeInterceptors()`.
   func makePublishHomeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishHomeRequest, Mavsdk_Rpc_TelemetryServer_PublishHomeResponse>]
 
-  /// - Returns: Interceptors to use when handling 'publishArmed'.
+  /// - Returns: Interceptors to use when handling 'publishSysStatus'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makePublishArmedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishArmedRequest, Mavsdk_Rpc_TelemetryServer_PublishArmedResponse>]
+  func makePublishSysStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest, Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'publishExtendedSysState'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePublishExtendedSysStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest, Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse>]
 
   /// - Returns: Interceptors to use when handling 'publishRawGps'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -720,14 +648,6 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceServerInterce
   /// - Returns: Interceptors to use when handling 'publishBattery'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makePublishBatteryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest, Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse>]
-
-  /// - Returns: Interceptors to use when handling 'publishFlightMode'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makePublishFlightModeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest, Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse>]
-
-  /// - Returns: Interceptors to use when handling 'publishHealth'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makePublishHealthInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishHealthRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthResponse>]
 
   /// - Returns: Interceptors to use when handling 'publishStatusText'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -756,10 +676,6 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceServerInterce
   /// - Returns: Interceptors to use when handling 'publishRawImu'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makePublishRawImuInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest, Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse>]
-
-  /// - Returns: Interceptors to use when handling 'publishHealthAllOk'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makePublishHealthAllOkInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest, Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse>]
 
   /// - Returns: Interceptors to use when handling 'publishUnixEpochTime'.
   ///   Defaults to calling `self.makeInterceptors()`.

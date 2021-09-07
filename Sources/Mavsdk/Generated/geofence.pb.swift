@@ -133,6 +133,37 @@ struct Mavsdk_Rpc_Geofence_UploadGeofenceResponse {
   fileprivate var _geofenceResult: Mavsdk_Rpc_Geofence_GeofenceResult? = nil
 }
 
+struct Mavsdk_Rpc_Geofence_ClearGeofenceRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Geofence_ClearGeofenceResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var geofenceResult: Mavsdk_Rpc_Geofence_GeofenceResult {
+    get {return _geofenceResult ?? Mavsdk_Rpc_Geofence_GeofenceResult()}
+    set {_geofenceResult = newValue}
+  }
+  /// Returns true if `geofenceResult` has been explicitly set.
+  var hasGeofenceResult: Bool {return self._geofenceResult != nil}
+  /// Clears the value of `geofenceResult`. Subsequent reads from it will return its default value.
+  mutating func clearGeofenceResult() {self._geofenceResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _geofenceResult: Mavsdk_Rpc_Geofence_GeofenceResult? = nil
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Geofence_GeofenceResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -376,6 +407,57 @@ extension Mavsdk_Rpc_Geofence_UploadGeofenceResponse: SwiftProtobuf.Message, Swi
   }
 
   static func ==(lhs: Mavsdk_Rpc_Geofence_UploadGeofenceResponse, rhs: Mavsdk_Rpc_Geofence_UploadGeofenceResponse) -> Bool {
+    if lhs._geofenceResult != rhs._geofenceResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Geofence_ClearGeofenceRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ClearGeofenceRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Geofence_ClearGeofenceRequest, rhs: Mavsdk_Rpc_Geofence_ClearGeofenceRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Geofence_ClearGeofenceResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ClearGeofenceResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "geofence_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._geofenceResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._geofenceResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Geofence_ClearGeofenceResponse, rhs: Mavsdk_Rpc_Geofence_ClearGeofenceResponse) -> Bool {
     if lhs._geofenceResult != rhs._geofenceResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

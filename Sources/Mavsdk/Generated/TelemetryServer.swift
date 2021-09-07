@@ -117,113 +117,50 @@ public class TelemetryServer {
     }
 
     /**
-     Flight modes.
-
-     For more information about flight modes, check out
-     https://docs.px4.io/master/en/config/flight_mode.html.
+     Maps to MAV_VTOL_STATE
      */
-    public enum FlightMode: Equatable {
-        ///  Mode not known.
-        case unknown
-        ///  Armed and ready to take off.
-        case ready
-        ///  Taking off.
-        case takeoff
-        ///  Holding (hovering in place (or circling for fixed-wing vehicles).
-        case hold
-        ///  In mission.
-        case mission
-        ///  Returning to launch position (then landing).
-        case returnToLaunch
-        ///  Landing.
-        case land
-        ///  In 'offboard' mode.
-        case offboard
-        ///  In 'follow-me' mode.
-        case followMe
-        ///  In 'Manual' mode.
-        case manual
-        ///  In 'Altitude Control' mode.
-        case altctl
-        ///  In 'Position Control' mode.
-        case posctl
-        ///  In 'Acro' mode.
-        case acro
-        ///  In 'Stabilize' mode.
-        case stabilized
-        ///  In 'Rattitude' mode.
-        case rattitude
+    public enum VtolState: Equatable {
+        ///  Not VTOL.
+        case undefined
+        ///  Transitioning to fixed-wing.
+        case transitionToFw
+        ///  Transitioning to multi-copter.
+        case transitionToMc
+        ///  Multi-copter.
+        case mc
+        ///  Fixed-wing.
+        case fw
         case UNRECOGNIZED(Int)
 
-        internal var rpcFlightMode: Mavsdk_Rpc_TelemetryServer_FlightMode {
+        internal var rpcVtolState: Mavsdk_Rpc_TelemetryServer_VtolState {
             switch self {
-            case .unknown:
-                return .unknown
-            case .ready:
-                return .ready
-            case .takeoff:
-                return .takeoff
-            case .hold:
-                return .hold
-            case .mission:
-                return .mission
-            case .returnToLaunch:
-                return .returnToLaunch
-            case .land:
-                return .land
-            case .offboard:
-                return .offboard
-            case .followMe:
-                return .followMe
-            case .manual:
-                return .manual
-            case .altctl:
-                return .altctl
-            case .posctl:
-                return .posctl
-            case .acro:
-                return .acro
-            case .stabilized:
-                return .stabilized
-            case .rattitude:
-                return .rattitude
+            case .undefined:
+                return .undefined
+            case .transitionToFw:
+                return .transitionToFw
+            case .transitionToMc:
+                return .transitionToMc
+            case .mc:
+                return .mc
+            case .fw:
+                return .fw
             case .UNRECOGNIZED(let i):
                 return .UNRECOGNIZED(i)
             }
         }
 
-        internal static func translateFromRpc(_ rpcFlightMode: Mavsdk_Rpc_TelemetryServer_FlightMode) -> FlightMode {
-            switch rpcFlightMode {
-            case .unknown:
-                return .unknown
-            case .ready:
-                return .ready
-            case .takeoff:
-                return .takeoff
-            case .hold:
-                return .hold
-            case .mission:
-                return .mission
-            case .returnToLaunch:
-                return .returnToLaunch
-            case .land:
-                return .land
-            case .offboard:
-                return .offboard
-            case .followMe:
-                return .followMe
-            case .manual:
-                return .manual
-            case .altctl:
-                return .altctl
-            case .posctl:
-                return .posctl
-            case .acro:
-                return .acro
-            case .stabilized:
-                return .stabilized
-            case .rattitude:
-                return .rattitude
+        internal static func translateFromRpc(_ rpcVtolState: Mavsdk_Rpc_TelemetryServer_VtolState) -> VtolState {
+            switch rpcVtolState {
+            case .undefined:
+                return .undefined
+            case .transitionToFw:
+                return .transitionToFw
+            case .transitionToMc:
+                return .transitionToMc
+            case .mc:
+                return .mc
+            case .fw:
+                return .fw
             case .UNRECOGNIZED(let i):
                 return .UNRECOGNIZED(i)
             }
@@ -420,6 +357,45 @@ public class TelemetryServer {
                 && lhs.longitudeDeg == rhs.longitudeDeg
                 && lhs.absoluteAltitudeM == rhs.absoluteAltitudeM
                 && lhs.relativeAltitudeM == rhs.relativeAltitudeM
+        }
+    }
+
+    /**
+     Heading type used for global position
+     */
+    public struct Heading: Equatable {
+        public let headingDeg: Double
+
+        
+
+        /**
+         Initializes a new `Heading`.
+
+         
+         - Parameter headingDeg:  Heading in degrees (range: 0 to +360)
+         
+         */
+        public init(headingDeg: Double) {
+            self.headingDeg = headingDeg
+        }
+
+        internal var rpcHeading: Mavsdk_Rpc_TelemetryServer_Heading {
+            var rpcHeading = Mavsdk_Rpc_TelemetryServer_Heading()
+            
+                
+            rpcHeading.headingDeg = headingDeg
+                
+            
+
+            return rpcHeading
+        }
+
+        internal static func translateFromRpc(_ rpcHeading: Mavsdk_Rpc_TelemetryServer_Heading) -> Heading {
+            return Heading(headingDeg: rpcHeading.headingDeg)
+        }
+
+        public static func == (lhs: Heading, rhs: Heading) -> Bool {
+            return lhs.headingDeg == rhs.headingDeg
         }
     }
 
@@ -927,108 +903,6 @@ public class TelemetryServer {
         public static func == (lhs: Battery, rhs: Battery) -> Bool {
             return lhs.voltageV == rhs.voltageV
                 && lhs.remainingPercent == rhs.remainingPercent
-        }
-    }
-
-    /**
-     Health type.
-     */
-    public struct Health: Equatable {
-        public let isGyrometerCalibrationOk: Bool
-        public let isAccelerometerCalibrationOk: Bool
-        public let isMagnetometerCalibrationOk: Bool
-        public let isLocalPositionOk: Bool
-        public let isGlobalPositionOk: Bool
-        public let isHomePositionOk: Bool
-        public let isArmable: Bool
-
-        
-
-        /**
-         Initializes a new `Health`.
-
-         
-         - Parameters:
-            
-            - isGyrometerCalibrationOk:  True if the gyrometer is calibrated
-            
-            - isAccelerometerCalibrationOk:  True if the accelerometer is calibrated
-            
-            - isMagnetometerCalibrationOk:  True if the magnetometer is calibrated
-            
-            - isLocalPositionOk:  True if the local position estimate is good enough to fly in 'position control' mode
-            
-            - isGlobalPositionOk:  True if the global position estimate is good enough to fly in 'position control' mode
-            
-            - isHomePositionOk:  True if the home position has been initialized properly
-            
-            - isArmable:  True if system can be armed
-            
-         
-         */
-        public init(isGyrometerCalibrationOk: Bool, isAccelerometerCalibrationOk: Bool, isMagnetometerCalibrationOk: Bool, isLocalPositionOk: Bool, isGlobalPositionOk: Bool, isHomePositionOk: Bool, isArmable: Bool) {
-            self.isGyrometerCalibrationOk = isGyrometerCalibrationOk
-            self.isAccelerometerCalibrationOk = isAccelerometerCalibrationOk
-            self.isMagnetometerCalibrationOk = isMagnetometerCalibrationOk
-            self.isLocalPositionOk = isLocalPositionOk
-            self.isGlobalPositionOk = isGlobalPositionOk
-            self.isHomePositionOk = isHomePositionOk
-            self.isArmable = isArmable
-        }
-
-        internal var rpcHealth: Mavsdk_Rpc_TelemetryServer_Health {
-            var rpcHealth = Mavsdk_Rpc_TelemetryServer_Health()
-            
-                
-            rpcHealth.isGyrometerCalibrationOk = isGyrometerCalibrationOk
-                
-            
-            
-                
-            rpcHealth.isAccelerometerCalibrationOk = isAccelerometerCalibrationOk
-                
-            
-            
-                
-            rpcHealth.isMagnetometerCalibrationOk = isMagnetometerCalibrationOk
-                
-            
-            
-                
-            rpcHealth.isLocalPositionOk = isLocalPositionOk
-                
-            
-            
-                
-            rpcHealth.isGlobalPositionOk = isGlobalPositionOk
-                
-            
-            
-                
-            rpcHealth.isHomePositionOk = isHomePositionOk
-                
-            
-            
-                
-            rpcHealth.isArmable = isArmable
-                
-            
-
-            return rpcHealth
-        }
-
-        internal static func translateFromRpc(_ rpcHealth: Mavsdk_Rpc_TelemetryServer_Health) -> Health {
-            return Health(isGyrometerCalibrationOk: rpcHealth.isGyrometerCalibrationOk, isAccelerometerCalibrationOk: rpcHealth.isAccelerometerCalibrationOk, isMagnetometerCalibrationOk: rpcHealth.isMagnetometerCalibrationOk, isLocalPositionOk: rpcHealth.isLocalPositionOk, isGlobalPositionOk: rpcHealth.isGlobalPositionOk, isHomePositionOk: rpcHealth.isHomePositionOk, isArmable: rpcHealth.isArmable)
-        }
-
-        public static func == (lhs: Health, rhs: Health) -> Bool {
-            return lhs.isGyrometerCalibrationOk == rhs.isGyrometerCalibrationOk
-                && lhs.isAccelerometerCalibrationOk == rhs.isAccelerometerCalibrationOk
-                && lhs.isMagnetometerCalibrationOk == rhs.isMagnetometerCalibrationOk
-                && lhs.isLocalPositionOk == rhs.isLocalPositionOk
-                && lhs.isGlobalPositionOk == rhs.isGlobalPositionOk
-                && lhs.isHomePositionOk == rhs.isHomePositionOk
-                && lhs.isArmable == rhs.isArmable
         }
     }
 
@@ -2428,9 +2302,10 @@ public class TelemetryServer {
      - Parameters:
         - position: The next position
         - velocityNed: The next velocity (NED)
+        - heading: Heading (yaw) in degrees
      
      */
-    public func publishPosition(position: Position, velocityNed: VelocityNed) -> Completable {
+    public func publishPosition(position: Position, velocityNed: VelocityNed, heading: Heading) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_TelemetryServer_PublishPositionRequest()
 
@@ -2441,6 +2316,10 @@ public class TelemetryServer {
             
                 
             request.velocityNed = velocityNed.rpcVelocityNed
+                
+            
+                
+            request.heading = heading.rpcHeading
                 
             
 
@@ -2499,24 +2378,91 @@ public class TelemetryServer {
     }
 
     /**
-     Publish to armed updates.
+     Publish 'sys status' updates.
 
-     - Parameter isArmed: The next 'armed' state
+     - Parameters:
+        - battery: The next 'battery' state
+        - rcReceiverStatus: rc receiver status
+        - gyroStatus:
+        - accelStatus:
+        - magStatus:
+        - gpsStatus:
      
      */
-    public func publishArmed(isArmed: Bool) -> Completable {
+    public func publishSysStatus(battery: Battery, rcReceiverStatus: Bool, gyroStatus: Bool, accelStatus: Bool, magStatus: Bool, gpsStatus: Bool) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_TelemetryServer_PublishArmedRequest()
+            var request = Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest()
 
             
                 
-            request.isArmed = isArmed
+            request.battery = battery.rpcBattery
+                
+            
+                
+            request.rcReceiverStatus = rcReceiverStatus
+                
+            
+                
+            request.gyroStatus = gyroStatus
+                
+            
+                
+            request.accelStatus = accelStatus
+                
+            
+                
+            request.magStatus = magStatus
+                
+            
+                
+            request.gpsStatus = gpsStatus
                 
             
 
             do {
                 
-                let response = self.service.publishArmed(request)
+                let response = self.service.publishSysStatus(request)
+
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Publish 'extended sys state' updates.
+
+     - Parameters:
+        - vtolState:
+        - landedState:
+     
+     */
+    public func publishExtendedSysState(vtolState: VtolState, landedState: LandedState) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest()
+
+            
+                
+            request.vtolState = vtolState.rpcVtolState
+                
+            
+                
+            request.landedState = landedState.rpcLandedState
+                
+            
+
+            do {
+                
+                let response = self.service.publishExtendedSysState(request)
 
                 let result = try response.response.wait().telemetryServerResult
                 if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
@@ -2593,76 +2539,6 @@ public class TelemetryServer {
             do {
                 
                 let response = self.service.publishBattery(request)
-
-                let result = try response.response.wait().telemetryServerResult
-                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Publish to 'flight mode' updates.
-
-     - Parameter flightMode: The next flight mode
-     
-     */
-    public func publishFlightMode(flightMode: FlightMode) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest()
-
-            
-                
-            request.flightMode = flightMode.rpcFlightMode
-                
-            
-
-            do {
-                
-                let response = self.service.publishFlightMode(request)
-
-                let result = try response.response.wait().telemetryServerResult
-                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Publish to 'health' updates.
-
-     - Parameter health: The next 'health' state
-     
-     */
-    public func publishHealth(health: Health) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_TelemetryServer_PublishHealthRequest()
-
-            
-                
-            request.health = health.rpcHealth
-                
-            
-
-            do {
-                
-                let response = self.service.publishHealth(request)
 
                 let result = try response.response.wait().telemetryServerResult
                 if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
@@ -2908,41 +2784,6 @@ public class TelemetryServer {
             do {
                 
                 let response = self.service.publishRawImu(request)
-
-                let result = try response.response.wait().telemetryServerResult
-                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Publish to 'HealthAllOk' updates.
-
-     - Parameter isHealthAllOk: The next 'health all ok' status
-     
-     */
-    public func publishHealthAllOk(isHealthAllOk: Bool) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest()
-
-            
-                
-            request.isHealthAllOk = isHealthAllOk
-                
-            
-
-            do {
-                
-                let response = self.service.publishHealthAllOk(request)
 
                 let result = try response.response.wait().telemetryServerResult
                 if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
