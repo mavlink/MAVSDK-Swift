@@ -95,102 +95,48 @@ extension Mavsdk_Rpc_TelemetryServer_FixType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-///
-/// Flight modes.
-///
-/// For more information about flight modes, check out
-/// https://docs.px4.io/master/en/config/flight_mode.html.
-enum Mavsdk_Rpc_TelemetryServer_FlightMode: SwiftProtobuf.Enum {
+/// Maps to MAV_VTOL_STATE
+enum Mavsdk_Rpc_TelemetryServer_VtolState: SwiftProtobuf.Enum {
   typealias RawValue = Int
 
-  /// Mode not known
-  case unknown // = 0
+  /// Not VTOL
+  case undefined // = 0
 
-  /// Armed and ready to take off
-  case ready // = 1
+  /// Transitioning to fixed-wing
+  case transitionToFw // = 1
 
-  /// Taking off
-  case takeoff // = 2
+  /// Transitioning to multi-copter
+  case transitionToMc // = 2
 
-  /// Holding (hovering in place (or circling for fixed-wing vehicles)
-  case hold // = 3
+  /// Multi-copter
+  case mc // = 3
 
-  /// In mission
-  case mission // = 4
-
-  /// Returning to launch position (then landing)
-  case returnToLaunch // = 5
-
-  /// Landing
-  case land // = 6
-
-  /// In 'offboard' mode
-  case offboard // = 7
-
-  /// In 'follow-me' mode
-  case followMe // = 8
-
-  /// In 'Manual' mode
-  case manual // = 9
-
-  /// In 'Altitude Control' mode
-  case altctl // = 10
-
-  /// In 'Position Control' mode
-  case posctl // = 11
-
-  /// In 'Acro' mode
-  case acro // = 12
-
-  /// In 'Stabilize' mode
-  case stabilized // = 13
-
-  /// In 'Rattitude' mode
-  case rattitude // = 14
+  /// Fixed-wing
+  case fw // = 4
   case UNRECOGNIZED(Int)
 
   init() {
-    self = .unknown
+    self = .undefined
   }
 
   init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .unknown
-    case 1: self = .ready
-    case 2: self = .takeoff
-    case 3: self = .hold
-    case 4: self = .mission
-    case 5: self = .returnToLaunch
-    case 6: self = .land
-    case 7: self = .offboard
-    case 8: self = .followMe
-    case 9: self = .manual
-    case 10: self = .altctl
-    case 11: self = .posctl
-    case 12: self = .acro
-    case 13: self = .stabilized
-    case 14: self = .rattitude
+    case 0: self = .undefined
+    case 1: self = .transitionToFw
+    case 2: self = .transitionToMc
+    case 3: self = .mc
+    case 4: self = .fw
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   var rawValue: Int {
     switch self {
-    case .unknown: return 0
-    case .ready: return 1
-    case .takeoff: return 2
-    case .hold: return 3
-    case .mission: return 4
-    case .returnToLaunch: return 5
-    case .land: return 6
-    case .offboard: return 7
-    case .followMe: return 8
-    case .manual: return 9
-    case .altctl: return 10
-    case .posctl: return 11
-    case .acro: return 12
-    case .stabilized: return 13
-    case .rattitude: return 14
+    case .undefined: return 0
+    case .transitionToFw: return 1
+    case .transitionToMc: return 2
+    case .mc: return 3
+    case .fw: return 4
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -199,24 +145,14 @@ enum Mavsdk_Rpc_TelemetryServer_FlightMode: SwiftProtobuf.Enum {
 
 #if swift(>=4.2)
 
-extension Mavsdk_Rpc_TelemetryServer_FlightMode: CaseIterable {
+extension Mavsdk_Rpc_TelemetryServer_VtolState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_FlightMode] = [
-    .unknown,
-    .ready,
-    .takeoff,
-    .hold,
-    .mission,
-    .returnToLaunch,
-    .land,
-    .offboard,
-    .followMe,
-    .manual,
-    .altctl,
-    .posctl,
-    .acro,
-    .stabilized,
-    .rattitude,
+  static var allCases: [Mavsdk_Rpc_TelemetryServer_VtolState] = [
+    .undefined,
+    .transitionToFw,
+    .transitionToMc,
+    .mc,
+    .fw,
   ]
 }
 
@@ -391,12 +327,23 @@ struct Mavsdk_Rpc_TelemetryServer_PublishPositionRequest {
   /// Clears the value of `velocityNed`. Subsequent reads from it will return its default value.
   mutating func clearVelocityNed() {self._velocityNed = nil}
 
+  /// Heading (yaw) in degrees
+  var heading: Mavsdk_Rpc_TelemetryServer_Heading {
+    get {return _heading ?? Mavsdk_Rpc_TelemetryServer_Heading()}
+    set {_heading = newValue}
+  }
+  /// Returns true if `heading` has been explicitly set.
+  var hasHeading: Bool {return self._heading != nil}
+  /// Clears the value of `heading`. Subsequent reads from it will return its default value.
+  mutating func clearHeading() {self._heading = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _position: Mavsdk_Rpc_TelemetryServer_Position? = nil
   fileprivate var _velocityNed: Mavsdk_Rpc_TelemetryServer_VelocityNed? = nil
+  fileprivate var _heading: Mavsdk_Rpc_TelemetryServer_Heading? = nil
 }
 
 struct Mavsdk_Rpc_TelemetryServer_PublishHomeRequest {
@@ -421,6 +368,53 @@ struct Mavsdk_Rpc_TelemetryServer_PublishHomeRequest {
   fileprivate var _home: Mavsdk_Rpc_TelemetryServer_Position? = nil
 }
 
+struct Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The next 'battery' state
+  var battery: Mavsdk_Rpc_TelemetryServer_Battery {
+    get {return _battery ?? Mavsdk_Rpc_TelemetryServer_Battery()}
+    set {_battery = newValue}
+  }
+  /// Returns true if `battery` has been explicitly set.
+  var hasBattery: Bool {return self._battery != nil}
+  /// Clears the value of `battery`. Subsequent reads from it will return its default value.
+  mutating func clearBattery() {self._battery = nil}
+
+  /// rc receiver status
+  var rcReceiverStatus: Bool = false
+
+  var gyroStatus: Bool = false
+
+  var accelStatus: Bool = false
+
+  var magStatus: Bool = false
+
+  var gpsStatus: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _battery: Mavsdk_Rpc_TelemetryServer_Battery? = nil
+}
+
+struct Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var vtolState: Mavsdk_Rpc_TelemetryServer_VtolState = .undefined
+
+  var landedState: Mavsdk_Rpc_TelemetryServer_LandedState = .unknown
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Mavsdk_Rpc_TelemetryServer_PublishInAirRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -441,19 +435,6 @@ struct Mavsdk_Rpc_TelemetryServer_PublishLandedStateRequest {
 
   /// The next 'landed' state
   var landedState: Mavsdk_Rpc_TelemetryServer_LandedState = .unknown
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Mavsdk_Rpc_TelemetryServer_PublishArmedRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// The next 'armed' state
-  var isArmed: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -513,41 +494,6 @@ struct Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest {
   init() {}
 
   fileprivate var _battery: Mavsdk_Rpc_TelemetryServer_Battery? = nil
-}
-
-struct Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// The next flight mode
-  var flightMode: Mavsdk_Rpc_TelemetryServer_FlightMode = .unknown
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Mavsdk_Rpc_TelemetryServer_PublishHealthRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// The next 'health' state
-  var health: Mavsdk_Rpc_TelemetryServer_Health {
-    get {return _health ?? Mavsdk_Rpc_TelemetryServer_Health()}
-    set {_health = newValue}
-  }
-  /// Returns true if `health` has been explicitly set.
-  var hasHealth: Bool {return self._health != nil}
-  /// Clears the value of `health`. Subsequent reads from it will return its default value.
-  mutating func clearHealth() {self._health = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _health: Mavsdk_Rpc_TelemetryServer_Health? = nil
 }
 
 struct Mavsdk_Rpc_TelemetryServer_PublishRcStatusRequest {
@@ -726,19 +672,6 @@ struct Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest {
   fileprivate var _imu: Mavsdk_Rpc_TelemetryServer_Imu? = nil
 }
 
-struct Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// The next 'health all ok' status
-  var isHealthAllOk: Bool = false
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
 struct Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -794,7 +727,28 @@ struct Mavsdk_Rpc_TelemetryServer_PublishHomeResponse {
   fileprivate var _telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult? = nil
 }
 
-struct Mavsdk_Rpc_TelemetryServer_PublishArmedResponse {
+struct Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult {
+    get {return _telemetryServerResult ?? Mavsdk_Rpc_TelemetryServer_TelemetryServerResult()}
+    set {_telemetryServerResult = newValue}
+  }
+  /// Returns true if `telemetryServerResult` has been explicitly set.
+  var hasTelemetryServerResult: Bool {return self._telemetryServerResult != nil}
+  /// Clears the value of `telemetryServerResult`. Subsequent reads from it will return its default value.
+  mutating func clearTelemetryServerResult() {self._telemetryServerResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult? = nil
+}
+
+struct Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -837,48 +791,6 @@ struct Mavsdk_Rpc_TelemetryServer_PublishRawGpsResponse {
 }
 
 struct Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult {
-    get {return _telemetryServerResult ?? Mavsdk_Rpc_TelemetryServer_TelemetryServerResult()}
-    set {_telemetryServerResult = newValue}
-  }
-  /// Returns true if `telemetryServerResult` has been explicitly set.
-  var hasTelemetryServerResult: Bool {return self._telemetryServerResult != nil}
-  /// Clears the value of `telemetryServerResult`. Subsequent reads from it will return its default value.
-  mutating func clearTelemetryServerResult() {self._telemetryServerResult = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult? = nil
-}
-
-struct Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult {
-    get {return _telemetryServerResult ?? Mavsdk_Rpc_TelemetryServer_TelemetryServerResult()}
-    set {_telemetryServerResult = newValue}
-  }
-  /// Returns true if `telemetryServerResult` has been explicitly set.
-  var hasTelemetryServerResult: Bool {return self._telemetryServerResult != nil}
-  /// Clears the value of `telemetryServerResult`. Subsequent reads from it will return its default value.
-  mutating func clearTelemetryServerResult() {self._telemetryServerResult = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult? = nil
-}
-
-struct Mavsdk_Rpc_TelemetryServer_PublishHealthResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -1046,27 +958,6 @@ struct Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse {
   fileprivate var _telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult? = nil
 }
 
-struct Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult {
-    get {return _telemetryServerResult ?? Mavsdk_Rpc_TelemetryServer_TelemetryServerResult()}
-    set {_telemetryServerResult = newValue}
-  }
-  /// Returns true if `telemetryServerResult` has been explicitly set.
-  var hasTelemetryServerResult: Bool {return self._telemetryServerResult != nil}
-  /// Clears the value of `telemetryServerResult`. Subsequent reads from it will return its default value.
-  mutating func clearTelemetryServerResult() {self._telemetryServerResult = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _telemetryServerResult: Mavsdk_Rpc_TelemetryServer_TelemetryServerResult? = nil
-}
-
 struct Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1105,6 +996,20 @@ struct Mavsdk_Rpc_TelemetryServer_Position {
 
   /// Altitude relative to takeoff altitude in metres
   var relativeAltitudeM: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Heading type used for global position
+struct Mavsdk_Rpc_TelemetryServer_Heading {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Heading in degrees (range: 0 to +360)
+  var headingDeg: Double = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1279,38 +1184,6 @@ struct Mavsdk_Rpc_TelemetryServer_Battery {
 
   /// Estimated battery remaining (range: 0.0 to 1.0)
   var remainingPercent: Float = 0
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-/// Health type.
-struct Mavsdk_Rpc_TelemetryServer_Health {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// True if the gyrometer is calibrated
-  var isGyrometerCalibrationOk: Bool = false
-
-  /// True if the accelerometer is calibrated
-  var isAccelerometerCalibrationOk: Bool = false
-
-  /// True if the magnetometer is calibrated
-  var isMagnetometerCalibrationOk: Bool = false
-
-  /// True if the local position estimate is good enough to fly in 'position control' mode
-  var isLocalPositionOk: Bool = false
-
-  /// True if the global position estimate is good enough to fly in 'position control' mode
-  var isGlobalPositionOk: Bool = false
-
-  /// True if the home position has been initialized properly
-  var isHomePositionOk: Bool = false
-
-  /// True if system can be armed
-  var isArmable: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1980,23 +1853,13 @@ extension Mavsdk_Rpc_TelemetryServer_FixType: SwiftProtobuf._ProtoNameProviding 
   ]
 }
 
-extension Mavsdk_Rpc_TelemetryServer_FlightMode: SwiftProtobuf._ProtoNameProviding {
+extension Mavsdk_Rpc_TelemetryServer_VtolState: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "FLIGHT_MODE_UNKNOWN"),
-    1: .same(proto: "FLIGHT_MODE_READY"),
-    2: .same(proto: "FLIGHT_MODE_TAKEOFF"),
-    3: .same(proto: "FLIGHT_MODE_HOLD"),
-    4: .same(proto: "FLIGHT_MODE_MISSION"),
-    5: .same(proto: "FLIGHT_MODE_RETURN_TO_LAUNCH"),
-    6: .same(proto: "FLIGHT_MODE_LAND"),
-    7: .same(proto: "FLIGHT_MODE_OFFBOARD"),
-    8: .same(proto: "FLIGHT_MODE_FOLLOW_ME"),
-    9: .same(proto: "FLIGHT_MODE_MANUAL"),
-    10: .same(proto: "FLIGHT_MODE_ALTCTL"),
-    11: .same(proto: "FLIGHT_MODE_POSCTL"),
-    12: .same(proto: "FLIGHT_MODE_ACRO"),
-    13: .same(proto: "FLIGHT_MODE_STABILIZED"),
-    14: .same(proto: "FLIGHT_MODE_RATTITUDE"),
+    0: .same(proto: "VTOL_STATE_UNDEFINED"),
+    1: .same(proto: "VTOL_STATE_TRANSITION_TO_FW"),
+    2: .same(proto: "VTOL_STATE_TRANSITION_TO_MC"),
+    3: .same(proto: "VTOL_STATE_MC"),
+    4: .same(proto: "VTOL_STATE_FW"),
   ]
 }
 
@@ -2028,6 +1891,7 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionRequest: SwiftProtobuf.Messa
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "position"),
     2: .standard(proto: "velocity_ned"),
+    3: .same(proto: "heading"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2038,6 +1902,7 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionRequest: SwiftProtobuf.Messa
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._position) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._velocityNed) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._heading) }()
       default: break
       }
     }
@@ -2050,12 +1915,16 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionRequest: SwiftProtobuf.Messa
     if let v = self._velocityNed {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     }
+    if let v = self._heading {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishPositionRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishPositionRequest) -> Bool {
     if lhs._position != rhs._position {return false}
     if lhs._velocityNed != rhs._velocityNed {return false}
+    if lhs._heading != rhs._heading {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2088,6 +1957,106 @@ extension Mavsdk_Rpc_TelemetryServer_PublishHomeRequest: SwiftProtobuf.Message, 
 
   static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishHomeRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishHomeRequest) -> Bool {
     if lhs._home != rhs._home {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PublishSysStatusRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "battery"),
+    2: .standard(proto: "rc_receiver_status"),
+    3: .standard(proto: "gyro_status"),
+    4: .standard(proto: "accel_status"),
+    5: .standard(proto: "mag_status"),
+    6: .standard(proto: "gps_status"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._battery) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.rcReceiverStatus) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.gyroStatus) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.accelStatus) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.magStatus) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.gpsStatus) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._battery {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if self.rcReceiverStatus != false {
+      try visitor.visitSingularBoolField(value: self.rcReceiverStatus, fieldNumber: 2)
+    }
+    if self.gyroStatus != false {
+      try visitor.visitSingularBoolField(value: self.gyroStatus, fieldNumber: 3)
+    }
+    if self.accelStatus != false {
+      try visitor.visitSingularBoolField(value: self.accelStatus, fieldNumber: 4)
+    }
+    if self.magStatus != false {
+      try visitor.visitSingularBoolField(value: self.magStatus, fieldNumber: 5)
+    }
+    if self.gpsStatus != false {
+      try visitor.visitSingularBoolField(value: self.gpsStatus, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest) -> Bool {
+    if lhs._battery != rhs._battery {return false}
+    if lhs.rcReceiverStatus != rhs.rcReceiverStatus {return false}
+    if lhs.gyroStatus != rhs.gyroStatus {return false}
+    if lhs.accelStatus != rhs.accelStatus {return false}
+    if lhs.magStatus != rhs.magStatus {return false}
+    if lhs.gpsStatus != rhs.gpsStatus {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PublishExtendedSysStateRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "vtol_state"),
+    2: .standard(proto: "landed_state"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.vtolState) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.landedState) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.vtolState != .undefined {
+      try visitor.visitSingularEnumField(value: self.vtolState, fieldNumber: 1)
+    }
+    if self.landedState != .unknown {
+      try visitor.visitSingularEnumField(value: self.landedState, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest) -> Bool {
+    if lhs.vtolState != rhs.vtolState {return false}
+    if lhs.landedState != rhs.landedState {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2152,38 +2121,6 @@ extension Mavsdk_Rpc_TelemetryServer_PublishLandedStateRequest: SwiftProtobuf.Me
 
   static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishLandedStateRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishLandedStateRequest) -> Bool {
     if lhs.landedState != rhs.landedState {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_TelemetryServer_PublishArmedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishArmedRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_armed"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBoolField(value: &self.isArmed) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isArmed != false {
-      try visitor.visitSingularBoolField(value: self.isArmed, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishArmedRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishArmedRequest) -> Bool {
-    if lhs.isArmed != rhs.isArmed {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2254,70 +2191,6 @@ extension Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest: SwiftProtobuf.Messag
 
   static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest) -> Bool {
     if lhs._battery != rhs._battery {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishFlightModeRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "flight_mode"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.flightMode) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.flightMode != .unknown {
-      try visitor.visitSingularEnumField(value: self.flightMode, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishFlightModeRequest) -> Bool {
-    if lhs.flightMode != rhs.flightMode {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_TelemetryServer_PublishHealthRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishHealthRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "health"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._health) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._health {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishHealthRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishHealthRequest) -> Bool {
-    if lhs._health != rhs._health {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2579,38 +2452,6 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest: SwiftProtobuf.Message
   }
 }
 
-extension Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishHealthAllOkRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_health_all_ok"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBoolField(value: &self.isHealthAllOk) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isHealthAllOk != false {
-      try visitor.visitSingularBoolField(value: self.isHealthAllOk, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest, rhs: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkRequest) -> Bool {
-    if lhs.isHealthAllOk != rhs.isHealthAllOk {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PublishUnixEpochTimeRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2707,8 +2548,8 @@ extension Mavsdk_Rpc_TelemetryServer_PublishHomeResponse: SwiftProtobuf.Message,
   }
 }
 
-extension Mavsdk_Rpc_TelemetryServer_PublishArmedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishArmedResponse"
+extension Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PublishSysStatusResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "telemetry_server_result"),
   ]
@@ -2732,7 +2573,39 @@ extension Mavsdk_Rpc_TelemetryServer_PublishArmedResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishArmedResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishArmedResponse) -> Bool {
+  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse) -> Bool {
+    if lhs._telemetryServerResult != rhs._telemetryServerResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PublishExtendedSysStateResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "telemetry_server_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._telemetryServerResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._telemetryServerResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse) -> Bool {
     if lhs._telemetryServerResult != rhs._telemetryServerResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -2797,70 +2670,6 @@ extension Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse: SwiftProtobuf.Messa
   }
 
   static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse) -> Bool {
-    if lhs._telemetryServerResult != rhs._telemetryServerResult {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishFlightModeResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "telemetry_server_result"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._telemetryServerResult) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishFlightModeResponse) -> Bool {
-    if lhs._telemetryServerResult != rhs._telemetryServerResult {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_TelemetryServer_PublishHealthResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishHealthResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "telemetry_server_result"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._telemetryServerResult) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishHealthResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishHealthResponse) -> Bool {
     if lhs._telemetryServerResult != rhs._telemetryServerResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -3091,38 +2900,6 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse: SwiftProtobuf.Messag
   }
 }
 
-extension Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".PublishHealthAllOkResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "telemetry_server_result"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._telemetryServerResult) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse, rhs: Mavsdk_Rpc_TelemetryServer_PublishHealthAllOkResponse) -> Bool {
-    if lhs._telemetryServerResult != rhs._telemetryServerResult {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".PublishUnixEpochTimeResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -3200,6 +2977,38 @@ extension Mavsdk_Rpc_TelemetryServer_Position: SwiftProtobuf.Message, SwiftProto
     if lhs.longitudeDeg != rhs.longitudeDeg {return false}
     if lhs.absoluteAltitudeM != rhs.absoluteAltitudeM {return false}
     if lhs.relativeAltitudeM != rhs.relativeAltitudeM {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_TelemetryServer_Heading: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Heading"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "heading_deg"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.headingDeg) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.headingDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.headingDeg, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_Heading, rhs: Mavsdk_Rpc_TelemetryServer_Heading) -> Bool {
+    if lhs.headingDeg != rhs.headingDeg {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3536,74 +3345,6 @@ extension Mavsdk_Rpc_TelemetryServer_Battery: SwiftProtobuf.Message, SwiftProtob
   static func ==(lhs: Mavsdk_Rpc_TelemetryServer_Battery, rhs: Mavsdk_Rpc_TelemetryServer_Battery) -> Bool {
     if lhs.voltageV != rhs.voltageV {return false}
     if lhs.remainingPercent != rhs.remainingPercent {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Mavsdk_Rpc_TelemetryServer_Health: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Health"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "is_gyrometer_calibration_ok"),
-    2: .standard(proto: "is_accelerometer_calibration_ok"),
-    3: .standard(proto: "is_magnetometer_calibration_ok"),
-    5: .standard(proto: "is_local_position_ok"),
-    6: .standard(proto: "is_global_position_ok"),
-    7: .standard(proto: "is_home_position_ok"),
-    8: .standard(proto: "is_armable"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBoolField(value: &self.isGyrometerCalibrationOk) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.isAccelerometerCalibrationOk) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.isMagnetometerCalibrationOk) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self.isLocalPositionOk) }()
-      case 6: try { try decoder.decodeSingularBoolField(value: &self.isGlobalPositionOk) }()
-      case 7: try { try decoder.decodeSingularBoolField(value: &self.isHomePositionOk) }()
-      case 8: try { try decoder.decodeSingularBoolField(value: &self.isArmable) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.isGyrometerCalibrationOk != false {
-      try visitor.visitSingularBoolField(value: self.isGyrometerCalibrationOk, fieldNumber: 1)
-    }
-    if self.isAccelerometerCalibrationOk != false {
-      try visitor.visitSingularBoolField(value: self.isAccelerometerCalibrationOk, fieldNumber: 2)
-    }
-    if self.isMagnetometerCalibrationOk != false {
-      try visitor.visitSingularBoolField(value: self.isMagnetometerCalibrationOk, fieldNumber: 3)
-    }
-    if self.isLocalPositionOk != false {
-      try visitor.visitSingularBoolField(value: self.isLocalPositionOk, fieldNumber: 5)
-    }
-    if self.isGlobalPositionOk != false {
-      try visitor.visitSingularBoolField(value: self.isGlobalPositionOk, fieldNumber: 6)
-    }
-    if self.isHomePositionOk != false {
-      try visitor.visitSingularBoolField(value: self.isHomePositionOk, fieldNumber: 7)
-    }
-    if self.isArmable != false {
-      try visitor.visitSingularBoolField(value: self.isArmable, fieldNumber: 8)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Mavsdk_Rpc_TelemetryServer_Health, rhs: Mavsdk_Rpc_TelemetryServer_Health) -> Bool {
-    if lhs.isGyrometerCalibrationOk != rhs.isGyrometerCalibrationOk {return false}
-    if lhs.isAccelerometerCalibrationOk != rhs.isAccelerometerCalibrationOk {return false}
-    if lhs.isMagnetometerCalibrationOk != rhs.isMagnetometerCalibrationOk {return false}
-    if lhs.isLocalPositionOk != rhs.isLocalPositionOk {return false}
-    if lhs.isGlobalPositionOk != rhs.isGlobalPositionOk {return false}
-    if lhs.isHomePositionOk != rhs.isHomePositionOk {return false}
-    if lhs.isArmable != rhs.isArmable {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

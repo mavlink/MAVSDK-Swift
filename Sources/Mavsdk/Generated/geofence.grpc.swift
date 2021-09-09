@@ -36,6 +36,11 @@ internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol: GRPCClient 
     _ request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>
+
+  func clearGeofence(
+    _ request: Mavsdk_Rpc_Geofence_ClearGeofenceRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Geofence_ClearGeofenceRequest, Mavsdk_Rpc_Geofence_ClearGeofenceResponse>
 }
 
 extension Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
@@ -64,12 +69,34 @@ extension Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
       interceptors: self.interceptors?.makeUploadGeofenceInterceptors() ?? []
     )
   }
+
+  ///
+  /// Clear all geofences saved on the vehicle.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ClearGeofence.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func clearGeofence(
+    _ request: Mavsdk_Rpc_Geofence_ClearGeofenceRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Geofence_ClearGeofenceRequest, Mavsdk_Rpc_Geofence_ClearGeofenceResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.geofence.GeofenceService/ClearGeofence",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeClearGeofenceInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceClientInterceptorFactoryProtocol {
 
   /// - Returns: Interceptors to use when invoking 'uploadGeofence'.
   func makeUploadGeofenceInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'clearGeofence'.
+  func makeClearGeofenceInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Geofence_ClearGeofenceRequest, Mavsdk_Rpc_Geofence_ClearGeofenceResponse>]
 }
 
 internal final class Mavsdk_Rpc_Geofence_GeofenceServiceClient: Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
@@ -106,6 +133,10 @@ internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceProvider: CallHandlerProvid
   /// Polygons are uploaded to a drone. Once uploaded, the geofence will remain
   /// on the drone even if a connection is lost.
   func uploadGeofence(request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Geofence_UploadGeofenceResponse>
+
+  ///
+  /// Clear all geofences saved on the vehicle.
+  func clearGeofence(request: Mavsdk_Rpc_Geofence_ClearGeofenceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Geofence_ClearGeofenceResponse>
 }
 
 extension Mavsdk_Rpc_Geofence_GeofenceServiceProvider {
@@ -127,6 +158,15 @@ extension Mavsdk_Rpc_Geofence_GeofenceServiceProvider {
         userFunction: self.uploadGeofence(request:context:)
       )
 
+    case "ClearGeofence":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Geofence_ClearGeofenceRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Geofence_ClearGeofenceResponse>(),
+        interceptors: self.interceptors?.makeClearGeofenceInterceptors() ?? [],
+        userFunction: self.clearGeofence(request:context:)
+      )
+
     default:
       return nil
     }
@@ -138,4 +178,8 @@ internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceServerInterceptorFactoryPro
   /// - Returns: Interceptors to use when handling 'uploadGeofence'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUploadGeofenceInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Geofence_UploadGeofenceRequest, Mavsdk_Rpc_Geofence_UploadGeofenceResponse>]
+
+  /// - Returns: Interceptors to use when handling 'clearGeofence'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeClearGeofenceInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Geofence_ClearGeofenceRequest, Mavsdk_Rpc_Geofence_ClearGeofenceResponse>]
 }
