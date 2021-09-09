@@ -1,4 +1,4 @@
-#if !os(Linux)
+#if os(iOS) || os(macOS)
 import Foundation
 @_implementationOnly import mavsdk_server
 

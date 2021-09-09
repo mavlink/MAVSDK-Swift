@@ -1,10 +1,15 @@
 import Foundation
 import RxSwift
+
+#if os(iOS) || os(macOS)
 import MavsdkServer
+#endif
 
 public class Drone {
     private let scheduler: SchedulerType
+    #if os(iOS) || os(macOS)
     private var mavsdkServer: MavsdkServer?
+    #endif
 
     public var action: Action!
     public var calibration: Calibration!
@@ -37,6 +42,7 @@ public class Drone {
 
     public func connect(systemAddress: String = "udp://:14540") -> Completable {
         return Completable.create { completable in
+            #if os(iOS) || os(macOS)
             self.mavsdkServer = MavsdkServer()
             let isRunning = self.mavsdkServer!.run(systemAddress: systemAddress)
 
@@ -51,6 +57,7 @@ public class Drone {
                 completable(.error(ConnectionError.connectionStopped))
                 return Disposables.create()
             }
+            #endif
 
             completable(.completed)
             return Disposables.create()
@@ -80,7 +87,9 @@ public class Drone {
     }
 
     public func disconnect() {
+        #if os(iOS) || os(macOS)
         mavsdkServer?.stop()
         mavsdkServer = nil
+        #endif
     }
 }
