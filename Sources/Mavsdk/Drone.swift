@@ -1,34 +1,63 @@
 import Foundation
 import RxSwift
+import MavsdkServer
 
 public class Drone {
     private let scheduler: SchedulerType
+    private var mavsdkServer: MavsdkServer?
 
-    public let action: Action
-    public let calibration: Calibration
-    public let camera: Camera
-    public let core: Core
-    public let followMe: FollowMe
-    public let ftp: Ftp
-    public let geofence: Geofence
-    public let gimbal: Gimbal
-    public let info: Info
-    public let logFiles: LogFiles
-    public let manualControl: ManualControl
-    public let mission: Mission
-    public let missionRaw: MissionRaw
-    public let mocap: Mocap
-    public let offboard: Offboard
-    public let param: Param
-    public let shell: Shell
-    public let telemetry: Telemetry
-    public let tune: Tune
+    public var action: Action!
+    public var calibration: Calibration!
+    public var camera: Camera!
+    public var core: Core!
+    public var followMe: FollowMe!
+    public var ftp: Ftp!
+    public var geofence: Geofence!
+    public var gimbal: Gimbal!
+    public var info: Info!
+    public var logFiles: LogFiles!
+    public var manualControl: ManualControl!
+    public var mission: Mission!
+    public var missionRaw: MissionRaw!
+    public var mocap: Mocap!
+    public var offboard: Offboard!
+    public var param: Param!
+    public var shell: Shell!
+    public var telemetry: Telemetry!
+    public var tune: Tune!
 
-    public init(address: String = "localhost",
-                port: Int32 = 50051,
-                scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
+    public init(scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.scheduler = MainScheduler.instance
+    }
 
+    enum ConnectionError: Swift.Error {
+        case connectionFailed
+        case connectionStopped
+    }
+
+    public func connect(systemAddress: String = "udp://:14540") -> Completable {
+        return Completable.create { completable in
+            self.mavsdkServer = MavsdkServer()
+            let isRunning = self.mavsdkServer!.run(systemAddress: systemAddress)
+
+            if (!isRunning) {
+                completable(.error(ConnectionError.connectionFailed))
+                return Disposables.create()
+            }
+
+            if let mavsdkServer = self.mavsdkServer {
+                self.initPlugins(address: "localhost", port: Int32(mavsdkServer.getPort()))
+            } else {
+                completable(.error(ConnectionError.connectionStopped))
+                return Disposables.create()
+            }
+
+            completable(.completed)
+            return Disposables.create()
+        }
+    }
+
+    private func initPlugins(address: String = "localhost", port: Int32 = 50051) {
         self.action = Action(address: address, port: port, scheduler: scheduler)
         self.calibration = Calibration(address: address, port: port, scheduler: scheduler)
         self.camera = Camera(address: address, port: port, scheduler: scheduler)
@@ -50,18 +79,8 @@ public class Drone {
         self.tune = Tune(address: address, port: port, scheduler: scheduler)
     }
 
-#if os(iOS)
-    @available(*, unavailable, message: "Please start mavsdk_server with the MavsdkServer class")
-    public func setMavlinkPort(mavlinkPort: String) {
-        fatalError("This method does not exist anymore. Please use MavsdkServer(systemAddress) instead.")
+    public func disconnect() {
+        mavsdkServer?.stop()
+        mavsdkServer = nil
     }
-
-    @available(*, unavailable)
-    public lazy var startMavlink = createStartMavlinkCompletable()
-
-    @available(iOS, deprecated)
-    private func createStartMavlinkCompletable() -> Completable {
-        fatalError("This method does not exist anymore. Please use MavsdkServer.run() instead.")
-    }
-#endif
 }

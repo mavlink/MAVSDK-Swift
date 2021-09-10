@@ -64,6 +64,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_ArmedResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>
 
+  func subscribeVtolState(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_VtolStateResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest, Mavsdk_Rpc_Telemetry_VtolStateResponse>
+
   func subscribeAttitudeQuaternion(
     _ request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest,
     callOptions: CallOptions?,
@@ -220,6 +226,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_ScaledPressureResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse>
 
+  func subscribeHeading(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HeadingResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse>
+
   func setRatePosition(
     _ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest,
     callOptions: CallOptions?
@@ -239,6 +251,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     _ request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
+
+  func setRateVtolState(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>
 
   func setRateAttitude(
     _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest,
@@ -437,6 +454,27 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSubscribeArmedInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
+  /// subscribe to vtol state Updates
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeVtolState.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeVtolState(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_VtolStateResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest, Mavsdk_Rpc_Telemetry_VtolStateResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeVtolState",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeVtolStateInterceptors() ?? [],
       handler: handler
     )
   }
@@ -987,6 +1025,27 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
+  /// Subscribe to 'Heading' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeHeading.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeHeading(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_HeadingResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeHeading",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeHeadingInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
   /// Set rate to 'position' updates.
   ///
   /// - Parameters:
@@ -1056,6 +1115,24 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSetRateLandedStateInterceptors() ?? []
+    )
+  }
+
+  /// Set rate to VTOL state updates
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateVtolState.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateVtolState(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateVtolState",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateVtolStateInterceptors() ?? []
     )
   }
 
@@ -1401,6 +1478,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'subscribeArmed'.
   func makeSubscribeArmedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeVtolState'.
+  func makeSubscribeVtolStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest, Mavsdk_Rpc_Telemetry_VtolStateResponse>]
+
   /// - Returns: Interceptors to use when invoking 'subscribeAttitudeQuaternion'.
   func makeSubscribeAttitudeQuaternionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>]
 
@@ -1479,6 +1559,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'subscribeScaledPressure'.
   func makeSubscribeScaledPressureInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeHeading'.
+  func makeSubscribeHeadingInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse>]
+
   /// - Returns: Interceptors to use when invoking 'setRatePosition'.
   func makeSetRatePositionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
 
@@ -1490,6 +1573,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
 
   /// - Returns: Interceptors to use when invoking 'setRateLandedState'.
   func makeSetRateLandedStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateVtolState'.
+  func makeSetRateVtolStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>]
 
   /// - Returns: Interceptors to use when invoking 'setRateAttitude'.
   func makeSetRateAttitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>]
@@ -1591,6 +1677,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   /// Subscribe to armed updates.
   func subscribeArmed(request: Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ArmedResponse>) -> EventLoopFuture<GRPCStatus>
 
+  /// subscribe to vtol state Updates
+  func subscribeVtolState(request: Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_VtolStateResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Subscribe to 'attitude' updates (quaternion).
   func subscribeAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>) -> EventLoopFuture<GRPCStatus>
 
@@ -1669,6 +1758,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   /// Subscribe to 'Scaled Pressure' updates.
   func subscribeScaledPressure(request: Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_ScaledPressureResponse>) -> EventLoopFuture<GRPCStatus>
 
+  /// Subscribe to 'Heading' updates.
+  func subscribeHeading(request: Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HeadingResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Set rate to 'position' updates.
   func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
 
@@ -1680,6 +1772,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
 
   /// Set rate to landed state updates
   func setRateLandedState(request: Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>
+
+  /// Set rate to VTOL state updates
+  func setRateVtolState(request: Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>
 
   /// Set rate to 'attitude' updates.
   func setRateAttitude(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
@@ -1789,6 +1884,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_ArmedResponse>(),
         interceptors: self.interceptors?.makeSubscribeArmedInterceptors() ?? [],
         userFunction: self.subscribeArmed(request:context:)
+      )
+
+    case "SubscribeVtolState":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_VtolStateResponse>(),
+        interceptors: self.interceptors?.makeSubscribeVtolStateInterceptors() ?? [],
+        userFunction: self.subscribeVtolState(request:context:)
       )
 
     case "SubscribeAttitudeQuaternion":
@@ -2025,6 +2129,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.subscribeScaledPressure(request:context:)
       )
 
+    case "SubscribeHeading":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_HeadingResponse>(),
+        interceptors: self.interceptors?.makeSubscribeHeadingInterceptors() ?? [],
+        userFunction: self.subscribeHeading(request:context:)
+      )
+
     case "SetRatePosition":
       return UnaryServerHandler(
         context: context,
@@ -2059,6 +2172,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>(),
         interceptors: self.interceptors?.makeSetRateLandedStateInterceptors() ?? [],
         userFunction: self.setRateLandedState(request:context:)
+      )
+
+    case "SetRateVtolState":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>(),
+        interceptors: self.interceptors?.makeSetRateVtolStateInterceptors() ?? [],
+        userFunction: self.setRateVtolState(request:context:)
       )
 
     case "SetRateAttitude":
@@ -2251,6 +2373,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeArmedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeArmedRequest, Mavsdk_Rpc_Telemetry_ArmedResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeVtolState'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeVtolStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest, Mavsdk_Rpc_Telemetry_VtolStateResponse>]
+
   /// - Returns: Interceptors to use when handling 'subscribeAttitudeQuaternion'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeAttitudeQuaternionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_AttitudeQuaternionResponse>]
@@ -2355,6 +2481,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeScaledPressureInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest, Mavsdk_Rpc_Telemetry_ScaledPressureResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeHeading'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeHeadingInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse>]
+
   /// - Returns: Interceptors to use when handling 'setRatePosition'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetRatePositionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
@@ -2370,6 +2500,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   /// - Returns: Interceptors to use when handling 'setRateLandedState'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetRateLandedStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateLandedStateRequest, Mavsdk_Rpc_Telemetry_SetRateLandedStateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateVtolState'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateVtolStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>]
 
   /// - Returns: Interceptors to use when handling 'setRateAttitude'.
   ///   Defaults to calling `self.makeInterceptors()`.

@@ -350,6 +350,57 @@ public class Telemetry {
         }
     }
 
+    /**
+     VTOL State enumeration
+     */
+    public enum VtolState: Equatable {
+        ///  MAV is not configured as VTOL.
+        case undefined
+        ///  VTOL is in transition from multicopter to fixed-wing.
+        case transitionToFw
+        ///  VTOL is in transition from fixed-wing to multicopter.
+        case transitionToMc
+        ///  VTOL is in multicopter state.
+        case mc
+        ///  VTOL is in fixed-wing state.
+        case fw
+        case UNRECOGNIZED(Int)
+
+        internal var rpcVtolState: Mavsdk_Rpc_Telemetry_VtolState {
+            switch self {
+            case .undefined:
+                return .undefined
+            case .transitionToFw:
+                return .transitionToFw
+            case .transitionToMc:
+                return .transitionToMc
+            case .mc:
+                return .mc
+            case .fw:
+                return .fw
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcVtolState: Mavsdk_Rpc_Telemetry_VtolState) -> VtolState {
+            switch rpcVtolState {
+            case .undefined:
+                return .undefined
+            case .transitionToFw:
+                return .transitionToFw
+            case .transitionToMc:
+                return .transitionToMc
+            case .mc:
+                return .mc
+            case .fw:
+                return .fw
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     /**
      Position type in global coordinates.
@@ -420,6 +471,45 @@ public class Telemetry {
                 && lhs.longitudeDeg == rhs.longitudeDeg
                 && lhs.absoluteAltitudeM == rhs.absoluteAltitudeM
                 && lhs.relativeAltitudeM == rhs.relativeAltitudeM
+        }
+    }
+
+    /**
+     Heading type used for global position
+     */
+    public struct Heading: Equatable {
+        public let headingDeg: Double
+
+        
+
+        /**
+         Initializes a new `Heading`.
+
+         
+         - Parameter headingDeg:  Heading in degrees (range: 0 to +360)
+         
+         */
+        public init(headingDeg: Double) {
+            self.headingDeg = headingDeg
+        }
+
+        internal var rpcHeading: Mavsdk_Rpc_Telemetry_Heading {
+            var rpcHeading = Mavsdk_Rpc_Telemetry_Heading()
+            
+                
+            rpcHeading.headingDeg = headingDeg
+                
+            
+
+            return rpcHeading
+        }
+
+        internal static func translateFromRpc(_ rpcHeading: Mavsdk_Rpc_Telemetry_Heading) -> Heading {
+            return Heading(headingDeg: rpcHeading.headingDeg)
+        }
+
+        public static func == (lhs: Heading, rhs: Heading) -> Bool {
+            return lhs.headingDeg == rhs.headingDeg
         }
     }
 
@@ -2678,6 +2768,42 @@ public class Telemetry {
 
 
     /**
+     subscribe to vtol state Updates
+     */
+    public lazy var vtolState: Observable<VtolState> = createVtolStateObservable()
+
+
+
+    private func createVtolStateObservable() -> Observable<VtolState> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest()
+
+            
+
+            _ = self.service.subscribeVtolState(request, handler: { (response) in
+
+                
+                     
+                let vtolState = VtolState.translateFromRpc(response.vtolState)
+                
+
+                
+                observer.onNext(vtolState)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
+
+    /**
      Subscribe to 'attitude' updates (quaternion).
      */
     public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
@@ -3614,6 +3740,42 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
+    /**
+     Subscribe to 'Heading' updates.
+     */
+    public lazy var heading: Observable<Heading> = createHeadingObservable()
+
+
+
+    private func createHeadingObservable() -> Observable<Heading> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest()
+
+            
+
+            _ = self.service.subscribeHeading(request, handler: { (response) in
+
+                
+                     
+                let heading = Heading.translateFromRpc(response.headingDeg)
+                
+
+                
+                observer.onNext(heading)
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
     /**
      Set rate to 'position' updates.
 
@@ -3738,6 +3900,41 @@ public class Telemetry {
             do {
                 
                 let response = self.service.setRateLandedState(request)
+
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set rate to VTOL state updates
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
+    public func setRateVtolState(rateHz: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest()
+
+            
+                
+            request.rateHz = rateHz
+                
+            
+
+            do {
+                
+                let response = self.service.setRateVtolState(request)
 
                 let result = try response.response.wait().telemetryResult
                 if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
