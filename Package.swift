@@ -1,5 +1,4 @@
 // swift-tools-version:5.4
-
 import PackageDescription
 
 let package = Package(
@@ -18,17 +17,20 @@ let package = Package(
              targets: [
               "MavsdkServer"
              ]
+    ),
+    .library(name: "mavsdk_server",
+             targets: [
+              "mavsdk_server"
+             ]
     )
   ],
   dependencies: [
     .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0"),
-    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1"),
-    .package(url: "https://github.com/byuarus/MAVSDK-XCFramework", .exact("0.44.0-sept16"))
+    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1")
   ],
   targets: [
     .target(name: "Mavsdk",
             dependencies: [
-                "MavsdkServer",
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "RxSwift", package: "RxSwift"),
                 .product(name: "RxBlocking", package: "RxSwift")
@@ -40,12 +42,13 @@ let package = Package(
             ]
     ),
     .target(name: "MavsdkServer",
-                dependencies: [
-                  .product(name: "mavsdk_server",
-                           package: "MAVSDK-XCFramework",
-                           condition: .when(platforms: [.iOS, .macOS]))
-                ]
-        ),
+            dependencies: [
+                "mavsdk_server"
+            ]
+    ),
+    .binaryTarget(name: "mavsdk_server",
+                      url: "https://github.com/byuarus/MAVSDK-XCFramework/releases/download/0.44.0-sept16/mavsdk_server.xcframework.zip",
+                      checksum: "314bbb731e52e48355b8c621f064a6c444df0fc69b9ef91d08e0a1073330a600"),
     .testTarget(name: "MavsdkTests",
                 dependencies: [
                   "Mavsdk",
