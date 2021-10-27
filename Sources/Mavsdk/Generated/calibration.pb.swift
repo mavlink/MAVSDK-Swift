@@ -447,12 +447,16 @@ extension Mavsdk_Rpc_Calibration_CalibrateGyroResponse: SwiftProtobuf.Message, S
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._calibrationResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._calibrationResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._progressData {
+    } }()
+    try { if let v = self._progressData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -504,12 +508,16 @@ extension Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse: SwiftProtobuf.M
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._calibrationResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._calibrationResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._progressData {
+    } }()
+    try { if let v = self._progressData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -561,12 +569,16 @@ extension Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse: SwiftProtobuf.Me
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._calibrationResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._calibrationResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._progressData {
+    } }()
+    try { if let v = self._progressData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -618,12 +630,16 @@ extension Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse: SwiftProtobuf.Me
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._calibrationResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._calibrationResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._progressData {
+    } }()
+    try { if let v = self._progressData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -675,12 +691,16 @@ extension Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: SwiftProt
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._calibrationResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._calibrationResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._progressData {
+    } }()
+    try { if let v = self._progressData {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -730,9 +750,13 @@ extension Mavsdk_Rpc_Calibration_CancelResponse: SwiftProtobuf.Message, SwiftPro
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._calibrationResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._calibrationResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 

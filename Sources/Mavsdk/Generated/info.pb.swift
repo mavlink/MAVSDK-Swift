@@ -441,12 +441,16 @@ extension Mavsdk_Rpc_Info_GetFlightInformationResponse: SwiftProtobuf.Message, S
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._infoResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._infoResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._flightInfo {
+    } }()
+    try { if let v = self._flightInfo {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -498,12 +502,16 @@ extension Mavsdk_Rpc_Info_GetIdentificationResponse: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._infoResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._infoResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._identification {
+    } }()
+    try { if let v = self._identification {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -555,12 +563,16 @@ extension Mavsdk_Rpc_Info_GetProductResponse: SwiftProtobuf.Message, SwiftProtob
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._infoResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._infoResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._product {
+    } }()
+    try { if let v = self._product {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -612,12 +624,16 @@ extension Mavsdk_Rpc_Info_GetVersionResponse: SwiftProtobuf.Message, SwiftProtob
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._infoResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._infoResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._version {
+    } }()
+    try { if let v = self._version {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -669,9 +685,13 @@ extension Mavsdk_Rpc_Info_GetSpeedFactorResponse: SwiftProtobuf.Message, SwiftPr
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._infoResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._infoResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.speedFactor != 0 {
       try visitor.visitSingularDoubleField(value: self.speedFactor, fieldNumber: 2)
     }

@@ -1,0 +1,3 @@
+[console_scripts]
+protoc-gen-mavsdk = protoc_gen_mavsdk.__main__:main
+

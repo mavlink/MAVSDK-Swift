@@ -1909,15 +1909,19 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionRequest: SwiftProtobuf.Messa
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._position {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._position {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._velocityNed {
+    } }()
+    try { if let v = self._velocityNed {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
-    if let v = self._heading {
+    } }()
+    try { if let v = self._heading {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1949,9 +1953,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishHomeRequest: SwiftProtobuf.Message, 
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._home {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._home {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1991,9 +1999,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest: SwiftProtobuf.Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._battery {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._battery {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.rcReceiverStatus != false {
       try visitor.visitSingularBoolField(value: self.rcReceiverStatus, fieldNumber: 2)
     }
@@ -2147,12 +2159,16 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRawGpsRequest: SwiftProtobuf.Message
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._rawGps {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._rawGps {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._gpsInfo {
+    } }()
+    try { if let v = self._gpsInfo {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2183,9 +2199,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest: SwiftProtobuf.Messag
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._battery {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._battery {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2215,9 +2235,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRcStatusRequest: SwiftProtobuf.Messa
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._rcStatus {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._rcStatus {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2247,9 +2271,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishStatusTextRequest: SwiftProtobuf.Mes
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._statusText {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._statusText {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2279,9 +2307,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishOdometryRequest: SwiftProtobuf.Messa
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._odometry {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._odometry {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2311,9 +2343,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionVelocityNedRequest: SwiftPro
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._positionVelocityNed {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._positionVelocityNed {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2343,9 +2379,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishGroundTruthRequest: SwiftProtobuf.Me
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._groundTruth {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._groundTruth {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2375,9 +2415,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishImuRequest: SwiftProtobuf.Message, S
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._imu {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._imu {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2407,9 +2451,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishScaledImuRequest: SwiftProtobuf.Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._imu {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._imu {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2439,9 +2487,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest: SwiftProtobuf.Message
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._imu {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._imu {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2503,9 +2555,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionResponse: SwiftProtobuf.Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2535,9 +2591,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishHomeResponse: SwiftProtobuf.Message,
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2567,9 +2627,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse: SwiftProtobuf.Mes
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2599,9 +2663,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse: SwiftProto
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2631,9 +2699,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRawGpsResponse: SwiftProtobuf.Messag
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2663,9 +2735,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse: SwiftProtobuf.Messa
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2695,9 +2771,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishStatusTextResponse: SwiftProtobuf.Me
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2727,9 +2807,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishOdometryResponse: SwiftProtobuf.Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2759,9 +2843,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishPositionVelocityNedResponse: SwiftPr
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2791,9 +2879,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishGroundTruthResponse: SwiftProtobuf.M
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2823,9 +2915,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishImuResponse: SwiftProtobuf.Message, 
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2855,9 +2951,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishScaledImuResponse: SwiftProtobuf.Mes
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2887,9 +2987,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse: SwiftProtobuf.Messag
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2919,9 +3023,13 @@ extension Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse: SwiftProtobuf
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._telemetryServerResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._telemetryServerResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3702,6 +3810,10 @@ extension Mavsdk_Rpc_TelemetryServer_Odometry: SwiftProtobuf.Message, SwiftProto
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
       if _storage._timeUsec != 0 {
         try visitor.visitSingularUInt64Field(value: _storage._timeUsec, fieldNumber: 1)
       }
@@ -3711,24 +3823,24 @@ extension Mavsdk_Rpc_TelemetryServer_Odometry: SwiftProtobuf.Message, SwiftProto
       if _storage._childFrameID != .undef {
         try visitor.visitSingularEnumField(value: _storage._childFrameID, fieldNumber: 3)
       }
-      if let v = _storage._positionBody {
+      try { if let v = _storage._positionBody {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
-      }
-      if let v = _storage._q {
+      } }()
+      try { if let v = _storage._q {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-      }
-      if let v = _storage._velocityBody {
+      } }()
+      try { if let v = _storage._velocityBody {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-      }
-      if let v = _storage._angularVelocityBody {
+      } }()
+      try { if let v = _storage._angularVelocityBody {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
-      if let v = _storage._poseCovariance {
+      } }()
+      try { if let v = _storage._poseCovariance {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-      }
-      if let v = _storage._velocityCovariance {
+      } }()
+      try { if let v = _storage._velocityCovariance {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-      }
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -3974,12 +4086,16 @@ extension Mavsdk_Rpc_TelemetryServer_PositionVelocityNed: SwiftProtobuf.Message,
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._position {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._position {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._velocity {
+    } }()
+    try { if let v = self._velocity {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4238,15 +4354,19 @@ extension Mavsdk_Rpc_TelemetryServer_Imu: SwiftProtobuf.Message, SwiftProtobuf._
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._accelerationFrd {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._accelerationFrd {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._angularVelocityFrd {
+    } }()
+    try { if let v = self._angularVelocityFrd {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
-    if let v = self._magneticFieldFrd {
+    } }()
+    try { if let v = self._magneticFieldFrd {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    }
+    } }()
     if self.temperatureDegc != 0 {
       try visitor.visitSingularFloatField(value: self.temperatureDegc, fieldNumber: 4)
     }
