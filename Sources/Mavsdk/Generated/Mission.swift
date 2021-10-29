@@ -94,6 +94,10 @@ public class Mission {
             case startVideo
             ///  Stop capturing video.
             case stopVideo
+            ///  Start capturing photos at regular distance.
+            case startPhotoDistance
+            ///  Stop capturing photos at regular distance.
+            case stopPhotoDistance
             case UNRECOGNIZED(Int)
 
             internal var rpcCameraAction: Mavsdk_Rpc_Mission_MissionItem.CameraAction {
@@ -110,6 +114,10 @@ public class Mission {
                     return .startVideo
                 case .stopVideo:
                     return .stopVideo
+                case .startPhotoDistance:
+                    return .startPhotoDistance
+                case .stopPhotoDistance:
+                    return .stopPhotoDistance
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -129,6 +137,10 @@ public class Mission {
                     return .startVideo
                 case .stopVideo:
                     return .stopVideo
+                case .startPhotoDistance:
+                    return .startPhotoDistance
+                case .stopPhotoDistance:
+                    return .stopPhotoDistance
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

@@ -499,6 +499,12 @@ struct Mavsdk_Rpc_Mission_MissionItem {
 
     /// Stop capturing video
     case stopVideo // = 5
+
+    /// Start capturing photos at regular distance
+    case startPhotoDistance // = 6
+
+    /// Stop capturing photos at regular distance
+    case stopPhotoDistance // = 7
     case UNRECOGNIZED(Int)
 
     init() {
@@ -513,6 +519,8 @@ struct Mavsdk_Rpc_Mission_MissionItem {
       case 3: self = .stopPhotoInterval
       case 4: self = .startVideo
       case 5: self = .stopVideo
+      case 6: self = .startPhotoDistance
+      case 7: self = .stopPhotoDistance
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -525,6 +533,8 @@ struct Mavsdk_Rpc_Mission_MissionItem {
       case .stopPhotoInterval: return 3
       case .startVideo: return 4
       case .stopVideo: return 5
+      case .startPhotoDistance: return 6
+      case .stopPhotoDistance: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -545,6 +555,8 @@ extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: CaseIterable {
     .stopPhotoInterval,
     .startVideo,
     .stopVideo,
+    .startPhotoDistance,
+    .stopPhotoDistance,
   ]
 }
 
@@ -1534,6 +1546,8 @@ extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: SwiftProtobuf._ProtoNameP
     3: .same(proto: "CAMERA_ACTION_STOP_PHOTO_INTERVAL"),
     4: .same(proto: "CAMERA_ACTION_START_VIDEO"),
     5: .same(proto: "CAMERA_ACTION_STOP_VIDEO"),
+    6: .same(proto: "CAMERA_ACTION_START_PHOTO_DISTANCE"),
+    7: .same(proto: "CAMERA_ACTION_STOP_PHOTO_DISTANCE"),
   ]
 }
 
