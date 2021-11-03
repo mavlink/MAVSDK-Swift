@@ -476,6 +476,9 @@ struct Mavsdk_Rpc_Mission_MissionItem {
   /// Absolute yaw angle (in degrees)
   var yawDeg: Float = 0
 
+  /// Camera photo distance to use after this mission item (in meters)
+  var cameraPhotoDistanceM: Float = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Possible camera actions at a mission item.
@@ -1455,6 +1458,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     10: .standard(proto: "camera_photo_interval_s"),
     11: .standard(proto: "acceptance_radius_m"),
     12: .standard(proto: "yaw_deg"),
+    13: .standard(proto: "camera_photo_distance_m"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1475,6 +1479,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
       case 10: try { try decoder.decodeSingularDoubleField(value: &self.cameraPhotoIntervalS) }()
       case 11: try { try decoder.decodeSingularFloatField(value: &self.acceptanceRadiusM) }()
       case 12: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
+      case 13: try { try decoder.decodeSingularFloatField(value: &self.cameraPhotoDistanceM) }()
       default: break
       }
     }
@@ -1517,6 +1522,9 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if self.yawDeg != 0 {
       try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 12)
     }
+    if self.cameraPhotoDistanceM != 0 {
+      try visitor.visitSingularFloatField(value: self.cameraPhotoDistanceM, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1533,6 +1541,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.cameraPhotoIntervalS != rhs.cameraPhotoIntervalS {return false}
     if lhs.acceptanceRadiusM != rhs.acceptanceRadiusM {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
+    if lhs.cameraPhotoDistanceM != rhs.cameraPhotoDistanceM {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
