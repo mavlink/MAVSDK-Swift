@@ -371,6 +371,129 @@ public class Offboard {
     }
 
     /**
+     Type for position commands in Global (Latitude, Longitude, Altitude) coordinates and yaw.
+     */
+    public struct PositionGlobalYaw: Equatable {
+        public let latDeg: Double
+        public let lonDeg: Double
+        public let altM: Float
+        public let yawDeg: Float
+        public let altitudeType: AltitudeType
+
+        
+        
+
+        /**
+         Possible altitude options
+         */
+        public enum AltitudeType: Equatable {
+            ///  Altitude relative to the Home position.
+            case relHome
+            ///  Altitude above mean sea level (AMSL).
+            case amsl
+            ///  Altitude above ground level (AGL).
+            case agl
+            case UNRECOGNIZED(Int)
+
+            internal var rpcAltitudeType: Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType {
+                switch self {
+                case .relHome:
+                    return .relHome
+                case .amsl:
+                    return .amsl
+                case .agl:
+                    return .agl
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+
+            internal static func translateFromRpc(_ rpcAltitudeType: Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType) -> AltitudeType {
+                switch rpcAltitudeType {
+                case .relHome:
+                    return .relHome
+                case .amsl:
+                    return .amsl
+                case .agl:
+                    return .agl
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+        }
+        
+
+        /**
+         Initializes a new `PositionGlobalYaw`.
+
+         
+         - Parameters:
+            
+            - latDeg:  Latitude (in degrees)
+            
+            - lonDeg:  Longitude (in degrees)
+            
+            - altM:  altitude (in metres)
+            
+            - yawDeg:  Yaw in degrees (0 North, positive is clock-wise looking from above)
+            
+            - altitudeType:  altitude type for this position
+            
+         
+         */
+        public init(latDeg: Double, lonDeg: Double, altM: Float, yawDeg: Float, altitudeType: AltitudeType) {
+            self.latDeg = latDeg
+            self.lonDeg = lonDeg
+            self.altM = altM
+            self.yawDeg = yawDeg
+            self.altitudeType = altitudeType
+        }
+
+        internal var rpcPositionGlobalYaw: Mavsdk_Rpc_Offboard_PositionGlobalYaw {
+            var rpcPositionGlobalYaw = Mavsdk_Rpc_Offboard_PositionGlobalYaw()
+            
+                
+            rpcPositionGlobalYaw.latDeg = latDeg
+                
+            
+            
+                
+            rpcPositionGlobalYaw.lonDeg = lonDeg
+                
+            
+            
+                
+            rpcPositionGlobalYaw.altM = altM
+                
+            
+            
+                
+            rpcPositionGlobalYaw.yawDeg = yawDeg
+                
+            
+            
+                
+            rpcPositionGlobalYaw.altitudeType = altitudeType.rpcAltitudeType
+                
+            
+
+            return rpcPositionGlobalYaw
+        }
+
+        internal static func translateFromRpc(_ rpcPositionGlobalYaw: Mavsdk_Rpc_Offboard_PositionGlobalYaw) -> PositionGlobalYaw {
+            return PositionGlobalYaw(latDeg: rpcPositionGlobalYaw.latDeg, lonDeg: rpcPositionGlobalYaw.lonDeg, altM: rpcPositionGlobalYaw.altM, yawDeg: rpcPositionGlobalYaw.yawDeg, altitudeType: AltitudeType.translateFromRpc(rpcPositionGlobalYaw.altitudeType))
+        }
+
+        public static func == (lhs: PositionGlobalYaw, rhs: PositionGlobalYaw) -> Bool {
+            return lhs.latDeg == rhs.latDeg
+                && lhs.lonDeg == rhs.lonDeg
+                && lhs.altM == rhs.altM
+                && lhs.yawDeg == rhs.yawDeg
+                && lhs.altitudeType == rhs.altitudeType
+        }
+    }
+
+    /**
      Type for velocity commands in body coordinates.
      */
     public struct VelocityBodyYawspeed: Equatable {
@@ -919,6 +1042,41 @@ public class Offboard {
             do {
                 
                 let response = self.service.setPositionNed(request)
+
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set the position in Global coordinates (latitude, longitude, altitude) and yaw
+
+     - Parameter positionGlobalYaw: Position and yaw
+     
+     */
+    public func setPositionGlobal(positionGlobalYaw: PositionGlobalYaw) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Offboard_SetPositionGlobalRequest()
+
+            
+                
+            request.positionGlobalYaw = positionGlobalYaw.rpcPositionGlobalYaw
+                
+            
+
+            do {
+                
+                let response = self.service.setPositionGlobal(request)
 
                 let result = try response.response.wait().offboardResult
                 if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
