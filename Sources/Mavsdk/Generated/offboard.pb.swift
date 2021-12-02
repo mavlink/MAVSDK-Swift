@@ -277,6 +277,49 @@ struct Mavsdk_Rpc_Offboard_SetPositionNedResponse {
   fileprivate var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
 }
 
+struct Mavsdk_Rpc_Offboard_SetPositionGlobalRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Position and yaw
+  var positionGlobalYaw: Mavsdk_Rpc_Offboard_PositionGlobalYaw {
+    get {return _positionGlobalYaw ?? Mavsdk_Rpc_Offboard_PositionGlobalYaw()}
+    set {_positionGlobalYaw = newValue}
+  }
+  /// Returns true if `positionGlobalYaw` has been explicitly set.
+  var hasPositionGlobalYaw: Bool {return self._positionGlobalYaw != nil}
+  /// Clears the value of `positionGlobalYaw`. Subsequent reads from it will return its default value.
+  mutating func clearPositionGlobalYaw() {self._positionGlobalYaw = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _positionGlobalYaw: Mavsdk_Rpc_Offboard_PositionGlobalYaw? = nil
+}
+
+struct Mavsdk_Rpc_Offboard_SetPositionGlobalResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var offboardResult: Mavsdk_Rpc_Offboard_OffboardResult {
+    get {return _offboardResult ?? Mavsdk_Rpc_Offboard_OffboardResult()}
+    set {_offboardResult = newValue}
+  }
+  /// Returns true if `offboardResult` has been explicitly set.
+  var hasOffboardResult: Bool {return self._offboardResult != nil}
+  /// Clears the value of `offboardResult`. Subsequent reads from it will return its default value.
+  mutating func clearOffboardResult() {self._offboardResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _offboardResult: Mavsdk_Rpc_Offboard_OffboardResult? = nil
+}
+
 struct Mavsdk_Rpc_Offboard_SetVelocityBodyRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -574,6 +617,83 @@ struct Mavsdk_Rpc_Offboard_PositionNedYaw {
   init() {}
 }
 
+/// Type for position commands in Global (Latitude, Longitude, Altitude) coordinates and yaw.
+struct Mavsdk_Rpc_Offboard_PositionGlobalYaw {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Latitude (in degrees)
+  var latDeg: Double = 0
+
+  /// Longitude (in degrees)
+  var lonDeg: Double = 0
+
+  /// altitude (in metres)
+  var altM: Float = 0
+
+  /// Yaw in degrees (0 North, positive is clock-wise looking from above)
+  var yawDeg: Float = 0
+
+  /// altitude type for this position 
+  var altitudeType: Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType = .relHome
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Possible altitude options
+  enum AltitudeType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+
+    /// Altitude relative to the Home position
+    case relHome // = 0
+
+    /// Altitude above mean sea level (AMSL)
+    case amsl // = 1
+
+    /// Altitude above ground level (AGL)
+    case agl // = 2
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .relHome
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .relHome
+      case 1: self = .amsl
+      case 2: self = .agl
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .relHome: return 0
+      case .amsl: return 1
+      case .agl: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType] = [
+    .relHome,
+    .amsl,
+    .agl,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 /// Type for velocity commands in body coordinates.
 struct Mavsdk_Rpc_Offboard_VelocityBodyYawspeed {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -780,9 +900,13 @@ extension Mavsdk_Rpc_Offboard_StartResponse: SwiftProtobuf.Message, SwiftProtobu
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -831,9 +955,13 @@ extension Mavsdk_Rpc_Offboard_StopResponse: SwiftProtobuf.Message, SwiftProtobuf
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -914,9 +1042,13 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeRequest: SwiftProtobuf.Message, SwiftPr
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._attitude {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._attitude {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -946,9 +1078,13 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeResponse: SwiftProtobuf.Message, SwiftP
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -978,9 +1114,13 @@ extension Mavsdk_Rpc_Offboard_SetActuatorControlRequest: SwiftProtobuf.Message, 
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._actuatorControl {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._actuatorControl {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1010,9 +1150,13 @@ extension Mavsdk_Rpc_Offboard_SetActuatorControlResponse: SwiftProtobuf.Message,
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1042,9 +1186,13 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeRateRequest: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._attitudeRate {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._attitudeRate {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1074,9 +1222,13 @@ extension Mavsdk_Rpc_Offboard_SetAttitudeRateResponse: SwiftProtobuf.Message, Sw
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1106,9 +1258,13 @@ extension Mavsdk_Rpc_Offboard_SetPositionNedRequest: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._positionNedYaw {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._positionNedYaw {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1138,13 +1294,89 @@ extension Mavsdk_Rpc_Offboard_SetPositionNedResponse: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Offboard_SetPositionNedResponse, rhs: Mavsdk_Rpc_Offboard_SetPositionNedResponse) -> Bool {
+    if lhs._offboardResult != rhs._offboardResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_SetPositionGlobalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetPositionGlobalRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "position_global_yaw"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._positionGlobalYaw) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._positionGlobalYaw {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetPositionGlobalRequest, rhs: Mavsdk_Rpc_Offboard_SetPositionGlobalRequest) -> Bool {
+    if lhs._positionGlobalYaw != rhs._positionGlobalYaw {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_SetPositionGlobalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetPositionGlobalResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "offboard_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._offboardResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_SetPositionGlobalResponse, rhs: Mavsdk_Rpc_Offboard_SetPositionGlobalResponse) -> Bool {
     if lhs._offboardResult != rhs._offboardResult {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1170,9 +1402,13 @@ extension Mavsdk_Rpc_Offboard_SetVelocityBodyRequest: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._velocityBodyYawspeed {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._velocityBodyYawspeed {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1202,9 +1438,13 @@ extension Mavsdk_Rpc_Offboard_SetVelocityBodyResponse: SwiftProtobuf.Message, Sw
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1234,9 +1474,13 @@ extension Mavsdk_Rpc_Offboard_SetVelocityNedRequest: SwiftProtobuf.Message, Swif
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._velocityNedYaw {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._velocityNedYaw {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1266,9 +1510,13 @@ extension Mavsdk_Rpc_Offboard_SetVelocityNedResponse: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1300,12 +1548,16 @@ extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest: SwiftProtobuf.Messa
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._positionNedYaw {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._positionNedYaw {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._velocityNedYaw {
+    } }()
+    try { if let v = self._velocityNedYaw {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1336,9 +1588,13 @@ extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse: SwiftProtobuf.Mess
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1368,9 +1624,13 @@ extension Mavsdk_Rpc_Offboard_SetAccelerationNedRequest: SwiftProtobuf.Message, 
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._accelerationNed {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._accelerationNed {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1400,9 +1660,13 @@ extension Mavsdk_Rpc_Offboard_SetAccelerationNedResponse: SwiftProtobuf.Message,
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._offboardResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._offboardResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1625,6 +1889,70 @@ extension Mavsdk_Rpc_Offboard_PositionNedYaw: SwiftProtobuf.Message, SwiftProtob
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Mavsdk_Rpc_Offboard_PositionGlobalYaw: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PositionGlobalYaw"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "lat_deg"),
+    2: .standard(proto: "lon_deg"),
+    3: .standard(proto: "alt_m"),
+    4: .standard(proto: "yaw_deg"),
+    5: .standard(proto: "altitude_type"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.latDeg) }()
+      case 2: try { try decoder.decodeSingularDoubleField(value: &self.lonDeg) }()
+      case 3: try { try decoder.decodeSingularFloatField(value: &self.altM) }()
+      case 4: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.altitudeType) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.latDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.latDeg, fieldNumber: 1)
+    }
+    if self.lonDeg != 0 {
+      try visitor.visitSingularDoubleField(value: self.lonDeg, fieldNumber: 2)
+    }
+    if self.altM != 0 {
+      try visitor.visitSingularFloatField(value: self.altM, fieldNumber: 3)
+    }
+    if self.yawDeg != 0 {
+      try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 4)
+    }
+    if self.altitudeType != .relHome {
+      try visitor.visitSingularEnumField(value: self.altitudeType, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Offboard_PositionGlobalYaw, rhs: Mavsdk_Rpc_Offboard_PositionGlobalYaw) -> Bool {
+    if lhs.latDeg != rhs.latDeg {return false}
+    if lhs.lonDeg != rhs.lonDeg {return false}
+    if lhs.altM != rhs.altM {return false}
+    if lhs.yawDeg != rhs.yawDeg {return false}
+    if lhs.altitudeType != rhs.altitudeType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ALTITUDE_TYPE_REL_HOME"),
+    1: .same(proto: "ALTITUDE_TYPE_AMSL"),
+    2: .same(proto: "ALTITUDE_TYPE_AGL"),
+  ]
 }
 
 extension Mavsdk_Rpc_Offboard_VelocityBodyYawspeed: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

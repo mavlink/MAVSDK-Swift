@@ -1,5 +1,4 @@
-// swift-tools-version:5.3
-
+// swift-tools-version:5.4
 import PackageDescription
 
 let package = Package(
@@ -18,19 +17,23 @@ let package = Package(
              targets: [
               "MavsdkServer"
              ]
+    ),
+    .library(name: "mavsdk_server",
+             targets: [
+              "mavsdk_server"
+             ]
     )
   ],
   dependencies: [
     .package(url: "https://github.com/grpc/grpc-swift", from: "1.0.0"),
-    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.0.0"),
-    .package(url: "https://github.com/mavlink/MAVSDK-XCFramework", .exact("0.41.0"))
+    .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1")
   ],
   targets: [
     .target(name: "Mavsdk",
             dependencies: [
-              "MavsdkServer",
-              .product(name: "GRPC", package: "grpc-swift"),
-              .product(name: "RxSwift", package: "RxSwift")
+                .product(name: "GRPC", package: "grpc-swift"),
+                .product(name: "RxSwift", package: "RxSwift"),
+                .product(name: "RxBlocking", package: "RxSwift")
             ],
             exclude: [
               "proto",
@@ -40,11 +43,12 @@ let package = Package(
     ),
     .target(name: "MavsdkServer",
             dependencies: [
-              .product(name: "mavsdk_server",
-                       package: "MAVSDK-XCFramework",
-                       condition: .when(platforms: [.iOS, .macOS]))
+                "mavsdk_server"
             ]
     ),
+    .binaryTarget(name: "mavsdk_server",
+                      url: "https://github.com/mavlink/MAVSDK/releases/download/v0.50.0/mavsdk_server.xcframework.zip",
+                      checksum: "d3a05deabe677f86721e1f2d5fe146d8bca774a417e946357d871d8233e0645f"),
     .testTarget(name: "MavsdkTests",
                 dependencies: [
                   "Mavsdk",

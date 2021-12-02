@@ -39,6 +39,11 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
   var serviceName: String { get }
   var interceptors: Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtocol? { get }
 
+  func prepare(
+    _ request: Mavsdk_Rpc_Camera_PrepareRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse>
+
   func takePhoto(
     _ request: Mavsdk_Rpc_Camera_TakePhotoRequest,
     callOptions: CallOptions?
@@ -145,6 +150,25 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
 extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   internal var serviceName: String {
     return "mavsdk.rpc.camera.CameraService"
+  }
+
+  ///
+  /// Prepare the camera plugin (e.g. download the camera definition, etc).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to Prepare.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func prepare(
+    _ request: Mavsdk_Rpc_Camera_PrepareRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/Prepare",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePrepareInterceptors() ?? []
+    )
   }
 
   ///
@@ -538,6 +562,9 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtocol {
 
+  /// - Returns: Interceptors to use when invoking 'prepare'.
+  func makePrepareInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse>]
+
   /// - Returns: Interceptors to use when invoking 'takePhoto'.
   func makeTakePhotoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_TakePhotoRequest, Mavsdk_Rpc_Camera_TakePhotoResponse>]
 
@@ -632,6 +659,10 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
   var interceptors: Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtocol? { get }
 
   ///
+  /// Prepare the camera plugin (e.g. download the camera definition, etc).
+  func prepare(request: Mavsdk_Rpc_Camera_PrepareRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_PrepareResponse>
+
+  ///
   /// Take one photo.
   func takePhoto(request: Mavsdk_Rpc_Camera_TakePhotoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_TakePhotoResponse>
 
@@ -724,6 +755,15 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
+    case "Prepare":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_PrepareRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_PrepareResponse>(),
+        interceptors: self.interceptors?.makePrepareInterceptors() ?? [],
+        userFunction: self.prepare(request:context:)
+      )
+
     case "TakePhoto":
       return UnaryServerHandler(
         context: context,
@@ -902,6 +942,10 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
 }
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when handling 'prepare'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePrepareInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse>]
 
   /// - Returns: Interceptors to use when handling 'takePhoto'.
   ///   Defaults to calling `self.makeInterceptors()`.

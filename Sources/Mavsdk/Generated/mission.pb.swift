@@ -476,6 +476,9 @@ struct Mavsdk_Rpc_Mission_MissionItem {
   /// Absolute yaw angle (in degrees)
   var yawDeg: Float = 0
 
+  /// Camera photo distance to use after this mission item (in meters)
+  var cameraPhotoDistanceM: Float = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Possible camera actions at a mission item.
@@ -499,6 +502,12 @@ struct Mavsdk_Rpc_Mission_MissionItem {
 
     /// Stop capturing video
     case stopVideo // = 5
+
+    /// Start capturing photos at regular distance
+    case startPhotoDistance // = 6
+
+    /// Stop capturing photos at regular distance
+    case stopPhotoDistance // = 7
     case UNRECOGNIZED(Int)
 
     init() {
@@ -513,6 +522,8 @@ struct Mavsdk_Rpc_Mission_MissionItem {
       case 3: self = .stopPhotoInterval
       case 4: self = .startVideo
       case 5: self = .stopVideo
+      case 6: self = .startPhotoDistance
+      case 7: self = .stopPhotoDistance
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -525,6 +536,8 @@ struct Mavsdk_Rpc_Mission_MissionItem {
       case .stopPhotoInterval: return 3
       case .startVideo: return 4
       case .stopVideo: return 5
+      case .startPhotoDistance: return 6
+      case .stopPhotoDistance: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -545,6 +558,8 @@ extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: CaseIterable {
     .stopPhotoInterval,
     .startVideo,
     .stopVideo,
+    .startPhotoDistance,
+    .stopPhotoDistance,
   ]
 }
 
@@ -726,9 +741,13 @@ extension Mavsdk_Rpc_Mission_UploadMissionRequest: SwiftProtobuf.Message, SwiftP
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionPlan {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionPlan {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -758,9 +777,13 @@ extension Mavsdk_Rpc_Mission_UploadMissionResponse: SwiftProtobuf.Message, Swift
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -809,9 +832,13 @@ extension Mavsdk_Rpc_Mission_CancelMissionUploadResponse: SwiftProtobuf.Message,
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -862,12 +889,16 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
-    if let v = self._missionPlan {
+    } }()
+    try { if let v = self._missionPlan {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -917,9 +948,13 @@ extension Mavsdk_Rpc_Mission_CancelMissionDownloadResponse: SwiftProtobuf.Messag
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -968,9 +1003,13 @@ extension Mavsdk_Rpc_Mission_StartMissionResponse: SwiftProtobuf.Message, SwiftP
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1019,9 +1058,13 @@ extension Mavsdk_Rpc_Mission_PauseMissionResponse: SwiftProtobuf.Message, SwiftP
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1070,9 +1113,13 @@ extension Mavsdk_Rpc_Mission_ClearMissionResponse: SwiftProtobuf.Message, SwiftP
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1134,9 +1181,13 @@ extension Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse: SwiftProtobuf.Messag
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1187,9 +1238,13 @@ extension Mavsdk_Rpc_Mission_IsMissionFinishedResponse: SwiftProtobuf.Message, S
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.isFinished != false {
       try visitor.visitSingularBoolField(value: self.isFinished, fieldNumber: 2)
     }
@@ -1242,9 +1297,13 @@ extension Mavsdk_Rpc_Mission_MissionProgressResponse: SwiftProtobuf.Message, Swi
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionProgress {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionProgress {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1295,9 +1354,13 @@ extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse: SwiftProtobu
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     if self.enable != false {
       try visitor.visitSingularBoolField(value: self.enable, fieldNumber: 2)
     }
@@ -1363,9 +1426,13 @@ extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: SwiftProtobu
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if let v = self._missionResult {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1391,6 +1458,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     10: .standard(proto: "camera_photo_interval_s"),
     11: .standard(proto: "acceptance_radius_m"),
     12: .standard(proto: "yaw_deg"),
+    13: .standard(proto: "camera_photo_distance_m"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1411,6 +1479,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
       case 10: try { try decoder.decodeSingularDoubleField(value: &self.cameraPhotoIntervalS) }()
       case 11: try { try decoder.decodeSingularFloatField(value: &self.acceptanceRadiusM) }()
       case 12: try { try decoder.decodeSingularFloatField(value: &self.yawDeg) }()
+      case 13: try { try decoder.decodeSingularFloatField(value: &self.cameraPhotoDistanceM) }()
       default: break
       }
     }
@@ -1453,6 +1522,9 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if self.yawDeg != 0 {
       try visitor.visitSingularFloatField(value: self.yawDeg, fieldNumber: 12)
     }
+    if self.cameraPhotoDistanceM != 0 {
+      try visitor.visitSingularFloatField(value: self.cameraPhotoDistanceM, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1469,6 +1541,7 @@ extension Mavsdk_Rpc_Mission_MissionItem: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.cameraPhotoIntervalS != rhs.cameraPhotoIntervalS {return false}
     if lhs.acceptanceRadiusM != rhs.acceptanceRadiusM {return false}
     if lhs.yawDeg != rhs.yawDeg {return false}
+    if lhs.cameraPhotoDistanceM != rhs.cameraPhotoDistanceM {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1482,6 +1555,8 @@ extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: SwiftProtobuf._ProtoNameP
     3: .same(proto: "CAMERA_ACTION_STOP_PHOTO_INTERVAL"),
     4: .same(proto: "CAMERA_ACTION_START_VIDEO"),
     5: .same(proto: "CAMERA_ACTION_STOP_VIDEO"),
+    6: .same(proto: "CAMERA_ACTION_START_PHOTO_DISTANCE"),
+    7: .same(proto: "CAMERA_ACTION_STOP_PHOTO_DISTANCE"),
   ]
 }
 

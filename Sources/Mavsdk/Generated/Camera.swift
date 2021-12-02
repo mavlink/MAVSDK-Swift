@@ -1279,6 +1279,36 @@ public class Camera {
 
 
     /**
+     Prepare the camera plugin (e.g. download the camera definition, etc).
+
+     
+     */
+    public func prepare() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Camera_PrepareRequest()
+
+            
+
+            do {
+                
+                let response = self.service.prepare(request)
+
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
      Take one photo.
 
      

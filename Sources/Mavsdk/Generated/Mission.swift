@@ -74,6 +74,7 @@ public class Mission {
         public let cameraPhotoIntervalS: Double
         public let acceptanceRadiusM: Float
         public let yawDeg: Float
+        public let cameraPhotoDistanceM: Float
 
         
         
@@ -94,6 +95,10 @@ public class Mission {
             case startVideo
             ///  Stop capturing video.
             case stopVideo
+            ///  Start capturing photos at regular distance.
+            case startPhotoDistance
+            ///  Stop capturing photos at regular distance.
+            case stopPhotoDistance
             case UNRECOGNIZED(Int)
 
             internal var rpcCameraAction: Mavsdk_Rpc_Mission_MissionItem.CameraAction {
@@ -110,6 +115,10 @@ public class Mission {
                     return .startVideo
                 case .stopVideo:
                     return .stopVideo
+                case .startPhotoDistance:
+                    return .startPhotoDistance
+                case .stopPhotoDistance:
+                    return .stopPhotoDistance
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -129,6 +138,10 @@ public class Mission {
                     return .startVideo
                 case .stopVideo:
                     return .stopVideo
+                case .startPhotoDistance:
+                    return .startPhotoDistance
+                case .stopPhotoDistance:
+                    return .stopPhotoDistance
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -166,9 +179,11 @@ public class Mission {
             
             - yawDeg:  Absolute yaw angle (in degrees)
             
+            - cameraPhotoDistanceM:  Camera photo distance to use after this mission item (in meters)
+            
          
          */
-        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double, acceptanceRadiusM: Float, yawDeg: Float) {
+        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double, acceptanceRadiusM: Float, yawDeg: Float, cameraPhotoDistanceM: Float) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
             self.relativeAltitudeM = relativeAltitudeM
@@ -181,6 +196,7 @@ public class Mission {
             self.cameraPhotoIntervalS = cameraPhotoIntervalS
             self.acceptanceRadiusM = acceptanceRadiusM
             self.yawDeg = yawDeg
+            self.cameraPhotoDistanceM = cameraPhotoDistanceM
         }
 
         internal var rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem {
@@ -245,12 +261,17 @@ public class Mission {
             rpcMissionItem.yawDeg = yawDeg
                 
             
+            
+                
+            rpcMissionItem.cameraPhotoDistanceM = cameraPhotoDistanceM
+                
+            
 
             return rpcMissionItem
         }
 
         internal static func translateFromRpc(_ rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem) -> MissionItem {
-            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS, acceptanceRadiusM: rpcMissionItem.acceptanceRadiusM, yawDeg: rpcMissionItem.yawDeg)
+            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS, acceptanceRadiusM: rpcMissionItem.acceptanceRadiusM, yawDeg: rpcMissionItem.yawDeg, cameraPhotoDistanceM: rpcMissionItem.cameraPhotoDistanceM)
         }
 
         public static func == (lhs: MissionItem, rhs: MissionItem) -> Bool {
@@ -266,6 +287,7 @@ public class Mission {
                 && lhs.cameraPhotoIntervalS == rhs.cameraPhotoIntervalS
                 && lhs.acceptanceRadiusM == rhs.acceptanceRadiusM
                 && lhs.yawDeg == rhs.yawDeg
+                && lhs.cameraPhotoDistanceM == rhs.cameraPhotoDistanceM
         }
     }
 

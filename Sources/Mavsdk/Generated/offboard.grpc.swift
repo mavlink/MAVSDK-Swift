@@ -75,6 +75,11 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol: GRPCClient 
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse>
 
+  func setPositionGlobal(
+    _ request: Mavsdk_Rpc_Offboard_SetPositionGlobalRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionGlobalRequest, Mavsdk_Rpc_Offboard_SetPositionGlobalResponse>
+
   func setVelocityBody(
     _ request: Mavsdk_Rpc_Offboard_SetVelocityBodyRequest,
     callOptions: CallOptions?
@@ -243,6 +248,25 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceClientProtocol {
   }
 
   ///
+  /// Set the position in Global coordinates (latitude, longitude, altitude) and yaw
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetPositionGlobal.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setPositionGlobal(
+    _ request: Mavsdk_Rpc_Offboard_SetPositionGlobalRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Offboard_SetPositionGlobalRequest, Mavsdk_Rpc_Offboard_SetPositionGlobalResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.offboard.OffboardService/SetPositionGlobal",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetPositionGlobalInterceptors() ?? []
+    )
+  }
+
+  ///
   /// Set the velocity in body coordinates and yaw angular rate. Not available for fixed-wing aircraft.
   ///
   /// - Parameters:
@@ -342,6 +366,9 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceClientInterceptorFactoryPro
   /// - Returns: Interceptors to use when invoking 'setPositionNed'.
   func makeSetPositionNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'setPositionGlobal'.
+  func makeSetPositionGlobalInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Offboard_SetPositionGlobalRequest, Mavsdk_Rpc_Offboard_SetPositionGlobalResponse>]
+
   /// - Returns: Interceptors to use when invoking 'setVelocityBody'.
   func makeSetVelocityBodyInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Offboard_SetVelocityBodyRequest, Mavsdk_Rpc_Offboard_SetVelocityBodyResponse>]
 
@@ -426,6 +453,10 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceProvider: CallHandlerProvid
   ///
   /// Set the position in NED coordinates and yaw.
   func setPositionNed(request: Mavsdk_Rpc_Offboard_SetPositionNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetPositionNedResponse>
+
+  ///
+  /// Set the position in Global coordinates (latitude, longitude, altitude) and yaw
+  func setPositionGlobal(request: Mavsdk_Rpc_Offboard_SetPositionGlobalRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Offboard_SetPositionGlobalResponse>
 
   ///
   /// Set the velocity in body coordinates and yaw angular rate. Not available for fixed-wing aircraft.
@@ -517,6 +548,15 @@ extension Mavsdk_Rpc_Offboard_OffboardServiceProvider {
         userFunction: self.setPositionNed(request:context:)
       )
 
+    case "SetPositionGlobal":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Offboard_SetPositionGlobalRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Offboard_SetPositionGlobalResponse>(),
+        interceptors: self.interceptors?.makeSetPositionGlobalInterceptors() ?? [],
+        userFunction: self.setPositionGlobal(request:context:)
+      )
+
     case "SetVelocityBody":
       return UnaryServerHandler(
         context: context,
@@ -588,6 +628,10 @@ internal protocol Mavsdk_Rpc_Offboard_OffboardServiceServerInterceptorFactoryPro
   /// - Returns: Interceptors to use when handling 'setPositionNed'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetPositionNedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Offboard_SetPositionNedRequest, Mavsdk_Rpc_Offboard_SetPositionNedResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setPositionGlobal'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetPositionGlobalInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Offboard_SetPositionGlobalRequest, Mavsdk_Rpc_Offboard_SetPositionGlobalResponse>]
 
   /// - Returns: Interceptors to use when handling 'setVelocityBody'.
   ///   Defaults to calling `self.makeInterceptors()`.
