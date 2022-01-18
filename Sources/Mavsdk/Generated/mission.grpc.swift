@@ -37,6 +37,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>
 
+  func subscribeUploadMissionWithProgress(
+    _ request: Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest, Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse>
+
   func cancelMissionUpload(
     _ request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest,
     callOptions: CallOptions?
@@ -46,6 +52,12 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Mission_DownloadMissionRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>
+
+  func subscribeDownloadMissionWithProgress(
+    _ request: Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest, Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse>
 
   func cancelMissionDownload(
     _ request: Mavsdk_Rpc_Mission_CancelMissionDownloadRequest,
@@ -122,6 +134,31 @@ extension Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
   }
 
   ///
+  /// Upload a list of mission items to the system and report upload progress.
+  ///
+  /// The mission items are uploaded to a drone. Once uploaded the mission can be started and
+  /// executed even if the connection is lost.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeUploadMissionWithProgress.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeUploadMissionWithProgress(
+    _ request: Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest, Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.mission.MissionService/SubscribeUploadMissionWithProgress",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeUploadMissionWithProgressInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
+  ///
   /// Cancel an ongoing mission upload.
   ///
   /// - Parameters:
@@ -159,6 +196,31 @@ extension Mavsdk_Rpc_Mission_MissionServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeDownloadMissionInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Download a list of mission items from the system (asynchronous) and report progress.
+  ///
+  /// Will fail if any of the downloaded mission items are not supported
+  /// by the MAVSDK API.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeDownloadMissionWithProgress.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeDownloadMissionWithProgress(
+    _ request: Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest, Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.mission.MissionService/SubscribeDownloadMissionWithProgress",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeDownloadMissionWithProgressInterceptors() ?? [],
+      handler: handler
     )
   }
 
@@ -361,11 +423,17 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceClientInterceptorFactoryProto
   /// - Returns: Interceptors to use when invoking 'uploadMission'.
   func makeUploadMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeUploadMissionWithProgress'.
+  func makeSubscribeUploadMissionWithProgressInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest, Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse>]
+
   /// - Returns: Interceptors to use when invoking 'cancelMissionUpload'.
   func makeCancelMissionUploadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse>]
 
   /// - Returns: Interceptors to use when invoking 'downloadMission'.
   func makeDownloadMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeDownloadMissionWithProgress'.
+  func makeSubscribeDownloadMissionWithProgressInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest, Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse>]
 
   /// - Returns: Interceptors to use when invoking 'cancelMissionDownload'.
   func makeCancelMissionDownloadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Mission_CancelMissionDownloadRequest, Mavsdk_Rpc_Mission_CancelMissionDownloadResponse>]
@@ -431,6 +499,13 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: CallHandlerProvider
   func uploadMission(request: Mavsdk_Rpc_Mission_UploadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mission_UploadMissionResponse>
 
   ///
+  /// Upload a list of mission items to the system and report upload progress.
+  ///
+  /// The mission items are uploaded to a drone. Once uploaded the mission can be started and
+  /// executed even if the connection is lost.
+  func subscribeUploadMissionWithProgress(request: Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse>) -> EventLoopFuture<GRPCStatus>
+
+  ///
   /// Cancel an ongoing mission upload.
   func cancelMissionUpload(request: Mavsdk_Rpc_Mission_CancelMissionUploadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mission_CancelMissionUploadResponse>
 
@@ -440,6 +515,13 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceProvider: CallHandlerProvider
   /// Will fail if any of the downloaded mission items are not supported
   /// by the MAVSDK API.
   func downloadMission(request: Mavsdk_Rpc_Mission_DownloadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Mission_DownloadMissionResponse>
+
+  ///
+  /// Download a list of mission items from the system (asynchronous) and report progress.
+  ///
+  /// Will fail if any of the downloaded mission items are not supported
+  /// by the MAVSDK API.
+  func subscribeDownloadMissionWithProgress(request: Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
   /// Cancel an ongoing mission download.
@@ -516,6 +598,15 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
         userFunction: self.uploadMission(request:context:)
       )
 
+    case "SubscribeUploadMissionWithProgress":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse>(),
+        interceptors: self.interceptors?.makeSubscribeUploadMissionWithProgressInterceptors() ?? [],
+        userFunction: self.subscribeUploadMissionWithProgress(request:context:)
+      )
+
     case "CancelMissionUpload":
       return UnaryServerHandler(
         context: context,
@@ -532,6 +623,15 @@ extension Mavsdk_Rpc_Mission_MissionServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mission_DownloadMissionResponse>(),
         interceptors: self.interceptors?.makeDownloadMissionInterceptors() ?? [],
         userFunction: self.downloadMission(request:context:)
+      )
+
+    case "SubscribeDownloadMissionWithProgress":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse>(),
+        interceptors: self.interceptors?.makeSubscribeDownloadMissionWithProgressInterceptors() ?? [],
+        userFunction: self.subscribeDownloadMissionWithProgress(request:context:)
       )
 
     case "CancelMissionDownload":
@@ -627,6 +727,10 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceServerInterceptorFactoryProto
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUploadMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_UploadMissionRequest, Mavsdk_Rpc_Mission_UploadMissionResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeUploadMissionWithProgress'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeUploadMissionWithProgressInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest, Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse>]
+
   /// - Returns: Interceptors to use when handling 'cancelMissionUpload'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeCancelMissionUploadInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_CancelMissionUploadRequest, Mavsdk_Rpc_Mission_CancelMissionUploadResponse>]
@@ -634,6 +738,10 @@ internal protocol Mavsdk_Rpc_Mission_MissionServiceServerInterceptorFactoryProto
   /// - Returns: Interceptors to use when handling 'downloadMission'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeDownloadMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_DownloadMissionRequest, Mavsdk_Rpc_Mission_DownloadMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeDownloadMissionWithProgress'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeDownloadMissionWithProgressInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest, Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse>]
 
   /// - Returns: Interceptors to use when handling 'cancelMissionDownload'.
   ///   Defaults to calling `self.makeInterceptors()`.

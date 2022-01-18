@@ -832,6 +832,8 @@ public class Camera {
         public let recordingTimeS: Float
         public let mediaFolderName: String
         public let storageStatus: StorageStatus
+        public let storageID: UInt32
+        public let storageType: StorageType
 
         
         
@@ -881,6 +883,65 @@ public class Camera {
             }
         }
         
+        
+
+        /**
+         Storage type.
+         */
+        public enum StorageType: Equatable {
+            ///  Storage type unknown.
+            case unknown
+            ///  Storage type USB stick.
+            case usbStick
+            ///  Storage type SD card.
+            case sd
+            ///  Storage type MicroSD card.
+            case microsd
+            ///  Storage type HD mass storage.
+            case hd
+            ///  Storage type other, not listed.
+            case other
+            case UNRECOGNIZED(Int)
+
+            internal var rpcStorageType: Mavsdk_Rpc_Camera_Status.StorageType {
+                switch self {
+                case .unknown:
+                    return .unknown
+                case .usbStick:
+                    return .usbStick
+                case .sd:
+                    return .sd
+                case .microsd:
+                    return .microsd
+                case .hd:
+                    return .hd
+                case .other:
+                    return .other
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+
+            internal static func translateFromRpc(_ rpcStorageType: Mavsdk_Rpc_Camera_Status.StorageType) -> StorageType {
+                switch rpcStorageType {
+                case .unknown:
+                    return .unknown
+                case .usbStick:
+                    return .usbStick
+                case .sd:
+                    return .sd
+                case .microsd:
+                    return .microsd
+                case .hd:
+                    return .hd
+                case .other:
+                    return .other
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+        }
+        
 
         /**
          Initializes a new `Status`.
@@ -904,9 +965,13 @@ public class Camera {
             
             - storageStatus:  Storage status
             
+            - storageID:  Storage ID starting at 1
+            
+            - storageType:  Storage type
+            
          
          */
-        public init(videoOn: Bool, photoIntervalOn: Bool, usedStorageMib: Float, availableStorageMib: Float, totalStorageMib: Float, recordingTimeS: Float, mediaFolderName: String, storageStatus: StorageStatus) {
+        public init(videoOn: Bool, photoIntervalOn: Bool, usedStorageMib: Float, availableStorageMib: Float, totalStorageMib: Float, recordingTimeS: Float, mediaFolderName: String, storageStatus: StorageStatus, storageID: UInt32, storageType: StorageType) {
             self.videoOn = videoOn
             self.photoIntervalOn = photoIntervalOn
             self.usedStorageMib = usedStorageMib
@@ -915,6 +980,8 @@ public class Camera {
             self.recordingTimeS = recordingTimeS
             self.mediaFolderName = mediaFolderName
             self.storageStatus = storageStatus
+            self.storageID = storageID
+            self.storageType = storageType
         }
 
         internal var rpcStatus: Mavsdk_Rpc_Camera_Status {
@@ -959,12 +1026,22 @@ public class Camera {
             rpcStatus.storageStatus = storageStatus.rpcStorageStatus
                 
             
+            
+                
+            rpcStatus.storageID = storageID
+                
+            
+            
+                
+            rpcStatus.storageType = storageType.rpcStorageType
+                
+            
 
             return rpcStatus
         }
 
         internal static func translateFromRpc(_ rpcStatus: Mavsdk_Rpc_Camera_Status) -> Status {
-            return Status(videoOn: rpcStatus.videoOn, photoIntervalOn: rpcStatus.photoIntervalOn, usedStorageMib: rpcStatus.usedStorageMib, availableStorageMib: rpcStatus.availableStorageMib, totalStorageMib: rpcStatus.totalStorageMib, recordingTimeS: rpcStatus.recordingTimeS, mediaFolderName: rpcStatus.mediaFolderName, storageStatus: StorageStatus.translateFromRpc(rpcStatus.storageStatus))
+            return Status(videoOn: rpcStatus.videoOn, photoIntervalOn: rpcStatus.photoIntervalOn, usedStorageMib: rpcStatus.usedStorageMib, availableStorageMib: rpcStatus.availableStorageMib, totalStorageMib: rpcStatus.totalStorageMib, recordingTimeS: rpcStatus.recordingTimeS, mediaFolderName: rpcStatus.mediaFolderName, storageStatus: StorageStatus.translateFromRpc(rpcStatus.storageStatus), storageID: rpcStatus.storageID, storageType: StorageType.translateFromRpc(rpcStatus.storageType))
         }
 
         public static func == (lhs: Status, rhs: Status) -> Bool {
@@ -976,6 +1053,8 @@ public class Camera {
                 && lhs.recordingTimeS == rhs.recordingTimeS
                 && lhs.mediaFolderName == rhs.mediaFolderName
                 && lhs.storageStatus == rhs.storageStatus
+                && lhs.storageID == rhs.storageID
+                && lhs.storageType == rhs.storageType
         }
     }
 

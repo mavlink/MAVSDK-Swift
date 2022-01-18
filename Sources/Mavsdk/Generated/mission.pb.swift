@@ -63,6 +63,60 @@ struct Mavsdk_Rpc_Mission_UploadMissionResponse {
   fileprivate var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
 }
 
+struct Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The mission plan
+  var missionPlan: Mavsdk_Rpc_Mission_MissionPlan {
+    get {return _missionPlan ?? Mavsdk_Rpc_Mission_MissionPlan()}
+    set {_missionPlan = newValue}
+  }
+  /// Returns true if `missionPlan` has been explicitly set.
+  var hasMissionPlan: Bool {return self._missionPlan != nil}
+  /// Clears the value of `missionPlan`. Subsequent reads from it will return its default value.
+  mutating func clearMissionPlan() {self._missionPlan = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
+}
+
+struct Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return self._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {self._missionResult = nil}
+
+  /// The progress data
+  var progressData: Mavsdk_Rpc_Mission_ProgressData {
+    get {return _progressData ?? Mavsdk_Rpc_Mission_ProgressData()}
+    set {_progressData = newValue}
+  }
+  /// Returns true if `progressData` has been explicitly set.
+  var hasProgressData: Bool {return self._progressData != nil}
+  /// Clears the value of `progressData`. Subsequent reads from it will return its default value.
+  mutating func clearProgressData() {self._progressData = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+  fileprivate var _progressData: Mavsdk_Rpc_Mission_ProgressData? = nil
+}
+
 struct Mavsdk_Rpc_Mission_CancelMissionUploadRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -134,6 +188,48 @@ struct Mavsdk_Rpc_Mission_DownloadMissionResponse {
 
   fileprivate var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
   fileprivate var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
+}
+
+struct Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var missionResult: Mavsdk_Rpc_Mission_MissionResult {
+    get {return _missionResult ?? Mavsdk_Rpc_Mission_MissionResult()}
+    set {_missionResult = newValue}
+  }
+  /// Returns true if `missionResult` has been explicitly set.
+  var hasMissionResult: Bool {return self._missionResult != nil}
+  /// Clears the value of `missionResult`. Subsequent reads from it will return its default value.
+  mutating func clearMissionResult() {self._missionResult = nil}
+
+  /// The progress data, or the mission plan (when the download is finished)
+  var progressData: Mavsdk_Rpc_Mission_ProgressDataOrMission {
+    get {return _progressData ?? Mavsdk_Rpc_Mission_ProgressDataOrMission()}
+    set {_progressData = newValue}
+  }
+  /// Returns true if `progressData` has been explicitly set.
+  var hasProgressData: Bool {return self._progressData != nil}
+  /// Clears the value of `progressData`. Subsequent reads from it will return its default value.
+  mutating func clearProgressData() {self._progressData = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _missionResult: Mavsdk_Rpc_Mission_MissionResult? = nil
+  fileprivate var _progressData: Mavsdk_Rpc_Mission_ProgressDataOrMission? = nil
 }
 
 struct Mavsdk_Rpc_Mission_CancelMissionDownloadRequest {
@@ -649,6 +745,9 @@ struct Mavsdk_Rpc_Mission_MissionResult {
 
     /// No system connected
     case noSystem // = 13
+
+    /// Intermediate message showing progress
+    case next // = 14
     case UNRECOGNIZED(Int)
 
     init() {
@@ -669,6 +768,7 @@ struct Mavsdk_Rpc_Mission_MissionResult {
       case 11: self = .unsupportedMissionCmd
       case 12: self = .transferCancelled
       case 13: self = .noSystem
+      case 14: self = .next
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -687,6 +787,7 @@ struct Mavsdk_Rpc_Mission_MissionResult {
       case .unsupportedMissionCmd: return 11
       case .transferCancelled: return 12
       case .noSystem: return 13
+      case .next: return 14
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -713,10 +814,57 @@ extension Mavsdk_Rpc_Mission_MissionResult.Result: CaseIterable {
     .unsupportedMissionCmd,
     .transferCancelled,
     .noSystem,
+    .next,
   ]
 }
 
 #endif  // swift(>=4.2)
+
+/// Progress data coming from mission upload.
+struct Mavsdk_Rpc_Mission_ProgressData {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Progress (0..1.0)
+  var progress: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+/// Progress data coming from mission download, or the mission itself (if the transfer succeeds).
+struct Mavsdk_Rpc_Mission_ProgressDataOrMission {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Whether this ProgressData contains a 'progress' status or not
+  var hasProgress_p: Bool = false
+
+  /// Progress (0..1.0)
+  var progress: Float = 0
+
+  /// Whether this ProgressData contains a 'mission_plan' or not
+  var hasMission_p: Bool = false
+
+  /// Mission plan
+  var missionPlan: Mavsdk_Rpc_Mission_MissionPlan {
+    get {return _missionPlan ?? Mavsdk_Rpc_Mission_MissionPlan()}
+    set {_missionPlan = newValue}
+  }
+  /// Returns true if `missionPlan` has been explicitly set.
+  var hasMissionPlan: Bool {return self._missionPlan != nil}
+  /// Clears the value of `missionPlan`. Subsequent reads from it will return its default value.
+  mutating func clearMissionPlan() {self._missionPlan = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
+}
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -789,6 +937,84 @@ extension Mavsdk_Rpc_Mission_UploadMissionResponse: SwiftProtobuf.Message, Swift
 
   static func ==(lhs: Mavsdk_Rpc_Mission_UploadMissionResponse, rhs: Mavsdk_Rpc_Mission_UploadMissionResponse) -> Bool {
     if lhs._missionResult != rhs._missionResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeUploadMissionWithProgressRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_plan"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._missionPlan) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionPlan {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest, rhs: Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest) -> Bool {
+    if lhs._missionPlan != rhs._missionPlan {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".UploadMissionWithProgressResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_result"),
+    2: .standard(proto: "progress_data"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._missionResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._progressData {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse, rhs: Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse) -> Bool {
+    if lhs._missionResult != rhs._missionResult {return false}
+    if lhs._progressData != rhs._progressData {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -905,6 +1131,67 @@ extension Mavsdk_Rpc_Mission_DownloadMissionResponse: SwiftProtobuf.Message, Swi
   static func ==(lhs: Mavsdk_Rpc_Mission_DownloadMissionResponse, rhs: Mavsdk_Rpc_Mission_DownloadMissionResponse) -> Bool {
     if lhs._missionResult != rhs._missionResult {return false}
     if lhs._missionPlan != rhs._missionPlan {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SubscribeDownloadMissionWithProgressRequest"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest, rhs: Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DownloadMissionWithProgressResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "mission_result"),
+    2: .standard(proto: "progress_data"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._missionResult) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._progressData) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._missionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._progressData {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse, rhs: Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse) -> Bool {
+    if lhs._missionResult != rhs._missionResult {return false}
+    if lhs._progressData != rhs._progressData {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1682,5 +1969,92 @@ extension Mavsdk_Rpc_Mission_MissionResult.Result: SwiftProtobuf._ProtoNameProvi
     11: .same(proto: "RESULT_UNSUPPORTED_MISSION_CMD"),
     12: .same(proto: "RESULT_TRANSFER_CANCELLED"),
     13: .same(proto: "RESULT_NO_SYSTEM"),
+    14: .same(proto: "RESULT_NEXT"),
   ]
+}
+
+extension Mavsdk_Rpc_Mission_ProgressData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ProgressData"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "progress"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.progress) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.progress != 0 {
+      try visitor.visitSingularFloatField(value: self.progress, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_ProgressData, rhs: Mavsdk_Rpc_Mission_ProgressData) -> Bool {
+    if lhs.progress != rhs.progress {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Mission_ProgressDataOrMission: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ProgressDataOrMission"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "has_progress"),
+    2: .same(proto: "progress"),
+    3: .standard(proto: "has_mission"),
+    4: .standard(proto: "mission_plan"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.hasProgress_p) }()
+      case 2: try { try decoder.decodeSingularFloatField(value: &self.progress) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.hasMission_p) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._missionPlan) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.hasProgress_p != false {
+      try visitor.visitSingularBoolField(value: self.hasProgress_p, fieldNumber: 1)
+    }
+    if self.progress != 0 {
+      try visitor.visitSingularFloatField(value: self.progress, fieldNumber: 2)
+    }
+    if self.hasMission_p != false {
+      try visitor.visitSingularBoolField(value: self.hasMission_p, fieldNumber: 3)
+    }
+    try { if let v = self._missionPlan {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Mission_ProgressDataOrMission, rhs: Mavsdk_Rpc_Mission_ProgressDataOrMission) -> Bool {
+    if lhs.hasProgress_p != rhs.hasProgress_p {return false}
+    if lhs.progress != rhs.progress {return false}
+    if lhs.hasMission_p != rhs.hasMission_p {return false}
+    if lhs._missionPlan != rhs._missionPlan {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
