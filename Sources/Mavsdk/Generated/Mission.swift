@@ -420,6 +420,8 @@ public class Mission {
             case transferCancelled
             ///  No system connected.
             case noSystem
+            ///  Intermediate message showing progress.
+            case next
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Mission_MissionResult.Result {
@@ -448,6 +450,8 @@ public class Mission {
                     return .transferCancelled
                 case .noSystem:
                     return .noSystem
+                case .next:
+                    return .next
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -479,6 +483,8 @@ public class Mission {
                     return .transferCancelled
                 case .noSystem:
                     return .noSystem
+                case .next:
+                    return .next
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -529,6 +535,117 @@ public class Mission {
         }
     }
 
+    /**
+     Progress data coming from mission upload.
+     */
+    public struct ProgressData: Equatable {
+        public let progress: Float
+
+        
+
+        /**
+         Initializes a new `ProgressData`.
+
+         
+         - Parameter progress:  Progress (0..1.0)
+         
+         */
+        public init(progress: Float) {
+            self.progress = progress
+        }
+
+        internal var rpcProgressData: Mavsdk_Rpc_Mission_ProgressData {
+            var rpcProgressData = Mavsdk_Rpc_Mission_ProgressData()
+            
+                
+            rpcProgressData.progress = progress
+                
+            
+
+            return rpcProgressData
+        }
+
+        internal static func translateFromRpc(_ rpcProgressData: Mavsdk_Rpc_Mission_ProgressData) -> ProgressData {
+            return ProgressData(progress: rpcProgressData.progress)
+        }
+
+        public static func == (lhs: ProgressData, rhs: ProgressData) -> Bool {
+            return lhs.progress == rhs.progress
+        }
+    }
+
+    /**
+     Progress data coming from mission download, or the mission itself (if the transfer succeeds).
+     */
+    public struct ProgressDataOrMission: Equatable {
+        public let hasProgress: Bool
+        public let progress: Float
+        public let hasMission: Bool
+        public let missionPlan: MissionPlan
+
+        
+
+        /**
+         Initializes a new `ProgressDataOrMission`.
+
+         
+         - Parameters:
+            
+            - hasProgress:  Whether this ProgressData contains a 'progress' status or not
+            
+            - progress:  Progress (0..1.0)
+            
+            - hasMission:  Whether this ProgressData contains a 'mission_plan' or not
+            
+            - missionPlan:  Mission plan
+            
+         
+         */
+        public init(hasProgress: Bool, progress: Float, hasMission: Bool, missionPlan: MissionPlan) {
+            self.hasProgress = hasProgress
+            self.progress = progress
+            self.hasMission = hasMission
+            self.missionPlan = missionPlan
+        }
+
+        internal var rpcProgressDataOrMission: Mavsdk_Rpc_Mission_ProgressDataOrMission {
+            var rpcProgressDataOrMission = Mavsdk_Rpc_Mission_ProgressDataOrMission()
+            
+                
+            rpcProgressDataOrMission.hasProgress_p = hasProgress
+                
+            
+            
+                
+            rpcProgressDataOrMission.progress = progress
+                
+            
+            
+                
+            rpcProgressDataOrMission.hasMission_p = hasMission
+                
+            
+            
+                
+            rpcProgressDataOrMission.missionPlan = missionPlan.rpcMissionPlan
+                
+            
+
+            return rpcProgressDataOrMission
+        }
+
+        internal static func translateFromRpc(_ rpcProgressDataOrMission: Mavsdk_Rpc_Mission_ProgressDataOrMission) -> ProgressDataOrMission {
+            return ProgressDataOrMission(hasProgress: rpcProgressDataOrMission.hasProgress_p, progress: rpcProgressDataOrMission.progress, hasMission: rpcProgressDataOrMission.hasMission_p, missionPlan: MissionPlan.translateFromRpc(rpcProgressDataOrMission.missionPlan))
+        }
+
+        public static func == (lhs: ProgressDataOrMission, rhs: ProgressDataOrMission) -> Bool {
+            return lhs.hasProgress == rhs.hasProgress
+                && lhs.progress == rhs.progress
+                && lhs.hasMission == rhs.hasMission
+                && lhs.missionPlan == rhs.missionPlan
+        }
+    }
+
 
     /**
      Upload a list of mission items to the system.
@@ -566,6 +683,57 @@ public class Mission {
 
             return Disposables.create()
         }
+    }
+
+
+
+
+    /**
+     Upload a list of mission items to the system and report upload progress.
+
+     The mission items are uploaded to a drone. Once uploaded the mission can be started and
+     executed even if the connection is lost.
+     */
+
+    public func uploadMissionWithProgress(missionPlan: MissionPlan) -> Observable<ProgressData> {
+        return Observable.create { observer in
+            var request = Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest()
+
+            
+                
+            request.missionPlan = missionPlan.rpcMissionPlan
+                
+            
+
+            _ = self.service.subscribeUploadMissionWithProgress(request, handler: { (response) in
+
+                
+                     
+                let uploadMissionWithProgress = ProgressData.translateFromRpc(response.progressData)
+                
+
+                
+                let result = MissionResult.translateFromRpc(response.missionResult)
+
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(uploadMissionWithProgress)
+                default:
+                    observer.onError(MissionError(code: result.result, description: result.resultStr))
+                }
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeMissionError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
     }
 
     /**
@@ -634,6 +802,53 @@ public class Mission {
 
             return Disposables.create()
         }
+    }
+
+
+
+
+    /**
+     Download a list of mission items from the system (asynchronous) and report progress.
+
+     Will fail if any of the downloaded mission items are not supported
+     by the MAVSDK API.
+     */
+
+    public func downloadMissionWithProgress() -> Observable<ProgressDataOrMission> {
+        return Observable.create { observer in
+            let request = Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest()
+
+            
+
+            _ = self.service.subscribeDownloadMissionWithProgress(request, handler: { (response) in
+
+                
+                     
+                let downloadMissionWithProgress = ProgressDataOrMission.translateFromRpc(response.progressData)
+                
+
+                
+                let result = MissionResult.translateFromRpc(response.missionResult)
+
+                switch (result.result) {
+                case .success:
+                    observer.onCompleted()
+                case .next:
+                    observer.onNext(downloadMissionWithProgress)
+                default:
+                    observer.onError(MissionError(code: result.result, description: result.resultStr))
+                }
+                
+            })
+
+            return Disposables.create()
+        }
+        .retryWhen { error in
+            error.map {
+                guard $0 is RuntimeMissionError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
     }
 
     /**

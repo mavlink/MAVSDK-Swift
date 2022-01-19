@@ -1187,6 +1187,12 @@ struct Mavsdk_Rpc_Camera_Status {
   /// Storage status
   var storageStatus: Mavsdk_Rpc_Camera_Status.StorageStatus = .notAvailable
 
+  /// Storage ID starting at 1
+  var storageID: UInt32 = 0
+
+  /// Storage type
+  var storageType: Mavsdk_Rpc_Camera_Status.StorageType = .unknown
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   /// Storage status type.
@@ -1232,6 +1238,59 @@ struct Mavsdk_Rpc_Camera_Status {
 
   }
 
+  /// Storage type.
+  enum StorageType: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+
+    /// Storage type unknown
+    case unknown // = 0
+
+    /// Storage type USB stick
+    case usbStick // = 1
+
+    /// Storage type SD card
+    case sd // = 2
+
+    /// Storage type MicroSD card
+    case microsd // = 3
+
+    /// Storage type HD mass storage
+    case hd // = 7
+
+    /// Storage type other, not listed
+    case other // = 254
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .unknown
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 1: self = .usbStick
+      case 2: self = .sd
+      case 3: self = .microsd
+      case 7: self = .hd
+      case 254: self = .other
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .usbStick: return 1
+      case .sd: return 2
+      case .microsd: return 3
+      case .hd: return 7
+      case .other: return 254
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
   init() {}
 }
 
@@ -1244,6 +1303,18 @@ extension Mavsdk_Rpc_Camera_Status.StorageStatus: CaseIterable {
     .unformatted,
     .formatted,
     .notSupported,
+  ]
+}
+
+extension Mavsdk_Rpc_Camera_Status.StorageType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Mavsdk_Rpc_Camera_Status.StorageType] = [
+    .unknown,
+    .usbStick,
+    .sd,
+    .microsd,
+    .hd,
+    .other,
   ]
 }
 
@@ -2955,6 +3026,8 @@ extension Mavsdk_Rpc_Camera_Status: SwiftProtobuf.Message, SwiftProtobuf._Messag
     6: .standard(proto: "recording_time_s"),
     7: .standard(proto: "media_folder_name"),
     8: .standard(proto: "storage_status"),
+    9: .standard(proto: "storage_id"),
+    10: .standard(proto: "storage_type"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2971,6 +3044,8 @@ extension Mavsdk_Rpc_Camera_Status: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 6: try { try decoder.decodeSingularFloatField(value: &self.recordingTimeS) }()
       case 7: try { try decoder.decodeSingularStringField(value: &self.mediaFolderName) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.storageStatus) }()
+      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.storageID) }()
+      case 10: try { try decoder.decodeSingularEnumField(value: &self.storageType) }()
       default: break
       }
     }
@@ -3001,6 +3076,12 @@ extension Mavsdk_Rpc_Camera_Status: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.storageStatus != .notAvailable {
       try visitor.visitSingularEnumField(value: self.storageStatus, fieldNumber: 8)
     }
+    if self.storageID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.storageID, fieldNumber: 9)
+    }
+    if self.storageType != .unknown {
+      try visitor.visitSingularEnumField(value: self.storageType, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3013,6 +3094,8 @@ extension Mavsdk_Rpc_Camera_Status: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.recordingTimeS != rhs.recordingTimeS {return false}
     if lhs.mediaFolderName != rhs.mediaFolderName {return false}
     if lhs.storageStatus != rhs.storageStatus {return false}
+    if lhs.storageID != rhs.storageID {return false}
+    if lhs.storageType != rhs.storageType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3024,6 +3107,17 @@ extension Mavsdk_Rpc_Camera_Status.StorageStatus: SwiftProtobuf._ProtoNameProvid
     1: .same(proto: "STORAGE_STATUS_UNFORMATTED"),
     2: .same(proto: "STORAGE_STATUS_FORMATTED"),
     3: .same(proto: "STORAGE_STATUS_NOT_SUPPORTED"),
+  ]
+}
+
+extension Mavsdk_Rpc_Camera_Status.StorageType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "STORAGE_TYPE_UNKNOWN"),
+    1: .same(proto: "STORAGE_TYPE_USB_STICK"),
+    2: .same(proto: "STORAGE_TYPE_SD"),
+    3: .same(proto: "STORAGE_TYPE_MICROSD"),
+    7: .same(proto: "STORAGE_TYPE_HD"),
+    254: .same(proto: "STORAGE_TYPE_OTHER"),
   ]
 }
 
