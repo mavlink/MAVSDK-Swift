@@ -908,7 +908,7 @@ public class Offboard {
                 
                 single(.success(isActive))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

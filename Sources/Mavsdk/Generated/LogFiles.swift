@@ -296,7 +296,7 @@ public class LogFiles {
                 
                 let result = try response.response.wait().logFilesResult
                 if (result.result != Mavsdk_Rpc_LogFiles_LogFilesResult.Result.success) {
-                    single(.error(LogFilesError(code: LogFilesResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(LogFilesError(code: LogFilesResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -307,7 +307,7 @@ public class LogFiles {
                 
                 single(.success(entries))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -358,7 +358,7 @@ public class LogFiles {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeLogFilesError else { throw $0 }
             }

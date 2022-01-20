@@ -467,7 +467,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -512,7 +512,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -558,7 +558,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -604,7 +604,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -650,7 +650,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -696,7 +696,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -742,7 +742,7 @@ public class ActionServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeActionServerError else { throw $0 }
             }
@@ -923,7 +923,7 @@ public class ActionServer {
                 
                 single(.success(flightModes))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

@@ -728,7 +728,7 @@ public class Mission {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionError else { throw $0 }
             }
@@ -786,7 +786,7 @@ public class Mission {
                 
                 let result = try response.response.wait().missionResult
                 if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -797,7 +797,7 @@ public class Mission {
                 
                 single(.success(missionPlan))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -843,7 +843,7 @@ public class Mission {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionError else { throw $0 }
             }
@@ -1036,7 +1036,7 @@ public class Mission {
                 
                 let result = try response.response.wait().missionResult
                 if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -1046,7 +1046,7 @@ public class Mission {
                 
                 single(.success(isFinished))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -1081,7 +1081,7 @@ public class Mission {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionError else { throw $0 }
             }
@@ -1109,7 +1109,7 @@ public class Mission {
                 
                 let result = try response.response.wait().missionResult
                 if (result.result != Mavsdk_Rpc_Mission_MissionResult.Result.success) {
-                    single(.error(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(MissionError(code: MissionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -1119,7 +1119,7 @@ public class Mission {
                 
                 single(.success(enable))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

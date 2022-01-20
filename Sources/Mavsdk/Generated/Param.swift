@@ -351,7 +351,7 @@ public class Param {
                 
                 let result = try response.response.wait().paramResult
                 if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
-                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -361,7 +361,7 @@ public class Param {
                 
                 single(.success(value))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -435,7 +435,7 @@ public class Param {
                 
                 let result = try response.response.wait().paramResult
                 if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
-                    single(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -445,7 +445,7 @@ public class Param {
                 
                 single(.success(value))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -516,7 +516,7 @@ public class Param {
                 
                 single(.success(params))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

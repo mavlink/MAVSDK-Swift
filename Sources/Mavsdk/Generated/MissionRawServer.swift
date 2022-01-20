@@ -498,7 +498,7 @@ public class MissionRawServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionRawServerError else { throw $0 }
             }
@@ -534,7 +534,7 @@ public class MissionRawServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionRawServerError else { throw $0 }
             }
@@ -595,7 +595,7 @@ public class MissionRawServer {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionRawServerError else { throw $0 }
             }

@@ -2612,7 +2612,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2648,7 +2648,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2685,7 +2685,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2721,7 +2721,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2758,7 +2758,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2794,7 +2794,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2830,7 +2830,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2866,7 +2866,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2902,7 +2902,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2938,7 +2938,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -2974,7 +2974,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3010,7 +3010,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3046,7 +3046,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3082,7 +3082,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3118,7 +3118,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3154,7 +3154,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3190,7 +3190,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3226,7 +3226,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3262,7 +3262,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3298,7 +3298,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3334,7 +3334,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3370,7 +3370,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3406,7 +3406,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3442,7 +3442,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3478,7 +3478,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3514,7 +3514,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3550,7 +3550,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3586,7 +3586,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3623,7 +3623,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3660,7 +3660,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3696,7 +3696,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3732,7 +3732,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -3768,7 +3768,7 @@ public class Telemetry {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTelemetryError else { throw $0 }
             }
@@ -4563,7 +4563,7 @@ public class Telemetry {
                 
                 let result = try response.response.wait().telemetryResult
                 if (result.result != Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    single(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -4574,7 +4574,7 @@ public class Telemetry {
                 
                 single(.success(gpsGlobalOrigin))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

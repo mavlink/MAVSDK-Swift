@@ -1659,7 +1659,7 @@ public class Camera {
                 
                 let result = try response.response.wait().cameraResult
                 if (result.result != Mavsdk_Rpc_Camera_CameraResult.Result.success) {
-                    single(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -1670,7 +1670,7 @@ public class Camera {
                 
                 single(.success(captureInfos))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -1705,7 +1705,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1741,7 +1741,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1777,7 +1777,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1813,7 +1813,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1849,7 +1849,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1884,7 +1884,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1919,7 +1919,7 @@ public class Camera {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCameraError else { throw $0 }
             }
@@ -1988,7 +1988,7 @@ public class Camera {
                 
                 let result = try response.response.wait().cameraResult
                 if (result.result != Mavsdk_Rpc_Camera_CameraResult.Result.success) {
-                    single(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -1999,7 +1999,7 @@ public class Camera {
                 
                 single(.success(setting))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

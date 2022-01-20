@@ -607,7 +607,7 @@ public class Gimbal {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeGimbalError else { throw $0 }
             }
