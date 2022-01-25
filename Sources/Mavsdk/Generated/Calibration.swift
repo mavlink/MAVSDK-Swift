@@ -305,7 +305,7 @@ public class Calibration {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
@@ -349,7 +349,7 @@ public class Calibration {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
@@ -393,7 +393,7 @@ public class Calibration {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
@@ -437,7 +437,7 @@ public class Calibration {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }
@@ -481,7 +481,7 @@ public class Calibration {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCalibrationError else { throw $0 }
             }

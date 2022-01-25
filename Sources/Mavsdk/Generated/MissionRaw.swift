@@ -568,7 +568,7 @@ public class MissionRaw {
                 
                 let result = try response.response.wait().missionRawResult
                 if (result.result != Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
-                    single(.error(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -579,7 +579,7 @@ public class MissionRaw {
                 
                 single(.success(missionItems))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -779,7 +779,7 @@ public class MissionRaw {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionRawError else { throw $0 }
             }
@@ -822,7 +822,7 @@ public class MissionRaw {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeMissionRawError else { throw $0 }
             }
@@ -858,7 +858,7 @@ public class MissionRaw {
                 
                 let result = try response.response.wait().missionRawResult
                 if (result.result != Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
-                    single(.error(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -869,7 +869,7 @@ public class MissionRaw {
                 
                 single(.success(missionImportData))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

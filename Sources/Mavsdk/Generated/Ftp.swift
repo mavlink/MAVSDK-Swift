@@ -333,7 +333,7 @@ public class Ftp {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeFtpError else { throw $0 }
             }
@@ -385,7 +385,7 @@ public class Ftp {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeFtpError else { throw $0 }
             }
@@ -415,7 +415,7 @@ public class Ftp {
                 
                 let result = try response.response.wait().ftpResult
                 if (result.result != Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
-                    single(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -425,7 +425,7 @@ public class Ftp {
                 
                 single(.success(paths))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -606,7 +606,7 @@ public class Ftp {
                 
                 let result = try response.response.wait().ftpResult
                 if (result.result != Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
-                    single(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -616,7 +616,7 @@ public class Ftp {
                 
                 single(.success(areIdentical))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -713,7 +713,7 @@ public class Ftp {
                 
                 single(.success(compid))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

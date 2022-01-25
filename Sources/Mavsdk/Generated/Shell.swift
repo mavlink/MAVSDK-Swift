@@ -232,7 +232,7 @@ public class Shell {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeShellError else { throw $0 }
             }

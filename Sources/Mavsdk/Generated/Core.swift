@@ -116,7 +116,7 @@ public class Core {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeCoreError else { throw $0 }
             }

@@ -29,7 +29,7 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.l
             {% if has_result %}
             let result = try response.response.wait().{{ plugin_name.lower_camel_case }}Result
             if (result.result != {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_{{ plugin_name.upper_camel_case }}Result.Result.success) {
-                single(.error({{ plugin_name.upper_camel_case }}Error(code: {{ plugin_name.upper_camel_case }}Result.Result.translateFromRpc(result.result), description: result.resultStr)))
+                single(.failure({{ plugin_name.upper_camel_case }}Error(code: {{ plugin_name.upper_camel_case }}Result.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                 return Disposables.create()
             }
@@ -46,7 +46,7 @@ public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.l
             {% endif %}
             single(.success({{ return_name.lower_camel_case }}))
         } catch {
-            single(.error(error))
+            single(.failure(error))
         }
 
         return Disposables.create()

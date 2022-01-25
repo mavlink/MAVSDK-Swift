@@ -831,7 +831,7 @@ public class Action {
                 
                 let result = try response.response.wait().actionResult
                 if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -841,7 +841,7 @@ public class Action {
                 
                 single(.success(altitude))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -900,7 +900,7 @@ public class Action {
                 
                 let result = try response.response.wait().actionResult
                 if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -910,7 +910,7 @@ public class Action {
                 
                 single(.success(speed))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -969,7 +969,7 @@ public class Action {
                 
                 let result = try response.response.wait().actionResult
                 if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -979,7 +979,7 @@ public class Action {
                 
                 single(.success(relativeAltitudeM))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

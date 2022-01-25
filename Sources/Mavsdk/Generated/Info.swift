@@ -488,7 +488,7 @@ public class Info {
                 
                 let result = try response.response.wait().infoResult
                 if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -499,7 +499,7 @@ public class Info {
                 
                 single(.success(flightInfo))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -523,7 +523,7 @@ public class Info {
                 
                 let result = try response.response.wait().infoResult
                 if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -534,7 +534,7 @@ public class Info {
                 
                 single(.success(identification))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -558,7 +558,7 @@ public class Info {
                 
                 let result = try response.response.wait().infoResult
                 if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -569,7 +569,7 @@ public class Info {
                 
                 single(.success(product))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -593,7 +593,7 @@ public class Info {
                 
                 let result = try response.response.wait().infoResult
                 if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -604,7 +604,7 @@ public class Info {
                 
                 single(.success(version))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -628,7 +628,7 @@ public class Info {
                 
                 let result = try response.response.wait().infoResult
                 if (result.result != Mavsdk_Rpc_Info_InfoResult.Result.success) {
-                    single(.error(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                    single(.failure(InfoError(code: InfoResult.Result.translateFromRpc(result.result), description: result.resultStr)))
 
                     return Disposables.create()
                 }
@@ -638,7 +638,7 @@ public class Info {
                 
                 single(.success(speedFactor))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()

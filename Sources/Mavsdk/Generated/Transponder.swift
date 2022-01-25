@@ -473,7 +473,7 @@ public class Transponder {
 
             return Disposables.create()
         }
-        .retryWhen { error in
+        .retry { error in
             error.map {
                 guard $0 is RuntimeTransponderError else { throw $0 }
             }

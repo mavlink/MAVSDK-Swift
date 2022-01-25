@@ -422,7 +422,7 @@ public class FollowMe {
                 
                 single(.success(config))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -484,7 +484,7 @@ public class FollowMe {
                 
                 single(.success(isActive))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
@@ -547,7 +547,7 @@ public class FollowMe {
                 
                 single(.success(location))
             } catch {
-                single(.error(error))
+                single(.failure(error))
             }
 
             return Disposables.create()
