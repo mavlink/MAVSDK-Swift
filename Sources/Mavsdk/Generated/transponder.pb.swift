@@ -275,6 +275,9 @@ struct Mavsdk_Rpc_Transponder_AdsbVehicle {
   /// Squawk code.
   var squawk: UInt32 = 0
 
+  /// Time Since Last Communication in seconds.
+  var tslcS: UInt32 = 0
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -371,6 +374,17 @@ extension Mavsdk_Rpc_Transponder_TransponderResult.Result: CaseIterable {
 }
 
 #endif  // swift(>=4.2)
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Transponder_AdsbEmitterType: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_SubscribeTransponderRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_TransponderResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_SetRateTransponderRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_SetRateTransponderResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_AdsbVehicle: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_TransponderResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Transponder_TransponderResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -537,6 +551,7 @@ extension Mavsdk_Rpc_Transponder_AdsbVehicle: SwiftProtobuf.Message, SwiftProtob
     9: .same(proto: "callsign"),
     10: .standard(proto: "emitter_type"),
     13: .same(proto: "squawk"),
+    14: .standard(proto: "tslc_s"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -555,6 +570,7 @@ extension Mavsdk_Rpc_Transponder_AdsbVehicle: SwiftProtobuf.Message, SwiftProtob
       case 9: try { try decoder.decodeSingularStringField(value: &self.callsign) }()
       case 10: try { try decoder.decodeSingularEnumField(value: &self.emitterType) }()
       case 13: try { try decoder.decodeSingularUInt32Field(value: &self.squawk) }()
+      case 14: try { try decoder.decodeSingularUInt32Field(value: &self.tslcS) }()
       default: break
       }
     }
@@ -591,6 +607,9 @@ extension Mavsdk_Rpc_Transponder_AdsbVehicle: SwiftProtobuf.Message, SwiftProtob
     if self.squawk != 0 {
       try visitor.visitSingularUInt32Field(value: self.squawk, fieldNumber: 13)
     }
+    if self.tslcS != 0 {
+      try visitor.visitSingularUInt32Field(value: self.tslcS, fieldNumber: 14)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -605,6 +624,7 @@ extension Mavsdk_Rpc_Transponder_AdsbVehicle: SwiftProtobuf.Message, SwiftProtob
     if lhs.callsign != rhs.callsign {return false}
     if lhs.emitterType != rhs.emitterType {return false}
     if lhs.squawk != rhs.squawk {return false}
+    if lhs.tslcS != rhs.tslcS {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

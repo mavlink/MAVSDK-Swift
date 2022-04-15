@@ -397,6 +397,25 @@ extension Mavsdk_Rpc_Info_InfoResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Info_GetFlightInformationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetFlightInformationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetIdentificationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetIdentificationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetProductRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetProductResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetVersionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetVersionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetSpeedFactorRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_GetSpeedFactorResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_FlightInfo: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_Identification: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_Product: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_Version: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_InfoResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Info_InfoResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.info"

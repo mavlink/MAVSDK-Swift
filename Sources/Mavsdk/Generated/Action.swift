@@ -142,6 +142,8 @@ public class Action {
             case noVtolTransitionSupport
             ///  Error getting or setting parameter.
             case parameterError
+            ///  Action not supported.
+            case unsupported
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Action_ActionResult.Result {
@@ -170,6 +172,8 @@ public class Action {
                     return .noVtolTransitionSupport
                 case .parameterError:
                     return .parameterError
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -201,6 +205,8 @@ public class Action {
                     return .noVtolTransitionSupport
                 case .parameterError:
                     return .parameterError
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -1005,6 +1011,44 @@ public class Action {
             do {
                 
                 let response = self.service.setReturnToLaunchAltitude(request)
+
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set current speed.
+
+     This will set the speed during a mission, reposition, and similar.
+     It is ephemeral, so not stored on the drone and does not survive a reboot.
+
+     - Parameter speedMS: Speed in meters/second
+     
+     */
+    public func setCurrentSpeed(speedMS: Float) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Action_SetCurrentSpeedRequest()
+
+            
+                
+            request.speedMS = speedMS
+                
+            
+
+            do {
+                
+                let response = self.service.setCurrentSpeed(request)
 
                 let result = try response.response.wait().actionResult
                 if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {

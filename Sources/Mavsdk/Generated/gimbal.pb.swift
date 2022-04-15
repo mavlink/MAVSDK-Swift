@@ -473,6 +473,28 @@ extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Gimbal_GimbalMode: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_ControlMode: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetPitchAndYawRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetPitchAndYawResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetPitchRateAndYawRateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetModeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetModeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetRoiLocationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SetRoiLocationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_TakeControlRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_TakeControlResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_ReleaseControlRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_ReleaseControlResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_SubscribeControlRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_ControlResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_ControlStatus: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_GimbalResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.gimbal"

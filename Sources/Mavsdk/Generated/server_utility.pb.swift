@@ -217,6 +217,14 @@ extension Mavsdk_Rpc_ServerUtility_ServerUtilityResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_ServerUtility_StatusTextType: @unchecked Sendable {}
+extension Mavsdk_Rpc_ServerUtility_SendStatusTextRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ServerUtility_SendStatusTextResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ServerUtility_ServerUtilityResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_ServerUtility_ServerUtilityResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.server_utility"

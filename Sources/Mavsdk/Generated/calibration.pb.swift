@@ -311,6 +311,9 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
 
     /// Calibration process failed since the vehicle is armed
     case failedArmed // = 10
+
+    /// Functionality not supported
+    case unsupported // = 11
     case UNRECOGNIZED(Int)
 
     init() {
@@ -330,6 +333,7 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
       case 8: self = .timeout
       case 9: self = .cancelled
       case 10: self = .failedArmed
+      case 11: self = .unsupported
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -347,6 +351,7 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
       case .timeout: return 8
       case .cancelled: return 9
       case .failedArmed: return 10
+      case .unsupported: return 11
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -372,6 +377,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
     .timeout,
     .cancelled,
     .failedArmed,
+    .unsupported,
   ]
 }
 
@@ -402,6 +408,24 @@ struct Mavsdk_Rpc_Calibration_ProgressData {
 
   init() {}
 }
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrateGyroResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrateAccelerometerResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrateMagnetometerResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrateLevelHorizonResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrateGimbalAccelerometerResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CancelRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CancelResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrationResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: @unchecked Sendable {}
+extension Mavsdk_Rpc_Calibration_ProgressData: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -818,6 +842,7 @@ extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: SwiftProtobuf._ProtoN
     8: .same(proto: "RESULT_TIMEOUT"),
     9: .same(proto: "RESULT_CANCELLED"),
     10: .same(proto: "RESULT_FAILED_ARMED"),
+    11: .same(proto: "RESULT_UNSUPPORTED"),
   ]
 }
 

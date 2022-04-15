@@ -592,6 +592,36 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_MissionRaw_UploadMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_UploadMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_DownloadMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_DownloadMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_StartMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_StartMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_PauseMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_PauseMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_ClearMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_ClearMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_SetCurrentMissionItemResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionProgressResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionChangedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionProgress: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionItem: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionImportData: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionRawResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRaw_MissionRawResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.mission_raw"

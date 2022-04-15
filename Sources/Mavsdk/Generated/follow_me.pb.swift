@@ -473,6 +473,28 @@ extension Mavsdk_Rpc_FollowMe_FollowMeResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_FollowMe_Config: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_Config.FollowDirection: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_TargetLocation: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_GetConfigRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_GetConfigResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_SetConfigRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_SetConfigResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_IsActiveRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_IsActiveResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_SetTargetLocationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_SetTargetLocationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_GetLastLocationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_GetLastLocationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_StartRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_StartResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_StopRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_StopResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_FollowMeResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_FollowMe_FollowMeResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.follow_me"

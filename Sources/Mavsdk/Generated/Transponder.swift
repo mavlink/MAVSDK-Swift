@@ -209,6 +209,7 @@ public class Transponder {
         public let callsign: String
         public let emitterType: AdsbEmitterType
         public let squawk: UInt32
+        public let tslcS: UInt32
 
         
 
@@ -238,9 +239,11 @@ public class Transponder {
             
             - squawk:  Squawk code.
             
+            - tslcS:  Time Since Last Communication in seconds.
+            
          
          */
-        public init(icaoAddress: UInt32, latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, headingDeg: Float, horizontalVelocityMS: Float, verticalVelocityMS: Float, callsign: String, emitterType: AdsbEmitterType, squawk: UInt32) {
+        public init(icaoAddress: UInt32, latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, headingDeg: Float, horizontalVelocityMS: Float, verticalVelocityMS: Float, callsign: String, emitterType: AdsbEmitterType, squawk: UInt32, tslcS: UInt32) {
             self.icaoAddress = icaoAddress
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
@@ -251,6 +254,7 @@ public class Transponder {
             self.callsign = callsign
             self.emitterType = emitterType
             self.squawk = squawk
+            self.tslcS = tslcS
         }
 
         internal var rpcAdsbVehicle: Mavsdk_Rpc_Transponder_AdsbVehicle {
@@ -305,12 +309,17 @@ public class Transponder {
             rpcAdsbVehicle.squawk = squawk
                 
             
+            
+                
+            rpcAdsbVehicle.tslcS = tslcS
+                
+            
 
             return rpcAdsbVehicle
         }
 
         internal static func translateFromRpc(_ rpcAdsbVehicle: Mavsdk_Rpc_Transponder_AdsbVehicle) -> AdsbVehicle {
-            return AdsbVehicle(icaoAddress: rpcAdsbVehicle.icaoAddress, latitudeDeg: rpcAdsbVehicle.latitudeDeg, longitudeDeg: rpcAdsbVehicle.longitudeDeg, absoluteAltitudeM: rpcAdsbVehicle.absoluteAltitudeM, headingDeg: rpcAdsbVehicle.headingDeg, horizontalVelocityMS: rpcAdsbVehicle.horizontalVelocityMS, verticalVelocityMS: rpcAdsbVehicle.verticalVelocityMS, callsign: rpcAdsbVehicle.callsign, emitterType: AdsbEmitterType.translateFromRpc(rpcAdsbVehicle.emitterType), squawk: rpcAdsbVehicle.squawk)
+            return AdsbVehicle(icaoAddress: rpcAdsbVehicle.icaoAddress, latitudeDeg: rpcAdsbVehicle.latitudeDeg, longitudeDeg: rpcAdsbVehicle.longitudeDeg, absoluteAltitudeM: rpcAdsbVehicle.absoluteAltitudeM, headingDeg: rpcAdsbVehicle.headingDeg, horizontalVelocityMS: rpcAdsbVehicle.horizontalVelocityMS, verticalVelocityMS: rpcAdsbVehicle.verticalVelocityMS, callsign: rpcAdsbVehicle.callsign, emitterType: AdsbEmitterType.translateFromRpc(rpcAdsbVehicle.emitterType), squawk: rpcAdsbVehicle.squawk, tslcS: rpcAdsbVehicle.tslcS)
         }
 
         public static func == (lhs: AdsbVehicle, rhs: AdsbVehicle) -> Bool {
@@ -324,6 +333,7 @@ public class Transponder {
                 && lhs.callsign == rhs.callsign
                 && lhs.emitterType == rhs.emitterType
                 && lhs.squawk == rhs.squawk
+                && lhs.tslcS == rhs.tslcS
         }
     }
 

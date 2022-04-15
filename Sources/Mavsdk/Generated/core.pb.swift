@@ -89,6 +89,14 @@ struct Mavsdk_Rpc_Core_ConnectionState {
   init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Core_SubscribeConnectionStateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Core_ConnectionStateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Core_SetMavlinkTimeoutRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Core_SetMavlinkTimeoutResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Core_ConnectionState: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.core"

@@ -136,6 +136,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>
+
+  func setCurrentSpeed(
+    _ request: Mavsdk_Rpc_Action_SetCurrentSpeedRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetCurrentSpeedRequest, Mavsdk_Rpc_Action_SetCurrentSpeedResponse>
 }
 
 extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
@@ -590,6 +595,28 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
       interceptors: self.interceptors?.makeSetReturnToLaunchAltitudeInterceptors() ?? []
     )
   }
+
+  ///
+  /// Set current speed.
+  ///
+  /// This will set the speed during a mission, reposition, and similar.
+  /// It is ephemeral, so not stored on the drone and does not survive a reboot.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetCurrentSpeed.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setCurrentSpeed(
+    _ request: Mavsdk_Rpc_Action_SetCurrentSpeedRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_SetCurrentSpeedRequest, Mavsdk_Rpc_Action_SetCurrentSpeedResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/SetCurrentSpeed",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetCurrentSpeedInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtocol {
@@ -656,6 +683,9 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtoco
 
   /// - Returns: Interceptors to use when invoking 'setReturnToLaunchAltitude'.
   func makeSetReturnToLaunchAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setCurrentSpeed'.
+  func makeSetCurrentSpeedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetCurrentSpeedRequest, Mavsdk_Rpc_Action_SetCurrentSpeedResponse>]
 }
 
 internal final class Mavsdk_Rpc_Action_ActionServiceClient: Mavsdk_Rpc_Action_ActionServiceClientProtocol {
@@ -818,6 +848,13 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   ///
   /// Set the return to launch minimum return altitude (in meters).
   func setReturnToLaunchAltitude(request: Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>
+
+  ///
+  /// Set current speed.
+  ///
+  /// This will set the speed during a mission, reposition, and similar.
+  /// It is ephemeral, so not stored on the drone and does not survive a reboot.
+  func setCurrentSpeed(request: Mavsdk_Rpc_Action_SetCurrentSpeedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetCurrentSpeedResponse>
 }
 
 extension Mavsdk_Rpc_Action_ActionServiceProvider {
@@ -1019,6 +1056,15 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         userFunction: self.setReturnToLaunchAltitude(request:context:)
       )
 
+    case "SetCurrentSpeed":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_SetCurrentSpeedRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_SetCurrentSpeedResponse>(),
+        interceptors: self.interceptors?.makeSetCurrentSpeedInterceptors() ?? [],
+        userFunction: self.setCurrentSpeed(request:context:)
+      )
+
     default:
       return nil
     }
@@ -1110,4 +1156,8 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when handling 'setReturnToLaunchAltitude'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetReturnToLaunchAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setCurrentSpeed'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetCurrentSpeedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetCurrentSpeedRequest, Mavsdk_Rpc_Action_SetCurrentSpeedResponse>]
 }

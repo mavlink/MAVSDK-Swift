@@ -361,6 +361,15 @@ extension Mavsdk_Rpc_Failure_FailureResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Failure_FailureUnit: @unchecked Sendable {}
+extension Mavsdk_Rpc_Failure_FailureType: @unchecked Sendable {}
+extension Mavsdk_Rpc_Failure_InjectRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Failure_InjectResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Failure_FailureResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Failure_FailureResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.failure"

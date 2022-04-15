@@ -1837,6 +1837,74 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result: CaseIterable 
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_TelemetryServer_FixType: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_VtolState: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_StatusTextType: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_LandedState: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishPositionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishHomeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishSysStatusRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishInAirRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishLandedStateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishRawGpsRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishBatteryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishRcStatusRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishStatusTextRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishOdometryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishPositionVelocityNedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishGroundTruthRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishImuRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishScaledImuRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishRawImuRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishPositionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishHomeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishSysStatusResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishExtendedSysStateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishRawGpsResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishBatteryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishStatusTextResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishOdometryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishPositionVelocityNedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishGroundTruthResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishImuResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishScaledImuResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishRawImuResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Position: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Heading: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Quaternion: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_EulerAngle: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_AngularVelocityBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_GpsInfo: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_RawGps: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Battery: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_RcStatus: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_StatusText: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_ActuatorControlTarget: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_ActuatorOutputStatus: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Covariance: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_VelocityBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PositionBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Odometry: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Odometry.MavFrame: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_DistanceSensor: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_ScaledPressure: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PositionNed: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_VelocityNed: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_PositionVelocityNed: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_GroundTruth: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_FixedwingMetrics: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_AccelerationFrd: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_AngularVelocityFrd: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_MagneticFieldFrd: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_Imu: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_TelemetryServerResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.telemetry_server"

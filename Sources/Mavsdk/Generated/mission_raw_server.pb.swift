@@ -344,6 +344,22 @@ extension Mavsdk_Rpc_MissionRawServer_MissionRawServerResult.Result: CaseIterabl
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_MissionRawServer_SubscribeIncomingMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_IncomingMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_SubscribeCurrentItemChangedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_CurrentItemChangedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_SubscribeClearAllRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_ClearAllResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_SetCurrentItemCompleteRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_SetCurrentItemCompleteResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_MissionItem: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_MissionPlan: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_MissionProgress: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_MissionRawServerResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_MissionRawServer_MissionRawServerResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.mission_raw_server"

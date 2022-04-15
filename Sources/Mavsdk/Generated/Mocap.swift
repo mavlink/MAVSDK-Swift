@@ -740,6 +740,8 @@ public class Mocap {
             case connectionError
             ///  Invalid request data.
             case invalidRequestData
+            ///  Function unsupported.
+            case unsupported
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Mocap_MocapResult.Result {
@@ -754,6 +756,8 @@ public class Mocap {
                     return .connectionError
                 case .invalidRequestData:
                     return .invalidRequestData
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -771,6 +775,8 @@ public class Mocap {
                     return .connectionError
                 case .invalidRequestData:
                     return .invalidRequestData
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

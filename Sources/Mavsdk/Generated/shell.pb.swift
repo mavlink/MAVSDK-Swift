@@ -163,6 +163,15 @@ extension Mavsdk_Rpc_Shell_ShellResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Shell_SendRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Shell_SendResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Shell_SubscribeReceiveRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Shell_ReceiveResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Shell_ShellResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Shell_ShellResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.shell"

@@ -858,6 +858,45 @@ extension Mavsdk_Rpc_Offboard_OffboardResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Offboard_StartRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_StartResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_StopRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_StopResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_IsActiveRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_IsActiveResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetAttitudeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetAttitudeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetActuatorControlRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetActuatorControlResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetAttitudeRateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetAttitudeRateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetPositionNedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetPositionNedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetPositionGlobalRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetPositionGlobalResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetVelocityBodyRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetVelocityBodyResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetVelocityNedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetVelocityNedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetPositionVelocityNedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetAccelerationNedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_SetAccelerationNedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_Attitude: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_ActuatorControlGroup: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_ActuatorControl: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_AttitudeRate: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_PositionNedYaw: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_PositionGlobalYaw: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_VelocityBodyYawspeed: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_VelocityNedYaw: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_AccelerationNed: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_OffboardResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Offboard_OffboardResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.offboard"

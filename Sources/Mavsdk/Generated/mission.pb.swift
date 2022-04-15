@@ -866,6 +866,45 @@ struct Mavsdk_Rpc_Mission_ProgressDataOrMission {
   fileprivate var _missionPlan: Mavsdk_Rpc_Mission_MissionPlan? = nil
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Mission_UploadMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_UploadMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_UploadMissionWithProgressResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_CancelMissionUploadRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_CancelMissionUploadResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_DownloadMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_DownloadMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_DownloadMissionWithProgressResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_CancelMissionDownloadRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_CancelMissionDownloadResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_StartMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_StartMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_PauseMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_PauseMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_ClearMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_ClearMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SetCurrentMissionItemRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SetCurrentMissionItemResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_IsMissionFinishedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_IsMissionFinishedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionProgressResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_GetReturnToLaunchAfterMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_SetReturnToLaunchAfterMissionResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionItem: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionPlan: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionProgress: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_MissionResult.Result: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_ProgressData: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mission_ProgressDataOrMission: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.mission"
