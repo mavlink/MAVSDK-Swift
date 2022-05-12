@@ -145,6 +145,11 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Camera_FormatStorageRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>
+
+  func selectCamera(
+    _ request: Mavsdk_Rpc_Camera_SelectCameraRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse>
 }
 
 extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
@@ -558,6 +563,27 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
       interceptors: self.interceptors?.makeFormatStorageInterceptors() ?? []
     )
   }
+
+  ///
+  /// Select current camera .
+  ///
+  /// Bind the plugin instance to a specific camera_id 
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SelectCamera.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func selectCamera(
+    _ request: Mavsdk_Rpc_Camera_SelectCameraRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/SelectCamera",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSelectCameraInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtocol {
@@ -621,6 +647,9 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtoco
 
   /// - Returns: Interceptors to use when invoking 'formatStorage'.
   func makeFormatStorageInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'selectCamera'.
+  func makeSelectCameraInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse>]
 }
 
 internal final class Mavsdk_Rpc_Camera_CameraServiceClient: Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
@@ -743,6 +772,12 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
   ///
   /// This will delete all content of the camera storage!
   func formatStorage(request: Mavsdk_Rpc_Camera_FormatStorageRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_FormatStorageResponse>
+
+  ///
+  /// Select current camera .
+  ///
+  /// Bind the plugin instance to a specific camera_id 
+  func selectCamera(request: Mavsdk_Rpc_Camera_SelectCameraRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_SelectCameraResponse>
 }
 
 extension Mavsdk_Rpc_Camera_CameraServiceProvider {
@@ -935,6 +970,15 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.formatStorage(request:context:)
       )
 
+    case "SelectCamera":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_SelectCameraRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_SelectCameraResponse>(),
+        interceptors: self.interceptors?.makeSelectCameraInterceptors() ?? [],
+        userFunction: self.selectCamera(request:context:)
+      )
+
     default:
       return nil
     }
@@ -1022,4 +1066,8 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when handling 'formatStorage'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeFormatStorageInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>]
+
+  /// - Returns: Interceptors to use when handling 'selectCamera'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSelectCameraInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse>]
 }

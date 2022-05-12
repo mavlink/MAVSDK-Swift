@@ -324,6 +324,15 @@ extension Mavsdk_Rpc_Tune_TuneResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Tune_SongElement: @unchecked Sendable {}
+extension Mavsdk_Rpc_Tune_PlayTuneRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Tune_PlayTuneResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Tune_TuneDescription: @unchecked Sendable {}
+extension Mavsdk_Rpc_Tune_TuneResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Tune_TuneResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.tune"

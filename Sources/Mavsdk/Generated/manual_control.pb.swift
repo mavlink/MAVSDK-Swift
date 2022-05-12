@@ -229,6 +229,17 @@ extension Mavsdk_Rpc_ManualControl_ManualControlResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_ManualControl_StartPositionControlRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_StartPositionControlResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_StartAltitudeControlRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_StartAltitudeControlResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_SetManualControlInputRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_SetManualControlInputResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_ManualControlResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_ManualControl_ManualControlResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.manual_control"

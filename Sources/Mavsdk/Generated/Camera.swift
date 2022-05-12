@@ -2037,4 +2037,41 @@ public class Camera {
             return Disposables.create()
         }
     }
+
+    /**
+     Select current camera .
+
+     Bind the plugin instance to a specific camera_id
+
+     - Parameter cameraID: Id of camera to be selected
+     
+     */
+    public func selectCamera(cameraID: Int32) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Camera_SelectCameraRequest()
+
+            
+                
+            request.cameraID = cameraID
+                
+            
+
+            do {
+                
+                let response = self.service.selectCamera(request)
+
+                let result = try response.response.wait().cameraResult
+                if (result.result == Mavsdk_Rpc_Camera_CameraResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(CameraError(code: CameraResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }

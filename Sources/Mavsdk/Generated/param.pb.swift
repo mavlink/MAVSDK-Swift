@@ -346,6 +346,24 @@ extension Mavsdk_Rpc_Param_ParamResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Param_GetParamIntRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetParamIntResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_SetParamIntRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_SetParamIntResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetParamFloatRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetParamFloatResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_SetParamFloatRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_SetParamFloatResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetAllParamsRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetAllParamsResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_IntParam: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_FloatParam: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_AllParams: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_ParamResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_ParamResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.param"

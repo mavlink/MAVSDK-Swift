@@ -763,6 +763,40 @@ struct Mavsdk_Rpc_Camera_FormatStorageResponse {
   fileprivate var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
 }
 
+struct Mavsdk_Rpc_Camera_SelectCameraResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var cameraResult: Mavsdk_Rpc_Camera_CameraResult {
+    get {return _cameraResult ?? Mavsdk_Rpc_Camera_CameraResult()}
+    set {_cameraResult = newValue}
+  }
+  /// Returns true if `cameraResult` has been explicitly set.
+  var hasCameraResult: Bool {return self._cameraResult != nil}
+  /// Clears the value of `cameraResult`. Subsequent reads from it will return its default value.
+  mutating func clearCameraResult() {self._cameraResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _cameraResult: Mavsdk_Rpc_Camera_CameraResult? = nil
+}
+
+struct Mavsdk_Rpc_Camera_SelectCameraRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Id of camera to be selected
+  var cameraID: Int32 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Camera_CameraResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1423,6 +1457,70 @@ struct Mavsdk_Rpc_Camera_Information {
 
   init() {}
 }
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Camera_Mode: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_PhotosRange: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_PrepareRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_PrepareResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_TakePhotoRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_TakePhotoResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StartPhotoIntervalRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StartPhotoIntervalResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StopPhotoIntervalRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StopPhotoIntervalResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StartVideoRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StartVideoResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StopVideoRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StopVideoResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StartVideoStreamingRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StartVideoStreamingResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StopVideoStreamingRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StopVideoStreamingResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SetModeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SetModeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_ListPhotosRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_ListPhotosResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribeInformationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_InformationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribeModeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_ModeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_VideoStreamInfoResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_CaptureInfoResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribeStatusRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_StatusResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_CurrentSettingsResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SetSettingRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SetSettingResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_GetSettingRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_GetSettingResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_FormatStorageRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_FormatStorageResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SelectCameraResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SelectCameraRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_CameraResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_CameraResult.Result: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Position: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Quaternion: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_EulerAngle: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_CaptureInfo: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_VideoStreamSettings: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_VideoStreamInfo: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Status: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Status.StorageStatus: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Status.StorageType: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Option: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Setting: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_SettingOptions: @unchecked Sendable {}
+extension Mavsdk_Rpc_Camera_Information: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -2611,6 +2709,74 @@ extension Mavsdk_Rpc_Camera_FormatStorageResponse: SwiftProtobuf.Message, SwiftP
 
   static func ==(lhs: Mavsdk_Rpc_Camera_FormatStorageResponse, rhs: Mavsdk_Rpc_Camera_FormatStorageResponse) -> Bool {
     if lhs._cameraResult != rhs._cameraResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_SelectCameraResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SelectCameraResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "camera_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._cameraResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._cameraResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_SelectCameraResponse, rhs: Mavsdk_Rpc_Camera_SelectCameraResponse) -> Bool {
+    if lhs._cameraResult != rhs._cameraResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Camera_SelectCameraRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SelectCameraRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "camera_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.cameraID) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.cameraID != 0 {
+      try visitor.visitSingularInt32Field(value: self.cameraID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Camera_SelectCameraRequest, rhs: Mavsdk_Rpc_Camera_SelectCameraRequest) -> Bool {
+    if lhs.cameraID != rhs.cameraID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

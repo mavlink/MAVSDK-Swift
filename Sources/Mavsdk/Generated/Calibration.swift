@@ -89,6 +89,8 @@ public class Calibration {
             case cancelled
             ///  Calibration process failed since the vehicle is armed.
             case failedArmed
+            ///  Functionality not supported.
+            case unsupported
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Calibration_CalibrationResult.Result {
@@ -115,6 +117,8 @@ public class Calibration {
                     return .cancelled
                 case .failedArmed:
                     return .failedArmed
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -144,6 +148,8 @@ public class Calibration {
                     return .cancelled
                 case .failedArmed:
                     return .failedArmed
+                case .unsupported:
+                    return .unsupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }

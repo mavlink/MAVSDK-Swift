@@ -727,6 +727,38 @@ extension Mavsdk_Rpc_ActionServer_ActionServerResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_ActionServer_FlightMode: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetAllowTakeoffRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetArmableRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetDisarmableRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetAllowableFlightModesRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_GetAllowableFlightModesRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeArmDisarmRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeFlightModeChangeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeTakeoffRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeLandRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeRebootRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeShutdownRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SubscribeTerminateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_ArmDisarmResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_FlightModeChangeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_TakeoffResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_LandResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_RebootResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_ShutdownResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_TerminateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetArmableResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetDisarmableResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetAllowableFlightModesResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_SetAllowTakeoffResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_GetAllowableFlightModesResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_AllowableFlightModes: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_ArmDisarm: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_ActionServerResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_ActionServer_ActionServerResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.action_server"

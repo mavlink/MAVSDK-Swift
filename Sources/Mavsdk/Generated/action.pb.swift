@@ -788,6 +788,40 @@ struct Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse {
   fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
 }
 
+struct Mavsdk_Rpc_Action_SetCurrentSpeedRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Speed in meters/second
+  var speedMS: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Action_SetCurrentSpeedResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var actionResult: Mavsdk_Rpc_Action_ActionResult {
+    get {return _actionResult ?? Mavsdk_Rpc_Action_ActionResult()}
+    set {_actionResult = newValue}
+  }
+  /// Returns true if `actionResult` has been explicitly set.
+  var hasActionResult: Bool {return self._actionResult != nil}
+  /// Clears the value of `actionResult`. Subsequent reads from it will return its default value.
+  mutating func clearActionResult() {self._actionResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _actionResult: Mavsdk_Rpc_Action_ActionResult? = nil
+}
+
 /// Result type.
 struct Mavsdk_Rpc_Action_ActionResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -841,6 +875,9 @@ struct Mavsdk_Rpc_Action_ActionResult {
 
     /// Error getting or setting parameter
     case parameterError // = 11
+
+    /// Action not supported
+    case unsupported // = 12
     case UNRECOGNIZED(Int)
 
     init() {
@@ -861,6 +898,7 @@ struct Mavsdk_Rpc_Action_ActionResult {
       case 9: self = .vtolTransitionSupportUnknown
       case 10: self = .noVtolTransitionSupport
       case 11: self = .parameterError
+      case 12: self = .unsupported
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -879,6 +917,7 @@ struct Mavsdk_Rpc_Action_ActionResult {
       case .vtolTransitionSupportUnknown: return 9
       case .noVtolTransitionSupport: return 10
       case .parameterError: return 11
+      case .unsupported: return 12
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -905,10 +944,61 @@ extension Mavsdk_Rpc_Action_ActionResult.Result: CaseIterable {
     .vtolTransitionSupportUnknown,
     .noVtolTransitionSupport,
     .parameterError,
+    .unsupported,
   ]
 }
 
 #endif  // swift(>=4.2)
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Action_OrbitYawBehavior: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ArmRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ArmResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_DisarmRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_DisarmResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TakeoffRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TakeoffResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_LandRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_LandResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_RebootRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_RebootResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ShutdownRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ShutdownResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TerminateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TerminateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_KillRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_KillResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ReturnToLaunchRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ReturnToLaunchResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GotoLocationRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GotoLocationResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_DoOrbitRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_DoOrbitResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_HoldRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_HoldResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetActuatorRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetActuatorResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TransitionToFixedwingRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TransitionToFixedwingResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TransitionToMulticopterRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_TransitionToMulticopterResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GetTakeoffAltitudeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GetTakeoffAltitudeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GetMaximumSpeedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GetMaximumSpeedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetMaximumSpeedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetMaximumSpeedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetCurrentSpeedRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_SetCurrentSpeedResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ActionResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Action_ActionResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -2229,6 +2319,74 @@ extension Mavsdk_Rpc_Action_SetReturnToLaunchAltitudeResponse: SwiftProtobuf.Mes
   }
 }
 
+extension Mavsdk_Rpc_Action_SetCurrentSpeedRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetCurrentSpeedRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "speed_m_s"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.speedMS) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.speedMS != 0 {
+      try visitor.visitSingularFloatField(value: self.speedMS, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_SetCurrentSpeedRequest, rhs: Mavsdk_Rpc_Action_SetCurrentSpeedRequest) -> Bool {
+    if lhs.speedMS != rhs.speedMS {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Action_SetCurrentSpeedResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetCurrentSpeedResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "action_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._actionResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._actionResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Action_SetCurrentSpeedResponse, rhs: Mavsdk_Rpc_Action_SetCurrentSpeedResponse) -> Bool {
+    if lhs._actionResult != rhs._actionResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Action_ActionResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ActionResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2281,5 +2439,6 @@ extension Mavsdk_Rpc_Action_ActionResult.Result: SwiftProtobuf._ProtoNameProvidi
     9: .same(proto: "RESULT_VTOL_TRANSITION_SUPPORT_UNKNOWN"),
     10: .same(proto: "RESULT_NO_VTOL_TRANSITION_SUPPORT"),
     11: .same(proto: "RESULT_PARAMETER_ERROR"),
+    12: .same(proto: "RESULT_UNSUPPORTED"),
   ]
 }

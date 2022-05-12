@@ -599,6 +599,36 @@ extension Mavsdk_Rpc_Ftp_FtpResult.Result: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Ftp_ResetRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_ResetResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_SubscribeDownloadRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_DownloadResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_SubscribeUploadRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_UploadResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_ListDirectoryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_ListDirectoryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_CreateDirectoryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_CreateDirectoryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_RemoveDirectoryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_RemoveDirectoryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_RemoveFileRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_RemoveFileResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_RenameRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_RenameResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_SetRootDirectoryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_SetRootDirectoryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_SetTargetCompidRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_SetTargetCompidResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_GetOurCompidRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_GetOurCompidResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_ProgressData: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_FtpResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Ftp_FtpResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "mavsdk.rpc.ftp"

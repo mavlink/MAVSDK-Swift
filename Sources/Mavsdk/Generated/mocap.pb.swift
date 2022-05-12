@@ -535,6 +535,9 @@ struct Mavsdk_Rpc_Mocap_MocapResult {
 
     /// Invalid request data
     case invalidRequestData // = 4
+
+    /// Function unsupported
+    case unsupported // = 5
     case UNRECOGNIZED(Int)
 
     init() {
@@ -548,6 +551,7 @@ struct Mavsdk_Rpc_Mocap_MocapResult {
       case 2: self = .noSystem
       case 3: self = .connectionError
       case 4: self = .invalidRequestData
+      case 5: self = .unsupported
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -559,6 +563,7 @@ struct Mavsdk_Rpc_Mocap_MocapResult {
       case .noSystem: return 2
       case .connectionError: return 3
       case .invalidRequestData: return 4
+      case .unsupported: return 5
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -578,10 +583,32 @@ extension Mavsdk_Rpc_Mocap_MocapResult.Result: CaseIterable {
     .noSystem,
     .connectionError,
     .invalidRequestData,
+    .unsupported,
   ]
 }
 
 #endif  // swift(>=4.2)
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Mavsdk_Rpc_Mocap_SetVisionPositionEstimateRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_SetVisionPositionEstimateResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_SetAttitudePositionMocapRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_SetAttitudePositionMocapResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_SetOdometryRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_SetOdometryResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_PositionBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_AngleBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_SpeedBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_AngularVelocityBody: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_Covariance: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_Quaternion: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_VisionPositionEstimate: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_AttitudePositionMocap: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_Odometry: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_Odometry.MavFrame: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_MocapResult: @unchecked Sendable {}
+extension Mavsdk_Rpc_Mocap_MocapResult.Result: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -1345,5 +1372,6 @@ extension Mavsdk_Rpc_Mocap_MocapResult.Result: SwiftProtobuf._ProtoNameProviding
     2: .same(proto: "RESULT_NO_SYSTEM"),
     3: .same(proto: "RESULT_CONNECTION_ERROR"),
     4: .same(proto: "RESULT_INVALID_REQUEST_DATA"),
+    5: .same(proto: "RESULT_UNSUPPORTED"),
   ]
 }
