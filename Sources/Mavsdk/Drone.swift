@@ -35,6 +35,9 @@ public class Drone {
         case connectionStopped
     }
 
+    /**
+     * Create an instance of MavsdkServer and running with `systemAddress`, which is the address of the drone.
+     */
     public func connect(systemAddress: String = "udp://:14540") -> Completable {
         return Completable.create { completable in
             self.mavsdkServer = MavsdkServer()
@@ -52,6 +55,17 @@ public class Drone {
                 return Disposables.create()
             }
 
+            completable(.completed)
+            return Disposables.create()
+        }
+    }
+
+    /**
+     * Connect MAVSDK to an already-running instance of MavsdkServer, locally or somewhere on the network.
+     */
+    public func connect(mavsdkServerAddress: String, mavsdkServerPort: Int32 = 50051) -> Completable {
+        return Completable.create { completable in
+            self.initPlugins(address: mavsdkServerAddress, port: mavsdkServerPort)
             completable(.completed)
             return Disposables.create()
         }
