@@ -97,12 +97,12 @@ public class Core {
 
 
     private func createConnectionStateObservable() -> Observable<ConnectionState> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Core_SubscribeConnectionStateRequest()
 
             
 
-            _ = self.service.subscribeConnectionState(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeConnectionState(request, handler: { (response) in
 
                 
                      
@@ -114,7 +114,9 @@ public class Core {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

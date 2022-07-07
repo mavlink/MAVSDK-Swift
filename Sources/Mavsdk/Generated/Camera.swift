@@ -1686,12 +1686,12 @@ public class Camera {
 
 
     private func createModeObservable() -> Observable<Mode> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribeModeRequest()
 
             
 
-            _ = self.service.subscribeMode(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeMode(request, handler: { (response) in
 
                 
                      
@@ -1703,7 +1703,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1722,12 +1724,12 @@ public class Camera {
 
 
     private func createInformationObservable() -> Observable<Information> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribeInformationRequest()
 
             
 
-            _ = self.service.subscribeInformation(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeInformation(request, handler: { (response) in
 
                 
                      
@@ -1739,7 +1741,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1758,12 +1762,12 @@ public class Camera {
 
 
     private func createVideoStreamInfoObservable() -> Observable<VideoStreamInfo> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest()
 
             
 
-            _ = self.service.subscribeVideoStreamInfo(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeVideoStreamInfo(request, handler: { (response) in
 
                 
                      
@@ -1775,7 +1779,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1794,12 +1800,12 @@ public class Camera {
 
 
     private func createCaptureInfoObservable() -> Observable<CaptureInfo> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest()
 
             
 
-            _ = self.service.subscribeCaptureInfo(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCaptureInfo(request, handler: { (response) in
 
                 
                      
@@ -1811,7 +1817,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1830,12 +1838,12 @@ public class Camera {
 
 
     private func createStatusObservable() -> Observable<Status> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribeStatusRequest()
 
             
 
-            _ = self.service.subscribeStatus(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeStatus(request, handler: { (response) in
 
                 
                      
@@ -1847,7 +1855,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1866,12 +1876,12 @@ public class Camera {
 
 
     private func createCurrentSettingsObservable() -> Observable<[Setting]> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest()
 
             
 
-            _ = self.service.subscribeCurrentSettings(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCurrentSettings(request, handler: { (response) in
 
                 
     	    let currentSettings = response.currentSettings.map{ Setting.translateFromRpc($0) }
@@ -1882,7 +1892,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1901,12 +1913,12 @@ public class Camera {
 
 
     private func createPossibleSettingOptionsObservable() -> Observable<[SettingOptions]> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest()
 
             
 
-            _ = self.service.subscribePossibleSettingOptions(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribePossibleSettingOptions(request, handler: { (response) in
 
                 
     	    let possibleSettingOptions = response.settingOptions.map{ SettingOptions.translateFromRpc($0) }
@@ -1917,7 +1929,9 @@ public class Camera {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

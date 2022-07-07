@@ -588,12 +588,12 @@ public class Gimbal {
 
 
     private func createControlObservable() -> Observable<ControlStatus> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Gimbal_SubscribeControlRequest()
 
             
 
-            _ = self.service.subscribeControl(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeControl(request, handler: { (response) in
 
                 
                      
@@ -605,7 +605,9 @@ public class Gimbal {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

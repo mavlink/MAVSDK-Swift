@@ -696,7 +696,7 @@ public class Mission {
      */
 
     public func uploadMissionWithProgress(missionPlan: MissionPlan) -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest()
 
             
@@ -705,7 +705,7 @@ public class Mission {
                 
             
 
-            _ = self.service.subscribeUploadMissionWithProgress(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeUploadMissionWithProgress(request, handler: { (response) in
 
                 
                      
@@ -726,7 +726,9 @@ public class Mission {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -815,12 +817,12 @@ public class Mission {
      */
 
     public func downloadMissionWithProgress() -> Observable<ProgressDataOrMission> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest()
 
             
 
-            _ = self.service.subscribeDownloadMissionWithProgress(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeDownloadMissionWithProgress(request, handler: { (response) in
 
                 
                      
@@ -841,7 +843,9 @@ public class Mission {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -1062,12 +1066,12 @@ public class Mission {
 
 
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Mission_SubscribeMissionProgressRequest()
 
             
 
-            _ = self.service.subscribeMissionProgress(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeMissionProgress(request, handler: { (response) in
 
                 
                      
@@ -1079,7 +1083,9 @@ public class Mission {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

@@ -283,12 +283,12 @@ public class Calibration {
      */
 
     public func calibrateGyro() -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest()
 
             
 
-            _ = self.service.subscribeCalibrateGyro(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCalibrateGyro(request, handler: { (response) in
 
                 
                      
@@ -309,7 +309,9 @@ public class Calibration {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -327,12 +329,12 @@ public class Calibration {
      */
 
     public func calibrateAccelerometer() -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest()
 
             
 
-            _ = self.service.subscribeCalibrateAccelerometer(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCalibrateAccelerometer(request, handler: { (response) in
 
                 
                      
@@ -353,7 +355,9 @@ public class Calibration {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -371,12 +375,12 @@ public class Calibration {
      */
 
     public func calibrateMagnetometer() -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
 
             
 
-            _ = self.service.subscribeCalibrateMagnetometer(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCalibrateMagnetometer(request, handler: { (response) in
 
                 
                      
@@ -397,7 +401,9 @@ public class Calibration {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -415,12 +421,12 @@ public class Calibration {
      */
 
     public func calibrateLevelHorizon() -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest()
 
             
 
-            _ = self.service.subscribeCalibrateLevelHorizon(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCalibrateLevelHorizon(request, handler: { (response) in
 
                 
                      
@@ -441,7 +447,9 @@ public class Calibration {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -459,12 +467,12 @@ public class Calibration {
      */
 
     public func calibrateGimbalAccelerometer() -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest()
 
             
 
-            _ = self.service.subscribeCalibrateGimbalAccelerometer(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCalibrateGimbalAccelerometer(request, handler: { (response) in
 
                 
                      
@@ -485,7 +493,9 @@ public class Calibration {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

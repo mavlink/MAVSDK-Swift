@@ -322,7 +322,7 @@ public class LogFiles {
      */
 
     public func downloadLogFile(entry: Entry, path: String) -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest()
 
             
@@ -335,7 +335,7 @@ public class LogFiles {
                 
             
 
-            _ = self.service.subscribeDownloadLogFile(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeDownloadLogFile(request, handler: { (response) in
 
                 
                      
@@ -356,7 +356,9 @@ public class LogFiles {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

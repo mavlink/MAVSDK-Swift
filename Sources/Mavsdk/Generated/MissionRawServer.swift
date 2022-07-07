@@ -470,12 +470,12 @@ public class MissionRawServer {
 
 
     private func createIncomingMissionObservable() -> Observable<MissionPlan> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_MissionRawServer_SubscribeIncomingMissionRequest()
 
             
 
-            _ = self.service.subscribeIncomingMission(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeIncomingMission(request, handler: { (response) in
 
                 
                      
@@ -496,7 +496,9 @@ public class MissionRawServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -515,12 +517,12 @@ public class MissionRawServer {
 
 
     private func createCurrentItemChangedObservable() -> Observable<MissionItem> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_MissionRawServer_SubscribeCurrentItemChangedRequest()
 
             
 
-            _ = self.service.subscribeCurrentItemChanged(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCurrentItemChanged(request, handler: { (response) in
 
                 
                      
@@ -532,7 +534,9 @@ public class MissionRawServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -575,12 +579,12 @@ public class MissionRawServer {
 
 
     private func createClearAllObservable() -> Observable<UInt32> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_MissionRawServer_SubscribeClearAllRequest()
 
             
 
-            _ = self.service.subscribeClearAll(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeClearAll(request, handler: { (response) in
 
                 
                      
@@ -593,7 +597,9 @@ public class MissionRawServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

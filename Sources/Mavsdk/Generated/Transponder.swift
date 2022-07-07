@@ -464,12 +464,12 @@ public class Transponder {
 
 
     private func createTransponderObservable() -> Observable<AdsbVehicle> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Transponder_SubscribeTransponderRequest()
 
             
 
-            _ = self.service.subscribeTransponder(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeTransponder(request, handler: { (response) in
 
                 
                      
@@ -481,7 +481,9 @@ public class Transponder {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

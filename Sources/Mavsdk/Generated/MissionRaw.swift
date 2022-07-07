@@ -760,12 +760,12 @@ public class MissionRaw {
 
 
     private func createMissionProgressObservable() -> Observable<MissionProgress> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_MissionRaw_SubscribeMissionProgressRequest()
 
             
 
-            _ = self.service.subscribeMissionProgress(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeMissionProgress(request, handler: { (response) in
 
                 
                      
@@ -777,7 +777,9 @@ public class MissionRaw {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -802,12 +804,12 @@ public class MissionRaw {
 
 
     private func createMissionChangedObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest()
 
             
 
-            _ = self.service.subscribeMissionChanged(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeMissionChanged(request, handler: { (response) in
 
                 
                      
@@ -820,7 +822,9 @@ public class MissionRaw {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

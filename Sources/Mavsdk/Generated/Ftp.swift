@@ -297,7 +297,7 @@ public class Ftp {
      */
 
     public func download(remoteFilePath: String, localDir: String) -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeDownloadRequest()
 
             
@@ -310,7 +310,7 @@ public class Ftp {
                 
             
 
-            _ = self.service.subscribeDownload(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeDownload(request, handler: { (response) in
 
                 
                      
@@ -331,7 +331,9 @@ public class Ftp {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -349,7 +351,7 @@ public class Ftp {
      */
 
     public func upload(localFilePath: String, remoteDir: String) -> Observable<ProgressData> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeUploadRequest()
 
             
@@ -362,7 +364,7 @@ public class Ftp {
                 
             
 
-            _ = self.service.subscribeUpload(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeUpload(request, handler: { (response) in
 
                 
                      
@@ -383,7 +385,9 @@ public class Ftp {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
