@@ -12,7 +12,7 @@ public lazy var {{ name.lower_camel_case }}: Observable<{% if return_type %}{{ r
  */
 {% endif %}
 {% if is_finite %}public func {{ name.lower_camel_case }}{% else %}private func create{{ name.upper_camel_case }}Observable{% endif %}({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Observable<{% if return_type %}{{ return_type.name }}{% else %}Void{% endif %}> {
-    return Observable.create { observer in
+    return Observable.create { [unowned self] observer in
         {% if params|length > 0 %}var{% else %}let{% endif %} request = {{ package.upper_camel_case.replace('_', '').replace('.', '_') }}_Subscribe{{ name.upper_camel_case }}Request()
 
         {% for param in params %}
@@ -23,7 +23,7 @@ public lazy var {{ name.lower_camel_case }}: Observable<{% if return_type %}{{ r
             {% endif %}
         {% endfor %}
 
-        _ = self.service.subscribe{{ name.upper_camel_case }}(request, handler: { (response) in
+        let serverStreamingCall = self.service.subscribe{{ name.upper_camel_case }}(request, handler: { (response) in
 
             {% if return_type.is_repeated %}
 	    let {{ name.lower_camel_case }} = response.{{ return_name.lower_camel_case }}.map{ {{ return_type.inner_name }}.translateFromRpc($0) }
@@ -51,7 +51,9 @@ public lazy var {{ name.lower_camel_case }}: Observable<{% if return_type %}{{ r
             {% endif %}
         })
 
-        return Disposables.create()
+        return Disposables.create {
+            serverStreamingCall.cancel(promise: nil)
+        }
     }
     .retry { error in
         error.map {
