@@ -439,12 +439,12 @@ public class ActionServer {
 
 
     private func createArmDisarmObservable() -> Observable<ArmDisarm> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeArmDisarmRequest()
 
             
 
-            _ = self.service.subscribeArmDisarm(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeArmDisarm(request, handler: { (response) in
 
                 
                      
@@ -465,7 +465,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -484,12 +486,12 @@ public class ActionServer {
 
 
     private func createFlightModeChangeObservable() -> Observable<FlightMode> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeFlightModeChangeRequest()
 
             
 
-            _ = self.service.subscribeFlightModeChange(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeFlightModeChange(request, handler: { (response) in
 
                 
                      
@@ -510,7 +512,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -529,12 +533,12 @@ public class ActionServer {
 
 
     private func createTakeoffObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeTakeoffRequest()
 
             
 
-            _ = self.service.subscribeTakeoff(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeTakeoff(request, handler: { (response) in
 
                 
                      
@@ -556,7 +560,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -575,12 +581,12 @@ public class ActionServer {
 
 
     private func createLandObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeLandRequest()
 
             
 
-            _ = self.service.subscribeLand(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeLand(request, handler: { (response) in
 
                 
                      
@@ -602,7 +608,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -621,12 +629,12 @@ public class ActionServer {
 
 
     private func createRebootObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeRebootRequest()
 
             
 
-            _ = self.service.subscribeReboot(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeReboot(request, handler: { (response) in
 
                 
                      
@@ -648,7 +656,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -667,12 +677,12 @@ public class ActionServer {
 
 
     private func createShutdownObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeShutdownRequest()
 
             
 
-            _ = self.service.subscribeShutdown(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeShutdown(request, handler: { (response) in
 
                 
                      
@@ -694,7 +704,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -713,12 +725,12 @@ public class ActionServer {
 
 
     private func createTerminateObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ActionServer_SubscribeTerminateRequest()
 
             
 
-            _ = self.service.subscribeTerminate(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeTerminate(request, handler: { (response) in
 
                 
                      
@@ -740,7 +752,9 @@ public class ActionServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

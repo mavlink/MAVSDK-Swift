@@ -389,12 +389,12 @@ public class ComponentInformationServer {
 
 
     private func createFloatParamObservable() -> Observable<FloatParamUpdate> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_ComponentInformationServer_SubscribeFloatParamRequest()
 
             
 
-            _ = self.service.subscribeFloatParam(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeFloatParam(request, handler: { (response) in
 
                 
                      
@@ -406,7 +406,9 @@ public class ComponentInformationServer {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

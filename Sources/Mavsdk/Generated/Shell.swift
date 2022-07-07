@@ -212,12 +212,12 @@ public class Shell {
 
 
     private func createReceiveObservable() -> Observable<String> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Shell_SubscribeReceiveRequest()
 
             
 
-            _ = self.service.subscribeReceive(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeReceive(request, handler: { (response) in
 
                 
                      
@@ -230,7 +230,9 @@ public class Shell {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {

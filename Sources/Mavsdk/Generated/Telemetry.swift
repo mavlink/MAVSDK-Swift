@@ -2593,12 +2593,12 @@ public class Telemetry {
 
 
     private func createPositionObservable() -> Observable<Position> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribePositionRequest()
 
             
 
-            _ = self.service.subscribePosition(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribePosition(request, handler: { (response) in
 
                 
                      
@@ -2610,7 +2610,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2629,12 +2631,12 @@ public class Telemetry {
 
 
     private func createHomeObservable() -> Observable<Position> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeHomeRequest()
 
             
 
-            _ = self.service.subscribeHome(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeHome(request, handler: { (response) in
 
                 
                      
@@ -2646,7 +2648,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2665,12 +2669,12 @@ public class Telemetry {
 
 
     private func createInAirObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeInAirRequest()
 
             
 
-            _ = self.service.subscribeInAir(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeInAir(request, handler: { (response) in
 
                 
                      
@@ -2683,7 +2687,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2702,12 +2708,12 @@ public class Telemetry {
 
 
     private func createLandedStateObservable() -> Observable<LandedState> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeLandedStateRequest()
 
             
 
-            _ = self.service.subscribeLandedState(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeLandedState(request, handler: { (response) in
 
                 
                      
@@ -2719,7 +2725,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2738,12 +2746,12 @@ public class Telemetry {
 
 
     private func createArmedObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeArmedRequest()
 
             
 
-            _ = self.service.subscribeArmed(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeArmed(request, handler: { (response) in
 
                 
                      
@@ -2756,7 +2764,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2775,12 +2785,12 @@ public class Telemetry {
 
 
     private func createVtolStateObservable() -> Observable<VtolState> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeVtolStateRequest()
 
             
 
-            _ = self.service.subscribeVtolState(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeVtolState(request, handler: { (response) in
 
                 
                      
@@ -2792,7 +2802,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2811,12 +2823,12 @@ public class Telemetry {
 
 
     private func createAttitudeQuaternionObservable() -> Observable<Quaternion> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeQuaternionRequest()
 
             
 
-            _ = self.service.subscribeAttitudeQuaternion(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeAttitudeQuaternion(request, handler: { (response) in
 
                 
                      
@@ -2828,7 +2840,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2847,12 +2861,12 @@ public class Telemetry {
 
 
     private func createAttitudeEulerObservable() -> Observable<EulerAngle> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeEulerRequest()
 
             
 
-            _ = self.service.subscribeAttitudeEuler(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeAttitudeEuler(request, handler: { (response) in
 
                 
                      
@@ -2864,7 +2878,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2883,12 +2899,12 @@ public class Telemetry {
 
 
     private func createAttitudeAngularVelocityBodyObservable() -> Observable<AngularVelocityBody> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest()
 
             
 
-            _ = self.service.subscribeAttitudeAngularVelocityBody(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeAttitudeAngularVelocityBody(request, handler: { (response) in
 
                 
                      
@@ -2900,7 +2916,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2919,12 +2937,12 @@ public class Telemetry {
 
 
     private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
 
             
 
-            _ = self.service.subscribeCameraAttitudeQuaternion(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCameraAttitudeQuaternion(request, handler: { (response) in
 
                 
                      
@@ -2936,7 +2954,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2955,12 +2975,12 @@ public class Telemetry {
 
 
     private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
 
             
 
-            _ = self.service.subscribeCameraAttitudeEuler(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeCameraAttitudeEuler(request, handler: { (response) in
 
                 
                      
@@ -2972,7 +2992,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -2991,12 +3013,12 @@ public class Telemetry {
 
 
     private func createVelocityNedObservable() -> Observable<VelocityNed> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest()
 
             
 
-            _ = self.service.subscribeVelocityNed(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeVelocityNed(request, handler: { (response) in
 
                 
                      
@@ -3008,7 +3030,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3027,12 +3051,12 @@ public class Telemetry {
 
 
     private func createGpsInfoObservable() -> Observable<GpsInfo> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeGpsInfoRequest()
 
             
 
-            _ = self.service.subscribeGpsInfo(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeGpsInfo(request, handler: { (response) in
 
                 
                      
@@ -3044,7 +3068,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3063,12 +3089,12 @@ public class Telemetry {
 
 
     private func createRawGpsObservable() -> Observable<RawGps> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeRawGpsRequest()
 
             
 
-            _ = self.service.subscribeRawGps(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeRawGps(request, handler: { (response) in
 
                 
                      
@@ -3080,7 +3106,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3099,12 +3127,12 @@ public class Telemetry {
 
 
     private func createBatteryObservable() -> Observable<Battery> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeBatteryRequest()
 
             
 
-            _ = self.service.subscribeBattery(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeBattery(request, handler: { (response) in
 
                 
                      
@@ -3116,7 +3144,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3135,12 +3165,12 @@ public class Telemetry {
 
 
     private func createFlightModeObservable() -> Observable<FlightMode> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeFlightModeRequest()
 
             
 
-            _ = self.service.subscribeFlightMode(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeFlightMode(request, handler: { (response) in
 
                 
                      
@@ -3152,7 +3182,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3171,12 +3203,12 @@ public class Telemetry {
 
 
     private func createHealthObservable() -> Observable<Health> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeHealthRequest()
 
             
 
-            _ = self.service.subscribeHealth(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeHealth(request, handler: { (response) in
 
                 
                      
@@ -3188,7 +3220,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3207,12 +3241,12 @@ public class Telemetry {
 
 
     private func createRcStatusObservable() -> Observable<RcStatus> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeRcStatusRequest()
 
             
 
-            _ = self.service.subscribeRcStatus(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeRcStatus(request, handler: { (response) in
 
                 
                      
@@ -3224,7 +3258,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3243,12 +3279,12 @@ public class Telemetry {
 
 
     private func createStatusTextObservable() -> Observable<StatusText> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeStatusTextRequest()
 
             
 
-            _ = self.service.subscribeStatusText(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeStatusText(request, handler: { (response) in
 
                 
                      
@@ -3260,7 +3296,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3279,12 +3317,12 @@ public class Telemetry {
 
 
     private func createActuatorControlTargetObservable() -> Observable<ActuatorControlTarget> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeActuatorControlTargetRequest()
 
             
 
-            _ = self.service.subscribeActuatorControlTarget(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeActuatorControlTarget(request, handler: { (response) in
 
                 
                      
@@ -3296,7 +3334,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3315,12 +3355,12 @@ public class Telemetry {
 
 
     private func createActuatorOutputStatusObservable() -> Observable<ActuatorOutputStatus> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeActuatorOutputStatusRequest()
 
             
 
-            _ = self.service.subscribeActuatorOutputStatus(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeActuatorOutputStatus(request, handler: { (response) in
 
                 
                      
@@ -3332,7 +3372,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3351,12 +3393,12 @@ public class Telemetry {
 
 
     private func createOdometryObservable() -> Observable<Odometry> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeOdometryRequest()
 
             
 
-            _ = self.service.subscribeOdometry(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeOdometry(request, handler: { (response) in
 
                 
                      
@@ -3368,7 +3410,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3387,12 +3431,12 @@ public class Telemetry {
 
 
     private func createPositionVelocityNedObservable() -> Observable<PositionVelocityNed> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribePositionVelocityNedRequest()
 
             
 
-            _ = self.service.subscribePositionVelocityNed(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribePositionVelocityNed(request, handler: { (response) in
 
                 
                      
@@ -3404,7 +3448,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3423,12 +3469,12 @@ public class Telemetry {
 
 
     private func createGroundTruthObservable() -> Observable<GroundTruth> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeGroundTruthRequest()
 
             
 
-            _ = self.service.subscribeGroundTruth(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeGroundTruth(request, handler: { (response) in
 
                 
                      
@@ -3440,7 +3486,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3459,12 +3507,12 @@ public class Telemetry {
 
 
     private func createFixedwingMetricsObservable() -> Observable<FixedwingMetrics> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeFixedwingMetricsRequest()
 
             
 
-            _ = self.service.subscribeFixedwingMetrics(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeFixedwingMetrics(request, handler: { (response) in
 
                 
                      
@@ -3476,7 +3524,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3495,12 +3545,12 @@ public class Telemetry {
 
 
     private func createImuObservable() -> Observable<Imu> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeImuRequest()
 
             
 
-            _ = self.service.subscribeImu(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeImu(request, handler: { (response) in
 
                 
                      
@@ -3512,7 +3562,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3531,12 +3583,12 @@ public class Telemetry {
 
 
     private func createScaledImuObservable() -> Observable<Imu> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeScaledImuRequest()
 
             
 
-            _ = self.service.subscribeScaledImu(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeScaledImu(request, handler: { (response) in
 
                 
                      
@@ -3548,7 +3600,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3567,12 +3621,12 @@ public class Telemetry {
 
 
     private func createRawImuObservable() -> Observable<Imu> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeRawImuRequest()
 
             
 
-            _ = self.service.subscribeRawImu(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeRawImu(request, handler: { (response) in
 
                 
                      
@@ -3584,7 +3638,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3603,12 +3659,12 @@ public class Telemetry {
 
 
     private func createHealthAllOkObservable() -> Observable<Bool> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeHealthAllOkRequest()
 
             
 
-            _ = self.service.subscribeHealthAllOk(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeHealthAllOk(request, handler: { (response) in
 
                 
                      
@@ -3621,7 +3677,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3640,12 +3698,12 @@ public class Telemetry {
 
 
     private func createUnixEpochTimeObservable() -> Observable<UInt64> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeUnixEpochTimeRequest()
 
             
 
-            _ = self.service.subscribeUnixEpochTime(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeUnixEpochTime(request, handler: { (response) in
 
                 
                      
@@ -3658,7 +3716,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3677,12 +3737,12 @@ public class Telemetry {
 
 
     private func createDistanceSensorObservable() -> Observable<DistanceSensor> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeDistanceSensorRequest()
 
             
 
-            _ = self.service.subscribeDistanceSensor(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeDistanceSensor(request, handler: { (response) in
 
                 
                      
@@ -3694,7 +3754,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3713,12 +3775,12 @@ public class Telemetry {
 
 
     private func createScaledPressureObservable() -> Observable<ScaledPressure> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeScaledPressureRequest()
 
             
 
-            _ = self.service.subscribeScaledPressure(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeScaledPressure(request, handler: { (response) in
 
                 
                      
@@ -3730,7 +3792,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
@@ -3749,12 +3813,12 @@ public class Telemetry {
 
 
     private func createHeadingObservable() -> Observable<Heading> {
-        return Observable.create { observer in
+        return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest()
 
             
 
-            _ = self.service.subscribeHeading(request, handler: { (response) in
+            let serverStreamingCall = self.service.subscribeHeading(request, handler: { (response) in
 
                 
                      
@@ -3766,7 +3830,9 @@ public class Telemetry {
                 
             })
 
-            return Disposables.create()
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
         }
         .retry { error in
             error.map {
