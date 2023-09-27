@@ -72,7 +72,7 @@ enum Mavsdk_Rpc_Action_OrbitYawBehavior: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Action_OrbitYawBehavior: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Action_OrbitYawBehavior] = [
+  static let allCases: [Mavsdk_Rpc_Action_OrbitYawBehavior] = [
     .holdFrontToCircleCenter,
     .holdInitialHeading,
     .uncontrolled,
@@ -931,7 +931,7 @@ struct Mavsdk_Rpc_Action_ActionResult {
 
 extension Mavsdk_Rpc_Action_ActionResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Action_ActionResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Action_ActionResult.Result] = [
     .unknown,
     .success,
     .noSystem,

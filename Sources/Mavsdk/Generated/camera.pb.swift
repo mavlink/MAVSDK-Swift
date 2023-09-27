@@ -62,7 +62,7 @@ enum Mavsdk_Rpc_Camera_Mode: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Camera_Mode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_Mode] = [
+  static let allCases: [Mavsdk_Rpc_Camera_Mode] = [
     .unknown,
     .photo,
     .video,
@@ -108,7 +108,7 @@ enum Mavsdk_Rpc_Camera_PhotosRange: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Camera_PhotosRange: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_PhotosRange] = [
+  static let allCases: [Mavsdk_Rpc_Camera_PhotosRange] = [
     .all,
     .sinceConnection,
   ]
@@ -886,7 +886,7 @@ struct Mavsdk_Rpc_Camera_CameraResult {
 
 extension Mavsdk_Rpc_Camera_CameraResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_CameraResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Camera_CameraResult.Result] = [
     .unknown,
     .success,
     .inProgress,
@@ -1174,7 +1174,7 @@ struct Mavsdk_Rpc_Camera_VideoStreamInfo {
 
 extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
+  static let allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus] = [
     .notRunning,
     .inProgress,
   ]
@@ -1182,7 +1182,7 @@ extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamStatus: CaseIterable {
 
 extension Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum] = [
+  static let allCases: [Mavsdk_Rpc_Camera_VideoStreamInfo.VideoStreamSpectrum] = [
     .unknown,
     .visibleLight,
     .infrared,
@@ -1332,7 +1332,7 @@ struct Mavsdk_Rpc_Camera_Status {
 
 extension Mavsdk_Rpc_Camera_Status.StorageStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_Status.StorageStatus] = [
+  static let allCases: [Mavsdk_Rpc_Camera_Status.StorageStatus] = [
     .notAvailable,
     .unformatted,
     .formatted,
@@ -1342,7 +1342,7 @@ extension Mavsdk_Rpc_Camera_Status.StorageStatus: CaseIterable {
 
 extension Mavsdk_Rpc_Camera_Status.StorageType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Camera_Status.StorageType] = [
+  static let allCases: [Mavsdk_Rpc_Camera_Status.StorageType] = [
     .unknown,
     .usbStick,
     .sd,

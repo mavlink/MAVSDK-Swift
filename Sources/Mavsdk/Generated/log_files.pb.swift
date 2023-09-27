@@ -286,7 +286,7 @@ struct Mavsdk_Rpc_LogFiles_LogFilesResult {
 
 extension Mavsdk_Rpc_LogFiles_LogFilesResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_LogFiles_LogFilesResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_LogFiles_LogFilesResult.Result] = [
     .unknown,
     .success,
     .next,

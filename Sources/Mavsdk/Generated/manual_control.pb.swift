@@ -214,7 +214,7 @@ struct Mavsdk_Rpc_ManualControl_ManualControlResult {
 
 extension Mavsdk_Rpc_ManualControl_ManualControlResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_ManualControl_ManualControlResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_ManualControl_ManualControlResult.Result] = [
     .unknown,
     .success,
     .noSystem,

@@ -387,7 +387,7 @@ struct Mavsdk_Rpc_Info_InfoResult {
 
 extension Mavsdk_Rpc_Info_InfoResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Info_InfoResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Info_InfoResult.Result] = [
     .unknown,
     .success,
     .informationNotReceivedYet,

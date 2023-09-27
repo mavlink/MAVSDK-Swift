@@ -573,7 +573,7 @@ struct Mavsdk_Rpc_MissionRaw_MissionRawResult {
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_MissionRaw_MissionRawResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_MissionRaw_MissionRawResult.Result] = [
     .unknown,
     .success,
     .error,
