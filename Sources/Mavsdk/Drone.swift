@@ -4,7 +4,7 @@ import MavsdkServer
 
 public class Drone {
     private let scheduler: SchedulerType
-    private var mavsdkServer: MavsdkServer?
+    public var mavsdkServer: MavsdkServer?
 
     public var action: Action!
     public var calibration: Calibration!
