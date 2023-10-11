@@ -158,11 +158,64 @@ public class Param {
     }
 
     /**
-     Type collecting all integer and float parameters.
+     Type for custom parameters
+     */
+    public struct CustomParam: Equatable {
+        public let name: String
+        public let value: String
+
+        
+
+        /**
+         Initializes a new `CustomParam`.
+
+         
+         - Parameters:
+            
+            - name:  Name of the parameter
+            
+            - value:  Value of the parameter (max len 128 bytes)
+            
+         
+         */
+        public init(name: String, value: String) {
+            self.name = name
+            self.value = value
+        }
+
+        internal var rpcCustomParam: Mavsdk_Rpc_Param_CustomParam {
+            var rpcCustomParam = Mavsdk_Rpc_Param_CustomParam()
+            
+                
+            rpcCustomParam.name = name
+                
+            
+            
+                
+            rpcCustomParam.value = value
+                
+            
+
+            return rpcCustomParam
+        }
+
+        internal static func translateFromRpc(_ rpcCustomParam: Mavsdk_Rpc_Param_CustomParam) -> CustomParam {
+            return CustomParam(name: rpcCustomParam.name, value: rpcCustomParam.value)
+        }
+
+        public static func == (lhs: CustomParam, rhs: CustomParam) -> Bool {
+            return lhs.name == rhs.name
+                && lhs.value == rhs.value
+        }
+    }
+
+    /**
+     Type collecting all integer, float, and custom parameters.
      */
     public struct AllParams: Equatable {
         public let intParams: [IntParam]
         public let floatParams: [FloatParam]
+        public let customParams: [CustomParam]
 
         
 
@@ -176,11 +229,14 @@ public class Param {
             
             - floatParams:  Collection of all parameter names and values of type float
             
+            - customParams:  Collection of all parameter names and values of type custom
+            
          
          */
-        public init(intParams: [IntParam], floatParams: [FloatParam]) {
+        public init(intParams: [IntParam], floatParams: [FloatParam], customParams: [CustomParam]) {
             self.intParams = intParams
             self.floatParams = floatParams
+            self.customParams = customParams
         }
 
         internal var rpcAllParams: Mavsdk_Rpc_Param_AllParams {
@@ -195,17 +251,23 @@ public class Param {
             rpcAllParams.floatParams = floatParams.map{ $0.rpcFloatParam }
                 
             
+            
+                
+            rpcAllParams.customParams = customParams.map{ $0.rpcCustomParam }
+                
+            
 
             return rpcAllParams
         }
 
         internal static func translateFromRpc(_ rpcAllParams: Mavsdk_Rpc_Param_AllParams) -> AllParams {
-            return AllParams(intParams: rpcAllParams.intParams.map{ IntParam.translateFromRpc($0) }, floatParams: rpcAllParams.floatParams.map{ FloatParam.translateFromRpc($0) })
+            return AllParams(intParams: rpcAllParams.intParams.map{ IntParam.translateFromRpc($0) }, floatParams: rpcAllParams.floatParams.map{ FloatParam.translateFromRpc($0) }, customParams: rpcAllParams.customParams.map{ CustomParam.translateFromRpc($0) })
         }
 
         public static func == (lhs: AllParams, rhs: AllParams) -> Bool {
             return lhs.intParams == rhs.intParams
                 && lhs.floatParams == rhs.floatParams
+                && lhs.customParams == rhs.customParams
         }
     }
 
@@ -237,6 +299,8 @@ public class Param {
             case paramNameTooLong
             ///  No system connected.
             case noSystem
+            ///  Param value too long (> 128).
+            case paramValueTooLong
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Param_ParamResult.Result {
@@ -255,6 +319,8 @@ public class Param {
                     return .paramNameTooLong
                 case .noSystem:
                     return .noSystem
+                case .paramValueTooLong:
+                    return .paramValueTooLong
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -276,6 +342,8 @@ public class Param {
                     return .paramNameTooLong
                 case .noSystem:
                     return .noSystem
+                case .paramValueTooLong:
+                    return .paramValueTooLong
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -479,6 +547,90 @@ public class Param {
             do {
                 
                 let response = self.service.setParamFloat(request)
+
+                let result = try response.response.wait().paramResult
+                if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Get a custom parameter.
+
+     If the type is wrong, the result will be `WRONG_TYPE`.
+
+     - Parameter name: Name of the parameter
+     
+     */
+    public func getParamCustom(name: String) -> Single<String> {
+        return Single<String>.create { single in
+            var request = Mavsdk_Rpc_Param_GetParamCustomRequest()
+
+            
+                
+            request.name = name
+                
+            
+
+            do {
+                let response = self.service.getParamCustom(request)
+
+                
+                let result = try response.response.wait().paramResult
+                if (result.result != Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                    single(.failure(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    let value = try response.response.wait().value
+                
+                single(.success(value))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set a custom parameter.
+
+     If the type is wrong, the result will be `WRONG_TYPE`.
+
+     - Parameters:
+        - name: Name of the parameter to set
+        - value: Value the parameter should be set to
+     
+     */
+    public func setParamCustom(name: String, value: String) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Param_SetParamCustomRequest()
+
+            
+                
+            request.name = name
+                
+            
+                
+            request.value = value
+                
+            
+
+            do {
+                
+                let response = self.service.setParamCustom(request)
 
                 let result = try response.response.wait().paramResult
                 if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {

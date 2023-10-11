@@ -152,7 +152,7 @@ enum Mavsdk_Rpc_Tune_SongElement: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Tune_SongElement: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Tune_SongElement] = [
+  static let allCases: [Mavsdk_Rpc_Tune_SongElement] = [
     .styleLegato,
     .styleNormal,
     .styleStaccato,
@@ -312,7 +312,7 @@ struct Mavsdk_Rpc_Tune_TuneResult {
 
 extension Mavsdk_Rpc_Tune_TuneResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Tune_TuneResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Tune_TuneResult.Result] = [
     .unknown,
     .success,
     .invalidTempo,

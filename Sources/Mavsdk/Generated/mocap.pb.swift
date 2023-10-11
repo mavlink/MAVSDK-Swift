@@ -495,7 +495,7 @@ struct Mavsdk_Rpc_Mocap_Odometry {
 
 extension Mavsdk_Rpc_Mocap_Odometry.MavFrame: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Mocap_Odometry.MavFrame] = [
+  static let allCases: [Mavsdk_Rpc_Mocap_Odometry.MavFrame] = [
     .mocapNed,
     .localFrd,
   ]
@@ -577,7 +577,7 @@ struct Mavsdk_Rpc_Mocap_MocapResult {
 
 extension Mavsdk_Rpc_Mocap_MocapResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Mocap_MocapResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Mocap_MocapResult.Result] = [
     .unknown,
     .success,
     .noSystem,

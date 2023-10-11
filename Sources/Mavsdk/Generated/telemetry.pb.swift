@@ -82,7 +82,7 @@ enum Mavsdk_Rpc_Telemetry_FixType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Telemetry_FixType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_FixType] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_FixType] = [
     .noGps,
     .noFix,
     .fix2D,
@@ -201,7 +201,7 @@ enum Mavsdk_Rpc_Telemetry_FlightMode: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Telemetry_FlightMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_FlightMode] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_FlightMode] = [
     .unknown,
     .ready,
     .takeoff,
@@ -289,7 +289,7 @@ enum Mavsdk_Rpc_Telemetry_StatusTextType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Telemetry_StatusTextType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_StatusTextType] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_StatusTextType] = [
     .debug,
     .info,
     .notice,
@@ -355,7 +355,7 @@ enum Mavsdk_Rpc_Telemetry_LandedState: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Telemetry_LandedState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_LandedState] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_LandedState] = [
     .unknown,
     .onGround,
     .inAir,
@@ -418,7 +418,7 @@ enum Mavsdk_Rpc_Telemetry_VtolState: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Telemetry_VtolState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_VtolState] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_VtolState] = [
     .undefined,
     .transitionToFw,
     .transitionToMc,
@@ -2806,7 +2806,7 @@ struct Mavsdk_Rpc_Telemetry_Odometry {
 
 extension Mavsdk_Rpc_Telemetry_Odometry.MavFrame: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_Odometry.MavFrame] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_Odometry.MavFrame] = [
     .undef,
     .bodyNed,
     .visionNed,
@@ -3191,7 +3191,7 @@ struct Mavsdk_Rpc_Telemetry_TelemetryResult {
 
 extension Mavsdk_Rpc_Telemetry_TelemetryResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Telemetry_TelemetryResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Telemetry_TelemetryResult.Result] = [
     .unknown,
     .success,
     .noSystem,

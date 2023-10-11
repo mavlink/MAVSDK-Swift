@@ -82,7 +82,7 @@ enum Mavsdk_Rpc_TelemetryServer_FixType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_TelemetryServer_FixType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_FixType] = [
+  static let allCases: [Mavsdk_Rpc_TelemetryServer_FixType] = [
     .noGps,
     .noFix,
     .fix2D,
@@ -147,7 +147,7 @@ enum Mavsdk_Rpc_TelemetryServer_VtolState: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_TelemetryServer_VtolState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_VtolState] = [
+  static let allCases: [Mavsdk_Rpc_TelemetryServer_VtolState] = [
     .undefined,
     .transitionToFw,
     .transitionToMc,
@@ -225,7 +225,7 @@ enum Mavsdk_Rpc_TelemetryServer_StatusTextType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_TelemetryServer_StatusTextType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_StatusTextType] = [
+  static let allCases: [Mavsdk_Rpc_TelemetryServer_StatusTextType] = [
     .debug,
     .info,
     .notice,
@@ -291,7 +291,7 @@ enum Mavsdk_Rpc_TelemetryServer_LandedState: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_TelemetryServer_LandedState: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_LandedState] = [
+  static let allCases: [Mavsdk_Rpc_TelemetryServer_LandedState] = [
     .unknown,
     .onGround,
     .inAir,
@@ -1458,7 +1458,7 @@ struct Mavsdk_Rpc_TelemetryServer_Odometry {
 
 extension Mavsdk_Rpc_TelemetryServer_Odometry.MavFrame: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_Odometry.MavFrame] = [
+  static let allCases: [Mavsdk_Rpc_TelemetryServer_Odometry.MavFrame] = [
     .undef,
     .bodyNed,
     .visionNed,
@@ -1823,7 +1823,7 @@ struct Mavsdk_Rpc_TelemetryServer_TelemetryServerResult {
 
 extension Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result] = [
     .unknown,
     .success,
     .noSystem,

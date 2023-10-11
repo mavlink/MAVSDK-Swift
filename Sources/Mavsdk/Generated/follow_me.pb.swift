@@ -95,7 +95,7 @@ struct Mavsdk_Rpc_FollowMe_Config {
 
 extension Mavsdk_Rpc_FollowMe_Config.FollowDirection: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_FollowMe_Config.FollowDirection] = [
+  static let allCases: [Mavsdk_Rpc_FollowMe_Config.FollowDirection] = [
     .none,
     .behind,
     .front,
@@ -458,7 +458,7 @@ struct Mavsdk_Rpc_FollowMe_FollowMeResult {
 
 extension Mavsdk_Rpc_FollowMe_FollowMeResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_FollowMe_FollowMeResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_FollowMe_FollowMeResult.Result] = [
     .unknown,
     .success,
     .noSystem,

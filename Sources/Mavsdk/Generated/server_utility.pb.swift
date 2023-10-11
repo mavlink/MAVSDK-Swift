@@ -87,7 +87,7 @@ enum Mavsdk_Rpc_ServerUtility_StatusTextType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_ServerUtility_StatusTextType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_ServerUtility_StatusTextType] = [
+  static let allCases: [Mavsdk_Rpc_ServerUtility_StatusTextType] = [
     .debug,
     .info,
     .notice,
@@ -206,7 +206,7 @@ struct Mavsdk_Rpc_ServerUtility_ServerUtilityResult {
 
 extension Mavsdk_Rpc_ServerUtility_ServerUtilityResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_ServerUtility_ServerUtilityResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_ServerUtility_ServerUtilityResult.Result] = [
     .unknown,
     .success,
     .noSystem,

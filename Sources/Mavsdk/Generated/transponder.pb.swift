@@ -147,7 +147,7 @@ enum Mavsdk_Rpc_Transponder_AdsbEmitterType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Transponder_AdsbEmitterType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Transponder_AdsbEmitterType] = [
+  static let allCases: [Mavsdk_Rpc_Transponder_AdsbEmitterType] = [
     .noInfo,
     .light,
     .small,
@@ -362,7 +362,7 @@ struct Mavsdk_Rpc_Transponder_TransponderResult {
 
 extension Mavsdk_Rpc_Transponder_TransponderResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Transponder_TransponderResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Transponder_TransponderResult.Result] = [
     .unknown,
     .success,
     .noSystem,

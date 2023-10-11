@@ -52,6 +52,16 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>
 
+  func getParamCustom(
+    _ request: Mavsdk_Rpc_Param_GetParamCustomRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Param_GetParamCustomRequest, Mavsdk_Rpc_Param_GetParamCustomResponse>
+
+  func setParamCustom(
+    _ request: Mavsdk_Rpc_Param_SetParamCustomRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Param_SetParamCustomRequest, Mavsdk_Rpc_Param_SetParamCustomResponse>
+
   func getAllParams(
     _ request: Mavsdk_Rpc_Param_GetAllParamsRequest,
     callOptions: CallOptions?
@@ -148,6 +158,48 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
   }
 
   ///
+  /// Get a custom parameter.
+  ///
+  /// If the type is wrong, the result will be `WRONG_TYPE`.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetParamCustom.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getParamCustom(
+    _ request: Mavsdk_Rpc_Param_GetParamCustomRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Param_GetParamCustomRequest, Mavsdk_Rpc_Param_GetParamCustomResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.param.ParamService/GetParamCustom",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetParamCustomInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Set a custom parameter.
+  ///
+  /// If the type is wrong, the result will be `WRONG_TYPE`.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetParamCustom.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setParamCustom(
+    _ request: Mavsdk_Rpc_Param_SetParamCustomRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Param_SetParamCustomRequest, Mavsdk_Rpc_Param_SetParamCustomResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.param.ParamService/SetParamCustom",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetParamCustomInterceptors() ?? []
+    )
+  }
+
+  ///
   /// Get all parameters.
   ///
   /// - Parameters:
@@ -180,6 +232,12 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol 
 
   /// - Returns: Interceptors to use when invoking 'setParamFloat'.
   func makeSetParamFloatInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getParamCustom'.
+  func makeGetParamCustomInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_GetParamCustomRequest, Mavsdk_Rpc_Param_GetParamCustomResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setParamCustom'.
+  func makeSetParamCustomInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_SetParamCustomRequest, Mavsdk_Rpc_Param_SetParamCustomResponse>]
 
   /// - Returns: Interceptors to use when invoking 'getAllParams'.
   func makeGetAllParamsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>]
@@ -238,6 +296,18 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceProvider: CallHandlerProvider {
   func setParamFloat(request: Mavsdk_Rpc_Param_SetParamFloatRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_SetParamFloatResponse>
 
   ///
+  /// Get a custom parameter.
+  ///
+  /// If the type is wrong, the result will be `WRONG_TYPE`.
+  func getParamCustom(request: Mavsdk_Rpc_Param_GetParamCustomRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetParamCustomResponse>
+
+  ///
+  /// Set a custom parameter.
+  ///
+  /// If the type is wrong, the result will be `WRONG_TYPE`.
+  func setParamCustom(request: Mavsdk_Rpc_Param_SetParamCustomRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_SetParamCustomResponse>
+
+  ///
   /// Get all parameters.
   func getAllParams(request: Mavsdk_Rpc_Param_GetAllParamsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetAllParamsResponse>
 }
@@ -288,6 +358,24 @@ extension Mavsdk_Rpc_Param_ParamServiceProvider {
         userFunction: self.setParamFloat(request:context:)
       )
 
+    case "GetParamCustom":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_GetParamCustomRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_GetParamCustomResponse>(),
+        interceptors: self.interceptors?.makeGetParamCustomInterceptors() ?? [],
+        userFunction: self.getParamCustom(request:context:)
+      )
+
+    case "SetParamCustom":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_SetParamCustomRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_SetParamCustomResponse>(),
+        interceptors: self.interceptors?.makeSetParamCustomInterceptors() ?? [],
+        userFunction: self.setParamCustom(request:context:)
+      )
+
     case "GetAllParams":
       return UnaryServerHandler(
         context: context,
@@ -320,6 +408,14 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceServerInterceptorFactoryProtocol 
   /// - Returns: Interceptors to use when handling 'setParamFloat'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetParamFloatInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_SetParamFloatRequest, Mavsdk_Rpc_Param_SetParamFloatResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getParamCustom'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetParamCustomInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_GetParamCustomRequest, Mavsdk_Rpc_Param_GetParamCustomResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setParamCustom'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetParamCustomInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_SetParamCustomRequest, Mavsdk_Rpc_Param_SetParamCustomResponse>]
 
   /// - Returns: Interceptors to use when handling 'getAllParams'.
   ///   Defaults to calling `self.makeInterceptors()`.

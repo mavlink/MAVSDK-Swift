@@ -91,7 +91,7 @@ struct Mavsdk_Rpc_Geofence_Polygon {
 
 extension Mavsdk_Rpc_Geofence_Polygon.FenceType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Geofence_Polygon.FenceType] = [
+  static let allCases: [Mavsdk_Rpc_Geofence_Polygon.FenceType] = [
     .inclusion,
     .exclusion,
   ]
@@ -248,7 +248,7 @@ struct Mavsdk_Rpc_Geofence_GeofenceResult {
 
 extension Mavsdk_Rpc_Geofence_GeofenceResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Geofence_GeofenceResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Geofence_GeofenceResult.Result] = [
     .unknown,
     .success,
     .error,

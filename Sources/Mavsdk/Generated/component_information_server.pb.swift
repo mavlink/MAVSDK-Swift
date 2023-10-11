@@ -229,7 +229,7 @@ struct Mavsdk_Rpc_ComponentInformationServer_ComponentInformationServerResult {
 
 extension Mavsdk_Rpc_ComponentInformationServer_ComponentInformationServerResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_ComponentInformationServer_ComponentInformationServerResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_ComponentInformationServer_ComponentInformationServerResult.Result] = [
     .unknown,
     .success,
     .duplicateParam,

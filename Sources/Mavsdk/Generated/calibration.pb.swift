@@ -365,7 +365,7 @@ struct Mavsdk_Rpc_Calibration_CalibrationResult {
 
 extension Mavsdk_Rpc_Calibration_CalibrationResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Calibration_CalibrationResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Calibration_CalibrationResult.Result] = [
     .unknown,
     .success,
     .next,

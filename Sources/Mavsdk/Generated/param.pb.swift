@@ -168,6 +168,80 @@ struct Mavsdk_Rpc_Param_SetParamFloatResponse {
   fileprivate var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
 }
 
+struct Mavsdk_Rpc_Param_GetParamCustomRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Name of the parameter
+  var name: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Param_GetParamCustomResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var paramResult: Mavsdk_Rpc_Param_ParamResult {
+    get {return _paramResult ?? Mavsdk_Rpc_Param_ParamResult()}
+    set {_paramResult = newValue}
+  }
+  /// Returns true if `paramResult` has been explicitly set.
+  var hasParamResult: Bool {return self._paramResult != nil}
+  /// Clears the value of `paramResult`. Subsequent reads from it will return its default value.
+  mutating func clearParamResult() {self._paramResult = nil}
+
+  /// Value of the requested parameter
+  var value: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
+}
+
+struct Mavsdk_Rpc_Param_SetParamCustomRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Name of the parameter to set
+  var name: String = String()
+
+  /// Value the parameter should be set to
+  var value: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Mavsdk_Rpc_Param_SetParamCustomResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var paramResult: Mavsdk_Rpc_Param_ParamResult {
+    get {return _paramResult ?? Mavsdk_Rpc_Param_ParamResult()}
+    set {_paramResult = newValue}
+  }
+  /// Returns true if `paramResult` has been explicitly set.
+  var hasParamResult: Bool {return self._paramResult != nil}
+  /// Clears the value of `paramResult`. Subsequent reads from it will return its default value.
+  mutating func clearParamResult() {self._paramResult = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _paramResult: Mavsdk_Rpc_Param_ParamResult? = nil
+}
+
 struct Mavsdk_Rpc_Param_GetAllParamsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -237,7 +311,25 @@ struct Mavsdk_Rpc_Param_FloatParam {
 }
 
 ///
-/// Type collecting all integer and float parameters.
+/// Type for custom parameters
+struct Mavsdk_Rpc_Param_CustomParam {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Name of the parameter
+  var name: String = String()
+
+  /// Value of the parameter (max len 128 bytes)
+  var value: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+///
+/// Type collecting all integer, float, and custom parameters.
 struct Mavsdk_Rpc_Param_AllParams {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -248,6 +340,9 @@ struct Mavsdk_Rpc_Param_AllParams {
 
   /// Collection of all parameter names and values of type float
   var floatParams: [Mavsdk_Rpc_Param_FloatParam] = []
+
+  /// Collection of all parameter names and values of type custom
+  var customParams: [Mavsdk_Rpc_Param_CustomParam] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -292,6 +387,9 @@ struct Mavsdk_Rpc_Param_ParamResult {
 
     /// No system connected
     case noSystem // = 6
+
+    /// Param value too long (> 128)
+    case paramValueTooLong // = 7
     case UNRECOGNIZED(Int)
 
     init() {
@@ -307,6 +405,7 @@ struct Mavsdk_Rpc_Param_ParamResult {
       case 4: self = .wrongType
       case 5: self = .paramNameTooLong
       case 6: self = .noSystem
+      case 7: self = .paramValueTooLong
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -320,6 +419,7 @@ struct Mavsdk_Rpc_Param_ParamResult {
       case .wrongType: return 4
       case .paramNameTooLong: return 5
       case .noSystem: return 6
+      case .paramValueTooLong: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -333,7 +433,7 @@ struct Mavsdk_Rpc_Param_ParamResult {
 
 extension Mavsdk_Rpc_Param_ParamResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Param_ParamResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Param_ParamResult.Result] = [
     .unknown,
     .success,
     .timeout,
@@ -341,6 +441,7 @@ extension Mavsdk_Rpc_Param_ParamResult.Result: CaseIterable {
     .wrongType,
     .paramNameTooLong,
     .noSystem,
+    .paramValueTooLong,
   ]
 }
 
@@ -355,10 +456,15 @@ extension Mavsdk_Rpc_Param_GetParamFloatRequest: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_GetParamFloatResponse: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_SetParamFloatRequest: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_SetParamFloatResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetParamCustomRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_GetParamCustomResponse: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_SetParamCustomRequest: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_SetParamCustomResponse: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_GetAllParamsRequest: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_GetAllParamsResponse: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_IntParam: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_FloatParam: @unchecked Sendable {}
+extension Mavsdk_Rpc_Param_CustomParam: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_AllParams: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_ParamResult: @unchecked Sendable {}
 extension Mavsdk_Rpc_Param_ParamResult.Result: @unchecked Sendable {}
@@ -664,6 +770,154 @@ extension Mavsdk_Rpc_Param_SetParamFloatResponse: SwiftProtobuf.Message, SwiftPr
   }
 }
 
+extension Mavsdk_Rpc_Param_GetParamCustomRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetParamCustomRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Param_GetParamCustomRequest, rhs: Mavsdk_Rpc_Param_GetParamCustomRequest) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Param_GetParamCustomResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetParamCustomResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "param_result"),
+    2: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._paramResult) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._paramResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Param_GetParamCustomResponse, rhs: Mavsdk_Rpc_Param_GetParamCustomResponse) -> Bool {
+    if lhs._paramResult != rhs._paramResult {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Param_SetParamCustomRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetParamCustomRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Param_SetParamCustomRequest, rhs: Mavsdk_Rpc_Param_SetParamCustomRequest) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Mavsdk_Rpc_Param_SetParamCustomResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SetParamCustomResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "param_result"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._paramResult) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._paramResult {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Param_SetParamCustomResponse, rhs: Mavsdk_Rpc_Param_SetParamCustomResponse) -> Bool {
+    if lhs._paramResult != rhs._paramResult {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Param_GetAllParamsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetAllParamsRequest"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -795,11 +1049,50 @@ extension Mavsdk_Rpc_Param_FloatParam: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 }
 
+extension Mavsdk_Rpc_Param_CustomParam: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CustomParam"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Mavsdk_Rpc_Param_CustomParam, rhs: Mavsdk_Rpc_Param_CustomParam) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Mavsdk_Rpc_Param_AllParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".AllParams"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "int_params"),
     2: .standard(proto: "float_params"),
+    3: .standard(proto: "custom_params"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -810,6 +1103,7 @@ extension Mavsdk_Rpc_Param_AllParams: SwiftProtobuf.Message, SwiftProtobuf._Mess
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.intParams) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.floatParams) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.customParams) }()
       default: break
       }
     }
@@ -822,12 +1116,16 @@ extension Mavsdk_Rpc_Param_AllParams: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.floatParams.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.floatParams, fieldNumber: 2)
     }
+    if !self.customParams.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.customParams, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Mavsdk_Rpc_Param_AllParams, rhs: Mavsdk_Rpc_Param_AllParams) -> Bool {
     if lhs.intParams != rhs.intParams {return false}
     if lhs.floatParams != rhs.floatParams {return false}
+    if lhs.customParams != rhs.customParams {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -880,5 +1178,6 @@ extension Mavsdk_Rpc_Param_ParamResult.Result: SwiftProtobuf._ProtoNameProviding
     4: .same(proto: "RESULT_WRONG_TYPE"),
     5: .same(proto: "RESULT_PARAM_NAME_TOO_LONG"),
     6: .same(proto: "RESULT_NO_SYSTEM"),
+    7: .same(proto: "RESULT_PARAM_VALUE_TOO_LONG"),
   ]
 }

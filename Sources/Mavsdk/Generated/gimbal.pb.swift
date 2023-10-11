@@ -57,7 +57,7 @@ enum Mavsdk_Rpc_Gimbal_GimbalMode: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Gimbal_GimbalMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Gimbal_GimbalMode] = [
+  static let allCases: [Mavsdk_Rpc_Gimbal_GimbalMode] = [
     .yawFollow,
     .yawLock,
   ]
@@ -107,7 +107,7 @@ enum Mavsdk_Rpc_Gimbal_ControlMode: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Gimbal_ControlMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Gimbal_ControlMode] = [
+  static let allCases: [Mavsdk_Rpc_Gimbal_ControlMode] = [
     .none,
     .primary,
     .secondary,
@@ -461,7 +461,7 @@ struct Mavsdk_Rpc_Gimbal_GimbalResult {
 
 extension Mavsdk_Rpc_Gimbal_GimbalResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Gimbal_GimbalResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Gimbal_GimbalResult.Result] = [
     .unknown,
     .success,
     .error,

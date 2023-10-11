@@ -4,12 +4,13 @@ import MavsdkServer
 
 public class Drone {
     private let scheduler: SchedulerType
-    private var mavsdkServer: MavsdkServer?
+    public var mavsdkServer: MavsdkServer?
 
     public var action: Action!
     public var calibration: Calibration!
     public var camera: Camera!
     public var core: Core!
+    public var failure: Failure!
     public var followMe: FollowMe!
     public var ftp: Ftp!
     public var geofence: Geofence!
@@ -22,8 +23,10 @@ public class Drone {
     public var mocap: Mocap!
     public var offboard: Offboard!
     public var param: Param!
+    public var rtk: Rtk!
     public var shell: Shell!
     public var telemetry: Telemetry!
+    public var transponder: Transponder!
     public var tune: Tune!
 
     public init(scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -76,6 +79,7 @@ public class Drone {
         self.calibration = Calibration(address: address, port: port, scheduler: scheduler)
         self.camera = Camera(address: address, port: port, scheduler: scheduler)
         self.core = Core(address: address, port: port, scheduler: scheduler)
+        self.failure = Failure(address: address, port: port, scheduler: scheduler)
         self.followMe = FollowMe(address: address, port: port, scheduler: scheduler)
         self.ftp = Ftp(address: address, port: port, scheduler: scheduler)
         self.geofence = Geofence(address: address, port: port, scheduler: scheduler)
@@ -88,8 +92,10 @@ public class Drone {
         self.mocap = Mocap(address: address, port: port, scheduler: scheduler)
         self.offboard = Offboard(address: address, port: port, scheduler: scheduler)
         self.param = Param(address: address, port: port, scheduler: scheduler)
+        self.rtk = Rtk(address: address, port: port, scheduler: scheduler)
         self.shell = Shell(address: address, port: port, scheduler: scheduler)
         self.telemetry = Telemetry(address: address, port: port, scheduler: scheduler)
+        self.transponder = Transponder(address: address, port: port, scheduler: scheduler)
         self.tune = Tune(address: address, port: port, scheduler: scheduler)
     }
 

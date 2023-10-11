@@ -685,7 +685,7 @@ struct Mavsdk_Rpc_Offboard_PositionGlobalYaw {
 
 extension Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType] = [
+  static let allCases: [Mavsdk_Rpc_Offboard_PositionGlobalYaw.AltitudeType] = [
     .relHome,
     .amsl,
     .agl,
@@ -844,7 +844,7 @@ struct Mavsdk_Rpc_Offboard_OffboardResult {
 
 extension Mavsdk_Rpc_Offboard_OffboardResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Offboard_OffboardResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Offboard_OffboardResult.Result] = [
     .unknown,
     .success,
     .noSystem,

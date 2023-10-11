@@ -122,7 +122,7 @@ enum Mavsdk_Rpc_Failure_FailureUnit: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Failure_FailureUnit: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Failure_FailureUnit] = [
+  static let allCases: [Mavsdk_Rpc_Failure_FailureUnit] = [
     .sensorGyro,
     .sensorAccel,
     .sensorMag,
@@ -210,7 +210,7 @@ enum Mavsdk_Rpc_Failure_FailureType: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_Failure_FailureType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Failure_FailureType] = [
+  static let allCases: [Mavsdk_Rpc_Failure_FailureType] = [
     .ok,
     .off,
     .stuck,
@@ -347,7 +347,7 @@ struct Mavsdk_Rpc_Failure_FailureResult {
 
 extension Mavsdk_Rpc_Failure_FailureResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Failure_FailureResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Failure_FailureResult.Result] = [
     .unknown,
     .success,
     .noSystem,

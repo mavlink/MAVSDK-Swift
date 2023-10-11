@@ -121,7 +121,7 @@ enum Mavsdk_Rpc_ActionServer_FlightMode: SwiftProtobuf.Enum {
 
 extension Mavsdk_Rpc_ActionServer_FlightMode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_ActionServer_FlightMode] = [
+  static let allCases: [Mavsdk_Rpc_ActionServer_FlightMode] = [
     .unknown,
     .ready,
     .takeoff,
@@ -708,7 +708,7 @@ struct Mavsdk_Rpc_ActionServer_ActionServerResult {
 
 extension Mavsdk_Rpc_ActionServer_ActionServerResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_ActionServer_ActionServerResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_ActionServer_ActionServerResult.Result] = [
     .unknown,
     .success,
     .noSystem,

@@ -647,7 +647,7 @@ struct Mavsdk_Rpc_Mission_MissionItem {
 
 extension Mavsdk_Rpc_Mission_MissionItem.CameraAction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Mission_MissionItem.CameraAction] = [
+  static let allCases: [Mavsdk_Rpc_Mission_MissionItem.CameraAction] = [
     .none,
     .takePhoto,
     .startPhotoInterval,
@@ -801,7 +801,7 @@ struct Mavsdk_Rpc_Mission_MissionResult {
 
 extension Mavsdk_Rpc_Mission_MissionResult.Result: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Mavsdk_Rpc_Mission_MissionResult.Result] = [
+  static let allCases: [Mavsdk_Rpc_Mission_MissionResult.Result] = [
     .unknown,
     .success,
     .error,
