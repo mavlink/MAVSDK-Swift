@@ -3,7 +3,13 @@
 /**
  {{ method_description }}
  */
+{% if params|length == 0 %}
 public lazy var {{ name.lower_camel_case }}: Observable<{% if return_type %}{{ return_type.name }}{% else %}Void{% endif %}> = create{{ name.upper_camel_case }}Observable({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %})
+{% else %}
+public func {{ name.lower_camel_case }}({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.type_info.name }}{{ ", " if not loop.last }}{% endfor %}) -> Observable<{% if return_type %}{{ return_type.name }}{% else %}Void{% endif %}> {
+    return create{{ name.upper_camel_case }}Observable({% for param in params %}{{ param.name.lower_camel_case }}: {{ param.name.lower_camel_case }}{{ ", " if not loop.last }}{% endfor %})
+}
+{% endif %}
 {% endif %}
 
 {% if is_finite %}
