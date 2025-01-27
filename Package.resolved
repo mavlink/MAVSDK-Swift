@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "FFmpeg-iOS",
+        "repositoryURL": "https://github.com/kewlbear/FFmpeg-iOS",
+        "state": {
+          "branch": null,
+          "revision": "59c01fbba5a85005d4b624f77f6ad32d43a4d922",
+          "version": "0.0.5"
+        }
+      },
+      {
         "package": "grpc-swift",
         "repositoryURL": "https://github.com/grpc/grpc-swift",
         "state": {
@@ -17,6 +26,15 @@
           "branch": null,
           "revision": "b4307ba0b6425c0ba4178e138799946c3da594f8",
           "version": "6.5.0"
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "6b2aa2748a7881eebb9f84fb10c01293e15b52ca",
+          "version": "0.5.0"
         }
       },
       {
