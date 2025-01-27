@@ -460,9 +460,9 @@ public class ComponentMetadata {
                 
 
     	    
-                    let response = try MetadataData.translateFromRpc(response.response.wait().response)
-                
-                single(.success(response))
+                    let response2 = try MetadataData.translateFromRpc(response.response.wait().response)
+
+                single(.success(response2))
             } catch {
                 single(.failure(error))
             }

@@ -178,8 +178,8 @@ public class Events {
             
             
                 
-            rpcEvent.description = description
-                
+            rpcEvent.description_p = description
+
             
             
                 
@@ -201,7 +201,7 @@ public class Events {
         }
 
         internal static func translateFromRpc(_ rpcEvent: Mavsdk_Rpc_Events_Event) -> Event {
-            return Event(compid: rpcEvent.compid, message: rpcEvent.message, description: rpcEvent.description, logLevel: LogLevel.translateFromRpc(rpcEvent.logLevel), eventNamespace: rpcEvent.eventNamespace, eventName: rpcEvent.eventName)
+            return Event(compid: rpcEvent.compid, message: rpcEvent.message, description: rpcEvent.description_p, logLevel: LogLevel.translateFromRpc(rpcEvent.logLevel), eventNamespace: rpcEvent.eventNamespace, eventName: rpcEvent.eventName)
         }
 
         public static func == (lhs: Event, rhs: Event) -> Bool {
@@ -257,8 +257,8 @@ public class Events {
             
             
                 
-            rpcHealthAndArmingCheckProblem.description = description
-                
+            rpcHealthAndArmingCheckProblem.description_p = description
+
             
             
                 
@@ -275,7 +275,7 @@ public class Events {
         }
 
         internal static func translateFromRpc(_ rpcHealthAndArmingCheckProblem: Mavsdk_Rpc_Events_HealthAndArmingCheckProblem) -> HealthAndArmingCheckProblem {
-            return HealthAndArmingCheckProblem(message: rpcHealthAndArmingCheckProblem.message, description: rpcHealthAndArmingCheckProblem.description, logLevel: LogLevel.translateFromRpc(rpcHealthAndArmingCheckProblem.logLevel), healthComponent: rpcHealthAndArmingCheckProblem.healthComponent)
+            return HealthAndArmingCheckProblem(message: rpcHealthAndArmingCheckProblem.message, description: rpcHealthAndArmingCheckProblem.description_p, logLevel: LogLevel.translateFromRpc(rpcHealthAndArmingCheckProblem.logLevel), healthComponent: rpcHealthAndArmingCheckProblem.healthComponent)
         }
 
         public static func == (lhs: HealthAndArmingCheckProblem, rhs: HealthAndArmingCheckProblem) -> Bool {
