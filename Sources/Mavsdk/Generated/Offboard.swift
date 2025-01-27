@@ -181,7 +181,7 @@ public class Offboard {
 
      One group support eight controls.
 
-     Up to 16 actuator controls can be set. To ignore an output group, set all it conrols to NaN.
+     Up to 16 actuator controls can be set. To ignore an output group, set all it controls to NaN.
      If one or more controls in group is not NaN, then all NaN controls will sent as zero.
      The first 8 actuator controls internally map to control group 0, the latter 8 actuator
      controls map to control group 1. Depending on what controls are set (instead of NaN) 1 or 2
@@ -729,6 +729,8 @@ public class Offboard {
             case timeout
             ///  Cannot start without setpoint set.
             case noSetpointSet
+            ///  Request failed.
+            case failed
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Offboard_OffboardResult.Result {
@@ -749,6 +751,8 @@ public class Offboard {
                     return .timeout
                 case .noSetpointSet:
                     return .noSetpointSet
+                case .failed:
+                    return .failed
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -772,6 +776,8 @@ public class Offboard {
                     return .timeout
                 case .noSetpointSet:
                     return .noSetpointSet
+                case .failed:
+                    return .failed
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -1188,6 +1194,52 @@ public class Offboard {
             do {
                 
                 let response = self.service.setPositionVelocityNed(request)
+
+                let result = try response.response.wait().offboardResult
+                if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(OffboardError(code: OffboardResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set the position, velocity and acceleration in NED coordinates, with velocity and acceleration used as feed-forward.
+
+     - Parameters:
+        - positionNedYaw: Position and yaw
+        - velocityNedYaw: Velocity and yaw
+        - accelerationNed: Acceleration
+     
+     */
+    public func setPositionVelocityAccelerationNed(positionNedYaw: PositionNedYaw, velocityNedYaw: VelocityNedYaw, accelerationNed: AccelerationNed) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Offboard_SetPositionVelocityAccelerationNedRequest()
+
+            
+                
+            request.positionNedYaw = positionNedYaw.rpcPositionNedYaw
+                
+            
+                
+            request.velocityNedYaw = velocityNedYaw.rpcVelocityNedYaw
+                
+            
+                
+            request.accelerationNed = accelerationNed.rpcAccelerationNed
+                
+            
+
+            do {
+                
+                let response = self.service.setPositionVelocityAccelerationNed(request)
 
                 let result = try response.response.wait().offboardResult
                 if (result.result == Mavsdk_Rpc_Offboard_OffboardResult.Result.success) {

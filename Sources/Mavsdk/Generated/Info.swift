@@ -59,6 +59,8 @@ public class Info {
     public struct FlightInfo: Equatable {
         public let timeBootMs: UInt32
         public let flightUid: UInt64
+        public let durationSinceArmingMs: UInt32
+        public let durationSinceTakeoffMs: UInt32
 
         
 
@@ -72,11 +74,17 @@ public class Info {
             
             - flightUid:  Flight counter. Starts from zero, is incremented at every disarm and is never reset (even after reboot)
             
+            - durationSinceArmingMs:  Duration since arming in milliseconds
+            
+            - durationSinceTakeoffMs:  Duration since takeoff in milliseconds
+            
          
          */
-        public init(timeBootMs: UInt32, flightUid: UInt64) {
+        public init(timeBootMs: UInt32, flightUid: UInt64, durationSinceArmingMs: UInt32, durationSinceTakeoffMs: UInt32) {
             self.timeBootMs = timeBootMs
             self.flightUid = flightUid
+            self.durationSinceArmingMs = durationSinceArmingMs
+            self.durationSinceTakeoffMs = durationSinceTakeoffMs
         }
 
         internal var rpcFlightInfo: Mavsdk_Rpc_Info_FlightInfo {
@@ -91,17 +99,29 @@ public class Info {
             rpcFlightInfo.flightUid = flightUid
                 
             
+            
+                
+            rpcFlightInfo.durationSinceArmingMs = durationSinceArmingMs
+                
+            
+            
+                
+            rpcFlightInfo.durationSinceTakeoffMs = durationSinceTakeoffMs
+                
+            
 
             return rpcFlightInfo
         }
 
         internal static func translateFromRpc(_ rpcFlightInfo: Mavsdk_Rpc_Info_FlightInfo) -> FlightInfo {
-            return FlightInfo(timeBootMs: rpcFlightInfo.timeBootMs, flightUid: rpcFlightInfo.flightUid)
+            return FlightInfo(timeBootMs: rpcFlightInfo.timeBootMs, flightUid: rpcFlightInfo.flightUid, durationSinceArmingMs: rpcFlightInfo.durationSinceArmingMs, durationSinceTakeoffMs: rpcFlightInfo.durationSinceTakeoffMs)
         }
 
         public static func == (lhs: FlightInfo, rhs: FlightInfo) -> Bool {
             return lhs.timeBootMs == rhs.timeBootMs
                 && lhs.flightUid == rhs.flightUid
+                && lhs.durationSinceArmingMs == rhs.durationSinceArmingMs
+                && lhs.durationSinceTakeoffMs == rhs.durationSinceTakeoffMs
         }
     }
 
@@ -244,7 +264,67 @@ public class Info {
         public let osSwPatch: Int32
         public let flightSwGitHash: String
         public let osSwGitHash: String
+        public let flightSwVersionType: FlightSoftwareVersionType
 
+        
+        
+
+        /**
+         These values define the type of firmware/flight software release
+         */
+        public enum FlightSoftwareVersionType: Equatable {
+            ///  Unknown type.
+            case unknown
+            ///  Development release.
+            case dev
+            ///  Alpha release.
+            case alpha
+            ///  Beta release.
+            case beta
+            ///  Release candidate.
+            case rc
+            ///  Official stable release.
+            case release
+            case UNRECOGNIZED(Int)
+
+            internal var rpcFlightSoftwareVersionType: Mavsdk_Rpc_Info_Version.FlightSoftwareVersionType {
+                switch self {
+                case .unknown:
+                    return .unknown
+                case .dev:
+                    return .dev
+                case .alpha:
+                    return .alpha
+                case .beta:
+                    return .beta
+                case .rc:
+                    return .rc
+                case .release:
+                    return .release
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+
+            internal static func translateFromRpc(_ rpcFlightSoftwareVersionType: Mavsdk_Rpc_Info_Version.FlightSoftwareVersionType) -> FlightSoftwareVersionType {
+                switch rpcFlightSoftwareVersionType {
+                case .unknown:
+                    return .unknown
+                case .dev:
+                    return .dev
+                case .alpha:
+                    return .alpha
+                case .beta:
+                    return .beta
+                case .rc:
+                    return .rc
+                case .release:
+                    return .release
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+        }
         
 
         /**
@@ -275,9 +355,11 @@ public class Info {
             
             - osSwGitHash:  Operating system software git hash
             
+            - flightSwVersionType:  Flight software version type
+            
          
          */
-        public init(flightSwMajor: Int32, flightSwMinor: Int32, flightSwPatch: Int32, flightSwVendorMajor: Int32, flightSwVendorMinor: Int32, flightSwVendorPatch: Int32, osSwMajor: Int32, osSwMinor: Int32, osSwPatch: Int32, flightSwGitHash: String, osSwGitHash: String) {
+        public init(flightSwMajor: Int32, flightSwMinor: Int32, flightSwPatch: Int32, flightSwVendorMajor: Int32, flightSwVendorMinor: Int32, flightSwVendorPatch: Int32, osSwMajor: Int32, osSwMinor: Int32, osSwPatch: Int32, flightSwGitHash: String, osSwGitHash: String, flightSwVersionType: FlightSoftwareVersionType) {
             self.flightSwMajor = flightSwMajor
             self.flightSwMinor = flightSwMinor
             self.flightSwPatch = flightSwPatch
@@ -289,6 +371,7 @@ public class Info {
             self.osSwPatch = osSwPatch
             self.flightSwGitHash = flightSwGitHash
             self.osSwGitHash = osSwGitHash
+            self.flightSwVersionType = flightSwVersionType
         }
 
         internal var rpcVersion: Mavsdk_Rpc_Info_Version {
@@ -348,12 +431,17 @@ public class Info {
             rpcVersion.osSwGitHash = osSwGitHash
                 
             
+            
+                
+            rpcVersion.flightSwVersionType = flightSwVersionType.rpcFlightSoftwareVersionType
+                
+            
 
             return rpcVersion
         }
 
         internal static func translateFromRpc(_ rpcVersion: Mavsdk_Rpc_Info_Version) -> Version {
-            return Version(flightSwMajor: rpcVersion.flightSwMajor, flightSwMinor: rpcVersion.flightSwMinor, flightSwPatch: rpcVersion.flightSwPatch, flightSwVendorMajor: rpcVersion.flightSwVendorMajor, flightSwVendorMinor: rpcVersion.flightSwVendorMinor, flightSwVendorPatch: rpcVersion.flightSwVendorPatch, osSwMajor: rpcVersion.osSwMajor, osSwMinor: rpcVersion.osSwMinor, osSwPatch: rpcVersion.osSwPatch, flightSwGitHash: rpcVersion.flightSwGitHash, osSwGitHash: rpcVersion.osSwGitHash)
+            return Version(flightSwMajor: rpcVersion.flightSwMajor, flightSwMinor: rpcVersion.flightSwMinor, flightSwPatch: rpcVersion.flightSwPatch, flightSwVendorMajor: rpcVersion.flightSwVendorMajor, flightSwVendorMinor: rpcVersion.flightSwVendorMinor, flightSwVendorPatch: rpcVersion.flightSwVendorPatch, osSwMajor: rpcVersion.osSwMajor, osSwMinor: rpcVersion.osSwMinor, osSwPatch: rpcVersion.osSwPatch, flightSwGitHash: rpcVersion.flightSwGitHash, osSwGitHash: rpcVersion.osSwGitHash, flightSwVersionType: FlightSoftwareVersionType.translateFromRpc(rpcVersion.flightSwVersionType))
         }
 
         public static func == (lhs: Version, rhs: Version) -> Bool {
@@ -368,6 +456,7 @@ public class Info {
                 && lhs.osSwPatch == rhs.osSwPatch
                 && lhs.flightSwGitHash == rhs.flightSwGitHash
                 && lhs.osSwGitHash == rhs.osSwGitHash
+                && lhs.flightSwVersionType == rhs.flightSwVersionType
         }
     }
 
@@ -643,5 +732,43 @@ public class Info {
 
             return Disposables.create()
         }
+    }
+
+
+    /**
+     Subscribe to 'flight information' updates.
+     */
+    public lazy var flightInformation: Observable<FlightInfo> = createFlightInformationObservable()
+
+
+
+    private func createFlightInformationObservable() -> Observable<FlightInfo> {
+        return Observable.create { [unowned self] observer in
+            let request = Mavsdk_Rpc_Info_SubscribeFlightInformationRequest()
+
+            
+
+            let serverStreamingCall = self.service.subscribeFlightInformation(request, handler: { (response) in
+
+                
+                     
+                let flightInformation = FlightInfo.translateFromRpc(response.flightInfo)
+                
+
+                
+                observer.onNext(flightInformation)
+                
+            })
+
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
+        }
+        .retry { error in
+            error.map {
+                guard $0 is RuntimeInfoError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
     }
 }

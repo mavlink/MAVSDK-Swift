@@ -57,7 +57,7 @@ public class Rtk {
      RTCM data type
      */
     public struct RtcmData: Equatable {
-        public let data: String
+        public let dataBase64: String
 
         
 
@@ -65,18 +65,18 @@ public class Rtk {
          Initializes a new `RtcmData`.
 
          
-         - Parameter data:  The data encoded as a string
+         - Parameter dataBase64:  The data encoded as a base64 string
          
          */
-        public init(data: String) {
-            self.data = data
+        public init(dataBase64: String) {
+            self.dataBase64 = dataBase64
         }
 
         internal var rpcRtcmData: Mavsdk_Rpc_Rtk_RtcmData {
             var rpcRtcmData = Mavsdk_Rpc_Rtk_RtcmData()
             
                 
-            rpcRtcmData.data = data
+            rpcRtcmData.dataBase64 = dataBase64
                 
             
 
@@ -84,11 +84,11 @@ public class Rtk {
         }
 
         internal static func translateFromRpc(_ rpcRtcmData: Mavsdk_Rpc_Rtk_RtcmData) -> RtcmData {
-            return RtcmData(data: rpcRtcmData.data)
+            return RtcmData(dataBase64: rpcRtcmData.dataBase64)
         }
 
         public static func == (lhs: RtcmData, rhs: RtcmData) -> Bool {
-            return lhs.data == rhs.data
+            return lhs.dataBase64 == rhs.dataBase64
         }
     }
 

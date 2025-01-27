@@ -75,6 +75,7 @@ public class Mission {
         public let acceptanceRadiusM: Float
         public let yawDeg: Float
         public let cameraPhotoDistanceM: Float
+        public let vehicleAction: VehicleAction
 
         
         
@@ -148,6 +149,59 @@ public class Mission {
             }
         }
         
+        
+
+        /**
+         Possible vehicle actions at a mission item
+         */
+        public enum VehicleAction: Equatable {
+            ///  No action.
+            case none
+            ///  Vehicle will takeoff and go to defined waypoint.
+            case takeoff
+            ///  When a waypoint is reached vehicle will land at current position.
+            case land
+            ///  When a waypoint is reached vehicle will transition to fixed-wing mode.
+            case transitionToFw
+            ///  When a waypoint is reached vehicle will transition to multi-copter mode.
+            case transitionToMc
+            case UNRECOGNIZED(Int)
+
+            internal var rpcVehicleAction: Mavsdk_Rpc_Mission_MissionItem.VehicleAction {
+                switch self {
+                case .none:
+                    return .none
+                case .takeoff:
+                    return .takeoff
+                case .land:
+                    return .land
+                case .transitionToFw:
+                    return .transitionToFw
+                case .transitionToMc:
+                    return .transitionToMc
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+
+            internal static func translateFromRpc(_ rpcVehicleAction: Mavsdk_Rpc_Mission_MissionItem.VehicleAction) -> VehicleAction {
+                switch rpcVehicleAction {
+                case .none:
+                    return .none
+                case .takeoff:
+                    return .takeoff
+                case .land:
+                    return .land
+                case .transitionToFw:
+                    return .transitionToFw
+                case .transitionToMc:
+                    return .transitionToMc
+                case .UNRECOGNIZED(let i):
+                    return .UNRECOGNIZED(i)
+                }
+            }
+        }
+        
 
         /**
          Initializes a new `MissionItem`.
@@ -181,9 +235,11 @@ public class Mission {
             
             - cameraPhotoDistanceM:  Camera photo distance to use after this mission item (in meters)
             
+            - vehicleAction:  Vehicle action to trigger at this mission item.
+            
          
          */
-        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double, acceptanceRadiusM: Float, yawDeg: Float, cameraPhotoDistanceM: Float) {
+        public init(latitudeDeg: Double, longitudeDeg: Double, relativeAltitudeM: Float, speedMS: Float, isFlyThrough: Bool, gimbalPitchDeg: Float, gimbalYawDeg: Float, cameraAction: CameraAction, loiterTimeS: Float, cameraPhotoIntervalS: Double, acceptanceRadiusM: Float, yawDeg: Float, cameraPhotoDistanceM: Float, vehicleAction: VehicleAction) {
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
             self.relativeAltitudeM = relativeAltitudeM
@@ -197,6 +253,7 @@ public class Mission {
             self.acceptanceRadiusM = acceptanceRadiusM
             self.yawDeg = yawDeg
             self.cameraPhotoDistanceM = cameraPhotoDistanceM
+            self.vehicleAction = vehicleAction
         }
 
         internal var rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem {
@@ -266,12 +323,17 @@ public class Mission {
             rpcMissionItem.cameraPhotoDistanceM = cameraPhotoDistanceM
                 
             
+            
+                
+            rpcMissionItem.vehicleAction = vehicleAction.rpcVehicleAction
+                
+            
 
             return rpcMissionItem
         }
 
         internal static func translateFromRpc(_ rpcMissionItem: Mavsdk_Rpc_Mission_MissionItem) -> MissionItem {
-            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS, acceptanceRadiusM: rpcMissionItem.acceptanceRadiusM, yawDeg: rpcMissionItem.yawDeg, cameraPhotoDistanceM: rpcMissionItem.cameraPhotoDistanceM)
+            return MissionItem(latitudeDeg: rpcMissionItem.latitudeDeg, longitudeDeg: rpcMissionItem.longitudeDeg, relativeAltitudeM: rpcMissionItem.relativeAltitudeM, speedMS: rpcMissionItem.speedMS, isFlyThrough: rpcMissionItem.isFlyThrough, gimbalPitchDeg: rpcMissionItem.gimbalPitchDeg, gimbalYawDeg: rpcMissionItem.gimbalYawDeg, cameraAction: CameraAction.translateFromRpc(rpcMissionItem.cameraAction), loiterTimeS: rpcMissionItem.loiterTimeS, cameraPhotoIntervalS: rpcMissionItem.cameraPhotoIntervalS, acceptanceRadiusM: rpcMissionItem.acceptanceRadiusM, yawDeg: rpcMissionItem.yawDeg, cameraPhotoDistanceM: rpcMissionItem.cameraPhotoDistanceM, vehicleAction: VehicleAction.translateFromRpc(rpcMissionItem.vehicleAction))
         }
 
         public static func == (lhs: MissionItem, rhs: MissionItem) -> Bool {
@@ -288,6 +350,7 @@ public class Mission {
                 && lhs.acceptanceRadiusM == rhs.acceptanceRadiusM
                 && lhs.yawDeg == rhs.yawDeg
                 && lhs.cameraPhotoDistanceM == rhs.cameraPhotoDistanceM
+                && lhs.vehicleAction == rhs.vehicleAction
         }
     }
 
@@ -422,6 +485,12 @@ public class Mission {
             case noSystem
             ///  Intermediate message showing progress.
             case next
+            ///  Request denied.
+            case denied
+            ///  There was a protocol error.
+            case protocolError
+            ///  The system does not support the MISSION_INT protocol.
+            case intMessagesNotSupported
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Mission_MissionResult.Result {
@@ -452,6 +521,12 @@ public class Mission {
                     return .noSystem
                 case .next:
                     return .next
+                case .denied:
+                    return .denied
+                case .protocolError:
+                    return .protocolError
+                case .intMessagesNotSupported:
+                    return .intMessagesNotSupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -485,6 +560,12 @@ public class Mission {
                     return .noSystem
                 case .next:
                     return .next
+                case .denied:
+                    return .denied
+                case .protocolError:
+                    return .protocolError
+                case .intMessagesNotSupported:
+                    return .intMessagesNotSupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -686,16 +767,17 @@ public class Mission {
     }
 
 
-
-
     /**
      Upload a list of mission items to the system and report upload progress.
 
      The mission items are uploaded to a drone. Once uploaded the mission can be started and
      executed even if the connection is lost.
      */
+    public lazy var uploadMissionWithProgress: Observable<ProgressData> = createUploadMissionWithProgressObservable(missionPlan: MissionPlan)
 
-    public func uploadMissionWithProgress(missionPlan: MissionPlan) -> Observable<ProgressData> {
+
+
+    private func createUploadMissionWithProgressObservable(missionPlan: MissionPlan) -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_Mission_SubscribeUploadMissionWithProgressRequest()
 
@@ -807,16 +889,17 @@ public class Mission {
     }
 
 
-
-
     /**
      Download a list of mission items from the system (asynchronous) and report progress.
 
      Will fail if any of the downloaded mission items are not supported
      by the MAVSDK API.
      */
+    public lazy var downloadMissionWithProgress: Observable<ProgressDataOrMission> = createDownloadMissionWithProgressObservable()
 
-    public func downloadMissionWithProgress() -> Observable<ProgressDataOrMission> {
+
+
+    private func createDownloadMissionWithProgressObservable() -> Observable<ProgressDataOrMission> {
         return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Mission_SubscribeDownloadMissionWithProgressRequest()
 

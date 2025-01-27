@@ -49,9 +49,9 @@ extension Mavsdk_Rpc_Geofence_GeofenceServiceClientProtocol {
   }
 
   ///
-  /// Upload a geofence.
+  /// Upload geofences.
   ///
-  /// Polygons are uploaded to a drone. Once uploaded, the geofence will remain
+  /// Polygon and Circular geofences are uploaded to a drone. Once uploaded, the geofence will remain
   /// on the drone even if a connection is lost.
   ///
   /// - Parameters:
@@ -128,9 +128,9 @@ internal protocol Mavsdk_Rpc_Geofence_GeofenceServiceProvider: CallHandlerProvid
   var interceptors: Mavsdk_Rpc_Geofence_GeofenceServiceServerInterceptorFactoryProtocol? { get }
 
   ///
-  /// Upload a geofence.
+  /// Upload geofences.
   ///
-  /// Polygons are uploaded to a drone. Once uploaded, the geofence will remain
+  /// Polygon and Circular geofences are uploaded to a drone. Once uploaded, the geofence will remain
   /// on the drone even if a connection is lost.
   func uploadGeofence(request: Mavsdk_Rpc_Geofence_UploadGeofenceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Geofence_UploadGeofenceResponse>
 

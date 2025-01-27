@@ -56,6 +56,12 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Info_GetSpeedFactorRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>
+
+  func subscribeFlightInformation(
+    _ request: Mavsdk_Rpc_Info_SubscribeFlightInformationRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Info_FlightInformationResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Info_SubscribeFlightInformationRequest, Mavsdk_Rpc_Info_FlightInformationResponse>
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
@@ -152,6 +158,27 @@ extension Mavsdk_Rpc_Info_InfoServiceClientProtocol {
       interceptors: self.interceptors?.makeGetSpeedFactorInterceptors() ?? []
     )
   }
+
+  /// Subscribe to 'flight information' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeFlightInformation.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeFlightInformation(
+    _ request: Mavsdk_Rpc_Info_SubscribeFlightInformationRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Info_FlightInformationResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Info_SubscribeFlightInformationRequest, Mavsdk_Rpc_Info_FlightInformationResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.info.InfoService/SubscribeFlightInformation",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeFlightInformationInterceptors() ?? [],
+      handler: handler
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_Info_InfoServiceClientInterceptorFactoryProtocol {
@@ -170,6 +197,9 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceClientInterceptorFactoryProtocol {
 
   /// - Returns: Interceptors to use when invoking 'getSpeedFactor'.
   func makeGetSpeedFactorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'subscribeFlightInformation'.
+  func makeSubscribeFlightInformationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Info_SubscribeFlightInformationRequest, Mavsdk_Rpc_Info_FlightInformationResponse>]
 }
 
 internal final class Mavsdk_Rpc_Info_InfoServiceClient: Mavsdk_Rpc_Info_InfoServiceClientProtocol {
@@ -214,6 +244,9 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceProvider: CallHandlerProvider {
 
   /// Get the speed factor of a simulation (with lockstep a simulation can run faster or slower than realtime).
   func getSpeedFactor(request: Mavsdk_Rpc_Info_GetSpeedFactorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Info_GetSpeedFactorResponse>
+
+  /// Subscribe to 'flight information' updates.
+  func subscribeFlightInformation(request: Mavsdk_Rpc_Info_SubscribeFlightInformationRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Info_FlightInformationResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
 extension Mavsdk_Rpc_Info_InfoServiceProvider {
@@ -271,6 +304,15 @@ extension Mavsdk_Rpc_Info_InfoServiceProvider {
         userFunction: self.getSpeedFactor(request:context:)
       )
 
+    case "SubscribeFlightInformation":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Info_SubscribeFlightInformationRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Info_FlightInformationResponse>(),
+        interceptors: self.interceptors?.makeSubscribeFlightInformationInterceptors() ?? [],
+        userFunction: self.subscribeFlightInformation(request:context:)
+      )
+
     default:
       return nil
     }
@@ -298,4 +340,8 @@ internal protocol Mavsdk_Rpc_Info_InfoServiceServerInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when handling 'getSpeedFactor'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeGetSpeedFactorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_GetSpeedFactorRequest, Mavsdk_Rpc_Info_GetSpeedFactorResponse>]
+
+  /// - Returns: Interceptors to use when handling 'subscribeFlightInformation'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeFlightInformationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Info_SubscribeFlightInformationRequest, Mavsdk_Rpc_Info_FlightInformationResponse>]
 }

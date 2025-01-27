@@ -37,6 +37,16 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol: GRPCCli
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>
 
+  func uploadGeofence(
+    _ request: Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest, Mavsdk_Rpc_MissionRaw_UploadGeofenceResponse>
+
+  func uploadRallyPoints(
+    _ request: Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest, Mavsdk_Rpc_MissionRaw_UploadRallyPointsResponse>
+
   func cancelMissionUpload(
     _ request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest,
     callOptions: CallOptions?
@@ -46,6 +56,16 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol: GRPCCli
     _ request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>
+
+  func downloadGeofence(
+    _ request: Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest, Mavsdk_Rpc_MissionRaw_DownloadGeofenceResponse>
+
+  func downloadRallypoints(
+    _ request: Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest, Mavsdk_Rpc_MissionRaw_DownloadRallypointsResponse>
 
   func cancelMissionDownload(
     _ request: Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest,
@@ -88,6 +108,11 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol: GRPCCli
     _ request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>
+
+  func importQgroundcontrolMissionFromString(
+    _ request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringResponse>
 }
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
@@ -114,6 +139,44 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeUploadMissionInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Upload a list of geofence items to the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UploadGeofence.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func uploadGeofence(
+    _ request: Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest, Mavsdk_Rpc_MissionRaw_UploadGeofenceResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission_raw.MissionRawService/UploadGeofence",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUploadGeofenceInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Upload a list of rally point items to the system.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UploadRallyPoints.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func uploadRallyPoints(
+    _ request: Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest, Mavsdk_Rpc_MissionRaw_UploadRallyPointsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission_raw.MissionRawService/UploadRallyPoints",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUploadRallyPointsInterceptors() ?? []
     )
   }
 
@@ -152,6 +215,44 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeDownloadMissionInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Download a list of raw geofence items from the system (asynchronous).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DownloadGeofence.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func downloadGeofence(
+    _ request: Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest, Mavsdk_Rpc_MissionRaw_DownloadGeofenceResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission_raw.MissionRawService/DownloadGeofence",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDownloadGeofenceInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Download a list of raw rallypoint items from the system (asynchronous).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to DownloadRallypoints.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func downloadRallypoints(
+    _ request: Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest, Mavsdk_Rpc_MissionRaw_DownloadRallypointsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission_raw.MissionRawService/DownloadRallypoints",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeDownloadRallypointsInterceptors() ?? []
     )
   }
 
@@ -310,7 +411,7 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
   }
 
   ///
-  /// Import a QGroundControl missions in JSON .plan format.
+  /// Import a QGroundControl missions in JSON .plan format, from a file.
   ///
   /// Supported:
   /// - Waypoints
@@ -333,6 +434,31 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
       interceptors: self.interceptors?.makeImportQgroundcontrolMissionInterceptors() ?? []
     )
   }
+
+  ///
+  /// Import a QGroundControl missions in JSON .plan format, from a string.
+  ///
+  /// Supported:
+  /// - Waypoints
+  /// - Survey
+  /// Not supported:
+  /// - Structure Scan
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ImportQgroundcontrolMissionFromString.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func importQgroundcontrolMissionFromString(
+    _ request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.mission_raw.MissionRawService/ImportQgroundcontrolMissionFromString",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeImportQgroundcontrolMissionFromStringInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactoryProtocol {
@@ -340,11 +466,23 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactor
   /// - Returns: Interceptors to use when invoking 'uploadMission'.
   func makeUploadMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'uploadGeofence'.
+  func makeUploadGeofenceInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest, Mavsdk_Rpc_MissionRaw_UploadGeofenceResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'uploadRallyPoints'.
+  func makeUploadRallyPointsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest, Mavsdk_Rpc_MissionRaw_UploadRallyPointsResponse>]
+
   /// - Returns: Interceptors to use when invoking 'cancelMissionUpload'.
   func makeCancelMissionUploadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>]
 
   /// - Returns: Interceptors to use when invoking 'downloadMission'.
   func makeDownloadMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'downloadGeofence'.
+  func makeDownloadGeofenceInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest, Mavsdk_Rpc_MissionRaw_DownloadGeofenceResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'downloadRallypoints'.
+  func makeDownloadRallypointsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest, Mavsdk_Rpc_MissionRaw_DownloadRallypointsResponse>]
 
   /// - Returns: Interceptors to use when invoking 'cancelMissionDownload'.
   func makeCancelMissionDownloadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionDownloadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionDownloadResponse>]
@@ -369,6 +507,9 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceClientInterceptorFactor
 
   /// - Returns: Interceptors to use when invoking 'importQgroundcontrolMission'.
   func makeImportQgroundcontrolMissionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'importQgroundcontrolMissionFromString'.
+  func makeImportQgroundcontrolMissionFromStringInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringResponse>]
 }
 
 internal final class Mavsdk_Rpc_MissionRaw_MissionRawServiceClient: Mavsdk_Rpc_MissionRaw_MissionRawServiceClientProtocol {
@@ -407,12 +548,28 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerPr
   func uploadMission(request: Mavsdk_Rpc_MissionRaw_UploadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_UploadMissionResponse>
 
   ///
+  /// Upload a list of geofence items to the system.
+  func uploadGeofence(request: Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_UploadGeofenceResponse>
+
+  ///
+  /// Upload a list of rally point items to the system.
+  func uploadRallyPoints(request: Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_UploadRallyPointsResponse>
+
+  ///
   /// Cancel an ongoing mission upload.
   func cancelMissionUpload(request: Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>
 
   ///
   /// Download a list of raw mission items from the system (asynchronous).
   func downloadMission(request: Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>
+
+  ///
+  /// Download a list of raw geofence items from the system (asynchronous).
+  func downloadGeofence(request: Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_DownloadGeofenceResponse>
+
+  ///
+  /// Download a list of raw rallypoint items from the system (asynchronous).
+  func downloadRallypoints(request: Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_DownloadRallypointsResponse>
 
   ///
   /// Cancel an ongoing mission download.
@@ -458,7 +615,7 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerPr
   func subscribeMissionChanged(request: Mavsdk_Rpc_MissionRaw_SubscribeMissionChangedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_MissionRaw_MissionChangedResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
-  /// Import a QGroundControl missions in JSON .plan format.
+  /// Import a QGroundControl missions in JSON .plan format, from a file.
   ///
   /// Supported:
   /// - Waypoints
@@ -466,6 +623,16 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider: CallHandlerPr
   /// Not supported:
   /// - Structure Scan
   func importQgroundcontrolMission(request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>
+
+  ///
+  /// Import a QGroundControl missions in JSON .plan format, from a string.
+  ///
+  /// Supported:
+  /// - Waypoints
+  /// - Survey
+  /// Not supported:
+  /// - Structure Scan
+  func importQgroundcontrolMissionFromString(request: Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringResponse>
 }
 
 extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
@@ -487,6 +654,24 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
         userFunction: self.uploadMission(request:context:)
       )
 
+    case "UploadGeofence":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_UploadGeofenceResponse>(),
+        interceptors: self.interceptors?.makeUploadGeofenceInterceptors() ?? [],
+        userFunction: self.uploadGeofence(request:context:)
+      )
+
+    case "UploadRallyPoints":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_UploadRallyPointsResponse>(),
+        interceptors: self.interceptors?.makeUploadRallyPointsInterceptors() ?? [],
+        userFunction: self.uploadRallyPoints(request:context:)
+      )
+
     case "CancelMissionUpload":
       return UnaryServerHandler(
         context: context,
@@ -503,6 +688,24 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>(),
         interceptors: self.interceptors?.makeDownloadMissionInterceptors() ?? [],
         userFunction: self.downloadMission(request:context:)
+      )
+
+    case "DownloadGeofence":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_DownloadGeofenceResponse>(),
+        interceptors: self.interceptors?.makeDownloadGeofenceInterceptors() ?? [],
+        userFunction: self.downloadGeofence(request:context:)
+      )
+
+    case "DownloadRallypoints":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_DownloadRallypointsResponse>(),
+        interceptors: self.interceptors?.makeDownloadRallypointsInterceptors() ?? [],
+        userFunction: self.downloadRallypoints(request:context:)
       )
 
     case "CancelMissionDownload":
@@ -577,6 +780,15 @@ extension Mavsdk_Rpc_MissionRaw_MissionRawServiceProvider {
         userFunction: self.importQgroundcontrolMission(request:context:)
       )
 
+    case "ImportQgroundcontrolMissionFromString":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringResponse>(),
+        interceptors: self.interceptors?.makeImportQgroundcontrolMissionFromStringInterceptors() ?? [],
+        userFunction: self.importQgroundcontrolMissionFromString(request:context:)
+      )
+
     default:
       return nil
     }
@@ -589,6 +801,14 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceServerInterceptorFactor
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUploadMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_UploadMissionRequest, Mavsdk_Rpc_MissionRaw_UploadMissionResponse>]
 
+  /// - Returns: Interceptors to use when handling 'uploadGeofence'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUploadGeofenceInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest, Mavsdk_Rpc_MissionRaw_UploadGeofenceResponse>]
+
+  /// - Returns: Interceptors to use when handling 'uploadRallyPoints'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUploadRallyPointsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest, Mavsdk_Rpc_MissionRaw_UploadRallyPointsResponse>]
+
   /// - Returns: Interceptors to use when handling 'cancelMissionUpload'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeCancelMissionUploadInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_CancelMissionUploadRequest, Mavsdk_Rpc_MissionRaw_CancelMissionUploadResponse>]
@@ -596,6 +816,14 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceServerInterceptorFactor
   /// - Returns: Interceptors to use when handling 'downloadMission'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeDownloadMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_DownloadMissionRequest, Mavsdk_Rpc_MissionRaw_DownloadMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'downloadGeofence'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDownloadGeofenceInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest, Mavsdk_Rpc_MissionRaw_DownloadGeofenceResponse>]
+
+  /// - Returns: Interceptors to use when handling 'downloadRallypoints'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDownloadRallypointsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest, Mavsdk_Rpc_MissionRaw_DownloadRallypointsResponse>]
 
   /// - Returns: Interceptors to use when handling 'cancelMissionDownload'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -628,4 +856,8 @@ internal protocol Mavsdk_Rpc_MissionRaw_MissionRawServiceServerInterceptorFactor
   /// - Returns: Interceptors to use when handling 'importQgroundcontrolMission'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeImportQgroundcontrolMissionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionResponse>]
+
+  /// - Returns: Interceptors to use when handling 'importQgroundcontrolMissionFromString'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeImportQgroundcontrolMissionFromStringInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest, Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringResponse>]
 }

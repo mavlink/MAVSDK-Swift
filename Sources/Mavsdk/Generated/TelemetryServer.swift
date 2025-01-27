@@ -2834,4 +2834,39 @@ public class TelemetryServer {
             return Disposables.create()
         }
     }
+
+    /**
+     Publish to "distance sensor" updates.
+
+     - Parameter distanceSensor: The next 'Distance Sensor' status
+     
+     */
+    public func publishDistanceSensor(distanceSensor: DistanceSensor) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest()
+
+            
+                
+            request.distanceSensor = distanceSensor.rpcDistanceSensor
+                
+            
+
+            do {
+                
+                let response = self.service.publishDistanceSensor(request)
+
+                let result = try response.response.wait().telemetryServerResult
+                if (result.result == Mavsdk_Rpc_TelemetryServer_TelemetryServerResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryServerError(code: TelemetryServerResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
 }

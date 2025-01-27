@@ -52,6 +52,39 @@ public class Param {
     }
     
 
+    /**
+     Parameter version
+     */
+    public enum ProtocolVersion: Equatable {
+        ///  Original v1 version.
+        case v1
+        ///  Extended param version.
+        case ext
+        case UNRECOGNIZED(Int)
+
+        internal var rpcProtocolVersion: Mavsdk_Rpc_Param_ProtocolVersion {
+            switch self {
+            case .v1:
+                return .v1
+            case .ext:
+                return .ext
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcProtocolVersion: Mavsdk_Rpc_Param_ProtocolVersion) -> ProtocolVersion {
+            switch rpcProtocolVersion {
+            case .v1:
+                return .v1
+            case .ext:
+                return .ext
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     /**
      Type for integer parameters.
@@ -301,6 +334,8 @@ public class Param {
             case noSystem
             ///  Param value too long (> 128).
             case paramValueTooLong
+            ///  Operation failed..
+            case failed
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Param_ParamResult.Result {
@@ -321,6 +356,8 @@ public class Param {
                     return .noSystem
                 case .paramValueTooLong:
                     return .paramValueTooLong
+                case .failed:
+                    return .failed
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -344,6 +381,8 @@ public class Param {
                     return .noSystem
                 case .paramValueTooLong:
                     return .paramValueTooLong
+                case .failed:
+                    return .failed
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -669,6 +708,49 @@ public class Param {
                 single(.success(params))
             } catch {
                 single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Select component ID of parameter component to talk to and param protocol version.
+
+     Default is the autopilot component (1), and Version (0).
+
+     - Parameters:
+        - componentID: MAVLink component Id of component to select
+        - protocolVersion: Protocol version
+     
+     */
+    public func selectComponent(componentID: Int32, protocolVersion: ProtocolVersion) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Param_SelectComponentRequest()
+
+            
+                
+            request.componentID = componentID
+                
+            
+                
+            request.protocolVersion = protocolVersion.rpcProtocolVersion
+                
+            
+
+            do {
+                
+                let response = self.service.selectComponent(request)
+
+                let result = try response.response.wait().paramResult
+                if (result.result == Mavsdk_Rpc_Param_ParamResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ParamError(code: ParamResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
             }
 
             return Disposables.create()

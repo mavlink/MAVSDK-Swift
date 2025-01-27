@@ -66,6 +66,11 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceClientProtocol: GRPCClient {
     _ request: Mavsdk_Rpc_Param_GetAllParamsRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>
+
+  func selectComponent(
+    _ request: Mavsdk_Rpc_Param_SelectComponentRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Param_SelectComponentRequest, Mavsdk_Rpc_Param_SelectComponentResponse>
 }
 
 extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
@@ -217,6 +222,27 @@ extension Mavsdk_Rpc_Param_ParamServiceClientProtocol {
       interceptors: self.interceptors?.makeGetAllParamsInterceptors() ?? []
     )
   }
+
+  ///
+  /// Select component ID of parameter component to talk to and param protocol version.
+  ///
+  /// Default is the autopilot component (1), and Version (0).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SelectComponent.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func selectComponent(
+    _ request: Mavsdk_Rpc_Param_SelectComponentRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Param_SelectComponentRequest, Mavsdk_Rpc_Param_SelectComponentResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.param.ParamService/SelectComponent",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSelectComponentInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol {
@@ -241,6 +267,9 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceClientInterceptorFactoryProtocol 
 
   /// - Returns: Interceptors to use when invoking 'getAllParams'.
   func makeGetAllParamsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'selectComponent'.
+  func makeSelectComponentInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Param_SelectComponentRequest, Mavsdk_Rpc_Param_SelectComponentResponse>]
 }
 
 internal final class Mavsdk_Rpc_Param_ParamServiceClient: Mavsdk_Rpc_Param_ParamServiceClientProtocol {
@@ -310,6 +339,12 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceProvider: CallHandlerProvider {
   ///
   /// Get all parameters.
   func getAllParams(request: Mavsdk_Rpc_Param_GetAllParamsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_GetAllParamsResponse>
+
+  ///
+  /// Select component ID of parameter component to talk to and param protocol version.
+  ///
+  /// Default is the autopilot component (1), and Version (0).
+  func selectComponent(request: Mavsdk_Rpc_Param_SelectComponentRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Param_SelectComponentResponse>
 }
 
 extension Mavsdk_Rpc_Param_ParamServiceProvider {
@@ -385,6 +420,15 @@ extension Mavsdk_Rpc_Param_ParamServiceProvider {
         userFunction: self.getAllParams(request:context:)
       )
 
+    case "SelectComponent":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Param_SelectComponentRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Param_SelectComponentResponse>(),
+        interceptors: self.interceptors?.makeSelectComponentInterceptors() ?? [],
+        userFunction: self.selectComponent(request:context:)
+      )
+
     default:
       return nil
     }
@@ -420,4 +464,8 @@ internal protocol Mavsdk_Rpc_Param_ParamServiceServerInterceptorFactoryProtocol 
   /// - Returns: Interceptors to use when handling 'getAllParams'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeGetAllParamsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_GetAllParamsRequest, Mavsdk_Rpc_Param_GetAllParamsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'selectComponent'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSelectComponentInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Param_SelectComponentRequest, Mavsdk_Rpc_Param_SelectComponentResponse>]
 }

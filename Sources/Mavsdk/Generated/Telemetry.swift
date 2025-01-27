@@ -973,7 +973,10 @@ public class Telemetry {
      */
     public struct Battery: Equatable {
         public let id: UInt32
+        public let temperatureDegc: Float
         public let voltageV: Float
+        public let currentBatteryA: Float
+        public let capacityConsumedAh: Float
         public let remainingPercent: Float
 
         
@@ -986,15 +989,24 @@ public class Telemetry {
             
             - id:  Battery ID, for systems with multiple batteries
             
+            - temperatureDegc:  Temperature of the battery in degrees Celsius. NAN for unknown temperature
+            
             - voltageV:  Voltage in volts
             
-            - remainingPercent:  Estimated battery remaining (range: 0.0 to 1.0)
+            - currentBatteryA:  Battery current in Amps, NAN if autopilot does not measure the current
+            
+            - capacityConsumedAh:  Consumed charge in Amp hours, NAN if autopilot does not provide consumption estimate
+            
+            - remainingPercent:  Estimated battery remaining (range: 0 to 100)
             
          
          */
-        public init(id: UInt32, voltageV: Float, remainingPercent: Float) {
+        public init(id: UInt32, temperatureDegc: Float, voltageV: Float, currentBatteryA: Float, capacityConsumedAh: Float, remainingPercent: Float) {
             self.id = id
+            self.temperatureDegc = temperatureDegc
             self.voltageV = voltageV
+            self.currentBatteryA = currentBatteryA
+            self.capacityConsumedAh = capacityConsumedAh
             self.remainingPercent = remainingPercent
         }
 
@@ -1007,7 +1019,22 @@ public class Telemetry {
             
             
                 
+            rpcBattery.temperatureDegc = temperatureDegc
+                
+            
+            
+                
             rpcBattery.voltageV = voltageV
+                
+            
+            
+                
+            rpcBattery.currentBatteryA = currentBatteryA
+                
+            
+            
+                
+            rpcBattery.capacityConsumedAh = capacityConsumedAh
                 
             
             
@@ -1020,12 +1047,15 @@ public class Telemetry {
         }
 
         internal static func translateFromRpc(_ rpcBattery: Mavsdk_Rpc_Telemetry_Battery) -> Battery {
-            return Battery(id: rpcBattery.id, voltageV: rpcBattery.voltageV, remainingPercent: rpcBattery.remainingPercent)
+            return Battery(id: rpcBattery.id, temperatureDegc: rpcBattery.temperatureDegc, voltageV: rpcBattery.voltageV, currentBatteryA: rpcBattery.currentBatteryA, capacityConsumedAh: rpcBattery.capacityConsumedAh, remainingPercent: rpcBattery.remainingPercent)
         }
 
         public static func == (lhs: Battery, rhs: Battery) -> Bool {
             return lhs.id == rhs.id
+                && lhs.temperatureDegc == rhs.temperatureDegc
                 && lhs.voltageV == rhs.voltageV
+                && lhs.currentBatteryA == rhs.currentBatteryA
+                && lhs.capacityConsumedAh == rhs.capacityConsumedAh
                 && lhs.remainingPercent == rhs.remainingPercent
         }
     }
@@ -1693,6 +1723,7 @@ public class Telemetry {
         public let minimumDistanceM: Float
         public let maximumDistanceM: Float
         public let currentDistanceM: Float
+        public let orientation: EulerAngle
 
         
 
@@ -1708,12 +1739,15 @@ public class Telemetry {
             
             - currentDistanceM:  Current distance reading, NaN if unknown.
             
+            - orientation:  Sensor Orientation reading.
+            
          
          */
-        public init(minimumDistanceM: Float, maximumDistanceM: Float, currentDistanceM: Float) {
+        public init(minimumDistanceM: Float, maximumDistanceM: Float, currentDistanceM: Float, orientation: EulerAngle) {
             self.minimumDistanceM = minimumDistanceM
             self.maximumDistanceM = maximumDistanceM
             self.currentDistanceM = currentDistanceM
+            self.orientation = orientation
         }
 
         internal var rpcDistanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor {
@@ -1733,18 +1767,24 @@ public class Telemetry {
             rpcDistanceSensor.currentDistanceM = currentDistanceM
                 
             
+            
+                
+            rpcDistanceSensor.orientation = orientation.rpcEulerAngle
+                
+            
 
             return rpcDistanceSensor
         }
 
         internal static func translateFromRpc(_ rpcDistanceSensor: Mavsdk_Rpc_Telemetry_DistanceSensor) -> DistanceSensor {
-            return DistanceSensor(minimumDistanceM: rpcDistanceSensor.minimumDistanceM, maximumDistanceM: rpcDistanceSensor.maximumDistanceM, currentDistanceM: rpcDistanceSensor.currentDistanceM)
+            return DistanceSensor(minimumDistanceM: rpcDistanceSensor.minimumDistanceM, maximumDistanceM: rpcDistanceSensor.maximumDistanceM, currentDistanceM: rpcDistanceSensor.currentDistanceM, orientation: EulerAngle.translateFromRpc(rpcDistanceSensor.orientation))
         }
 
         public static func == (lhs: DistanceSensor, rhs: DistanceSensor) -> Bool {
             return lhs.minimumDistanceM == rhs.minimumDistanceM
                 && lhs.maximumDistanceM == rhs.maximumDistanceM
                 && lhs.currentDistanceM == rhs.currentDistanceM
+                && lhs.orientation == rhs.orientation
         }
     }
 
@@ -2461,6 +2501,98 @@ public class Telemetry {
     }
 
     /**
+     Altitude message type
+     */
+    public struct Altitude: Equatable {
+        public let altitudeMonotonicM: Float
+        public let altitudeAmslM: Float
+        public let altitudeLocalM: Float
+        public let altitudeRelativeM: Float
+        public let altitudeTerrainM: Float
+        public let bottomClearanceM: Float
+
+        
+
+        /**
+         Initializes a new `Altitude`.
+
+         
+         - Parameters:
+            
+            - altitudeMonotonicM:  Altitude in meters is initialized on system boot and monotonic
+            
+            - altitudeAmslM:   Altitude AMSL (above mean sea level) in meters
+            
+            - altitudeLocalM:  Local altitude in meters
+            
+            - altitudeRelativeM:  Altitude above home position in meters
+            
+            - altitudeTerrainM:  Altitude above terrain in meters
+            
+            - bottomClearanceM:  This is not the altitude, but the clear space below the system according to the fused clearance estimate in meters.
+            
+         
+         */
+        public init(altitudeMonotonicM: Float, altitudeAmslM: Float, altitudeLocalM: Float, altitudeRelativeM: Float, altitudeTerrainM: Float, bottomClearanceM: Float) {
+            self.altitudeMonotonicM = altitudeMonotonicM
+            self.altitudeAmslM = altitudeAmslM
+            self.altitudeLocalM = altitudeLocalM
+            self.altitudeRelativeM = altitudeRelativeM
+            self.altitudeTerrainM = altitudeTerrainM
+            self.bottomClearanceM = bottomClearanceM
+        }
+
+        internal var rpcAltitude: Mavsdk_Rpc_Telemetry_Altitude {
+            var rpcAltitude = Mavsdk_Rpc_Telemetry_Altitude()
+            
+                
+            rpcAltitude.altitudeMonotonicM = altitudeMonotonicM
+                
+            
+            
+                
+            rpcAltitude.altitudeAmslM = altitudeAmslM
+                
+            
+            
+                
+            rpcAltitude.altitudeLocalM = altitudeLocalM
+                
+            
+            
+                
+            rpcAltitude.altitudeRelativeM = altitudeRelativeM
+                
+            
+            
+                
+            rpcAltitude.altitudeTerrainM = altitudeTerrainM
+                
+            
+            
+                
+            rpcAltitude.bottomClearanceM = bottomClearanceM
+                
+            
+
+            return rpcAltitude
+        }
+
+        internal static func translateFromRpc(_ rpcAltitude: Mavsdk_Rpc_Telemetry_Altitude) -> Altitude {
+            return Altitude(altitudeMonotonicM: rpcAltitude.altitudeMonotonicM, altitudeAmslM: rpcAltitude.altitudeAmslM, altitudeLocalM: rpcAltitude.altitudeLocalM, altitudeRelativeM: rpcAltitude.altitudeRelativeM, altitudeTerrainM: rpcAltitude.altitudeTerrainM, bottomClearanceM: rpcAltitude.bottomClearanceM)
+        }
+
+        public static func == (lhs: Altitude, rhs: Altitude) -> Bool {
+            return lhs.altitudeMonotonicM == rhs.altitudeMonotonicM
+                && lhs.altitudeAmslM == rhs.altitudeAmslM
+                && lhs.altitudeLocalM == rhs.altitudeLocalM
+                && lhs.altitudeRelativeM == rhs.altitudeRelativeM
+                && lhs.altitudeTerrainM == rhs.altitudeTerrainM
+                && lhs.bottomClearanceM == rhs.bottomClearanceM
+        }
+    }
+
+    /**
      Result type.
      */
     public struct TelemetryResult: Equatable {
@@ -2913,82 +3045,6 @@ public class Telemetry {
 
                 
                 observer.onNext(attitudeAngularVelocityBody)
-                
-            })
-
-            return Disposables.create {
-                serverStreamingCall.cancel(promise: nil)
-            }
-        }
-        .retry { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'camera attitude' updates (quaternion).
-     */
-    public lazy var cameraAttitudeQuaternion: Observable<Quaternion> = createCameraAttitudeQuaternionObservable()
-
-
-
-    private func createCameraAttitudeQuaternionObservable() -> Observable<Quaternion> {
-        return Observable.create { [unowned self] observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest()
-
-            
-
-            let serverStreamingCall = self.service.subscribeCameraAttitudeQuaternion(request, handler: { (response) in
-
-                
-                     
-                let cameraAttitudeQuaternion = Quaternion.translateFromRpc(response.attitudeQuaternion)
-                
-
-                
-                observer.onNext(cameraAttitudeQuaternion)
-                
-            })
-
-            return Disposables.create {
-                serverStreamingCall.cancel(promise: nil)
-            }
-        }
-        .retry { error in
-            error.map {
-                guard $0 is RuntimeTelemetryError else { throw $0 }
-            }
-        }
-        .share(replay: 1)
-    }
-
-
-    /**
-     Subscribe to 'camera attitude' updates (Euler).
-     */
-    public lazy var cameraAttitudeEuler: Observable<EulerAngle> = createCameraAttitudeEulerObservable()
-
-
-
-    private func createCameraAttitudeEulerObservable() -> Observable<EulerAngle> {
-        return Observable.create { [unowned self] observer in
-            let request = Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest()
-
-            
-
-            let serverStreamingCall = self.service.subscribeCameraAttitudeEuler(request, handler: { (response) in
-
-                
-                     
-                let cameraAttitudeEuler = EulerAngle.translateFromRpc(response.attitudeEuler)
-                
-
-                
-                observer.onNext(cameraAttitudeEuler)
                 
             })
 
@@ -3842,6 +3898,44 @@ public class Telemetry {
         .share(replay: 1)
     }
 
+
+    /**
+     Subscribe to 'Altitude' updates.
+     */
+    public lazy var altitude: Observable<Altitude> = createAltitudeObservable()
+
+
+
+    private func createAltitudeObservable() -> Observable<Altitude> {
+        return Observable.create { [unowned self] observer in
+            let request = Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest()
+
+            
+
+            let serverStreamingCall = self.service.subscribeAltitude(request, handler: { (response) in
+
+                
+                     
+                let altitude = Altitude.translateFromRpc(response.altitude)
+                
+
+                
+                observer.onNext(altitude)
+                
+            })
+
+            return Disposables.create {
+                serverStreamingCall.cancel(promise: nil)
+            }
+        }
+        .retry { error in
+            error.map {
+                guard $0 is RuntimeTelemetryError else { throw $0 }
+            }
+        }
+        .share(replay: 1)
+    }
+
     /**
      Set rate to 'position' updates.
 
@@ -4018,14 +4112,14 @@ public class Telemetry {
     }
 
     /**
-     Set rate to 'attitude' updates.
+     Set rate to 'attitude euler angle' updates.
 
      - Parameter rateHz: The requested rate (in Hertz)
      
      */
-    public func setRateAttitude(rateHz: Double) -> Completable {
+    public func setRateAttitudeQuaternion(rateHz: Double) -> Completable {
         return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest()
+            var request = Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest()
 
             
                 
@@ -4035,7 +4129,42 @@ public class Telemetry {
 
             do {
                 
-                let response = self.service.setRateAttitude(request)
+                let response = self.service.setRateAttitudeQuaternion(request)
+
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set rate to 'attitude quaternion' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
+    public func setRateAttitudeEuler(rateHz: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest()
+
+            
+                
+            request.rateHz = rateHz
+                
+            
+
+            do {
+                
+                let response = self.service.setRateAttitudeEuler(request)
 
                 let result = try response.response.wait().telemetryResult
                 if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
@@ -4054,40 +4183,6 @@ public class Telemetry {
 
     /**
      Set rate of camera attitude updates.
-
-     - Parameter rateHz: The requested rate (in Hertz)
-     
-     */
-    public func setRateCameraAttitude(rateHz: Double) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest()
-
-            
-                
-            request.rateHz = rateHz
-                
-            
-
-            do {
-                
-                let response = self.service.setRateCameraAttitude(request)
-
-                let result = try response.response.wait().telemetryResult
-                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
      Set rate to 'ground speed' updates (NED).
 
      - Parameter rateHz: The requested rate (in Hertz)
@@ -4596,6 +4691,41 @@ public class Telemetry {
             do {
                 
                 let response = self.service.setRateDistanceSensor(request)
+
+                let result = try response.response.wait().telemetryResult
+                if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(TelemetryError(code: TelemetryResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Set rate to 'Altitude' updates.
+
+     - Parameter rateHz: The requested rate (in Hertz)
+     
+     */
+    public func setRateAltitude(rateHz: Double) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest()
+
+            
+                
+            request.rateHz = rateHz
+                
+            
+
+            do {
+                
+                let response = self.service.setRateAltitude(request)
 
                 let result = try response.response.wait().telemetryResult
                 if (result.result == Mavsdk_Rpc_Telemetry_TelemetryResult.Result.success) {

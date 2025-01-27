@@ -103,6 +103,11 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtoco
     _ request: Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest, Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse>
+
+  func publishDistanceSensor(
+    _ request: Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest, Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorResponse>
 }
 
 extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtocol {
@@ -361,6 +366,24 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtocol {
       interceptors: self.interceptors?.makePublishUnixEpochTimeInterceptors() ?? []
     )
   }
+
+  /// Publish to "distance sensor" updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to PublishDistanceSensor.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func publishDistanceSensor(
+    _ request: Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest, Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry_server.TelemetryServerService/PublishDistanceSensor",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makePublishDistanceSensorInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientInterceptorFactoryProtocol {
@@ -406,6 +429,9 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientInterce
 
   /// - Returns: Interceptors to use when invoking 'publishUnixEpochTime'.
   func makePublishUnixEpochTimeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest, Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'publishDistanceSensor'.
+  func makePublishDistanceSensorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest, Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorResponse>]
 }
 
 internal final class Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClient: Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceClientProtocol {
@@ -479,6 +505,9 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider: Cal
 
   /// Publish to 'unix epoch time' updates.
   func publishUnixEpochTime(request: Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse>
+
+  /// Publish to "distance sensor" updates.
+  func publishDistanceSensor(request: Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorResponse>
 }
 
 extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider {
@@ -617,6 +646,15 @@ extension Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceProvider {
         userFunction: self.publishUnixEpochTime(request:context:)
       )
 
+    case "PublishDistanceSensor":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorResponse>(),
+        interceptors: self.interceptors?.makePublishDistanceSensorInterceptors() ?? [],
+        userFunction: self.publishDistanceSensor(request:context:)
+      )
+
     default:
       return nil
     }
@@ -680,4 +718,8 @@ internal protocol Mavsdk_Rpc_TelemetryServer_TelemetryServerServiceServerInterce
   /// - Returns: Interceptors to use when handling 'publishUnixEpochTime'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makePublishUnixEpochTimeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeRequest, Mavsdk_Rpc_TelemetryServer_PublishUnixEpochTimeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'publishDistanceSensor'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makePublishDistanceSensorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorRequest, Mavsdk_Rpc_TelemetryServer_PublishDistanceSensorResponse>]
 }

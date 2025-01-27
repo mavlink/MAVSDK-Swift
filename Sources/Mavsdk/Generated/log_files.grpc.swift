@@ -44,11 +44,6 @@ internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol: GRPCClient 
     handler: @escaping (Mavsdk_Rpc_LogFiles_DownloadLogFileResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>
 
-  func downloadLogFile(
-    _ request: Mavsdk_Rpc_LogFiles_DownloadLogFileRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_LogFiles_DownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>
-
   func eraseAllLogFiles(
     _ request: Mavsdk_Rpc_LogFiles_EraseAllLogFilesRequest,
     callOptions: CallOptions?
@@ -99,24 +94,6 @@ extension Mavsdk_Rpc_LogFiles_LogFilesServiceClientProtocol {
     )
   }
 
-  /// Download log file synchronously.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to DownloadLogFile.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func downloadLogFile(
-    _ request: Mavsdk_Rpc_LogFiles_DownloadLogFileRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_LogFiles_DownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.log_files.LogFilesService/DownloadLogFile",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeDownloadLogFileInterceptors() ?? []
-    )
-  }
-
   /// Erase all log files.
   ///
   /// - Parameters:
@@ -143,9 +120,6 @@ internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceClientInterceptorFactoryPro
 
   /// - Returns: Interceptors to use when invoking 'subscribeDownloadLogFile'.
   func makeSubscribeDownloadLogFileInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'downloadLogFile'.
-  func makeDownloadLogFileInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_LogFiles_DownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>]
 
   /// - Returns: Interceptors to use when invoking 'eraseAllLogFiles'.
   func makeEraseAllLogFilesInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_LogFiles_EraseAllLogFilesRequest, Mavsdk_Rpc_LogFiles_EraseAllLogFilesResponse>]
@@ -186,9 +160,6 @@ internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceProvider: CallHandlerProvid
   /// Download log file.
   func subscribeDownloadLogFile(request: Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>) -> EventLoopFuture<GRPCStatus>
 
-  /// Download log file synchronously.
-  func downloadLogFile(request: Mavsdk_Rpc_LogFiles_DownloadLogFileRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>
-
   /// Erase all log files.
   func eraseAllLogFiles(request: Mavsdk_Rpc_LogFiles_EraseAllLogFilesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_LogFiles_EraseAllLogFilesResponse>
 }
@@ -221,15 +192,6 @@ extension Mavsdk_Rpc_LogFiles_LogFilesServiceProvider {
         userFunction: self.subscribeDownloadLogFile(request:context:)
       )
 
-    case "DownloadLogFile":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_LogFiles_DownloadLogFileRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>(),
-        interceptors: self.interceptors?.makeDownloadLogFileInterceptors() ?? [],
-        userFunction: self.downloadLogFile(request:context:)
-      )
-
     case "EraseAllLogFiles":
       return UnaryServerHandler(
         context: context,
@@ -254,10 +216,6 @@ internal protocol Mavsdk_Rpc_LogFiles_LogFilesServiceServerInterceptorFactoryPro
   /// - Returns: Interceptors to use when handling 'subscribeDownloadLogFile'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeDownloadLogFileInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>]
-
-  /// - Returns: Interceptors to use when handling 'downloadLogFile'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeDownloadLogFileInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_LogFiles_DownloadLogFileRequest, Mavsdk_Rpc_LogFiles_DownloadLogFileResponse>]
 
   /// - Returns: Interceptors to use when handling 'eraseAllLogFiles'.
   ///   Defaults to calling `self.makeInterceptors()`.

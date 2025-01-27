@@ -315,13 +315,14 @@ public class LogFiles {
     }
 
 
-
-
     /**
      Download log file.
      */
+    public lazy var downloadLogFile: Observable<ProgressData> = createDownloadLogFileObservable(entry: Entry, path: String)
 
-    public func downloadLogFile(entry: Entry, path: String) -> Observable<ProgressData> {
+
+
+    private func createDownloadLogFileObservable(entry: Entry, path: String) -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_LogFiles_SubscribeDownloadLogFileRequest()
 
@@ -366,52 +367,6 @@ public class LogFiles {
             }
         }
         .share(replay: 1)
-    }
-
-    /**
-     Download log file synchronously.
-
-     - Parameters:
-        - entry: Entry of the log file to download.
-        - path: Path of where to download log file to.
-     
-     */
-    public func downloadLogFile(entry: Entry, path: String) -> Single<ProgressData> {
-        return Single<ProgressData>.create { single in
-            var request = Mavsdk_Rpc_LogFiles_DownloadLogFileRequest()
-
-            
-                
-            request.entry = entry.rpcEntry
-                
-            
-                
-            request.path = path
-                
-            
-
-            do {
-                let response = self.service.downloadLogFile(request)
-
-                
-                let result = try response.response.wait().logFilesResult
-                if (result.result != Mavsdk_Rpc_LogFiles_LogFilesResult.Result.success) {
-                    single(.failure(LogFilesError(code: LogFilesResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-
-                    return Disposables.create()
-                }
-                
-
-    	    
-                    let progress = try ProgressData.translateFromRpc(response.response.wait().progress)
-                
-                single(.success(progress))
-            } catch {
-                single(.failure(error))
-            }
-
-            return Disposables.create()
-        }
     }
 
     /**

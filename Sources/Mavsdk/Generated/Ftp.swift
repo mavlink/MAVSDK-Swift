@@ -54,6 +54,58 @@ public class Ftp {
 
 
     /**
+     
+     */
+    public struct ListDirectoryData: Equatable {
+        public let dirs: [String]
+        public let files: [String]
+
+        
+
+        /**
+         Initializes a new `ListDirectoryData`.
+
+         
+         - Parameters:
+            
+            - dirs:  The found directories.
+            
+            - files:  The found files.
+            
+         
+         */
+        public init(dirs: [String], files: [String]) {
+            self.dirs = dirs
+            self.files = files
+        }
+
+        internal var rpcListDirectoryData: Mavsdk_Rpc_Ftp_ListDirectoryData {
+            var rpcListDirectoryData = Mavsdk_Rpc_Ftp_ListDirectoryData()
+            
+                
+            rpcListDirectoryData.dirs = dirs
+                
+            
+            
+                
+            rpcListDirectoryData.files = files
+                
+            
+
+            return rpcListDirectoryData
+        }
+
+        internal static func translateFromRpc(_ rpcListDirectoryData: Mavsdk_Rpc_Ftp_ListDirectoryData) -> ListDirectoryData {
+            return ListDirectoryData(dirs: rpcListDirectoryData.dirs, files: rpcListDirectoryData.files)
+        }
+
+        public static func == (lhs: ListDirectoryData, rhs: ListDirectoryData) -> Bool {
+            return lhs.dirs == rhs.dirs
+                && lhs.files == rhs.files
+        }
+    }
+
+    /**
      Progress data type for file transfer.
      */
     public struct ProgressData: Equatable {
@@ -259,44 +311,15 @@ public class Ftp {
     }
 
 
-    /**
-     Resets FTP server in case there are stale open sessions.
-
-     
-     */
-    public func reset() -> Completable {
-        return Completable.create { completable in
-            let request = Mavsdk_Rpc_Ftp_ResetRequest()
-
-            
-
-            do {
-                
-                let response = self.service.reset(request)
-
-                let result = try response.response.wait().ftpResult
-                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-
-
 
     /**
      Downloads a file to local directory.
      */
+    public lazy var download: Observable<ProgressData> = createDownloadObservable(remoteFilePath: String, localDir: String, useBurst: Bool)
 
-    public func download(remoteFilePath: String, localDir: String) -> Observable<ProgressData> {
+
+
+    private func createDownloadObservable(remoteFilePath: String, localDir: String, useBurst: Bool) -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeDownloadRequest()
 
@@ -307,6 +330,10 @@ public class Ftp {
             
                 
             request.localDir = localDir
+                
+            
+                
+            request.useBurst = useBurst
                 
             
 
@@ -344,13 +371,14 @@ public class Ftp {
     }
 
 
-
-
     /**
      Uploads local file to remote directory.
      */
+    public lazy var upload: Observable<ProgressData> = createUploadObservable(localFilePath: String, remoteDir: String)
 
-    public func upload(localFilePath: String, remoteDir: String) -> Observable<ProgressData> {
+
+
+    private func createUploadObservable(localFilePath: String, remoteDir: String) -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             var request = Mavsdk_Rpc_Ftp_SubscribeUploadRequest()
 
@@ -403,8 +431,8 @@ public class Ftp {
      - Parameter remoteDir: The remote directory to list the contents for.
      
      */
-    public func listDirectory(remoteDir: String) -> Single<[String]> {
-        return Single<[String]>.create { single in
+    public func listDirectory(remoteDir: String) -> Single<ListDirectoryData> {
+        return Single<ListDirectoryData>.create { single in
             var request = Mavsdk_Rpc_Ftp_ListDirectoryRequest()
 
             
@@ -425,9 +453,10 @@ public class Ftp {
                 }
                 
 
-    	    let paths = try response.response.wait().paths
+    	    
+                    let data = try ListDirectoryData.translateFromRpc(response.response.wait().data)
                 
-                single(.success(paths))
+                single(.success(data))
             } catch {
                 single(.failure(error))
             }
@@ -628,41 +657,6 @@ public class Ftp {
     }
 
     /**
-     Set root directory for MAVLink FTP server.
-
-     - Parameter rootDir: The root directory to set.
-     
-     */
-    public func setRootDirectory(rootDir: String) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Ftp_SetRootDirectoryRequest()
-
-            
-                
-            request.rootDir = rootDir
-                
-            
-
-            do {
-                
-                let response = self.service.setRootDirectory(request)
-
-                let result = try response.response.wait().ftpResult
-                if (result.result == Mavsdk_Rpc_Ftp_FtpResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(FtpError(code: FtpResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
      Set target component ID. By default it is the autopilot.
 
      - Parameter compid: The component ID to set.
@@ -691,33 +685,6 @@ public class Ftp {
                 
             } catch {
                 completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Get our own component ID.
-
-     
-     */
-    public func getOurCompid() -> Single<UInt32> {
-        return Single<UInt32>.create { single in
-            let request = Mavsdk_Rpc_Ftp_GetOurCompidRequest()
-
-            
-
-            do {
-                let response = self.service.getOurCompid(request)
-
-                
-
-    	    let compid = try response.response.wait().compid
-                
-                single(.success(compid))
-            } catch {
-                single(.failure(error))
             }
 
             return Disposables.create()

@@ -37,6 +37,11 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>
 
+  func armForce(
+    _ request: Mavsdk_Rpc_Action_ArmForceRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ArmForceRequest, Mavsdk_Rpc_Action_ArmForceResponse>
+
   func disarm(
     _ request: Mavsdk_Rpc_Action_DisarmRequest,
     callOptions: CallOptions?
@@ -117,16 +122,6 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>
 
-  func getMaximumSpeed(
-    _ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>
-
-  func setMaximumSpeed(
-    _ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>
-
   func getReturnToLaunchAltitude(
     _ request: Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest,
     callOptions: CallOptions?
@@ -167,6 +162,30 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeArmInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Send command to force-arm the drone without any checks.
+  ///
+  /// Attention: this is not to be used for normal flying but only bench tests!
+  ///
+  /// Arming a drone normally causes motors to spin at idle.
+  /// Before arming take all safety precautions and stand clear of the drone!
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ArmForce.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func armForce(
+    _ request: Mavsdk_Rpc_Action_ArmForceRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Action_ArmForceRequest, Mavsdk_Rpc_Action_ArmForceResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.action.ActionService/ArmForce",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeArmForceInterceptors() ?? []
     )
   }
 
@@ -420,6 +439,8 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   ///
   /// Send command to set the value of an actuator.
   ///
+  /// Note that the index of the actuator starts at 1 and that the value goes from -1 to 1.
+  ///
   /// - Parameters:
   ///   - request: Request to send to SetActuator.
   ///   - callOptions: Call options.
@@ -521,44 +542,6 @@ extension Mavsdk_Rpc_Action_ActionServiceClientProtocol {
   }
 
   ///
-  /// Get the vehicle maximum speed (in metres/second).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetMaximumSpeed.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getMaximumSpeed(
-    _ request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.action.ActionService/GetMaximumSpeed",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetMaximumSpeedInterceptors() ?? []
-    )
-  }
-
-  ///
-  /// Set vehicle maximum speed (in metres/second).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetMaximumSpeed.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setMaximumSpeed(
-    _ request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.action.ActionService/SetMaximumSpeed",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSetMaximumSpeedInterceptors() ?? []
-    )
-  }
-
-  ///
   /// Get the return to launch minimum return altitude (in meters).
   ///
   /// - Parameters:
@@ -624,6 +607,9 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when invoking 'arm'.
   func makeArmInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'armForce'.
+  func makeArmForceInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_ArmForceRequest, Mavsdk_Rpc_Action_ArmForceResponse>]
+
   /// - Returns: Interceptors to use when invoking 'disarm'.
   func makeDisarmInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_DisarmRequest, Mavsdk_Rpc_Action_DisarmResponse>]
 
@@ -672,12 +658,6 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceClientInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when invoking 'setTakeoffAltitude'.
   func makeSetTakeoffAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getMaximumSpeed'.
-  func makeGetMaximumSpeedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'setMaximumSpeed'.
-  func makeSetMaximumSpeedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>]
-
   /// - Returns: Interceptors to use when invoking 'getReturnToLaunchAltitude'.
   func makeGetReturnToLaunchAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeRequest, Mavsdk_Rpc_Action_GetReturnToLaunchAltitudeResponse>]
 
@@ -722,6 +702,15 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   /// Arming a drone normally causes motors to spin at idle.
   /// Before arming take all safety precautions and stand clear of the drone!
   func arm(request: Mavsdk_Rpc_Action_ArmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_ArmResponse>
+
+  ///
+  /// Send command to force-arm the drone without any checks.
+  ///
+  /// Attention: this is not to be used for normal flying but only bench tests!
+  ///
+  /// Arming a drone normally causes motors to spin at idle.
+  /// Before arming take all safety precautions and stand clear of the drone!
+  func armForce(request: Mavsdk_Rpc_Action_ArmForceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_ArmForceResponse>
 
   ///
   /// Send command to disarm the drone.
@@ -807,6 +796,8 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
 
   ///
   /// Send command to set the value of an actuator.
+  ///
+  /// Note that the index of the actuator starts at 1 and that the value goes from -1 to 1.
   func setActuator(request: Mavsdk_Rpc_Action_SetActuatorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetActuatorResponse>
 
   ///
@@ -832,14 +823,6 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceProvider: CallHandlerProvider {
   ///
   /// Set takeoff altitude (in meters above ground).
   func setTakeoffAltitude(request: Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>
-
-  ///
-  /// Get the vehicle maximum speed (in metres/second).
-  func getMaximumSpeed(request: Mavsdk_Rpc_Action_GetMaximumSpeedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_GetMaximumSpeedResponse>
-
-  ///
-  /// Set vehicle maximum speed (in metres/second).
-  func setMaximumSpeed(request: Mavsdk_Rpc_Action_SetMaximumSpeedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Action_SetMaximumSpeedResponse>
 
   ///
   /// Get the return to launch minimum return altitude (in meters).
@@ -874,6 +857,15 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_ArmResponse>(),
         interceptors: self.interceptors?.makeArmInterceptors() ?? [],
         userFunction: self.arm(request:context:)
+      )
+
+    case "ArmForce":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_ArmForceRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_ArmForceResponse>(),
+        interceptors: self.interceptors?.makeArmForceInterceptors() ?? [],
+        userFunction: self.armForce(request:context:)
       )
 
     case "Disarm":
@@ -1020,24 +1012,6 @@ extension Mavsdk_Rpc_Action_ActionServiceProvider {
         userFunction: self.setTakeoffAltitude(request:context:)
       )
 
-    case "GetMaximumSpeed":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_GetMaximumSpeedRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_GetMaximumSpeedResponse>(),
-        interceptors: self.interceptors?.makeGetMaximumSpeedInterceptors() ?? [],
-        userFunction: self.getMaximumSpeed(request:context:)
-      )
-
-    case "SetMaximumSpeed":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Action_SetMaximumSpeedRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Action_SetMaximumSpeedResponse>(),
-        interceptors: self.interceptors?.makeSetMaximumSpeedInterceptors() ?? [],
-        userFunction: self.setMaximumSpeed(request:context:)
-      )
-
     case "GetReturnToLaunchAltitude":
       return UnaryServerHandler(
         context: context,
@@ -1076,6 +1050,10 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when handling 'arm'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeArmInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_ArmRequest, Mavsdk_Rpc_Action_ArmResponse>]
+
+  /// - Returns: Interceptors to use when handling 'armForce'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeArmForceInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_ArmForceRequest, Mavsdk_Rpc_Action_ArmForceResponse>]
 
   /// - Returns: Interceptors to use when handling 'disarm'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -1140,14 +1118,6 @@ internal protocol Mavsdk_Rpc_Action_ActionServiceServerInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when handling 'setTakeoffAltitude'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetTakeoffAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetTakeoffAltitudeRequest, Mavsdk_Rpc_Action_SetTakeoffAltitudeResponse>]
-
-  /// - Returns: Interceptors to use when handling 'getMaximumSpeed'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetMaximumSpeedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_GetMaximumSpeedRequest, Mavsdk_Rpc_Action_GetMaximumSpeedResponse>]
-
-  /// - Returns: Interceptors to use when handling 'setMaximumSpeed'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSetMaximumSpeedInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Action_SetMaximumSpeedRequest, Mavsdk_Rpc_Action_SetMaximumSpeedResponse>]
 
   /// - Returns: Interceptors to use when handling 'getReturnToLaunchAltitude'.
   ///   Defaults to calling `self.makeInterceptors()`.

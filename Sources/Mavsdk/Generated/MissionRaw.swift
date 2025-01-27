@@ -369,6 +369,18 @@ public class MissionRaw {
             case failedToParseQgcPlan
             ///  No system connected.
             case noSystem
+            ///  Request denied.
+            case denied
+            ///  Mission type is not consistent.
+            case missionTypeNotConsistent
+            ///  The mission item sequences are not increasing correctly.
+            case invalidSequence
+            ///  The current item is not set correctly.
+            case currentInvalid
+            ///  There was a protocol error.
+            case protocolError
+            ///  The system does not support the MISSION_INT protocol.
+            case intMessagesNotSupported
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_MissionRaw_MissionRawResult.Result {
@@ -399,6 +411,18 @@ public class MissionRaw {
                     return .failedToParseQgcPlan
                 case .noSystem:
                     return .noSystem
+                case .denied:
+                    return .denied
+                case .missionTypeNotConsistent:
+                    return .missionTypeNotConsistent
+                case .invalidSequence:
+                    return .invalidSequence
+                case .currentInvalid:
+                    return .currentInvalid
+                case .protocolError:
+                    return .protocolError
+                case .intMessagesNotSupported:
+                    return .intMessagesNotSupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -432,6 +456,18 @@ public class MissionRaw {
                     return .failedToParseQgcPlan
                 case .noSystem:
                     return .noSystem
+                case .denied:
+                    return .denied
+                case .missionTypeNotConsistent:
+                    return .missionTypeNotConsistent
+                case .invalidSequence:
+                    return .invalidSequence
+                case .currentInvalid:
+                    return .currentInvalid
+                case .protocolError:
+                    return .protocolError
+                case .intMessagesNotSupported:
+                    return .intMessagesNotSupported
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -522,6 +558,76 @@ public class MissionRaw {
     }
 
     /**
+     Upload a list of geofence items to the system.
+
+     - Parameter missionItems: The mission items
+     
+     */
+    public func uploadGeofence(missionItems: [MissionItem]) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_MissionRaw_UploadGeofenceRequest()
+
+            
+                
+            missionItems.forEach({ elem in request.missionItems.append(elem.rpcMissionItem) })
+                
+            
+
+            do {
+                
+                let response = self.service.uploadGeofence(request)
+
+                let result = try response.response.wait().missionRawResult
+                if (result.result == Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Upload a list of rally point items to the system.
+
+     - Parameter missionItems: The mission items
+     
+     */
+    public func uploadRallyPoints(missionItems: [MissionItem]) -> Completable {
+        return Completable.create { completable in
+            var request = Mavsdk_Rpc_MissionRaw_UploadRallyPointsRequest()
+
+            
+                
+            missionItems.forEach({ elem in request.missionItems.append(elem.rpcMissionItem) })
+                
+            
+
+            do {
+                
+                let response = self.service.uploadRallyPoints(request)
+
+                let result = try response.response.wait().missionRawResult
+                if (result.result == Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
      Cancel an ongoing mission upload.
 
      
@@ -578,6 +684,76 @@ public class MissionRaw {
                     let missionItems = try response.response.wait().missionItems.map{ MissionItem.translateFromRpc($0) }
                 
                 single(.success(missionItems))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Download a list of raw geofence items from the system (asynchronous).
+
+     
+     */
+    public func downloadGeofence() -> Single<[MissionItem]> {
+        return Single<[MissionItem]>.create { single in
+            let request = Mavsdk_Rpc_MissionRaw_DownloadGeofenceRequest()
+
+            
+
+            do {
+                let response = self.service.downloadGeofence(request)
+
+                
+                let result = try response.response.wait().missionRawResult
+                if (result.result != Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
+                    single(.failure(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    
+                    let geofenceItems = try response.response.wait().geofenceItems.map{ MissionItem.translateFromRpc($0) }
+                
+                single(.success(geofenceItems))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Download a list of raw rallypoint items from the system (asynchronous).
+
+     
+     */
+    public func downloadRallypoints() -> Single<[MissionItem]> {
+        return Single<[MissionItem]>.create { single in
+            let request = Mavsdk_Rpc_MissionRaw_DownloadRallypointsRequest()
+
+            
+
+            do {
+                let response = self.service.downloadRallypoints(request)
+
+                
+                let result = try response.response.wait().missionRawResult
+                if (result.result != Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
+                    single(.failure(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    
+                    let rallypointItems = try response.response.wait().rallypointItems.map{ MissionItem.translateFromRpc($0) }
+                
+                single(.success(rallypointItems))
             } catch {
                 single(.failure(error))
             }
@@ -835,7 +1011,7 @@ public class MissionRaw {
     }
 
     /**
-     Import a QGroundControl missions in JSON .plan format.
+     Import a QGroundControl missions in JSON .plan format, from a file.
 
      Supported:
      - Waypoints
@@ -858,6 +1034,52 @@ public class MissionRaw {
 
             do {
                 let response = self.service.importQgroundcontrolMission(request)
+
+                
+                let result = try response.response.wait().missionRawResult
+                if (result.result != Mavsdk_Rpc_MissionRaw_MissionRawResult.Result.success) {
+                    single(.failure(MissionRawError(code: MissionRawResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+
+                    return Disposables.create()
+                }
+                
+
+    	    
+                    let missionImportData = try MissionImportData.translateFromRpc(response.response.wait().missionImportData)
+                
+                single(.success(missionImportData))
+            } catch {
+                single(.failure(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Import a QGroundControl missions in JSON .plan format, from a string.
+
+     Supported:
+     - Waypoints
+     - Survey
+     Not supported:
+     - Structure Scan
+
+     - Parameter qgcPlan: QGC plan as string
+     
+     */
+    public func importQgroundcontrolMissionFromString(qgcPlan: String) -> Single<MissionImportData> {
+        return Single<MissionImportData>.create { single in
+            var request = Mavsdk_Rpc_MissionRaw_ImportQgroundcontrolMissionFromStringRequest()
+
+            
+                
+            request.qgcPlan = qgcPlan
+                
+            
+
+            do {
+                let response = self.service.importQgroundcontrolMissionFromString(request)
 
                 
                 let result = try response.response.wait().missionRawResult

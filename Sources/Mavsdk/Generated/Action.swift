@@ -144,6 +144,10 @@ public class Action {
             case parameterError
             ///  Action not supported.
             case unsupported
+            ///  Action failed.
+            case failed
+            ///  Invalid argument.
+            case invalidArgument
             case UNRECOGNIZED(Int)
 
             internal var rpcResult: Mavsdk_Rpc_Action_ActionResult.Result {
@@ -174,6 +178,10 @@ public class Action {
                     return .parameterError
                 case .unsupported:
                     return .unsupported
+                case .failed:
+                    return .failed
+                case .invalidArgument:
+                    return .invalidArgument
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -207,6 +215,10 @@ public class Action {
                     return .parameterError
                 case .unsupported:
                     return .unsupported
+                case .failed:
+                    return .failed
+                case .invalidArgument:
+                    return .invalidArgument
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -275,6 +287,41 @@ public class Action {
             do {
                 
                 let response = self.service.arm(request)
+
+                let result = try response.response.wait().actionResult
+                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
+                    completable(.completed)
+                } else {
+                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
+                }
+                
+            } catch {
+                completable(.error(error))
+            }
+
+            return Disposables.create()
+        }
+    }
+
+    /**
+     Send command to force-arm the drone without any checks.
+
+     Attention: this is not to be used for normal flying but only bench tests!
+
+     Arming a drone normally causes motors to spin at idle.
+     Before arming take all safety precautions and stand clear of the drone!
+
+     
+     */
+    public func armForce() -> Completable {
+        return Completable.create { completable in
+            let request = Mavsdk_Rpc_Action_ArmForceRequest()
+
+            
+
+            do {
+                
+                let response = self.service.armForce(request)
 
                 let result = try response.response.wait().actionResult
                 if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
@@ -714,6 +761,8 @@ public class Action {
     /**
      Send command to set the value of an actuator.
 
+     Note that the index of the actuator starts at 1 and that the value goes from -1 to 1.
+
      - Parameters:
         - index: Index of actuator (starting with 1)
         - value: Value to set the actuator to (normalized from [-1..1])
@@ -873,75 +922,6 @@ public class Action {
             do {
                 
                 let response = self.service.setTakeoffAltitude(request)
-
-                let result = try response.response.wait().actionResult
-                if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    completable(.completed)
-                } else {
-                    completable(.error(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-                }
-                
-            } catch {
-                completable(.error(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Get the vehicle maximum speed (in metres/second).
-
-     
-     */
-    public func getMaximumSpeed() -> Single<Float> {
-        return Single<Float>.create { single in
-            let request = Mavsdk_Rpc_Action_GetMaximumSpeedRequest()
-
-            
-
-            do {
-                let response = self.service.getMaximumSpeed(request)
-
-                
-                let result = try response.response.wait().actionResult
-                if (result.result != Mavsdk_Rpc_Action_ActionResult.Result.success) {
-                    single(.failure(ActionError(code: ActionResult.Result.translateFromRpc(result.result), description: result.resultStr)))
-
-                    return Disposables.create()
-                }
-                
-
-    	    let speed = try response.response.wait().speed
-                
-                single(.success(speed))
-            } catch {
-                single(.failure(error))
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    /**
-     Set vehicle maximum speed (in metres/second).
-
-     - Parameter speed: Maximum speed (in metres/second)
-     
-     */
-    public func setMaximumSpeed(speed: Float) -> Completable {
-        return Completable.create { completable in
-            var request = Mavsdk_Rpc_Action_SetMaximumSpeedRequest()
-
-            
-                
-            request.speed = speed
-                
-            
-
-            do {
-                
-                let response = self.service.setMaximumSpeed(request)
 
                 let result = try response.response.wait().actionResult
                 if (result.result == Mavsdk_Rpc_Action_ActionResult.Result.success) {

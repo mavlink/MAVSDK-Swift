@@ -58,59 +58,49 @@ public class FollowMe {
      Configuration type.
      */
     public struct Config: Equatable {
-        public let minHeightM: Float
+        public let followHeightM: Float
         public let followDistanceM: Float
-        public let followDirection: FollowDirection
         public let responsiveness: Float
+        public let altitudeMode: FollowAltitudeMode
+        public let maxTangentialVelMS: Float
+        public let followAngleDeg: Float
 
         
         
 
         /**
-         Direction relative to the target that the vehicle should follow
+         Altitude mode to configure which altitude the follow me will assume the target to be at.
          */
-        public enum FollowDirection: Equatable {
-            ///  Do not follow.
-            case none
-            ///  Follow from behind.
-            case behind
-            ///  Follow from front.
-            case front
-            ///  Follow from front right.
-            case frontRight
-            ///  Follow from front left.
-            case frontLeft
+        public enum FollowAltitudeMode: Equatable {
+            ///  Target assumed to be mobing at a constant altitude of home position (where the vehicle armed).
+            case constant
+            ///  Target assumed to be at the terrain level sensed by the distance sensor.
+            case terrain
+            ///  Target GPS altitude taken into account to do 3D tracking.
+            case targetGps
             case UNRECOGNIZED(Int)
 
-            internal var rpcFollowDirection: Mavsdk_Rpc_FollowMe_Config.FollowDirection {
+            internal var rpcFollowAltitudeMode: Mavsdk_Rpc_FollowMe_Config.FollowAltitudeMode {
                 switch self {
-                case .none:
-                    return .none
-                case .behind:
-                    return .behind
-                case .front:
-                    return .front
-                case .frontRight:
-                    return .frontRight
-                case .frontLeft:
-                    return .frontLeft
+                case .constant:
+                    return .constant
+                case .terrain:
+                    return .terrain
+                case .targetGps:
+                    return .targetGps
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
             }
 
-            internal static func translateFromRpc(_ rpcFollowDirection: Mavsdk_Rpc_FollowMe_Config.FollowDirection) -> FollowDirection {
-                switch rpcFollowDirection {
-                case .none:
-                    return .none
-                case .behind:
-                    return .behind
-                case .front:
-                    return .front
-                case .frontRight:
-                    return .frontRight
-                case .frontLeft:
-                    return .frontLeft
+            internal static func translateFromRpc(_ rpcFollowAltitudeMode: Mavsdk_Rpc_FollowMe_Config.FollowAltitudeMode) -> FollowAltitudeMode {
+                switch rpcFollowAltitudeMode {
+                case .constant:
+                    return .constant
+                case .terrain:
+                    return .terrain
+                case .targetGps:
+                    return .targetGps
                 case .UNRECOGNIZED(let i):
                     return .UNRECOGNIZED(i)
                 }
@@ -124,28 +114,34 @@ public class FollowMe {
          
          - Parameters:
             
-            - minHeightM:  Minimum height for the vehicle in meters (recommended minimum 8 meters)
+            - followHeightM:  [m] Follow height in meters (recommended minimum 8 meters)
             
-            - followDistanceM:  Distance from target for vehicle to follow in meters (recommended minimum 1 meter)
+            - followDistanceM:  [m] Follow distance to target in meters (recommended minimum 4 meter)
             
-            - followDirection:  Direction to follow in
+            - responsiveness:  How responsive the vehicle is to the motion of the target, Lower value = More responsive (range 0.0 to 1.0)
             
-            - responsiveness:  How responsive the vehicle is to the motion of the target (range 0.0 to 1.0)
+            - altitudeMode:  Follow Altitude control mode
+            
+            - maxTangentialVelMS:  [m/s] Maximum orbit tangential velocity relative to the target, in meters per second. Higher value = More aggressive follow angle tracking.
+            
+            - followAngleDeg:  [deg] Follow Angle relative to the target. 0 equals following in front of the target's direction. Angle increases in Clockwise direction, so following from right would be 90 degrees, from the left is -90 degrees, and so on.
             
          
          */
-        public init(minHeightM: Float, followDistanceM: Float, followDirection: FollowDirection, responsiveness: Float) {
-            self.minHeightM = minHeightM
+        public init(followHeightM: Float, followDistanceM: Float, responsiveness: Float, altitudeMode: FollowAltitudeMode, maxTangentialVelMS: Float, followAngleDeg: Float) {
+            self.followHeightM = followHeightM
             self.followDistanceM = followDistanceM
-            self.followDirection = followDirection
             self.responsiveness = responsiveness
+            self.altitudeMode = altitudeMode
+            self.maxTangentialVelMS = maxTangentialVelMS
+            self.followAngleDeg = followAngleDeg
         }
 
         internal var rpcConfig: Mavsdk_Rpc_FollowMe_Config {
             var rpcConfig = Mavsdk_Rpc_FollowMe_Config()
             
                 
-            rpcConfig.minHeightM = minHeightM
+            rpcConfig.followHeightM = followHeightM
                 
             
             
@@ -155,12 +151,22 @@ public class FollowMe {
             
             
                 
-            rpcConfig.followDirection = followDirection.rpcFollowDirection
-                
-            
-            
-                
             rpcConfig.responsiveness = responsiveness
+                
+            
+            
+                
+            rpcConfig.altitudeMode = altitudeMode.rpcFollowAltitudeMode
+                
+            
+            
+                
+            rpcConfig.maxTangentialVelMS = maxTangentialVelMS
+                
+            
+            
+                
+            rpcConfig.followAngleDeg = followAngleDeg
                 
             
 
@@ -168,14 +174,16 @@ public class FollowMe {
         }
 
         internal static func translateFromRpc(_ rpcConfig: Mavsdk_Rpc_FollowMe_Config) -> Config {
-            return Config(minHeightM: rpcConfig.minHeightM, followDistanceM: rpcConfig.followDistanceM, followDirection: FollowDirection.translateFromRpc(rpcConfig.followDirection), responsiveness: rpcConfig.responsiveness)
+            return Config(followHeightM: rpcConfig.followHeightM, followDistanceM: rpcConfig.followDistanceM, responsiveness: rpcConfig.responsiveness, altitudeMode: FollowAltitudeMode.translateFromRpc(rpcConfig.altitudeMode), maxTangentialVelMS: rpcConfig.maxTangentialVelMS, followAngleDeg: rpcConfig.followAngleDeg)
         }
 
         public static func == (lhs: Config, rhs: Config) -> Bool {
-            return lhs.minHeightM == rhs.minHeightM
+            return lhs.followHeightM == rhs.followHeightM
                 && lhs.followDistanceM == rhs.followDistanceM
-                && lhs.followDirection == rhs.followDirection
                 && lhs.responsiveness == rhs.responsiveness
+                && lhs.altitudeMode == rhs.altitudeMode
+                && lhs.maxTangentialVelMS == rhs.maxTangentialVelMS
+                && lhs.followAngleDeg == rhs.followAngleDeg
         }
     }
 

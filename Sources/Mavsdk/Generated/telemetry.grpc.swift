@@ -88,18 +88,6 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>
 
-  func subscribeCameraAttitudeQuaternion(
-    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest,
-    callOptions: CallOptions?,
-    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>
-
-  func subscribeCameraAttitudeEuler(
-    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest,
-    callOptions: CallOptions?,
-    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>
-
   func subscribeVelocityNed(
     _ request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest,
     callOptions: CallOptions?,
@@ -232,6 +220,12 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     handler: @escaping (Mavsdk_Rpc_Telemetry_HeadingResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse>
 
+  func subscribeAltitude(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AltitudeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest, Mavsdk_Rpc_Telemetry_AltitudeResponse>
+
   func setRatePosition(
     _ request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest,
     callOptions: CallOptions?
@@ -257,15 +251,15 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>
 
-  func setRateAttitude(
-    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest,
+  func setRateAttitudeQuaternion(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionResponse>
 
-  func setRateCameraAttitude(
-    _ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest,
+  func setRateAttitudeEuler(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerResponse>
 
   func setRateVelocityNed(
     _ request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest,
@@ -341,6 +335,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol: GRPCClien
     _ request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>
+
+  func setRateAltitude(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAltitudeResponse>
 
   func getGpsGlobalOrigin(
     _ request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest,
@@ -538,48 +537,6 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSubscribeAttitudeAngularVelocityBodyInterceptors() ?? [],
-      handler: handler
-    )
-  }
-
-  /// Subscribe to 'camera attitude' updates (quaternion).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCameraAttitudeQuaternion.
-  ///   - callOptions: Call options.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCameraAttitudeQuaternion(
-    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest,
-    callOptions: CallOptions? = nil,
-    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse> {
-    return self.makeServerStreamingCall(
-      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeQuaternion",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSubscribeCameraAttitudeQuaternionInterceptors() ?? [],
-      handler: handler
-    )
-  }
-
-  /// Subscribe to 'camera attitude' updates (Euler).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SubscribeCameraAttitudeEuler.
-  ///   - callOptions: Call options.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeCameraAttitudeEuler(
-    _ request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest,
-    callOptions: CallOptions? = nil,
-    handler: @escaping (Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse> {
-    return self.makeServerStreamingCall(
-      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeCameraAttitudeEuler",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSubscribeCameraAttitudeEulerInterceptors() ?? [],
       handler: handler
     )
   }
@@ -1046,6 +1003,27 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
+  /// Subscribe to 'Altitude' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeAltitude.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeAltitude(
+    _ request: Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Telemetry_AltitudeResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest, Mavsdk_Rpc_Telemetry_AltitudeResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SubscribeAltitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeAltitudeInterceptors() ?? [],
+      handler: handler
+    )
+  }
+
   /// Set rate to 'position' updates.
   ///
   /// - Parameters:
@@ -1136,42 +1114,43 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
-  /// Set rate to 'attitude' updates.
+  /// Set rate to 'attitude euler angle' updates.
   ///
   /// - Parameters:
-  ///   - request: Request to send to SetRateAttitude.
+  ///   - request: Request to send to SetRateAttitudeQuaternion.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateAttitude(
-    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest,
+  internal func setRateAttitudeQuaternion(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse> {
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionResponse> {
     return self.makeUnaryCall(
-      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitude",
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitudeQuaternion",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSetRateAttitudeInterceptors() ?? []
+      interceptors: self.interceptors?.makeSetRateAttitudeQuaternionInterceptors() ?? []
+    )
+  }
+
+  /// Set rate to 'attitude quaternion' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateAttitudeEuler.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateAttitudeEuler(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAttitudeEuler",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateAttitudeEulerInterceptors() ?? []
     )
   }
 
   /// Set rate of camera attitude updates.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRateCameraAttitude.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRateCameraAttitude(
-    _ request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateCameraAttitude",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSetRateCameraAttitudeInterceptors() ?? []
-    )
-  }
-
   /// Set rate to 'ground speed' updates (NED).
   ///
   /// - Parameters:
@@ -1442,6 +1421,24 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceClientProtocol {
     )
   }
 
+  /// Set rate to 'Altitude' updates.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SetRateAltitude.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func setRateAltitude(
+    _ request: Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAltitudeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.telemetry.TelemetryService/SetRateAltitude",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSetRateAltitudeInterceptors() ?? []
+    )
+  }
+
   /// Get the GPS location of where the estimator has been initialized.
   ///
   /// - Parameters:
@@ -1489,12 +1486,6 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
 
   /// - Returns: Interceptors to use when invoking 'subscribeAttitudeAngularVelocityBody'.
   func makeSubscribeAttitudeAngularVelocityBodyInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'subscribeCameraAttitudeQuaternion'.
-  func makeSubscribeCameraAttitudeQuaternionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'subscribeCameraAttitudeEuler'.
-  func makeSubscribeCameraAttitudeEulerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>]
 
   /// - Returns: Interceptors to use when invoking 'subscribeVelocityNed'.
   func makeSubscribeVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, Mavsdk_Rpc_Telemetry_VelocityNedResponse>]
@@ -1562,6 +1553,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'subscribeHeading'.
   func makeSubscribeHeadingInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeAltitude'.
+  func makeSubscribeAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest, Mavsdk_Rpc_Telemetry_AltitudeResponse>]
+
   /// - Returns: Interceptors to use when invoking 'setRatePosition'.
   func makeSetRatePositionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
 
@@ -1577,11 +1571,11 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'setRateVtolState'.
   func makeSetRateVtolStateInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'setRateAttitude'.
-  func makeSetRateAttitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>]
+  /// - Returns: Interceptors to use when invoking 'setRateAttitudeQuaternion'.
+  func makeSetRateAttitudeQuaternionInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'setRateCameraAttitude'.
-  func makeSetRateCameraAttitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>]
+  /// - Returns: Interceptors to use when invoking 'setRateAttitudeEuler'.
+  func makeSetRateAttitudeEulerInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerResponse>]
 
   /// - Returns: Interceptors to use when invoking 'setRateVelocityNed'.
   func makeSetRateVelocityNedInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>]
@@ -1627,6 +1621,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceClientInterceptorFactoryP
 
   /// - Returns: Interceptors to use when invoking 'setRateDistanceSensor'.
   func makeSetRateDistanceSensorInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'setRateAltitude'.
+  func makeSetRateAltitudeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAltitudeResponse>]
 
   /// - Returns: Interceptors to use when invoking 'getGpsGlobalOrigin'.
   func makeGetGpsGlobalOriginInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>]
@@ -1688,12 +1685,6 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
 
   /// Subscribe to 'attitude' updates (angular velocity)
   func subscribeAttitudeAngularVelocityBody(request: Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>) -> EventLoopFuture<GRPCStatus>
-
-  /// Subscribe to 'camera attitude' updates (quaternion).
-  func subscribeCameraAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>) -> EventLoopFuture<GRPCStatus>
-
-  /// Subscribe to 'camera attitude' updates (Euler).
-  func subscribeCameraAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>) -> EventLoopFuture<GRPCStatus>
 
   /// Subscribe to 'ground speed' updates (NED).
   func subscribeVelocityNed(request: Mavsdk_Rpc_Telemetry_SubscribeVelocityNedRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_VelocityNedResponse>) -> EventLoopFuture<GRPCStatus>
@@ -1761,6 +1752,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   /// Subscribe to 'Heading' updates.
   func subscribeHeading(request: Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_HeadingResponse>) -> EventLoopFuture<GRPCStatus>
 
+  /// Subscribe to 'Altitude' updates.
+  func subscribeAltitude(request: Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Telemetry_AltitudeResponse>) -> EventLoopFuture<GRPCStatus>
+
   /// Set rate to 'position' updates.
   func setRatePosition(request: Mavsdk_Rpc_Telemetry_SetRatePositionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRatePositionResponse>
 
@@ -1776,12 +1770,13 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
   /// Set rate to VTOL state updates
   func setRateVtolState(request: Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>
 
-  /// Set rate to 'attitude' updates.
-  func setRateAttitude(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>
+  /// Set rate to 'attitude euler angle' updates.
+  func setRateAttitudeQuaternion(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionResponse>
+
+  /// Set rate to 'attitude quaternion' updates.
+  func setRateAttitudeEuler(request: Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerResponse>
 
   /// Set rate of camera attitude updates.
-  func setRateCameraAttitude(request: Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>
-
   /// Set rate to 'ground speed' updates (NED).
   func setRateVelocityNed(request: Mavsdk_Rpc_Telemetry_SetRateVelocityNedRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateVelocityNedResponse>
 
@@ -1826,6 +1821,9 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceProvider: CallHandlerProv
 
   /// Set rate to 'Distance Sensor' updates.
   func setRateDistanceSensor(request: Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>
+
+  /// Set rate to 'Altitude' updates.
+  func setRateAltitude(request: Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_SetRateAltitudeResponse>
 
   /// Get the GPS location of where the estimator has been initialized.
   func getGpsGlobalOrigin(request: Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Telemetry_GetGpsGlobalOriginResponse>
@@ -1920,24 +1918,6 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>(),
         interceptors: self.interceptors?.makeSubscribeAttitudeAngularVelocityBodyInterceptors() ?? [],
         userFunction: self.subscribeAttitudeAngularVelocityBody(request:context:)
-      )
-
-    case "SubscribeCameraAttitudeQuaternion":
-      return ServerStreamingServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>(),
-        interceptors: self.interceptors?.makeSubscribeCameraAttitudeQuaternionInterceptors() ?? [],
-        userFunction: self.subscribeCameraAttitudeQuaternion(request:context:)
-      )
-
-    case "SubscribeCameraAttitudeEuler":
-      return ServerStreamingServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>(),
-        interceptors: self.interceptors?.makeSubscribeCameraAttitudeEulerInterceptors() ?? [],
-        userFunction: self.subscribeCameraAttitudeEuler(request:context:)
       )
 
     case "SubscribeVelocityNed":
@@ -2138,6 +2118,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.subscribeHeading(request:context:)
       )
 
+    case "SubscribeAltitude":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_AltitudeResponse>(),
+        interceptors: self.interceptors?.makeSubscribeAltitudeInterceptors() ?? [],
+        userFunction: self.subscribeAltitude(request:context:)
+      )
+
     case "SetRatePosition":
       return UnaryServerHandler(
         context: context,
@@ -2183,22 +2172,22 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.setRateVtolState(request:context:)
       )
 
-    case "SetRateAttitude":
+    case "SetRateAttitudeQuaternion":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>(),
-        interceptors: self.interceptors?.makeSetRateAttitudeInterceptors() ?? [],
-        userFunction: self.setRateAttitude(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionResponse>(),
+        interceptors: self.interceptors?.makeSetRateAttitudeQuaternionInterceptors() ?? [],
+        userFunction: self.setRateAttitudeQuaternion(request:context:)
       )
 
-    case "SetRateCameraAttitude":
+    case "SetRateAttitudeEuler":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>(),
-        interceptors: self.interceptors?.makeSetRateCameraAttitudeInterceptors() ?? [],
-        userFunction: self.setRateCameraAttitude(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerResponse>(),
+        interceptors: self.interceptors?.makeSetRateAttitudeEulerInterceptors() ?? [],
+        userFunction: self.setRateAttitudeEuler(request:context:)
       )
 
     case "SetRateVelocityNed":
@@ -2336,6 +2325,15 @@ extension Mavsdk_Rpc_Telemetry_TelemetryServiceProvider {
         userFunction: self.setRateDistanceSensor(request:context:)
       )
 
+    case "SetRateAltitude":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Telemetry_SetRateAltitudeResponse>(),
+        interceptors: self.interceptors?.makeSetRateAltitudeInterceptors() ?? [],
+        userFunction: self.setRateAltitude(request:context:)
+      )
+
     case "GetGpsGlobalOrigin":
       return UnaryServerHandler(
         context: context,
@@ -2388,14 +2386,6 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   /// - Returns: Interceptors to use when handling 'subscribeAttitudeAngularVelocityBody'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeAttitudeAngularVelocityBodyInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAttitudeAngularVelocityBodyRequest, Mavsdk_Rpc_Telemetry_AttitudeAngularVelocityBodyResponse>]
-
-  /// - Returns: Interceptors to use when handling 'subscribeCameraAttitudeQuaternion'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSubscribeCameraAttitudeQuaternionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeQuaternionResponse>]
-
-  /// - Returns: Interceptors to use when handling 'subscribeCameraAttitudeEuler'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSubscribeCameraAttitudeEulerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeCameraAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_CameraAttitudeEulerResponse>]
 
   /// - Returns: Interceptors to use when handling 'subscribeVelocityNed'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -2485,6 +2475,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeHeadingInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeHeadingRequest, Mavsdk_Rpc_Telemetry_HeadingResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeAltitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SubscribeAltitudeRequest, Mavsdk_Rpc_Telemetry_AltitudeResponse>]
+
   /// - Returns: Interceptors to use when handling 'setRatePosition'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetRatePositionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRatePositionRequest, Mavsdk_Rpc_Telemetry_SetRatePositionResponse>]
@@ -2505,13 +2499,13 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetRateVtolStateInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateVtolStateRequest, Mavsdk_Rpc_Telemetry_SetRateVtolStateResponse>]
 
-  /// - Returns: Interceptors to use when handling 'setRateAttitude'.
+  /// - Returns: Interceptors to use when handling 'setRateAttitudeQuaternion'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSetRateAttitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeResponse>]
+  func makeSetRateAttitudeQuaternionInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeQuaternionResponse>]
 
-  /// - Returns: Interceptors to use when handling 'setRateCameraAttitude'.
+  /// - Returns: Interceptors to use when handling 'setRateAttitudeEuler'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSetRateCameraAttitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeRequest, Mavsdk_Rpc_Telemetry_SetRateCameraAttitudeResponse>]
+  func makeSetRateAttitudeEulerInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerRequest, Mavsdk_Rpc_Telemetry_SetRateAttitudeEulerResponse>]
 
   /// - Returns: Interceptors to use when handling 'setRateVelocityNed'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -2572,6 +2566,10 @@ internal protocol Mavsdk_Rpc_Telemetry_TelemetryServiceServerInterceptorFactoryP
   /// - Returns: Interceptors to use when handling 'setRateDistanceSensor'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetRateDistanceSensorInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateDistanceSensorRequest, Mavsdk_Rpc_Telemetry_SetRateDistanceSensorResponse>]
+
+  /// - Returns: Interceptors to use when handling 'setRateAltitude'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSetRateAltitudeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Telemetry_SetRateAltitudeRequest, Mavsdk_Rpc_Telemetry_SetRateAltitudeResponse>]
 
   /// - Returns: Interceptors to use when handling 'getGpsGlobalOrigin'.
   ///   Defaults to calling `self.makeInterceptors()`.

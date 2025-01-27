@@ -39,11 +39,6 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
   var serviceName: String { get }
   var interceptors: Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtocol? { get }
 
-  func prepare(
-    _ request: Mavsdk_Rpc_Camera_PrepareRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse>
-
   func takePhoto(
     _ request: Mavsdk_Rpc_Camera_TakePhotoRequest,
     callOptions: CallOptions?
@@ -89,17 +84,22 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Camera_ListPhotosRequest, Mavsdk_Rpc_Camera_ListPhotosResponse>
 
+  func subscribeCameraList(
+    _ request: Mavsdk_Rpc_Camera_SubscribeCameraListRequest,
+    callOptions: CallOptions?,
+    handler: @escaping (Mavsdk_Rpc_Camera_CameraListResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeCameraListRequest, Mavsdk_Rpc_Camera_CameraListResponse>
+
   func subscribeMode(
     _ request: Mavsdk_Rpc_Camera_SubscribeModeRequest,
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_Camera_ModeResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeModeRequest, Mavsdk_Rpc_Camera_ModeResponse>
 
-  func subscribeInformation(
-    _ request: Mavsdk_Rpc_Camera_SubscribeInformationRequest,
-    callOptions: CallOptions?,
-    handler: @escaping (Mavsdk_Rpc_Camera_InformationResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeInformationRequest, Mavsdk_Rpc_Camera_InformationResponse>
+  func getMode(
+    _ request: Mavsdk_Rpc_Camera_GetModeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetModeRequest, Mavsdk_Rpc_Camera_GetModeResponse>
 
   func subscribeVideoStreamInfo(
     _ request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest,
@@ -107,17 +107,27 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
     handler: @escaping (Mavsdk_Rpc_Camera_VideoStreamInfoResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, Mavsdk_Rpc_Camera_VideoStreamInfoResponse>
 
+  func getVideoStreamInfo(
+    _ request: Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest, Mavsdk_Rpc_Camera_GetVideoStreamInfoResponse>
+
   func subscribeCaptureInfo(
     _ request: Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest,
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_Camera_CaptureInfoResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest, Mavsdk_Rpc_Camera_CaptureInfoResponse>
 
-  func subscribeStatus(
-    _ request: Mavsdk_Rpc_Camera_SubscribeStatusRequest,
+  func subscribeStorage(
+    _ request: Mavsdk_Rpc_Camera_SubscribeStorageRequest,
     callOptions: CallOptions?,
-    handler: @escaping (Mavsdk_Rpc_Camera_StatusResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeStatusRequest, Mavsdk_Rpc_Camera_StatusResponse>
+    handler: @escaping (Mavsdk_Rpc_Camera_StorageResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeStorageRequest, Mavsdk_Rpc_Camera_StorageResponse>
+
+  func getStorage(
+    _ request: Mavsdk_Rpc_Camera_GetStorageRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetStorageRequest, Mavsdk_Rpc_Camera_GetStorageResponse>
 
   func subscribeCurrentSettings(
     _ request: Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest,
@@ -125,11 +135,21 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
     handler: @escaping (Mavsdk_Rpc_Camera_CurrentSettingsResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest, Mavsdk_Rpc_Camera_CurrentSettingsResponse>
 
+  func getCurrentSettings(
+    _ request: Mavsdk_Rpc_Camera_GetCurrentSettingsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetCurrentSettingsRequest, Mavsdk_Rpc_Camera_GetCurrentSettingsResponse>
+
   func subscribePossibleSettingOptions(
     _ request: Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest,
     callOptions: CallOptions?,
     handler: @escaping (Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse) -> Void
   ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse>
+
+  func getPossibleSettingOptions(
+    _ request: Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_GetPossibleSettingOptionsResponse>
 
   func setSetting(
     _ request: Mavsdk_Rpc_Camera_SetSettingRequest,
@@ -146,34 +166,70 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>
 
-  func selectCamera(
-    _ request: Mavsdk_Rpc_Camera_SelectCameraRequest,
+  func resetSettings(
+    _ request: Mavsdk_Rpc_Camera_ResetSettingsRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse>
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ResetSettingsRequest, Mavsdk_Rpc_Camera_ResetSettingsResponse>
+
+  func zoomInStart(
+    _ request: Mavsdk_Rpc_Camera_ZoomInStartRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomInStartRequest, Mavsdk_Rpc_Camera_ZoomInStartResponse>
+
+  func zoomOutStart(
+    _ request: Mavsdk_Rpc_Camera_ZoomOutStartRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomOutStartRequest, Mavsdk_Rpc_Camera_ZoomOutStartResponse>
+
+  func zoomStop(
+    _ request: Mavsdk_Rpc_Camera_ZoomStopRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomStopRequest, Mavsdk_Rpc_Camera_ZoomStopResponse>
+
+  func zoomRange(
+    _ request: Mavsdk_Rpc_Camera_ZoomRangeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomRangeRequest, Mavsdk_Rpc_Camera_ZoomRangeResponse>
+
+  func trackPoint(
+    _ request: Mavsdk_Rpc_Camera_TrackPointRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_TrackPointRequest, Mavsdk_Rpc_Camera_TrackPointResponse>
+
+  func trackRectangle(
+    _ request: Mavsdk_Rpc_Camera_TrackRectangleRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_TrackRectangleRequest, Mavsdk_Rpc_Camera_TrackRectangleResponse>
+
+  func trackStop(
+    _ request: Mavsdk_Rpc_Camera_TrackStopRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_TrackStopRequest, Mavsdk_Rpc_Camera_TrackStopResponse>
+
+  func focusInStart(
+    _ request: Mavsdk_Rpc_Camera_FocusInStartRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusInStartRequest, Mavsdk_Rpc_Camera_FocusInStartResponse>
+
+  func focusOutStart(
+    _ request: Mavsdk_Rpc_Camera_FocusOutStartRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusOutStartRequest, Mavsdk_Rpc_Camera_FocusOutStartResponse>
+
+  func focusStop(
+    _ request: Mavsdk_Rpc_Camera_FocusStopRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusStopRequest, Mavsdk_Rpc_Camera_FocusStopResponse>
+
+  func focusRange(
+    _ request: Mavsdk_Rpc_Camera_FocusRangeRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusRangeRequest, Mavsdk_Rpc_Camera_FocusRangeResponse>
 }
 
 extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   internal var serviceName: String {
     return "mavsdk.rpc.camera.CameraService"
-  }
-
-  ///
-  /// Prepare the camera plugin (e.g. download the camera definition, etc).
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Prepare.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func prepare(
-    _ request: Mavsdk_Rpc_Camera_PrepareRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.camera.CameraService/Prepare",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makePrepareInterceptors() ?? []
-    )
   }
 
   ///
@@ -331,6 +387,10 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   ///
   /// List photos available on the camera.
   ///
+  /// Note that this might need to be called initially to set the PhotosRange accordingly.
+  /// Once set to 'all' rather than 'since connection', it will try to request the previous
+  /// images over time.
+  ///
   /// - Parameters:
   ///   - request: Request to send to ListPhotos.
   ///   - callOptions: Call options.
@@ -344,6 +404,31 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeListPhotosInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Subscribe to list of cameras.
+  ///
+  /// This allows to find out what cameras are connected to the system.
+  /// Based on the camera ID, we can then address a specific camera.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to SubscribeCameraList.
+  ///   - callOptions: Call options.
+  ///   - handler: A closure called when each response is received from the server.
+  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+  internal func subscribeCameraList(
+    _ request: Mavsdk_Rpc_Camera_SubscribeCameraListRequest,
+    callOptions: CallOptions? = nil,
+    handler: @escaping (Mavsdk_Rpc_Camera_CameraListResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeCameraListRequest, Mavsdk_Rpc_Camera_CameraListResponse> {
+    return self.makeServerStreamingCall(
+      path: "/mavsdk.rpc.camera.CameraService/SubscribeCameraList",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeSubscribeCameraListInterceptors() ?? [],
+      handler: handler
     )
   }
 
@@ -370,24 +455,21 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   }
 
   ///
-  /// Subscribe to camera information updates.
+  /// Get camera mode.
   ///
   /// - Parameters:
-  ///   - request: Request to send to SubscribeInformation.
+  ///   - request: Request to send to GetMode.
   ///   - callOptions: Call options.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeInformation(
-    _ request: Mavsdk_Rpc_Camera_SubscribeInformationRequest,
-    callOptions: CallOptions? = nil,
-    handler: @escaping (Mavsdk_Rpc_Camera_InformationResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeInformationRequest, Mavsdk_Rpc_Camera_InformationResponse> {
-    return self.makeServerStreamingCall(
-      path: "/mavsdk.rpc.camera.CameraService/SubscribeInformation",
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getMode(
+    _ request: Mavsdk_Rpc_Camera_GetModeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetModeRequest, Mavsdk_Rpc_Camera_GetModeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/GetMode",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSubscribeInformationInterceptors() ?? [],
-      handler: handler
+      interceptors: self.interceptors?.makeGetModeInterceptors() ?? []
     )
   }
 
@@ -414,6 +496,25 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   }
 
   ///
+  /// Get video stream info.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetVideoStreamInfo.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getVideoStreamInfo(
+    _ request: Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest, Mavsdk_Rpc_Camera_GetVideoStreamInfoResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/GetVideoStreamInfo",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetVideoStreamInfoInterceptors() ?? []
+    )
+  }
+
+  ///
   /// Subscribe to capture info updates.
   ///
   /// - Parameters:
@@ -436,24 +537,43 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   }
 
   ///
-  /// Subscribe to camera status updates.
+  /// Subscribe to camera's storage status updates.
   ///
   /// - Parameters:
-  ///   - request: Request to send to SubscribeStatus.
+  ///   - request: Request to send to SubscribeStorage.
   ///   - callOptions: Call options.
   ///   - handler: A closure called when each response is received from the server.
   /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  internal func subscribeStatus(
-    _ request: Mavsdk_Rpc_Camera_SubscribeStatusRequest,
+  internal func subscribeStorage(
+    _ request: Mavsdk_Rpc_Camera_SubscribeStorageRequest,
     callOptions: CallOptions? = nil,
-    handler: @escaping (Mavsdk_Rpc_Camera_StatusResponse) -> Void
-  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeStatusRequest, Mavsdk_Rpc_Camera_StatusResponse> {
+    handler: @escaping (Mavsdk_Rpc_Camera_StorageResponse) -> Void
+  ) -> ServerStreamingCall<Mavsdk_Rpc_Camera_SubscribeStorageRequest, Mavsdk_Rpc_Camera_StorageResponse> {
     return self.makeServerStreamingCall(
-      path: "/mavsdk.rpc.camera.CameraService/SubscribeStatus",
+      path: "/mavsdk.rpc.camera.CameraService/SubscribeStorage",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSubscribeStatusInterceptors() ?? [],
+      interceptors: self.interceptors?.makeSubscribeStorageInterceptors() ?? [],
       handler: handler
+    )
+  }
+
+  ///
+  /// Get camera's storage status.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetStorage.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getStorage(
+    _ request: Mavsdk_Rpc_Camera_GetStorageRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetStorageRequest, Mavsdk_Rpc_Camera_GetStorageResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/GetStorage",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetStorageInterceptors() ?? []
     )
   }
 
@@ -480,6 +600,25 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   }
 
   ///
+  /// Get current settings.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetCurrentSettings.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getCurrentSettings(
+    _ request: Mavsdk_Rpc_Camera_GetCurrentSettingsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetCurrentSettingsRequest, Mavsdk_Rpc_Camera_GetCurrentSettingsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/GetCurrentSettings",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetCurrentSettingsInterceptors() ?? []
+    )
+  }
+
+  ///
   /// Get the list of settings that can be changed.
   ///
   /// - Parameters:
@@ -498,6 +637,25 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeSubscribePossibleSettingOptionsInterceptors() ?? [],
       handler: handler
+    )
+  }
+
+  ///
+  /// Get possible setting options.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetPossibleSettingOptions.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getPossibleSettingOptions(
+    _ request: Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_GetPossibleSettingOptionsResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/GetPossibleSettingOptions",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetPossibleSettingOptionsInterceptors() ?? []
     )
   }
 
@@ -565,31 +723,237 @@ extension Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
   }
 
   ///
-  /// Select current camera .
+  /// Reset all settings in camera.
   ///
-  /// Bind the plugin instance to a specific camera_id 
+  /// This will reset all camera settings to default value
   ///
   /// - Parameters:
-  ///   - request: Request to send to SelectCamera.
+  ///   - request: Request to send to ResetSettings.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func selectCamera(
-    _ request: Mavsdk_Rpc_Camera_SelectCameraRequest,
+  internal func resetSettings(
+    _ request: Mavsdk_Rpc_Camera_ResetSettingsRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse> {
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ResetSettingsRequest, Mavsdk_Rpc_Camera_ResetSettingsResponse> {
     return self.makeUnaryCall(
-      path: "/mavsdk.rpc.camera.CameraService/SelectCamera",
+      path: "/mavsdk.rpc.camera.CameraService/ResetSettings",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSelectCameraInterceptors() ?? []
+      interceptors: self.interceptors?.makeResetSettingsInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Start zooming in.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ZoomInStart.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func zoomInStart(
+    _ request: Mavsdk_Rpc_Camera_ZoomInStartRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomInStartRequest, Mavsdk_Rpc_Camera_ZoomInStartResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/ZoomInStart",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeZoomInStartInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Start zooming out.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ZoomOutStart.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func zoomOutStart(
+    _ request: Mavsdk_Rpc_Camera_ZoomOutStartRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomOutStartRequest, Mavsdk_Rpc_Camera_ZoomOutStartResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/ZoomOutStart",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeZoomOutStartInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Stop zooming.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ZoomStop.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func zoomStop(
+    _ request: Mavsdk_Rpc_Camera_ZoomStopRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomStopRequest, Mavsdk_Rpc_Camera_ZoomStopResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/ZoomStop",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeZoomStopInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Zoom to value as proportion of full camera range (percentage between 0.0 and 100.0).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ZoomRange.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func zoomRange(
+    _ request: Mavsdk_Rpc_Camera_ZoomRangeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_ZoomRangeRequest, Mavsdk_Rpc_Camera_ZoomRangeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/ZoomRange",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeZoomRangeInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Track point.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to TrackPoint.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func trackPoint(
+    _ request: Mavsdk_Rpc_Camera_TrackPointRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_TrackPointRequest, Mavsdk_Rpc_Camera_TrackPointResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/TrackPoint",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTrackPointInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Track rectangle.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to TrackRectangle.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func trackRectangle(
+    _ request: Mavsdk_Rpc_Camera_TrackRectangleRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_TrackRectangleRequest, Mavsdk_Rpc_Camera_TrackRectangleResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/TrackRectangle",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTrackRectangleInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Stop tracking.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to TrackStop.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func trackStop(
+    _ request: Mavsdk_Rpc_Camera_TrackStopRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_TrackStopRequest, Mavsdk_Rpc_Camera_TrackStopResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/TrackStop",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeTrackStopInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Start focusing in.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to FocusInStart.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func focusInStart(
+    _ request: Mavsdk_Rpc_Camera_FocusInStartRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusInStartRequest, Mavsdk_Rpc_Camera_FocusInStartResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/FocusInStart",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFocusInStartInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Start focusing out.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to FocusOutStart.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func focusOutStart(
+    _ request: Mavsdk_Rpc_Camera_FocusOutStartRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusOutStartRequest, Mavsdk_Rpc_Camera_FocusOutStartResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/FocusOutStart",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFocusOutStartInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Stop focus.
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to FocusStop.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func focusStop(
+    _ request: Mavsdk_Rpc_Camera_FocusStopRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusStopRequest, Mavsdk_Rpc_Camera_FocusStopResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/FocusStop",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFocusStopInterceptors() ?? []
+    )
+  }
+
+  ///
+  /// Focus with range value of full range (value between 0.0 and 100.0).
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to FocusRange.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func focusRange(
+    _ request: Mavsdk_Rpc_Camera_FocusRangeRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Mavsdk_Rpc_Camera_FocusRangeRequest, Mavsdk_Rpc_Camera_FocusRangeResponse> {
+    return self.makeUnaryCall(
+      path: "/mavsdk.rpc.camera.CameraService/FocusRange",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFocusRangeInterceptors() ?? []
     )
   }
 }
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtocol {
-
-  /// - Returns: Interceptors to use when invoking 'prepare'.
-  func makePrepareInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse>]
 
   /// - Returns: Interceptors to use when invoking 'takePhoto'.
   func makeTakePhotoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_TakePhotoRequest, Mavsdk_Rpc_Camera_TakePhotoResponse>]
@@ -618,26 +982,41 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when invoking 'listPhotos'.
   func makeListPhotosInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_ListPhotosRequest, Mavsdk_Rpc_Camera_ListPhotosResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'subscribeCameraList'.
+  func makeSubscribeCameraListInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeCameraListRequest, Mavsdk_Rpc_Camera_CameraListResponse>]
+
   /// - Returns: Interceptors to use when invoking 'subscribeMode'.
   func makeSubscribeModeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeModeRequest, Mavsdk_Rpc_Camera_ModeResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'subscribeInformation'.
-  func makeSubscribeInformationInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeInformationRequest, Mavsdk_Rpc_Camera_InformationResponse>]
+  /// - Returns: Interceptors to use when invoking 'getMode'.
+  func makeGetModeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_GetModeRequest, Mavsdk_Rpc_Camera_GetModeResponse>]
 
   /// - Returns: Interceptors to use when invoking 'subscribeVideoStreamInfo'.
   func makeSubscribeVideoStreamInfoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, Mavsdk_Rpc_Camera_VideoStreamInfoResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'getVideoStreamInfo'.
+  func makeGetVideoStreamInfoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest, Mavsdk_Rpc_Camera_GetVideoStreamInfoResponse>]
+
   /// - Returns: Interceptors to use when invoking 'subscribeCaptureInfo'.
   func makeSubscribeCaptureInfoInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest, Mavsdk_Rpc_Camera_CaptureInfoResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'subscribeStatus'.
-  func makeSubscribeStatusInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeStatusRequest, Mavsdk_Rpc_Camera_StatusResponse>]
+  /// - Returns: Interceptors to use when invoking 'subscribeStorage'.
+  func makeSubscribeStorageInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeStorageRequest, Mavsdk_Rpc_Camera_StorageResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getStorage'.
+  func makeGetStorageInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_GetStorageRequest, Mavsdk_Rpc_Camera_GetStorageResponse>]
 
   /// - Returns: Interceptors to use when invoking 'subscribeCurrentSettings'.
   func makeSubscribeCurrentSettingsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest, Mavsdk_Rpc_Camera_CurrentSettingsResponse>]
 
+  /// - Returns: Interceptors to use when invoking 'getCurrentSettings'.
+  func makeGetCurrentSettingsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_GetCurrentSettingsRequest, Mavsdk_Rpc_Camera_GetCurrentSettingsResponse>]
+
   /// - Returns: Interceptors to use when invoking 'subscribePossibleSettingOptions'.
   func makeSubscribePossibleSettingOptionsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getPossibleSettingOptions'.
+  func makeGetPossibleSettingOptionsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_GetPossibleSettingOptionsResponse>]
 
   /// - Returns: Interceptors to use when invoking 'setSetting'.
   func makeSetSettingInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SetSettingRequest, Mavsdk_Rpc_Camera_SetSettingResponse>]
@@ -648,8 +1027,41 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceClientInterceptorFactoryProtoco
   /// - Returns: Interceptors to use when invoking 'formatStorage'.
   func makeFormatStorageInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'selectCamera'.
-  func makeSelectCameraInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse>]
+  /// - Returns: Interceptors to use when invoking 'resetSettings'.
+  func makeResetSettingsInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_ResetSettingsRequest, Mavsdk_Rpc_Camera_ResetSettingsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'zoomInStart'.
+  func makeZoomInStartInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_ZoomInStartRequest, Mavsdk_Rpc_Camera_ZoomInStartResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'zoomOutStart'.
+  func makeZoomOutStartInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_ZoomOutStartRequest, Mavsdk_Rpc_Camera_ZoomOutStartResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'zoomStop'.
+  func makeZoomStopInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_ZoomStopRequest, Mavsdk_Rpc_Camera_ZoomStopResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'zoomRange'.
+  func makeZoomRangeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_ZoomRangeRequest, Mavsdk_Rpc_Camera_ZoomRangeResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'trackPoint'.
+  func makeTrackPointInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_TrackPointRequest, Mavsdk_Rpc_Camera_TrackPointResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'trackRectangle'.
+  func makeTrackRectangleInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_TrackRectangleRequest, Mavsdk_Rpc_Camera_TrackRectangleResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'trackStop'.
+  func makeTrackStopInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_TrackStopRequest, Mavsdk_Rpc_Camera_TrackStopResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'focusInStart'.
+  func makeFocusInStartInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_FocusInStartRequest, Mavsdk_Rpc_Camera_FocusInStartResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'focusOutStart'.
+  func makeFocusOutStartInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_FocusOutStartRequest, Mavsdk_Rpc_Camera_FocusOutStartResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'focusStop'.
+  func makeFocusStopInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_FocusStopRequest, Mavsdk_Rpc_Camera_FocusStopResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'focusRange'.
+  func makeFocusRangeInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Camera_FocusRangeRequest, Mavsdk_Rpc_Camera_FocusRangeResponse>]
 }
 
 internal final class Mavsdk_Rpc_Camera_CameraServiceClient: Mavsdk_Rpc_Camera_CameraServiceClientProtocol {
@@ -688,10 +1100,6 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
   var interceptors: Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtocol? { get }
 
   ///
-  /// Prepare the camera plugin (e.g. download the camera definition, etc).
-  func prepare(request: Mavsdk_Rpc_Camera_PrepareRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_PrepareResponse>
-
-  ///
   /// Take one photo.
   func takePhoto(request: Mavsdk_Rpc_Camera_TakePhotoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_TakePhotoResponse>
 
@@ -725,35 +1133,62 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
 
   ///
   /// List photos available on the camera.
+  ///
+  /// Note that this might need to be called initially to set the PhotosRange accordingly.
+  /// Once set to 'all' rather than 'since connection', it will try to request the previous
+  /// images over time.
   func listPhotos(request: Mavsdk_Rpc_Camera_ListPhotosRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ListPhotosResponse>
+
+  ///
+  /// Subscribe to list of cameras.
+  ///
+  /// This allows to find out what cameras are connected to the system.
+  /// Based on the camera ID, we can then address a specific camera.
+  func subscribeCameraList(request: Mavsdk_Rpc_Camera_SubscribeCameraListRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_CameraListResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
   /// Subscribe to camera mode updates.
   func subscribeMode(request: Mavsdk_Rpc_Camera_SubscribeModeRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_ModeResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
-  /// Subscribe to camera information updates.
-  func subscribeInformation(request: Mavsdk_Rpc_Camera_SubscribeInformationRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_InformationResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Get camera mode.
+  func getMode(request: Mavsdk_Rpc_Camera_GetModeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_GetModeResponse>
 
   ///
   /// Subscribe to video stream info updates.
   func subscribeVideoStreamInfo(request: Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_VideoStreamInfoResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
+  /// Get video stream info.
+  func getVideoStreamInfo(request: Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_GetVideoStreamInfoResponse>
+
+  ///
   /// Subscribe to capture info updates.
   func subscribeCaptureInfo(request: Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_CaptureInfoResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
-  /// Subscribe to camera status updates.
-  func subscribeStatus(request: Mavsdk_Rpc_Camera_SubscribeStatusRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_StatusResponse>) -> EventLoopFuture<GRPCStatus>
+  /// Subscribe to camera's storage status updates.
+  func subscribeStorage(request: Mavsdk_Rpc_Camera_SubscribeStorageRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_StorageResponse>) -> EventLoopFuture<GRPCStatus>
+
+  ///
+  /// Get camera's storage status.
+  func getStorage(request: Mavsdk_Rpc_Camera_GetStorageRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_GetStorageResponse>
 
   ///
   /// Get the list of current camera settings.
   func subscribeCurrentSettings(request: Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_CurrentSettingsResponse>) -> EventLoopFuture<GRPCStatus>
 
   ///
+  /// Get current settings.
+  func getCurrentSettings(request: Mavsdk_Rpc_Camera_GetCurrentSettingsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_GetCurrentSettingsResponse>
+
+  ///
   /// Get the list of settings that can be changed.
   func subscribePossibleSettingOptions(request: Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, context: StreamingResponseCallContext<Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse>) -> EventLoopFuture<GRPCStatus>
+
+  ///
+  /// Get possible setting options.
+  func getPossibleSettingOptions(request: Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsResponse>
 
   ///
   /// Set a setting to some value.
@@ -774,10 +1209,54 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceProvider: CallHandlerProvider {
   func formatStorage(request: Mavsdk_Rpc_Camera_FormatStorageRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_FormatStorageResponse>
 
   ///
-  /// Select current camera .
+  /// Reset all settings in camera.
   ///
-  /// Bind the plugin instance to a specific camera_id 
-  func selectCamera(request: Mavsdk_Rpc_Camera_SelectCameraRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_SelectCameraResponse>
+  /// This will reset all camera settings to default value
+  func resetSettings(request: Mavsdk_Rpc_Camera_ResetSettingsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ResetSettingsResponse>
+
+  ///
+  /// Start zooming in.
+  func zoomInStart(request: Mavsdk_Rpc_Camera_ZoomInStartRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ZoomInStartResponse>
+
+  ///
+  /// Start zooming out.
+  func zoomOutStart(request: Mavsdk_Rpc_Camera_ZoomOutStartRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ZoomOutStartResponse>
+
+  ///
+  /// Stop zooming.
+  func zoomStop(request: Mavsdk_Rpc_Camera_ZoomStopRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ZoomStopResponse>
+
+  ///
+  /// Zoom to value as proportion of full camera range (percentage between 0.0 and 100.0).
+  func zoomRange(request: Mavsdk_Rpc_Camera_ZoomRangeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_ZoomRangeResponse>
+
+  ///
+  /// Track point.
+  func trackPoint(request: Mavsdk_Rpc_Camera_TrackPointRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_TrackPointResponse>
+
+  ///
+  /// Track rectangle.
+  func trackRectangle(request: Mavsdk_Rpc_Camera_TrackRectangleRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_TrackRectangleResponse>
+
+  ///
+  /// Stop tracking.
+  func trackStop(request: Mavsdk_Rpc_Camera_TrackStopRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_TrackStopResponse>
+
+  ///
+  /// Start focusing in.
+  func focusInStart(request: Mavsdk_Rpc_Camera_FocusInStartRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_FocusInStartResponse>
+
+  ///
+  /// Start focusing out.
+  func focusOutStart(request: Mavsdk_Rpc_Camera_FocusOutStartRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_FocusOutStartResponse>
+
+  ///
+  /// Stop focus.
+  func focusStop(request: Mavsdk_Rpc_Camera_FocusStopRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_FocusStopResponse>
+
+  ///
+  /// Focus with range value of full range (value between 0.0 and 100.0).
+  func focusRange(request: Mavsdk_Rpc_Camera_FocusRangeRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Camera_FocusRangeResponse>
 }
 
 extension Mavsdk_Rpc_Camera_CameraServiceProvider {
@@ -790,15 +1269,6 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
-    case "Prepare":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_PrepareRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_PrepareResponse>(),
-        interceptors: self.interceptors?.makePrepareInterceptors() ?? [],
-        userFunction: self.prepare(request:context:)
-      )
-
     case "TakePhoto":
       return UnaryServerHandler(
         context: context,
@@ -880,6 +1350,15 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.listPhotos(request:context:)
       )
 
+    case "SubscribeCameraList":
+      return ServerStreamingServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_SubscribeCameraListRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_CameraListResponse>(),
+        interceptors: self.interceptors?.makeSubscribeCameraListInterceptors() ?? [],
+        userFunction: self.subscribeCameraList(request:context:)
+      )
+
     case "SubscribeMode":
       return ServerStreamingServerHandler(
         context: context,
@@ -889,13 +1368,13 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.subscribeMode(request:context:)
       )
 
-    case "SubscribeInformation":
-      return ServerStreamingServerHandler(
+    case "GetMode":
+      return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_SubscribeInformationRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_InformationResponse>(),
-        interceptors: self.interceptors?.makeSubscribeInformationInterceptors() ?? [],
-        userFunction: self.subscribeInformation(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_GetModeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_GetModeResponse>(),
+        interceptors: self.interceptors?.makeGetModeInterceptors() ?? [],
+        userFunction: self.getMode(request:context:)
       )
 
     case "SubscribeVideoStreamInfo":
@@ -907,6 +1386,15 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.subscribeVideoStreamInfo(request:context:)
       )
 
+    case "GetVideoStreamInfo":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_GetVideoStreamInfoResponse>(),
+        interceptors: self.interceptors?.makeGetVideoStreamInfoInterceptors() ?? [],
+        userFunction: self.getVideoStreamInfo(request:context:)
+      )
+
     case "SubscribeCaptureInfo":
       return ServerStreamingServerHandler(
         context: context,
@@ -916,13 +1404,22 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.subscribeCaptureInfo(request:context:)
       )
 
-    case "SubscribeStatus":
+    case "SubscribeStorage":
       return ServerStreamingServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_SubscribeStatusRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_StatusResponse>(),
-        interceptors: self.interceptors?.makeSubscribeStatusInterceptors() ?? [],
-        userFunction: self.subscribeStatus(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_SubscribeStorageRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_StorageResponse>(),
+        interceptors: self.interceptors?.makeSubscribeStorageInterceptors() ?? [],
+        userFunction: self.subscribeStorage(request:context:)
+      )
+
+    case "GetStorage":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_GetStorageRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_GetStorageResponse>(),
+        interceptors: self.interceptors?.makeGetStorageInterceptors() ?? [],
+        userFunction: self.getStorage(request:context:)
       )
 
     case "SubscribeCurrentSettings":
@@ -934,6 +1431,15 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.subscribeCurrentSettings(request:context:)
       )
 
+    case "GetCurrentSettings":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_GetCurrentSettingsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_GetCurrentSettingsResponse>(),
+        interceptors: self.interceptors?.makeGetCurrentSettingsInterceptors() ?? [],
+        userFunction: self.getCurrentSettings(request:context:)
+      )
+
     case "SubscribePossibleSettingOptions":
       return ServerStreamingServerHandler(
         context: context,
@@ -941,6 +1447,15 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse>(),
         interceptors: self.interceptors?.makeSubscribePossibleSettingOptionsInterceptors() ?? [],
         userFunction: self.subscribePossibleSettingOptions(request:context:)
+      )
+
+    case "GetPossibleSettingOptions":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsResponse>(),
+        interceptors: self.interceptors?.makeGetPossibleSettingOptionsInterceptors() ?? [],
+        userFunction: self.getPossibleSettingOptions(request:context:)
       )
 
     case "SetSetting":
@@ -970,13 +1485,112 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
         userFunction: self.formatStorage(request:context:)
       )
 
-    case "SelectCamera":
+    case "ResetSettings":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_SelectCameraRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_SelectCameraResponse>(),
-        interceptors: self.interceptors?.makeSelectCameraInterceptors() ?? [],
-        userFunction: self.selectCamera(request:context:)
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_ResetSettingsRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_ResetSettingsResponse>(),
+        interceptors: self.interceptors?.makeResetSettingsInterceptors() ?? [],
+        userFunction: self.resetSettings(request:context:)
+      )
+
+    case "ZoomInStart":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_ZoomInStartRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_ZoomInStartResponse>(),
+        interceptors: self.interceptors?.makeZoomInStartInterceptors() ?? [],
+        userFunction: self.zoomInStart(request:context:)
+      )
+
+    case "ZoomOutStart":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_ZoomOutStartRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_ZoomOutStartResponse>(),
+        interceptors: self.interceptors?.makeZoomOutStartInterceptors() ?? [],
+        userFunction: self.zoomOutStart(request:context:)
+      )
+
+    case "ZoomStop":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_ZoomStopRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_ZoomStopResponse>(),
+        interceptors: self.interceptors?.makeZoomStopInterceptors() ?? [],
+        userFunction: self.zoomStop(request:context:)
+      )
+
+    case "ZoomRange":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_ZoomRangeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_ZoomRangeResponse>(),
+        interceptors: self.interceptors?.makeZoomRangeInterceptors() ?? [],
+        userFunction: self.zoomRange(request:context:)
+      )
+
+    case "TrackPoint":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_TrackPointRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_TrackPointResponse>(),
+        interceptors: self.interceptors?.makeTrackPointInterceptors() ?? [],
+        userFunction: self.trackPoint(request:context:)
+      )
+
+    case "TrackRectangle":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_TrackRectangleRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_TrackRectangleResponse>(),
+        interceptors: self.interceptors?.makeTrackRectangleInterceptors() ?? [],
+        userFunction: self.trackRectangle(request:context:)
+      )
+
+    case "TrackStop":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_TrackStopRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_TrackStopResponse>(),
+        interceptors: self.interceptors?.makeTrackStopInterceptors() ?? [],
+        userFunction: self.trackStop(request:context:)
+      )
+
+    case "FocusInStart":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_FocusInStartRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_FocusInStartResponse>(),
+        interceptors: self.interceptors?.makeFocusInStartInterceptors() ?? [],
+        userFunction: self.focusInStart(request:context:)
+      )
+
+    case "FocusOutStart":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_FocusOutStartRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_FocusOutStartResponse>(),
+        interceptors: self.interceptors?.makeFocusOutStartInterceptors() ?? [],
+        userFunction: self.focusOutStart(request:context:)
+      )
+
+    case "FocusStop":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_FocusStopRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_FocusStopResponse>(),
+        interceptors: self.interceptors?.makeFocusStopInterceptors() ?? [],
+        userFunction: self.focusStop(request:context:)
+      )
+
+    case "FocusRange":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Camera_FocusRangeRequest>(),
+        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Camera_FocusRangeResponse>(),
+        interceptors: self.interceptors?.makeFocusRangeInterceptors() ?? [],
+        userFunction: self.focusRange(request:context:)
       )
 
     default:
@@ -986,10 +1600,6 @@ extension Mavsdk_Rpc_Camera_CameraServiceProvider {
 }
 
 internal protocol Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtocol {
-
-  /// - Returns: Interceptors to use when handling 'prepare'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makePrepareInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_PrepareRequest, Mavsdk_Rpc_Camera_PrepareResponse>]
 
   /// - Returns: Interceptors to use when handling 'takePhoto'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -1027,33 +1637,53 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtoco
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeListPhotosInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_ListPhotosRequest, Mavsdk_Rpc_Camera_ListPhotosResponse>]
 
+  /// - Returns: Interceptors to use when handling 'subscribeCameraList'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeSubscribeCameraListInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeCameraListRequest, Mavsdk_Rpc_Camera_CameraListResponse>]
+
   /// - Returns: Interceptors to use when handling 'subscribeMode'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeModeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeModeRequest, Mavsdk_Rpc_Camera_ModeResponse>]
 
-  /// - Returns: Interceptors to use when handling 'subscribeInformation'.
+  /// - Returns: Interceptors to use when handling 'getMode'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSubscribeInformationInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeInformationRequest, Mavsdk_Rpc_Camera_InformationResponse>]
+  func makeGetModeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_GetModeRequest, Mavsdk_Rpc_Camera_GetModeResponse>]
 
   /// - Returns: Interceptors to use when handling 'subscribeVideoStreamInfo'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeVideoStreamInfoInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeVideoStreamInfoRequest, Mavsdk_Rpc_Camera_VideoStreamInfoResponse>]
 
+  /// - Returns: Interceptors to use when handling 'getVideoStreamInfo'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetVideoStreamInfoInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_GetVideoStreamInfoRequest, Mavsdk_Rpc_Camera_GetVideoStreamInfoResponse>]
+
   /// - Returns: Interceptors to use when handling 'subscribeCaptureInfo'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeCaptureInfoInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeCaptureInfoRequest, Mavsdk_Rpc_Camera_CaptureInfoResponse>]
 
-  /// - Returns: Interceptors to use when handling 'subscribeStatus'.
+  /// - Returns: Interceptors to use when handling 'subscribeStorage'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSubscribeStatusInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeStatusRequest, Mavsdk_Rpc_Camera_StatusResponse>]
+  func makeSubscribeStorageInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeStorageRequest, Mavsdk_Rpc_Camera_StorageResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getStorage'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetStorageInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_GetStorageRequest, Mavsdk_Rpc_Camera_GetStorageResponse>]
 
   /// - Returns: Interceptors to use when handling 'subscribeCurrentSettings'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribeCurrentSettingsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribeCurrentSettingsRequest, Mavsdk_Rpc_Camera_CurrentSettingsResponse>]
 
+  /// - Returns: Interceptors to use when handling 'getCurrentSettings'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetCurrentSettingsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_GetCurrentSettingsRequest, Mavsdk_Rpc_Camera_GetCurrentSettingsResponse>]
+
   /// - Returns: Interceptors to use when handling 'subscribePossibleSettingOptions'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSubscribePossibleSettingOptionsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SubscribePossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_PossibleSettingOptionsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getPossibleSettingOptions'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetPossibleSettingOptionsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_GetPossibleSettingOptionsRequest, Mavsdk_Rpc_Camera_GetPossibleSettingOptionsResponse>]
 
   /// - Returns: Interceptors to use when handling 'setSetting'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -1067,7 +1697,51 @@ internal protocol Mavsdk_Rpc_Camera_CameraServiceServerInterceptorFactoryProtoco
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeFormatStorageInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_FormatStorageRequest, Mavsdk_Rpc_Camera_FormatStorageResponse>]
 
-  /// - Returns: Interceptors to use when handling 'selectCamera'.
+  /// - Returns: Interceptors to use when handling 'resetSettings'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSelectCameraInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_SelectCameraRequest, Mavsdk_Rpc_Camera_SelectCameraResponse>]
+  func makeResetSettingsInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_ResetSettingsRequest, Mavsdk_Rpc_Camera_ResetSettingsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'zoomInStart'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeZoomInStartInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_ZoomInStartRequest, Mavsdk_Rpc_Camera_ZoomInStartResponse>]
+
+  /// - Returns: Interceptors to use when handling 'zoomOutStart'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeZoomOutStartInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_ZoomOutStartRequest, Mavsdk_Rpc_Camera_ZoomOutStartResponse>]
+
+  /// - Returns: Interceptors to use when handling 'zoomStop'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeZoomStopInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_ZoomStopRequest, Mavsdk_Rpc_Camera_ZoomStopResponse>]
+
+  /// - Returns: Interceptors to use when handling 'zoomRange'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeZoomRangeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_ZoomRangeRequest, Mavsdk_Rpc_Camera_ZoomRangeResponse>]
+
+  /// - Returns: Interceptors to use when handling 'trackPoint'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTrackPointInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_TrackPointRequest, Mavsdk_Rpc_Camera_TrackPointResponse>]
+
+  /// - Returns: Interceptors to use when handling 'trackRectangle'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTrackRectangleInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_TrackRectangleRequest, Mavsdk_Rpc_Camera_TrackRectangleResponse>]
+
+  /// - Returns: Interceptors to use when handling 'trackStop'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeTrackStopInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_TrackStopRequest, Mavsdk_Rpc_Camera_TrackStopResponse>]
+
+  /// - Returns: Interceptors to use when handling 'focusInStart'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeFocusInStartInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_FocusInStartRequest, Mavsdk_Rpc_Camera_FocusInStartResponse>]
+
+  /// - Returns: Interceptors to use when handling 'focusOutStart'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeFocusOutStartInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_FocusOutStartRequest, Mavsdk_Rpc_Camera_FocusOutStartResponse>]
+
+  /// - Returns: Interceptors to use when handling 'focusStop'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeFocusStopInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_FocusStopRequest, Mavsdk_Rpc_Camera_FocusStopResponse>]
+
+  /// - Returns: Interceptors to use when handling 'focusRange'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeFocusRangeInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Camera_FocusRangeRequest, Mavsdk_Rpc_Camera_FocusRangeResponse>]
 }

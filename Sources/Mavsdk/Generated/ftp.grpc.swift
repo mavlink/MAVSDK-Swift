@@ -33,11 +33,6 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientProtocol: GRPCClient {
   var serviceName: String { get }
   var interceptors: Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol? { get }
 
-  func reset(
-    _ request: Mavsdk_Rpc_Ftp_ResetRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>
-
   func subscribeDownload(
     _ request: Mavsdk_Rpc_Ftp_SubscribeDownloadRequest,
     callOptions: CallOptions?,
@@ -80,44 +75,15 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>
 
-  func setRootDirectory(
-    _ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>
-
   func setTargetCompid(
     _ request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>
-
-  func getOurCompid(
-    _ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>
 }
 
 extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
   internal var serviceName: String {
     return "mavsdk.rpc.ftp.FtpService"
-  }
-
-  ///
-  /// Resets FTP server in case there are stale open sessions.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Reset.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func reset(
-    _ request: Mavsdk_Rpc_Ftp_ResetRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.ftp.FtpService/Reset",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeResetInterceptors() ?? []
-    )
   }
 
   ///
@@ -279,25 +245,6 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
   }
 
   ///
-  /// Set root directory for MAVLink FTP server.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SetRootDirectory.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func setRootDirectory(
-    _ request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.ftp.FtpService/SetRootDirectory",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSetRootDirectoryInterceptors() ?? []
-    )
-  }
-
-  ///
   /// Set target component ID. By default it is the autopilot.
   ///
   /// - Parameters:
@@ -315,31 +262,9 @@ extension Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
       interceptors: self.interceptors?.makeSetTargetCompidInterceptors() ?? []
     )
   }
-
-  ///
-  /// Get our own component ID.
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetOurCompid.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getOurCompid(
-    _ request: Mavsdk_Rpc_Ftp_GetOurCompidRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse> {
-    return self.makeUnaryCall(
-      path: "/mavsdk.rpc.ftp.FtpService/GetOurCompid",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetOurCompidInterceptors() ?? []
-    )
-  }
 }
 
 internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol {
-
-  /// - Returns: Interceptors to use when invoking 'reset'.
-  func makeResetInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>]
 
   /// - Returns: Interceptors to use when invoking 'subscribeDownload'.
   func makeSubscribeDownloadInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SubscribeDownloadRequest, Mavsdk_Rpc_Ftp_DownloadResponse>]
@@ -365,14 +290,8 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceClientInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when invoking 'areFilesIdentical'.
   func makeAreFilesIdenticalInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'setRootDirectory'.
-  func makeSetRootDirectoryInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>]
-
   /// - Returns: Interceptors to use when invoking 'setTargetCompid'.
   func makeSetTargetCompidInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'getOurCompid'.
-  func makeGetOurCompidInterceptors() -> [ClientInterceptor<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>]
 }
 
 internal final class Mavsdk_Rpc_Ftp_FtpServiceClient: Mavsdk_Rpc_Ftp_FtpServiceClientProtocol {
@@ -403,10 +322,6 @@ internal final class Mavsdk_Rpc_Ftp_FtpServiceClient: Mavsdk_Rpc_Ftp_FtpServiceC
 /// To build a server, implement a class that conforms to this protocol.
 internal protocol Mavsdk_Rpc_Ftp_FtpServiceProvider: CallHandlerProvider {
   var interceptors: Mavsdk_Rpc_Ftp_FtpServiceServerInterceptorFactoryProtocol? { get }
-
-  ///
-  /// Resets FTP server in case there are stale open sessions.
-  func reset(request: Mavsdk_Rpc_Ftp_ResetRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_ResetResponse>
 
   ///
   /// Downloads a file to local directory.
@@ -441,16 +356,8 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceProvider: CallHandlerProvider {
   func areFilesIdentical(request: Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>
 
   ///
-  /// Set root directory for MAVLink FTP server.
-  func setRootDirectory(request: Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>
-
-  ///
   /// Set target component ID. By default it is the autopilot.
   func setTargetCompid(request: Mavsdk_Rpc_Ftp_SetTargetCompidRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_SetTargetCompidResponse>
-
-  ///
-  /// Get our own component ID.
-  func getOurCompid(request: Mavsdk_Rpc_Ftp_GetOurCompidRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Mavsdk_Rpc_Ftp_GetOurCompidResponse>
 }
 
 extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
@@ -463,15 +370,6 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
-    case "Reset":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_ResetRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_ResetResponse>(),
-        interceptors: self.interceptors?.makeResetInterceptors() ?? [],
-        userFunction: self.reset(request:context:)
-      )
-
     case "SubscribeDownload":
       return ServerStreamingServerHandler(
         context: context,
@@ -544,15 +442,6 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
         userFunction: self.areFilesIdentical(request:context:)
       )
 
-    case "SetRootDirectory":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>(),
-        interceptors: self.interceptors?.makeSetRootDirectoryInterceptors() ?? [],
-        userFunction: self.setRootDirectory(request:context:)
-      )
-
     case "SetTargetCompid":
       return UnaryServerHandler(
         context: context,
@@ -562,15 +451,6 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
         userFunction: self.setTargetCompid(request:context:)
       )
 
-    case "GetOurCompid":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Mavsdk_Rpc_Ftp_GetOurCompidRequest>(),
-        responseSerializer: ProtobufSerializer<Mavsdk_Rpc_Ftp_GetOurCompidResponse>(),
-        interceptors: self.interceptors?.makeGetOurCompidInterceptors() ?? [],
-        userFunction: self.getOurCompid(request:context:)
-      )
-
     default:
       return nil
     }
@@ -578,10 +458,6 @@ extension Mavsdk_Rpc_Ftp_FtpServiceProvider {
 }
 
 internal protocol Mavsdk_Rpc_Ftp_FtpServiceServerInterceptorFactoryProtocol {
-
-  /// - Returns: Interceptors to use when handling 'reset'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeResetInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_ResetRequest, Mavsdk_Rpc_Ftp_ResetResponse>]
 
   /// - Returns: Interceptors to use when handling 'subscribeDownload'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -615,15 +491,7 @@ internal protocol Mavsdk_Rpc_Ftp_FtpServiceServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeAreFilesIdenticalInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_AreFilesIdenticalRequest, Mavsdk_Rpc_Ftp_AreFilesIdenticalResponse>]
 
-  /// - Returns: Interceptors to use when handling 'setRootDirectory'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSetRootDirectoryInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_SetRootDirectoryRequest, Mavsdk_Rpc_Ftp_SetRootDirectoryResponse>]
-
   /// - Returns: Interceptors to use when handling 'setTargetCompid'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSetTargetCompidInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_SetTargetCompidRequest, Mavsdk_Rpc_Ftp_SetTargetCompidResponse>]
-
-  /// - Returns: Interceptors to use when handling 'getOurCompid'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetOurCompidInterceptors() -> [ServerInterceptor<Mavsdk_Rpc_Ftp_GetOurCompidRequest, Mavsdk_Rpc_Ftp_GetOurCompidResponse>]
 }

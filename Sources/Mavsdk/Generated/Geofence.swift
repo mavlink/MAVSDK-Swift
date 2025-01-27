@@ -52,6 +52,39 @@ public class Geofence {
     }
     
 
+    /**
+     Geofence types.
+     */
+    public enum FenceType: Equatable {
+        ///  Type representing an inclusion fence.
+        case inclusion
+        ///  Type representing an exclusion fence.
+        case exclusion
+        case UNRECOGNIZED(Int)
+
+        internal var rpcFenceType: Mavsdk_Rpc_Geofence_FenceType {
+            switch self {
+            case .inclusion:
+                return .inclusion
+            case .exclusion:
+                return .exclusion
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcFenceType: Mavsdk_Rpc_Geofence_FenceType) -> FenceType {
+            switch rpcFenceType {
+            case .inclusion:
+                return .inclusion
+            case .exclusion:
+                return .exclusion
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     /**
      Point type.
@@ -113,41 +146,6 @@ public class Geofence {
         public let fenceType: FenceType
 
         
-        
-
-        /**
-         Geofence polygon types.
-         */
-        public enum FenceType: Equatable {
-            ///  Type representing an inclusion fence.
-            case inclusion
-            ///  Type representing an exclusion fence.
-            case exclusion
-            case UNRECOGNIZED(Int)
-
-            internal var rpcFenceType: Mavsdk_Rpc_Geofence_Polygon.FenceType {
-                switch self {
-                case .inclusion:
-                    return .inclusion
-                case .exclusion:
-                    return .exclusion
-                case .UNRECOGNIZED(let i):
-                    return .UNRECOGNIZED(i)
-                }
-            }
-
-            internal static func translateFromRpc(_ rpcFenceType: Mavsdk_Rpc_Geofence_Polygon.FenceType) -> FenceType {
-                switch rpcFenceType {
-                case .inclusion:
-                    return .inclusion
-                case .exclusion:
-                    return .exclusion
-                case .UNRECOGNIZED(let i):
-                    return .UNRECOGNIZED(i)
-                }
-            }
-        }
-        
 
         /**
          Initializes a new `Polygon`.
@@ -193,6 +191,120 @@ public class Geofence {
     }
 
     /**
+     Circular type.
+     */
+    public struct Circle: Equatable {
+        public let point: Point
+        public let radius: Float
+        public let fenceType: FenceType
+
+        
+
+        /**
+         Initializes a new `Circle`.
+
+         
+         - Parameters:
+            
+            - point:  Point defining the center
+            
+            - radius:  Radius of the circular fence
+            
+            - fenceType:  Fence type
+            
+         
+         */
+        public init(point: Point, radius: Float, fenceType: FenceType) {
+            self.point = point
+            self.radius = radius
+            self.fenceType = fenceType
+        }
+
+        internal var rpcCircle: Mavsdk_Rpc_Geofence_Circle {
+            var rpcCircle = Mavsdk_Rpc_Geofence_Circle()
+            
+                
+            rpcCircle.point = point.rpcPoint
+                
+            
+            
+                
+            rpcCircle.radius = radius
+                
+            
+            
+                
+            rpcCircle.fenceType = fenceType.rpcFenceType
+                
+            
+
+            return rpcCircle
+        }
+
+        internal static func translateFromRpc(_ rpcCircle: Mavsdk_Rpc_Geofence_Circle) -> Circle {
+            return Circle(point: Point.translateFromRpc(rpcCircle.point), radius: rpcCircle.radius, fenceType: FenceType.translateFromRpc(rpcCircle.fenceType))
+        }
+
+        public static func == (lhs: Circle, rhs: Circle) -> Bool {
+            return lhs.point == rhs.point
+                && lhs.radius == rhs.radius
+                && lhs.fenceType == rhs.fenceType
+        }
+    }
+
+    /**
+     Geofence data type.
+     */
+    public struct GeofenceData: Equatable {
+        public let polygons: [Polygon]
+        public let circles: [Circle]
+
+        
+
+        /**
+         Initializes a new `GeofenceData`.
+
+         
+         - Parameters:
+            
+            - polygons:  Polygon(s) representing the geofence(s)
+            
+            - circles:  Circle(s) representing the geofence(s)
+            
+         
+         */
+        public init(polygons: [Polygon], circles: [Circle]) {
+            self.polygons = polygons
+            self.circles = circles
+        }
+
+        internal var rpcGeofenceData: Mavsdk_Rpc_Geofence_GeofenceData {
+            var rpcGeofenceData = Mavsdk_Rpc_Geofence_GeofenceData()
+            
+                
+            rpcGeofenceData.polygons = polygons.map{ $0.rpcPolygon }
+                
+            
+            
+                
+            rpcGeofenceData.circles = circles.map{ $0.rpcCircle }
+                
+            
+
+            return rpcGeofenceData
+        }
+
+        internal static func translateFromRpc(_ rpcGeofenceData: Mavsdk_Rpc_Geofence_GeofenceData) -> GeofenceData {
+            return GeofenceData(polygons: rpcGeofenceData.polygons.map{ Polygon.translateFromRpc($0) }, circles: rpcGeofenceData.circles.map{ Circle.translateFromRpc($0) })
+        }
+
+        public static func == (lhs: GeofenceData, rhs: GeofenceData) -> Bool {
+            return lhs.polygons == rhs.polygons
+                && lhs.circles == rhs.circles
+        }
+    }
+
+    /**
      Result type.
      */
     public struct GeofenceResult: Equatable {
@@ -212,7 +324,7 @@ public class Geofence {
             case success
             ///  Error.
             case error
-            ///  Too many Polygon objects in the geofence.
+            ///  Too many objects in the geofence.
             case tooManyGeofenceItems
             ///  Vehicle is busy.
             case busy
@@ -317,21 +429,21 @@ public class Geofence {
 
 
     /**
-     Upload a geofence.
+     Upload geofences.
 
-     Polygons are uploaded to a drone. Once uploaded, the geofence will remain
+     Polygon and Circular geofences are uploaded to a drone. Once uploaded, the geofence will remain
      on the drone even if a connection is lost.
 
-     - Parameter polygons: Polygon(s) representing the geofence(s)
+     - Parameter geofenceData: Circle(s) and/or Polygon(s) representing the geofence(s)
      
      */
-    public func uploadGeofence(polygons: [Polygon]) -> Completable {
+    public func uploadGeofence(geofenceData: GeofenceData) -> Completable {
         return Completable.create { completable in
             var request = Mavsdk_Rpc_Geofence_UploadGeofenceRequest()
 
             
                 
-            polygons.forEach({ elem in request.polygons.append(elem.rpcPolygon) })
+            request.geofenceData = geofenceData.rpcGeofenceData
                 
             
 

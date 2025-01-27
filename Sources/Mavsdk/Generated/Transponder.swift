@@ -194,6 +194,39 @@ public class Transponder {
         }
     }
 
+    /**
+     Altitude type used in AdsbVehicle message
+     */
+    public enum AdsbAltitudeType: Equatable {
+        ///  Altitude reported from a Baro source using QNH reference.
+        case pressureQnh
+        ///  Altitude reported from a GNSS source.
+        case geometric
+        case UNRECOGNIZED(Int)
+
+        internal var rpcAdsbAltitudeType: Mavsdk_Rpc_Transponder_AdsbAltitudeType {
+            switch self {
+            case .pressureQnh:
+                return .pressureQnh
+            case .geometric:
+                return .geometric
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+
+        internal static func translateFromRpc(_ rpcAdsbAltitudeType: Mavsdk_Rpc_Transponder_AdsbAltitudeType) -> AdsbAltitudeType {
+            switch rpcAdsbAltitudeType {
+            case .pressureQnh:
+                return .pressureQnh
+            case .geometric:
+                return .geometric
+            case .UNRECOGNIZED(let i):
+                return .UNRECOGNIZED(i)
+            }
+        }
+    }
+
 
     /**
      ADSB Vehicle type.
@@ -202,6 +235,7 @@ public class Transponder {
         public let icaoAddress: UInt32
         public let latitudeDeg: Double
         public let longitudeDeg: Double
+        public let altitudeType: AdsbAltitudeType
         public let absoluteAltitudeM: Float
         public let headingDeg: Float
         public let horizontalVelocityMS: Float
@@ -225,7 +259,9 @@ public class Transponder {
             
             - longitudeDeg:  Longitude in degrees (range: -180 to +180).
             
-            - absoluteAltitudeM:  Altitude AMSL (above mean sea level) in metres
+            - altitudeType:  ADSB altitude type.
+            
+            - absoluteAltitudeM:  Altitude in metres according to altitude_type
             
             - headingDeg:  Course over ground, in degrees
             
@@ -243,10 +279,11 @@ public class Transponder {
             
          
          */
-        public init(icaoAddress: UInt32, latitudeDeg: Double, longitudeDeg: Double, absoluteAltitudeM: Float, headingDeg: Float, horizontalVelocityMS: Float, verticalVelocityMS: Float, callsign: String, emitterType: AdsbEmitterType, squawk: UInt32, tslcS: UInt32) {
+        public init(icaoAddress: UInt32, latitudeDeg: Double, longitudeDeg: Double, altitudeType: AdsbAltitudeType, absoluteAltitudeM: Float, headingDeg: Float, horizontalVelocityMS: Float, verticalVelocityMS: Float, callsign: String, emitterType: AdsbEmitterType, squawk: UInt32, tslcS: UInt32) {
             self.icaoAddress = icaoAddress
             self.latitudeDeg = latitudeDeg
             self.longitudeDeg = longitudeDeg
+            self.altitudeType = altitudeType
             self.absoluteAltitudeM = absoluteAltitudeM
             self.headingDeg = headingDeg
             self.horizontalVelocityMS = horizontalVelocityMS
@@ -272,6 +309,11 @@ public class Transponder {
             
                 
             rpcAdsbVehicle.longitudeDeg = longitudeDeg
+                
+            
+            
+                
+            rpcAdsbVehicle.altitudeType = altitudeType.rpcAdsbAltitudeType
                 
             
             
@@ -319,13 +361,14 @@ public class Transponder {
         }
 
         internal static func translateFromRpc(_ rpcAdsbVehicle: Mavsdk_Rpc_Transponder_AdsbVehicle) -> AdsbVehicle {
-            return AdsbVehicle(icaoAddress: rpcAdsbVehicle.icaoAddress, latitudeDeg: rpcAdsbVehicle.latitudeDeg, longitudeDeg: rpcAdsbVehicle.longitudeDeg, absoluteAltitudeM: rpcAdsbVehicle.absoluteAltitudeM, headingDeg: rpcAdsbVehicle.headingDeg, horizontalVelocityMS: rpcAdsbVehicle.horizontalVelocityMS, verticalVelocityMS: rpcAdsbVehicle.verticalVelocityMS, callsign: rpcAdsbVehicle.callsign, emitterType: AdsbEmitterType.translateFromRpc(rpcAdsbVehicle.emitterType), squawk: rpcAdsbVehicle.squawk, tslcS: rpcAdsbVehicle.tslcS)
+            return AdsbVehicle(icaoAddress: rpcAdsbVehicle.icaoAddress, latitudeDeg: rpcAdsbVehicle.latitudeDeg, longitudeDeg: rpcAdsbVehicle.longitudeDeg, altitudeType: AdsbAltitudeType.translateFromRpc(rpcAdsbVehicle.altitudeType), absoluteAltitudeM: rpcAdsbVehicle.absoluteAltitudeM, headingDeg: rpcAdsbVehicle.headingDeg, horizontalVelocityMS: rpcAdsbVehicle.horizontalVelocityMS, verticalVelocityMS: rpcAdsbVehicle.verticalVelocityMS, callsign: rpcAdsbVehicle.callsign, emitterType: AdsbEmitterType.translateFromRpc(rpcAdsbVehicle.emitterType), squawk: rpcAdsbVehicle.squawk, tslcS: rpcAdsbVehicle.tslcS)
         }
 
         public static func == (lhs: AdsbVehicle, rhs: AdsbVehicle) -> Bool {
             return lhs.icaoAddress == rhs.icaoAddress
                 && lhs.latitudeDeg == rhs.latitudeDeg
                 && lhs.longitudeDeg == rhs.longitudeDeg
+                && lhs.altitudeType == rhs.altitudeType
                 && lhs.absoluteAltitudeM == rhs.absoluteAltitudeM
                 && lhs.headingDeg == rhs.headingDeg
                 && lhs.horizontalVelocityMS == rhs.horizontalVelocityMS

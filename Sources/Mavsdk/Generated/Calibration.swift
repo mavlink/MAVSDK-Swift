@@ -276,13 +276,14 @@ public class Calibration {
 
 
 
-
-
     /**
      Perform gyro calibration.
      */
+    public lazy var calibrateGyro: Observable<ProgressData> = createCalibrateGyroObservable()
 
-    public func calibrateGyro() -> Observable<ProgressData> {
+
+
+    private func createCalibrateGyroObservable() -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGyroRequest()
 
@@ -322,13 +323,14 @@ public class Calibration {
     }
 
 
-
-
     /**
      Perform accelerometer calibration.
      */
+    public lazy var calibrateAccelerometer: Observable<ProgressData> = createCalibrateAccelerometerObservable()
 
-    public func calibrateAccelerometer() -> Observable<ProgressData> {
+
+
+    private func createCalibrateAccelerometerObservable() -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateAccelerometerRequest()
 
@@ -368,13 +370,14 @@ public class Calibration {
     }
 
 
-
-
     /**
      Perform magnetometer calibration.
      */
+    public lazy var calibrateMagnetometer: Observable<ProgressData> = createCalibrateMagnetometerObservable()
 
-    public func calibrateMagnetometer() -> Observable<ProgressData> {
+
+
+    private func createCalibrateMagnetometerObservable() -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateMagnetometerRequest()
 
@@ -414,13 +417,14 @@ public class Calibration {
     }
 
 
-
-
     /**
      Perform board level horizon calibration.
      */
+    public lazy var calibrateLevelHorizon: Observable<ProgressData> = createCalibrateLevelHorizonObservable()
 
-    public func calibrateLevelHorizon() -> Observable<ProgressData> {
+
+
+    private func createCalibrateLevelHorizonObservable() -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateLevelHorizonRequest()
 
@@ -460,13 +464,14 @@ public class Calibration {
     }
 
 
-
-
     /**
      Perform gimbal accelerometer calibration.
      */
+    public lazy var calibrateGimbalAccelerometer: Observable<ProgressData> = createCalibrateGimbalAccelerometerObservable()
 
-    public func calibrateGimbalAccelerometer() -> Observable<ProgressData> {
+
+
+    private func createCalibrateGimbalAccelerometerObservable() -> Observable<ProgressData> {
         return Observable.create { [unowned self] observer in
             let request = Mavsdk_Rpc_Calibration_SubscribeCalibrateGimbalAccelerometerRequest()
 
