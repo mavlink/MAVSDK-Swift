@@ -208,7 +208,9 @@ public class ArmAuthorizerServer {
     /**
      Subscribe to arm authorization request messages. Each request received should respond to using RespondArmAuthorization
      */
+
     public lazy var armAuthorization: Observable<UInt32> = createArmAuthorizationObservable()
+
 
 
 

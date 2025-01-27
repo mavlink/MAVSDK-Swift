@@ -502,7 +502,9 @@ public class Transponder {
     /**
      Subscribe to 'transponder' updates.
      */
+
     public lazy var transponder: Observable<AdsbVehicle> = createTransponderObservable()
+
 
 
 

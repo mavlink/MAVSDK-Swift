@@ -546,7 +546,9 @@ public class Winch {
     /**
      Subscribe to 'winch status' updates.
      */
+
     public lazy var status: Observable<Status> = createStatusObservable()
+
 
 
 

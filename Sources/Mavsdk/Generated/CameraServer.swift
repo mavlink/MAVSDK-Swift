@@ -1359,7 +1359,9 @@ public class CameraServer {
     /**
      Subscribe to image capture requests. Each request received should respond to using RespondTakePhoto.
      */
+
     public lazy var takePhoto: Observable<Int32> = createTakePhotoObservable()
+
 
 
 
@@ -1439,7 +1441,9 @@ public class CameraServer {
     /**
      Subscribe to start video requests. Each request received should respond to using RespondStartVideo
      */
+
     public lazy var startVideo: Observable<Int32> = createStartVideoObservable()
+
 
 
 
@@ -1513,7 +1517,9 @@ public class CameraServer {
     /**
      Subscribe to stop video requests. Each request received should response to using RespondStopVideo
      */
+
     public lazy var stopVideo: Observable<Int32> = createStopVideoObservable()
+
 
 
 
@@ -1587,7 +1593,9 @@ public class CameraServer {
     /**
      Subscribe to start video streaming requests. Each request received should response to using RespondStartVideoStreaming
      */
+
     public lazy var startVideoStreaming: Observable<Int32> = createStartVideoStreamingObservable()
+
 
 
 
@@ -1661,7 +1669,9 @@ public class CameraServer {
     /**
      Subscribe to stop video streaming requests. Each request received should response to using RespondStopVideoStreaming
      */
+
     public lazy var stopVideoStreaming: Observable<Int32> = createStopVideoStreamingObservable()
+
 
 
 
@@ -1735,7 +1745,9 @@ public class CameraServer {
     /**
      Subscribe to set camera mode requests. Each request received should response to using RespondSetMode
      */
+
     public lazy var setMode: Observable<Mode> = createSetModeObservable()
+
 
 
 
@@ -1808,7 +1820,9 @@ public class CameraServer {
     /**
      Subscribe to camera storage information requests. Each request received should response to using RespondStorageInformation
      */
+
     public lazy var storageInformation: Observable<Int32> = createStorageInformationObservable()
+
 
 
 
@@ -1888,7 +1902,9 @@ public class CameraServer {
     /**
      Subscribe to camera capture status requests. Each request received should response to using RespondCaptureStatus
      */
+
     public lazy var captureStatus: Observable<Int32> = createCaptureStatusObservable()
+
 
 
 
@@ -1968,7 +1984,9 @@ public class CameraServer {
     /**
      Subscribe to format storage requests. Each request received should response to using RespondFormatStorage
      */
+
     public lazy var formatStorage: Observable<Int32> = createFormatStorageObservable()
+
 
 
 
@@ -2042,7 +2060,9 @@ public class CameraServer {
     /**
      Subscribe to reset settings requests. Each request received should response to using RespondResetSettings
      */
+
     public lazy var resetSettings: Observable<Int32> = createResetSettingsObservable()
+
 
 
 
@@ -2116,7 +2136,9 @@ public class CameraServer {
     /**
      Subscribe to zoom in start command
      */
+
     public lazy var zoomInStart: Observable<Int32> = createZoomInStartObservable()
+
 
 
 
@@ -2190,7 +2212,9 @@ public class CameraServer {
     /**
      Subscribe to zoom out start command
      */
+
     public lazy var zoomOutStart: Observable<Int32> = createZoomOutStartObservable()
+
 
 
 
@@ -2264,7 +2288,9 @@ public class CameraServer {
     /**
      Subscribe to zoom stop command
      */
+
     public lazy var zoomStop: Observable<Int32> = createZoomStopObservable()
+
 
 
 
@@ -2338,7 +2364,9 @@ public class CameraServer {
     /**
      Subscribe to zoom range command
      */
+
     public lazy var zoomRange: Observable<Float> = createZoomRangeObservable()
+
 
 
 
@@ -2465,7 +2493,9 @@ public class CameraServer {
     /**
      Subscribe to incoming tracking point command.
      */
+
     public lazy var trackingPointCommand: Observable<TrackPoint> = createTrackingPointCommandObservable()
+
 
 
 
@@ -2503,7 +2533,9 @@ public class CameraServer {
     /**
      Subscribe to incoming tracking rectangle command.
      */
+
     public lazy var trackingRectangleCommand: Observable<TrackRectangle> = createTrackingRectangleCommandObservable()
+
 
 
 
@@ -2541,7 +2573,9 @@ public class CameraServer {
     /**
      Subscribe to incoming tracking off command.
      */
+
     public lazy var trackingOffCommand: Observable<Int32> = createTrackingOffCommandObservable()
+
 
 
 

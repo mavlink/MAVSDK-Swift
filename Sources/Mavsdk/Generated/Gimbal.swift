@@ -1094,7 +1094,9 @@ public class Gimbal {
      This allows to find out what gimbals are connected to the system.
      Based on the gimbal ID, we can then address a specific gimbal.
      */
+
     public lazy var gimbalList: Observable<GimbalList> = createGimbalListObservable()
+
 
 
 
@@ -1136,7 +1138,9 @@ public class Gimbal {
      no control over the gimbal. Also, it gives the system and component ids
      of the other components in control (if any).
      */
+
     public lazy var controlStatus: Observable<ControlStatus> = createControlStatusObservable()
+
 
 
 
@@ -1216,7 +1220,9 @@ public class Gimbal {
 
      This gets you the gimbal's attitude and angular rate.
      */
+
     public lazy var attitude: Observable<Attitude> = createAttitudeObservable()
+
 
 
 

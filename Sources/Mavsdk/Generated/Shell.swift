@@ -207,7 +207,9 @@ public class Shell {
 
      This subscription needs to be made before a command line is sent, otherwise, no response will be sent.
      */
+
     public lazy var receive: Observable<String> = createReceiveObservable()
+
 
 
 

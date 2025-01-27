@@ -931,7 +931,9 @@ public class MissionRaw {
     /**
      Subscribe to mission progress updates.
      */
+
     public lazy var missionProgress: Observable<MissionProgress> = createMissionProgressObservable()
+
 
 
 
@@ -975,7 +977,9 @@ public class MissionRaw {
 
      @param callback Callback to notify about change.
      */
+
     public lazy var missionChanged: Observable<Bool> = createMissionChangedObservable()
+
 
 
 

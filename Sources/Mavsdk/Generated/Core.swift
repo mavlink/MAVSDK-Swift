@@ -92,7 +92,9 @@ public class Core {
     /**
      Subscribe to 'connection state' updates.
      */
+
     public lazy var connectionState: Observable<ConnectionState> = createConnectionStateObservable()
+
 
 
 

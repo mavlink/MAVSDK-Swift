@@ -773,7 +773,11 @@ public class Mission {
      The mission items are uploaded to a drone. Once uploaded the mission can be started and
      executed even if the connection is lost.
      */
-    public lazy var uploadMissionWithProgress: Observable<ProgressData> = createUploadMissionWithProgressObservable(missionPlan: MissionPlan)
+
+    public func uploadMissionWithProgress(missionPlan: MissionPlan) -> Observable<ProgressData> {
+        return createUploadMissionWithProgressObservable(missionPlan: missionPlan)
+    }
+
 
 
 
@@ -895,7 +899,9 @@ public class Mission {
      Will fail if any of the downloaded mission items are not supported
      by the MAVSDK API.
      */
+
     public lazy var downloadMissionWithProgress: Observable<ProgressDataOrMission> = createDownloadMissionWithProgressObservable()
+
 
 
 
@@ -1144,7 +1150,9 @@ public class Mission {
     /**
      Subscribe to mission progress updates.
      */
+
     public lazy var missionProgress: Observable<MissionProgress> = createMissionProgressObservable()
+
 
 
 

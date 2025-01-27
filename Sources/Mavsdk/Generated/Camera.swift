@@ -2091,7 +2091,9 @@ public class Camera {
      This allows to find out what cameras are connected to the system.
      Based on the camera ID, we can then address a specific camera.
      */
+
     public lazy var cameraList: Observable<CameraList> = createCameraListObservable()
+
 
 
 
@@ -2129,7 +2131,9 @@ public class Camera {
     /**
      Subscribe to camera mode updates.
      */
+
     public lazy var mode: Observable<ModeUpdate> = createModeObservable()
+
 
 
 
@@ -2207,7 +2211,9 @@ public class Camera {
     /**
      Subscribe to video stream info updates.
      */
+
     public lazy var videoStreamInfo: Observable<VideoStreamUpdate> = createVideoStreamInfoObservable()
+
 
 
 
@@ -2285,7 +2291,9 @@ public class Camera {
     /**
      Subscribe to capture info updates.
      */
+
     public lazy var captureInfo: Observable<CaptureInfo> = createCaptureInfoObservable()
+
 
 
 
@@ -2323,7 +2331,9 @@ public class Camera {
     /**
      Subscribe to camera's storage status updates.
      */
+
     public lazy var storage: Observable<StorageUpdate> = createStorageObservable()
+
 
 
 
@@ -2401,7 +2411,9 @@ public class Camera {
     /**
      Get the list of current camera settings.
      */
+
     public lazy var currentSettings: Observable<CurrentSettingsUpdate> = createCurrentSettingsObservable()
+
 
 
 
@@ -2479,7 +2491,9 @@ public class Camera {
     /**
      Get the list of settings that can be changed.
      */
+
     public lazy var possibleSettingOptions: Observable<PossibleSettingOptionsUpdate> = createPossibleSettingOptionsObservable()
+
 
 
 

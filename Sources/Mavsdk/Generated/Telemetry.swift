@@ -2720,7 +2720,9 @@ public class Telemetry {
     /**
      Subscribe to 'position' updates.
      */
+
     public lazy var position: Observable<Position> = createPositionObservable()
+
 
 
 
@@ -2758,7 +2760,9 @@ public class Telemetry {
     /**
      Subscribe to 'home position' updates.
      */
+
     public lazy var home: Observable<Position> = createHomeObservable()
+
 
 
 
@@ -2796,7 +2800,9 @@ public class Telemetry {
     /**
      Subscribe to in-air updates.
      */
+
     public lazy var inAir: Observable<Bool> = createInAirObservable()
+
 
 
 
@@ -2835,7 +2841,9 @@ public class Telemetry {
     /**
      Subscribe to landed state updates
      */
+
     public lazy var landedState: Observable<LandedState> = createLandedStateObservable()
+
 
 
 
@@ -2873,7 +2881,9 @@ public class Telemetry {
     /**
      Subscribe to armed updates.
      */
+
     public lazy var armed: Observable<Bool> = createArmedObservable()
+
 
 
 
@@ -2912,7 +2922,9 @@ public class Telemetry {
     /**
      subscribe to vtol state Updates
      */
+
     public lazy var vtolState: Observable<VtolState> = createVtolStateObservable()
+
 
 
 
@@ -2950,7 +2962,9 @@ public class Telemetry {
     /**
      Subscribe to 'attitude' updates (quaternion).
      */
+
     public lazy var attitudeQuaternion: Observable<Quaternion> = createAttitudeQuaternionObservable()
+
 
 
 
@@ -2988,7 +3002,9 @@ public class Telemetry {
     /**
      Subscribe to 'attitude' updates (Euler).
      */
+
     public lazy var attitudeEuler: Observable<EulerAngle> = createAttitudeEulerObservable()
+
 
 
 
@@ -3026,7 +3042,9 @@ public class Telemetry {
     /**
      Subscribe to 'attitude' updates (angular velocity)
      */
+
     public lazy var attitudeAngularVelocityBody: Observable<AngularVelocityBody> = createAttitudeAngularVelocityBodyObservable()
+
 
 
 
@@ -3064,7 +3082,9 @@ public class Telemetry {
     /**
      Subscribe to 'ground speed' updates (NED).
      */
+
     public lazy var velocityNed: Observable<VelocityNed> = createVelocityNedObservable()
+
 
 
 
@@ -3102,7 +3122,9 @@ public class Telemetry {
     /**
      Subscribe to 'GPS info' updates.
      */
+
     public lazy var gpsInfo: Observable<GpsInfo> = createGpsInfoObservable()
+
 
 
 
@@ -3140,7 +3162,9 @@ public class Telemetry {
     /**
      Subscribe to 'Raw GPS' updates.
      */
+
     public lazy var rawGps: Observable<RawGps> = createRawGpsObservable()
+
 
 
 
@@ -3178,7 +3202,9 @@ public class Telemetry {
     /**
      Subscribe to 'battery' updates.
      */
+
     public lazy var battery: Observable<Battery> = createBatteryObservable()
+
 
 
 
@@ -3216,7 +3242,9 @@ public class Telemetry {
     /**
      Subscribe to 'flight mode' updates.
      */
+
     public lazy var flightMode: Observable<FlightMode> = createFlightModeObservable()
+
 
 
 
@@ -3254,7 +3282,9 @@ public class Telemetry {
     /**
      Subscribe to 'health' updates.
      */
+
     public lazy var health: Observable<Health> = createHealthObservable()
+
 
 
 
@@ -3292,7 +3322,9 @@ public class Telemetry {
     /**
      Subscribe to 'RC status' updates.
      */
+
     public lazy var rcStatus: Observable<RcStatus> = createRcStatusObservable()
+
 
 
 
@@ -3330,7 +3362,9 @@ public class Telemetry {
     /**
      Subscribe to 'status text' updates.
      */
+
     public lazy var statusText: Observable<StatusText> = createStatusTextObservable()
+
 
 
 
@@ -3368,7 +3402,9 @@ public class Telemetry {
     /**
      Subscribe to 'actuator control target' updates.
      */
+
     public lazy var actuatorControlTarget: Observable<ActuatorControlTarget> = createActuatorControlTargetObservable()
+
 
 
 
@@ -3406,7 +3442,9 @@ public class Telemetry {
     /**
      Subscribe to 'actuator output status' updates.
      */
+
     public lazy var actuatorOutputStatus: Observable<ActuatorOutputStatus> = createActuatorOutputStatusObservable()
+
 
 
 
@@ -3444,7 +3482,9 @@ public class Telemetry {
     /**
      Subscribe to 'odometry' updates.
      */
+
     public lazy var odometry: Observable<Odometry> = createOdometryObservable()
+
 
 
 
@@ -3482,7 +3522,9 @@ public class Telemetry {
     /**
      Subscribe to 'position velocity' updates.
      */
+
     public lazy var positionVelocityNed: Observable<PositionVelocityNed> = createPositionVelocityNedObservable()
+
 
 
 
@@ -3520,7 +3562,9 @@ public class Telemetry {
     /**
      Subscribe to 'ground truth' updates.
      */
+
     public lazy var groundTruth: Observable<GroundTruth> = createGroundTruthObservable()
+
 
 
 
@@ -3558,7 +3602,9 @@ public class Telemetry {
     /**
      Subscribe to 'fixedwing metrics' updates.
      */
+
     public lazy var fixedwingMetrics: Observable<FixedwingMetrics> = createFixedwingMetricsObservable()
+
 
 
 
@@ -3596,7 +3642,9 @@ public class Telemetry {
     /**
      Subscribe to 'IMU' updates (in SI units in NED body frame).
      */
+
     public lazy var imu: Observable<Imu> = createImuObservable()
+
 
 
 
@@ -3634,7 +3682,9 @@ public class Telemetry {
     /**
      Subscribe to 'Scaled IMU' updates.
      */
+
     public lazy var scaledImu: Observable<Imu> = createScaledImuObservable()
+
 
 
 
@@ -3672,7 +3722,9 @@ public class Telemetry {
     /**
      Subscribe to 'Raw IMU' updates.
      */
+
     public lazy var rawImu: Observable<Imu> = createRawImuObservable()
+
 
 
 
@@ -3710,7 +3762,9 @@ public class Telemetry {
     /**
      Subscribe to 'HealthAllOk' updates.
      */
+
     public lazy var healthAllOk: Observable<Bool> = createHealthAllOkObservable()
+
 
 
 
@@ -3749,7 +3803,9 @@ public class Telemetry {
     /**
      Subscribe to 'unix epoch time' updates.
      */
+
     public lazy var unixEpochTime: Observable<UInt64> = createUnixEpochTimeObservable()
+
 
 
 
@@ -3788,7 +3844,9 @@ public class Telemetry {
     /**
      Subscribe to 'Distance Sensor' updates.
      */
+
     public lazy var distanceSensor: Observable<DistanceSensor> = createDistanceSensorObservable()
+
 
 
 
@@ -3826,7 +3884,9 @@ public class Telemetry {
     /**
      Subscribe to 'Scaled Pressure' updates.
      */
+
     public lazy var scaledPressure: Observable<ScaledPressure> = createScaledPressureObservable()
+
 
 
 
@@ -3864,7 +3924,9 @@ public class Telemetry {
     /**
      Subscribe to 'Heading' updates.
      */
+
     public lazy var heading: Observable<Heading> = createHeadingObservable()
+
 
 
 
@@ -3902,7 +3964,9 @@ public class Telemetry {
     /**
      Subscribe to 'Altitude' updates.
      */
+
     public lazy var altitude: Observable<Altitude> = createAltitudeObservable()
+
 
 
 

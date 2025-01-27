@@ -738,7 +738,9 @@ public class Info {
     /**
      Subscribe to 'flight information' updates.
      */
+
     public lazy var flightInformation: Observable<FlightInfo> = createFlightInformationObservable()
+
 
 
 

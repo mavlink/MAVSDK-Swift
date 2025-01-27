@@ -280,7 +280,9 @@ public class LogStreaming {
     /**
      Subscribe to logging messages
      */
+
     public lazy var logStreamingRaw: Observable<LogStreamingRaw> = createLogStreamingRawObservable()
+
 
 
 

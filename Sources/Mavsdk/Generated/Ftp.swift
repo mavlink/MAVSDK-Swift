@@ -315,7 +315,11 @@ public class Ftp {
     /**
      Downloads a file to local directory.
      */
-    public lazy var download: Observable<ProgressData> = createDownloadObservable(remoteFilePath: String, localDir: String, useBurst: Bool)
+
+    public func download(remoteFilePath: String, localDir: String, useBurst: Bool) -> Observable<ProgressData> {
+        return createDownloadObservable(remoteFilePath: remoteFilePath, localDir: localDir, useBurst: useBurst)
+    }
+
 
 
 
@@ -374,7 +378,11 @@ public class Ftp {
     /**
      Uploads local file to remote directory.
      */
-    public lazy var upload: Observable<ProgressData> = createUploadObservable(localFilePath: String, remoteDir: String)
+
+    public func upload(localFilePath: String, remoteDir: String) -> Observable<ProgressData> {
+        return createUploadObservable(localFilePath: localFilePath, remoteDir: remoteDir)
+    }
+
 
 
 

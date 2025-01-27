@@ -279,7 +279,9 @@ public class Calibration {
     /**
      Perform gyro calibration.
      */
+
     public lazy var calibrateGyro: Observable<ProgressData> = createCalibrateGyroObservable()
+
 
 
 
@@ -326,7 +328,9 @@ public class Calibration {
     /**
      Perform accelerometer calibration.
      */
+
     public lazy var calibrateAccelerometer: Observable<ProgressData> = createCalibrateAccelerometerObservable()
+
 
 
 
@@ -373,7 +377,9 @@ public class Calibration {
     /**
      Perform magnetometer calibration.
      */
+
     public lazy var calibrateMagnetometer: Observable<ProgressData> = createCalibrateMagnetometerObservable()
+
 
 
 
@@ -420,7 +426,9 @@ public class Calibration {
     /**
      Perform board level horizon calibration.
      */
+
     public lazy var calibrateLevelHorizon: Observable<ProgressData> = createCalibrateLevelHorizonObservable()
+
 
 
 
@@ -467,7 +475,9 @@ public class Calibration {
     /**
      Perform gimbal accelerometer calibration.
      */
+
     public lazy var calibrateGimbalAccelerometer: Observable<ProgressData> = createCalibrateGimbalAccelerometerObservable()
+
 
 
 

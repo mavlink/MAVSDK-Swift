@@ -620,7 +620,9 @@ public class Events {
     /**
      Subscribe to event updates.
      */
+
     public lazy var events: Observable<Event> = createEventsObservable()
+
 
 
 
@@ -658,7 +660,9 @@ public class Events {
     /**
      Subscribe to arming check updates.
      */
+
     public lazy var healthAndArmingChecks: Observable<HealthAndArmingCheckReport> = createHealthAndArmingChecksObservable()
+
 
 
 

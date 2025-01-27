@@ -318,7 +318,11 @@ public class LogFiles {
     /**
      Download log file.
      */
-    public lazy var downloadLogFile: Observable<ProgressData> = createDownloadLogFileObservable(entry: Entry, path: String)
+
+    public func downloadLogFile(entry: Entry, path: String) -> Observable<ProgressData> {
+        return createDownloadLogFileObservable(entry: entry, path: path)
+    }
+
 
 
 

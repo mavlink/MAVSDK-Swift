@@ -434,7 +434,9 @@ public class ActionServer {
     /**
      Subscribe to ARM/DISARM commands
      */
+
     public lazy var armDisarm: Observable<ArmDisarm> = createArmDisarmObservable()
+
 
 
 
@@ -481,7 +483,9 @@ public class ActionServer {
     /**
      Subscribe to DO_SET_MODE
      */
+
     public lazy var flightModeChange: Observable<FlightMode> = createFlightModeChangeObservable()
+
 
 
 
@@ -528,7 +532,9 @@ public class ActionServer {
     /**
      Subscribe to takeoff command
      */
+
     public lazy var takeoff: Observable<Bool> = createTakeoffObservable()
+
 
 
 
@@ -576,7 +582,9 @@ public class ActionServer {
     /**
      Subscribe to land command
      */
+
     public lazy var land: Observable<Bool> = createLandObservable()
+
 
 
 
@@ -624,7 +632,9 @@ public class ActionServer {
     /**
      Subscribe to reboot command
      */
+
     public lazy var reboot: Observable<Bool> = createRebootObservable()
+
 
 
 
@@ -672,7 +682,9 @@ public class ActionServer {
     /**
      Subscribe to shutdown command
      */
+
     public lazy var shutdown: Observable<Bool> = createShutdownObservable()
+
 
 
 
@@ -720,7 +732,9 @@ public class ActionServer {
     /**
      Subscribe to terminate command
      */
+
     public lazy var terminate: Observable<Bool> = createTerminateObservable()
+
 
 
 

@@ -388,7 +388,9 @@ public class ComponentMetadata {
     /**
      Register a callback that gets called when metadata is available
      */
+
     public lazy var metadataAvailable: Observable<MetadataUpdate> = createMetadataAvailableObservable()
+
 
 
 

@@ -465,7 +465,9 @@ public class MissionRawServer {
     /**
      Subscribe to when a new mission is uploaded (asynchronous).
      */
+
     public lazy var incomingMission: Observable<MissionPlan> = createIncomingMissionObservable()
+
 
 
 
@@ -512,7 +514,9 @@ public class MissionRawServer {
     /**
      Subscribe to when a new current item is set
      */
+
     public lazy var currentItemChanged: Observable<MissionItem> = createCurrentItemChangedObservable()
+
 
 
 
@@ -574,7 +578,9 @@ public class MissionRawServer {
     /**
      Subscribe when a MISSION_CLEAR_ALL is received
      */
+
     public lazy var clearAll: Observable<UInt32> = createClearAllObservable()
+
 
 
 
